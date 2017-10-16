@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "cz-lerna-changelog": "^1.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-availity": "^2.1.0",
+    "lerna": "2.0.0-beta.38"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "license": "MIT"
+}

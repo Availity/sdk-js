@@ -1,0 +1,24 @@
+{
+  "name": "@availity/message-angular",
+  "version": "0.0.0",
+  "description": "angular wrapper for availity message",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "jsnext:main": "dist/index.mjs",
+  "scripts": {
+    "test": "av test",
+    "test:c": "av test -r html text",
+    "build": "av build",
+    "lint": "av lint"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.6.4",    
+    "@availity/message-core": "^0.0.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6.4",
+    "@availity/internal-workflow": "^0.0.0"
+  }
+}

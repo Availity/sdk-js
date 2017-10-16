@@ -1,0 +1,22 @@
+{
+  "name": "@availity/api-core",
+  "version": "0.0.0",
+  "description": "Api core logic",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "jsnext:main": "dist/index.mjs",
+  "scripts": {
+    "test": "av test",
+    "test:c": "av test -r html text",
+    "build": "av build",
+    "lint": "av lint"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@availity/localstorage-core": "^0.0.0"
+  },
+  "devDependencies": {
+    "@availity/internal-workflow": "^0.0.0"
+  }
+}
