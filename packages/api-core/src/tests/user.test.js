@@ -35,7 +35,7 @@ describe('AvUsers', () => {
     expect(TestApi.defaultConfig).toEqual(testExpect);
   });
 
-  test('afterGet should return response.data.user if it exists or an empty array', () => {
+  test('afterGet should return response.data.user if it exists or an empty object', () => {
     TestApi = new AvUsers(mockHttp, Promise);
     const testResponse1 = {};
     const user = ['testUser'];
@@ -44,7 +44,7 @@ describe('AvUsers', () => {
         user
       }
     };
-    expect(TestApi.afterGet(testResponse1)).toEqual([]);
+    expect(TestApi.afterGet(testResponse1)).toEqual({});
     expect(TestApi.afterGet(testResponse2)).toEqual(user);
   });
 

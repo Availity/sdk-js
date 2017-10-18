@@ -19,12 +19,6 @@ describe('AvApiOptionsProvider', () => {
     });
   });
 
-  test('AvApiOptionsProvider should have empty object', () => {
-    inject(() => {
-      expect(provider.defaultOptions).toEqual({});
-    });
-  });
-
   test('AvApiOptionsProvider getOptions should return a copy of defaults', () => {
     inject(() => {
       const gotDefaults = provider.getOptions();
@@ -41,6 +35,7 @@ describe('AvApiOptionsProvider', () => {
       const testDefaults2 = {
         testVal2: 'test2'
       };
+      provider.defaultOptions = {}; // remove header Fn to simplify test
       expect(provider.defaultOptions).toEqual({});
       provider.setOptions(testDefaults1);
       expect(provider.defaultOptions).toEqual(testDefaults1);

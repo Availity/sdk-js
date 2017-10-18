@@ -18,7 +18,7 @@ class AvApiOptionsProvider {
   }
 
   $get() {
-    return this.defaultOptions;
+    return this.getOptions();
   }
 }
 
