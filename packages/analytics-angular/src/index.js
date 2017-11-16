@@ -14,12 +14,8 @@ function runBlock(AvAnalytics) {
 runBlock.$inject = ['AvAnalytics'];
 
 export default angular
-  .module('availity.analytics', [
-    'ng',
-    AvApiAngular
-  ])
+  .module('availity.analytics', ['ng', AvApiAngular])
   .provider('AvAnalytics', AvAnalyticsProvider)
   .factory('AvAnalyticsPlugin', AvAnalyticsPluginFactory)
   .factory('AvSplunkAnalytics', AvSplunkAnalyticsFactory)
-  .run(runBlock)
-  .name;
+  .run(runBlock).name;

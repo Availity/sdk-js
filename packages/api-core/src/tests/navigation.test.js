@@ -1,11 +1,11 @@
 /* global jest, describe, test, expect */
 
-import {AvNavigation} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvNavigation } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',
-  name: 'navigation/spaces'
+  name: 'navigation/spaces',
 });
 
 const mockHttp = jest.fn(() => {
@@ -34,5 +34,4 @@ describe('AvNavigation', () => {
     TestApi = new AvNavigation(mockHttp, Promise, testConfig);
     expect(TestApi.defaultConfig).toEqual(testExpect);
   });
-
 });

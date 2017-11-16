@@ -1,7 +1,6 @@
-
 import angular from 'angular';
 
-import {AvLogMessages} from '@availity/api-core';
+import { AvLogMessages } from '@availity/api-core';
 
 function AvLogMessagesResourceFactory($http, $q, AvApiOptions) {
   class AvLogMessagesResource extends AvLogMessages {
@@ -13,4 +12,4 @@ function AvLogMessagesResourceFactory($http, $q, AvApiOptions) {
   return new AvLogMessagesResource();
 }
 AvLogMessagesResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export {AvLogMessagesResourceFactory};
+export { AvLogMessagesResourceFactory };

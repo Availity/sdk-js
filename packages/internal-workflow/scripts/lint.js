@@ -10,7 +10,7 @@ function lint(argv) {
   let engine;
   try {
     engine = new eslint.CLIEngine({
-      useEslintrc: true
+      useEslintrc: true,
     });
   } catch (e) {
     return Promise.reject('ESLint configuration error in @availity/workflow');
@@ -21,10 +21,11 @@ function lint(argv) {
   spinner.color = 'yellow';
   spinner.start();
 
-  const files = _.uniq(_.compact(_.castArray(argv.include || `${process.cwd()}/src/**/*.js`)));
+  const files = _.uniq(
+    _.compact(_.castArray(argv.include || `${process.cwd()}/src/**/*.js`))
+  );
 
-  return globby(files)
-  .then(paths => {
+  return globby(files).then(paths => {
     const report = engine.executeOnFiles(paths);
     spinner.stop();
     if (report.errorCount || report.warningCount) {

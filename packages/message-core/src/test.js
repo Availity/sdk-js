@@ -8,7 +8,6 @@ const isDomain = AvMessage.isDomain;
 const domain = AvMessage.domain;
 
 describe('AvMessage', () => {
-
   beforeEach(() => {
     AvMessage.isEnabled = true;
     AvMessage.DEFAULT_EVENT = 'avMessage';
@@ -37,7 +36,7 @@ describe('AvMessage', () => {
     const mockEvent = {
       data: 'testData',
       origin: 'testOrigin',
-      source: 'testSource'
+      source: 'testSource',
     };
 
     beforeEach(() => {
@@ -125,60 +124,95 @@ describe('AvMessage', () => {
       spyParse.mockRestore();
       AvMessage.getEventData(mockEvent);
       expect(AvMessage.isDomain).toHaveBeenCalled();
-      expect(AvMessage.onMessage).toHaveBeenCalledWith(mockEvent.data, undefined);
+      expect(AvMessage.onMessage).toHaveBeenCalledWith(
+        mockEvent.data,
+        undefined
+      );
     });
 
     test('should call onMessage with default event if data is object without event param', () => {
       spyParse.mockRestore();
       const testData = { value: 'hello' };
-      AvMessage.getEventData(Object.assign({}, mockEvent, { data: JSON.stringify(testData) }));
+      AvMessage.getEventData(
+        Object.assign({}, mockEvent, { data: JSON.stringify(testData) })
+      );
       expect(AvMessage.isDomain).toHaveBeenCalled();
-      expect(AvMessage.onMessage).toHaveBeenCalledWith(AvMessage.DEFAULT_EVENT, testData);
+      expect(AvMessage.onMessage).toHaveBeenCalledWith(
+        AvMessage.DEFAULT_EVENT,
+        testData
+      );
     });
 
     test('should call onMessage with event from data object param', () => {
       spyParse.mockRestore();
       const testEvent = 'testEvent';
       const testData = { value: 'hello', event: testEvent };
-      AvMessage.getEventData(Object.assign({}, mockEvent, { data: JSON.stringify(testData) }));
+      AvMessage.getEventData(
+        Object.assign({}, mockEvent, { data: JSON.stringify(testData) })
+      );
       expect(AvMessage.isDomain).toHaveBeenCalled();
-      expect(AvMessage.onMessage).toHaveBeenCalledWith(testData.event, testData);
+      expect(AvMessage.onMessage).toHaveBeenCalledWith(
+        testData.event,
+        testData
+      );
     });
-
   });
 
   describe('domain()', () => {
-
     test('should return location.origin if exists', () => {
       const testOrigin = 'testOrigin';
-      Object.defineProperty(window.location, 'origin', { writable: true, value: testOrigin});
+      Object.defineProperty(window.location, 'origin', {
+        writable: true,
+        value: testOrigin,
+      });
       expect(AvMessage.domain()).toBe(testOrigin);
     });
 
     test('if no location.origin, should return domain generated with hostname', () => {
-      Object.defineProperty(window.location, 'origin', { writable: true, value: false});
+      Object.defineProperty(window.location, 'origin', {
+        writable: true,
+        value: false,
+      });
       const testProtocol = 'testProtocol';
       const testHostname = 'testHostName';
       let testPort = 'testPort';
-      Object.defineProperty(window.location, 'protocol', { writable: true, value: testProtocol});
-      Object.defineProperty(window.location, 'hostname', { writable: true, value: testHostname});
-      Object.defineProperty(window.location, 'port', { writable: true, value: testPort});
+      Object.defineProperty(window.location, 'protocol', {
+        writable: true,
+        value: testProtocol,
+      });
+      Object.defineProperty(window.location, 'hostname', {
+        writable: true,
+        value: testHostname,
+      });
+      Object.defineProperty(window.location, 'port', {
+        writable: true,
+        value: testPort,
+      });
       let expectedDomain = `${testProtocol}//${testHostname}:${testPort}`;
       expect(AvMessage.domain()).toBe(expectedDomain);
       testPort = false;
-      Object.defineProperty(window.location, 'port', { writable: true, value: testPort});
+      Object.defineProperty(window.location, 'port', {
+        writable: true,
+        value: testPort,
+      });
       expectedDomain = `${testProtocol}//${testHostname}`;
       expect(AvMessage.domain()).toBe(expectedDomain);
     });
 
-    test('if no location origin or hostname, should return \'*\'', () => {
-      Object.defineProperty(window.location, 'origin', { writable: true, value: false});
-      Object.defineProperty(window.location, 'hostname', { writable: true, value: false});
+    test("if no location origin or hostname, should return '*'", () => {
+      Object.defineProperty(window.location, 'origin', {
+        writable: true,
+        value: false,
+      });
+      Object.defineProperty(window.location, 'hostname', {
+        writable: true,
+        value: false,
+      });
       expect(AvMessage.domain()).toBe('*');
     });
   });
 
-  test('isDomain should return true if domain() doesn\'t match regex', () => {
+  test("isDomain should return true if domain() doesn't match regex", () => {
     const testDomain = 'hello';
     AvMessage.domain = jest.fn(() => testDomain);
     AvMessage.DOMAIN = /world/;
@@ -199,7 +233,7 @@ describe('AvMessage', () => {
   describe('send', () => {
     const testDomain = 'testDomain';
     const mockTarget = {
-      postMessage: jest.fn()
+      postMessage: jest.fn(),
     };
 
     beforeEach(() => {
@@ -226,24 +260,35 @@ describe('AvMessage', () => {
     test('should call postMessage on target', () => {
       const testMessage = 'test';
       AvMessage.send(testMessage, mockTarget);
-      expect(mockTarget.postMessage).toHaveBeenCalledWith(testMessage, testDomain);
+      expect(mockTarget.postMessage).toHaveBeenCalledWith(
+        testMessage,
+        testDomain
+      );
     });
 
     test('should stringify message if not string', () => {
       let testMessage = 1234;
       AvMessage.send(testMessage, mockTarget);
-      expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
+      expect(mockTarget.postMessage).toHaveBeenCalledWith(
+        JSON.stringify(testMessage),
+        testDomain
+      );
       testMessage = { message: 'hello' };
       AvMessage.send(testMessage, mockTarget);
-      expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
+      expect(mockTarget.postMessage).toHaveBeenCalledWith(
+        JSON.stringify(testMessage),
+        testDomain
+      );
     });
 
     test('should call postMessage on window.parent if no target', () => {
       const testMessage = 'test';
       window.parent.postMessage = jest.fn();
       AvMessage.send(testMessage);
-      expect(window.parent.postMessage).toHaveBeenCalledWith(testMessage, testDomain);
+      expect(window.parent.postMessage).toHaveBeenCalledWith(
+        testMessage,
+        testDomain
+      );
     });
-
   });
 });

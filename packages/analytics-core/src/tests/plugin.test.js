@@ -1,6 +1,6 @@
 /* global describe, test, expect */
 
-import {AvAnalyticsPlugin} from '../';
+import { AvAnalyticsPlugin } from '../';
 
 describe('AvAnalyticsPlugin', () => {
   let mockPlugin;
@@ -21,5 +21,4 @@ describe('AvAnalyticsPlugin', () => {
     mockPlugin = new AvAnalyticsPlugin();
     expect(mockPlugin.isEnabled()).toBe(mockPlugin.enabled);
   });
-
 });

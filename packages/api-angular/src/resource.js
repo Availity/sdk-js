@@ -1,7 +1,6 @@
-
 import angular from 'angular';
 
-import {AvApi} from '@availity/api-core';
+import { AvApi } from '@availity/api-core';
 
 function AvApiResourceFactory($http, $q, AvApiOptions) {
   class AvApiResource extends AvApi {
@@ -16,4 +15,4 @@ function AvApiResourceFactory($http, $q, AvApiOptions) {
   return AvApiResource;
 }
 AvApiResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export {AvApiResourceFactory};
+export { AvApiResourceFactory };

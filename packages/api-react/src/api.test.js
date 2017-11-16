@@ -11,7 +11,7 @@ import {
   AvRegionsResource,
   AvSpacesResource,
   AvUsersResource,
-  AvUserPermissionsResource
+  AvUserPermissionsResource,
 } from './';
 
 describe('AvApiResource', () => {
@@ -58,7 +58,10 @@ describe('AvProvidersResource', () => {
 
 describe('AvProxyResource', () => {
   test('AvProxyResource should be defined', () => {
-    const TestAvApi = new AvProxyResource({tenant: 'testTennant', name: 'testName'});
+    const TestAvApi = new AvProxyResource({
+      tenant: 'testTennant',
+      name: 'testName',
+    });
     expect(TestAvApi).toBeDefined();
   });
 

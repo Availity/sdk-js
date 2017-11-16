@@ -1,11 +1,11 @@
 /* global jest, describe, test, expect */
 
-import {AvOrganizations} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvOrganizations } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',
-  name: 'organizations'
+  name: 'organizations',
 });
 
 const mockHttp = jest.fn(() => {
@@ -13,12 +13,12 @@ const mockHttp = jest.fn(() => {
 });
 
 const mockUser = {
-  id: 'mockUserId'
+  id: 'mockUserId',
 };
 const mockAvUsers = {
   me: jest.fn(() => {
     return Promise.resolve(mockUser);
-  })
+  }),
 };
 
 describe('AvOrganizations', () => {
@@ -56,8 +56,8 @@ describe('AvOrganizations', () => {
     const organizations = ['testOrg'];
     const testResponse2 = {
       data: {
-        organizations
-      }
+        organizations,
+      },
     };
     expect(TestApi.afterQuery(testResponse1)).toEqual([]);
     expect(TestApi.afterQuery(testResponse2)).toEqual(organizations);
@@ -70,7 +70,11 @@ describe('AvOrganizations', () => {
     const userId = 'testUserId';
     const user = { id: userId };
     const testConfig = { name: 'testName' };
-    const expectedConfig = Object.assign({}, { params: { userId }}, testConfig);
+    const expectedConfig = Object.assign(
+      {},
+      { params: { userId } },
+      testConfig
+    );
 
     TestApi.queryOrganizations(user, testConfig);
     expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
@@ -82,10 +86,11 @@ describe('AvOrganizations', () => {
 
     const testConfig = { name: 'testName' };
 
-    return TestApi.getOrganizations(testConfig)
-    .then(() => {
-      expect(TestApi.queryOrganizations).toHaveBeenLastCalledWith(mockUser, testConfig);
+    return TestApi.getOrganizations(testConfig).then(() => {
+      expect(TestApi.queryOrganizations).toHaveBeenLastCalledWith(
+        mockUser,
+        testConfig
+      );
     });
   });
-
 });

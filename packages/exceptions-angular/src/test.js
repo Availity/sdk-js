@@ -4,10 +4,9 @@ import 'angular';
 import 'angular-mocks';
 import AvModule from './';
 
-import {AvExceptions as AvExceptionsCore} from '@availity/exceptions-core';
+import { AvExceptions as AvExceptionsCore } from '@availity/exceptions-core';
 
-const DEFAULT_REPEAT = (new AvExceptionsCore(jest.fn())).REPEAT_LIMIT;
-
+const DEFAULT_REPEAT = new AvExceptionsCore(jest.fn()).REPEAT_LIMIT;
 
 describe('AvExceptions', () => {
   // let $q;
@@ -15,7 +14,7 @@ describe('AvExceptions', () => {
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject( (_AvExceptions_) => {
+    inject(_AvExceptions_ => {
       AvExceptions = _AvExceptions_;
     });
   });
@@ -23,15 +22,13 @@ describe('AvExceptions', () => {
   test('AvExceptions should be defined', () => {
     expect(AvExceptions).toBeDefined();
   });
-
 });
-
 
 describe('AvExceptionsProvider', () => {
   let provider;
 
   beforeEach(() => {
-    angular.mock.module(AvModule, (AvExceptionsProvider) => {
+    angular.mock.module(AvModule, AvExceptionsProvider => {
       provider = AvExceptionsProvider;
     });
   });
@@ -101,7 +98,7 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('AvAnalytics appId, repeatTime and enabled should reflect provider', () => {
-    inject((AvLogMessagesResource) => {
+    inject(AvLogMessagesResource => {
       let testEnabled = true;
       let testId = 'test1';
 
@@ -128,7 +125,7 @@ describe('AvExceptionsProvider', () => {
   test('AvAnalytics log should call AvLogMessagesResource.error', () => {
     inject(() => {
       const mockLogMessage = {
-        error: jest.fn()
+        error: jest.fn(),
       };
       const testAnalytics = provider.$get(mockLogMessage);
       const testMessage = 'hello world';

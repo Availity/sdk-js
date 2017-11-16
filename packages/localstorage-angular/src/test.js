@@ -4,14 +4,13 @@ import 'angular';
 import 'angular-mocks';
 import AvModule from './';
 
-
 describe('AvLocalStorage', () => {
   // let $q;
   let AvLocalStorage;
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject( (_AvLocalStorage_) => {
+    inject(_AvLocalStorage_ => {
       AvLocalStorage = _AvLocalStorage_;
     });
   });
@@ -19,5 +18,4 @@ describe('AvLocalStorage', () => {
   test('AvLocalStorage should be defined', () => {
     expect(AvLocalStorage).toBeDefined();
   });
-
 });

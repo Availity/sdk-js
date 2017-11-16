@@ -1,13 +1,11 @@
-
 import angular from 'angular';
-
 
 class AvApiOptionsProvider {
   constructor() {
     this.defaultOptions = {
       getHeader(response, key) {
         return response && response.headers && response.headers(key);
-      }
+      },
     };
   }
   setOptions(options) {
@@ -22,4 +20,4 @@ class AvApiOptionsProvider {
   }
 }
 
-export {AvApiOptionsProvider};
+export { AvApiOptionsProvider };

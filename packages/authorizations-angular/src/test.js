@@ -4,14 +4,13 @@ import 'angular';
 import 'angular-mocks';
 import AvModule from './';
 
-
 describe('AvAuthorizations', () => {
   // let $q;
   let AvAuthorizations;
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject( (_AvAuthorizations_) => {
+    inject(_AvAuthorizations_ => {
       AvAuthorizations = _AvAuthorizations_;
     });
   });
@@ -19,5 +18,4 @@ describe('AvAuthorizations', () => {
   test('AvAuthorizations should be defined', () => {
     expect(AvAuthorizations).toBeDefined();
   });
-
 });

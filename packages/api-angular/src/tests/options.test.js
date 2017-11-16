@@ -8,7 +8,7 @@ describe('AvApiOptionsProvider', () => {
   let provider;
 
   beforeEach(() => {
-    angular.mock.module(AvApiModule, (AvApiOptionsProvider) => {
+    angular.mock.module(AvApiModule, AvApiOptionsProvider => {
       provider = AvApiOptionsProvider;
     });
   });
@@ -30,10 +30,10 @@ describe('AvApiOptionsProvider', () => {
   test('AvApiOptionsProvider setOptions should merge into defaults', () => {
     inject(() => {
       const testDefaults1 = {
-        testVal: 'test'
+        testVal: 'test',
       };
       const testDefaults2 = {
-        testVal2: 'test2'
+        testVal2: 'test2',
       };
       provider.defaultOptions = {}; // remove header Fn to simplify test
       expect(provider.defaultOptions).toEqual({});

@@ -1,6 +1,6 @@
 /* global jest, describe, test, beforeEach, expect */
 
-import {AvSplunkAnalytics} from '../';
+import { AvSplunkAnalytics } from '../';
 
 describe('AvSplunkAnalytics', () => {
   let mockLog;
@@ -9,7 +9,7 @@ describe('AvSplunkAnalytics', () => {
   beforeEach(() => {
     mockLog = {
       info: jest.fn(),
-      test: jest.fn()
+      test: jest.fn(),
     };
 
     mockAvSplunkAnalytics = new AvSplunkAnalytics(mockLog);
@@ -21,45 +21,51 @@ describe('AvSplunkAnalytics', () => {
 
   test('trackEvent should call AvLogMessages[level]', () => {
     let level = 'info';
-    mockAvSplunkAnalytics.trackEvent({level});
+    mockAvSplunkAnalytics.trackEvent({ level });
     expect(mockLog.info).toHaveBeenCalledTimes(1);
     expect(mockLog.test).toHaveBeenCalledTimes(0);
     level = 'test';
-    mockAvSplunkAnalytics.trackEvent({level});
+    mockAvSplunkAnalytics.trackEvent({ level });
     expect(mockLog.info).toHaveBeenCalledTimes(1);
     expect(mockLog.test).toHaveBeenCalledTimes(1);
   });
 
-  test('trackEvent should default level to \'info\'', () => {
+  test("trackEvent should default level to 'info'", () => {
     mockAvSplunkAnalytics.trackEvent({});
     expect(mockLog.info).toHaveBeenCalledTimes(1);
     expect(mockLog.test).toHaveBeenCalledTimes(0);
   });
 
-  test('trackEvent should default properties.url to location.href or \'N/A\'', () => {
+  test("trackEvent should default properties.url to location.href or 'N/A'", () => {
     let startingObject = {
-      message: 'hello world'
+      message: 'hello world',
     };
-    const expectedCall = Object.assign({
-      url: window.location.href || 'N/A',
-      level: 'info'
-    }, startingObject);
+    const expectedCall = Object.assign(
+      {
+        url: window.location.href || 'N/A',
+        level: 'info',
+      },
+      startingObject
+    );
     mockAvSplunkAnalytics.trackEvent(startingObject);
     expect(mockLog.info).toHaveBeenCalledWith(expectedCall);
 
     startingObject = {
       message: 'hello world',
       url: 'testUrl',
-      level: 'test'
+      level: 'test',
     };
     mockAvSplunkAnalytics.trackEvent(startingObject);
     expect(mockLog.test).toHaveBeenCalledWith(startingObject);
   });
 
-  test('trackPageView should call trackEvent with event \'page\' and passed in url', () => {
+  test("trackPageView should call trackEvent with event 'page' and passed in url", () => {
     const testUrl = 'testUrl';
     mockAvSplunkAnalytics.trackEvent = jest.fn();
     mockAvSplunkAnalytics.trackPageView(testUrl);
-    expect(mockAvSplunkAnalytics.trackEvent).toHaveBeenCalledWith({ event: 'page', url: testUrl });
+    expect(mockAvSplunkAnalytics.trackEvent).toHaveBeenCalledWith({
+      event: 'page',
+      url: testUrl,
+    });
   });
 });

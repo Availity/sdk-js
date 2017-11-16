@@ -1,6 +1,4 @@
-
 export class AvAuthorizations {
-
   constructor(AvPermissions, AvRegions, promise) {
     // make sure all params are passed in
     if (!AvPermissions || !AvRegions || !promise) {
@@ -18,13 +16,14 @@ export class AvAuthorizations {
 
   // return true/false if this permissionId is authorized in this region
   isAuthorized(permissionId, region) {
-    return this.getPermission(permissionId, region).then(permission => permission.isAuthorized);
+    return this.getPermission(permissionId, region).then(
+      permission => permission.isAuthorized
+    );
   }
 
   // return true/false if any of ther permissions in array are authorized in this region
   isAnyAuthorized(permissionIds, region) {
-    return this.getPermissions(permissionIds, region)
-    .then(permissions => {
+    return this.getPermissions(permissionIds, region).then(permissions => {
       return permissions.some(permission => permission.isAuthorized);
     });
   }
@@ -34,8 +33,7 @@ export class AvAuthorizations {
     if (typeof permissionId !== 'string') {
       return this.promise.reject('permissionId must be a string');
     }
-    return this.getPermissions([permissionId], region)
-    .then(permissions => {
+    return this.getPermissions([permissionId], region).then(permissions => {
       return permissions.find(permission => {
         return permission.id === permissionId;
       });
@@ -47,9 +45,15 @@ export class AvAuthorizations {
     if (region) {
       return this.promise.resolve(region);
     }
-    return this.AvRegions.getCurrentRegion()
-    .then(response => {
-      return response && response.data && response.data.regions && response.data.regions[0] && response.data.regions[0] && response.data.regions[0].id;
+    return this.AvRegions.getCurrentRegion().then(response => {
+      return (
+        response &&
+        response.data &&
+        response.data.regions &&
+        response.data.regions[0] &&
+        response.data.regions[0] &&
+        response.data.regions[0].id
+      );
     });
   }
   // get all permissions in this region
@@ -122,18 +126,23 @@ export class AvAuthorizations {
     // set default values
     permission.geographies = permission.geographies || [];
     permission.organizations = permission.organizations || [];
-    permission.isAuthorized = !!(permission.organizations.length && permission.organizations.length > 0);
+    permission.isAuthorized = !!(
+      permission.organizations.length && permission.organizations.length > 0
+    );
     this.authorizedMap[permission.id][region] = permission;
   }
 
   getOrganizations(permissionId, region) {
-    return this.getPermission(permissionId, region).then(permission => permission.organizations);
+    return this.getPermission(permissionId, region).then(
+      permission => permission.organizations
+    );
   }
 
   getPayers(permissionId, organizationId, region) {
-    return this.getPermission(permissionId, region)
-    .then(permission => {
-      const organization = permission.organizations.find(org => org.id === organizationId);
+    return this.getPermission(permissionId, region).then(permission => {
+      const organization = permission.organizations.find(
+        org => org.id === organizationId
+      );
       return (organization && organization.resources) || [];
     });
   }

@@ -1,4 +1,3 @@
-
 import TraceKit from 'tracekit';
 
 export class AvExceptions {
@@ -50,7 +49,7 @@ export class AvExceptions {
 
   prettyPrint(exception) {
     let message = '';
-    const stack = exception && exception.stack || [];
+    const stack = (exception && exception.stack) || [];
     const length = stack.length;
 
     for (let i = 0; i < length; i++) {
@@ -58,7 +57,9 @@ export class AvExceptions {
       while (index.length < 2) {
         index = '0' + index;
       }
-      message += `[${index}] ${stack[i].func} ${stack[i].url}:${stack[i].line}:${stack[i].column}`;
+      message += `[${index}] ${stack[i].func} ${stack[i].url}:${
+        stack[i].line
+      }:${stack[i].column}`;
       if (i + 1 < length) {
         message += '\n';
       }
@@ -98,12 +99,17 @@ export class AvExceptions {
   }
 
   onError(exception, skipRepeat = false) {
-    if (!this.isEnabled || !exception || (!skipRepeat && this.isRepeatError(exception))) {
+    if (
+      !this.isEnabled ||
+      !exception ||
+      (!skipRepeat && this.isRepeatError(exception))
+    ) {
       return;
     }
 
     const errorMessage = exception.message;
-    this.errorMessageHistory[errorMessage] = this.errorMessageHistory[errorMessage] || {};
+    this.errorMessageHistory[errorMessage] =
+      this.errorMessageHistory[errorMessage] || {};
 
     const message = {
       errorDate: this.getDateFormat(),
@@ -113,19 +119,22 @@ export class AvExceptions {
       url: window.location && window.location.href,
       appId: this.thisAppId || 'N/A',
       appVersion: APP_VERSION || 'N/A',
-      userAgent: window.navigator && window.navigator.userAgent || 'N/A',
+      userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
       userLanguage: window.navigator && window.navigator.userLanguage,
       referrer: window.document && window.document.referrer,
       host: window.document && window.document.domain,
       sdkVersion: process.env.VERSION,
       totalHits: this.errorMessageHistory[errorMessage].totalHits,
-      currentHits: this.errorMessageHistory[errorMessage].currentHits
+      currentHits: this.errorMessageHistory[errorMessage].currentHits,
     };
 
     this.errorMessageHistory[errorMessage].currentHits = 0;
 
     if (this.errorMessage) {
-      const toAssign = typeof this.errorMessage === 'function' ? this.errorMessage(exception) : this.errorMessage;
+      const toAssign =
+        typeof this.errorMessage === 'function'
+          ? this.errorMessage(exception)
+          : this.errorMessage;
       Object.assign(message, toAssign);
     }
 
@@ -141,18 +150,14 @@ export class AvExceptions {
       }
       return output;
     }
-    return `${
-      now.getFullYear()
-    }-${
-      padStart((now.getMonth() + 1), 2)
-    }-${
-      padStart(now.getDate(), 2)
-    }T${
-      padStart(now.getHours(), 2)
-    }:${
-      padStart(now.getMinutes(), 2)
-    }:${
-      padStart(now.getSeconds(), 2)
-    }${now.toString().match(/([-\+][0-9]+)\s/)[1]}`;
+    return `${now.getFullYear()}-${padStart(now.getMonth() + 1, 2)}-${padStart(
+      now.getDate(),
+      2
+    )}T${padStart(now.getHours(), 2)}:${padStart(
+      now.getMinutes(),
+      2
+    )}:${padStart(now.getSeconds(), 2)}${
+      now.toString().match(/([-\+][0-9]+)\s/)[1]
+    }`;
   }
 }

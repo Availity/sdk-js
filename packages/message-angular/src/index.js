@@ -10,5 +10,4 @@ AvMessageFactory.$inject = ['$rootScope'];
 
 export default angular
   .module('availity.message', [])
-  .factory('AvMessage', AvMessageFactory)
-  .name;
+  .factory('AvMessage', AvMessageFactory).name;

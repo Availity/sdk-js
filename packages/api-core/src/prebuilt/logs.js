@@ -1,10 +1,13 @@
-import {AvApi} from '../resource';
+import { AvApi } from '../resource';
 
 export class AvLogMessages extends AvApi {
   constructor(http, promise, config = {}) {
-    const thisConfig = Object.assign({
-      name: 'log-messages'
-    }, config);
+    const thisConfig = Object.assign(
+      {
+        name: 'log-messages',
+      },
+      config
+    );
     super(http, promise, thisConfig);
   }
 

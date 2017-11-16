@@ -1,5 +1,4 @@
-
-import {API_OPTIONS} from './defaultOptions';
+import { API_OPTIONS } from './defaultOptions';
 
 import AvLocalStorage from '@availity/localstorage-core';
 
@@ -32,9 +31,12 @@ export class AvApi {
       });
     }
     if (config.sessionBust) {
-      config.params.sessionBust = this.getCacheBustVal(config.sessionBust, () => {
-        return AvLocalStorage.getSessionBust() || this.getPageBust();
-      });
+      config.params.sessionBust = this.getCacheBustVal(
+        config.sessionBust,
+        () => {
+          return AvLocalStorage.getSessionBust() || this.getPageBust();
+        }
+      );
     }
   }
 
@@ -78,15 +80,19 @@ export class AvApi {
       parts = [url, id];
     }
     // join parts, remove multiple /'s and trailing /
-    return parts.join('/').replace(/[\/]+/g, '/').replace(/\/$/, '');
+    return parts
+      .join('/')
+      .replace(/[\/]+/g, '/')
+      .replace(/\/$/, '');
   }
 
   // return location if should poll otherwise false
   getLocation(response) {
     let location = false;
-    const toPoll = response.config.polling
-      && response.status === 202
-      && response.config.attempt < response.config.pollingIntervals.length;
+    const toPoll =
+      response.config.polling &&
+      response.status === 202 &&
+      response.config.attempt < response.config.pollingIntervals.length;
     if (toPoll) {
       if (response.config.getHeader) {
         location = response.config.getHeader(response, 'Location');
@@ -106,9 +112,11 @@ export class AvApi {
       newConfig.url = location;
       newConfig.cache = false;
       return new this.Promise(resolve => {
-        setTimeout(resolve, newConfig.pollingIntervals[newConfig.attempt] || 1000);
-      })
-      .then(() => {
+        setTimeout(
+          resolve,
+          newConfig.pollingIntervals[newConfig.attempt] || 1000
+        );
+      }).then(() => {
         return this.makeRequest(newConfig, afterResponse);
       });
     }
@@ -122,20 +130,20 @@ export class AvApi {
       config.attempt++;
     }
     return this.http(config)
-    .then((response) => {
-      return this.onResponse(response, afterResponse);
-    })
-    .catch((error) => {
-      let response;
-      if (error.response) {
-        response = error.response;
-      }
-      return afterResponse ? afterResponse(response) : response;
-    });
+      .then(response => {
+        return this.onResponse(response, afterResponse);
+      })
+      .catch(error => {
+        let response;
+        if (error.response) {
+          response = error.response;
+        }
+        return afterResponse ? afterResponse(response) : response;
+      });
   }
 
   // post request
-  create(data, config){
+  create(data, config) {
     if (!data) {
       throw new Error('called method without [data]');
     }
@@ -150,7 +158,7 @@ export class AvApi {
   }
 
   // post request with method-override to get
-  postGet(data, config){
+  postGet(data, config) {
     if (!data) {
       throw new Error('called method without [data]');
     }
@@ -167,7 +175,7 @@ export class AvApi {
   }
 
   // get request with id
-  get(id, config){
+  get(id, config) {
     if (!id) {
       throw new Error('called method without [id]');
     }
@@ -179,7 +187,7 @@ export class AvApi {
   }
 
   // get request with just params
-  query(config){
+  query(config) {
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config);
@@ -188,7 +196,7 @@ export class AvApi {
   }
 
   // put request
-  update(id, data, config){
+  update(id, data, config) {
     if (typeof id !== 'string' && typeof id !== 'number') {
       config = data;
       data = id;
@@ -205,7 +213,7 @@ export class AvApi {
   }
 
   // delete request
-  remove(id, config){
+  remove(id, config) {
     let data;
     if (typeof id !== 'string' && typeof id !== 'number') {
       data = id;

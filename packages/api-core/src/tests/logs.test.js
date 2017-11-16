@@ -1,10 +1,10 @@
 /* global jest, describe, beforeEach, test, expect */
 
-import {AvLogMessages} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvLogMessages } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
-  name: 'log-messages'
+  name: 'log-messages',
 });
 
 const mockHttp = jest.fn(() => {
@@ -33,17 +33,22 @@ describe('AvLogMessages', () => {
     TestLogMessage = new AvLogMessages(mockHttp, Promise, {});
     const level = 'testLevel';
     const entries = 'testEntries';
-    expect(TestLogMessage.requestPayload(level, entries)).toEqual({level, entries});
+    expect(TestLogMessage.requestPayload(level, entries)).toEqual({
+      level,
+      entries,
+    });
   });
   test('requestPayload should delete entries.level', () => {
     TestLogMessage = new AvLogMessages(mockHttp, Promise, {});
     const level = 'testLevel';
     const entries = {
-      value: 'testEntries'
+      value: 'testEntries',
     };
-    const expectedResult = Object.assign({}, {level, entries});
+    const expectedResult = Object.assign({}, { level, entries });
     entries.level = 'testEntriesLevel';
-    expect(TestLogMessage.requestPayload(level, entries)).toEqual(expectedResult);
+    expect(TestLogMessage.requestPayload(level, entries)).toEqual(
+      expectedResult
+    );
   });
 
   describe('log levels', () => {
@@ -54,24 +59,36 @@ describe('AvLogMessages', () => {
       TestLogMessage.create = jest.fn();
     });
 
-    test('debug should create with level \'debug\'', () => {
+    test("debug should create with level 'debug'", () => {
       TestLogMessage.debug(testEntries);
-      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith('debug', testEntries);
+      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith(
+        'debug',
+        testEntries
+      );
       expect(TestLogMessage.create).toHaveBeenCalled();
     });
-    test('info should create with level \'info\'', () => {
+    test("info should create with level 'info'", () => {
       TestLogMessage.info(testEntries);
-      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith('info', testEntries);
+      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith(
+        'info',
+        testEntries
+      );
       expect(TestLogMessage.create).toHaveBeenCalled();
     });
-    test('warn should create with level \'warn\'', () => {
+    test("warn should create with level 'warn'", () => {
       TestLogMessage.warn(testEntries);
-      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith('warn', testEntries);
+      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith(
+        'warn',
+        testEntries
+      );
       expect(TestLogMessage.create).toHaveBeenCalled();
     });
-    test('error should create with level \'error\'', () => {
+    test("error should create with level 'error'", () => {
       TestLogMessage.error(testEntries);
-      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith('error', testEntries);
+      expect(TestLogMessage.requestPayload).toHaveBeenLastCalledWith(
+        'error',
+        testEntries
+      );
       expect(TestLogMessage.create).toHaveBeenCalled();
     });
   });

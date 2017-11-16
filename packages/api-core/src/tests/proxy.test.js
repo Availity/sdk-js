@@ -1,7 +1,7 @@
 /* global jest, describe, test, expect */
 
-import {AvProxy} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvProxy } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const mockHttp = jest.fn(() => {
   return Promise.resolve({});
@@ -9,16 +9,24 @@ const mockHttp = jest.fn(() => {
 
 const mockTenant = 'mockTenant';
 function mockConfig(config = {}) {
-  return Object.assign({
-    tenant: mockTenant
-  }, config);
+  return Object.assign(
+    {
+      tenant: mockTenant,
+    },
+    config
+  );
 }
 function defaultOptions(config) {
   const useConfig = mockConfig(config);
-  return Object.assign({}, API_OPTIONS, {
-    path: `api/v1/proxy/${useConfig.tenant}`,
-    version: ''
-  }, useConfig);
+  return Object.assign(
+    {},
+    API_OPTIONS,
+    {
+      path: `api/v1/proxy/${useConfig.tenant}`,
+      version: '',
+    },
+    useConfig
+  );
 }
 
 describe('AvProxy', () => {
@@ -43,5 +51,4 @@ describe('AvProxy', () => {
     TestApi = new AvProxy(mockHttp, Promise, mockConfig(testConfig));
     expect(TestApi.defaultConfig).toEqual(defaultOptions(testConfig));
   });
-
 });

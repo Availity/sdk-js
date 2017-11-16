@@ -1,11 +1,11 @@
 /* global jest, describe, test, expect */
 
-import {AvPermissions} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvPermissions } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',
-  name: 'permissions'
+  name: 'permissions',
 });
 
 const mockHttp = jest.fn(() => {
@@ -41,8 +41,8 @@ describe('AvPermissions', () => {
     const permissions = ['testPermission'];
     const testResponse2 = {
       data: {
-        permissions
-      }
+        permissions,
+      },
     };
     expect(TestApi.afterQuery(testResponse1)).toEqual([]);
     expect(TestApi.afterQuery(testResponse2)).toEqual(permissions);
@@ -57,5 +57,4 @@ describe('AvPermissions', () => {
     TestApi.getPermissions(id, region);
     expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
   });
-
 });

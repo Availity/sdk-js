@@ -1,6 +1,6 @@
 import axios from 'axios/dist/axios';
 
-import {AvProviders} from '@availity/api-core';
+import { AvProviders } from '@availity/api-core';
 
 export class AvProvidersResource extends AvProviders {
   constructor(options) {

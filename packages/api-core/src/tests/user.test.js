@@ -1,11 +1,11 @@
 /* global jest, describe, test, expect */
 
-import {AvUsers} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvUsers } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',
-  name: 'users'
+  name: 'users',
 });
 
 const mockHttp = jest.fn(() => {
@@ -41,14 +41,14 @@ describe('AvUsers', () => {
     const user = ['testUser'];
     const testResponse2 = {
       data: {
-        user
-      }
+        user,
+      },
     };
     expect(TestApi.afterGet(testResponse1)).toEqual({});
     expect(TestApi.afterGet(testResponse2)).toEqual(user);
   });
 
-  test('me() should get with id \'me\'', () => {
+  test("me() should get with id 'me'", () => {
     TestApi = new AvUsers(mockHttp, Promise);
     TestApi.get = jest.fn();
     TestApi.me();
@@ -57,5 +57,4 @@ describe('AvUsers', () => {
     TestApi.me(testConfig);
     expect(TestApi.get).toHaveBeenLastCalledWith('me', testConfig);
   });
-
 });

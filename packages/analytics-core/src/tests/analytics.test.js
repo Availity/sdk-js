@@ -1,13 +1,13 @@
 /* global jest, describe, test, beforeEach, expect */
 
-import {AvAnalytics} from '../';
+import { AvAnalytics } from '../';
 
 function makePlugin() {
   return {
     isEnabled: jest.fn(() => true),
     init: jest.fn(),
     trackEvent: jest.fn(),
-    trackPageView: jest.fn()
+    trackPageView: jest.fn(),
   };
 }
 
@@ -15,7 +15,7 @@ describe('AvAnalytics', () => {
   let mockAvAnalytics;
 
   test('AvAnalytics should be defined', () => {
-    const plugins = [ makePlugin() ];
+    const plugins = [makePlugin()];
     mockAvAnalytics = new AvAnalytics(plugins, Promise, true);
     expect(mockAvAnalytics).toBeDefined();
     mockAvAnalytics = new AvAnalytics(plugins, Promise);
@@ -23,7 +23,7 @@ describe('AvAnalytics', () => {
   });
 
   test('AvAnalytics should throw error without plugins or Promise', () => {
-    const plugins = [ makePlugin() ];
+    const plugins = [makePlugin()];
     expect(() => {
       mockAvAnalytics = new AvAnalytics(plugins);
     }).toThrow('[plugins], and [promise] must be defined');
@@ -39,9 +39,8 @@ describe('AvAnalytics', () => {
   });
 
   describe('setPageTracking', () => {
-
     beforeEach(() => {
-      const plugins = [ makePlugin() ];
+      const plugins = [makePlugin()];
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
     });
 
@@ -103,13 +102,12 @@ describe('AvAnalytics', () => {
       expect(mockAvAnalytics.stopPageTracking).toHaveBeenCalledTimes(1);
       expect(mockAvAnalytics.isPageTracking).toBe(testValue);
     });
-
   });
 
   describe('init', () => {
     let plugins;
     beforeEach(() => {
-      plugins = [ makePlugin(), makePlugin() ];
+      plugins = [makePlugin(), makePlugin()];
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
       mockAvAnalytics.setPageTracking = jest.fn();
     });
@@ -148,7 +146,7 @@ describe('AvAnalytics', () => {
   describe('event tracking', () => {
     let plugins;
     beforeEach(() => {
-      plugins = [ makePlugin(), makePlugin(), makePlugin() ];
+      plugins = [makePlugin(), makePlugin(), makePlugin()];
 
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
 
@@ -159,8 +157,7 @@ describe('AvAnalytics', () => {
 
     test('trackEvent should call trackEvent on enabled plugins with properties', () => {
       const mockProperties = 'testProperties';
-      return mockAvAnalytics.trackEvent(mockProperties)
-      .then(() => {
+      return mockAvAnalytics.trackEvent(mockProperties).then(() => {
         expect(plugins[0].trackEvent).not.toHaveBeenCalled();
         expect(plugins[2].trackEvent).toHaveBeenCalledWith(mockProperties);
       });
@@ -168,8 +165,7 @@ describe('AvAnalytics', () => {
 
     test('trackPageView should call trackPageView on enabled plugins with properties', () => {
       const mockUrl = 'testProperties';
-      return mockAvAnalytics.trackPageView(mockUrl)
-      .then(() => {
+      return mockAvAnalytics.trackPageView(mockUrl).then(() => {
         expect(plugins[0].trackPageView).not.toHaveBeenCalled();
         expect(plugins[1].trackPageView).toHaveBeenCalledWith(mockUrl);
       });

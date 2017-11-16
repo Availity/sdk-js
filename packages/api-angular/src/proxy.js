@@ -1,7 +1,6 @@
-
 import angular from 'angular';
 
-import {AvProxy} from '@availity/api-core';
+import { AvProxy } from '@availity/api-core';
 
 function AvProxyResourceFactory($http, $q, AvApiOptions) {
   class AvProxyResource extends AvProxy {
@@ -13,4 +12,4 @@ function AvProxyResourceFactory($http, $q, AvApiOptions) {
   return AvProxyResource;
 }
 AvProxyResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export {AvProxyResourceFactory};
+export { AvProxyResourceFactory };

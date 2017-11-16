@@ -1,6 +1,6 @@
 /* global jest, describe, beforeEach, afterEach, test, expect */
 
-import {AvExceptions} from './';
+import { AvExceptions } from './';
 
 jest.useFakeTimers();
 
@@ -28,7 +28,7 @@ describe('AvExceptions', () => {
   test('submitError should report error to TrackeKit', () => {
     mockExceptions = new AvExceptions(mockLog);
     mockExceptions.TraceKit = {
-      report: jest.fn()
+      report: jest.fn(),
     };
     const testError = 'error';
     mockExceptions.submitError(testError);
@@ -82,7 +82,6 @@ describe('AvExceptions', () => {
     const testExpect = 1000;
     mockExceptions.REPEAT_LIMIT = testExpect;
     expect(mockExceptions.repeatTime()).toBe(testExpect);
-
   });
 
   test('repeatTime should set timer if number value is passed', () => {
@@ -97,7 +96,6 @@ describe('AvExceptions', () => {
   });
 
   describe('repeatTimer', () => {
-
     beforeEach(() => {
       mockExceptions = new AvExceptions(mockLog);
       mockExceptions.onError = jest.fn(() => {
@@ -116,7 +114,9 @@ describe('AvExceptions', () => {
       expect(setTimeout).toHaveBeenCalledTimes(1);
       expect(setTimeout.mock.calls[0][1]).toBe(mockExceptions.REPEAT_LIMIT);
       jest.runOnlyPendingTimers();
-      expect(mockExceptions.errorMessageHistory[testMessage].isRepeating).toBe(false);
+      expect(mockExceptions.errorMessageHistory[testMessage].isRepeating).toBe(
+        false
+      );
       expect(mockExceptions.onError).not.toHaveBeenCalled();
     });
 
@@ -126,7 +126,7 @@ describe('AvExceptions', () => {
 
       mockExceptions.errorMessageHistory[testMessage] = {
         currentHits: 2,
-        lastException: testException
+        lastException: testException,
       };
 
       mockExceptions.repeatTimer(testMessage);
@@ -181,7 +181,7 @@ describe('AvExceptions', () => {
       const errorMessage = exception.message;
 
       mockExceptions.errorMessageHistory[errorMessage] = {
-        currentHits: 2
+        currentHits: 2,
       };
 
       const message = {
@@ -192,19 +192,22 @@ describe('AvExceptions', () => {
         url: window.location && window.location.href,
         appId: mockExceptions.thisAppId || 'N/A',
         appVersion: APP_VERSION || 'N/A',
-        userAgent: window.navigator && window.navigator.userAgent || 'N/A',
+        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
         userLanguage: window.navigator && window.navigator.userLanguage,
         referrer: window.document && window.document.referrer,
         host: window.document && window.document.domain,
         sdkVersion: process.env.VERSION,
         totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-        currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits
+        currentHits:
+          mockExceptions.errorMessageHistory[errorMessage].currentHits,
       };
 
       mockExceptions.onError(exception);
       expect(mockExceptions.isRepeatError).toHaveBeenCalled();
       expect(mockLog).toHaveBeenCalledWith(message);
-      expect(mockExceptions.errorMessageHistory[errorMessage].currentHits).toBe(0);
+      expect(mockExceptions.errorMessageHistory[errorMessage].currentHits).toBe(
+        0
+      );
     });
 
     test('should merge errorMessage into message if defined', () => {
@@ -213,7 +216,7 @@ describe('AvExceptions', () => {
       const errorMessage = exception.message;
 
       mockExceptions.errorMessageHistory[errorMessage] = {
-        currentHits: 0
+        currentHits: 0,
       };
 
       const message = {
@@ -224,17 +227,18 @@ describe('AvExceptions', () => {
         url: window.location && window.location.href,
         appId: mockExceptions.thisAppId || 'N/A',
         appVersion: APP_VERSION || 'N/A',
-        userAgent: window.navigator && window.navigator.userAgent || 'N/A',
+        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
         userLanguage: window.navigator && window.navigator.userLanguage,
         referrer: window.document && window.document.referrer,
         host: window.document && window.document.domain,
         sdkVersion: process.env.VERSION,
         totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-        currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits
+        currentHits:
+          mockExceptions.errorMessageHistory[errorMessage].currentHits,
       };
 
       let mockErrorMessage = {
-        testValue: 'hello world'
+        testValue: 'hello world',
       };
       mockExceptions.errorMessage = mockErrorMessage;
       let expectedCall = Object.assign({}, message, mockErrorMessage);
@@ -244,7 +248,7 @@ describe('AvExceptions', () => {
 
       mockErrorMessage = {
         testMessage: 'hello',
-        testName: 'world'
+        testName: 'world',
       };
       mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
       expectedCall = Object.assign({}, message, mockErrorMessage);
@@ -264,9 +268,9 @@ describe('AvExceptions', () => {
             func: 'func1',
             url: 'url1',
             line: 'line1',
-            column: 'column1'
-          }
-        ]
+            column: 'column1',
+          },
+        ],
       },
       {
         stack: [
@@ -274,24 +278,24 @@ describe('AvExceptions', () => {
             func: 'func1',
             url: 'url1',
             line: 'line1',
-            column: 'column1'
+            column: 'column1',
           },
           {
             func: 'func2',
             url: 'url2',
             line: 'line2',
-            column: 'column2'
-          }
-        ]
-      }
+            column: 'column2',
+          },
+        ],
+      },
     ];
     const outputs = [
       '',
       '[00] func1 url1:line1:column1',
-      '[00] func1 url1:line1:column1\n[01] func2 url2:line2:column2'
+      '[00] func1 url1:line1:column1\n[01] func2 url2:line2:column2',
     ];
     mockExceptions = new AvExceptions(mockLog);
-    for (let i = 0; i < inputs.length; i++ ) {
+    for (let i = 0; i < inputs.length; i++) {
       expect(mockExceptions.prettyPrint(inputs[i])).toBe(outputs[i]);
     }
   });

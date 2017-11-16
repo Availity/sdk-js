@@ -1,4 +1,3 @@
-
 class AvMessage {
   constructor() {
     this.isEnabled = true;
@@ -15,11 +14,18 @@ class AvMessage {
   }
 
   getEventData(event) {
-
-    if (!this.isEnabled || !this.onMessage || typeof this.onMessage !== 'function' || // do nothing if not enabled or no onMessage function given
-      !event || !event.data || !event.origin || !event.source || // check event exists and has necesary properties
+    if (
+      !this.isEnabled ||
+      !this.onMessage ||
+      typeof this.onMessage !== 'function' || // do nothing if not enabled or no onMessage function given
+      !event ||
+      !event.data ||
+      !event.origin ||
+      !event.source || // check event exists and has necesary properties
       event.source === window || // don't process messages emitted from the same window
-      !this.isDomain(event.origin)) { // check origin as trusted domain
+      !this.isDomain(event.origin)
+    ) {
+      // check origin as trusted domain
       return;
     }
 
@@ -54,18 +60,22 @@ class AvMessage {
     }
 
     if (window.location.hostname) {
-      return `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
+      return `${window.location.protocol}//${window.location.hostname}${
+        window.location.port ? `:${window.location.port}` : ''
+      }`;
     }
 
     return '*';
   }
 
   send(payload, target) {
-    if (!this.isEnabled || !payload) { // ingore send calls if not enabled
+    if (!this.isEnabled || !payload) {
+      // ingore send calls if not enabled
       return;
     }
     try {
-      const message = (typeof payload === 'string') ? payload : JSON.stringify(payload);
+      const message =
+        typeof payload === 'string' ? payload : JSON.stringify(payload);
       target = target || window.parent;
       target.postMessage(message, this.domain());
     } catch (err) {

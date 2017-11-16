@@ -1,7 +1,6 @@
-
 import angular from 'angular';
 
-import {AvNavigation} from '@availity/api-core';
+import { AvNavigation } from '@availity/api-core';
 
 function AvNavigationResourceFactory($http, $q, AvApiOptions) {
   class AvNavigationResource extends AvNavigation {
@@ -13,4 +12,4 @@ function AvNavigationResourceFactory($http, $q, AvApiOptions) {
   return new AvNavigationResource();
 }
 AvNavigationResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export {AvNavigationResourceFactory};
+export { AvNavigationResourceFactory };

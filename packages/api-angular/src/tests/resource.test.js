@@ -12,13 +12,13 @@ describe('AvApiResource', () => {
 
   beforeEach(() => {
     angular.mock.module(AvApiModule);
-    inject( (_$httpBackend_, _AvApiResource_) => {
+    inject((_$httpBackend_, _AvApiResource_) => {
       $httpBackend = _$httpBackend_;
       AvApiResource = _AvApiResource_;
     });
   });
 
-  afterEach( () => {
+  afterEach(() => {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
@@ -38,78 +38,71 @@ describe('AvApiResource', () => {
     let cats;
 
     const testResponse = {
-      testData: 'test'
+      testData: 'test',
     };
 
     beforeEach(function() {
-      cats = new AvApiResource({name: 'cats', sessionBust: false});
+      cats = new AvApiResource({ name: 'cats', sessionBust: false });
     });
 
-    test('create() should call $http POST', (done) => {
+    test('create() should call $http POST', done => {
       // expectGET to make sure this is called once.
       $httpBackend.expectPOST('/api/v1/cats').respond(200, testResponse);
-      cats.create({})
-      .then((data) => {
+      cats.create({}).then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
         done();
       });
       $httpBackend.flush();
     });
 
-    test('postGet() should call $http POST', (done) => {
+    test('postGet() should call $http POST', done => {
       // expectGET to make sure this is called once.
       $httpBackend.expectPOST('/api/v1/cats').respond(200, testResponse);
-      cats.postGet({}, {})
-      .then((data) => {
+      cats.postGet({}, {}).then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
         done();
       });
       $httpBackend.flush();
     });
 
-    test('query() should call $http GET', (done) => {
+    test('query() should call $http GET', done => {
       // expectGET to make sure this is called once.
       $httpBackend.expectGET('/api/v1/cats').respond(200, testResponse);
-      cats.query()
-      .then((data) => {
+      cats.query().then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
         done();
       });
       $httpBackend.flush();
     });
 
-    test('get() should call $http GET', (done) => {
+    test('get() should call $http GET', done => {
       // expectGET to make sure this is called once.
       $httpBackend.expectGET('/api/v1/cats/1').respond(200, testResponse);
-      cats.get(1)
-      .then((data) => {
+      cats.get(1).then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
         done();
       });
       $httpBackend.flush();
     });
 
-    test('update() should call $http PUT', (done) => {
+    test('update() should call $http PUT', done => {
       // expectGET to make sure this is called once.
       $httpBackend.expectPUT('/api/v1/cats/1').respond(200, testResponse);
-      cats.update(1, {})
-      .then((data) => {
+      cats.update(1, {}).then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
         done();
       });
       $httpBackend.flush();
     });
 
-    test('remove() should call $http DELETE', (done) => {
+    test('remove() should call $http DELETE', done => {
       // expectGET to make sure this is called once.
       $httpBackend.expectDELETE('/api/v1/cats').respond(200, testResponse);
-      cats.remove({}, {})
-      .then((data) => {
+      cats.remove({}, {}).then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
         done();
       });
       $httpBackend.flush();
     });
-
   });
 });

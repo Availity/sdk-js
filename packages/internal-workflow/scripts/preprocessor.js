@@ -8,9 +8,9 @@ module.exports = {
     return babel.transform(src, {
       presets: [
         require.resolve('babel-preset-env'),
-        require.resolve('babel-preset-stage-0')
+        require.resolve('babel-preset-stage-0'),
       ],
-      sourceMaps: 'both'
+      sourceMaps: 'both',
     }).code;
-  }
+  },
 };

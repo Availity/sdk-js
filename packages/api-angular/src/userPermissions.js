@@ -1,7 +1,6 @@
-
 import angular from 'angular';
 
-import {AvUserPermissions} from '@availity/api-core';
+import { AvUserPermissions } from '@availity/api-core';
 
 function AvUserPermissionsResourceFactory($http, $q, AvApiOptions) {
   class AvUserPermissionsResource extends AvUserPermissions {
@@ -13,4 +12,4 @@ function AvUserPermissionsResourceFactory($http, $q, AvApiOptions) {
   return new AvUserPermissionsResource();
 }
 AvUserPermissionsResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export {AvUserPermissionsResourceFactory};
+export { AvUserPermissionsResourceFactory };

@@ -1,11 +1,11 @@
 /* global jest, describe, test, expect */
 
-import {AvSpaces} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvSpaces } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',
-  name: 'spaces'
+  name: 'spaces',
 });
 
 const mockHttp = jest.fn(() => {
@@ -34,5 +34,4 @@ describe('AvSpaces', () => {
     TestApi = new AvSpaces(mockHttp, Promise, testConfig);
     expect(TestApi.defaultConfig).toEqual(testExpect);
   });
-
 });

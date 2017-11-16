@@ -1,5 +1,4 @@
-
-import {AvAnalytics} from '@availity/analytics-core';
+import { AvAnalytics } from '@availity/analytics-core';
 
 export class AvAnalyticsProvider {
   constructor() {
@@ -8,7 +7,6 @@ export class AvAnalyticsProvider {
     this.virtualPageTracking = true;
 
     this.$get.$inject = ['$log', '$injector', '$q', '$rootScope'];
-
   }
   registerPlugins(plugins) {
     if (typeof plugins === 'string') {
@@ -16,7 +14,9 @@ export class AvAnalyticsProvider {
     } else if (Array.isArray(plugins)) {
       this.plugins = plugins;
     } else {
-      throw new Error('AvAnalyticsProvider.registerPlugins() expects a string or an array.');
+      throw new Error(
+        'AvAnalyticsProvider.registerPlugins() expects a string or an array.'
+      );
     }
   }
   setVirtualPageTracking(value) {
@@ -69,5 +69,4 @@ export class AvAnalyticsProvider {
 
     return new AvAnalyticsAngular();
   }
-
 }

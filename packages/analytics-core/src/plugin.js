@@ -1,12 +1,11 @@
-
 export class AvAnalyticsPlugin {
   constructor(enabled = true) {
     this.enabled = !!enabled;
   }
 
-  trackEvent(){}
+  trackEvent() {}
 
-  trackPageView(){}
+  trackPageView() {}
 
   isEnabled() {
     return this.enabled;

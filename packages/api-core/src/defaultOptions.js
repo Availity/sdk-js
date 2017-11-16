@@ -1,4 +1,3 @@
-
 export const API_OPTIONS = {
   // default base segment for Availity API endpoints
   path: '/api',
@@ -17,7 +16,7 @@ export const API_OPTIONS = {
   // default headers
   headers: {
     // Turn off content encoding for angular apis
-    'X-Response-Encoding-Context': 'NONE'
+    'X-Response-Encoding-Context': 'NONE',
   },
-  sessionBust: true
+  sessionBust: true,
 };

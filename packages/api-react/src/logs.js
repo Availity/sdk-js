@@ -1,6 +1,6 @@
 import axios from 'axios/dist/axios';
 
-import {AvLogMessages} from '@availity/api-core';
+import { AvLogMessages } from '@availity/api-core';
 
 export class AvLogMessagesResource extends AvLogMessages {
   constructor(options) {

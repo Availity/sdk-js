@@ -8,7 +8,7 @@ describe('AvAnalyticsProvider', () => {
   let provider;
 
   beforeEach(() => {
-    angular.mock.module(AvModule, (AvAnalyticsProvider) => {
+    angular.mock.module(AvModule, AvAnalyticsProvider => {
       provider = AvAnalyticsProvider;
     });
   });
@@ -37,7 +37,9 @@ describe('AvAnalyticsProvider', () => {
     inject(() => {
       expect(() => {
         provider.registerPlugins({ value: 'test' });
-      }).toThrow('AvAnalyticsProvider.registerPlugins() expects a string or an array.');
+      }).toThrow(
+        'AvAnalyticsProvider.registerPlugins() expects a string or an array.'
+      );
     });
   });
 

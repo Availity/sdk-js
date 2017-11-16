@@ -7,13 +7,13 @@ function test(argv) {
     config: {
       rootDir: process.cwd(),
       transform: {
-        '^.+\\.jsx?$': path.join(__dirname, 'preprocessor.js')
-      }
-    }
+        '^.+\\.jsx?$': path.join(__dirname, 'preprocessor.js'),
+      },
+    },
   };
   if (argv.coverage || argv.reporters) {
     options.config.collectCoverage = true;
-    options.config.collectCoverageFrom = [ 'src/**/*.js'];
+    options.config.collectCoverageFrom = ['src/**/*.js'];
     // options.config.coverageThreshold = {
     //   global: {
     //     functions: 100,
@@ -28,7 +28,7 @@ function test(argv) {
   }
 
   return new Promise((resolve, reject) => {
-    jest.runCLI(options, [options.config.rootDir], (result) => {
+    jest.runCLI(options, [options.config.rootDir], result => {
       if (result.numFailedTests || result.numFailedTestSuites) {
         reject('Tests failed');
       } else {

@@ -7,11 +7,10 @@ let storageVal = {};
 const mockLocalStorage = {
   get length() {
     return Object.keys(storageVal).length;
-  }
+  },
 };
 
 describe('AvLocalStorage', () => {
-
   beforeEach(() => {
     storageVal = {};
 
@@ -28,7 +27,9 @@ describe('AvLocalStorage', () => {
       delete storageVal[key];
     });
     mockLocalStorage.key = jest.fn(i => {
-      if (i < 0) { return null }
+      if (i < 0) {
+        return null;
+      }
       const keys = Object.keys(storageVal);
       return i < keys.length ? keys[i] : null;
     });
@@ -136,7 +137,7 @@ describe('AvLocalStorage', () => {
     const otherKey = 'other';
     const allKeys = [];
     const expectKeys = [];
-    for (let i = 0; i < 5; i++ ) {
+    for (let i = 0; i < 5; i++) {
       const thisTestKey = testKey + i;
       const thisOtherKey = otherKey + i;
       allKeys.push(thisTestKey);
@@ -155,7 +156,7 @@ describe('AvLocalStorage', () => {
     const otherKey = 'other';
     const allKeys = [];
     const expectKeys = [];
-    for (let i = 0; i < 5; i++ ) {
+    for (let i = 0; i < 5; i++) {
       const thisTestKey = testKey + i;
       const thisOtherKey = otherKey + i;
       allKeys.push(thisTestKey);
@@ -173,7 +174,7 @@ describe('AvLocalStorage', () => {
     const otherKey = 'other';
     const allKeys = [];
     const expectKeys = [];
-    for (let i = 0; i < 5; i++ ) {
+    for (let i = 0; i < 5; i++) {
       const thisTestKey = testKey + i;
       const thisOtherKey = otherKey + i;
       allKeys.push(thisTestKey);
@@ -193,7 +194,7 @@ describe('AvLocalStorage', () => {
     const allKey = 'Key';
     const startStorage = {};
     const expectStorage = {};
-    for (let i = 0; i < 5; i++ ) {
+    for (let i = 0; i < 5; i++) {
       const thisTestKey = testKey + allKey + i;
       const thisOtherKey = otherKey + allKey + i;
       startStorage[thisTestKey] = thisTestKey;
@@ -216,7 +217,7 @@ describe('AvLocalStorage', () => {
     const allRegex = /Key\d+$/;
     const startStorage = {};
     const expectStorage = {};
-    for (let i = 0; i < 5; i++ ) {
+    for (let i = 0; i < 5; i++) {
       const thisTestKey = testKey + allKey + i;
       const thisOtherKey = otherKey + allKey + i;
       startStorage[thisTestKey] = thisTestKey;
@@ -231,7 +232,7 @@ describe('AvLocalStorage', () => {
     expect(storageVal).toEqual({});
   });
 
-  test('getSessionBust should return value at key \'avCacheBust\'', () => {
+  test("getSessionBust should return value at key 'avCacheBust'", () => {
     const testKey = 'avCacheBust';
     const testVal = 'testVal';
     storageVal[testKey] = testVal;

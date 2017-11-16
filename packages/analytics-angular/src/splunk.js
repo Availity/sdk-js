@@ -1,4 +1,4 @@
-import {AvSplunkAnalytics} from '@availity/analytics-core';
+import { AvSplunkAnalytics } from '@availity/analytics-core';
 
 function AvSplunkAnalyticsFactory(AvLogMessagesResource) {
   return new AvSplunkAnalytics(AvLogMessagesResource);
@@ -6,4 +6,4 @@ function AvSplunkAnalyticsFactory(AvLogMessagesResource) {
 
 AvSplunkAnalyticsFactory.$inject = ['AvLogMessagesResource'];
 
-export {AvSplunkAnalyticsFactory};
+export { AvSplunkAnalyticsFactory };

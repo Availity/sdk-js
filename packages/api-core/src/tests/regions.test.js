@@ -1,13 +1,13 @@
 /* global jest, describe, test, expect */
 
-import {AvRegions} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvRegions } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',
   name: 'regions',
   sessionBust: false,
-  pageBust: true
+  pageBust: true,
 });
 
 const mockHttp = jest.fn(() => {
@@ -15,12 +15,12 @@ const mockHttp = jest.fn(() => {
 });
 
 const mockUser = {
-  id: 'mockUserId'
+  id: 'mockUserId',
 };
 const mockAvUsers = {
   me: jest.fn(() => {
     return Promise.resolve(mockUser);
-  })
+  }),
 };
 
 describe('AvRegions', () => {
@@ -52,8 +52,8 @@ describe('AvRegions', () => {
     const regions = ['testOrg'];
     const testResponse2 = {
       data: {
-        regions
-      }
+        regions,
+      },
     };
     expect(TestApi.afterGet(testResponse1)).toEqual([]);
     expect(TestApi.afterGet(testResponse2)).toEqual(regions);
@@ -66,8 +66,8 @@ describe('AvRegions', () => {
     const regions = ['testRegion'];
     const testResponse2 = {
       data: {
-        regions
-      }
+        regions,
+      },
     };
     expect(TestApi.afterUpdate(testResponse1)).toEqual(testResponse1);
     expect(TestApi.afterUpdate(testResponse2)).toEqual(testResponse2);
@@ -79,10 +79,13 @@ describe('AvRegions', () => {
     TestApi.query = jest.fn();
 
     const testConfig = { name: 'testName' };
-    const expectedConfig = Object.assign({}, { params: { userId: mockUser.id }}, testConfig);
+    const expectedConfig = Object.assign(
+      {},
+      { params: { userId: mockUser.id } },
+      testConfig
+    );
 
-    return TestApi.getRegions(testConfig)
-    .then(() => {
+    return TestApi.getRegions(testConfig).then(() => {
       expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
     });
   });
@@ -92,8 +95,8 @@ describe('AvRegions', () => {
     TestApi.query = jest.fn();
     const expectedConfig = {
       params: {
-        currentlySelected: true
-      }
+        currentlySelected: true,
+      },
     };
     TestApi.getCurrentRegion();
     expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);

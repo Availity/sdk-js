@@ -1,6 +1,6 @@
 import axios from 'axios/dist/axios';
 
-import {AvRegions} from '@availity/api-core';
+import { AvRegions } from '@availity/api-core';
 
 export class AvRegionsResource extends AvRegions {
   constructor(AvUsersResource, options) {

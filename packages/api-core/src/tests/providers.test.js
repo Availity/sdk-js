@@ -1,11 +1,11 @@
 /* global jest, describe, test, expect */
 
-import {AvProviders} from '../index';
-import {API_OPTIONS} from '../defaultOptions';
+import { AvProviders } from '../index';
+import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/internal',
-  name: 'providers'
+  name: 'providers',
 });
 
 const mockHttp = jest.fn(() => {
@@ -41,8 +41,8 @@ describe('AvProviders', () => {
     const providers = ['testProvider'];
     const testResponse2 = {
       data: {
-        providers
-      }
+        providers,
+      },
     };
     expect(TestApi.afterQuery(testResponse1)).toEqual([]);
     expect(TestApi.afterQuery(testResponse2)).toEqual(providers);
@@ -54,10 +54,13 @@ describe('AvProviders', () => {
 
     const customerId = 'testCustomerId';
     const testConfig = { name: 'testName' };
-    const expectedConfig = Object.assign({}, { params: { customerId }}, testConfig);
+    const expectedConfig = Object.assign(
+      {},
+      { params: { customerId } },
+      testConfig
+    );
 
     TestApi.getProviders(customerId, testConfig);
     expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
   });
-
 });

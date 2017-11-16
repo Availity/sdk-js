@@ -1,6 +1,6 @@
 import axios from 'axios/dist/axios';
 
-import {AvUserPermissions} from '@availity/api-core';
+import { AvUserPermissions } from '@availity/api-core';
 
 export class AvUserPermissionsResource extends AvUserPermissions {
   constructor(options) {

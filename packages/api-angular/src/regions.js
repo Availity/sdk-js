@@ -1,7 +1,6 @@
-
 import angular from 'angular';
 
-import {AvRegions} from '@availity/api-core';
+import { AvRegions } from '@availity/api-core';
 
 function AvRegionsResourceFactory($http, $q, AvUsersResource, AvApiOptions) {
   class AvRegionsResource extends AvRegions {
@@ -12,5 +11,10 @@ function AvRegionsResourceFactory($http, $q, AvUsersResource, AvApiOptions) {
   }
   return new AvRegionsResource();
 }
-AvRegionsResourceFactory.$inject = ['$http', '$q', 'AvUsersResource', 'AvApiOptions'];
-export {AvRegionsResourceFactory};
+AvRegionsResourceFactory.$inject = [
+  '$http',
+  '$q',
+  'AvUsersResource',
+  'AvApiOptions',
+];
+export { AvRegionsResourceFactory };
