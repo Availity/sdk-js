@@ -8,15 +8,11 @@
   "scripts": {
     "test": "av test",
     "test:c": "av test -r html text",
-    "build": "av build",
-    "lint": "av lint"
+    "build": "av build"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@availity/localstorage-core": "^0.0.0"
-  },
-  "devDependencies": {
-    "@availity/internal-workflow": "^0.0.0"
   }
 }

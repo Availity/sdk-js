@@ -12,4 +12,4 @@ function AvLogMessagesResourceFactory($http, $q, AvApiOptions) {
   return new AvLogMessagesResource();
 }
 AvLogMessagesResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export { AvLogMessagesResourceFactory };
+export default { AvLogMessagesResourceFactory };

@@ -2,7 +2,7 @@
 
 import 'angular';
 import 'angular-mocks';
-import AvModule from './';
+import AvModule from '../';
 
 describe('AvLocalStorage', () => {
   // let $q;

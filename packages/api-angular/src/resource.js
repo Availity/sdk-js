@@ -15,4 +15,4 @@ function AvApiResourceFactory($http, $q, AvApiOptions) {
   return AvApiResource;
 }
 AvApiResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export { AvApiResourceFactory };
+export default { AvApiResourceFactory };

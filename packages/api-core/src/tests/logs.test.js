@@ -7,9 +7,7 @@ const defaultOptions = Object.assign({}, API_OPTIONS, {
   name: 'log-messages',
 });
 
-const mockHttp = jest.fn(() => {
-  return Promise.resolve({});
-});
+const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvLogMessages', () => {
   let TestLogMessage;

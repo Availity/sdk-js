@@ -20,4 +20,4 @@ class AvApiOptionsProvider {
   }
 }
 
-export { AvApiOptionsProvider };
+export default { AvApiOptionsProvider };

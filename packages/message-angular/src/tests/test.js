@@ -2,7 +2,7 @@
 
 import 'angular';
 import 'angular-mocks';
-import AvModule from './';
+import AvModule from '../';
 
 describe('AvMessage Angular', () => {
   // let $q;

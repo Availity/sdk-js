@@ -2,7 +2,7 @@ class AvMessage {
   constructor() {
     this.isEnabled = true;
     this.DEFAULT_EVENT = 'avMessage';
-    this.DOMAIN = /https?:\/\/([\w\d\-]+\.)?availity\.(com|net)/;
+    this.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
     window.addEventListener('message', ::this.getEventData);
   }
 
@@ -29,7 +29,7 @@ class AvMessage {
       return;
     }
 
-    let data = event.data;
+    let { data } = event;
 
     if (typeof data === 'string') {
       try {

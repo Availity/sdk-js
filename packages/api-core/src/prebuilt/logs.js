@@ -1,6 +1,6 @@
 import { AvApi } from '../resource';
 
-export class AvLogMessages extends AvApi {
+export default class AvLogMessages extends AvApi {
   constructor(http, promise, config = {}) {
     const thisConfig = Object.assign(
       {

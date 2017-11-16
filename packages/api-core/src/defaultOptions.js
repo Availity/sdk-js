@@ -1,4 +1,5 @@
 export const API_OPTIONS = {
+  // eslint-disable-line
   // default base segment for Availity API endpoints
   path: '/api',
   // full url to api resource

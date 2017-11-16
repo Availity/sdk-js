@@ -12,4 +12,4 @@ function AvProxyResourceFactory($http, $q, AvApiOptions) {
   return AvProxyResource;
 }
 AvProxyResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export { AvProxyResourceFactory };
+export default { AvProxyResourceFactory };

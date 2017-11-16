@@ -1,6 +1,6 @@
 /* global jest, describe, beforeEach, test, expect */
 
-import { AvAuthorizations } from './index';
+import { AvAuthorizations } from '../';
 
 expect.extend({
   toBeAuthorized(permissions, ids) {
@@ -36,30 +36,25 @@ expect.extend({
     });
     return {
       pass: isPass ? !this.isNot : this.isNot,
-      message: () => {
-        return `expected ids (${this.utils.printExpected(ids)}) to ${
+      message: () =>
+        `expected ids (${this.utils.printExpected(ids)}) to ${
           this.isNot ? ' not ' : ''
         } have isAuthorized in permissions (${this.utils.printReceived(
           permissions
-        )})`;
-      },
+        )})`,
     };
   },
 });
 
 function authorizedMockPermissions(permissionIds) {
-  return permissionIds.map(id => {
-    return {
-      id,
-      organizations: [{ id: 'testOrg', resources: 'testResources' }],
-    };
-  });
+  return permissionIds.map(id => ({
+    id,
+    organizations: [{ id: 'testOrg', resources: 'testResources' }],
+  }));
 }
 
 function unauthorizedMockPermissions(permissionIds) {
-  return permissionIds.map(id => {
-    return { id };
-  });
+  return permissionIds.map(id => ({ id }));
 }
 
 function getMockPermissionValues(permissionIds, isAuthorized) {
@@ -83,8 +78,8 @@ const mockPermissions = {
 
 const mockRegion = 'FL';
 const mockRegions = {
-  getCurrentRegion: jest.fn(() => {
-    return Promise.resolve({
+  getCurrentRegion: jest.fn(() =>
+    Promise.resolve({
       data: {
         regions: [
           {
@@ -92,8 +87,8 @@ const mockRegions = {
           },
         ],
       },
-    });
-  }),
+    })
+  ),
 };
 
 describe('AvAuthorizations', () => {
@@ -198,12 +193,11 @@ describe('AvAuthorizations', () => {
     });
   });
 
-  test('getRegion should use region api when no region is given', () => {
-    return TestAuthorizations.getRegion().then(region => {
+  test('getRegion should use region api when no region is given', () =>
+    TestAuthorizations.getRegion().then(region => {
       expect(mockRegions.getCurrentRegion).toBeCalled();
       expect(region).toBe(mockRegion);
-    });
-  });
+    }));
 
   test('addPermissions adds each id to map', () => {
     const testId = 'testId';

@@ -1,17 +1,15 @@
 /* global jest, describe, beforeEach, afterEach, test, expect */
 
-import AvMessage from './';
+import AvMessage from '../';
 
 // save important functions to reset
-const getEventData = AvMessage.getEventData;
-const isDomain = AvMessage.isDomain;
-const domain = AvMessage.domain;
+const { getEventData, isDomain, domain } = AvMessage;
 
 describe('AvMessage', () => {
   beforeEach(() => {
     AvMessage.isEnabled = true;
     AvMessage.DEFAULT_EVENT = 'avMessage';
-    AvMessage.DOMAIN = /https?:\/\/([\w\d\-]+\.)?availity\.(com|net)/;
+    AvMessage.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
     AvMessage.getEventData = getEventData;
     AvMessage.isDomain = isDomain;
     AvMessage.domain = domain;

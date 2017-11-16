@@ -1,4 +1,4 @@
-export class AvAnalyticsPlugin {
+export default class AvAnalyticsPlugin {
   constructor(enabled = true) {
     this.enabled = !!enabled;
   }

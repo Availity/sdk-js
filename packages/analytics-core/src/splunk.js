@@ -1,6 +1,6 @@
 import { AvAnalyticsPlugin } from './plugin';
 
-export class AvSplunkAnalytics extends AvAnalyticsPlugin {
+export default class AvSplunkAnalytics extends AvAnalyticsPlugin {
   constructor(AvLogMessages, enabled) {
     super(enabled);
     this.AvLogMessages = AvLogMessages;

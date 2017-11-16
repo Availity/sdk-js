@@ -1,6 +1,6 @@
 import { AvApi } from '../resource';
 
-export class AvOrganizations extends AvApi {
+export default class AvOrganizations extends AvApi {
   constructor(http, promise, AvUsers, config = {}) {
     const thisConfig = Object.assign(
       {
@@ -27,8 +27,8 @@ export class AvOrganizations extends AvApi {
     return this.query(Object.assign({}, { params }, config));
   }
   getOrganizations(config) {
-    return this.AvUsers.me().then(user => {
-      return this.queryOrganizations(user, config);
-    });
+    return this.AvUsers.me().then(user =>
+      this.queryOrganizations(user, config)
+    );
   }
 }

@@ -1,14 +1,13 @@
 /* global jest, describe, beforeEach, test, expect */
 
-import { AvApi } from '../index';
 import AvLocalStorage from '@availity/localstorage-core';
+
+import { AvApi } from '../index';
 import { API_OPTIONS } from '../defaultOptions';
 
 jest.useFakeTimers();
 
-const mockHttp = jest.fn(() => {
-  return Promise.resolve({});
-});
+const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvApi', () => {
   let TestAvApi;
@@ -92,9 +91,7 @@ describe('AvApi', () => {
     test('should call and return default function when passed in value true', () => {
       const testCache = true;
       const testResponse = 'test';
-      const defaultFn = jest.fn(() => {
-        return testResponse;
-      });
+      const defaultFn = jest.fn(() => testResponse);
       expect(TestAvApi.getCacheBustVal(testCache, defaultFn)).toBe(
         testResponse
       );
@@ -103,12 +100,8 @@ describe('AvApi', () => {
 
     test('should call and return passed in function', () => {
       const testResponse = 'test';
-      const testCache = jest.fn(() => {
-        return testResponse;
-      });
-      const defaultFn = jest.fn(() => {
-        return testResponse + '2';
-      });
+      const testCache = jest.fn(() => testResponse);
+      const defaultFn = jest.fn(() => `${testResponse}2`);
       expect(TestAvApi.getCacheBustVal(testCache, defaultFn)).toBe(
         testResponse
       );
@@ -127,9 +120,7 @@ describe('AvApi', () => {
   test('setPageBust should set to Date.now() when no passed in value', () => {
     TestAvApi = new AvApi(mockHttp, Promise, {});
     const test = 'test';
-    Date.now = jest.fn(() => {
-      return test;
-    });
+    Date.now = jest.fn(() => test);
     TestAvApi.setPageBust();
     expect(TestAvApi.pageBustValue).toBe(test);
     expect(Date.now).toBeCalled();
@@ -178,9 +169,7 @@ describe('AvApi', () => {
       const testConfig = {
         cacheBust: testBust,
       };
-      Date.now = jest.fn(() => {
-        return testValue;
-      });
+      Date.now = jest.fn(() => testValue);
       TestAvApi.cacheParams(testConfig);
       expect(testConfig.params.cacheBust).toBe(testValue);
       expect(Date.now).toHaveBeenCalled();
@@ -201,9 +190,7 @@ describe('AvApi', () => {
       const testConfig = {
         pageBust: testBust,
       };
-      TestAvApi.getPageBust = jest.fn(() => {
-        return testValue;
-      });
+      TestAvApi.getPageBust = jest.fn(() => testValue);
       TestAvApi.cacheParams(testConfig);
       expect(testConfig.params.pageBust).toBe(testValue);
       expect(TestAvApi.getPageBust).toHaveBeenCalled();
@@ -220,9 +207,7 @@ describe('AvApi', () => {
 
     test("sessionBust defaultFn should use localStorage's sessionBust when available", () => {
       const localStorageVal = 'test';
-      AvLocalStorage.getSessionBust = jest.fn(() => {
-        return localStorageVal;
-      });
+      AvLocalStorage.getSessionBust = jest.fn(() => localStorageVal);
       const testConfig = {
         sessionBust: true,
       };
@@ -270,7 +255,7 @@ describe('AvApi', () => {
     test('should return joined config.url and id if no config.name', () => {
       const testUrl = 'test';
       const testId = 'testId';
-      const testExpected = testUrl + '/' + testId;
+      const testExpected = `${testUrl}/${testId}`;
       const testConfig = {
         api: true,
         url: testUrl,
@@ -351,9 +336,7 @@ describe('AvApi', () => {
 
     test('should call config.getHeader() when polling is available', () => {
       const testLocation = 'test';
-      const getHeader = jest.fn(() => {
-        return testLocation;
-      });
+      const getHeader = jest.fn(() => testLocation);
       const testResponse = {
         config: {
           polling: true,
@@ -404,22 +387,16 @@ describe('AvApi', () => {
 
     beforeEach(() => {
       TestAvApi = new AvApi(mockHttp, Promise, {});
-      TestAvApi.getLocation = jest.fn(() => {
-        return testLocation;
-      });
+      TestAvApi.getLocation = jest.fn(() => testLocation);
       TestAvApi.makeRequest = jest.fn();
-      TestAvApi.config = jest.fn(() => {
-        return testNewConfig;
-      });
+      TestAvApi.config = jest.fn(() => testNewConfig);
     });
 
     test('should return response if no polling or afterResponse', () => {
       const testResponse = {
         testKey: 'test',
       };
-      TestAvApi.getLocation.mockImplementationOnce(() => {
-        return false;
-      });
+      TestAvApi.getLocation.mockImplementationOnce(() => false);
       expect(TestAvApi.onResponse(testResponse)).toEqual(testResponse);
       expect(TestAvApi.makeRequest).not.toBeCalled();
     });
@@ -431,12 +408,8 @@ describe('AvApi', () => {
       const testResponse2 = {
         otherKey: 'test2',
       };
-      TestAvApi.getLocation.mockImplementationOnce(() => {
-        return false;
-      });
-      const afterResponse = jest.fn(() => {
-        return testResponse2;
-      });
+      TestAvApi.getLocation.mockImplementationOnce(() => false);
+      const afterResponse = jest.fn(() => testResponse2);
       expect(TestAvApi.onResponse(testResponse, afterResponse)).toEqual(
         testResponse2
       );
@@ -472,9 +445,7 @@ describe('AvApi', () => {
 
     beforeEach(() => {
       TestAvApi = new AvApi(mockHttp, Promise, {});
-      TestAvApi.onResponse = jest.fn(() => {
-        return mockFinalResponse;
-      });
+      TestAvApi.onResponse = jest.fn(() => mockFinalResponse);
     });
 
     test('should call http', () => {
@@ -487,23 +458,23 @@ describe('AvApi', () => {
       });
     });
 
+    /* eslint-disable prefer-promise-reject-errors */
     test('should catch error in http, returning error.response if it exists', () => {
-      mockHttp.mockImplementationOnce(() => {
-        return Promise.reject({ response: 'errResponse' }, 'response');
-      });
+      mockHttp.mockImplementationOnce(() =>
+        Promise.reject({ response: 'errResponse' }, 'response')
+      );
       return TestAvApi.makeRequest({}).then(response => {
         expect(response).toBe('errResponse');
       });
     });
 
     test('should catch error in http, returning undefined if no error.response', () => {
-      mockHttp.mockImplementationOnce(() => {
-        return Promise.reject('err');
-      });
+      mockHttp.mockImplementationOnce(() => Promise.reject('err'));
       return TestAvApi.makeRequest({}).then(response => {
         expect(response).toBeUndefined();
       });
     });
+    /* eslint-enable prefer-promise-reject-errors */
 
     test('should default attempt in polling is true', () => {
       const mockConfig = {
@@ -568,9 +539,7 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeCreate = jest.fn(thisData => {
-        return thisData;
-      });
+      TestAvApi.beforeCreate = jest.fn(thisData => thisData);
       TestAvApi.create(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
@@ -634,9 +603,7 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforePostGet = jest.fn(thisData => {
-        return thisData;
-      });
+      TestAvApi.beforePostGet = jest.fn(thisData => thisData);
       TestAvApi.postGet(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
@@ -747,9 +714,7 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeUpdate = jest.fn(thisData => {
-        return thisData;
-      });
+      TestAvApi.beforeUpdate = jest.fn(thisData => thisData);
       TestAvApi.update(id, data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
@@ -773,9 +738,7 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeUpdate = jest.fn(thisData => {
-        return thisData;
-      });
+      TestAvApi.beforeUpdate = jest.fn(thisData => thisData);
       TestAvApi.update(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
       expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
@@ -842,9 +805,7 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeRemove = jest.fn(thisData => {
-        return thisData;
-      });
+      TestAvApi.beforeRemove = jest.fn(thisData => thisData);
       TestAvApi.remove(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
       expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(

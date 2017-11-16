@@ -12,7 +12,7 @@ import {
   AvSpacesResource,
   AvUsersResource,
   AvUserPermissionsResource,
-} from './';
+} from '../';
 
 describe('AvApiResource', () => {
   test('AvApiResource should be defined', () => {

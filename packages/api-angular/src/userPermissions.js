@@ -12,4 +12,4 @@ function AvUserPermissionsResourceFactory($http, $q, AvApiOptions) {
   return new AvUserPermissionsResource();
 }
 AvUserPermissionsResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export { AvUserPermissionsResourceFactory };
+export default { AvUserPermissionsResourceFactory };

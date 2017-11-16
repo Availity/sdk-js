@@ -1,8 +1,8 @@
-import { API_OPTIONS } from './defaultOptions';
-
 import AvLocalStorage from '@availity/localstorage-core';
 
-export class AvApi {
+import { API_OPTIONS } from './defaultOptions';
+
+export default class AvApi {
   constructor(http, promise, config) {
     if (!http || !config || !promise) {
       throw new Error('[http], [config] and [promise] must be defined');
@@ -21,21 +21,19 @@ export class AvApi {
   cacheParams(config) {
     config.params = config.params || {};
     if (config.cacheBust) {
-      config.params.cacheBust = this.getCacheBustVal(config.cacheBust, () => {
-        return Date.now();
-      });
+      config.params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
+        Date.now()
+      );
     }
     if (config.pageBust) {
-      config.params.pageBust = this.getCacheBustVal(config.pageBust, () => {
-        return this.getPageBust();
-      });
+      config.params.pageBust = this.getCacheBustVal(config.pageBust, () =>
+        this.getPageBust()
+      );
     }
     if (config.sessionBust) {
       config.params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
-        () => {
-          return AvLocalStorage.getSessionBust() || this.getPageBust();
-        }
+        () => AvLocalStorage.getSessionBust() || this.getPageBust()
       );
     }
   }
@@ -82,7 +80,7 @@ export class AvApi {
     // join parts, remove multiple /'s and trailing /
     return parts
       .join('/')
-      .replace(/[\/]+/g, '/')
+      .replace(/[/]+/g, '/')
       .replace(/\/$/, '');
   }
 
@@ -116,9 +114,7 @@ export class AvApi {
           resolve,
           newConfig.pollingIntervals[newConfig.attempt] || 1000
         );
-      }).then(() => {
-        return this.makeRequest(newConfig, afterResponse);
-      });
+      }).then(() => this.makeRequest(newConfig, afterResponse));
     }
     return afterResponse ? afterResponse(response) : response;
   }
@@ -127,16 +123,14 @@ export class AvApi {
   makeRequest(config, afterResponse) {
     if (config.polling) {
       config.attempt = config.attempt || -1;
-      config.attempt++;
+      config.attempt += 1;
     }
     return this.http(config)
-      .then(response => {
-        return this.onResponse(response, afterResponse);
-      })
+      .then(response => this.onResponse(response, afterResponse))
       .catch(error => {
         let response;
         if (error.response) {
-          response = error.response;
+          response = { error };
         }
         return afterResponse ? afterResponse(response) : response;
       });

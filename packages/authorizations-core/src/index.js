@@ -1,4 +1,4 @@
-export class AvAuthorizations {
+export default class AvAuthorizations {
   constructor(AvPermissions, AvRegions, promise) {
     // make sure all params are passed in
     if (!AvPermissions || !AvRegions || !promise) {
@@ -23,9 +23,9 @@ export class AvAuthorizations {
 
   // return true/false if any of ther permissions in array are authorized in this region
   isAnyAuthorized(permissionIds, region) {
-    return this.getPermissions(permissionIds, region).then(permissions => {
-      return permissions.some(permission => permission.isAuthorized);
-    });
+    return this.getPermissions(permissionIds, region).then(permissions =>
+      permissions.some(permission => permission.isAuthorized)
+    );
   }
 
   // gets the permission for this id in this region
@@ -33,11 +33,9 @@ export class AvAuthorizations {
     if (typeof permissionId !== 'string') {
       return this.promise.reject('permissionId must be a string');
     }
-    return this.getPermissions([permissionId], region).then(permissions => {
-      return permissions.find(permission => {
-        return permission.id === permissionId;
-      });
-    });
+    return this.getPermissions([permissionId], region).then(permissions =>
+      permissions.find(permission => permission.id === permissionId)
+    );
   }
 
   // if passed in region is undefined, use AvRegions to get current region
@@ -45,16 +43,15 @@ export class AvAuthorizations {
     if (region) {
       return this.promise.resolve(region);
     }
-    return this.AvRegions.getCurrentRegion().then(response => {
-      return (
+    return this.AvRegions.getCurrentRegion().then(
+      response =>
         response &&
         response.data &&
         response.data.regions &&
         response.data.regions[0] &&
         response.data.regions[0] &&
         response.data.regions[0].id
-      );
-    });
+    );
   }
   // get all permissions in this region
 

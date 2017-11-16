@@ -41,7 +41,7 @@ describe('AvApiResource', () => {
       testData: 'test',
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       cats = new AvApiResource({ name: 'cats', sessionBust: false });
     });
 

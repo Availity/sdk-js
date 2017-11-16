@@ -1,6 +1,6 @@
 /* global describe, test, expect */
 
-import AvAuthorizations from './';
+import AvAuthorizations from '../';
 
 describe('AvAuthorizations', () => {
   test('AvAuthorizations should be defined', () => {

@@ -1,11 +1,12 @@
-export class AvAnalytics {
+export default class AvAnalytics {
   constructor(plugins, promise, pageTracking) {
-    // if plugins or promise are undefined, or if either is skipped and pageTracking boolean is used in their place
+    // if plugins or promise are undefined,
+    // or if either is skipped and pageTracking boolean is used in their place
     if (
       !plugins ||
       !promise ||
       (arguments.length < 3 &&
-        typeof arguments[arguments.length - 1] === 'boolean')
+        typeof arguments[arguments.length - 1] === 'boolean') // eslint-disable-line
     ) {
       throw new Error('[plugins], and [promise] must be defined');
     }
@@ -15,8 +16,8 @@ export class AvAnalytics {
     this.Promise = promise;
 
     // reserved values
-    this.startPageTracking;
-    this.stopPageTracking;
+    this.startPageTracking; // eslint-disable-line
+    this.stopPageTracking; // eslint-disable-line
     this.isPageTracking = false;
     this.hasInit = false;
   }

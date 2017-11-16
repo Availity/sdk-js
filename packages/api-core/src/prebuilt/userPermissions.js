@@ -1,6 +1,6 @@
 import { AvApi } from '../resource';
 
-export class AvUserPermissions extends AvApi {
+export default class AvUserPermissions extends AvApi {
   constructor(http, promise, config = {}) {
     const thisConfig = Object.assign(
       {

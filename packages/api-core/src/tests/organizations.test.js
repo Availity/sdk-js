@@ -8,17 +8,13 @@ const defaultOptions = Object.assign({}, API_OPTIONS, {
   name: 'organizations',
 });
 
-const mockHttp = jest.fn(() => {
-  return Promise.resolve({});
-});
+const mockHttp = jest.fn(() => Promise.resolve({}));
 
 const mockUser = {
   id: 'mockUserId',
 };
 const mockAvUsers = {
-  me: jest.fn(() => {
-    return Promise.resolve(mockUser);
-  }),
+  me: jest.fn(() => Promise.resolve(mockUser)),
 };
 
 describe('AvOrganizations', () => {

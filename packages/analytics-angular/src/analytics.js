@@ -1,6 +1,6 @@
 import { AvAnalytics } from '@availity/analytics-core';
 
-export class AvAnalyticsProvider {
+export default class AvAnalyticsProvider {
   constructor() {
     this.plugins = ['AvSplunkAnalytics'];
     this.PageEvent = '$locationChangeSuccess';
@@ -48,7 +48,7 @@ export class AvAnalyticsProvider {
         });
         super(plugins, $q, self.virtualPageTracking);
 
-        this.pageListener;
+        this.pageListener; // eslint-disable-line
       }
 
       startPageTracking() {

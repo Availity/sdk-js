@@ -8,9 +8,7 @@ const defaultOptions = Object.assign({}, API_OPTIONS, {
   name: 'axi-user-permissions',
 });
 
-const mockHttp = jest.fn(() => {
-  return Promise.resolve({});
-});
+const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvUserPermissions', () => {
   let TestApi;

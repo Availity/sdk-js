@@ -1,6 +1,6 @@
 /* global jest, describe, beforeEach, afterEach, test, expect */
 
-import { AvExceptions } from './';
+import { AvExceptions } from '../';
 
 jest.useFakeTimers();
 
@@ -191,7 +191,7 @@ describe('AvExceptions', () => {
         errorStack: mockExceptions.prettyPrint(exception),
         url: window.location && window.location.href,
         appId: mockExceptions.thisAppId || 'N/A',
-        appVersion: APP_VERSION || 'N/A',
+        appVersion: window.APP_VERSION || 'N/A',
         userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
         userLanguage: window.navigator && window.navigator.userLanguage,
         referrer: window.document && window.document.referrer,
@@ -226,7 +226,7 @@ describe('AvExceptions', () => {
         errorStack: mockExceptions.prettyPrint(exception),
         url: window.location && window.location.href,
         appId: mockExceptions.thisAppId || 'N/A',
-        appVersion: APP_VERSION || 'N/A',
+        appVersion: window.APP_VERSION || 'N/A',
         userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
         userLanguage: window.navigator && window.navigator.userLanguage,
         referrer: window.document && window.document.referrer,
@@ -302,7 +302,7 @@ describe('AvExceptions', () => {
 
   test('getDateFormat should returned formatted date', () => {
     const DATE_TO_USE = new Date('2016');
-    const _Date = Date;
+    const _Date = Date; // eslint-disable-line
     global.Date = jest.fn(() => DATE_TO_USE);
     global.Date.UTC = _Date.UTC;
     global.Date.parse = _Date.parse;

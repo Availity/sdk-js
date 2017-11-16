@@ -1,6 +1,6 @@
 import TraceKit from 'tracekit';
 
-export class AvExceptions {
+export default class AvExceptions {
   constructor(log) {
     if (!log) {
       throw new Error('[log] must be defined');
@@ -8,7 +8,7 @@ export class AvExceptions {
 
     this.log = log;
     this.isEnabled = true;
-    this.thisAppId;
+    this.thisAppId; // eslint-disable-line
     this.REPEAT_LIMIT = 5 * 1000; // 5 seconds
     this.errorMessageHistory = {};
 
@@ -50,12 +50,12 @@ export class AvExceptions {
   prettyPrint(exception) {
     let message = '';
     const stack = (exception && exception.stack) || [];
-    const length = stack.length;
+    const { length } = stack;
 
     for (let i = 0; i < length; i++) {
       let index = i.toString();
       while (index.length < 2) {
-        index = '0' + index;
+        index = `0${index}`;
       }
       message += `[${index}] ${stack[i].func} ${stack[i].url}:${
         stack[i].line
@@ -68,10 +68,10 @@ export class AvExceptions {
   }
 
   isRepeatError(exception) {
-    const message = exception.message;
+    const { message } = exception;
     this.errorMessageHistory[message] = this.errorMessageHistory[message] || {};
-    this.errorMessageHistory[message].totalHits++;
-    this.errorMessageHistory[message].currentHits++;
+    this.errorMessageHistory[message].totalHits += 1;
+    this.errorMessageHistory[message].currentHits += 1;
     this.errorMessageHistory[message].lastException = exception;
 
     const output = this.errorMessageHistory[message].isRepeating;
@@ -118,7 +118,7 @@ export class AvExceptions {
       errorStack: this.prettyPrint(exception),
       url: window.location && window.location.href,
       appId: this.thisAppId || 'N/A',
-      appVersion: APP_VERSION || 'N/A',
+      appVersion: window.APP_VERSION || 'N/A',
       userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
       userLanguage: window.navigator && window.navigator.userLanguage,
       referrer: window.document && window.document.referrer,
@@ -144,9 +144,9 @@ export class AvExceptions {
   getDateFormat() {
     const now = new Date();
     function padStart(value, size) {
-      let output = value + '';
+      let output = `${value}`;
       while (output.length < size) {
-        output = '0' + output;
+        output = `0${output}`;
       }
       return output;
     }
@@ -157,7 +157,7 @@ export class AvExceptions {
       now.getMinutes(),
       2
     )}:${padStart(now.getSeconds(), 2)}${
-      now.toString().match(/([-\+][0-9]+)\s/)[1]
+      now.toString().match(/([-+][0-9]+)\s/)[1]
     }`;
   }
 }

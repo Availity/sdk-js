@@ -8,8 +8,7 @@
   "scripts": {
     "test": "av test",
     "test:c": "av test -r html text",
-    "build": "av build",
-    "lint": "av lint"
+    "build": "av build"
   },
   "jest": {
     "collectCoverage": true,
@@ -17,8 +16,5 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-    "@availity/internal-workflow": "^0.0.0"
-  }
+  "dependencies": {}
 }

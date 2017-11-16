@@ -3,9 +3,7 @@
 import { AvProxy } from '../index';
 import { API_OPTIONS } from '../defaultOptions';
 
-const mockHttp = jest.fn(() => {
-  return Promise.resolve({});
-});
+const mockHttp = jest.fn(() => Promise.resolve({}));
 
 const mockTenant = 'mockTenant';
 function mockConfig(config = {}) {

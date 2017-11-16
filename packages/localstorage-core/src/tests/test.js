@@ -1,6 +1,6 @@
 /* global jest, describe, beforeEach, test, expect */
 
-import AvLocalStorage from './index';
+import AvLocalStorage from '../';
 
 let storageVal = {};
 
@@ -17,9 +17,7 @@ describe('AvLocalStorage', () => {
     mockLocalStorage.clear = jest.fn(() => {
       storageVal = {};
     });
-    mockLocalStorage.getItem = jest.fn(key => {
-      return storageVal[key] || null;
-    });
+    mockLocalStorage.getItem = jest.fn(key => storageVal[key] || null);
     mockLocalStorage.setItem = jest.fn((key, value) => {
       storageVal[key] = value.toString();
     });

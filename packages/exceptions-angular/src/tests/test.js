@@ -2,9 +2,10 @@
 
 import 'angular';
 import 'angular-mocks';
-import AvModule from './';
 
 import { AvExceptions as AvExceptionsCore } from '@availity/exceptions-core';
+
+import AvModule from '../';
 
 const DEFAULT_REPEAT = new AvExceptionsCore(jest.fn()).REPEAT_LIMIT;
 

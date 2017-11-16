@@ -22,4 +22,4 @@ AvOrganizationsResourceFactory.$inject = [
   'AvUsersResource',
   'AvApiOptions',
 ];
-export { AvOrganizationsResourceFactory };
+export default { AvOrganizationsResourceFactory };

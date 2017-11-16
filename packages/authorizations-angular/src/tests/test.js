@@ -2,7 +2,7 @@
 
 import 'angular';
 import 'angular-mocks';
-import AvModule from './';
+import AvModule from '../';
 
 describe('AvAuthorizations', () => {
   // let $q;
