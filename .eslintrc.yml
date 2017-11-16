@@ -12,4 +12,4 @@
 
 
 # https://github.com/Availity/eslint-config-availity
-extends: eslint-config-availity
+extends: eslint-config-availity/browser
