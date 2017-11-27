@@ -2,15 +2,8 @@
   "name": "@availity/analytics-angular",
   "version": "0.0.0",
   "description": "availity analytics class for setting up and using plugins",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "jsnext:main": "dist/index.mjs",
-  "scripts": {
-    "test": "av test",
-    "test:c": "av test -r html text",
-    "build": "av build"
-  },
-  "author": "",
+  "main": "src/index.js",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.4",
