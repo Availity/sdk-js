@@ -2,12 +2,7 @@ export default class AvAnalytics {
   constructor(plugins, promise, pageTracking) {
     // if plugins or promise are undefined,
     // or if either is skipped and pageTracking boolean is used in their place
-    if (
-      !plugins ||
-      !promise ||
-      (arguments.length < 3 &&
-        typeof arguments[arguments.length - 1] === 'boolean')
-    ) {
+    if (!plugins || !promise) {
       throw new Error('[plugins], and [promise] must be defined');
     }
 
@@ -15,9 +10,8 @@ export default class AvAnalytics {
     this.pageTracking = !!pageTracking;
     this.Promise = promise;
 
-    // reserved values
-    this.startPageTracking;
-    this.stopPageTracking;
+    this.startPageTracking = undefined;
+    this.stopPageTracking = undefined;
     this.isPageTracking = false;
     this.hasInit = false;
   }
@@ -41,9 +35,11 @@ export default class AvAnalytics {
     if (arguments.length) {
       this.pageTracking = !!value;
     }
+
     const canPageTrack =
       typeof this.startPageTracking === 'function' &&
       typeof this.stopPageTracking === 'function';
+
     if (canPageTrack && this.pageTracking !== this.isPageTracking) {
       if (this.pageTracking) {
         this.startPageTracking();

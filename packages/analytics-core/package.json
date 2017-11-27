@@ -1,15 +1,8 @@
 {
   "name": "@availity/analytics-core",
   "version": "0.0.0",
-  "description": "availity analytics class for setting up and using plugins",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "jsnext:main": "dist/index.mjs",
-  "scripts": {
-    "test": "av test",
-    "test:c": "av test -r html text",
-    "build": "av build"
-  },
+  "description": "Analytics base configuration for sdk-js",
+  "main": "src/index.js",
   "author": "",
   "license": "MIT",
   "dependencies": {}
