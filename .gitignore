@@ -2,3 +2,4 @@ packages/*/coverage
 packages/*/dist
 node_modules
 *.log
+/.vscode
