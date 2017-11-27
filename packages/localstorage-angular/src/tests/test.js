@@ -1,6 +1,4 @@
-/* global angular, inject, describe, beforeEach, test, expect */
-
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 import AvModule from '../';
 
@@ -10,7 +8,7 @@ describe('AvLocalStorage', () => {
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject(_AvLocalStorage_ => {
+    angular.inject(_AvLocalStorage_ => {
       AvLocalStorage = _AvLocalStorage_;
     });
   });
