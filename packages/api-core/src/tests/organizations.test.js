@@ -1,12 +1,4 @@
-/* global jest, describe, test, expect */
-
 import { AvOrganizations } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
-
-const defaultOptions = Object.assign({}, API_OPTIONS, {
-  path: 'api/sdk/platform',
-  name: 'organizations',
-});
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -34,16 +26,6 @@ describe('AvOrganizations', () => {
     expect(() => {
       TestApi = new AvOrganizations(mockHttp, Promise);
     }).toThrow('[AvUsers] must be defined');
-  });
-
-  test('AvOrganizations should merge its config with passed in config', () => {
-    TestApi = new AvOrganizations(mockHttp, Promise, mockAvUsers, {});
-    expect(TestApi.defaultConfig).toEqual(defaultOptions);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, defaultOptions, testConfig);
-    TestApi = new AvOrganizations(mockHttp, Promise, mockAvUsers, testConfig);
-    expect(TestApi.defaultConfig).toEqual(testExpect);
   });
 
   test('afterQuery should return response.data.organizations if it exists or an empty array', () => {

@@ -1,12 +1,4 @@
 import { AvRegions } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
-
-const defaultOptions = Object.assign({}, API_OPTIONS, {
-  path: 'api/sdk/platform',
-  name: 'regions',
-  sessionBust: false,
-  pageBust: true,
-});
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -28,16 +20,6 @@ describe('AvRegions', () => {
   test('AvRegions should handle no config passed in', () => {
     TestApi = new AvRegions(mockHttp, Promise);
     expect(TestApi).toBeDefined();
-  });
-
-  test('AvRegions should merge its config with passed in config', () => {
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers, {});
-    expect(TestApi.defaultConfig).toEqual(defaultOptions);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, defaultOptions, testConfig);
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers, testConfig);
-    expect(TestApi.defaultConfig).toEqual(testExpect);
   });
 
   test('afterGet should return response.data.regions if it exists or an empty array', () => {

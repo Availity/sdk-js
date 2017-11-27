@@ -1,10 +1,4 @@
 import { AvUserPermissions } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
-
-const defaultOptions = Object.assign({}, API_OPTIONS, {
-  path: 'api/internal',
-  name: 'axi-user-permissions',
-});
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -19,16 +13,6 @@ describe('AvUserPermissions', () => {
   test('AvUserPermissions should handle no config passed in', () => {
     TestApi = new AvUserPermissions(mockHttp, Promise);
     expect(TestApi).toBeDefined();
-  });
-
-  test('AvUserPermissions should merge its config with passed in config', () => {
-    TestApi = new AvUserPermissions(mockHttp, Promise, {});
-    expect(TestApi.defaultConfig).toEqual(defaultOptions);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, defaultOptions, testConfig);
-    TestApi = new AvUserPermissions(mockHttp, Promise, testConfig);
-    expect(TestApi.defaultConfig).toEqual(testExpect);
   });
 
   test('afterQuery should return response.data.axiUserPermissions if it exists or an empty array', () => {

@@ -1,7 +1,4 @@
-/* global jest, describe, test, expect */
-
 import { AvProviders } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/internal',

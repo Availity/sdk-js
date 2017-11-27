@@ -1,12 +1,4 @@
-/* global jest, describe, test, expect */
-
 import { AvPermissions } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
-
-const defaultOptions = Object.assign({}, API_OPTIONS, {
-  path: 'api/sdk/platform',
-  name: 'permissions',
-});
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -21,16 +13,6 @@ describe('AvPermissions', () => {
   test('AvPermissions should handle no config passed in', () => {
     TestApi = new AvPermissions(mockHttp, Promise);
     expect(TestApi).toBeDefined();
-  });
-
-  test('AvPermissions should merge its config with passed in config', () => {
-    TestApi = new AvPermissions(mockHttp, Promise, {});
-    expect(TestApi.defaultConfig).toEqual(defaultOptions);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, defaultOptions, testConfig);
-    TestApi = new AvPermissions(mockHttp, Promise, testConfig);
-    expect(TestApi.defaultConfig).toEqual(testExpect);
   });
 
   test('afterQuery should return response.data.permissions if it exists or an empty array', () => {
