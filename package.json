@@ -7,11 +7,17 @@
     "link": "lerna link",
     "clean": "lerna clean",
     "precommit": "lint-staged",
+    "test": "jest",
     "postinstall": "npm run bootstrap"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.2",
-    "cz-lerna-changelog": "^1.2.1",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -21,14 +27,11 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.4.0",
     "husky": "^0.14.3",
+    "jest": "^21.2.1",
     "lerna": "^2.5.1",
     "lint-staged": "^5.0.0",
-    "prettier": "^1.8.2"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-lerna-changelog"
-    }
+    "prettier": "^1.8.2",
+    "regenerator-runtime": "^0.11.0"
   },
   "license": "MIT",
   "lint-staged": {
@@ -40,5 +43,6 @@
   "prettier": {
     "singleQuote": true,
     "trailingComma": "es5"
-  }
+  },
+  "dependencies": {}
 }

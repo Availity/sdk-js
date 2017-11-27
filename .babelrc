@@ -1,0 +1,26 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        "transform-class-properties",
+        "transform-object-rest-spread"
+      ],
+      "presets": [
+        "jest",
+        "react",
+        "stage-0",
+        [
+          "env",
+          {
+            "debug": false,
+            "modules": "commonjs",
+            "targets": {
+              "node": "current"
+            },
+            "useBuiltIns": true
+          }
+        ]
+      ]
+    }
+  }
+}

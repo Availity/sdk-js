@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Api core logic",
   "main": "index.js",
-  "author": "",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
     "@availity/localstorage-core": "^0.0.0"
