@@ -1,9 +1,9 @@
 # API Core
 
-A package providing a base api class as well as several prebuilt resources for common Availity API's
+A package providing a base api class as well as several  resources for common Availity API's
 
 * [AvApi class](src)
-* [Prebuilt API resources](src/prebuilt)
+* [API resources](src/resources)
 
 ## Authors
 **Kasey Powers**

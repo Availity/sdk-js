@@ -7,8 +7,8 @@ import { AvExceptions as AvExceptionsCore } from '@availity/exceptions-core';
 class AvExceptionsProvider {
   constructor() {
     this.isEnabled = true;
-    this.thisAppid; // eslint-disable-line
-    this.REPEAT_LIMIT; // eslint-disable-line
+    this.thisAppid;
+    this.REPEAT_LIMIT;
 
     this.$get.$inject = ['AvLogMessagesResource'];
   }
@@ -56,7 +56,7 @@ configBlock.$inject = ['$provide'];
 
 // make sure AvExceptions is instantiated.
 function runBlock(AvExceptions) {
-  AvExceptions; // eslint-disable-line
+  AvExceptions;
 }
 runBlock.$inject = ['AvExceptions'];
 

@@ -1,6 +1,6 @@
 class AvLocalStorage {
   constructor() {
-    this.hasSupport; // eslint-disable-line
+    this.hasSupport = undefined;
   }
 
   supportsLocalStorage() {

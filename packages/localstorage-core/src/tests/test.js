@@ -1,5 +1,3 @@
-/* global jest, describe, beforeEach, test, expect */
-
 import AvLocalStorage from '../';
 
 let storageVal = {};

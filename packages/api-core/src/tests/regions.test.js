@@ -1,5 +1,3 @@
-/* global jest, describe, test, expect */
-
 import { AvRegions } from '../index';
 import { API_OPTIONS } from '../defaultOptions';
 

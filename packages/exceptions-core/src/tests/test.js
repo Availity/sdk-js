@@ -302,11 +302,11 @@ describe('AvExceptions', () => {
 
   test('getDateFormat should returned formatted date', () => {
     const DATE_TO_USE = new Date('2016');
-    const _Date = Date; // eslint-disable-line
+    const Now = Date;
     global.Date = jest.fn(() => DATE_TO_USE);
-    global.Date.UTC = _Date.UTC;
-    global.Date.parse = _Date.parse;
-    global.Date.now = _Date.now;
+    global.Date.UTC = Now.UTC;
+    global.Date.parse = Now.parse;
+    global.Date.now = Now.now;
     mockExceptions = new AvExceptions(mockLog);
     expect(mockExceptions.getDateFormat()).toBe('2015-12-31T19:00:00-0500');
   });

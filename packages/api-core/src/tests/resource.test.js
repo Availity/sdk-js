@@ -21,24 +21,31 @@ describe('AvApi', () => {
     expect(() => {
       TestAvApi = new AvApi();
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(false, false, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(false, Promise, {});
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(mockHttp, Promise, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(mockHttp, false, Promise);
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(false, Promise, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(mockHttp, false, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
+
     expect(() => {
       TestAvApi = new AvApi(false, false, {});
     }).toThrowError('[http], [config] and [promise] must be defined');
@@ -458,10 +465,9 @@ describe('AvApi', () => {
       });
     });
 
-    /* eslint-disable prefer-promise-reject-errors */
     test('should catch error in http, returning error.response if it exists', () => {
       mockHttp.mockImplementationOnce(() =>
-        Promise.reject({ response: 'errResponse' }, 'response')
+        Promise.reject(new Error('errResponse'))
       );
       return TestAvApi.makeRequest({}).then(response => {
         expect(response).toBe('errResponse');
@@ -469,12 +475,11 @@ describe('AvApi', () => {
     });
 
     test('should catch error in http, returning undefined if no error.response', () => {
-      mockHttp.mockImplementationOnce(() => Promise.reject('err'));
+      mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
       return TestAvApi.makeRequest({}).then(response => {
         expect(response).toBeUndefined();
       });
     });
-    /* eslint-enable prefer-promise-reject-errors */
 
     test('should default attempt in polling is true', () => {
       const mockConfig = {

@@ -8,7 +8,7 @@ export default class AvExceptions {
 
     this.log = log;
     this.isEnabled = true;
-    this.thisAppId; // eslint-disable-line
+    this.thisAppId;
     this.REPEAT_LIMIT = 5 * 1000; // 5 seconds
     this.errorMessageHistory = {};
 

@@ -1,5 +1,3 @@
-/* global jest, describe, test, expect */
-
 import { AvUserPermissions } from '../index';
 import { API_OPTIONS } from '../defaultOptions';
 

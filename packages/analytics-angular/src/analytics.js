@@ -48,7 +48,7 @@ export default class AvAnalyticsProvider {
         });
         super(plugins, $q, self.virtualPageTracking);
 
-        this.pageListener; // eslint-disable-line
+        this.pageListener;
       }
 
       startPageTracking() {

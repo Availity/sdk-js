@@ -6,7 +6,7 @@ export default class AvAnalytics {
       !plugins ||
       !promise ||
       (arguments.length < 3 &&
-        typeof arguments[arguments.length - 1] === 'boolean') // eslint-disable-line
+        typeof arguments[arguments.length - 1] === 'boolean')
     ) {
       throw new Error('[plugins], and [promise] must be defined');
     }
@@ -16,8 +16,8 @@ export default class AvAnalytics {
     this.Promise = promise;
 
     // reserved values
-    this.startPageTracking; // eslint-disable-line
-    this.stopPageTracking; // eslint-disable-line
+    this.startPageTracking;
+    this.stopPageTracking;
     this.isPageTracking = false;
     this.hasInit = false;
   }
