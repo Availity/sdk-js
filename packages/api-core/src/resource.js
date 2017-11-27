@@ -1,6 +1,6 @@
 import AvLocalStorage from '@availity/localstorage-core';
 
-import { API_OPTIONS } from './defaultOptions';
+import { API_OPTIONS } from './options';
 
 export default class AvApi {
   constructor(http, promise, config) {

@@ -1,7 +1,5 @@
-/* global jest, describe, test, expect */
-
 import { AvNavigation } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
+import { API_OPTIONS } from '../options';
 
 const defaultOptions = Object.assign({}, API_OPTIONS, {
   path: 'api/sdk/platform',

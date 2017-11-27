@@ -1,11 +1,4 @@
-/* global jest, describe, beforeEach, test, expect */
-
 import { AvLogMessages } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
-
-const defaultOptions = Object.assign({}, API_OPTIONS, {
-  name: 'log-messages',
-});
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -15,16 +8,6 @@ describe('AvLogMessages', () => {
   test('AvLogMessages should be defined', () => {
     TestLogMessage = new AvLogMessages(mockHttp, Promise, {});
     expect(TestLogMessage).toBeDefined();
-  });
-
-  test('AvLogMessages should merge its config with passed in config', () => {
-    TestLogMessage = new AvLogMessages(mockHttp, Promise, {});
-    expect(TestLogMessage.defaultConfig).toEqual(defaultOptions);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, defaultOptions, testConfig);
-    TestLogMessage = new AvLogMessages(mockHttp, Promise, testConfig);
-    expect(TestLogMessage.defaultConfig).toEqual(testExpect);
   });
 
   test('requestPayload should return {level, entries}', () => {

@@ -1,8 +1,8 @@
 {
   "name": "@availity/api-core",
   "version": "0.0.0",
-  "description": "Api core logic",
-  "main": "index.js",
+  "description": "Base configurations for Availity API Resources",
+  "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
