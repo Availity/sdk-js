@@ -1,6 +1,4 @@
-/* global angular, inject, describe, beforeEach, test, expect */
-
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 import AvApiModule from '../';
 
@@ -14,13 +12,13 @@ describe('AvApiOptionsProvider', () => {
   });
 
   test('AvApiOptionsProvider should be defined', () => {
-    inject(() => {
+    angular.inject(() => {
       expect(provider).toBeDefined();
     });
   });
 
   test('AvApiOptionsProvider getOptions should return a copy of defaults', () => {
-    inject(() => {
+    angular.inject(() => {
       const gotDefaults = provider.getOptions();
       expect(provider.defaultOptions).not.toBe(gotDefaults);
       expect(provider.defaultOptions).toEqual(gotDefaults);
@@ -28,7 +26,7 @@ describe('AvApiOptionsProvider', () => {
   });
 
   test('AvApiOptionsProvider setOptions should merge into defaults', () => {
-    inject(() => {
+    angular.inject(() => {
       const testDefaults1 = {
         testVal: 'test',
       };
@@ -46,7 +44,7 @@ describe('AvApiOptionsProvider', () => {
   });
 
   test('AvApiOptionsProvider $get should be defaults', () => {
-    inject(() => {
+    angular.inject(() => {
       expect(provider.$get()).toEqual(provider.defaultOptions);
     });
   });

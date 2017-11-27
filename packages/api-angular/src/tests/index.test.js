@@ -1,5 +1,3 @@
-/* global describe, test, expect */
-
 import AvApi from '../';
 
 describe('api module', () => {

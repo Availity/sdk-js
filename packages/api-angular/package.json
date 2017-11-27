@@ -2,14 +2,7 @@
   "name": "@availity/api-angular",
   "version": "0.0.0",
   "description": "Api angular logic",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "jsnext:main": "dist/index.mjs",
-  "scripts": {
-    "test": "av test",
-    "test:c": "av test -r html text",
-    "build": "av build"
-  },
+  "main": "src/index.js",
   "author": "",
   "license": "MIT",
   "dependencies": {

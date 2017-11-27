@@ -1,6 +1,5 @@
-/* global angular, inject, describe, beforeEach, afterEach, test, expect */
+import angular, { inject } from 'angular';
 
-import 'angular';
 import 'angular-mocks';
 import AvApiModule from '../';
 
