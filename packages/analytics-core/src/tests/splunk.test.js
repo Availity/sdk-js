@@ -1,5 +1,3 @@
-/* global jest, describe, test, beforeEach, expect */
-
 import { AvSplunkAnalytics } from '../';
 
 describe('AvSplunkAnalytics', () => {
