@@ -54,5 +54,4 @@ export default angular
         errorTacking.submitError(exception);
       }
     );
-  })
-  .run(() => new AvExceptionsCore()).name;
+  }).name;
