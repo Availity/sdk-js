@@ -1,7 +1,11 @@
 # Availity Javascript SDK
 
-## Intro
-sdk-js is a series of packages used to build out web apps, with some options specific to angular and react.
+> sdk-js is a series of packages used to build out web apps, with some options specific to angular and react.
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
+[![NPM](http://img.shields.io/npm/v/@availity/sdk-js.svg?style=flat-square&label=npm)](https://npmjs.org/package/@availity/sdk-js)
+[![Dependency Status](https://img.shields.io/david/dev/Availity/@availity/sdk-js.svg?style=flat-square)](https://david-dm.org/Availity/@availity/sdk-js)
+[![Build](https://img.shields.io/travis/Availity/@availity/sdk-js.svg?style=flat-square&label=build)](https://travis-ci.org/Availity/@availity/sdk-js)
 
 ## Supported Browsers
 
