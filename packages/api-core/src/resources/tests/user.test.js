@@ -1,4 +1,4 @@
-import { AvUsers } from '../index';
+import AvUsers from '../user';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

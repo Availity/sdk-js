@@ -1,4 +1,4 @@
-import { AvAuthorizations } from '../';
+import AvAuthorizations from '../';
 
 expect.extend({
   toBeAuthorized(permissions, ids) {

@@ -1,4 +1,4 @@
-import { AvSpaces } from '../index';
+import AvSpaces from '../spaces';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

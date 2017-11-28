@@ -25,9 +25,6 @@ describe('AvAnalytics', () => {
     expect(() => {
       mockAvAnalytics = new AvAnalytics(plugins);
     }).toThrow('[plugins], and [promise] must be defined');
-    expect(() => {
-      mockAvAnalytics = new AvAnalytics(Promise, true);
-    }).toThrow('[plugins], and [promise] must be defined');
   });
 
   test('AvAnalytics should cast plugins to an array', () => {
