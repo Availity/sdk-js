@@ -5,11 +5,9 @@ sdk-js is a series of packages used to build out web apps, with some options spe
 
 ## Supported Browsers
 
-* Internet Explorer 9 and newer
+* Internet Explorer 11 and newer
 * Google Chrome
 * Mozilla Firefox
-
-> Other browsers should be supported as well but you may experience some issues.
 
 ## Acknowledgments
 These libraries are based heavily on the Availity Angular project
