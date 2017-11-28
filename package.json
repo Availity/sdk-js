@@ -1,5 +1,10 @@
 {
   "private": true,
+  "description": "sdk-js monorepo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Availity/sdk-js.git"
+  },
   "scripts": {
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "lint": "eslint .",
@@ -75,5 +80,16 @@
         ]
       }
     }
-  }
+  },
+  "contributors": [
+    {
+      "name": "kasey powers",
+      "url": "https://github.com/kaseypowers"
+    },
+    {
+      "name": "robert mcguinness",
+      "email": null,
+      "url": "https://github.com/robmcguinness"
+    }
+  ]
 }

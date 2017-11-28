@@ -16,9 +16,5 @@
 These libraries are based heavily on the Availity Angular project
 * [Availity Angular](https://github.com/Availity/availity-angular)
 
-## Authors
-**Kasey Powers**
-* [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
-
 ## License
 [MIT](./LICENSE)
