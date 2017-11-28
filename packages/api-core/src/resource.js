@@ -1,6 +1,6 @@
-import AvLocalStorage from '@availity/localstorage-core';
+import avLocalStorage from '@availity/localstorage-core';
 
-import { API_OPTIONS } from './options';
+import API_OPTIONS from './options';
 
 export default class AvApi {
   constructor(http, promise, config) {
@@ -33,7 +33,7 @@ export default class AvApi {
     if (config.sessionBust) {
       config.params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
-        () => AvLocalStorage.getSessionBust() || this.getPageBust()
+        () => avLocalStorage.getSessionBust() || this.getPageBust()
       );
     }
   }

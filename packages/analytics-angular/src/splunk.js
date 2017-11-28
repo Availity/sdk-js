@@ -6,4 +6,4 @@ function AvSplunkAnalyticsFactory(AvLogMessagesResource) {
 
 AvSplunkAnalyticsFactory.$inject = ['AvLogMessagesResource'];
 
-export default { AvSplunkAnalyticsFactory };
+export default AvSplunkAnalyticsFactory;

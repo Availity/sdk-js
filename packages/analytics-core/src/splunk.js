@@ -1,4 +1,4 @@
-import { AvAnalyticsPlugin } from './plugin';
+import AvAnalyticsPlugin from './plugin';
 
 export default class AvSplunkAnalytics extends AvAnalyticsPlugin {
   constructor(AvLogMessages, enabled) {

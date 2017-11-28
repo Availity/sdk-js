@@ -1,4 +1,4 @@
-import { AvRegions } from '../index';
+import AvRegions from '../regions';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

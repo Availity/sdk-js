@@ -1,6 +1,4 @@
-/* global jest, angular, inject, describe, beforeEach, test, expect */
-
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 import AvModule from '../';
 
@@ -14,13 +12,13 @@ describe('AvAnalyticsProvider', () => {
   });
 
   test('AvAnalyticsProvider should be defined', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       expect(provider).toBeDefined();
     });
   });
 
   test('registerPlugins should set plugins array', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       let input = 'test';
       let expected = ['test'];
       expect(provider.plugins).toEqual(['AvSplunkAnalytics']);
@@ -34,7 +32,7 @@ describe('AvAnalyticsProvider', () => {
   });
 
   test('registerPlugins should throw error when input is not string or array', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       expect(() => {
         provider.registerPlugins({ value: 'test' });
       }).toThrow(
@@ -44,7 +42,7 @@ describe('AvAnalyticsProvider', () => {
   });
 
   test('setVirtualPageTracking should set value when arguments given', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       const defaultValue = provider.virtualPageTracking;
       provider.setVirtualPageTracking();
       expect(provider.virtualPageTracking).toBe(defaultValue);

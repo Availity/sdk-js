@@ -1,4 +1,4 @@
-import { AvPermissions } from '../index';
+import AvPermissions from '../permissions';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

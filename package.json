@@ -45,5 +45,35 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "dependencies": {}
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>.*(node_modules)(?!.*@availity.*).*$"
+    ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "transform-class-properties",
+          "transform-object-rest-spread"
+        ],
+        "presets": [
+          "jest",
+          "react",
+          "stage-0",
+          [
+            "env",
+            {
+              "debug": false,
+              "modules": "commonjs",
+              "targets": {
+                "node": "current"
+              },
+              "useBuiltIns": true
+            }
+          ]
+        ]
+      }
+    }
+  }
 }

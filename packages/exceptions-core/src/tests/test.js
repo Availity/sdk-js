@@ -1,6 +1,4 @@
-/* global jest, describe, beforeEach, afterEach, test, expect */
-
-import { AvExceptions } from '../';
+import AvExceptions from '../';
 
 jest.useFakeTimers();
 

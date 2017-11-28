@@ -1,4 +1,4 @@
-import { AvNavigation } from '../index';
+import AvNavigation from '../navigation';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

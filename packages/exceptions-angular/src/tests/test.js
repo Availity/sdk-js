@@ -1,6 +1,4 @@
-/* global jest, angular, inject, describe, beforeEach, test, expect */
-
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 
 import { AvExceptions as AvExceptionsCore } from '@availity/exceptions-core';
@@ -10,12 +8,11 @@ import AvModule from '../';
 const DEFAULT_REPEAT = new AvExceptionsCore(jest.fn()).REPEAT_LIMIT;
 
 describe('AvExceptions', () => {
-  // let $q;
   let AvExceptions;
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject(_AvExceptions_ => {
+    angular.mock.inject(_AvExceptions_ => {
       AvExceptions = _AvExceptions_;
     });
   });
@@ -35,19 +32,19 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('AvExceptionsProvider should be defined', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       expect(provider).toBeDefined();
     });
   });
 
   test('enabled should return enabled value', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       expect(provider.enabled()).toBe(provider.isEnabled);
     });
   });
 
   test('enabled should set enabled if value is passed in', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       let testEnabled = false;
       let testExpect = false;
       expect(provider.enabled(testEnabled)).toBe(testExpect);
@@ -58,14 +55,14 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('appId should return appId value', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       provider.thisAppId = 'test';
       expect(provider.appId()).toBe(provider.thisAppId);
     });
   });
 
   test('appId should set appId if value is passed in string or number', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       const testAppId = 'test';
       provider.thisAppId = 'test';
 
@@ -81,7 +78,7 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('repeatTime should return the timer value', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       const testExpect = 1000;
       provider.REPEAT_LIMIT = testExpect;
       expect(provider.repeatTime()).toBe(testExpect);
@@ -89,7 +86,7 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('repeatTime should set timer if number value is passed', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       let testTime = 500;
       const testExpect = testTime;
       expect(provider.repeatTime(testTime)).toBe(testExpect);
@@ -124,7 +121,7 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('AvAnalytics log should call AvLogMessagesResource.error', () => {
-    inject(() => {
+    angular.mock.inject(() => {
       const mockLogMessage = {
         error: jest.fn(),
       };

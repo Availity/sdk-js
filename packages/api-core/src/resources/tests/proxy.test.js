@@ -1,4 +1,4 @@
-import { AvProxy } from '../index';
+import AvProxy from '../proxy';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

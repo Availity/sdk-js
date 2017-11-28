@@ -1,4 +1,4 @@
-import { AvLogMessages } from '../index';
+import AvLogMessages from '../logs';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

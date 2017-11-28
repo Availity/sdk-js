@@ -1,5 +1,3 @@
-/* global describe, test, expect */
-
 import {
   AvApiResource,
   AvLogMessagesResource,

@@ -1,5 +1,3 @@
-/* global describe, test, expect */
-
 import AvAuthorizations from '../';
 
 describe('AvAuthorizations', () => {

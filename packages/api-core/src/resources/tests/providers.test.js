@@ -1,4 +1,4 @@
-import { AvProviders } from '../index';
+import AvProviders from '../providers';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 

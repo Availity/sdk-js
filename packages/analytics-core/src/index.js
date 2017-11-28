@@ -1,3 +1,5 @@
-export { AvAnalytics } from './analytics';
-export { AvAnalyticsPlugin } from './plugin';
-export { AvSplunkAnalytics } from './splunk';
+import AvAnalytics from './analytics';
+import AvAnalyticsPlugin from './plugin';
+import AvSplunkAnalytics from './splunk';
+
+export { AvAnalytics, AvAnalyticsPlugin, AvSplunkAnalytics };

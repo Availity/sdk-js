@@ -12,13 +12,13 @@ describe('AvApiOptionsProvider', () => {
   });
 
   test('AvApiOptionsProvider should be defined', () => {
-    angular.inject(() => {
+    angular.mock.inject(() => {
       expect(provider).toBeDefined();
     });
   });
 
   test('AvApiOptionsProvider getOptions should return a copy of defaults', () => {
-    angular.inject(() => {
+    angular.mock.inject(() => {
       const gotDefaults = provider.getOptions();
       expect(provider.defaultOptions).not.toBe(gotDefaults);
       expect(provider.defaultOptions).toEqual(gotDefaults);
@@ -26,7 +26,7 @@ describe('AvApiOptionsProvider', () => {
   });
 
   test('AvApiOptionsProvider setOptions should merge into defaults', () => {
-    angular.inject(() => {
+    angular.mock.inject(() => {
       const testDefaults1 = {
         testVal: 'test',
       };
@@ -44,7 +44,7 @@ describe('AvApiOptionsProvider', () => {
   });
 
   test('AvApiOptionsProvider $get should be defaults', () => {
-    angular.inject(() => {
+    angular.mock.inject(() => {
       expect(provider.$get()).toEqual(provider.defaultOptions);
     });
   });

@@ -1,6 +1,6 @@
 import AvLocalStorage from '@availity/localstorage-core';
 
-import { AvApi } from '../index';
+import AvApi from '../resource';
 
 jest.useFakeTimers();
 

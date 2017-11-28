@@ -1,5 +1,3 @@
-/* global jest, describe, beforeEach, afterEach, test, expect */
-
 import AvMessage from '../';
 
 // save important functions to reset

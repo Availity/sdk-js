@@ -1,11 +1,25 @@
-export { AvApiResource } from './resource';
-export { AvLogMessagesResource } from './logs';
-export { AvNavigationResource } from './navigation';
-export { AvOrganizationsResource } from './organizations';
-export { AvPermissionsResource } from './permissions';
-export { AvProvidersResource } from './providers';
-export { AvProxyResource } from './proxy';
-export { AvRegionsResource } from './regions';
-export { AvSpacesResource } from './spaces';
-export { AvUsersResource } from './user';
-export { AvUserPermissionsResource } from './userPermissions';
+import AvApiResource from './resource';
+import AvLogMessagesResource from './logs';
+import AvNavigationResource from './navigation';
+import AvOrganizationsResource from './organizations';
+import AvPermissionsResource from './permissions';
+import AvProvidersResource from './providers';
+import AvProxyResource from './proxy';
+import AvRegionsResource from './regions';
+import AvSpacesResource from './spaces';
+import AvUsersResource from './user';
+import AvUserPermissionsResource from './userPermissions';
+
+export {
+  AvApiResource,
+  AvLogMessagesResource,
+  AvNavigationResource,
+  AvOrganizationsResource,
+  AvPermissionsResource,
+  AvProvidersResource,
+  AvProxyResource,
+  AvRegionsResource,
+  AvSpacesResource,
+  AvUsersResource,
+  AvUserPermissionsResource,
+};

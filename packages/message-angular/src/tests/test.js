@@ -1,6 +1,4 @@
-/* global angular, inject, describe, beforeEach, test, expect */
-
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 import AvModule from '../';
 
@@ -10,7 +8,7 @@ describe('AvMessage Angular', () => {
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject(_AvMessage_ => {
+    angular.mock.inject(_AvMessage_ => {
       AvMessage = _AvMessage_;
     });
   });
