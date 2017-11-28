@@ -6,7 +6,8 @@ describe('AvAnalyticsProvider', () => {
   let provider;
 
   beforeEach(() => {
-    angular.mock.module(AvModule, AvAnalyticsProvider => {
+    angular.mock.module(AvModule);
+    angular.mock.module(AvAnalyticsProvider => {
       provider = AvAnalyticsProvider;
     });
   });
@@ -75,8 +76,8 @@ describe('AvAnalyticsProvider', () => {
   test('AvAnalytics startPageTracking should listen on rootScope', () => {
     angular.mock.inject(($log, $injector, $q, $rootScope) => {
       $rootScope.$on = jest.fn();
-      const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
-      AvAnalytics.startPageTracking();
+      const avAnalytics = provider.$get($log, $injector, $q, $rootScope);
+      avAnalytics.startPageTracking();
       expect($rootScope.$on.mock.calls[0][0]).toBe('$locationChangeSuccess');
     });
 

@@ -42,20 +42,17 @@ class AvExceptionsProvider {
   }
 }
 
-function configBlock($provide) {
-  $provide.decorator(
-    '$exceptionHandler',
-    ($delegate, $injector) => (exception, cause) => {
-      $delegate(exception, cause);
-      const errorTacking = $injector.get('AvExceptions');
-      errorTacking.submitError(exception);
-    }
-  );
-}
-configBlock.$inject = ['$provide'];
-
 export default angular
   .module('availity.exceptions', [AvApiAngular])
   .provider('AvExceptions', AvExceptionsProvider)
-  .config(configBlock)
-  .run(AvExceptions => AvExceptions()).name;
+  .config($provide => {
+    $provide.decorator(
+      '$exceptionHandler',
+      ($delegate, $injector) => (exception, cause) => {
+        $delegate(exception, cause);
+        const errorTacking = $injector.get('AvExceptions');
+        errorTacking.submitError(exception);
+      }
+    );
+  })
+  .run(() => new AvExceptionsCore()).name;
