@@ -10,10 +10,12 @@ export default class AvAnalytics {
     this.pageTracking = !!pageTracking;
     this.Promise = promise;
 
-    this.startPageTracking = undefined;
-    this.stopPageTracking = undefined;
     this.isPageTracking = false;
     this.hasInit = false;
+
+    // TODO: rename. variables below shadow function names in class that extend from this base class.
+    // this.startPageTracking = undefined;
+    // this.stopPageTracking = undefined;
   }
 
   init() {

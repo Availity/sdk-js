@@ -80,16 +80,16 @@ describe('AvAnalyticsProvider', () => {
       avAnalytics.startPageTracking();
       expect($rootScope.$on.mock.calls[0][0]).toBe('$locationChangeSuccess');
     });
+  });
 
-    test('AvAnalytics stopPageTracking should call deregistration function and delete it', () => {
-      angular.mock.inject(($log, $injector, $q, $rootScope) => {
-        const mockPageListener = jest.fn();
-        const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
-        AvAnalytics.pageListener = mockPageListener;
-        AvAnalytics.stopPageTracking();
-        expect(mockPageListener).toHaveBeenCalled();
-        expect(AvAnalytics.pageListener).toBeUndefined();
-      });
+  test('AvAnalytics stopPageTracking should call deregistration function and delete it', () => {
+    angular.mock.inject(($log, $injector, $q, $rootScope) => {
+      const mockPageListener = jest.fn();
+      const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
+      AvAnalytics.pageListener = mockPageListener;
+      AvAnalytics.stopPageTracking();
+      expect(mockPageListener).toHaveBeenCalled();
+      expect(AvAnalytics.pageListener).toBeUndefined();
     });
   });
 });
