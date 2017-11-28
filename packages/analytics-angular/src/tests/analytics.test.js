@@ -64,14 +64,16 @@ describe('AvAnalyticsProvider', () => {
   });
 
   test('AvAnalytics should inject services from strings', () => {
-    inject(($log, $injector, $q, $rootScope, AvSplunkAnalytics) => {
-      const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
-      expect(AvAnalytics.plugins).toEqual([AvSplunkAnalytics]);
-    });
+    angular.mock.inject(
+      ($log, $injector, $q, $rootScope, AvSplunkAnalytics) => {
+        const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
+        expect(AvAnalytics.plugins).toEqual([AvSplunkAnalytics]);
+      }
+    );
   });
 
   test('AvAnalytics startPageTracking should listen on rootScope', () => {
-    inject(($log, $injector, $q, $rootScope) => {
+    angular.mock.inject(($log, $injector, $q, $rootScope) => {
       $rootScope.$on = jest.fn();
       const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
       AvAnalytics.startPageTracking();
@@ -79,7 +81,7 @@ describe('AvAnalyticsProvider', () => {
     });
 
     test('AvAnalytics stopPageTracking should call deregistration function and delete it', () => {
-      inject(($log, $injector, $q, $rootScope) => {
+      angular.mock.inject(($log, $injector, $q, $rootScope) => {
         const mockPageListener = jest.fn();
         const AvAnalytics = provider.$get($log, $injector, $q, $rootScope);
         AvAnalytics.pageListener = mockPageListener;

@@ -1,7 +1,7 @@
 import angular from 'angular';
 import 'angular-mocks';
 
-import { AvExceptions as AvExceptionsCore } from '@availity/exceptions-core';
+import AvExceptionsCore from '@availity/exceptions-core';
 
 import AvModule from '../';
 
@@ -96,7 +96,7 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('AvAnalytics appId, repeatTime and enabled should reflect provider', () => {
-    inject(AvLogMessagesResource => {
+    angular.mock.inject(AvLogMessagesResource => {
       let testEnabled = true;
       let testId = 'test1';
 

@@ -2,7 +2,7 @@ import angular from 'angular';
 
 import AvApiAngular from '@availity/api-angular';
 
-import { AvExceptions as AvExceptionsCore } from '@availity/exceptions-core';
+import AvExceptionsCore from '@availity/exceptions-core';
 
 class AvExceptionsProvider {
   constructor() {
@@ -54,14 +54,8 @@ function configBlock($provide) {
 }
 configBlock.$inject = ['$provide'];
 
-// make sure AvExceptions is instantiated.
-function runBlock(AvExceptions) {
-  AvExceptions();
-}
-runBlock.$inject = ['AvExceptions'];
-
 export default angular
   .module('availity.exceptions', [AvApiAngular])
   .provider('AvExceptions', AvExceptionsProvider)
   .config(configBlock)
-  .run(runBlock).name;
+  .run(AvExceptions => AvExceptions()).name;

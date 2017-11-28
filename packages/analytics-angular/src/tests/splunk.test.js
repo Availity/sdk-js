@@ -7,7 +7,7 @@ describe('AvSplunkAnalytics', () => {
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    angular.mock.mockect(_AvSplunkAnalytics_ => {
+    angular.mock.inject(_AvSplunkAnalytics_ => {
       AvSplunkAnalytics = _AvSplunkAnalytics_;
     });
   });

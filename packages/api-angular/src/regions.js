@@ -17,4 +17,4 @@ AvRegionsResourceFactory.$inject = [
   'AvUsersResource',
   'AvApiOptions',
 ];
-export default { AvRegionsResourceFactory };
+export default AvRegionsResourceFactory;

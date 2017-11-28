@@ -7,7 +7,7 @@ describe('AvAuthorizations', () => {
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    angular.mock(_AvAuthorizations_ => {
+    angular.mock.inject(_AvAuthorizations_ => {
       AvAuthorizations = _AvAuthorizations_;
     });
   });

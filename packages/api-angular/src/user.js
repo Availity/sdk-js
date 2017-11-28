@@ -12,4 +12,4 @@ function AvUsersResourceFactory($http, $q, AvApiOptions) {
   return new AvUsersResource();
 }
 AvUsersResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
-export default { AvUsersResourceFactory };
+export default AvUsersResourceFactory;

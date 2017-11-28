@@ -1,4 +1,4 @@
-import angular, { inject } from 'angular';
+import angular from 'angular';
 
 import 'angular-mocks';
 import AvApiModule from '../';
@@ -11,7 +11,7 @@ describe('AvApiResource', () => {
 
   beforeEach(() => {
     angular.mock.module(AvApiModule);
-    inject((_$httpBackend_, _AvApiResource_) => {
+    angular.mock.inject((_$httpBackend_, _AvApiResource_) => {
       $httpBackend = _$httpBackend_;
       AvApiResource = _AvApiResource_;
     });

@@ -7,7 +7,7 @@ describe('AvLocalStorage', () => {
 
   beforeEach(() => {
     angular.mock.module(AvModule);
-    inject(_AvLocalStorage_ => {
+    angular.mock.inject(_AvLocalStorage_ => {
       AvLocalStorage = _AvLocalStorage_;
     });
   });
