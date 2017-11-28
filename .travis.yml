@@ -1,0 +1,18 @@
+git:
+  depth: 1
+sudo: false
+language: node_js
+node_js:
+  - 8
+matrix:
+  fast_finish: true
+cache:
+  directories:
+    - node_modules
+install: true
+env:
+  global:
+    - USE_YARN=no
+script:
+  - npm run lint
+  - npm test
