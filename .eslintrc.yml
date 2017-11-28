@@ -1,17 +1,16 @@
----
-extends: eslint-config-availity/browser
+extends: availity/browser
 env:
   jest: true
 rules:
   import/no-extraneous-dependencies:
     - error
     - devDependencies:
-        - "**/**/tests/*test.js"
+        - '**/**/tests/*test.js'
   promise/always-return:
-    - "**/**/**/tests/test.js"
+    - '**/**/**/tests/test.js'
   promise/catch-or-return:
-    - "**/**/**/tests/test.js"
+    - '**/**/**/tests/test.js'
   promise/no-callback-in-promise:
-    - "**/**/**/tests/test.js"
+    - '**/**/**/tests/test.js'
   function-paren-newline: 0
   object-curly-newline: 0

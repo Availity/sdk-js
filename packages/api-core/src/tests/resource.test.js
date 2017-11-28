@@ -1,7 +1,6 @@
 import AvLocalStorage from '@availity/localstorage-core';
 
 import { AvApi } from '../index';
-import { API_OPTIONS } from '../defaultOptions';
 
 jest.useFakeTimers();
 
@@ -47,16 +46,6 @@ describe('AvApi', () => {
     expect(() => {
       TestAvApi = new AvApi(false, false, {});
     }).toThrowError('[http], [config] and [promise] must be defined');
-  });
-
-  test('AvApi.defaultConfig should merge the default options with passed in config', () => {
-    TestAvApi = new AvApi(mockHttp, Promise, {});
-    expect(TestAvApi.defaultConfig).toEqual(API_OPTIONS);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, API_OPTIONS, testConfig);
-    TestAvApi = new AvApi(mockHttp, Promise, testConfig);
-    expect(TestAvApi.defaultConfig).toEqual(testExpect);
   });
 
   test('config() should merge passed in config with defaultConfig', () => {

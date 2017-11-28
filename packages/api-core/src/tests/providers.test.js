@@ -1,10 +1,5 @@
 import { AvProviders } from '../index';
 
-const defaultOptions = Object.assign({}, API_OPTIONS, {
-  path: 'api/internal',
-  name: 'providers',
-});
-
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvProviders', () => {
@@ -18,16 +13,6 @@ describe('AvProviders', () => {
   test('AvProviders should handle no config passed in', () => {
     TestApi = new AvProviders(mockHttp, Promise);
     expect(TestApi).toBeDefined();
-  });
-
-  test('AvProviders should merge its config with passed in config', () => {
-    TestApi = new AvProviders(mockHttp, Promise, {});
-    expect(TestApi.defaultConfig).toEqual(defaultOptions);
-
-    const testConfig = { name: 'testName' };
-    const testExpect = Object.assign({}, defaultOptions, testConfig);
-    TestApi = new AvProviders(mockHttp, Promise, testConfig);
-    expect(TestApi.defaultConfig).toEqual(testExpect);
   });
 
   test('afterQuery should return response.data.providers if it exists or an empty array', () => {

@@ -8,7 +8,7 @@ export default class AvExceptions {
 
     this.log = log;
     this.isEnabled = true;
-    this.thisAppId;
+    this.thisAppId = undefined;
     this.REPEAT_LIMIT = 5 * 1000; // 5 seconds
     this.errorMessageHistory = {};
 

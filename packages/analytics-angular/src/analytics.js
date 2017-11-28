@@ -48,7 +48,7 @@ export default class AvAnalyticsProvider {
         });
         super(plugins, $q, self.virtualPageTracking);
 
-        this.pageListener;
+        this.pageListener = undefined;
       }
 
       startPageTracking() {

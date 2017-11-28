@@ -1,5 +1,3 @@
-/* global jest, describe, beforeEach, test, expect */
-
 import { AvAuthorizations } from '../';
 
 expect.extend({
