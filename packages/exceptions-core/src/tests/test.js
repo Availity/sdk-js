@@ -299,13 +299,14 @@ describe('AvExceptions', () => {
   });
 
   test('getDateFormat should returned formatted date', () => {
-    const DATE_TO_USE = new Date('2016');
+    const dateFormat = /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d-\d\d\d\d$/;
+    const DATE_TO_USE = new Date();
     const Now = Date;
     global.Date = jest.fn(() => DATE_TO_USE);
     global.Date.UTC = Now.UTC;
     global.Date.parse = Now.parse;
     global.Date.now = Now.now;
     mockExceptions = new AvExceptions(mockLog);
-    expect(mockExceptions.getDateFormat()).toBe('2015-12-31T19:00:00-0500');
+    expect(dateFormat.test(mockExceptions.getDateFormat())).toBe(true);
   });
 });
