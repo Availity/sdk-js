@@ -299,7 +299,7 @@ describe('AvExceptions', () => {
   });
 
   test('getDateFormat should returned formatted date', () => {
-    const dateFormat = /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d-\d\d\d\d$/;
+    const dateFormat = /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d(-|\+)\d\d\d\d$/;
     const DATE_TO_USE = new Date();
     const Now = Date;
     global.Date = jest.fn(() => DATE_TO_USE);
