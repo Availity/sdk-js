@@ -7,44 +7,44 @@ jest.useFakeTimers();
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvApi', () => {
-  let TestAvApi;
+  let api;
 
   test('AvApi should be defined', () => {
-    TestAvApi = new AvApi(mockHttp, {}, Promise);
-    expect(TestAvApi).toBeDefined();
+    api = new AvApi(mockHttp, {}, Promise);
+    expect(api).toBeDefined();
   });
 
   test('AvApi should throw errors when missing paramaters', () => {
     expect(() => {
-      TestAvApi = new AvApi();
+      api = new AvApi();
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(false, false, false);
+      api = new AvApi(false, false, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(false, Promise, {});
+      api = new AvApi(false, Promise, {});
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, false);
+      api = new AvApi(mockHttp, Promise, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(mockHttp, false, Promise);
+      api = new AvApi(mockHttp, false, Promise);
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(false, Promise, false);
+      api = new AvApi(false, Promise, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(mockHttp, false, false);
+      api = new AvApi(mockHttp, false, false);
     }).toThrowError('[http], [config] and [promise] must be defined');
 
     expect(() => {
-      TestAvApi = new AvApi(false, false, {});
+      api = new AvApi(false, false, {});
     }).toThrowError('[http], [config] and [promise] must be defined');
   });
 
@@ -52,43 +52,37 @@ describe('AvApi', () => {
     const mockConfig = {
       name: 'testName',
     };
-    TestAvApi = new AvApi(mockHttp, Promise, mockConfig);
+    api = new AvApi(mockHttp, Promise, mockConfig);
     const testConfig = { path: '/api/internal' };
-    const testExpectConfig = Object.assign(
-      {},
-      TestAvApi.defaultConfig,
-      testConfig
-    );
-    expect(TestAvApi.config(testConfig)).toEqual(testExpectConfig);
+    const testExpectConfig = Object.assign({}, api.defaultConfig, testConfig);
+    expect(api.config(testConfig)).toEqual(testExpectConfig);
   });
 
   describe('getCacheBustVal', () => {
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, {});
     });
 
     test('should return undefined with cache value is falsy', () => {
       const testCache = false;
-      expect(TestAvApi.getCacheBustVal(testCache)).toBeUndefined();
+      expect(api.getCacheBustVal(testCache)).toBeUndefined();
     });
 
     test('should return passed in value when not boolean or function', () => {
       const testCache = 'test';
-      expect(TestAvApi.getCacheBustVal(testCache)).toBe(testCache);
+      expect(api.getCacheBustVal(testCache)).toBe(testCache);
     });
 
     test('should return passed in value when true without default function', () => {
       const testCache = true;
-      expect(TestAvApi.getCacheBustVal(testCache)).toBe(testCache);
+      expect(api.getCacheBustVal(testCache)).toBe(testCache);
     });
 
     test('should call and return default function when passed in value true', () => {
       const testCache = true;
       const testResponse = 'test';
       const defaultFn = jest.fn(() => testResponse);
-      expect(TestAvApi.getCacheBustVal(testCache, defaultFn)).toBe(
-        testResponse
-      );
+      expect(api.getCacheBustVal(testCache, defaultFn)).toBe(testResponse);
       expect(defaultFn).toBeCalled();
     });
 
@@ -96,55 +90,53 @@ describe('AvApi', () => {
       const testResponse = 'test';
       const testCache = jest.fn(() => testResponse);
       const defaultFn = jest.fn(() => `${testResponse}2`);
-      expect(TestAvApi.getCacheBustVal(testCache, defaultFn)).toBe(
-        testResponse
-      );
+      expect(api.getCacheBustVal(testCache, defaultFn)).toBe(testResponse);
       expect(testCache).toBeCalled();
       expect(defaultFn).not.toBeCalled();
     });
   });
 
   test('setPageBust should set to passed in value', () => {
-    TestAvApi = new AvApi(mockHttp, Promise, {});
+    api = new AvApi(mockHttp, Promise, {});
     const test = 'test';
-    TestAvApi.setPageBust(test);
-    expect(TestAvApi.pageBustValue).toBe(test);
+    api.setPageBust(test);
+    expect(api.pageBustValue).toBe(test);
   });
 
-  test('setPageBust should set to Date.now() when no passed in value', () => {
-    TestAvApi = new AvApi(mockHttp, Promise, {});
+  test('setPageBust() should use Date.now()', () => {
+    api = new AvApi(mockHttp, Promise, {});
     const test = 'test';
     Date.now = jest.fn(() => test);
-    TestAvApi.setPageBust();
-    expect(TestAvApi.pageBustValue).toBe(test);
+    api.setPageBust();
+    expect(api.pageBustValue).toBe(test);
     expect(Date.now).toBeCalled();
   });
 
-  test('getPageBust should return pageBustValue if set', () => {
-    TestAvApi = new AvApi(mockHttp, Promise, {});
+  test('getPageBust() should return pageBustValue() if set', () => {
+    api = new AvApi(mockHttp, Promise, {});
     const test = 'test';
-    TestAvApi.pageBustValue = test;
-    expect(TestAvApi.getPageBust()).toBe(test);
+    api.pageBustValue = test;
+    expect(api.getPageBust()).toBe(test);
   });
 
-  test('getPageBust should set pageBustValue if not set yet', () => {
-    TestAvApi = new AvApi(mockHttp, Promise, {});
+  test('getPageBust() should set pageBustValue() if not set yet', () => {
+    api = new AvApi(mockHttp, Promise, {});
     const test = 'test';
-    TestAvApi.setPageBust = jest.fn(() => {
-      TestAvApi.pageBustValue = test;
+    api.setPageBust = jest.fn(() => {
+      api.pageBustValue = test;
     });
-    expect(TestAvApi.getPageBust()).toBe(test);
-    expect(TestAvApi.setPageBust).toBeCalled();
+    expect(api.getPageBust()).toBe(test);
+    expect(api.setPageBust).toBeCalled();
   });
 
   describe('cacheParams', () => {
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, {});
     });
 
     test('should make sure params object exists', () => {
       const testConfig = {};
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params).toBeDefined();
     });
 
@@ -153,7 +145,7 @@ describe('AvApi', () => {
       const testConfig = {
         cacheBust: testBust,
       };
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params.cacheBust).toBe(testBust);
     });
 
@@ -164,7 +156,7 @@ describe('AvApi', () => {
         cacheBust: testBust,
       };
       Date.now = jest.fn(() => testValue);
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params.cacheBust).toBe(testValue);
       expect(Date.now).toHaveBeenCalled();
     });
@@ -174,7 +166,7 @@ describe('AvApi', () => {
       const testConfig = {
         pageBust: testBust,
       };
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params.pageBust).toBe(testBust);
     });
 
@@ -184,10 +176,10 @@ describe('AvApi', () => {
       const testConfig = {
         pageBust: testBust,
       };
-      TestAvApi.getPageBust = jest.fn(() => testValue);
-      TestAvApi.cacheParams(testConfig);
+      api.getPageBust = jest.fn(() => testValue);
+      api.cacheParams(testConfig);
       expect(testConfig.params.pageBust).toBe(testValue);
-      expect(TestAvApi.getPageBust).toHaveBeenCalled();
+      expect(api.getPageBust).toHaveBeenCalled();
     });
 
     test('should set sessionBust if sessionBust in config', () => {
@@ -195,7 +187,7 @@ describe('AvApi', () => {
       const testConfig = {
         sessionBust: testBust,
       };
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(testBust);
     });
 
@@ -205,7 +197,7 @@ describe('AvApi', () => {
       const testConfig = {
         sessionBust: true,
       };
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(localStorageVal);
       expect(AvLocalStorage.getSessionBust).toBeCalled();
     });
@@ -213,11 +205,11 @@ describe('AvApi', () => {
     test("sessionBust defaultFn should use pageBust value when  localStorage's sessionBust is not available", () => {
       AvLocalStorage.getSessionBust = jest.fn(() => {});
       const testPageBust = 'testPage';
-      TestAvApi.pageBustValue = testPageBust;
+      api.pageBustValue = testPageBust;
       const testConfig = {
         sessionBust: true,
       };
-      TestAvApi.cacheParams(testConfig);
+      api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(testPageBust);
       expect(AvLocalStorage.getSessionBust).toBeCalled();
     });
@@ -225,7 +217,7 @@ describe('AvApi', () => {
 
   describe('getUrl', () => {
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, {});
     });
 
     test('should return config.url if config.api is false', () => {
@@ -234,7 +226,7 @@ describe('AvApi', () => {
         api: false,
         url: testUrl,
       };
-      expect(TestAvApi.getUrl(testConfig)).toBe(testUrl);
+      expect(api.getUrl(testConfig)).toBe(testUrl);
     });
 
     test('should return config.url if no config.name or id', () => {
@@ -243,7 +235,7 @@ describe('AvApi', () => {
         api: true,
         url: testUrl,
       };
-      expect(TestAvApi.getUrl(testConfig)).toBe(testUrl);
+      expect(api.getUrl(testConfig)).toBe(testUrl);
     });
 
     test('should return joined config.url and id if no config.name', () => {
@@ -254,7 +246,7 @@ describe('AvApi', () => {
         api: true,
         url: testUrl,
       };
-      expect(TestAvApi.getUrl(testConfig, testId)).toBe(testExpected);
+      expect(api.getUrl(testConfig, testId)).toBe(testExpected);
     });
 
     test('should return joined path, version, name when name provided', () => {
@@ -265,7 +257,7 @@ describe('AvApi', () => {
         name: 'test',
       };
       const testExpected = '/api/v1/test';
-      expect(TestAvApi.getUrl(testConfig)).toBe(testExpected);
+      expect(api.getUrl(testConfig)).toBe(testExpected);
     });
 
     test('should return joined path, version, name, and id when name provided', () => {
@@ -277,7 +269,7 @@ describe('AvApi', () => {
       };
       const testId = 'id';
       const testExpected = '/api/v1/test/id';
-      expect(TestAvApi.getUrl(testConfig, testId)).toBe(testExpected);
+      expect(api.getUrl(testConfig, testId)).toBe(testExpected);
     });
 
     test("should remove multiple and trailing /'s", () => {
@@ -288,13 +280,13 @@ describe('AvApi', () => {
         name: '/test/',
       };
       const testExpected = '/api/v1/test';
-      expect(TestAvApi.getUrl(testConfig)).toBe(testExpected);
+      expect(api.getUrl(testConfig)).toBe(testExpected);
     });
   });
 
   describe('getLocation', () => {
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, {});
     });
 
     test('should return false when polling is turned off', () => {
@@ -303,7 +295,7 @@ describe('AvApi', () => {
           polling: false,
         },
       };
-      expect(TestAvApi.getLocation(testResponse)).toBeFalsy();
+      expect(api.getLocation(testResponse)).toBeFalsy();
     });
 
     test('should return false when status is not 202', () => {
@@ -313,7 +305,7 @@ describe('AvApi', () => {
         },
         status: 200,
       };
-      expect(TestAvApi.getLocation(testResponse)).toBeFalsy();
+      expect(api.getLocation(testResponse)).toBeFalsy();
     });
 
     test('should return false when attempt is larger than polling intervals', () => {
@@ -325,7 +317,7 @@ describe('AvApi', () => {
         },
         status: 202,
       };
-      expect(TestAvApi.getLocation(testResponse)).toBeFalsy();
+      expect(api.getLocation(testResponse)).toBeFalsy();
     });
 
     test('should call config.getHeader() when polling is available', () => {
@@ -340,7 +332,7 @@ describe('AvApi', () => {
         },
         status: 202,
       };
-      expect(TestAvApi.getLocation(testResponse)).toBe(testLocation);
+      expect(api.getLocation(testResponse)).toBe(testLocation);
       expect(getHeader).toHaveBeenCalledTimes(1);
       expect(getHeader).toHaveBeenCalledWith(testResponse, 'Location');
     });
@@ -358,7 +350,7 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(TestAvApi.getLocation(testResponse)).toBe(testLocation);
+      expect(api.getLocation(testResponse)).toBe(testLocation);
     });
   });
 
@@ -380,19 +372,19 @@ describe('AvApi', () => {
     };
 
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
-      TestAvApi.getLocation = jest.fn(() => testLocation);
-      TestAvApi.request = jest.fn();
-      TestAvApi.config = jest.fn(() => testNewConfig);
+      api = new AvApi(mockHttp, Promise, {});
+      api.getLocation = jest.fn(() => testLocation);
+      api.request = jest.fn();
+      api.config = jest.fn(() => testNewConfig);
     });
 
     test('should return response if no polling or afterResponse', () => {
       const testResponse = {
         testKey: 'test',
       };
-      TestAvApi.getLocation.mockImplementationOnce(() => false);
-      expect(TestAvApi.onResponse(testResponse)).toEqual(testResponse);
-      expect(TestAvApi.request).not.toBeCalled();
+      api.getLocation.mockImplementationOnce(() => false);
+      expect(api.onResponse(testResponse)).toEqual(testResponse);
+      expect(api.request).not.toBeCalled();
     });
 
     test('should return result of afterResponse if no polling', () => {
@@ -402,12 +394,12 @@ describe('AvApi', () => {
       const testResponse2 = {
         otherKey: 'test2',
       };
-      TestAvApi.getLocation.mockImplementationOnce(() => false);
+      api.getLocation.mockImplementationOnce(() => false);
       const afterResponse = jest.fn(() => testResponse2);
-      expect(TestAvApi.onResponse(testResponse, afterResponse)).toEqual(
+      expect(api.onResponse(testResponse, afterResponse)).toEqual(
         testResponse2
       );
-      expect(TestAvApi.request).not.toBeCalled();
+      expect(api.request).not.toBeCalled();
       expect(afterResponse).toBeCalledWith(testResponse);
     });
 
@@ -417,18 +409,17 @@ describe('AvApi', () => {
         testVal: 'test',
       };
 
-      const output = TestAvApi.onResponse(
-        { config: mockConfig },
-        mockAfterResponse
-      ).then(() => {
-        expect(TestAvApi.config).toHaveBeenCalledWith(mockConfig);
-        expect(setTimeout).toHaveBeenCalledTimes(1);
-        expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
-        expect(TestAvApi.request).toHaveBeenCalledWith(
-          expectedNewConfig,
-          mockAfterResponse
-        );
-      });
+      const output = api
+        .onResponse({ config: mockConfig }, mockAfterResponse)
+        .then(() => {
+          expect(api.config).toHaveBeenCalledWith(mockConfig);
+          expect(setTimeout).toHaveBeenCalledTimes(1);
+          expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
+          expect(api.request).toHaveBeenCalledWith(
+            expectedNewConfig,
+            mockAfterResponse
+          );
+        });
       jest.runAllTimers();
       return output;
     });
@@ -438,15 +429,15 @@ describe('AvApi', () => {
     const mockFinalResponse = 'finalResponse';
 
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
-      TestAvApi.onResponse = jest.fn(() => mockFinalResponse);
+      api = new AvApi(mockHttp, Promise, {});
+      api.onResponse = jest.fn(() => mockFinalResponse);
     });
 
     test('should call http', () => {
       const mockConfig = {
         testVal: 'test',
       };
-      return TestAvApi.request(mockConfig).then(response => {
+      return api.request(mockConfig).then(response => {
         expect(response).toEqual(mockFinalResponse);
         expect(mockHttp).toHaveBeenCalledWith(mockConfig);
       });
@@ -456,14 +447,14 @@ describe('AvApi', () => {
     //   mockHttp.mockImplementationOnce(() =>
     //     Promise.reject(new Error('errResponse'))
     //   );
-    //   return TestAvApi.request({}).then(response => {
+    //   return api.request({}).then(response => {
     //     expect(response).toBe('errResponse');
     //   });
     // });
 
     test('should catch error in http, returning undefined if no error.response', () => {
       mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
-      return TestAvApi.request({}).then(response => {
+      return api.request({}).then(response => {
         expect(response).toBeUndefined();
       });
     });
@@ -476,7 +467,7 @@ describe('AvApi', () => {
         polling: true,
         attempt: 0,
       };
-      return TestAvApi.request(mockConfig).then(response => {
+      return api.request(mockConfig).then(response => {
         expect(mockHttp).toHaveBeenCalledWith(expectedConfig);
         expect(response).toEqual(mockFinalResponse);
       });
@@ -486,11 +477,11 @@ describe('AvApi', () => {
   describe('request builders', () => {
     const testUrl = 'url';
     beforeEach(() => {
-      TestAvApi = new AvApi(mockHttp, Promise, {});
-      TestAvApi.request = jest.fn();
-      TestAvApi.cacheParams = jest.fn();
-      TestAvApi.config = jest.fn(config => Object.assign({}, config));
-      TestAvApi.getUrl = jest.fn(() => testUrl);
+      api = new AvApi(mockHttp, Promise, {});
+      api.request = jest.fn();
+      api.cacheParams = jest.fn();
+      api.config = jest.fn(config => Object.assign({}, config));
+      api.getUrl = jest.fn(() => testUrl);
     });
 
     test('create() setting method data and url', () => {
@@ -508,12 +499,9 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.create(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.create(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('create() passes data through beforeCreate() if defined', () => {
@@ -531,14 +519,11 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeCreate = jest.fn(thisData => thisData);
-      TestAvApi.create(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
-      expect(TestAvApi.beforeCreate).toHaveBeenLastCalledWith(data);
+      api.beforeCreate = jest.fn(thisData => thisData);
+      api.create(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
     });
 
     test('create() throws error without data', () => {
@@ -547,7 +532,7 @@ describe('AvApi', () => {
       };
       const data = false;
       expect(() => {
-        TestAvApi.create(data, config);
+        api.create(data, config);
       }).toThrow('called method without [data]');
     });
 
@@ -569,12 +554,9 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.postGet(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.postGet(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('postGet() passes data through beforeCreate() if defined', () => {
@@ -595,14 +577,11 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforePostGet = jest.fn(thisData => thisData);
-      TestAvApi.postGet(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
-      expect(TestAvApi.beforePostGet).toHaveBeenLastCalledWith(data);
+      api.beforePostGet = jest.fn(thisData => thisData);
+      api.postGet(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.beforePostGet).toHaveBeenLastCalledWith(data);
     });
 
     test('postGet() throws error without data', () => {
@@ -611,7 +590,7 @@ describe('AvApi', () => {
       };
       const data = false;
       expect(() => {
-        TestAvApi.postGet(data, config);
+        api.postGet(data, config);
       }).toThrow('called method without [data]');
     });
 
@@ -627,13 +606,10 @@ describe('AvApi', () => {
         },
         config
       );
-      TestAvApi.get(id, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.get(id, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
+      expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('get() throws error without id', () => {
@@ -642,7 +618,7 @@ describe('AvApi', () => {
       };
       const id = false;
       expect(() => {
-        TestAvApi.get(id, config);
+        api.get(id, config);
       }).toThrow('called method without [id]');
     });
 
@@ -657,13 +633,10 @@ describe('AvApi', () => {
         },
         config
       );
-      TestAvApi.query(config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.query(config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('update() setting method data and url', () => {
@@ -682,15 +655,12 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.update(id, data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.update(id, data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
-    test('update() passes data through beforeUpdate() if defined', () => {
+    test('update() calls beforeUpdate() if defined', () => {
       const config = {
         testValue: 'test',
       };
@@ -706,13 +676,10 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeUpdate = jest.fn(thisData => thisData);
-      TestAvApi.update(id, data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.beforeUpdate = jest.fn(thisData => thisData);
+      api.update(id, data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('update() should use only two arguments as data and config', () => {
@@ -730,13 +697,10 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeUpdate = jest.fn(thisData => thisData);
-      TestAvApi.update(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.beforeUpdate = jest.fn(thisData => thisData);
+      api.update(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('remove() setting method and url', () => {
@@ -751,12 +715,9 @@ describe('AvApi', () => {
         },
         config
       );
-      TestAvApi.remove(id, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.remove(id, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('remove() should set first argument as data if not string or number', () => {
@@ -774,12 +735,9 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.remove(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
+      api.remove(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
     test('remove() should run data through beforeRemove if defined', () => {
@@ -797,14 +755,11 @@ describe('AvApi', () => {
         config,
         { data }
       );
-      TestAvApi.beforeRemove = jest.fn(thisData => thisData);
-      TestAvApi.remove(data, config);
-      expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(TestAvApi.request).toHaveBeenLastCalledWith(
-        expectedConfig,
-        undefined
-      );
-      expect(TestAvApi.beforeRemove).toHaveBeenLastCalledWith(data);
+      api.beforeRemove = jest.fn(thisData => thisData);
+      api.remove(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.beforeRemove).toHaveBeenLastCalledWith(data);
     });
   });
 });

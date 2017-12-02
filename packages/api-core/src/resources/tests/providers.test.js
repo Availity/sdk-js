@@ -3,20 +3,20 @@ import AvProviders from '../providers';
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvProviders', () => {
-  let TestApi;
+  let api;
 
   test('AvProviders should be defined', () => {
-    TestApi = new AvProviders(mockHttp, Promise, {});
-    expect(TestApi).toBeDefined();
+    api = new AvProviders(mockHttp, Promise, {});
+    expect(api).toBeDefined();
   });
 
   test('AvProviders should handle no config passed in', () => {
-    TestApi = new AvProviders(mockHttp, Promise);
-    expect(TestApi).toBeDefined();
+    api = new AvProviders(mockHttp, Promise);
+    expect(api).toBeDefined();
   });
 
   test('afterQuery should return response.data.providers if it exists or an empty array', () => {
-    TestApi = new AvProviders(mockHttp, Promise);
+    api = new AvProviders(mockHttp, Promise);
     const testResponse1 = {};
     const providers = ['testProvider'];
     const testResponse2 = {
@@ -24,13 +24,13 @@ describe('AvProviders', () => {
         providers,
       },
     };
-    expect(TestApi.afterQuery(testResponse1)).toEqual([]);
-    expect(TestApi.afterQuery(testResponse2)).toEqual(providers);
+    expect(api.afterQuery(testResponse1)).toEqual([]);
+    expect(api.afterQuery(testResponse2)).toEqual(providers);
   });
 
   test('getProviders should query with customerId param added', () => {
-    TestApi = new AvProviders(mockHttp, Promise);
-    TestApi.query = jest.fn();
+    api = new AvProviders(mockHttp, Promise);
+    api.query = jest.fn();
 
     const customerId = 'testCustomerId';
     const testConfig = { name: 'testName' };
@@ -40,7 +40,7 @@ describe('AvProviders', () => {
       testConfig
     );
 
-    TestApi.getProviders(customerId, testConfig);
-    expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
+    api.getProviders(customerId, testConfig);
+    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 });

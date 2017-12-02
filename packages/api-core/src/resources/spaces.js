@@ -34,9 +34,6 @@ export default class AvSpaces extends AvApi {
       params: {
         id: spaceId,
       },
-      onAfterQuery(data) {
-        return data.name;
-      },
-    });
+    }).then(response => response.data.name);
   }
 }

@@ -10,20 +10,20 @@ const mockAvUsers = {
 };
 
 describe('AvRegions', () => {
-  let TestApi;
+  let api;
 
-  test('AvRegions should be defined', () => {
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers, {});
-    expect(TestApi).toBeDefined();
+  test('should be defined', () => {
+    api = new AvRegions(mockHttp, Promise, mockAvUsers, {});
+    expect(api).toBeDefined();
   });
 
-  test('AvRegions should handle no config passed in', () => {
-    TestApi = new AvRegions(mockHttp, Promise);
-    expect(TestApi).toBeDefined();
+  test('should handle no config passed in', () => {
+    api = new AvRegions(mockHttp, Promise);
+    expect(api).toBeDefined();
   });
 
   test('afterGet should return response.data.regions if it exists or an empty array', () => {
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api = new AvRegions(mockHttp, Promise, mockAvUsers);
     const testResponse1 = {};
     const regions = ['testOrg'];
     const testResponse2 = {
@@ -31,13 +31,13 @@ describe('AvRegions', () => {
         regions,
       },
     };
-    expect(TestApi.afterGet(testResponse1)).toEqual([]);
-    expect(TestApi.afterGet(testResponse2)).toEqual(regions);
+    expect(api.afterGet(testResponse1)).toEqual([]);
+    expect(api.afterGet(testResponse2)).toEqual(regions);
   });
 
   test('afterUpdate should call setPageBust and return response', () => {
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers);
-    TestApi.setPageBust = jest.fn();
+    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api.setPageBust = jest.fn();
     const testResponse1 = {};
     const regions = ['testRegion'];
     const testResponse2 = {
@@ -45,14 +45,14 @@ describe('AvRegions', () => {
         regions,
       },
     };
-    expect(TestApi.afterUpdate(testResponse1)).toEqual(testResponse1);
-    expect(TestApi.afterUpdate(testResponse2)).toEqual(testResponse2);
-    expect(TestApi.setPageBust).toHaveBeenCalledTimes(2);
+    expect(api.afterUpdate(testResponse1)).toEqual(testResponse1);
+    expect(api.afterUpdate(testResponse2)).toEqual(testResponse2);
+    expect(api.setPageBust).toHaveBeenCalledTimes(2);
   });
 
   test('getRegions should call AvUsers.me() and then query with result', () => {
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers);
-    TestApi.query = jest.fn();
+    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api.query = jest.fn();
 
     const testConfig = { name: 'testName' };
     const expectedConfig = Object.assign(
@@ -61,20 +61,20 @@ describe('AvRegions', () => {
       testConfig
     );
 
-    return TestApi.getRegions(testConfig).then(() => {
-      expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
+    return api.getRegions(testConfig).then(() => {
+      expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
     });
   });
 
   test('getCurrent region should query with param currentlySelected: true', () => {
-    TestApi = new AvRegions(mockHttp, Promise, mockAvUsers);
-    TestApi.query = jest.fn();
+    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api.query = jest.fn();
     const expectedConfig = {
       params: {
         currentlySelected: true,
       },
     };
-    TestApi.getCurrentRegion();
-    expect(TestApi.query).toHaveBeenLastCalledWith(expectedConfig);
+    api.getCurrentRegion();
+    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 });

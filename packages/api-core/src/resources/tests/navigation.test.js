@@ -3,15 +3,15 @@ import AvNavigation from '../navigation';
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
 describe('AvNavigation', () => {
-  let TestApi;
+  let api;
 
-  test('AvNavigation should be defined', () => {
-    TestApi = new AvNavigation(mockHttp, Promise, {});
-    expect(TestApi).toBeDefined();
+  test('should be defined', () => {
+    api = new AvNavigation(mockHttp, Promise, {});
+    expect(api).toBeDefined();
   });
 
-  test('AvNavigation should handle no config passed in', () => {
-    TestApi = new AvNavigation(mockHttp, Promise);
-    expect(TestApi).toBeDefined();
+  test('should handle no config passed in', () => {
+    api = new AvNavigation(mockHttp, Promise);
+    expect(api).toBeDefined();
   });
 });

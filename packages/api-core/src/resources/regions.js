@@ -14,15 +14,18 @@ export default class AvRegions extends AvApi {
     super(http, promise, thisConfig);
     this.AvUsers = AvUsers;
   }
+
   afterGet(response) {
     return response && response.data && response.data.regions
       ? response.data.regions
       : [];
   }
+
   afterUpdate(response) {
     this.setPageBust();
     return response;
   }
+
   getRegions(config) {
     return this.AvUsers.me().then(user => {
       config.params = config.params || {};
@@ -30,6 +33,7 @@ export default class AvRegions extends AvApi {
       return this.query(config);
     });
   }
+
   getCurrentRegion() {
     return this.query({
       params: {
