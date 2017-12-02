@@ -11,5 +11,4 @@ function AvNavigationResourceFactory($http, $q, AvApiOptions) {
   }
   return new AvNavigationResource();
 }
-AvNavigationResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
 export default AvNavigationResourceFactory;

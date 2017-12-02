@@ -16,10 +16,4 @@ function AvOrganizationsResourceFactory(
   }
   return new AvOrganizationsResource();
 }
-AvOrganizationsResourceFactory.$inject = [
-  '$http',
-  '$q',
-  'AvUsersResource',
-  'AvApiOptions',
-];
 export default AvOrganizationsResourceFactory;

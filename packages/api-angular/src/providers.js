@@ -11,5 +11,4 @@ function AvProvidersResourceFactory($http, $q, AvApiOptions) {
   }
   return new AvProvidersResource();
 }
-AvProvidersResourceFactory.$inject = ['$http', '$q', 'AvApiOptions'];
 export default AvProvidersResourceFactory;

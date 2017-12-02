@@ -382,7 +382,7 @@ describe('AvApi', () => {
     beforeEach(() => {
       TestAvApi = new AvApi(mockHttp, Promise, {});
       TestAvApi.getLocation = jest.fn(() => testLocation);
-      TestAvApi.makeRequest = jest.fn();
+      TestAvApi.request = jest.fn();
       TestAvApi.config = jest.fn(() => testNewConfig);
     });
 
@@ -392,7 +392,7 @@ describe('AvApi', () => {
       };
       TestAvApi.getLocation.mockImplementationOnce(() => false);
       expect(TestAvApi.onResponse(testResponse)).toEqual(testResponse);
-      expect(TestAvApi.makeRequest).not.toBeCalled();
+      expect(TestAvApi.request).not.toBeCalled();
     });
 
     test('should return result of afterResponse if no polling', () => {
@@ -407,11 +407,11 @@ describe('AvApi', () => {
       expect(TestAvApi.onResponse(testResponse, afterResponse)).toEqual(
         testResponse2
       );
-      expect(TestAvApi.makeRequest).not.toBeCalled();
+      expect(TestAvApi.request).not.toBeCalled();
       expect(afterResponse).toBeCalledWith(testResponse);
     });
 
-    test('should makeRequest when polling', () => {
+    test('should request when polling', () => {
       const mockAfterResponse = 'after';
       const mockConfig = {
         testVal: 'test',
@@ -424,7 +424,7 @@ describe('AvApi', () => {
         expect(TestAvApi.config).toHaveBeenCalledWith(mockConfig);
         expect(setTimeout).toHaveBeenCalledTimes(1);
         expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
-        expect(TestAvApi.makeRequest).toHaveBeenCalledWith(
+        expect(TestAvApi.request).toHaveBeenCalledWith(
           expectedNewConfig,
           mockAfterResponse
         );
@@ -434,7 +434,7 @@ describe('AvApi', () => {
     });
   });
 
-  describe('makeRequest', () => {
+  describe('request', () => {
     const mockFinalResponse = 'finalResponse';
 
     beforeEach(() => {
@@ -446,7 +446,7 @@ describe('AvApi', () => {
       const mockConfig = {
         testVal: 'test',
       };
-      return TestAvApi.makeRequest(mockConfig).then(response => {
+      return TestAvApi.request(mockConfig).then(response => {
         expect(response).toEqual(mockFinalResponse);
         expect(mockHttp).toHaveBeenCalledWith(mockConfig);
       });
@@ -456,14 +456,14 @@ describe('AvApi', () => {
     //   mockHttp.mockImplementationOnce(() =>
     //     Promise.reject(new Error('errResponse'))
     //   );
-    //   return TestAvApi.makeRequest({}).then(response => {
+    //   return TestAvApi.request({}).then(response => {
     //     expect(response).toBe('errResponse');
     //   });
     // });
 
     test('should catch error in http, returning undefined if no error.response', () => {
       mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
-      return TestAvApi.makeRequest({}).then(response => {
+      return TestAvApi.request({}).then(response => {
         expect(response).toBeUndefined();
       });
     });
@@ -476,7 +476,7 @@ describe('AvApi', () => {
         polling: true,
         attempt: 0,
       };
-      return TestAvApi.makeRequest(mockConfig).then(response => {
+      return TestAvApi.request(mockConfig).then(response => {
         expect(mockHttp).toHaveBeenCalledWith(expectedConfig);
         expect(response).toEqual(mockFinalResponse);
       });
@@ -487,7 +487,7 @@ describe('AvApi', () => {
     const testUrl = 'url';
     beforeEach(() => {
       TestAvApi = new AvApi(mockHttp, Promise, {});
-      TestAvApi.makeRequest = jest.fn();
+      TestAvApi.request = jest.fn();
       TestAvApi.cacheParams = jest.fn();
       TestAvApi.config = jest.fn(config => Object.assign({}, config));
       TestAvApi.getUrl = jest.fn(() => testUrl);
@@ -510,7 +510,7 @@ describe('AvApi', () => {
       );
       TestAvApi.create(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -534,7 +534,7 @@ describe('AvApi', () => {
       TestAvApi.beforeCreate = jest.fn(thisData => thisData);
       TestAvApi.create(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -571,7 +571,7 @@ describe('AvApi', () => {
       );
       TestAvApi.postGet(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -598,7 +598,7 @@ describe('AvApi', () => {
       TestAvApi.beforePostGet = jest.fn(thisData => thisData);
       TestAvApi.postGet(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -630,7 +630,7 @@ describe('AvApi', () => {
       TestAvApi.get(id, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(TestAvApi.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -660,7 +660,7 @@ describe('AvApi', () => {
       TestAvApi.query(config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(TestAvApi.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -684,7 +684,7 @@ describe('AvApi', () => {
       );
       TestAvApi.update(id, data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -709,7 +709,7 @@ describe('AvApi', () => {
       TestAvApi.beforeUpdate = jest.fn(thisData => thisData);
       TestAvApi.update(id, data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -733,7 +733,7 @@ describe('AvApi', () => {
       TestAvApi.beforeUpdate = jest.fn(thisData => thisData);
       TestAvApi.update(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -753,7 +753,7 @@ describe('AvApi', () => {
       );
       TestAvApi.remove(id, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -776,7 +776,7 @@ describe('AvApi', () => {
       );
       TestAvApi.remove(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );
@@ -800,7 +800,7 @@ describe('AvApi', () => {
       TestAvApi.beforeRemove = jest.fn(thisData => thisData);
       TestAvApi.remove(data, config);
       expect(TestAvApi.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(TestAvApi.makeRequest).toHaveBeenLastCalledWith(
+      expect(TestAvApi.request).toHaveBeenLastCalledWith(
         expectedConfig,
         undefined
       );

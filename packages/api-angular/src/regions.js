@@ -11,10 +11,5 @@ function AvRegionsResourceFactory($http, $q, AvUsersResource, AvApiOptions) {
   }
   return new AvRegionsResource();
 }
-AvRegionsResourceFactory.$inject = [
-  '$http',
-  '$q',
-  'AvUsersResource',
-  'AvApiOptions',
-];
+
 export default AvRegionsResourceFactory;

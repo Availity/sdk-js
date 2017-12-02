@@ -20,16 +20,19 @@ export default class AvApi {
   // set the cache paramaters
   cacheParams(config) {
     config.params = config.params || {};
+
     if (config.cacheBust) {
       config.params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
         Date.now()
       );
     }
+
     if (config.pageBust) {
       config.params.pageBust = this.getCacheBustVal(config.pageBust, () =>
         this.getPageBust()
       );
     }
+
     if (config.sessionBust) {
       config.params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
@@ -43,12 +46,15 @@ export default class AvApi {
     if (!cacheBust) {
       return;
     }
+
     if (typeof cacheBust === 'boolean' && defaultFn) {
       return defaultFn();
     }
+
     if (typeof cacheBust === 'function') {
       return cacheBust();
     }
+
     return cacheBust;
   }
 
@@ -57,6 +63,7 @@ export default class AvApi {
     if (typeof this.pageBustValue === 'undefined') {
       this.setPageBust();
     }
+
     return this.pageBustValue;
   }
 
@@ -70,6 +77,7 @@ export default class AvApi {
     if (!config.api) {
       return config.url;
     }
+
     const { path, version, name, url } = config;
     let parts = [];
     if (name) {
@@ -77,6 +85,7 @@ export default class AvApi {
     } else {
       parts = [url, id];
     }
+
     // join parts, remove multiple /'s and trailing /
     return parts
       .join('/')
@@ -87,10 +96,12 @@ export default class AvApi {
   // return location if should poll otherwise false
   getLocation(response) {
     let location = false;
+
     const toPoll =
       response.config.polling &&
       response.status === 202 &&
       response.config.attempt < response.config.pollingIntervals.length;
+
     if (toPoll) {
       if (response.config.getHeader) {
         location = response.config.getHeader(response, 'Location');
@@ -104,6 +115,7 @@ export default class AvApi {
   // handle response with possible polling
   onResponse(response, afterResponse) {
     const location = this.getLocation(response);
+
     if (location) {
       const newConfig = this.config(response.config);
       newConfig.method = 'GET';
@@ -114,17 +126,19 @@ export default class AvApi {
           resolve,
           newConfig.pollingIntervals[newConfig.attempt] || 1000
         );
-      }).then(() => this.makeRequest(newConfig, afterResponse));
+      }).then(() => this.request(newConfig, afterResponse));
     }
+
     return afterResponse ? afterResponse(response) : response;
   }
 
   // make request to http
-  makeRequest(config, afterResponse) {
+  request(config, afterResponse) {
     if (config.polling) {
       config.attempt = config.attempt || -1;
       config.attempt += 1;
     }
+
     return this.http(config)
       .then(response => this.onResponse(response, afterResponse))
       .catch(error => {
@@ -145,10 +159,17 @@ export default class AvApi {
     config.method = 'POST';
     config.url = this.getUrl(config);
     config.data = data;
-    if (this.beforeCreate) {
-      config.data = this.beforeCreate(config.data);
+
+    const beforeFunc = this.beforeCreate || this.beforePost;
+    if (beforeFunc) {
+      config.data = this.beforeFunc(config.data);
     }
-    return this.makeRequest(config, this.afterCreate);
+
+    return this.request(config, this.afterCreate || this.afterPost);
+  }
+
+  post(data, config) {
+    return this.create(data, config);
   }
 
   // post request with method-override to get
@@ -165,7 +186,7 @@ export default class AvApi {
     if (this.beforePostGet) {
       config.data = this.beforePostGet(config.data);
     }
-    return this.makeRequest(config, this.afterPostGet);
+    return this.request(config, this.afterPostGet);
   }
 
   // get request with id
@@ -177,7 +198,7 @@ export default class AvApi {
     config.method = 'GET';
     config.url = this.getUrl(config, id);
     this.cacheParams(config);
-    return this.makeRequest(config, this.afterGet);
+    return this.request(config, this.afterGet);
   }
 
   // get request with just params
@@ -186,7 +207,7 @@ export default class AvApi {
     config.method = 'GET';
     config.url = this.getUrl(config);
     this.cacheParams(config);
-    return this.makeRequest(config, this.afterQuery);
+    return this.request(config, this.afterQuery);
   }
 
   // put request
@@ -200,10 +221,16 @@ export default class AvApi {
     config.method = 'PUT';
     config.url = this.getUrl(config, id);
     config.data = data;
-    if (this.beforeUpdate) {
-      config.data = this.beforeUpdate(config.data);
+
+    const beforeFunc = this.beforeUpdate || this.beforePut;
+    if (beforeFunc) {
+      config.data = this.beforeFunc(config.data);
     }
-    return this.makeRequest(config, this.afterUpdate);
+    return this.request(config, this.afterUpdate || this.afterPut);
+  }
+
+  put(id, data, config) {
+    return this.update(id, data, config);
   }
 
   // delete request
@@ -217,9 +244,15 @@ export default class AvApi {
     config.method = 'DELETE';
     config.url = this.getUrl(config, id);
     config.data = data;
-    if (this.beforeRemove) {
-      config.data = this.beforeRemove(config.data);
+
+    const beforeFunc = this.beforeRemove || this.beforeDelete;
+    if (beforeFunc) {
+      config.data = this.beforeFunc(config.data);
     }
-    return this.makeRequest(config, this.afterRemove);
+    return this.request(config, this.afterRemove || this.afterDelete);
+  }
+
+  delete(id, config) {
+    return this.remove(id, config);
   }
 }
