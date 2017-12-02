@@ -162,7 +162,7 @@ export default class AvApi {
 
     const beforeFunc = this.beforeCreate || this.beforePost;
     if (beforeFunc) {
-      config.data = this.beforeFunc(config.data);
+      config.data = beforeFunc(config.data);
     }
 
     return this.request(config, this.afterCreate || this.afterPost);
@@ -224,7 +224,7 @@ export default class AvApi {
 
     const beforeFunc = this.beforeUpdate || this.beforePut;
     if (beforeFunc) {
-      config.data = this.beforeFunc(config.data);
+      config.data = beforeFunc(config.data);
     }
     return this.request(config, this.afterUpdate || this.afterPut);
   }
@@ -247,7 +247,7 @@ export default class AvApi {
 
     const beforeFunc = this.beforeRemove || this.beforeDelete;
     if (beforeFunc) {
-      config.data = this.beforeFunc(config.data);
+      config.data = beforeFunc(config.data);
     }
     return this.request(config, this.afterRemove || this.afterDelete);
   }
