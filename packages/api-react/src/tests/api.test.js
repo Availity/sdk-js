@@ -14,53 +14,53 @@ import {
 
 describe('AvApiResource', () => {
   test('AvApiResource should be defined', () => {
-    const TestAvApi = new AvApiResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvApiResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvLogMessagesResource', () => {
   test('AvLogMessagesResource should be defined', () => {
-    const TestAvApi = new AvLogMessagesResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvLogMessagesResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvNavigationResource', () => {
   test('AvNavigationResource should be defined', () => {
-    const TestAvApi = new AvNavigationResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvNavigationResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvOrganizationsResource', () => {
   test('AvOrganizationsResource should be defined', () => {
-    const TestAvApi = new AvOrganizationsResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvOrganizationsResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvPermissionsResource', () => {
   test('AvPermissionsResource should be defined', () => {
-    const TestAvApi = new AvPermissionsResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvPermissionsResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvProvidersResource', () => {
   test('AvProvidersResource should be defined', () => {
-    const TestAvApi = new AvProvidersResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvProvidersResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvProxyResource', () => {
   test('AvProxyResource should be defined', () => {
-    const TestAvApi = new AvProxyResource({
+    const api = new AvProxyResource({
       tenant: 'testTennant',
       name: 'testName',
     });
-    expect(TestAvApi).toBeDefined();
+    expect(api).toBeDefined();
   });
 
   test('AvProxyResource should throw error without tenant', () => {
@@ -73,28 +73,28 @@ describe('AvProxyResource', () => {
 
 describe('AvRegionsResource', () => {
   test('AvRegionsResource should be defined', () => {
-    const TestAvApi = new AvRegionsResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvRegionsResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvSpacesResource', () => {
   test('AvSpacesResource should be defined', () => {
-    const TestAvApi = new AvSpacesResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvSpacesResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvUsersResource', () => {
   test('AvUsersResource should be defined', () => {
-    const TestAvApi = new AvUsersResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvUsersResource({});
+    expect(api).toBeDefined();
   });
 });
 
 describe('AvUserPermissionsResource', () => {
   test('AvUserPermissionsResource should be defined', () => {
-    const TestAvApi = new AvUserPermissionsResource({});
-    expect(TestAvApi).toBeDefined();
+    const api = new AvUserPermissionsResource({});
+    expect(api).toBeDefined();
   });
 });

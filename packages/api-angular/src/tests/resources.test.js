@@ -1,10 +1,10 @@
 import angular from 'angular';
 import 'angular-mocks';
-import AvApiModule from '../';
+import avModule from '../';
 
 describe('prebuilt resources', () => {
   beforeEach(() => {
-    angular.mock.module(AvApiModule);
+    angular.mock.module(avModule);
   });
 
   test('AvLogMessagesResource should be defined', () => {

@@ -11,7 +11,7 @@ describe('AvApiOptionsProvider', () => {
     });
   });
 
-  test('AvApiOptionsProvider should be defined', () => {
+  test('should be defined', () => {
     angular.mock.inject(() => {
       expect(provider).toBeDefined();
     });
@@ -25,7 +25,7 @@ describe('AvApiOptionsProvider', () => {
     });
   });
 
-  test('AvApiOptionsProvider setOptions should merge into defaults', () => {
+  test('ptions should merge into defaults', () => {
     angular.mock.inject(() => {
       const testDefaults1 = {
         testVal: 'test',

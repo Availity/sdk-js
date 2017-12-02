@@ -1,16 +1,15 @@
 import angular from 'angular';
 
 import 'angular-mocks';
-import AvApiModule from '../';
+import avApiModule from '../';
 
 describe('AvApiResource', () => {
   let $httpBackend;
-  // let $q;
   let AvApiResource;
-  let TestAvApi;
+  let api;
 
   beforeEach(() => {
-    angular.mock.module(AvApiModule);
+    angular.mock.module(avApiModule);
     angular.mock.inject((_$httpBackend_, _AvApiResource_) => {
       $httpBackend = _$httpBackend_;
       AvApiResource = _AvApiResource_;
@@ -22,14 +21,14 @@ describe('AvApiResource', () => {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  test('AvApiResource should be defined', () => {
-    TestAvApi = new AvApiResource({});
-    expect(TestAvApi).toBeDefined();
+  test('should be defined', () => {
+    api = new AvApiResource({});
+    expect(api).toBeDefined();
   });
 
-  test('AvApiResource should throw errors when missing paramaters', () => {
+  test('should throw errors when missing paramaters', () => {
     expect(() => {
-      TestAvApi = new AvApiResource();
+      api = new AvApiResource();
     }).toThrowError('[options] cannot be null or undefined');
   });
 
@@ -45,7 +44,6 @@ describe('AvApiResource', () => {
     });
 
     test('create() should call $http POST', done => {
-      // expectGET to make sure this is called once.
       $httpBackend.expectPOST('/api/v1/cats').respond(200, testResponse);
       cats.create({}).then(data => {
         expect(data).toEqual(expect.objectContaining({ data: testResponse }));
