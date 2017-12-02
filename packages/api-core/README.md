@@ -155,15 +155,14 @@ delete(data, config);
 // or without id
 delete(config);
 ```
-## Resources
+## [Resources](resources/README.md)
 
-### `AvLogMessages`
-
-### `AvNavigation`
-### `AvOrganizations`
-### `AvPermissions`
-### `AvProviders`
-### `AvProxy`
-### `AvRegions`
-### `AvUsers`
-### `AvUserPermissions`
+- [AvLogMessages](resources/README.md#AvLogMessage)
+- [AvNavigation](resources/README.md#AvNavigation)
+- [AvOrganizations](resources/README.md#AvOrganizations)
+- [AvPermissions](resources/README.md#AvPermissions)
+- [AvProviders](resources/README.md#AvProviders)
+- [AvProxy](resources/README.md#AvProxy)
+- [AvRegions](resources/README.md#AvRegions)
+- [AvUsers](resources/README.md#AvUsers)
+- [AvUserPermissions](resources/README.md#AvUserPermissions)
