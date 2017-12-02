@@ -1,4 +1,4 @@
-# LocalStorage Core
+# localstorage-core
 
 A package wrapping the browsers localStorage with utility functions.
 
@@ -8,26 +8,26 @@ A package wrapping the browsers localStorage with utility functions.
 
 ## Methods
 
-### supportsLocalStorage
-returns boolean result of check if localStorage is supported.
+### `supportsLocalStorage`
+Returns boolean result of check if localStorage is supported.
 
-### get
-`get(key)` returns value stored at `key`, will attempt to parse JSON stored there.
+### `get(key)`
+Returns value stored at `key`, will attempt to parse JSON stored there.
 
-### set
-`set(key, value)` sets `key` to `value` in localStorage. Will stringify objects if needed.
+### `set(key, value)`
+Sets `key` to `value` in localStorage. Will stringify objects if needed.
 
-### remove
-`remove(key)` removes `key` from localStorage.
+### `remove(key)`
+Removes `key` from localStorage.
 
-### getKeys
-`getKeys(searchKey)` returns array of all keys that match the `searchKey` string or RegExp.
+### `getKeys(searchKey)`
+Returns array of all keys that match the `searchKey` string or `RegExp`.
 
-### removeKeys
-`removeKeys(searchKey)` remove all keys that match the `searchKey` string or RegExp.
+### `removeKeys(searchKey)`
+Remove all keys that match the `searchKey` string or RegExp.
 
-### getSessionBust
-`getSessionBust()` returns session key set by Availity on login.
+### `getSessionBust`
+Returns session key set by Availity on login.
 
 ## License
 [MIT](../../LICENSE)

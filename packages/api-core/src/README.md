@@ -7,8 +7,6 @@ Such as:
 * Simple URI builder for API resources
 * Life-cycle hooks into HTTP calls for GET, PUT, POST, and DELETE
 
-
-
 ## Usage
 
 ```javascript

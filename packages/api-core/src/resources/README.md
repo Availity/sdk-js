@@ -7,7 +7,8 @@
 * [AvRegions](#AvRegions)
 * [AvPermissions](#AvPermissions)
 * [AvUserPermissions](#AvUserPermissions)
-* [AvNavigation & AvSpaces](#AvNavigation-&-AvSpaces)
+* [AvNavigation](#AvNavigation)
+* [AvSpaces](#AvSpaces)
 * [AvOrganizations](#AvOrganizations)
 * [AvProviders](#AvProviders)
 * [AvLogMessage](#AvLogMessage)
@@ -17,67 +18,59 @@ To see the details for configuring the resources see [AvApi](../README.md)
 
 All are created with the same parameters as `AvApi` unless otherwise specified.
 
-## AvUser
+### AvUser
 
 Used to get data about user by id
-> All get calls have the user grabbed from data and returned or an empty array
 
-`me()` makes the call to return the current users info.
+#### Methods
 
-## AvRegions
+##### `me()` 
+Gets the currently logged in user profile
 
-Used to get the current users current region as well as all available regions
-> All queries have the regions grabbed from data and returned or an empty array
+### AvRegions
+Gets the current users current region as well as all available regions.
 
-### Configuration
-`AvRegions` requires an AvUser object, can use the `AvUser` predefined resource, or any object with a `.me()` promise that returns similar data.
+#### Configuration
+`AvRegions` requires an `AvUser` object or similar object.
 
-### Methods
+#### Methods
 
-* `getRegions(config)`: used to grab regions for current user.
-* `getCurrentRegion()`: Returns just the current region for the current user.
+##### `getRegions(config)`
+Get regions for currently logged-in user.
 
-## AvPermissions
+##### `getCurrentRegion()`
+Returns just the current region for the currently logged-in user.
 
-Used to get permissions belonging to the current user
-> All queries have the permissions grabbed from data and returned or an empty array
+### AvPermissions
+Get permissions belonging to the current user.
 
-## AvUserPermissions
+### AvUserPermissions
+Get permissions and resources of currently logged-in user.
 
-Used to get permissions belonging to the current user using the `axi-user-permissions` API
-> All queries have the permissions grabbed from data and returned or an empty array
+### AvSpaces
+Get data about any of the Space types. 
 
-## AvNavigation & AvSpaces
- > Used to call the navigation/spaces api's
+### AvOrganizations
+Service that allows you to get a user's active organizations.
 
-## AvOrganizations
-`AvOrganizations` is a service that allows you to get a user's active organizations.
-
-> All queries have the organizations grabbed from data and returned or an empty array
-
-### Configuration
+#### Configuration
 `AvOrganizations` requires an AvUser object, can use the `AvUser` predefined resource, or any object with a `.me()` promise that returns similar data.
 
-### Methods
+#### Methods
 
-#### queryOrganizations(user, config)
+#### `queryOrganizations(user, config)`
+Returns organizations belonging to the passed in user.
 
-  Returns organizations belonging to the passed in user.
-#### getOrganizations(config)
+##### `getOrganizations(config)`
+Returns organizations belonging to the currently logged in User
 
-  Returns organizations belonging to the currently logged in User
+### AvProviders
+Get providers associated to the current user's organization.
 
+### AvLogMessage
+Create a log message.
 
-## AvProviders
-
-Used to get providers belonging to the current user
-> All queries have the providers grabbed from data and returned or an empty array
-
-## AvLogMessage
-
-> Used to create log messages
-
-### Methods
+#### Methods
 
 All methods take a entries object, remove it's level, and using the level of the function, call create with `{level, entries}`;
 * debug
