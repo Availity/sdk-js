@@ -84,4 +84,4 @@ class AvMessage {
   }
 }
 
-export default new AvMessage();
+export default AvMessage;

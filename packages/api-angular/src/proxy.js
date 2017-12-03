@@ -2,13 +2,13 @@ import angular from 'angular';
 
 import { AvProxy } from '@availity/api-core';
 
-function AvProxyResourceFactory($http, $q, AvApiOptions) {
+function factory($http, $q, avApiOptions) {
   class AvProxyResource extends AvProxy {
     constructor(options) {
-      const theseOptions = angular.merge({}, AvApiOptions, options);
-      super($http, $q, theseOptions);
+      options = angular.merge({}, avApiOptions, options);
+      super($http, $q, options);
     }
   }
   return AvProxyResource;
 }
-export default AvProxyResourceFactory;
+export default factory;

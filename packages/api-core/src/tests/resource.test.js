@@ -1,5 +1,3 @@
-import AvLocalStorage from '@availity/localstorage-core';
-
 import AvApi from '../resource';
 
 jest.useFakeTimers();
@@ -193,17 +191,17 @@ describe('AvApi', () => {
 
     test("sessionBust defaultFn should use localStorage's sessionBust when available", () => {
       const localStorageVal = 'test';
-      AvLocalStorage.getSessionBust = jest.fn(() => localStorageVal);
+      api.localStorage.getSessionBust = jest.fn(() => localStorageVal);
       const testConfig = {
         sessionBust: true,
       };
       api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(localStorageVal);
-      expect(AvLocalStorage.getSessionBust).toBeCalled();
+      expect(api.localStorage.getSessionBust).toBeCalled();
     });
 
     test("sessionBust defaultFn should use pageBust value when  localStorage's sessionBust is not available", () => {
-      AvLocalStorage.getSessionBust = jest.fn(() => {});
+      api.localStorage.getSessionBust = jest.fn(() => {});
       const testPageBust = 'testPage';
       api.pageBustValue = testPageBust;
       const testConfig = {
@@ -211,7 +209,7 @@ describe('AvApi', () => {
       };
       api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(testPageBust);
-      expect(AvLocalStorage.getSessionBust).toBeCalled();
+      expect(api.localStorage.getSessionBust).toBeCalled();
     });
   });
 

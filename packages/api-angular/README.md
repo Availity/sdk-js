@@ -29,7 +29,7 @@ config(AvApiOptionsProvider => {
 The AvApiResource is an extendable class to create new resources with
 
 ```javascript
-  function AvExampleResourceFactory(AvApiResource) {
+  function factory(AvApiResource) {
     class AvExampleResource extends AvApiResource {
       constructor() {
         const options = {
@@ -40,7 +40,6 @@ The AvApiResource is an extendable class to create new resources with
     }
     return new AvExampleResource();
   }
-  AvExampleResourceFactory.$inject = ['AvApiResource'];
 ```
 
 Predefined Resources are:

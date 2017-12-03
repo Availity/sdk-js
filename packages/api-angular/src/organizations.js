@@ -2,18 +2,13 @@ import angular from 'angular';
 
 import { AvOrganizations } from '@availity/api-core';
 
-function AvOrganizationsResourceFactory(
-  $http,
-  $q,
-  AvUsersResource,
-  AvApiOptions
-) {
+function factory($http, $q, avUsersResource, avApiOptions) {
   class AvOrganizationsResource extends AvOrganizations {
     constructor() {
-      const theseOptions = angular.copy(AvApiOptions);
-      super($http, $q, AvUsersResource, theseOptions);
+      const theseOptions = angular.copy(avApiOptions);
+      super($http, $q, avUsersResource, theseOptions);
     }
   }
   return new AvOrganizationsResource();
 }
-export default AvOrganizationsResourceFactory;
+export default factory;

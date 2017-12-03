@@ -2,14 +2,14 @@ import angular from 'angular';
 
 import { AvSpaces } from '@availity/api-core';
 
-function AvSpacesResourceFactory($http, $q, AvApiOptions) {
+function factory($http, $q, avApiOptions) {
   class AvSpacesResource extends AvSpaces {
     constructor() {
-      const theseOptions = angular.copy(AvApiOptions);
-      super($http, $q, theseOptions);
+      const options = angular.copy(avApiOptions);
+      super($http, $q, options);
     }
   }
   return new AvSpacesResource();
 }
 
-export default AvSpacesResourceFactory;
+export default factory;

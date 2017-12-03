@@ -1,13 +1,13 @@
 import angular from 'angular';
 import 'angular-mocks';
-import AvApiModule from '../';
+import avApiModule from '../';
 
-describe('AvApiOptionsProvider', () => {
+describe('avApiOptionsProvider', () => {
   let provider;
 
   beforeEach(() => {
-    angular.mock.module(AvApiModule, AvApiOptionsProvider => {
-      provider = AvApiOptionsProvider;
+    angular.mock.module(avApiModule, avApiOptionsProvider => {
+      provider = avApiOptionsProvider;
     });
   });
 
@@ -17,7 +17,7 @@ describe('AvApiOptionsProvider', () => {
     });
   });
 
-  test('AvApiOptionsProvider getOptions should return a copy of defaults', () => {
+  test('getOptions() should return a copy of defaults', () => {
     angular.mock.inject(() => {
       const gotDefaults = provider.getOptions();
       expect(provider.defaultOptions).not.toBe(gotDefaults);
@@ -25,7 +25,7 @@ describe('AvApiOptionsProvider', () => {
     });
   });
 
-  test('ptions should merge into defaults', () => {
+  test('options should merge into defaults', () => {
     angular.mock.inject(() => {
       const testDefaults1 = {
         testVal: 'test',
@@ -43,7 +43,7 @@ describe('AvApiOptionsProvider', () => {
     });
   });
 
-  test('AvApiOptionsProvider $get should be defaults', () => {
+  test('$get should be defaults', () => {
     angular.mock.inject(() => {
       expect(provider.$get()).toEqual(provider.defaultOptions);
     });

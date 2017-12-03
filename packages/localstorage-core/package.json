@@ -1,7 +1,7 @@
 {
   "name": "@availity/localstorage-core",
   "version": "0.0.0",
-  "description": "localstorage core logic",
+  "description": "localstorage helper class",
   "keywords": ["availity", "localstorage"],
   "repository": "https://github.com/Availity/sdk-js",
   "bugs": "https://github.com/Availity/sdk-js/issues",

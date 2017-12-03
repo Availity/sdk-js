@@ -1,6 +1,7 @@
-import avLocalStorage from '../';
+import AvLocalStorage from '../';
 
 let storageVal = {};
+let avLocalStorage;
 
 const mockLocalStorage = {
   get length() {
@@ -11,6 +12,8 @@ const mockLocalStorage = {
 describe('avLocalStorage', () => {
   beforeEach(() => {
     storageVal = {};
+
+    avLocalStorage = new AvLocalStorage();
 
     mockLocalStorage.clear = jest.fn(() => {
       storageVal = {};

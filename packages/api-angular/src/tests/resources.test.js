@@ -7,44 +7,44 @@ describe('prebuilt resources', () => {
     angular.mock.module(avModule);
   });
 
-  test('AvLogMessagesResource should be defined', () => {
-    let AvLogMessagesResource;
-    angular.mock.inject(_AvLogMessagesResource_ => {
-      AvLogMessagesResource = _AvLogMessagesResource_;
+  test('avLogMessagesResource should be defined', () => {
+    let avLogMessagesResource;
+    angular.mock.inject(_avLogMessagesResource_ => {
+      avLogMessagesResource = _avLogMessagesResource_;
     });
-    expect(AvLogMessagesResource).toBeDefined();
+    expect(avLogMessagesResource).toBeDefined();
   });
 
-  test('AvNavigationResource should be defined', () => {
-    let AvNavigationResource;
-    angular.mock.inject(_AvNavigationResource_ => {
-      AvNavigationResource = _AvNavigationResource_;
+  test('avNavigationResource should be defined', () => {
+    let avNavigationResource;
+    angular.mock.inject(_avNavigationResource_ => {
+      avNavigationResource = _avNavigationResource_;
     });
-    expect(AvNavigationResource).toBeDefined();
+    expect(avNavigationResource).toBeDefined();
   });
 
-  test('AvOrganizationsResource should be defined', () => {
-    let AvOrganizationsResource;
-    angular.mock.inject(_AvOrganizationsResource_ => {
-      AvOrganizationsResource = _AvOrganizationsResource_;
+  test('avOrganizationsResource should be defined', () => {
+    let avOrganizationsResource;
+    angular.mock.inject(_avOrganizationsResource_ => {
+      avOrganizationsResource = _avOrganizationsResource_;
     });
-    expect(AvOrganizationsResource).toBeDefined();
+    expect(avOrganizationsResource).toBeDefined();
   });
 
-  test('AvPermissionsResource should be defined', () => {
-    let AvPermissionsResource;
-    angular.mock.inject(_AvPermissionsResource_ => {
-      AvPermissionsResource = _AvPermissionsResource_;
+  test('avPermissionsResource should be defined', () => {
+    let avPermissionsResource;
+    angular.mock.inject(_avPermissionsResource_ => {
+      avPermissionsResource = _avPermissionsResource_;
     });
-    expect(AvPermissionsResource).toBeDefined();
+    expect(avPermissionsResource).toBeDefined();
   });
 
-  test('AvProvidersResource should be defined', () => {
-    let AvProvidersResource;
-    angular.mock.inject(_AvProvidersResource_ => {
-      AvProvidersResource = _AvProvidersResource_;
+  test('avProvidersResource should be defined', () => {
+    let avProvidersResource;
+    angular.mock.inject(_avProvidersResource_ => {
+      avProvidersResource = _avProvidersResource_;
     });
-    expect(AvProvidersResource).toBeDefined();
+    expect(avProvidersResource).toBeDefined();
   });
 
   test('AvProxyResource should be defined', () => {
@@ -72,35 +72,35 @@ describe('prebuilt resources', () => {
     }).toThrow('Must specify tenant name for Proxy');
   });
 
-  test('AvRegionsResource should be defined', () => {
-    let AvRegionsResource;
-    angular.mock.inject(_AvRegionsResource_ => {
-      AvRegionsResource = _AvRegionsResource_;
+  test('avRegionsResource should be defined', () => {
+    let avRegionsResource;
+    angular.mock.inject(_avRegionsResource_ => {
+      avRegionsResource = _avRegionsResource_;
     });
-    expect(AvRegionsResource).toBeDefined();
+    expect(avRegionsResource).toBeDefined();
   });
 
-  test('AvSpacesResource should be defined', () => {
-    let AvSpacesResource;
-    angular.mock.inject(_AvSpacesResource_ => {
-      AvSpacesResource = _AvSpacesResource_;
+  test('avSpacesResource should be defined', () => {
+    let avSpacesResource;
+    angular.mock.inject(_avSpacesResource_ => {
+      avSpacesResource = _avSpacesResource_;
     });
-    expect(AvSpacesResource).toBeDefined();
+    expect(avSpacesResource).toBeDefined();
   });
 
-  test('AvUsersResource should be defined', () => {
-    let AvUsersResource;
-    angular.mock.inject(_AvUsersResource_ => {
-      AvUsersResource = _AvUsersResource_;
+  test('avUsersResource should be defined', () => {
+    let avUsersResource;
+    angular.mock.inject(_avUsersResource_ => {
+      avUsersResource = _avUsersResource_;
     });
-    expect(AvUsersResource).toBeDefined();
+    expect(avUsersResource).toBeDefined();
   });
 
-  test('AvUserPermissionsResource should be defined', () => {
-    let AvUserPermissionsResource;
-    angular.mock.inject(_AvUserPermissionsResource_ => {
-      AvUserPermissionsResource = _AvUserPermissionsResource_;
+  test('avUserPermissionsResource should be defined', () => {
+    let avUserPermissionsResource;
+    angular.mock.inject(_avUserPermissionsResource_ => {
+      avUserPermissionsResource = _avUserPermissionsResource_;
     });
-    expect(AvUserPermissionsResource).toBeDefined();
+    expect(avUserPermissionsResource).toBeDefined();
   });
 });

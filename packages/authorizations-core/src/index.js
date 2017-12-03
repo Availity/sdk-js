@@ -1,13 +1,13 @@
-export default class AvAuthorizations {
-  constructor(AvPermissions, AvRegions, promise) {
+class AvAuthorizations {
+  constructor(avPermissions, avRegions, promise) {
     // make sure all params are passed in
-    if (!AvPermissions || !AvRegions || !promise) {
+    if (!avPermissions || !avRegions || !promise) {
       throw Error('A permission, region, and promise are required');
     }
 
     // save paramaters
-    this.AvPermissions = AvPermissions;
-    this.AvRegions = AvRegions;
+    this.avPermissions = avPermissions;
+    this.avRegions = avRegions;
     this.promise = promise;
 
     // initialize the map
@@ -38,20 +38,22 @@ export default class AvAuthorizations {
     );
   }
 
-  // if passed in region is undefined, use AvRegions to get current region
+  // if passed in region is undefined, use avRegions to get current region
   getRegion(region) {
     if (region) {
       return this.promise.resolve(region);
     }
-    return this.AvRegions.getCurrentRegion().then(
-      response =>
-        response &&
-        response.data &&
-        response.data.regions &&
-        response.data.regions[0] &&
-        response.data.regions[0] &&
-        response.data.regions[0].id
-    );
+    return this.avRegions
+      .getCurrentRegion()
+      .then(
+        response =>
+          response &&
+          response.data &&
+          response.data.regions &&
+          response.data.regions[0] &&
+          response.data.regions[0] &&
+          response.data.regions[0].id
+      );
   }
   // get all permissions in this region
 
@@ -74,7 +76,7 @@ export default class AvAuthorizations {
         // get ids still needed
         neededIds = this.getMissingIds(permissionIds, useRegion);
         if (neededIds && neededIds.length > 0) {
-          return this.AvPermissions.getPermissions(neededIds, useRegion);
+          return this.avPermissions.getPermissions(neededIds, useRegion);
         }
         return this.promise.resolve([]);
       })
@@ -144,3 +146,5 @@ export default class AvAuthorizations {
     });
   }
 }
+
+export default AvAuthorizations;

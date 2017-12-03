@@ -1,10 +1,13 @@
 {
   "name": "@availity/localstorage-angular",
   "version": "0.0.0",
-  "description": "localstorage angular logic",
+  "description": "localstorage helper class for Angular",
   "main": "src/index.js",
-  "author": "",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
+  "keywords": ["availity", "localstorage"],
+  "repository": "https://github.com/Availity/sdk-js",
+  "bugs": "https://github.com/Availity/sdk-js/issues",
   "dependencies": {
     "angular": "^1.6.4",
     "@availity/localstorage-core": "^0.0.0"

@@ -9,8 +9,6 @@ class AvExceptionsProvider {
     this.isEnabled = true;
     this.thisAppid = undefined;
     this.REPEAT_LIMIT = undefined;
-
-    this.$get.$inject = ['AvLogMessagesResource'];
   }
   enabled(value) {
     if (arguments.length) {
@@ -33,8 +31,8 @@ class AvExceptionsProvider {
     return this.REPEAT_LIMIT;
   }
 
-  $get(AvLogMessagesResource) {
-    const exceptions = new AvExceptionsCore(AvLogMessagesResource.error);
+  $get(avLogMessagesResource) {
+    const exceptions = new AvExceptionsCore(avLogMessagesResource.error);
     exceptions.enabled(this.isEnabled);
     exceptions.appId(this.thisAppId);
     exceptions.repeatTime(this.REPEAT_LIMIT);

@@ -2,14 +2,14 @@ import angular from 'angular';
 
 import { AvUserPermissions } from '@availity/api-core';
 
-function AvUserPermissionsResourceFactory($http, $q, AvApiOptions) {
+function factory($http, $q, avApiOptions) {
   class AvUserPermissionsResource extends AvUserPermissions {
     constructor() {
-      const theseOptions = angular.copy(AvApiOptions);
-      super($http, $q, theseOptions);
+      const options = angular.copy(avApiOptions);
+      super($http, $q, options);
     }
   }
   return new AvUserPermissionsResource();
 }
 
-export default AvUserPermissionsResourceFactory;
+export default factory;

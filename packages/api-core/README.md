@@ -2,32 +2,6 @@
 
 A package providing a base API class as well as several API resources for common to Availity.
 
-- [AvApi](#avapi)
-- [Usage](#usage)
-- [Options](#options)
-    - [`http`](#http)
-    - [`promise`](#promise)
-- [Config](#config) 
-    - [`config.api`](#configapi)
-    - [`config.url`](#configurl)
-    - [`config.path`](#configpath)
-    - [`config.version`](#configversion)
-    - [`config.name`](#configname)
-    - [`config.cacheBust`](#configcachebust)
-    - [`config.pageBust`](#configpagebust)
-    - [`config.sessionBust`](#configsessionbust)
-    - [`config.polling`](#configpolling)
-    - [`config.pollingIntervals`](#configpollingintervals)
-    - [`config.getHeader`](#configgetheader)
-- [Methods](#methods)
-    - [create or post](#create-or-post)
-    - [postGet](#postget)
-    - [get](#get)
-    - [query](#query)
-    - [update or put](#update-or-put)
-    - [remove or delete](#remove-or-delete)
-- [Resources](#resources)
-
 ## AvApi
 
 `AvApi` is a lightweight class that wraps a provided http service with helper functions designed for Availity's REST API.
@@ -53,8 +27,10 @@ Either Angular's `$http` service or Axios (or compatible lib).
 #### `promise`
 Either Angular `$q` or equivalent `Promise` object. 
 
-### Config
+### `config`
 Either Angular `$http` or `axios` config object
+
+## Config
 
 ##### `config.api`
 Default `true`. When `true`, the url is built out by joining `path`, `version`, and `name` or just `url` if no name is defined. The `id` is also added when appropriate. When `api` is `false`, all calls just use `url`. URL pattern: `path/version/name`
@@ -156,13 +132,3 @@ delete(data, config);
 delete(config);
 ```
 ## [Resources](src/resources/README.md)
-
-- [AvLogMessages](src/resources/README.md#AvLogMessage)
-- [AvNavigation](src/resources/README.md#AvNavigation)
-- [AvOrganizations](src/resources/README.md#AvOrganizations)
-- [AvPermissions](src/resources/README.md#AvPermissions)
-- [AvProviders](src/resources/README.md#AvProviders)
-- [AvProxy](src/resources/README.md#AvProxy)
-- [AvRegions](src/resources/README.md#AvRegions)
-- [AvUsers](src/resources/README.md#AvUsers)
-- [AvUserPermissions](src/resources/README.md#AvUserPermissions)

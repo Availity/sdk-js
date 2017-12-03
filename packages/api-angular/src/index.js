@@ -1,30 +1,30 @@
 import angular from 'angular';
 
-import AvApiOptionsProvider from './options';
-import AvApiResourceFactory from './resource';
+import avApiOptionsProvider from './options';
+import avApiResourceFactory from './resource';
 
-import AvLogMessagesResourceFactory from './logs';
-import AvNavigationResourceFactory from './navigation';
-import AvOrganizationsResourceFactory from './organizations';
-import AvPermissionsResourceFactory from './permissions';
-import AvProvidersResourceFactory from './providers';
-import AvProxyResourceFactory from './proxy';
-import AvRegionsResourceFactory from './regions';
-import AvSpacesResourceFactory from './spaces';
-import AvUsersResourceFactory from './user';
-import AvUserPermissionsResourceFactory from './userPermissions';
+import avLogMessagesResourceFactory from './logs';
+import avNavigationResourceFactory from './navigation';
+import avOrganizationsResourceFactory from './organizations';
+import avPermissionsResourceFactory from './permissions';
+import avProvidersResourceFactory from './providers';
+import avProxyResourceFactory from './proxy';
+import avRegionsResourceFactory from './regions';
+import avSpacesResourceFactory from './spaces';
+import avUsersResourceFactory from './user';
+import avUserPermissionsResourceFactory from './userPermissions';
 
 export default angular
   .module('availity.api', ['ng'])
-  .provider('AvApiOptions', AvApiOptionsProvider)
-  .factory('AvApiResource', AvApiResourceFactory)
-  .factory('AvLogMessagesResource', AvLogMessagesResourceFactory)
-  .factory('AvNavigationResource', AvNavigationResourceFactory)
-  .factory('AvOrganizationsResource', AvOrganizationsResourceFactory)
-  .factory('AvPermissionsResource', AvPermissionsResourceFactory)
-  .factory('AvProvidersResource', AvProvidersResourceFactory)
-  .factory('AvProxyResource', AvProxyResourceFactory)
-  .factory('AvRegionsResource', AvRegionsResourceFactory)
-  .factory('AvSpacesResource', AvSpacesResourceFactory)
-  .factory('AvUsersResource', AvUsersResourceFactory)
-  .factory('AvUserPermissionsResource', AvUserPermissionsResourceFactory).name;
+  .provider('avApiOptions', avApiOptionsProvider)
+  .factory('AvApiResource', avApiResourceFactory)
+  .factory('avLogMessagesResource', avLogMessagesResourceFactory)
+  .factory('avNavigationResource', avNavigationResourceFactory)
+  .factory('avOrganizationsResource', avOrganizationsResourceFactory)
+  .factory('avPermissionsResource', avPermissionsResourceFactory)
+  .factory('avProvidersResource', avProvidersResourceFactory)
+  .factory('AvProxyResource', avProxyResourceFactory)
+  .factory('avRegionsResource', avRegionsResourceFactory)
+  .factory('avSpacesResource', avSpacesResourceFactory)
+  .factory('avUsersResource', avUsersResourceFactory)
+  .factory('avUserPermissionsResource', avUserPermissionsResourceFactory).name;

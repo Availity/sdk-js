@@ -92,4 +92,4 @@ class AvLocalStorage {
   }
 }
 
-export default new AvLocalStorage();
+export default AvLocalStorage;

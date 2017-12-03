@@ -4,15 +4,10 @@ import AvApiAngular from '@availity/api-angular';
 
 import AvAuthorizations from '@availity/authorizations-core';
 
-function AvAuthorizationsFactory(AvPermissionsResource, AvRegionsResource, $q) {
-  return new AvAuthorizations(AvPermissionsResource, AvRegionsResource, $q);
+function factory(avPermissionsResource, avRegionsResource, $q) {
+  return new AvAuthorizations(avPermissionsResource, avRegionsResource, $q);
 }
-AvAuthorizationsFactory.$inject = [
-  'AvPermissionsResource',
-  'AvRegionsResource',
-  '$q',
-];
 
 export default angular
   .module('availity.authorizations', [AvApiAngular])
-  .factory('AvAuthorizations', AvAuthorizationsFactory).name;
+  .factory('avAuthorizations', factory).name;

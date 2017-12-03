@@ -10,8 +10,9 @@ import AvSpacesResource from './spaces';
 import AvUsersResource from './user';
 import AvUserPermissionsResource from './userPermissions';
 
+export default AvApiResource;
+
 export {
-  AvApiResource,
   AvLogMessagesResource,
   AvNavigationResource,
   AvOrganizationsResource,

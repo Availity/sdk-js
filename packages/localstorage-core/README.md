@@ -4,7 +4,29 @@ A package wrapping the browsers localStorage with utility functions.
 
 ## Install
 
-`npm install @availity/localstorage-core`
+`npm install @availity/localstorage-core --save`
+
+## Usage
+
+### Instance
+```js
+import avLocalStorarge from '@availity/localstorage-core`;
+
+if(avLocalStorage.supportsLocalStorage()) {
+    consologe.log('Browser support localstorage');
+}
+```
+
+### Constructor
+```js
+import { AvLocalStorage } from '@availity/localstorage-core`;
+
+class MyLocalStorage extends AvLocalStorage {
+    myCustomFunction() {
+        return true;
+    }
+}
+```
 
 ## Methods
 
@@ -28,6 +50,3 @@ Remove all keys that match the `searchKey` string or RegExp.
 
 ### `getSessionBust`
 Returns session key set by Availity on login.
-
-## License
-[MIT](../../LICENSE)

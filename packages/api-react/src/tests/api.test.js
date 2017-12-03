@@ -1,5 +1,4 @@
-import {
-  AvApiResource,
+import AvApiResource, {
   AvLogMessagesResource,
   AvNavigationResource,
   AvOrganizationsResource,
