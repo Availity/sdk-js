@@ -1,5 +1,6 @@
 {
   "name": "@availity/exceptions-core",
+  "private": true,
   "version": "0.0.0",
   "description": "Availity class to log exceptions",
   "main": "src/index.js",

@@ -1,5 +1,6 @@
 {
   "name": "@availity/authorizations-react",
+  "private": true,
   "version": "0.0.0",
   "description": "Availity authorizations react logic",
   "main": "src/index.js",

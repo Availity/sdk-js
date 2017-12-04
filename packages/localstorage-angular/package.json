@@ -1,6 +1,7 @@
 {
   "name": "@availity/localstorage-angular",
   "version": "0.0.0",
+  "private": true,
   "description": "localstorage helper class for Angular",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",

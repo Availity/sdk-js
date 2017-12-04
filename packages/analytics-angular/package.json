@@ -1,5 +1,6 @@
 {
   "name": "@availity/analytics-angular",
+  "private": true,
   "version": "0.0.0",
   "description": "availity analytics class for setting up and using plugins",
   "main": "src/index.js",

@@ -1,5 +1,6 @@
 {
   "name": "@availity/analytics-core",
+  "private": true,
   "version": "0.0.0",
   "description": "Analytics base configuration for sdk-js",
   "main": "src/index.js",

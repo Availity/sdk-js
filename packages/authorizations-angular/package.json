@@ -1,5 +1,6 @@
 {
   "name": "@availity/authorizations-angular",
+  "private": true,
   "version": "0.0.0",
   "description": "Availity authorizations angular logic",
   "main": "src/index.js",

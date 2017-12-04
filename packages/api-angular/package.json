@@ -1,5 +1,6 @@
 {
   "name": "@availity/api-angular",
+  "private": true,
   "version": "0.0.0",
   "description": "Api angular logic",
   "main": "src/index.js",
