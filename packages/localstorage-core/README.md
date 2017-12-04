@@ -8,23 +8,13 @@ A package wrapping the browsers localStorage with utility functions.
 
 ## Usage
 
-### Instance
 ```js
-import avLocalStorarge from '@availity/localstorage-core`;
+import AvLocalStorarge from '@availity/localstorage-core`;
+
+const avLocalStorage = new AvLocalStorage();
 
 if(avLocalStorage.supportsLocalStorage()) {
     consologe.log('Browser support localstorage');
-}
-```
-
-### Constructor
-```js
-import { AvLocalStorage } from '@availity/localstorage-core`;
-
-class MyLocalStorage extends AvLocalStorage {
-    myCustomFunction() {
-        return true;
-    }
 }
 ```
 
