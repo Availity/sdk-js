@@ -30,6 +30,7 @@ describe('AvMessage', () => {
       avMessage.onMessage = jest.fn();
       avMessage.isDomain = jest.fn().mockImplementation(() => true);
     });
+
     afterEach(() => {
       spyParse.mockRestore();
       spyParse.mockReset();
