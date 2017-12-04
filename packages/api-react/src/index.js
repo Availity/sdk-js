@@ -8,6 +8,7 @@ import ProxyApi from './proxy';
 import regionsApi from './regions';
 import spacesApi from './spaces';
 import userApi from './user';
+import pdfApi from './pdf';
 import userPermissionsApi from './userPermissions';
 
 export default AvApi;
@@ -20,6 +21,7 @@ export {
   permissionsApi,
   providersApi,
   regionsApi,
+  pdfApi,
   spacesApi,
   userApi,
   userPermissionsApi,

@@ -2,7 +2,7 @@ import angular from 'angular';
 import 'angular-mocks';
 import avModule from '../';
 
-describe('prebuilt Apis', () => {
+describe('Api Definitions Angular', () => {
   beforeEach(() => {
     angular.mock.module(avModule);
   });
@@ -102,5 +102,13 @@ describe('prebuilt Apis', () => {
       avUserPermissionsApi = _avUserPermissionsApi_;
     });
     expect(avUserPermissionsApi).toBeDefined();
+  });
+
+  test('avPdfApi should be defined', () => {
+    let avPdfApi;
+    angular.mock.inject(_avPdfApi_ => {
+      avPdfApi = _avPdfApi_;
+    });
+    expect(avPdfApi).toBeDefined();
   });
 });

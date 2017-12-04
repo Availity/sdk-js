@@ -441,15 +441,6 @@ describe('AvApi', () => {
       });
     });
 
-    // test('should catch error in http, returning error.response if it exists', () => {
-    //   mockHttp.mockImplementationOnce(() =>
-    //     Promise.reject(new Error('errResponse'))
-    //   );
-    //   return api.request({}).then(response => {
-    //     expect(response).toBe('errResponse');
-    //   });
-    // });
-
     test('should catch error in http, returning undefined if no error.response', () => {
       mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
       return api.request({}).then(response => {

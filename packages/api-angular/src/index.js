@@ -10,6 +10,7 @@ import avPermissionsApiFactory from './permissions';
 import avProvidersApiFactory from './providers';
 import avProxyApiFactory from './proxy';
 import avRegionsApiFactory from './regions';
+import avPdfApiFactory from './pdfs';
 import avSpacesApiFactory from './spaces';
 import avUsersApiFactory from './user';
 import avUserPermissionsApiFactory from './userPermissions';
@@ -19,6 +20,7 @@ export default angular
   .provider('avApiOptions', avApiOptionsProvider)
   .factory('AvApi', avApiFactory)
   .factory('avLogMessagesApi', avLogMessagesApiFactory)
+  .factory('avPdfApi', avPdfApiFactory)
   .factory('avNavigationApi', avNavigationApiFactory)
   .factory('avOrganizationsApi', avOrganizationsApiFactory)
   .factory('avPermissionsApi', avPermissionsApiFactory)

@@ -3,6 +3,7 @@ import AvLogMessages from './resources/logs';
 import AvNavigation from './resources/navigation';
 import AvOrganizations from './resources/organizations';
 import AvPermissions from './resources/permissions';
+import AvPdf from './resources/pdfs';
 import AvProviders from './resources/providers';
 import AvProxy from './resources/proxy';
 import AvRegions from './resources/regions';
@@ -18,6 +19,7 @@ export {
   AvOrganizations,
   AvPermissions,
   AvProviders,
+  AvPdf,
   AvProxy,
   AvRegions,
   AvSpaces,
