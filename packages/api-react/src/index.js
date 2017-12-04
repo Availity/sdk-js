@@ -1,26 +1,26 @@
-import AvApiResource from './resource';
-import AvLogMessagesResource from './logs';
-import AvNavigationResource from './navigation';
-import AvOrganizationsResource from './organizations';
-import AvPermissionsResource from './permissions';
-import AvProvidersResource from './providers';
-import AvProxyResource from './proxy';
-import AvRegionsResource from './regions';
-import AvSpacesResource from './spaces';
-import AvUsersResource from './user';
-import AvUserPermissionsResource from './userPermissions';
+import AvApi from './resource';
+import logMessagesApi from './logs';
+import navigationApi from './navigation';
+import organizationsApi from './organizations';
+import permissionsApi from './permissions';
+import providersApi from './providers';
+import ProxyApi from './proxy';
+import regionsApi from './regions';
+import spacesApi from './spaces';
+import userApi from './user';
+import userPermissionsApi from './userPermissions';
 
-export default AvApiResource;
+export default AvApi;
 
 export {
-  AvLogMessagesResource,
-  AvNavigationResource,
-  AvOrganizationsResource,
-  AvPermissionsResource,
-  AvProvidersResource,
-  AvProxyResource,
-  AvRegionsResource,
-  AvSpacesResource,
-  AvUsersResource,
-  AvUserPermissionsResource,
+  ProxyApi,
+  logMessagesApi,
+  navigationApi,
+  organizationsApi,
+  permissionsApi,
+  providersApi,
+  regionsApi,
+  spacesApi,
+  userApi,
+  userPermissionsApi,
 };

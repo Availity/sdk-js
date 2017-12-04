@@ -1,8 +1,8 @@
 import axios from 'axios/dist/axios';
 
-import AvApi from '@availity/api-core';
+import Api from '@availity/api-core';
 
-export default class AvApiResource extends AvApi {
+export default class AvApi extends Api {
   constructor(options) {
     super(axios, Promise, options);
   }

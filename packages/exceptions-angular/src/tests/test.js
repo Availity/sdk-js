@@ -96,13 +96,13 @@ describe('AvExceptionsProvider', () => {
   });
 
   test('AvAnalytics appId, repeatTime and enabled should reflect provider', () => {
-    angular.mock.inject(avLogMessagesResource => {
+    angular.mock.inject(avLogMessagesApi => {
       let testEnabled = true;
       let testId = 'test1';
 
       provider.thisAppId = testId;
       provider.isEnabled = testEnabled;
-      let testAnalytics = provider.$get(avLogMessagesResource);
+      let testAnalytics = provider.$get(avLogMessagesApi);
       expect(testAnalytics.isEnabled).toBe(testEnabled);
       expect(testAnalytics.thisAppId).toBe(testId);
       expect(testAnalytics.REPEAT_LIMIT).toBe(DEFAULT_REPEAT);
@@ -113,14 +113,14 @@ describe('AvExceptionsProvider', () => {
       provider.thisAppId = testId;
       provider.isEnabled = testEnabled;
       provider.REPEAT_LIMIT = testRepeat;
-      testAnalytics = provider.$get(avLogMessagesResource);
+      testAnalytics = provider.$get(avLogMessagesApi);
       expect(testAnalytics.isEnabled).toBe(testEnabled);
       expect(testAnalytics.thisAppId).toBe(testId);
       expect(testAnalytics.REPEAT_LIMIT).toBe(testRepeat);
     });
   });
 
-  test('AvAnalytics log should call avLogMessagesResource.error', () => {
+  test('AvAnalytics log should call avLogMessagesApi.error', () => {
     angular.mock.inject(() => {
       const mockLogMessage = {
         error: jest.fn(),

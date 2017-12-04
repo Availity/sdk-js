@@ -1,7 +1,7 @@
 import { AvSplunkAnalytics } from '@availity/analytics-core';
 
-function AvSplunkAnalyticsFactory(avLogMessagesResource) {
-  return new AvSplunkAnalytics(avLogMessagesResource);
+function AvSplunkAnalyticsFactory(avLogMessagesApi) {
+  return new AvSplunkAnalytics(avLogMessagesApi);
 }
 
 export default AvSplunkAnalyticsFactory;

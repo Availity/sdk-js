@@ -4,8 +4,8 @@ import AvApiAngular from '@availity/api-angular';
 
 import AvAuthorizations from '@availity/authorizations-core';
 
-function factory(avPermissionsResource, avRegionsResource, $q) {
-  return new AvAuthorizations(avPermissionsResource, avRegionsResource, $q);
+function factory(avPermissionsApi, avRegionsApi, $q) {
+  return new AvAuthorizations(avPermissionsApi, avRegionsApi, $q);
 }
 
 export default angular

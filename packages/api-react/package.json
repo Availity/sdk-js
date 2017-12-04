@@ -1,7 +1,7 @@
 {
   "name": "@availity/api-react",
   "version": "0.0.0",
-  "description": "Availity API React Resources",
+  "description": "Availity API React",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",

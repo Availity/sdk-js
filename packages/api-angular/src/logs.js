@@ -3,13 +3,13 @@ import angular from 'angular';
 import { AvLogMessages } from '@availity/api-core';
 
 function factory($http, $q, avApiOptions) {
-  class AvLogMessagesResource extends AvLogMessages {
+  class AvLogMessagesApi extends AvLogMessages {
     constructor() {
       const options = angular.copy(avApiOptions);
       super($http, $q, options);
     }
   }
-  return new AvLogMessagesResource();
+  return new AvLogMessagesApi();
 }
 
 export default factory;

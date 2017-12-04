@@ -31,8 +31,8 @@ class AvExceptionsProvider {
     return this.REPEAT_LIMIT;
   }
 
-  $get(avLogMessagesResource) {
-    const exceptions = new AvExceptionsCore(avLogMessagesResource.error);
+  $get(avLogMessagesApi) {
+    const exceptions = new AvExceptionsCore(avLogMessagesApi.error);
     exceptions.enabled(this.isEnabled);
     exceptions.appId(this.thisAppId);
     exceptions.repeatTime(this.REPEAT_LIMIT);

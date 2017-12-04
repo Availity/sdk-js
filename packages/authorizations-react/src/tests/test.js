@@ -1,8 +1,7 @@
-import AvAuthorizations from '../';
+import avAuthorizations from '../';
 
 describe('AvAuthorizations', () => {
   test('AvAuthorizations should be defined', () => {
-    const testAvAuthorizations = new AvAuthorizations({});
-    expect(testAvAuthorizations).toBeDefined();
+    expect(avAuthorizations).toBeDefined();
   });
 });

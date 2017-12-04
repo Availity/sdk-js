@@ -1,9 +1,12 @@
 import axios from 'axios/dist/axios';
 
 import { AvOrganizations } from '@availity/api-core';
+import avUserApi from './user';
 
-export default class AvOrganizationsResource extends AvOrganizations {
-  constructor(AvUsersResource, options) {
-    super(axios, Promise, AvUsersResource, options);
+class AvOrganizationsApi extends AvOrganizations {
+  constructor(options) {
+    super(axios, Promise, avUserApi, options);
   }
 }
+
+export default new AvOrganizationsApi();

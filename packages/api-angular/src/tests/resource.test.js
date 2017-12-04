@@ -3,16 +3,16 @@ import angular from 'angular';
 import 'angular-mocks';
 import avApiModule from '../';
 
-describe('AvApiResource', () => {
+describe('AvApi', () => {
   let $httpBackend;
-  let AvApiResource;
+  let AvApi;
   let api;
 
   beforeEach(() => {
     angular.mock.module(avApiModule);
-    angular.mock.inject((_$httpBackend_, _AvApiResource_) => {
+    angular.mock.inject((_$httpBackend_, _AvApi_) => {
       $httpBackend = _$httpBackend_;
-      AvApiResource = _AvApiResource_;
+      AvApi = _AvApi_;
     });
   });
 
@@ -22,13 +22,13 @@ describe('AvApiResource', () => {
   });
 
   test('should be defined', () => {
-    api = new AvApiResource({});
+    api = new AvApi({});
     expect(api).toBeDefined();
   });
 
   test('should throw errors when missing paramaters', () => {
     expect(() => {
-      api = new AvApiResource();
+      api = new AvApi();
     }).toThrowError('[options] cannot be null or undefined');
   });
 
@@ -40,7 +40,7 @@ describe('AvApiResource', () => {
     };
 
     beforeEach(() => {
-      cats = new AvApiResource({ name: 'cats', sessionBust: false });
+      cats = new AvApi({ name: 'cats', sessionBust: false });
     });
 
     test('create() should call $http POST', done => {

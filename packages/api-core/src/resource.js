@@ -5,7 +5,7 @@ import API_OPTIONS from './options';
 export default class AvApi {
   constructor(http, promise, config) {
     if (!http || !config || !promise) {
-      throw new Error('[http], [config] and [promise] must be defined');
+      throw new Error('[http], [promise] and [config] and must be defined');
     }
     this.http = http;
     this.Promise = promise;

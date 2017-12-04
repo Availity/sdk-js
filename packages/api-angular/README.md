@@ -26,7 +26,7 @@ config(AvApiOptionsProvider => {
 ```
 
 ## Creating Resources
-The AvApiResource is an extendable class to create new resources with
+The AvApi is an extendable class to create new resources with
 
 ```javascript
   function factory(AvApiResource) {
@@ -41,24 +41,3 @@ The AvApiResource is an extendable class to create new resources with
     return new AvExampleResource();
   }
 ```
-
-Predefined Resources are:
-* `AvApiResource`
-* `AvLogMessagesResource`
-* `AvNavigationResource`
-* `AvOrganizationsResource`
-* `AvPermissionsResource`
-* `AvProvidersResource`
-* `AvProxyResource`
-* `AvRegionsResource`
-* `AvSpacesResource`
-* `AvUsersResource`
-* `AvUserPermissionsResource`
-
-
-## Authors
-**Kasey Powers**
-* [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
-
-## License
-[MIT](../../LICENSE)

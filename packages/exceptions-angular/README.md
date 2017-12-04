@@ -1,6 +1,6 @@
 # Angular Exceptions
 
-A package wrapping the Exceptions class into angular. Using AvLogMessagesResource to log errors.
+A package wrapping the Exceptions class into angular. Using avLogMessagesApi to log errors.
 
 More details about configuration can be found in [Exceptions-Core](../exceptions-core)
 

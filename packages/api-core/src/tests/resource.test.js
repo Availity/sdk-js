@@ -15,35 +15,35 @@ describe('AvApi', () => {
   test('AvApi should throw errors when missing paramaters', () => {
     expect(() => {
       api = new AvApi();
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(false, false, false);
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(false, Promise, {});
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(mockHttp, Promise, false);
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(mockHttp, false, Promise);
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(false, Promise, false);
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(mockHttp, false, false);
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
 
     expect(() => {
       api = new AvApi(false, false, {});
-    }).toThrowError('[http], [config] and [promise] must be defined');
+    }).toThrowError('[http], [promise] and [config] and must be defined');
   });
 
   test('config() should merge passed in config with defaultConfig', () => {
@@ -56,7 +56,7 @@ describe('AvApi', () => {
     expect(api.config(testConfig)).toEqual(testExpectConfig);
   });
 
-  describe('getCacheBustVal', () => {
+  describe('getCacheBustVal()', () => {
     beforeEach(() => {
       api = new AvApi(mockHttp, Promise, {});
     });
@@ -94,7 +94,7 @@ describe('AvApi', () => {
     });
   });
 
-  test('setPageBust should set to passed in value', () => {
+  test('setPageBust() should set to passed in value', () => {
     api = new AvApi(mockHttp, Promise, {});
     const test = 'test';
     api.setPageBust(test);

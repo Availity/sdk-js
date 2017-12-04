@@ -3,12 +3,12 @@ import angular from 'angular';
 import { AvNavigation } from '@availity/api-core';
 
 function factory($http, $q, avApiOptions) {
-  class AvNavigationResource extends AvNavigation {
+  class AvNavigationApi extends AvNavigation {
     constructor() {
-      const theseOptions = angular.copy(avApiOptions);
-      super($http, $q, theseOptions);
+      const options = angular.copy(avApiOptions);
+      super($http, $q, options);
     }
   }
-  return new AvNavigationResource();
+  return new AvNavigationApi();
 }
 export default factory;

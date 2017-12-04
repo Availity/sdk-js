@@ -1,9 +1,9 @@
 import angular from 'angular';
 
-import AvApi from '@availity/api-core';
+import Api from '@availity/api-core';
 
 function factory($http, $q, avApiOptions) {
-  class AvApiResource extends AvApi {
+  class AvApi extends Api {
     constructor(options) {
       if (!options) {
         throw new Error('[options] cannot be null or undefined');
@@ -12,7 +12,7 @@ function factory($http, $q, avApiOptions) {
       super($http, $q, options);
     }
   }
-  return AvApiResource;
+  return AvApi;
 }
 
 export default factory;
