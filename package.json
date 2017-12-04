@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "bootstrap": "lerna bootstrap",
     "link": "lerna link",
+    "updated": "lerna updated",
     "clean": "lerna clean",
     "precommit": "lint-staged",
     "test": "jest --silent",
