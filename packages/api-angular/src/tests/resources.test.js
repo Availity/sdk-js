@@ -23,20 +23,20 @@ describe('Api Definitions Angular', () => {
     expect(avNavigationApi).toBeDefined();
   });
 
-  test('avOrganizationsApi should be defined', () => {
-    let avOrganizationsApi;
-    angular.mock.inject(_avOrganizationsApi_ => {
-      avOrganizationsApi = _avOrganizationsApi_;
-    });
-    expect(avOrganizationsApi).toBeDefined();
-  });
-
   test('avNotificationApi should be defined', () => {
     let avNotificationApi;
     angular.mock.inject(_avNotificationApi_ => {
       avNotificationApi = _avNotificationApi_;
     });
     expect(avNotificationApi).toBeDefined();
+  });
+
+  test('avOrganizationsApi should be defined', () => {
+    let avOrganizationsApi;
+    angular.mock.inject(_avOrganizationsApi_ => {
+      avOrganizationsApi = _avOrganizationsApi_;
+    });
+    expect(avOrganizationsApi).toBeDefined();
   });
 
   test('avPermissionsApi should be defined', () => {
