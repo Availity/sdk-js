@@ -1,6 +1,7 @@
 import AvApi from './resource';
 import AvLogMessages from './resources/logs';
 import AvNavigation from './resources/navigation';
+import AvNotification from './resources/notification';
 import AvOrganizations from './resources/organizations';
 import AvPermissions from './resources/permissions';
 import AvPdf from './resources/pdfs';
@@ -16,6 +17,7 @@ export default AvApi;
 export {
   AvLogMessages,
   AvNavigation,
+  AvNotification,
   AvOrganizations,
   AvPermissions,
   AvProviders,

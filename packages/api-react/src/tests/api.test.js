@@ -1,6 +1,7 @@
 import Api, {
   logMessagesApi,
   navigationApi,
+  notificationApi,
   organizationsApi,
   permissionsApi,
   providersApi,
@@ -24,6 +25,7 @@ describe('API Definitions', () => {
   test('should be defined', () => {
     expect(logMessagesApi).toBeDefined();
     expect(navigationApi).toBeDefined();
+    expect(notificationApi).toBeDefined();
     expect(organizationsApi).toBeDefined();
     expect(permissionsApi).toBeDefined();
     expect(providersApi).toBeDefined();
