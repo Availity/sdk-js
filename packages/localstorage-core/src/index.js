@@ -39,7 +39,10 @@ class AvLocalStorage {
       }
       return output;
     }
+
+    return undefined;
   }
+
   set(key, value) {
     // checks if localStorage is supported, stringifies non-strings before setting value
     if (this.supportsLocalStorage()) {
