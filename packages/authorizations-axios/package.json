@@ -1,23 +1,26 @@
 {
   "name": "@availity/authorizations-axios",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Availity authorizations react logic",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/localstorage-core": "^0.0.0",
-    "@availity/api-core": "^0.0.0",
-    "@availity/api-axios": "^0.0.0",
-    "@availity/authorizations-core": "^0.0.0",
+    "@availity/api-axios": "^0.0.1",
+    "@availity/api-core": "^0.0.1",
+    "@availity/authorizations-core": "^0.0.1",
+    "@availity/localstorage-core": "^0.0.1",
     "axios": "^0.16.1"
   },
   "devDependencies": {
-    "@availity/localstorage-core": "^0.0.0",
-    "@availity/api-core": "^0.0.0",
-    "@availity/api-axios": "^0.0.0",
-    "@availity/authorizations-core": "^0.0.0",
+    "@availity/api-axios": "^0.0.1",
+    "@availity/api-core": "^0.0.1",
+    "@availity/authorizations-core": "^0.0.1",
+    "@availity/localstorage-core": "^0.0.1",
     "axios": "^0.16.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

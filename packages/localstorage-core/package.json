@@ -1,6 +1,6 @@
 {
   "name": "@availity/localstorage-core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "localstorage wrapper",
   "keywords": [
     "availity",
@@ -10,5 +10,8 @@
   "bugs": "https://github.com/Availity/sdk-js/issues",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

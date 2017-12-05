@@ -1,9 +1,12 @@
 {
   "name": "@availity/message-core",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "availity wrapper for postMessage logic",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

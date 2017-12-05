@@ -1,16 +1,19 @@
 {
   "name": "@availity/api-axios",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "API definitions using axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-core": "^0.0.0",
+    "@availity/api-core": "^0.0.1",
     "axios": "^0.16.1"
   },
   "devDependencies": {
-    "@availity/api-core": "^0.0.0",
+    "@availity/api-core": "^0.0.1",
     "axios": "^0.16.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

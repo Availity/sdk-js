@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Base API definitions",
   "keywords": [
     "availity",
@@ -14,9 +14,12 @@
   "bugs": "https://github.com/Availity/sdk-js/issues",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/localstorage-core": "^0.0.0"
+    "@availity/localstorage-core": "^0.0.1"
   },
   "devDependencies": {
-    "@availity/localstorage-core": "^0.0.0"
+    "@availity/localstorage-core": "^0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
