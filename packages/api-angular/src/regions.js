@@ -2,14 +2,5 @@ import angular from 'angular';
 
 import { AvRegions } from '@availity/api-core';
 
-function factory($http, $q, avUsersApi, avApiOptions) {
-  class AvRegionsApi extends AvRegions {
-    constructor() {
-      const options = angular.copy(avApiOptions);
-      super($http, $q, avUsersApi, options);
-    }
-  }
-  return new AvRegionsApi();
-}
-
-export default factory;
+export default ($http, $q, avUsersApi, avApiOptions) =>
+  new AvRegions($http, $q, avUsersApi, angular.copy(avApiOptions));

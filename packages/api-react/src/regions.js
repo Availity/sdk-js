@@ -1,11 +1,5 @@
 import axios from 'axios/dist/axios';
-
 import { AvRegions } from '@availity/api-core';
+import userApi from './user';
 
-class AvRegionsApi extends AvRegions {
-  constructor(AvUsersApi, options) {
-    super(axios, Promise, AvUsersApi, options);
-  }
-}
-
-export default new AvRegionsApi();
+export default new AvRegions(axios, Promise, userApi);
