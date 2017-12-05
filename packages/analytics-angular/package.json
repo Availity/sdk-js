@@ -1,19 +1,19 @@
 {
   "name": "@availity/analytics-angular",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "description": "availity analytics class for setting up and using plugins",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/analytics-core": "^0.0.1",
-    "@availity/api-angular": "^0.0.1",
+    "@availity/analytics-core": "^1.0.0-alpha.0",
+    "@availity/api-angular": "^1.0.0-alpha.0",
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/analytics-core": "^0.0.1",
-    "@availity/api-angular": "^0.0.1",
+    "@availity/analytics-core": "^1.0.0-alpha.0",
+    "@availity/api-angular": "^1.0.0-alpha.0",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },

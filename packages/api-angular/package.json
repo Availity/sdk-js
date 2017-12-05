@@ -1,17 +1,17 @@
 {
   "name": "@availity/api-angular",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "description": "Api angular logic",
   "main": "src/index.js",
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-core": "^0.0.1",
+    "@availity/api-core": "^1.0.0-alpha.0",
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/api-core": "^0.0.1",
+    "@availity/api-core": "^1.0.0-alpha.0",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },
