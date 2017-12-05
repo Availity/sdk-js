@@ -1,9 +1,9 @@
-# React Authorizations
+# axios-authorizations
 
 A package providing a base authorizations class to help check which permissions a user has.
 
 ## Install
-`npm install @availity/authorizations-react`
+`npm install @availity/authorizations-axios`
 
 ## Configuration
 

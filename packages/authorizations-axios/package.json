@@ -1,5 +1,5 @@
 {
-  "name": "@availity/authorizations-react",
+  "name": "@availity/authorizations-axios",
   "private": true,
   "version": "0.0.0",
   "description": "Availity authorizations react logic",
@@ -7,7 +7,7 @@
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
-    "@availity/api-react": "^0.0.0",
+    "@availity/api-axios": "^0.0.0",
     "@availity/authorizations-core": "^0.0.0"
   }
 }

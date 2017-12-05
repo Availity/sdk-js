@@ -1,5 +1,5 @@
 import AvAuthorizations from '@availity/authorizations-core';
-import { permissionsApi, regionsApi } from '@availity/api-react';
+import { permissionsApi, regionsApi } from '@availity/api-axios';
 
 class AvAuthorizationsReact extends AvAuthorizations {
   constructor() {
