@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@availity/api-core": "^0.0.0",
     "axios": "^0.16.1"
   }

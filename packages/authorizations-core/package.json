@@ -5,6 +5,5 @@
   "description": "Base configurations for Availity Authorizations",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
-  "license": "MIT",
-  "dependencies": {}
+  "license": "MIT"
 }

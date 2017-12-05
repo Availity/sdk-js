@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "tracekit": "^0.4.4"
   }
 }

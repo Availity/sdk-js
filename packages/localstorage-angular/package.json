@@ -9,7 +9,7 @@
   "keywords": ["availity", "localstorage"],
   "repository": "https://github.com/Availity/sdk-js",
   "bugs": "https://github.com/Availity/sdk-js/issues",
-  "dependencies": {
+  "peerDependencies": {
     "angular": "^1.6.4",
     "@availity/localstorage-core": "^0.0.0"
   },

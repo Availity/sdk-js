@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "author": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "angular": "^1.6.4",
     "@availity/api-core": "^0.0.0"
   },
