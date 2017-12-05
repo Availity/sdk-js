@@ -1,7 +1,7 @@
 {
   "name": "@availity/localstorage-core",
   "version": "0.0.0",
-  "description": "localstorage helper class",
+  "description": "localstorage wrapper",
   "keywords": [
     "availity",
     "localstorage"

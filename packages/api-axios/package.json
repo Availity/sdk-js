@@ -1,7 +1,7 @@
 {
   "name": "@availity/api-axios",
   "version": "0.0.0",
-  "description": "Axios base API definitions",
+  "description": "API definitions using axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",

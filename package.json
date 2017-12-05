@@ -13,6 +13,7 @@
     "updated": "lerna updated",
     "clean": "lerna clean",
     "precommit": "lint-staged",
+    "publish": "lerna publish",
     "test": "jest --silent",
     "postinstall": "npm run bootstrap"
   },

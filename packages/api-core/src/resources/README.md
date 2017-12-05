@@ -14,9 +14,7 @@
 * [AvLogMessage](#AvLogMessage)
 
 ## Intro
-To see the details for configuring the resources see [AvApi](../README.md)
-
-All are created with the same parameters as `AvApi` unless otherwise specified.
+To see the details for configuring the resources see [AvApi](../README.md).
 
 ### AvUser
 

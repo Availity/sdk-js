@@ -1,6 +1,6 @@
 #  api-axios
 
-A package wrapping the base api class with axios and ES6 Promise. More details about configuration can be found in [api-core](../api-core)
+A package wrapping the base api class with axios and ES6 Promise. More details about configuration can be found in [api-core](../api-core/)
 
 ## Install
 
@@ -16,7 +16,7 @@ All resources are configured by passing in options to its constructor. Unlike `A
 
 ## Resources
 
-All resources build the same as in [Api-Core](../api-core) except without the http and Promise parameters.
+All resources build the same as in [api-core](../api-core) except without the `http` and `Promise` parameters.
 
 * `new AvApi(config)`
 * `new LogMessagesApi(config)`

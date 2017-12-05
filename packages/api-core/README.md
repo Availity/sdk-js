@@ -1,12 +1,12 @@
 # api-core
 
-A package providing a base API class as well as several API resources for common to Availity.
+A package providing a base API class as well as several API resources for help in developing against the Availity Rest API.
 
 ## AvApi
 
 `AvApi` is a lightweight class that wraps a provided http service with helper functions designed for Availity's REST API.
 
-Such as:
+### Features
 * Automatic polling of restful endpoints with timeouts
 * Simple URI builder for API resources
 * Life-cycle hooks into HTTP calls for GET, PUT, POST, and DELETE
@@ -27,10 +27,10 @@ Either Angular's `$http` service or Axios (or compatible lib).
 #### `promise`
 Either Angular `$q` or equivalent `Promise` object. 
 
-### `config`
+#### `config`
 Either Angular `$http` or `axios` config object
 
-## Config
+### Config
 
 ##### `config.api`
 Default `true`. When `true`, the url is built out by joining `path`, `version`, and `name` or just `url` if no name is defined. The `id` is also added when appropriate. When `api` is `false`, all calls just use `url`. URL pattern: `path/version/name`
