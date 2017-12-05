@@ -1,4 +1,4 @@
-import axios from 'axios/dist/axios';
+import axios from 'axios';
 import { AvRegions } from '@availity/api-core';
 import userApi from './user';
 
