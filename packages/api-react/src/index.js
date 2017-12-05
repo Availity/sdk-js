@@ -1,6 +1,7 @@
 import AvApi from './resource';
 import logMessagesApi from './logs';
 import navigationApi from './navigation';
+import notificationApi from './notification';
 import organizationsApi from './organizations';
 import permissionsApi from './permissions';
 import providersApi from './providers';
@@ -17,6 +18,7 @@ export {
   ProxyApi,
   logMessagesApi,
   navigationApi,
+  notificationApi,
   organizationsApi,
   permissionsApi,
   providersApi,

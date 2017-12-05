@@ -5,6 +5,7 @@ import avApiFactory from './resource';
 
 import avLogMessagesApiFactory from './logs';
 import avNavigationApiFactory from './navigation';
+import avNotificationApiFactory from './notification';
 import avOrganizationsApiFactory from './organizations';
 import avPermissionsApiFactory from './permissions';
 import avProvidersApiFactory from './providers';
@@ -22,6 +23,7 @@ export default angular
   .factory('avLogMessagesApi', avLogMessagesApiFactory)
   .factory('avPdfApi', avPdfApiFactory)
   .factory('avNavigationApi', avNavigationApiFactory)
+  .factory('avNotificationApi', avNotificationApiFactory)
   .factory('avOrganizationsApi', avOrganizationsApiFactory)
   .factory('avPermissionsApi', avPermissionsApiFactory)
   .factory('avProvidersApi', avProvidersApiFactory)
