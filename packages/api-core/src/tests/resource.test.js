@@ -280,6 +280,16 @@ describe('AvApi', () => {
       const testExpected = '/api/v1/test';
       expect(api.getUrl(testConfig)).toBe(testExpected);
     });
+
+    test('getRequestUrl() should without passing in config', () => {
+      const fakeAPi = new AvApi(mockHttp, Promise, {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+      });
+      expect(fakeAPi.getRequestUrl()).toBe('/api/v1/test');
+    });
   });
 
   describe('getLocation', () => {

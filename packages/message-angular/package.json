@@ -11,6 +11,8 @@
     "@availity/message-core": "^0.0.0"
   },
   "devDependencies": {
+    "angular": "^1.6.4",
+    "@availity/message-core": "^0.0.0",
     "angular-mocks": "^1.6.4"
   }
 }

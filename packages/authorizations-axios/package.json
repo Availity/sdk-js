@@ -7,7 +7,17 @@
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
+    "@availity/localstorage-core": "^0.0.0",
+    "@availity/api-core": "^0.0.0",
     "@availity/api-axios": "^0.0.0",
-    "@availity/authorizations-core": "^0.0.0"
+    "@availity/authorizations-core": "^0.0.0",
+    "axios": "^0.16.1"
+  },
+  "devDependencies": {
+    "@availity/localstorage-core": "^0.0.0",
+    "@availity/api-core": "^0.0.0",
+    "@availity/api-axios": "^0.0.0",
+    "@availity/authorizations-core": "^0.0.0",
+    "axios": "^0.16.1"
   }
 }

@@ -94,6 +94,10 @@ export default class AvApi {
       .replace(/\/$/, '');
   }
 
+  getRequestUrl() {
+    return this.getUrl(this.config());
+  }
+
   // return location if should poll otherwise false
   getLocation(response) {
     let location = false;

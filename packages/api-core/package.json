@@ -15,5 +15,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@availity/localstorage-core": "^0.0.0"
+  },
+  "devDependencies": {
+    "@availity/localstorage-core": "^0.0.0"
   }
 }

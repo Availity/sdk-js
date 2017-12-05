@@ -8,5 +8,9 @@
   "peerDependencies": {
     "@availity/api-core": "^0.0.0",
     "axios": "^0.16.1"
+  },
+  "devDependencies": {
+    "@availity/api-core": "^0.0.0",
+    "axios": "^0.16.1"
   }
 }

@@ -11,6 +11,9 @@
     "@availity/api-core": "^0.0.0"
   },
   "devDependencies": {
+    "@availity/api-core": "^0.0.0",
+    "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
+
   }
 }
