@@ -1,7 +1,7 @@
 {
   "name": "@availity/api-axios",
   "version": "1.0.0-alpha.0",
-  "description": "API definitions using axios",
+  "description": "Availity API wrapper using Axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",

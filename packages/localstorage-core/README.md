@@ -1,6 +1,5 @@
 # localstorage-core
-
-A package wrapping the browsers localStorage with utility functions.
+> Wraps localStorage with utility functions
 
 ## Install
 
@@ -14,7 +13,7 @@ import AvLocalStorarge from '@availity/localstorage-core`;
 const avLocalStorage = new AvLocalStorage();
 
 if(avLocalStorage.supportsLocalStorage()) {
-    consologe.log('Browser support localstorage');
+    consolog.log('Browser support localstorage');
 }
 ```
 

@@ -2,7 +2,7 @@
   "name": "@availity/api-angular",
   "private": true,
   "version": "1.0.0-alpha.0",
-  "description": "Api angular logic",
+  "description": "Availity API wrapper using Angular",
   "main": "src/index.js",
   "author": "",
   "license": "MIT",

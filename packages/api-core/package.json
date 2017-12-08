@@ -1,7 +1,7 @@
 {
   "name": "@availity/api-core",
   "version": "1.0.0-alpha.0",
-  "description": "Base API definitions",
+  "description": "Base definitions for Availity API",
   "keywords": [
     "availity",
     "api",
