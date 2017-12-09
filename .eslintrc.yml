@@ -12,5 +12,3 @@ rules:
     - '**/**/**/tests/test.js'
   promise/no-callback-in-promise:
     - '**/**/**/tests/test.js'
-  function-paren-newline: 0
-  object-curly-newline: 0
