@@ -5,7 +5,7 @@ A package wrapping the base api class into angular
 More details about configuration can be found in [Api-Core](../api-core)
 
 ## Install
-`npm install @availity/api-angular`
+`npm install @availity/api-angular @availity/api-core --save`
 
 add module to your app.
 
