@@ -4,7 +4,9 @@ A package wrapping the base api class with axios and ES6 Promise. More details a
 
 ## Install
 
-`npm install @availity/api-axios`;
+```
+npm install @availity/api-axios @availity/api-core --save;
+```
 
 ## Configuration
 
@@ -16,16 +18,10 @@ All resources are configured by passing in options to its constructor. Unlike `A
 
 ## Resources
 
-All resources build the same as in [api-core](../api-core) except without the `http` and `Promise` parameters.
+### Proxy
 
-* `new AvApi(config)`
-* `new LogMessagesApi(config)`
-* `new NavigationApi(config)`
-* `new OrganizationsApi(AvUsersApi, config)`
-* `new PermissionsApi(config)`
-* `new ProvidersApi(config)`
-* `new ProxyApi(config)`
-* `new RegionsApi(AvUsersApi, config)`
-* `new SpacesApi(config)`
-* `new UsersApi(config)`
-* `new UserPermissionsApi(config)`
+```js
+import { ProxyApi } from '@availity/api-axios'
+
+const myProxy = new AvProxy({ tenant: 'healthplan' });
+```
