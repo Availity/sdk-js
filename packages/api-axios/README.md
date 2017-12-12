@@ -5,7 +5,7 @@ A package wrapping the base api class with axios and ES6 Promise. More details a
 ## Install
 
 ```
-npm install @availity/api-axios @availity/api-core --save;
+npm install @availity/api-axios @availity/api-core @availity/localstorage-core --save
 ```
 
 ## Configuration
