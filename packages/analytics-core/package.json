@@ -1,7 +1,7 @@
 {
   "name": "@availity/analytics-core",
   "private": true,
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Analytics base configuration for sdk-js",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
