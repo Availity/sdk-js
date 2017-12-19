@@ -1,4 +1,4 @@
-# Predefined Availity API's
+# Availity API's
 
 ## Table of Contents
 
@@ -18,52 +18,46 @@ To see the details for configuring the resources see [AvApi](../README.md).
 
 ### AvUser
 
-Used to get data about user by id
+Get information about current logged-in user.
 
 #### Methods
 
 ##### `me()` 
-Gets the currently logged in user profile
+Helper function that returns information about logged-in user.
 
 ### AvRegions
-Gets the current users current region as well as all available regions.
-
-#### Configuration
-`AvRegions` requires an `AvUser` object or similar object.
+Gets the logged-in user's current selected region as well as the regions the user is associated with.
 
 #### Methods
 
 ##### `getRegions(config)`
-Get regions for currently logged-in user.
+Get regions for logged-in user.
 
 ##### `getCurrentRegion()`
-Returns just the current region for the currently logged-in user.
+Returns just the current region for the logged-in user.
 
 ### AvPermissions
-Get permissions belonging to the current user.
+Get permissions belonging to the logged-in user.
 
 ### AvUserPermissions
-Get permissions and resources of currently logged-in user.
+Get permissions as well as resources of the logged-in user.
 
 ### AvSpaces
-Get data about any of the Space types. 
+Get metadata for the various content types for the Spaces platform. 
 
 ### AvOrganizations
-Service that allows you to get a user's active organizations.
-
-#### Configuration
-`AvOrganizations` requires an AvUser object, can use the `AvUser` predefined resource, or any object with a `.me()` promise that returns similar data.
+Service that allows you to get logged=in user's active organizations.
 
 #### Methods
 
 #### `queryOrganizations(user, config)`
-Returns organizations belonging to the passed in user.
+Returns organizations belonging to the `user`.
 
 ##### `getOrganizations(config)`
-Returns organizations belonging to the currently logged in User
+Returns organizations belonging to the logged-in user.
 
 ### AvProviders
-Get providers associated to the current user's organization.
+Get providers associated to the logged-in user's organization.
 
 ### AvLogMessage
 Create a log message.
