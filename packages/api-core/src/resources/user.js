@@ -11,9 +11,7 @@ export default class AvUsers extends AvApi {
     );
     super(http, promise, thisConfig);
   }
-  afterGet(response) {
-    return (response && response.data && response.data.user) || {};
-  }
+
   me(config) {
     return this.get('me', config);
   }

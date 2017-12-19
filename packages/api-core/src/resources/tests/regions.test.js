@@ -22,19 +22,6 @@ describe('AvRegions', () => {
     expect(api).toBeDefined();
   });
 
-  test('afterGet should return response.data.regions if it exists or an empty array', () => {
-    api = new AvRegions(mockHttp, Promise, mockAvUsers);
-    const testResponse1 = {};
-    const regions = ['testOrg'];
-    const testResponse2 = {
-      data: {
-        regions,
-      },
-    };
-    expect(api.afterGet(testResponse1)).toEqual([]);
-    expect(api.afterGet(testResponse2)).toEqual(regions);
-  });
-
   test('afterUpdate should call setPageBust and return response', () => {
     api = new AvRegions(mockHttp, Promise, mockAvUsers);
     api.setPageBust = jest.fn();

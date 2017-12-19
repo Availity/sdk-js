@@ -15,12 +15,6 @@ export default class AvRegions extends AvApi {
     this.AvUsers = AvUsers;
   }
 
-  afterGet(response) {
-    return response && response.data && response.data.regions
-      ? response.data.regions
-      : [];
-  }
-
   afterUpdate(response) {
     this.setPageBust();
     return response;

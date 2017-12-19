@@ -28,19 +28,6 @@ describe('AvOrganizations', () => {
     }).toThrow('[avUsers] must be defined');
   });
 
-  test('afterQuery() should return response.data.organizations if it exists or an empty array', () => {
-    api = new AvOrganizations(mockHttp, Promise, mockAvUsers);
-    const testResponse1 = {};
-    const organizations = ['testOrg'];
-    const testResponse2 = {
-      data: {
-        organizations,
-      },
-    };
-    expect(api.afterQuery(testResponse1)).toEqual([]);
-    expect(api.afterQuery(testResponse2)).toEqual(organizations);
-  });
-
   test('queryOrganizations() should call query with user.id added to params.userId', () => {
     api = new AvOrganizations(mockHttp, Promise, mockAvUsers);
     api.query = jest.fn();

@@ -11,11 +11,7 @@ export default class AvPermissions extends AvApi {
     );
     super(http, promise, thisConfig);
   }
-  afterQuery(response) {
-    return response && response.data && response.data.permissions
-      ? response.data.permissions
-      : [];
-  }
+
   getPermissions(id, region) {
     return this.query({
       params: { id, region },

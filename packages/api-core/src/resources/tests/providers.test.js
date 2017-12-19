@@ -15,19 +15,6 @@ describe('AvProviders', () => {
     expect(api).toBeDefined();
   });
 
-  test('afterQuery should return response.data.providers if it exists or an empty array', () => {
-    api = new AvProviders(mockHttp, Promise);
-    const testResponse1 = {};
-    const providers = ['testProvider'];
-    const testResponse2 = {
-      data: {
-        providers,
-      },
-    };
-    expect(api.afterQuery(testResponse1)).toEqual([]);
-    expect(api.afterQuery(testResponse2)).toEqual(providers);
-  });
-
   test('getProviders should query with customerId param added', () => {
     api = new AvProviders(mockHttp, Promise);
     api.query = jest.fn();

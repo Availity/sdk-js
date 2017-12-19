@@ -18,12 +18,6 @@ export default class AvOrganizations extends AvApi {
     this.avUsers = avUsers;
   }
 
-  afterQuery(response) {
-    return response && response.data && response.data.organizations
-      ? response.data.organizations
-      : [];
-  }
-
   queryOrganizations(user, config) {
     const params = Object.assign({}, { userId: user.id }, config.params || {});
     return this.query(Object.assign({}, { params }, config));

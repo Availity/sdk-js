@@ -15,19 +15,6 @@ describe('AvUsers', () => {
     expect(api).toBeDefined();
   });
 
-  test('afterGet should return response.data.user if it exists or an empty object', () => {
-    api = new AvUsers(mockHttp, Promise);
-    const testResponse1 = {};
-    const user = ['testUser'];
-    const testResponse2 = {
-      data: {
-        user,
-      },
-    };
-    expect(api.afterGet(testResponse1)).toEqual({});
-    expect(api.afterGet(testResponse2)).toEqual(user);
-  });
-
   test("me() should get with id 'me'", () => {
     api = new AvUsers(mockHttp, Promise);
     api.get = jest.fn();
