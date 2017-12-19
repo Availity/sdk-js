@@ -1,16 +1,16 @@
 {
   "name": "@availity/api-axios",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Availity API wrapper using Axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-core": "^1.0.0-alpha.1",
+    "@availity/api-core": "^1.0.0-alpha.2",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^1.0.0-alpha.1",
+    "@availity/api-core": "^1.0.0-alpha.2",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "publishConfig": {
