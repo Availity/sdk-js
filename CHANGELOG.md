@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.3"></a>
+# [1.0.0-alpha.3](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2017-12-19)
+
+
+### Bug Fixes
+
+* **api-core:** user.me() should return user object ([715c616](https://github.com/Availity/sdk-js/commit/715c616))
+
+
+
 <a name="1.0.0-alpha.2"></a>
 # [1.0.0-alpha.2](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2017-12-19)
 
