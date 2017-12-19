@@ -1,43 +1,63 @@
 # Angular API
 
-A package wrapping the base api class into angular
-
-More details about configuration can be found in [Api-Core](../api-core)
+A package wrapping `@av/api-core` with Angular `$http`.
 
 ## Install
 `npm install @availity/api-angular @availity/api-core --save`
 
-add module to your app.
-
+## Usage
 ```javascript
-import AvailityApi from '@availity/api-angular';
+import availityApi from '@availity/api-angular';
 angular.module('app', [
-  AvailityApi
+  availityApi
 ]);
 ```
 
-To configure the default Options
+Inject one of the predefined API class a controller or service:
 ```javascript
-config(AvApiOptionsProvider => {
-  AvApiOptionsProvider.setOptions({
+app.service('myCustomService', avUsersApi => {
+ return avUsersApi.me();
+});
+```
+
+Pre-configured API definitions:
+- `avLogMessagesApi`
+- `avPdfApi`
+- `avNavigationApi`
+- `avNotificationApi`
+- `avOrganizationsApi`
+- `avPermissionsApi`
+- `avProvidersApi`
+- `AvProxyApi`
+- `avRegionsApi`
+- `avSpacesApi`
+- `avUsersApi`
+- `avUserPermissionsApi'`
+
+## Options
+Configure the default options:
+```javascript
+config(avApiOptionsProvider => {
+  avApiOptionsProvider.setOptions({
     version: 'v2'
   });
 });
 ```
 
-## Creating Resources
+## Extending AvApiResource
 The AvApi is an extendable class to create new resources with
 
 ```javascript
   function factory(AvApiResource) {
     class AvExampleResource extends AvApiResource {
       constructor() {
-        const options = {
+        super({
           name: 'exampleApi'
-        };
-        super(options);
+        });
       }
     }
     return new AvExampleResource();
   }
 ```
+
+## API Definitions
