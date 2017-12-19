@@ -1,8 +1,7 @@
 {
   "name": "@availity/api-angular",
-  "private": true,
   "version": "1.0.0-alpha.1",
-  "description": "Availity API wrapper using Angular",
+  "description": "Availity API wrapper using Angular $http",
   "main": "src/index.js",
   "author": "",
   "license": "MIT",
