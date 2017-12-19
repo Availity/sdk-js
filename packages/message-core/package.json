@@ -1,7 +1,7 @@
 {
   "name": "@availity/message-core",
   "private": true,
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "availity wrapper for postMessage logic",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
