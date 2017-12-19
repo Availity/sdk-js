@@ -8,20 +8,29 @@ A package wrapping the base api class with axios and ES6 Promise. More details a
 npm install @availity/api-axios @availity/api-core @availity/localstorage-core --save
 ```
 
-## Configuration
-
-All resources are configured by passing in options to its constructor. Unlike `AvApi` it does not require an http or promise library
-
-```javascript
-  new AvApiResource(config);
-```
-
-## Resources
+## Usage
 
 ### Proxy
 
 ```js
-import { ProxyApi } from '@availity/api-axios'
+import { userApi } from '@availity/api-axios'
 
-const myProxy = new AvProxy({ tenant: 'healthplan' });
+function async getUser() {
+    const user = await userApi.me();
+}
 ```
+
+## API Definitions
+
+- `logMessagesApi`
+- `navigationApi`
+- `notificationApi`
+- `organizationsApi`
+- `permissionsApi`
+- `providersApi`
+- `regionsApi`
+- `pdfApi`
+- `spacesApi`
+- `userApi`
+- `userPermissionsAp`
+
