@@ -24,19 +24,21 @@ Either Angular `$q` or equivalent `Promise` object.
 #### `config`
 Either Angular `$http` or `axios` config object
 
-##### `config.api`
+### Config
+
+#### `config.api`
 Default `true`. When `true`, the url is built out by joining `path`, `version`, and `name` or just `url` if no name is defined. The `id` is also added when appropriate. When `api` is `false`, all calls just use `url`. URL pattern: `path/version/name`
 
-##### `config.url`
+#### `config.url`
 This is used for requests when `config.api` is false or `name` is undefined;
 
-##### `path`
+#### `path`
 Used for url building when `config.api` is true. URL pattern `path/version/name`
 
-##### `version`
+#### `version`
 Default `v1`. Used for url building when `config.api` is true. URL pattern `path/version/name`
 
-##### `name`
+#### `name`
 The name of the resource.  Used for url building when `api` is true. (`path/version/name`)
 
 #### `cacheBust`
@@ -66,42 +68,38 @@ If not defined, attempts to get `key` from `response.headers[key]`.
 
 
 ### Methods
-Each method can use an after function, (ex. `afterGet` with `get`). These are available to modify the response before it is resolved. Each method that has data available has a before function in order to modify data before the call is made.
-
-All methods accept a config object, which is merged into the resources config for that call only.
+Each method can use an after function, (ex. `afterGet` with `get`). These are available to modify the response before it is resolved. Each method that has data available has a before function in order to modify data before the call is made. All methods accept a config object, which is merged into the resources config for that call only.
 
 #### create or post
-Makes `HTTP POST` request.
+Makes HTTP`POST` request.
 ```javascript
 create(data, config);
 // or 
 post(data, config);
 ```
 
-
-
 #### postGet
-Makes `HTTP POST` using `X-HTTP-Method-Override = 'GET'`. There server must support override methods for the request to succeed.
+Makes HTTP`POST` using `X-HTTP-Method-Override = `GET`. There server must support override methods for the request to succeed.
 
 ```javascript
 postGet(data, config);
 ```
 
 #### get
-Retrieves an entity by ID. Makes `HTTP GET` call with `/id` in url. 
+Retrieves an entity by ID. Makes HTTP`GET` call with `/id` in url. 
 ```javascript
 get(id, config);
 ```
 
 #### query
-The query function is designed to fetch collections and search the API. Makes `HTTP GET` request with query params.
+The query function is designed to fetch collections and search the API. Makes HTTP`GET` request with query params.
 
 ```javascript
 query(config);
 ```
 
 #### update or put
-Update an entity with a PUT call. When an id is passed in, `/id` is added to the url.
+Update an entity with a `PUT` call. When an id is passed in, `/id` is added to the url.
 ```javascript
 update(id, data, config);
 // or wihthout id
@@ -113,7 +111,7 @@ put(data, config);
 ```
 
 #### remove or delete
-Remove an entity with a DELETE call. When an id is passed in, `/id` is added to the url. If the first parameter is a string or number, it is treated as an ID, otherwise data.
+Remove an entity with a `DELETE` call. When an `id` is passed in, `/id` is added to the url. If the first parameter is a string or number, it is treated as an ID, otherwise it is treated as an object.
 
 ```javascript
 remove(id, config);
