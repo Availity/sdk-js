@@ -2,17 +2,17 @@ import AvApi from '../resource';
 
 export default class AvUsers extends AvApi {
   constructor(http, promise, config = {}) {
-    const thisConfig = Object.assign(
+    const options = Object.assign(
       {
         path: 'api/sdk/platform',
         name: 'users',
       },
       config
     );
-    super(http, promise, thisConfig);
+    super(http, promise, options);
   }
 
   me(config) {
-    return this.get('me', config);
+    return this.get('me', config).then(response => response.data);
   }
 }
