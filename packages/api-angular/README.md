@@ -1,9 +1,9 @@
-# Angular API
+# api-angular
 
 A package wrapping `@av/api-core` with Angular `$http`.
 
 ## Install
-`npm install @availity/api-angular @availity/api-core --save`
+`npm install @availity/api-angular @availity/api-core @availity/localstorage-core --save`
 
 ## Usage
 ```javascript
@@ -20,7 +20,8 @@ app.service('myCustomService', avUsersApi => {
 });
 ```
 
-Pre-configured API definitions:
+## API Definitions:
+> Names below can be inject into any Angular service or controller
 - `avLogMessagesApi`
 - `avPdfApi`
 - `avNavigationApi`
