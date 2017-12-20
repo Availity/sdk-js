@@ -1,3 +1,14 @@
+<a name="1.0.0-alpha.4"></a>
+# [1.0.0-alpha.4](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2017-12-20)
+
+
+### Bug Fixes
+
+* **api-angular:** fix service name for avNotificationsApi ([c79ee42](https://github.com/Availity/sdk-js/commit/c79ee42))
+* **api-core:** wrong url for pdf api ([9f4af1c](https://github.com/Availity/sdk-js/commit/9f4af1c))
+
+
+
 <a name="1.0.0-alpha.3"></a>
 # [1.0.0-alpha.3](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2017-12-19)
 
