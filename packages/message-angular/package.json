@@ -1,17 +1,17 @@
 {
   "name": "@availity/message-angular",
   "private": true,
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "angular wrapper for availity message",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/message-core": "^1.0.0-alpha.3",
+    "@availity/message-core": "^1.0.0-alpha.4",
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/message-core": "^1.0.0-alpha.3",
+    "@availity/message-core": "^1.0.0-alpha.4",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },

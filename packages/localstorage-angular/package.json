@@ -1,6 +1,6 @@
 {
   "name": "@availity/localstorage-angular",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "private": true,
   "description": "localstorage helper class for Angular",
   "main": "src/index.js",
@@ -13,11 +13,11 @@
   "repository": "https://github.com/Availity/sdk-js",
   "bugs": "https://github.com/Availity/sdk-js/issues",
   "peerDependencies": {
-    "@availity/localstorage-core": "^1.0.0-alpha.3",
+    "@availity/localstorage-core": "^1.0.0-alpha.4",
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/localstorage-core": "^1.0.0-alpha.3",
+    "@availity/localstorage-core": "^1.0.0-alpha.4",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },
