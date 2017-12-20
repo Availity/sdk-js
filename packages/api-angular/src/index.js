@@ -23,7 +23,7 @@ export default angular
   .factory('avLogMessagesApi', avLogMessagesApiFactory)
   .factory('avPdfApi', avPdfApiFactory)
   .factory('avNavigationApi', avNavigationApiFactory)
-  .factory('avNotificationApi', avNotificationApiFactory)
+  .factory('avNotificationsApi', avNotificationApiFactory)
   .factory('avOrganizationsApi', avOrganizationsApiFactory)
   .factory('avPermissionsApi', avPermissionsApiFactory)
   .factory('avProvidersApi', avProvidersApiFactory)
