@@ -4,7 +4,7 @@ export default class AvPdfs extends AvApi {
   constructor(http, promise, config = {}) {
     const options = Object.assign(
       {
-        path: 'api/util',
+        path: 'api/utils',
         name: 'pdfs',
       },
       config
