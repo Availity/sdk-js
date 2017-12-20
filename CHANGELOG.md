@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.5"></a>
+# [1.0.0-alpha.5](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2017-12-20)
+
+
+### Bug Fixes
+
+* **api-core:** wrong url for notifcations api ([acafc97](https://github.com/Availity/sdk-js/commit/acafc97))
+
+
+
 <a name="1.0.0-alpha.4"></a>
 # [1.0.0-alpha.4](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2017-12-20)
 
