@@ -14,6 +14,6 @@ export default class AvNotification extends AvApi {
 
   deleteByTopic(topic) {
     const params = Object.assign({}, { topicId: topic });
-    return this.query(Object.assign({}, { params }));
+    return this.remove(Object.assign({}, { params }));
   }
 }
