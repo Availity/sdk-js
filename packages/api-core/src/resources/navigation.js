@@ -2,13 +2,13 @@ import AvApi from '../resource';
 
 export default class AvNavigation extends AvApi {
   constructor(http, promise, config = {}) {
-    const thisConfig = Object.assign(
+    const options = Object.assign(
       {
         path: 'api/sdk/platform',
         name: 'navigation/spaces',
       },
       config
     );
-    super(http, promise, thisConfig);
+    super(http, promise, options);
   }
 }

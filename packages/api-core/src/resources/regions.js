@@ -2,7 +2,7 @@ import AvApi from '../resource';
 
 export default class AvRegions extends AvApi {
   constructor(http, promise, AvUsers, config = {}) {
-    const thisConfig = Object.assign(
+    const options = Object.assign(
       {
         path: 'api/sdk/platform',
         name: 'regions',
@@ -11,7 +11,7 @@ export default class AvRegions extends AvApi {
       },
       config
     );
-    super(http, promise, thisConfig);
+    super(http, promise, options);
     this.AvUsers = AvUsers;
   }
 

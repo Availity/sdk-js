@@ -2,14 +2,14 @@ import AvApi from '../resource';
 
 export default class AvNotification extends AvApi {
   constructor(http, promise, config = {}) {
-    const thisConfig = Object.assign(
+    const options = Object.assign(
       {
         path: 'api',
-        name: 'notification',
+        name: 'notifications',
       },
       config
     );
-    super(http, promise, thisConfig);
+    super(http, promise, options);
   }
 
   deleteByTopic(topic) {

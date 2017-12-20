@@ -2,14 +2,14 @@ import AvApi from '../resource';
 
 export default class AvProviders extends AvApi {
   constructor(http, promise, config = {}) {
-    const thisConfig = Object.assign(
+    const options = Object.assign(
       {
         path: 'api/internal',
         name: 'providers',
       },
       config
     );
-    super(http, promise, thisConfig);
+    super(http, promise, options);
   }
 
   getProviders(customerId, config) {

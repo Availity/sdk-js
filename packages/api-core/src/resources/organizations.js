@@ -2,14 +2,14 @@ import AvApi from '../resource';
 
 export default class AvOrganizations extends AvApi {
   constructor(http, promise, avUsers, config = {}) {
-    const thisConfig = Object.assign(
+    const options = Object.assign(
       {
         path: 'api/sdk/platform',
         name: 'organizations',
       },
       config
     );
-    super(http, promise, thisConfig);
+    super(http, promise, options);
 
     if (!avUsers) {
       throw new Error('[avUsers] must be defined and be instance of AvUsers');
