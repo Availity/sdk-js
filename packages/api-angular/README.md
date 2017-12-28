@@ -52,8 +52,8 @@ config(avApiOptionsProvider => {
 });
 ```
 
-## Create New API Definitions
-Create new API definitions by extending `AvApi`. Extending `AvApi` provides services the behaviors described in [@api-core/README#features](../api-core/README.md#features)
+## Create API Definitions
+Create API definitions by extending `AvApi`. Extending `AvApi` provides services the behaviors described in [@api-core/README#features](../api-core/README.md#features)
 
 ```js
 function factory(AvApi) {
@@ -61,6 +61,24 @@ function factory(AvApi) {
         constructor() {
             super({
                 name: 'exampleApi'
+            });
+        }
+    }
+    return new AvExampleResource();
+}
+```
+
+## Create Proxy API Definitions
+Create proxy API definitions by extending `AvApiProxy`. Extending `AvApiProxy` provides services the behaviors described in [@api-core/README#features] (../api-core/README.md#features) as well as building the url to match your tenant's proxy REST conventions.
+
+
+```js
+function factory(AvApiProxy) {
+    class AvExampleResource extends AvApiProxy {
+        constructor() {
+            super({
+                tenant: 'myhealthplan',
+                name: 'patients'
             });
         }
     }
