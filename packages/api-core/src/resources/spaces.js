@@ -1,4 +1,4 @@
-import AvApi from '../resource';
+import AvApi from '../api';
 
 export default class AvSpaces extends AvApi {
   constructor(http, promise, config = {}) {

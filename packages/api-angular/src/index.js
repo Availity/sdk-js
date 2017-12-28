@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 import avApiOptionsProvider from './options';
-import avApiFactory from './resource';
+import avApiFactory from './api';
 
 import avLogMessagesApiFactory from './logs';
 import avNavigationApiFactory from './navigation';

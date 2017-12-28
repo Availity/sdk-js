@@ -1,4 +1,4 @@
-import AvApi from './resource';
+import AvApi from './api';
 import logMessagesApi from './logs';
 import navigationApi from './navigation';
 import notificationApi from './notification';

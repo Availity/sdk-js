@@ -14,33 +14,33 @@
 * [AvLogMessage](#AvLogMessage)
 
 ## Intro
-To see the details for configuring the resources see [AvApi](../README.md).
+View [AvApi](../README.md) to see the details for configuring API definitions. 
 
 ### AvUser
 
-Get information about current logged-in user.
+Get information about current logged in user.
 
 #### Methods
 
 ##### `me()` 
-Helper function that returns information about logged-in user.
+Helper function that returns information about logged in user.
 
 ### AvRegions
-Gets the logged-in user's current selected region as well as the regions the user is associated with.
+Gets the logged in user's current selected region as well as the regions the user is associated with.
 
 #### Methods
 
 ##### `getRegions(config)`
-Get regions for logged-in user.
+Get regions for logged in user.
 
 ##### `getCurrentRegion()`
-Returns just the current region for the logged-in user.
+Returns just the current region for the logged in user.
 
 ### AvPermissions
-Get permissions belonging to the logged-in user.
+Get permissions belonging to the logged in user.
 
 ### AvUserPermissions
-Get permissions as well as resources of the logged-in user.
+Get permissions as well as resources of the logged in user.
 
 ### AvSpaces
 Get metadata for the various content types for the Spaces platform. 
@@ -54,18 +54,27 @@ Service that allows you to get logged=in user's active organizations.
 Returns organizations belonging to the `user`.
 
 ##### `getOrganizations(config)`
-Returns organizations belonging to the logged-in user.
+Returns organizations belonging to the logged in user.
 
 ### AvProviders
-Get providers associated to the logged-in user's organization.
+Get providers associated to the logged in user's organization.
+
+#### Methods
+
+##### `getProviders(customerId, config)`
+Helper method that gets the providers for the `customerId`.
 
 ### AvLogMessage
 Create a log message.
 
 #### Methods
 
-All methods take a entries object, remove it's level, and using the level of the function, call create with `{level, entries}`;
-* debug
-* info
-* warn
-* error
+All methods take a key value object. A key named 'level` determines the log level type in the logs.
+
+
+#####  `debug(keyValue)`
+#####  `info(keyValue)`
+#####  `warn(keyValue)`
+#####  `error(keyValue)`
+
+

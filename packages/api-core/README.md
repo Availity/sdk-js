@@ -1,10 +1,10 @@
 # api-core
 
-A package providing a base API class as well as several API resources for help in developing against the Availity Rest API.
+A package providing base API class and definitions for developing against the Availity REST API. 
 
 ## AvApi
 
-`AvApi` is a lightweight class that wraps a provided http service with helper functions designed for Availity's REST API.
+`AvApi` is a class that wraps a provided http service with helper functions. 
 
 ### Features
 * Automatic polling of restful endpoints with timeouts
@@ -65,7 +65,7 @@ Default `true`. Attempts to read a value in local storage that is generated at l
 Default `true`. If true and rest services return `202` statuc code, `AvApi` will attempt to poll on predefined internvals until the retries are exhausted or the api returns non `202` response.
 
 #####  `config.pollingIntervals`
-An array of intervals (in ms) to wait before making another request.
+An array of intervals (ms) to wait before making another request.
 Default is 1, 2, 5, then 10 seconds. After all the intervals have been used, `AvApi` will stop attempting requests and return the last response.
 
 ##### `config.getHeader`
@@ -131,4 +131,3 @@ delete(data, config);
 // or without id
 delete(config);
 ```
-## [Resources](src/resources/README.md)
