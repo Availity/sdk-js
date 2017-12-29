@@ -2,16 +2,17 @@
 
 ## Table of Contents
 
-* [Intro](#Intro)
-* [AvUser](#AvUser)
-* [AvRegions](#AvRegions)
-* [AvPermissions](#AvPermissions)
-* [AvUserPermissions](#AvUserPermissions)
-* [AvNavigation](#AvNavigation)
-* [AvSpaces](#AvSpaces)
-* [AvOrganizations](#AvOrganizations)
-* [AvProviders](#AvProviders)
-* [AvLogMessage](#AvLogMessage)
+* [Intro](#intro)
+* [AvUser](#avuser)
+* [AvRegions](#avregions)
+* [AvPermissions](#avpermissions)
+* [AvUserPermissions](#avuserpermissions)
+* [AvNavigation](#avnavigation)
+* [AvSpaces](#avspaces)
+* [AvOrganizations](#avorganizations)
+* [AvProviders](#avproviders)
+* [AvLogMessage](#avlogmessage)
+* [AvProxy](#avproxy)
 
 ## Intro
 View [AvApi](../README.md) to see the details for configuring API definitions. 
@@ -76,5 +77,13 @@ All methods take a key value object. A key named 'level` determines the log leve
 #####  `info(keyValue)`
 #####  `warn(keyValue)`
 #####  `error(keyValue)`
+
+### AvProxy
+Create API definitions for services that are proxied to a tenant's API gateway. 
+
+#### Options
+
+##### `tenant`
+The Spaces platform customer name which is used as part of the url for API's proxied to 3rd party API gateway.
 
 

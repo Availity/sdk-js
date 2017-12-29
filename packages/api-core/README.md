@@ -1,6 +1,5 @@
 # api-core
-
-Base API definitions for the Availity REST API.
+> Base API definitions for the Availity REST API.
 
 ## AvApi
 

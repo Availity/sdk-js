@@ -1,5 +1,4 @@
 # sdk-js
-
 > Javascript SDK for Availity
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
@@ -15,6 +14,16 @@
 ## Documentation
 
 - [api-core](packages/api-core/README.md) - Base API definitions used by [api-axios](packages/api-axios/README.md) and [api-angular](api-angular/README.md) for the Availity REST API.
+    * [AvUser](api-angular/src/resources/README.md#avuser)
+    * [AvRegions](api-angular/src/resources/README.md#avregions)
+    * [AvPermissions](api-angular/src/resources/README.md#avpermissions)
+    * [AvUserPermissions](api-angular/src/resources/README.md#avuserpermissions)
+    * [AvNavigation](api-angular/src/resources/README.md#avnavigation)
+    * [AvSpaces](api-angular/src/resources/README.md#avspaces)
+    * [AvOrganizations](api-angular/src/resources/README.md#avorganizations)
+    * [AvProviders](api-angular/src/resources/README.md#avproviders)
+    * [AvLogMessage](api-angular/src/resources/README.md#avlogmessage)
+    * [AvProxy](api-angular/src/resources/README.md#avproxy)
 - [api-axios](packages/api-axios/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with [axios](https://github.com/axios/axios) and native ES6 Promise. 
 - [api-angular](packages/api-angular/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
 - [localalstorage-core](packages/localstorage-core/README.md) - Wraps localStorage with utility functions. 

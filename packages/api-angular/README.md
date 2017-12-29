@@ -1,6 +1,5 @@
 # api-angular
-
-A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
+> A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
 
 ## Install
 `npm install @availity/api-angular @availity/api-core @availity/localstorage-core --save`

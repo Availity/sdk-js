@@ -1,6 +1,5 @@
 #  api-axios
-
-A package wrapping [@av/api-core](../api-core/README.md) with axios and native ES6 Promise. 
+> A package wrapping [@av/api-core](../api-core/README.md) with axios and native ES6 Promise. 
 
 
 ## Install
@@ -62,7 +61,7 @@ export default new AvExampleResource();
 Create new API definitions by extending `AvApiProxy`. Extending `AvApiProxy` provides services the behaviors described in [@api-core/README#features] (../api-core/README.md#features) as well as building the url to match your tenant's proxy REST conventions.
 
 ```js
-import AvApi from '@availity/api-axios';
+import { AvApiProxy } from '@availity/api-axios';
 class AvExampleResource extends AvApiProxy {
     constructor() {
         super({
