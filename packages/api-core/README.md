@@ -1,6 +1,6 @@
 # api-core
 
-A package providing base API class and definitions for developing against the Availity REST API. 
+Base API definitions for the Availity REST API.
 
 ## AvApi
 
@@ -16,7 +16,7 @@ A package providing base API class and definitions for developing against the Av
 ```js
 import AvApi from '@availity/api-core';
 
-new AvApi(http, promise, config);
+new AvApi(http, promise, options);
 ```
 
 ### Options

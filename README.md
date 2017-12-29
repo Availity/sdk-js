@@ -12,5 +12,12 @@
 * Google Chrome
 * Mozilla Firefox
 
+## Documentation
+
+- [api-core](packages/api-core/README.md) - Base API definitions used by [api-axios](packages/api-axios/README.md) and [api-angular](api-angular/README.md) for the Availity REST API.
+- [api-axios](packages/api-axios/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with axios and native ES6 Promise. 
+- [api-angular](packages/api-angular/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
+- [localalstorage-core](packages/localstorage-core/README.md) - Wraps localStorage with utility functions. 
+
 ## License
 [MIT](./LICENSE)
