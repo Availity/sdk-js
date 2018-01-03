@@ -30,10 +30,6 @@ export default class AvSpaces extends AvApi {
   }
 
   getSpaceName(spaceId) {
-    return this.query({
-      params: {
-        id: spaceId,
-      },
-    }).then(response => response.data.name);
+    return this.get(spaceId).then(response => response.data.name);
   }
 }
