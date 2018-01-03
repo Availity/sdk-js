@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.7"></a>
+# [1.0.0-alpha.7](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2018-01-03)
+
+
+### Bug Fixes
+
+* **api-core:** use get instead of query for space name ([84dd26a](https://github.com/Availity/sdk-js/commit/84dd26a))
+
+
+
 <a name="1.0.0-alpha.6"></a>
 # [1.0.0-alpha.6](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2017-12-20)
 
