@@ -2,7 +2,7 @@ import AvSpaces from '../spaces';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
-const query = jest.fn(() =>
+const get = jest.fn(() =>
   Promise.resolve({
     status: 200,
     data: {
@@ -16,7 +16,7 @@ describe('AvSpaces', () => {
 
   beforeEach(() => {
     api = new AvSpaces(mockHttp, Promise, {});
-    api.query = query;
+    api.get = get;
   });
 
   test('should be defined', () => {
