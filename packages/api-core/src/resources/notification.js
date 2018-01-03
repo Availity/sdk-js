@@ -13,7 +13,11 @@ export default class AvNotification extends AvApi {
   }
 
   deleteByTopic(topic) {
-    const params = Object.assign({}, { topicId: topic });
-    return this.remove(Object.assign({}, { params }));
+    let config = this.config();
+    const url = `${this.getUrl(config)}?topicId=${topic}`;
+    config = this.config({
+      url,
+    });
+    return this.request(config, this.afterRemove || this.afterDelete);
   }
 }
