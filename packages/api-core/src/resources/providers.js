@@ -12,8 +12,14 @@ export default class AvProviders extends AvApi {
     super(http, promise, options);
   }
 
-  getProviders(customerId, config) {
-    const params = Object.assign({}, { customerId }, config.params || {});
-    return this.query(Object.assign({}, { params }, config));
+  getProviders(customerId, config = {}) {
+    let queryConfig = {
+      params: {
+        customerId,
+      },
+    };
+
+    queryConfig = Object.assign({}, queryConfig, config);
+    return this.query(queryConfig);
   }
 }
