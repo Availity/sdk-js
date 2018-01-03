@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.9"></a>
+# [1.0.0-alpha.9](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.7...v1.0.0-alpha.9) (2018-01-03)
+
+
+### Bug Fixes
+
+* **api-core:** provides api param not properly merged with defaults ([5f53e3d](https://github.com/Availity/sdk-js/commit/5f53e3d))
+
+
+
 <a name="1.0.0-alpha.8"></a>
 # [1.0.0-alpha.8](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2018-01-03)
 
