@@ -6,7 +6,7 @@ function factory($http, $q, avApiOptions) {
   class AvNotificationApi extends AvNotification {
     constructor() {
       const theseOptions = angular.copy(avApiOptions);
-      super($http, $q, theseOptions);
+      super($http, $q, angular.merge, theseOptions);
     }
   }
   return new AvNotificationApi();

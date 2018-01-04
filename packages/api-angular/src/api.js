@@ -9,7 +9,7 @@ function factory($http, $q, avApiOptions) {
         throw new Error('[options] cannot be null or undefined');
       }
       options = angular.merge({}, avApiOptions, options);
-      super($http, $q, options);
+      super($http, $q, angular.merge, options);
     }
   }
   return AvApi;

@@ -3,19 +3,22 @@ import AvLocalStorage from '@availity/localstorage-core';
 import API_OPTIONS from './options';
 
 export default class AvApi {
-  constructor(http, promise, config) {
-    if (!http || !config || !promise) {
-      throw new Error('[http], [promise] and [config] and must be defined');
+  constructor(http, promise, merge, config) {
+    if (!http || !config || !promise || !merge) {
+      throw new Error(
+        '[http], [promise], [config], and [merge] must be defined'
+      );
     }
     this.http = http;
     this.Promise = promise;
-    this.defaultConfig = Object.assign({}, API_OPTIONS, config);
+    this.merge = merge;
+    this.defaultConfig = this.merge({}, API_OPTIONS, config);
     this.localStorage = new AvLocalStorage();
   }
 
   // get the merged config
   config(config = {}) {
-    return Object.assign({}, this.defaultConfig, config);
+    return this.merge({}, this.defaultConfig, config);
   }
 
   addParams(params = {}, config = {}, newObj = true) {

@@ -3,54 +3,47 @@ import AvApi from '../api';
 jest.useFakeTimers();
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvApi', () => {
   let api;
 
   test('AvApi should be defined', () => {
-    api = new AvApi(mockHttp, {}, Promise);
+    api = new AvApi(mockHttp, Promise, mockMerge, {});
     expect(api).toBeDefined();
   });
 
   test('AvApi should throw errors when missing paramaters', () => {
     expect(() => {
       api = new AvApi();
-    }).toThrowError('[http], [promise] and [config] and must be defined');
+    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
-      api = new AvApi(false, false, false);
-    }).toThrowError('[http], [promise] and [config] and must be defined');
+      api = new AvApi(false, false, false, false);
+    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
-      api = new AvApi(false, Promise, {});
-    }).toThrowError('[http], [promise] and [config] and must be defined');
+      api = new AvApi(false, Promise, mockMerge, {});
+    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
-      api = new AvApi(mockHttp, Promise, false);
-    }).toThrowError('[http], [promise] and [config] and must be defined');
+      api = new AvApi(mockHttp, false, mockMerge, {});
+    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
-      api = new AvApi(mockHttp, false, Promise);
-    }).toThrowError('[http], [promise] and [config] and must be defined');
+      api = new AvApi(mockHttp, Promise, false, {});
+    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
-      api = new AvApi(false, Promise, false);
-    }).toThrowError('[http], [promise] and [config] and must be defined');
-
-    expect(() => {
-      api = new AvApi(mockHttp, false, false);
-    }).toThrowError('[http], [promise] and [config] and must be defined');
-
-    expect(() => {
-      api = new AvApi(false, false, {});
-    }).toThrowError('[http], [promise] and [config] and must be defined');
+      api = new AvApi(mockHttp, Promise, mockMerge, false);
+    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
   });
 
   test('config() should merge passed in config with defaultConfig', () => {
     const mockConfig = {
       name: 'testName',
     };
-    api = new AvApi(mockHttp, Promise, mockConfig);
+    api = new AvApi(mockHttp, Promise, mockMerge, mockConfig);
     const testConfig = { path: '/api/internal' };
     const testExpectConfig = Object.assign({}, api.defaultConfig, testConfig);
     expect(api.config(testConfig)).toEqual(testExpectConfig);
@@ -58,7 +51,7 @@ describe('AvApi', () => {
 
   describe('getCacheBustVal()', () => {
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
     });
 
     test('should return undefined with cache value is falsy', () => {
@@ -95,14 +88,14 @@ describe('AvApi', () => {
   });
 
   test('setPageBust() should set to passed in value', () => {
-    api = new AvApi(mockHttp, Promise, {});
+    api = new AvApi(mockHttp, Promise, mockMerge, {});
     const test = 'test';
     api.setPageBust(test);
     expect(api.pageBustValue).toBe(test);
   });
 
   test('setPageBust() should use Date.now()', () => {
-    api = new AvApi(mockHttp, Promise, {});
+    api = new AvApi(mockHttp, Promise, mockMerge, {});
     const test = 'test';
     Date.now = jest.fn(() => test);
     api.setPageBust();
@@ -111,14 +104,14 @@ describe('AvApi', () => {
   });
 
   test('getPageBust() should return pageBustValue() if set', () => {
-    api = new AvApi(mockHttp, Promise, {});
+    api = new AvApi(mockHttp, Promise, mockMerge, {});
     const test = 'test';
     api.pageBustValue = test;
     expect(api.getPageBust()).toBe(test);
   });
 
   test('getPageBust() should set pageBustValue() if not set yet', () => {
-    api = new AvApi(mockHttp, Promise, {});
+    api = new AvApi(mockHttp, Promise, mockMerge, {});
     const test = 'test';
     api.setPageBust = jest.fn(() => {
       api.pageBustValue = test;
@@ -129,7 +122,7 @@ describe('AvApi', () => {
 
   describe('addParams', () => {
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
     });
 
     test("should merge params into the config's", () => {
@@ -188,7 +181,7 @@ describe('AvApi', () => {
 
   describe('cacheParams', () => {
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
     });
 
     test('should make sure params object exists, if adding cache', () => {
@@ -274,7 +267,7 @@ describe('AvApi', () => {
 
   describe('getUrl', () => {
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
     });
 
     test('should return config.url if config.api is false', () => {
@@ -341,7 +334,7 @@ describe('AvApi', () => {
     });
 
     test('getRequestUrl() should without passing in config', () => {
-      const fakeAPi = new AvApi(mockHttp, Promise, {
+      const fakeAPi = new AvApi(mockHttp, Promise, mockMerge, {
         api: true,
         path: '/api/',
         version: '/v1/',
@@ -353,7 +346,7 @@ describe('AvApi', () => {
 
   describe('getLocation', () => {
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
     });
 
     test('should return false when polling is turned off', () => {
@@ -439,7 +432,7 @@ describe('AvApi', () => {
     };
 
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
       api.getLocation = jest.fn(() => testLocation);
       api.request = jest.fn();
       api.config = jest.fn(() => testNewConfig);
@@ -496,7 +489,7 @@ describe('AvApi', () => {
     const mockFinalResponse = 'finalResponse';
 
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
       api.onResponse = jest.fn(() => mockFinalResponse);
     });
 
@@ -535,7 +528,7 @@ describe('AvApi', () => {
   describe('request builders', () => {
     const testUrl = 'url';
     beforeEach(() => {
-      api = new AvApi(mockHttp, Promise, {});
+      api = new AvApi(mockHttp, Promise, mockMerge, {});
       api.request = jest.fn();
       api.cacheParams = jest.fn();
       api.config = jest.fn(config => Object.assign({}, config));

@@ -6,7 +6,7 @@ function factory($http, $q, avApiOptions) {
   class AvSpacesApi extends AvSpaces {
     constructor() {
       const options = angular.copy(avApiOptions);
-      super($http, $q, options);
+      super($http, $q, angular.merge, options);
     }
   }
   return new AvSpacesApi();
