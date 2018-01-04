@@ -41,14 +41,23 @@ describe('AvRegions', () => {
     api = new AvRegions(mockHttp, Promise, mockAvUsers);
     api.query = jest.fn();
 
-    const testConfig = { name: 'testName' };
-    const expectedConfig = Object.assign(
-      {},
-      { params: { userId: mockUser.id } },
-      testConfig
-    );
-
+    const testConfig = {
+      name: 'testName',
+      params: { testParam: 'helloWorld' },
+    };
+    const expectedConfig = Object.assign({}, testConfig);
+    Object.assign(expectedConfig.params, { userId: mockUser.id });
     return api.getRegions(testConfig).then(() => {
+      expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+    });
+  });
+
+  test('getRegions should handle undefined config param', () => {
+    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api.query = jest.fn();
+
+    const expectedConfig = { params: { userId: mockUser.id } };
+    return api.getRegions().then(() => {
       expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
     });
   });

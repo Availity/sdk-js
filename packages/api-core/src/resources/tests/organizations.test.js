@@ -34,14 +34,24 @@ describe('AvOrganizations', () => {
 
     const userId = 'testUserId';
     const user = { id: userId };
-    const testConfig = { name: 'testName' };
-    const expectedConfig = Object.assign(
-      {},
-      { params: { userId } },
-      testConfig
-    );
+    const testConfig = {
+      name: 'testName',
+      params: { otherParam: 'helloWorld' },
+    };
+    const expectedConfig = Object.assign({}, testConfig);
+    expectedConfig.params.userId = userId;
 
     api.queryOrganizations(user, testConfig);
+    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+  });
+
+  test('queryOrganizations() should handle undefined config param', () => {
+    api = new AvOrganizations(mockHttp, Promise, mockAvUsers);
+    api.query = jest.fn();
+    const userId = 'testUserId';
+    const user = { id: userId };
+    const expectedConfig = { params: { userId } };
+    api.queryOrganizations(user);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 

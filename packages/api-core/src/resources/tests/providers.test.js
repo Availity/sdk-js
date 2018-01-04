@@ -20,14 +20,23 @@ describe('AvProviders', () => {
     api.query = jest.fn();
 
     const customerId = 'testCustomerId';
-    const testConfig = { name: 'testName' };
-    const expectedConfig = Object.assign(
-      {},
-      { params: { customerId } },
-      testConfig
-    );
-
+    const testConfig = {
+      name: 'testName',
+      params: { testParam: 'hello world' },
+    };
+    const expectedConfig = Object.assign({}, testConfig);
+    Object.assign(expectedConfig.params, { customerId });
     api.getProviders(customerId, testConfig);
+    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+  });
+
+  test('getProviders should handle undefined config param', () => {
+    api = new AvProviders(mockHttp, Promise);
+    api.query = jest.fn();
+
+    const customerId = 'testCustomerId';
+    const expectedConfig = { params: { customerId } };
+    api.getProviders(customerId);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 });
