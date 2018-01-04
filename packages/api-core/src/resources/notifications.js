@@ -1,6 +1,6 @@
 import AvApi from '../api';
 
-export default class AvNotification extends AvApi {
+export default class AvNotifications extends AvApi {
   constructor(http, promise, config = {}) {
     const options = Object.assign(
       {
@@ -14,6 +14,6 @@ export default class AvNotification extends AvApi {
 
   deleteByTopic(topic) {
     const params = Object.assign({}, { topicId: topic });
-    return this.remove(Object.assign({}, { params }));
+    return this.remove({ params });
   }
 }

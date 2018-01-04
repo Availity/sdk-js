@@ -234,30 +234,28 @@ export default class AvApi {
     return this.request(config, this.afterUpdate || this.afterPut);
   }
 
-  put(id, data, config) {
-    return this.update(id, data, config);
+  put(...args) {
+    return this.update(args);
   }
 
   // delete request
   remove(id, config) {
-    let data;
     if (typeof id !== 'string' && typeof id !== 'number') {
-      data = id;
+      config = id;
       id = '';
     }
     config = this.config(config);
     config.method = 'DELETE';
     config.url = this.getUrl(config, id);
-    config.data = data;
 
     const beforeFunc = this.beforeRemove || this.beforeDelete;
     if (beforeFunc) {
-      config.data = beforeFunc(config.data);
+      config = beforeFunc(config);
     }
     return this.request(config, this.afterRemove || this.afterDelete);
   }
 
-  delete(id, config) {
-    return this.remove(id, config);
+  delete(...args) {
+    return this.remove(args);
   }
 }

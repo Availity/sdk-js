@@ -719,46 +719,34 @@ describe('AvApi', () => {
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
-    test('remove() should set first argument as data if not string or number', () => {
+    test('remove() should set first argument as config if not string or number', () => {
       const config = {
-        testValue: 'test',
-      };
-      const data = {
-        testData: 'data',
-      };
-      const expectedConfig = Object.assign(
-        {
-          method: 'DELETE',
-          url: testUrl,
+        method: 'DELETE',
+        url: testUrl,
+        data: {
+          a: '1',
+          b: '2',
         },
-        config,
-        { data }
-      );
-      api.remove(data, config);
-      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      };
+      api.remove(config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
+      expect(api.request).toHaveBeenLastCalledWith(config, undefined);
     });
 
-    test('remove() should run data through beforeRemove if defined', () => {
+    test('remove() should call beforeRemove() if defined', () => {
       const config = {
-        testValue: 'test',
-      };
-      const data = {
-        testData: 'data',
-      };
-      const expectedConfig = Object.assign(
-        {
-          method: 'DELETE',
-          url: testUrl,
+        method: 'DELETE',
+        url: testUrl,
+        data: {
+          a: '1',
+          b: '2',
         },
-        config,
-        { data }
-      );
+      };
       api.beforeRemove = jest.fn(thisData => thisData);
-      api.remove(data, config);
-      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
-      expect(api.beforeRemove).toHaveBeenLastCalledWith(data);
+      api.remove(config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
+      expect(api.request).toHaveBeenLastCalledWith(config, undefined);
+      expect(api.beforeRemove).toHaveBeenLastCalledWith(config);
     });
   });
 });

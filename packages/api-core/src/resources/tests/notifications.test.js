@@ -1,4 +1,4 @@
-import AvNotification from '../notification';
+import AvNotification from '../notifications';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -15,7 +15,7 @@ describe('AvNotification', () => {
     expect(api).toBeDefined();
   });
 
-  test('deleteByTopic() should call query with topic added to params.topicId', () => {
+  test('deleteByTopic() should call remove with topic added to params.topicId', () => {
     api = new AvNotification(mockHttp, Promise, {});
     api.remove = jest.fn();
 
