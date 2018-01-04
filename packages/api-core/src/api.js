@@ -34,34 +34,28 @@ export default class AvApi {
 
   // set the cache paramaters
   cacheParams(config) {
-    let anyParams = false;
     const params = {};
 
     if (config.cacheBust) {
-      anyParams = true;
       params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
         Date.now()
       );
     }
 
     if (config.pageBust) {
-      anyParams = true;
       params.pageBust = this.getCacheBustVal(config.pageBust, () =>
         this.getPageBust()
       );
     }
 
     if (config.sessionBust) {
-      anyParams = true;
       params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
         () => this.localStorage.getSessionBust() || this.getPageBust()
       );
     }
 
-    if (anyParams) {
-      this.addParams(params, config, false);
-    }
+    return this.addParams(params, config, false);
   }
 
   // get the cache value with default function
@@ -224,7 +218,7 @@ export default class AvApi {
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config, id);
-    this.cacheParams(config);
+    config = this.cacheParams(config);
     return this.request(config, this.afterGet);
   }
 
@@ -233,7 +227,7 @@ export default class AvApi {
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config);
-    this.cacheParams(config);
+    config = this.cacheParams(config);
     return this.request(config, this.afterQuery);
   }
 
