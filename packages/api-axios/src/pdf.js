@@ -3,4 +3,8 @@ import utils from 'axios/lib/utils';
 import { AvPdf } from '@availity/api-core';
 
 const { merge } = utils;
-export default new AvPdf(axios, Promise, merge);
+export default new AvPdf({
+  http: axios,
+  promise: Promise,
+  merge,
+});

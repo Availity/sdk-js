@@ -5,7 +5,12 @@ import { AvNotification } from '@availity/api-core';
 const { merge } = utils;
 class AvNotificationApi extends AvNotification {
   constructor(options) {
-    super(axios, Promise, merge, options);
+    super({
+      http: axios,
+      promise: Promise,
+      merge,
+      config: options,
+    });
   }
 }
 

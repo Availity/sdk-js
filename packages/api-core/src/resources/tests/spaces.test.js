@@ -16,7 +16,12 @@ describe('AvSpaces', () => {
   let api;
 
   beforeEach(() => {
-    api = new AvSpaces(mockHttp, Promise, mockMerge, {});
+    api = new AvSpaces({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     api.get = get;
   });
 

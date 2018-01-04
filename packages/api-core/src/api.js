@@ -3,7 +3,7 @@ import AvLocalStorage from '@availity/localstorage-core';
 import API_OPTIONS from './options';
 
 export default class AvApi {
-  constructor(http, promise, merge, config) {
+  constructor({ http, promise, merge, config }) {
     if (!http || !config || !promise || !merge) {
       throw new Error(
         '[http], [promise], [config], and [merge] must be defined'

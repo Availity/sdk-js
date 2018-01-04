@@ -4,4 +4,9 @@ import { AvRegions } from '@availity/api-core';
 import userApi from './user';
 
 const { merge } = utils;
-export default new AvRegions(axios, Promise, merge, userApi);
+export default new AvRegions({
+  http: axios,
+  promise: Promise,
+  merge,
+  AvUsers: userApi,
+});

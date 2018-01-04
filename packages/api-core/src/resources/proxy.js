@@ -1,7 +1,7 @@
 import AvApi from '../api';
 
 export default class AvProxy extends AvApi {
-  constructor(http, promise, merge, config = {}) {
+  constructor({ http, promise, merge, config }) {
     if (!config || !config.tenant) {
       throw Error('Must specify tenant name for Proxy');
     }
@@ -12,6 +12,11 @@ export default class AvProxy extends AvApi {
       },
       config
     );
-    super(http, promise, merge, options);
+    super({
+      http,
+      promise,
+      merge,
+      config: options,
+    });
   }
 }

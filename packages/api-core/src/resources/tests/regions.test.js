@@ -14,17 +14,34 @@ describe('AvRegions', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvRegions(mockHttp, Promise, mockMerge, mockAvUsers, {});
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     expect(api).toBeDefined();
   });
 
   test('should handle no config passed in', () => {
-    api = new AvRegions(mockHttp, Promise, mockMerge);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+    });
     expect(api).toBeDefined();
   });
 
   test('afterUpdate should call setPageBust and return response', () => {
-    api = new AvRegions(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.setPageBust = jest.fn();
     const testResponse1 = {};
     const regions = ['testRegion'];
@@ -39,7 +56,13 @@ describe('AvRegions', () => {
   });
 
   test('getRegions should call AvUsers.me() and then query with result', () => {
-    api = new AvRegions(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
 
     const testConfig = {
@@ -54,7 +77,13 @@ describe('AvRegions', () => {
   });
 
   test('getRegions should handle undefined config param', () => {
-    api = new AvRegions(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
 
     const expectedConfig = { params: { userId: mockUser.id } };
@@ -64,7 +93,13 @@ describe('AvRegions', () => {
   });
 
   test('getCurrent region should query with param currentlySelected: true', () => {
-    api = new AvRegions(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
     const expectedConfig = {
       params: {

@@ -7,17 +7,31 @@ describe('AvProviders', () => {
   let api;
 
   test('AvProviders should be defined', () => {
-    api = new AvProviders(mockHttp, Promise, mockMerge, {});
+    api = new AvProviders({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     expect(api).toBeDefined();
   });
 
   test('AvProviders should handle no config passed in', () => {
-    api = new AvProviders(mockHttp, Promise, mockMerge);
+    api = new AvProviders({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+    });
     expect(api).toBeDefined();
   });
 
   test('getProviders should query with customerId param added', () => {
-    api = new AvProviders(mockHttp, Promise, mockMerge);
+    api = new AvProviders({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     api.query = jest.fn();
 
     const customerId = 'testCustomerId';
@@ -32,7 +46,12 @@ describe('AvProviders', () => {
   });
 
   test('getProviders should handle undefined config param', () => {
-    api = new AvProviders(mockHttp, Promise, mockMerge);
+    api = new AvProviders({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     api.query = jest.fn();
 
     const customerId = 'testCustomerId';

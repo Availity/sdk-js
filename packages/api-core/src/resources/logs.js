@@ -1,14 +1,19 @@
 import AvApi from '../api';
 
 export default class AvLogMessages extends AvApi {
-  constructor(http, promise, merge, config = {}) {
+  constructor({ http, promise, merge, config }) {
     const options = Object.assign(
       {
         name: 'log-messages',
       },
       config
     );
-    super(http, promise, merge, options);
+    super({
+      http,
+      promise,
+      merge,
+      config: options,
+    });
   }
 
   send(level, entries) {

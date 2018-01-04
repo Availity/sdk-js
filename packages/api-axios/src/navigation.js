@@ -3,4 +3,8 @@ import utils from 'axios/lib/utils';
 import { AvNavigation } from '@availity/api-core';
 
 const { merge } = utils;
-export default new AvNavigation(axios, Promise, merge);
+export default new AvNavigation({
+  http: axios,
+  promise: Promise,
+  merge,
+});

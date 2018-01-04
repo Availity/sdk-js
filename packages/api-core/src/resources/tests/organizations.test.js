@@ -14,23 +14,45 @@ describe('AvOrganizations', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvOrganizations(mockHttp, Promise, mockMerge, mockAvUsers, {});
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     expect(api).toBeDefined();
   });
 
   test('should handle no config passed in', () => {
-    api = new AvOrganizations(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+    });
     expect(api).toBeDefined();
   });
 
   test('should throw error if no AvUsers passed in', () => {
     expect(() => {
-      api = new AvOrganizations(mockHttp, Promise, mockMerge);
-    }).toThrow('[avUsers] must be defined');
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        config: {},
+      });
+    }).toThrow('[AvUsers] must be defined');
   });
 
   test('queryOrganizations() should call query with user.id added to params.userId', () => {
-    api = new AvOrganizations(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
 
     const userId = 'testUserId';
@@ -47,7 +69,13 @@ describe('AvOrganizations', () => {
   });
 
   test('queryOrganizations() should handle undefined config param', () => {
-    api = new AvOrganizations(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
     const userId = 'testUserId';
     const user = { id: userId };
@@ -57,7 +85,13 @@ describe('AvOrganizations', () => {
   });
 
   test('getOrganizations() should call AvUsers.me() and then queryOrganizations()', async () => {
-    api = new AvOrganizations(mockHttp, Promise, mockMerge, mockAvUsers);
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      AvUsers: mockAvUsers,
+      config: {},
+    });
     api.queryOrganizations = jest.fn();
 
     const testConfig = { name: 'testName' };

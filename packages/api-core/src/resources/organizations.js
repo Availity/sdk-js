@@ -1,7 +1,7 @@
 import AvApi from '../api';
 
 export default class AvOrganizations extends AvApi {
-  constructor(http, promise, merge, avUsers, config = {}) {
+  constructor({ http, promise, merge, AvUsers, config }) {
     const options = Object.assign(
       {
         path: 'api/sdk/platform',
@@ -9,13 +9,18 @@ export default class AvOrganizations extends AvApi {
       },
       config
     );
-    super(http, promise, merge, options);
+    super({
+      http,
+      promise,
+      merge,
+      config: options,
+    });
 
-    if (!avUsers) {
-      throw new Error('[avUsers] must be defined and be instance of AvUsers');
+    if (!AvUsers) {
+      throw new Error('[AvUsers] must be defined and be instance of AvUsers');
     }
 
-    this.avUsers = avUsers;
+    this.AvUsers = AvUsers;
   }
 
   queryOrganizations(user, config) {
@@ -24,8 +29,8 @@ export default class AvOrganizations extends AvApi {
   }
 
   getOrganizations(config) {
-    return this.avUsers
-      .me()
-      .then(user => this.queryOrganizations(user, config));
+    return this.AvUsers.me().then(user =>
+      this.queryOrganizations(user, config)
+    );
   }
 }

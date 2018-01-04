@@ -6,6 +6,11 @@ const { merge } = utils;
 
 export default class AvApi extends Api {
   constructor(options) {
-    super(axios, Promise, merge, options);
+    super({
+      http: axios,
+      promise: Promise,
+      merge,
+      config: options,
+    });
   }
 }

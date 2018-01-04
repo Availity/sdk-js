@@ -5,8 +5,12 @@ import { AvSpaces } from '@availity/api-core';
 function factory($http, $q, avApiOptions) {
   class AvSpacesApi extends AvSpaces {
     constructor() {
-      const options = angular.copy(avApiOptions);
-      super($http, $q, angular.merge, options);
+      super({
+        http: $http,
+        promise: $q,
+        merge: angular.merge,
+        config: angular.copy(avApiOptions),
+      });
     }
   }
   return new AvSpacesApi();

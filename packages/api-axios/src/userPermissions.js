@@ -3,4 +3,8 @@ import utils from 'axios/lib/utils';
 import { AvUserPermissions } from '@availity/api-core';
 
 const { merge } = utils;
-export default new AvUserPermissions(axios, Promise, merge);
+export default new AvUserPermissions({
+  http: axios,
+  promise: Promise,
+  merge,
+});

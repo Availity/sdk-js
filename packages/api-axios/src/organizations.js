@@ -4,4 +4,9 @@ import { AvOrganizations } from '@availity/api-core';
 import avUserApi from './user';
 
 const { merge } = utils;
-export default new AvOrganizations(axios, Promise, merge, avUserApi);
+export default new AvOrganizations({
+  http: axios,
+  promise: Promise,
+  merge,
+  AvUsers: avUserApi,
+});
