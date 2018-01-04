@@ -27,6 +27,7 @@
 - [api-axios](packages/api-axios/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with [axios](https://github.com/axios/axios) and native ES6 Promise.
 - [api-angular](packages/api-angular/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
 - [localalstorage-core](packages/localstorage-core/README.md) - Wraps localStorage with utility functions.
+- [message-core](packages/message-core/README.md) - Wraps postMessage function with helper functions and security checks.
 
 ## Contribute
 
