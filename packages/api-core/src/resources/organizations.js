@@ -19,8 +19,9 @@ export default class AvOrganizations extends AvApi {
   }
 
   queryOrganizations(user, config) {
-    const params = Object.assign({}, { userId: user.id }, config.params || {});
-    return this.query(Object.assign({}, { params }, config));
+    const queryConfig = Object.assign({ params: {} }, config);
+    queryConfig.params = Object.assign({ userId: user.id }, queryConfig.params);
+    return this.query(queryConfig);
   }
 
   getOrganizations(config) {
