@@ -18,27 +18,46 @@ export default class AvApi {
     return Object.assign({}, this.defaultConfig, config);
   }
 
+  addParams(params = {}, config = {}, newObj = true) {
+    const output = newObj ? Object.assign({ params: {} }, config) : config;
+
+    if (!newObj) {
+      output.params = output.params || {};
+    }
+
+    output.params = Object.assign({}, output.params, params);
+    return output;
+  }
+
   // set the cache paramaters
   cacheParams(config) {
-    config.params = config.params || {};
+    let anyParams = false;
+    const params = {};
 
     if (config.cacheBust) {
-      config.params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
+      anyParams = true;
+      params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
         Date.now()
       );
     }
 
     if (config.pageBust) {
-      config.params.pageBust = this.getCacheBustVal(config.pageBust, () =>
+      anyParams = true;
+      params.pageBust = this.getCacheBustVal(config.pageBust, () =>
         this.getPageBust()
       );
     }
 
     if (config.sessionBust) {
-      config.params.sessionBust = this.getCacheBustVal(
+      anyParams = true;
+      params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
         () => this.localStorage.getSessionBust() || this.getPageBust()
       );
+    }
+
+    if (anyParams) {
+      this.addParams(params, config, false);
     }
   }
 

@@ -22,11 +22,7 @@ export default class AvRegions extends AvApi {
 
   getRegions(config) {
     return this.avUsers.me().then(user => {
-      const queryConfig = Object.assign({ params: {} }, config);
-      queryConfig.params = Object.assign(
-        { userId: user.id },
-        queryConfig.params
-      );
+      const queryConfig = this.addParams({ userId: user.id }, config);
       return this.query(queryConfig);
     });
   }

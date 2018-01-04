@@ -12,8 +12,8 @@ export default class AvNotifications extends AvApi {
     super(http, promise, options);
   }
 
-  deleteByTopic(topic) {
-    const params = Object.assign({}, { topicId: topic });
-    return this.remove({ params });
+  deleteByTopic(topic, config) {
+    const removeConfig = this.addParams({ topicId: topic }, config);
+    return this.remove(removeConfig);
   }
 }

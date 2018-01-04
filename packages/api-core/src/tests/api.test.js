@@ -127,13 +127,72 @@ describe('AvApi', () => {
     expect(api.setPageBust).toBeCalled();
   });
 
+  describe('addParams', () => {
+    beforeEach(() => {
+      api = new AvApi(mockHttp, Promise, {});
+    });
+
+    test("should merge params into the config's", () => {
+      const configParams = {
+        part1: 'hello',
+      };
+      const testParams = {
+        part2: 'world',
+      };
+      const expectedParams = Object.assign({}, configParams, testParams);
+
+      const testConfig = { params: configParams };
+      const expectedResults = { params: expectedParams };
+
+      expect(api.addParams(testParams, testConfig)).toEqual(expectedResults);
+    });
+
+    test('should not modify passed in config by default', () => {
+      const configParams = {
+        part1: 'hello',
+      };
+      const testParams = {
+        part2: 'world',
+      };
+      const expectedParams = Object.assign({}, configParams, testParams);
+
+      const testConfig = { params: configParams };
+      const testConfig2 = { params: configParams };
+      const expectedResults = { params: expectedParams };
+
+      const result = api.addParams(testParams, testConfig);
+      expect(testConfig).toEqual(testConfig2);
+      expect(result).not.toBe(testConfig);
+      expect(result).toEqual(expectedResults);
+    });
+
+    test('should modify passed in config with 3rd param false', () => {
+      const configParams = {
+        part1: 'hello',
+      };
+      const testParams = {
+        part2: 'world',
+      };
+      const expectedParams = Object.assign({}, configParams, testParams);
+
+      const testConfig = { params: configParams };
+      const testConfig2 = { params: configParams };
+      const expectedResults = { params: expectedParams };
+
+      const result = api.addParams(testParams, testConfig, false);
+      expect(testConfig).not.toEqual(testConfig2);
+      expect(result).toBe(testConfig);
+      expect(result).toEqual(expectedResults);
+    });
+  });
+
   describe('cacheParams', () => {
     beforeEach(() => {
       api = new AvApi(mockHttp, Promise, {});
     });
 
-    test('should make sure params object exists', () => {
-      const testConfig = {};
+    test('should make sure params object exists, if adding cache', () => {
+      const testConfig = { cacheBust: true };
       api.cacheParams(testConfig);
       expect(testConfig.params).toBeDefined();
     });
