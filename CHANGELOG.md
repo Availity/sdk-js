@@ -1,3 +1,18 @@
+<a name="1.0.0-alpha.10"></a>
+# [1.0.0-alpha.10](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2018-01-04)
+
+
+### Bug Fixes
+
+* **api-core:** remove/delete should not assume data payloads ([e45a9f6](https://github.com/Availity/sdk-js/commit/e45a9f6))
+
+
+### BREAKING CHANGES
+
+* **api-core:** previously remove/delete would assume that data was being passed in the body of the request if the first param of the message signature was NOT a string or number. Now, the method assumes a config object is passed in instead of data. This allows the developers to pass in params or data as they see fit.
+
+
+
 <a name="1.0.0-alpha.9"></a>
 # [1.0.0-alpha.9](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.7...v1.0.0-alpha.9) (2018-01-03)
 
