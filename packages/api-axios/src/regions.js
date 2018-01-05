@@ -8,5 +8,5 @@ export default new AvRegions({
   http: axios,
   promise: Promise,
   merge,
-  AvUsers: userApi,
+  avUsers: userApi,
 });

@@ -18,7 +18,7 @@ describe('AvRegions', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     expect(api).toBeDefined();
@@ -29,7 +29,7 @@ describe('AvRegions', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
     });
     expect(api).toBeDefined();
   });
@@ -39,7 +39,7 @@ describe('AvRegions', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.setPageBust = jest.fn();
@@ -55,12 +55,12 @@ describe('AvRegions', () => {
     expect(api.setPageBust).toHaveBeenCalledTimes(2);
   });
 
-  test('getRegions should call AvUsers.me() and then query with result', () => {
+  test('getRegions should call avUsers.me() and then query with result', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.query = jest.fn();
@@ -81,7 +81,7 @@ describe('AvRegions', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.query = jest.fn();
@@ -97,7 +97,7 @@ describe('AvRegions', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.query = jest.fn();

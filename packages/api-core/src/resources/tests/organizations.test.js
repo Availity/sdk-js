@@ -18,7 +18,7 @@ describe('AvOrganizations', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     expect(api).toBeDefined();
@@ -29,12 +29,12 @@ describe('AvOrganizations', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
     });
     expect(api).toBeDefined();
   });
 
-  test('should throw error if no AvUsers passed in', () => {
+  test('should throw error if no avUsers passed in', () => {
     expect(() => {
       api = new AvOrganizations({
         http: mockHttp,
@@ -42,7 +42,7 @@ describe('AvOrganizations', () => {
         merge: mockMerge,
         config: {},
       });
-    }).toThrow('[AvUsers] must be defined');
+    }).toThrow('[avUsers] must be defined');
   });
 
   test('queryOrganizations() should call query with user.id added to params.userId', () => {
@@ -50,7 +50,7 @@ describe('AvOrganizations', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.query = jest.fn();
@@ -73,7 +73,7 @@ describe('AvOrganizations', () => {
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.query = jest.fn();
@@ -84,12 +84,12 @@ describe('AvOrganizations', () => {
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 
-  test('getOrganizations() should call AvUsers.me() and then queryOrganizations()', async () => {
+  test('getOrganizations() should call avUsers.me() and then queryOrganizations()', async () => {
     api = new AvOrganizations({
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
-      AvUsers: mockAvUsers,
+      avUsers: mockAvUsers,
       config: {},
     });
     api.queryOrganizations = jest.fn();

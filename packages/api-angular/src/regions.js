@@ -7,6 +7,6 @@ export default ($http, $q, avUsersApi, avApiOptions) =>
     http: $http,
     promise: $q,
     merge: angular.merge,
-    AvUsers: avUsersApi,
+    avUsers: avUsersApi,
     config: angular.copy(avApiOptions),
   });

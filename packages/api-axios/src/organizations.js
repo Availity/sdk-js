@@ -8,5 +8,5 @@ export default new AvOrganizations({
   http: axios,
   promise: Promise,
   merge,
-  AvUsers: avUserApi,
+  avUsers: avUserApi,
 });
