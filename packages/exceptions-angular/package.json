@@ -1,19 +1,19 @@
 {
   "name": "@availity/exceptions-angular",
   "private": true,
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "description": "Availity class to log exceptions",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-angular": "^1.0.0-alpha.10",
-    "@availity/exceptions-core": "^1.0.0-alpha.10",
+    "@availity/api-angular": "^1.0.0-alpha.11",
+    "@availity/exceptions-core": "^1.0.0-alpha.11",
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/api-angular": "^1.0.0-alpha.10",
-    "@availity/exceptions-core": "^1.0.0-alpha.10",
+    "@availity/api-angular": "^1.0.0-alpha.11",
+    "@availity/exceptions-core": "^1.0.0-alpha.11",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },
