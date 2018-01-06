@@ -1,3 +1,23 @@
+<a name="1.0.0-alpha.11"></a>
+# [1.0.0-alpha.11](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2018-01-06)
+
+
+### Bug Fixes
+
+* **api-core:** resources incorrectly handling config ([9a5de1c](https://github.com/Availity/sdk-js/commit/9a5de1c))
+
+
+### Code Refactoring
+
+* **api-core:** pass config object to core classes ([d7b859c](https://github.com/Availity/sdk-js/commit/d7b859c))
+
+
+### BREAKING CHANGES
+
+* **api-core:** Options to core classes are being passed in as config object instead of parameters. 
+
+
+
 <a name="1.0.0-alpha.10"></a>
 # [1.0.0-alpha.10](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2018-01-04)
 

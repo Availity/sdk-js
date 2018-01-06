@@ -1,0 +1,26 @@
+{
+  "name": "upload-core",
+  "version": "1.0.0-alpha.10",
+  "description": "Wrapper for tus-js-client",
+  "main": "upload.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "tus",
+    "resumable",
+    "upload",
+    "availity"
+  ],
+  "author": "Robert McGuinness <rob.mcguinness@availity.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "tus-js-client": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "tus-js-client": "^1.4.5"
+  }
+}
