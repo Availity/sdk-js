@@ -1,7 +1,7 @@
 import AvApi from '../api';
 
 export default class AvNavigation extends AvApi {
-  constructor(http, promise, config = {}) {
+  constructor({ http, promise, merge, config }) {
     const options = Object.assign(
       {
         path: 'api/sdk/platform',
@@ -9,6 +9,11 @@ export default class AvNavigation extends AvApi {
       },
       config
     );
-    super(http, promise, options);
+    super({
+      http,
+      promise,
+      merge,
+      config: options,
+    });
   }
 }

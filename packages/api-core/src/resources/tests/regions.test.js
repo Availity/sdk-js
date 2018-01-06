@@ -1,6 +1,7 @@
 import AvRegions from '../regions';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const mockUser = {
   id: 'mockUserId',
@@ -13,17 +14,34 @@ describe('AvRegions', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvRegions(mockHttp, Promise, mockAvUsers, {});
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
     expect(api).toBeDefined();
   });
 
   test('should handle no config passed in', () => {
-    api = new AvRegions(mockHttp, Promise);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+    });
     expect(api).toBeDefined();
   });
 
   test('afterUpdate should call setPageBust and return response', () => {
-    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
     api.setPageBust = jest.fn();
     const testResponse1 = {};
     const regions = ['testRegion'];
@@ -37,8 +55,14 @@ describe('AvRegions', () => {
     expect(api.setPageBust).toHaveBeenCalledTimes(2);
   });
 
-  test('getRegions should call AvUsers.me() and then query with result', () => {
-    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+  test('getRegions should call avUsers.me() and then query with result', () => {
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
 
     const testConfig = {
@@ -53,7 +77,13 @@ describe('AvRegions', () => {
   });
 
   test('getRegions should handle undefined config param', () => {
-    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
 
     const expectedConfig = { params: { userId: mockUser.id } };
@@ -63,7 +93,13 @@ describe('AvRegions', () => {
   });
 
   test('getCurrent region should query with param currentlySelected: true', () => {
-    api = new AvRegions(mockHttp, Promise, mockAvUsers);
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
     api.query = jest.fn();
     const expectedConfig = {
       params: {

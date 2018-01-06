@@ -1,7 +1,7 @@
 import AvApi from '../api';
 
 export default class AvProviders extends AvApi {
-  constructor(http, promise, config = {}) {
+  constructor({ http, promise, merge, config }) {
     const options = Object.assign(
       {
         path: 'api/internal',
@@ -9,13 +9,16 @@ export default class AvProviders extends AvApi {
       },
       config
     );
-    super(http, promise, options);
+    super({
+      http,
+      promise,
+      merge,
+      config: options,
+    });
   }
 
   getProviders(customerId, config) {
-    const queryConfig = Object.assign({ params: {} }, config);
-    queryConfig.params = Object.assign({ customerId }, queryConfig.params);
-
+    const queryConfig = this.addParams({ customerId }, config);
     return this.query(queryConfig);
   }
 }

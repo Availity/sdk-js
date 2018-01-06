@@ -1,5 +1,12 @@
 import axios from 'axios';
+import utils from 'axios/lib/utils';
 import { AvRegions } from '@availity/api-core';
 import userApi from './user';
 
-export default new AvRegions(axios, Promise, userApi);
+const { merge } = utils;
+export default new AvRegions({
+  http: axios,
+  promise: Promise,
+  merge,
+  avUsers: userApi,
+});

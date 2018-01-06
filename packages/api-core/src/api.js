@@ -3,43 +3,59 @@ import AvLocalStorage from '@availity/localstorage-core';
 import API_OPTIONS from './options';
 
 export default class AvApi {
-  constructor(http, promise, config) {
-    if (!http || !config || !promise) {
-      throw new Error('[http], [promise] and [config] and must be defined');
+  constructor({ http, promise, merge, config }) {
+    if (!http || !config || !promise || !merge) {
+      throw new Error(
+        '[http], [promise], [config], and [merge] must be defined'
+      );
     }
     this.http = http;
     this.Promise = promise;
-    this.defaultConfig = Object.assign({}, API_OPTIONS, config);
+    this.merge = merge;
+    this.defaultConfig = this.merge({}, API_OPTIONS, config);
     this.localStorage = new AvLocalStorage();
   }
 
   // get the merged config
   config(config = {}) {
-    return Object.assign({}, this.defaultConfig, config);
+    return this.merge({}, this.defaultConfig, config);
+  }
+
+  addParams(params = {}, config = {}, newObj = true) {
+    const output = newObj ? Object.assign({ params: {} }, config) : config;
+
+    if (!newObj) {
+      output.params = output.params || {};
+    }
+
+    output.params = Object.assign({}, output.params, params);
+    return output;
   }
 
   // set the cache paramaters
   cacheParams(config) {
-    config.params = config.params || {};
+    const params = {};
 
     if (config.cacheBust) {
-      config.params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
+      params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
         Date.now()
       );
     }
 
     if (config.pageBust) {
-      config.params.pageBust = this.getCacheBustVal(config.pageBust, () =>
+      params.pageBust = this.getCacheBustVal(config.pageBust, () =>
         this.getPageBust()
       );
     }
 
     if (config.sessionBust) {
-      config.params.sessionBust = this.getCacheBustVal(
+      params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
         () => this.localStorage.getSessionBust() || this.getPageBust()
       );
     }
+
+    return this.addParams(params, config, false);
   }
 
   // get the cache value with default function
@@ -202,7 +218,7 @@ export default class AvApi {
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config, id);
-    this.cacheParams(config);
+    config = this.cacheParams(config);
     return this.request(config, this.afterGet);
   }
 
@@ -211,7 +227,7 @@ export default class AvApi {
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config);
-    this.cacheParams(config);
+    config = this.cacheParams(config);
     return this.request(config, this.afterQuery);
   }
 

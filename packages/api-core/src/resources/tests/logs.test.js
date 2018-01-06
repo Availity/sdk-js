@@ -1,17 +1,28 @@
 import AvLogMessages from '../logs';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvLogMessages', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvLogMessages(mockHttp, Promise, {});
+    api = new AvLogMessages({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     expect(api).toBeDefined();
   });
 
   test('send() should return {level, entries}', () => {
-    api = new AvLogMessages(mockHttp, Promise, {});
+    api = new AvLogMessages({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     const level = 'testLevel';
     const entries = 'testEntries';
     expect(api.send(level, entries)).toEqual({
@@ -21,7 +32,12 @@ describe('AvLogMessages', () => {
   });
 
   test('send() should delete entries.level', () => {
-    api = new AvLogMessages(mockHttp, Promise, {});
+    api = new AvLogMessages({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     const level = 'testLevel';
     const entries = {
       value: 'testEntries',
@@ -35,7 +51,12 @@ describe('AvLogMessages', () => {
     const testEntries = 'testEntry';
 
     beforeEach(() => {
-      api = new AvLogMessages(mockHttp, Promise, {});
+      api = new AvLogMessages({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        config: {},
+      });
       api.send = jest.fn();
       api.create = jest.fn();
     });

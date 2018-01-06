@@ -1,6 +1,7 @@
 import AvSpaces from '../spaces';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const get = jest.fn(() =>
   Promise.resolve({
@@ -15,7 +16,12 @@ describe('AvSpaces', () => {
   let api;
 
   beforeEach(() => {
-    api = new AvSpaces(mockHttp, Promise, {});
+    api = new AvSpaces({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
     api.get = get;
   });
 
