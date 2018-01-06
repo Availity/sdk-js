@@ -1,5 +1,6 @@
 {
-  "name": "upload-core",
+  "name": "@availity/upload-core",
+  "private": true,
   "version": "1.0.0-alpha.11",
   "description": "Wrapper for tus-js-client",
   "main": "upload.js",
