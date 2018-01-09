@@ -9,14 +9,14 @@ const defaults = {
 class Upload {
   constructor(files, options) {
     if (!files) {
-      throw Error('[options.files] must be defined and of type File');
+      throw Error('[options.files] must be defined and of type File(s)');
     }
 
-    if (!options.bucket) {
-      throw Error('[options.bucket] must be defined');
+    if (!options || !options.bucket) {
+      throw Error('[options] and [options.bucket] must be defined');
     }
 
-    this.files = files;
+    this.files = Array.isArray(files) ? files : [files];
     this.options = Object.assign({}, options, defaults);
     this.completed = false;
 
