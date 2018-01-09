@@ -30,4 +30,13 @@ describe('upload.core', () => {
     const file = [Buffer.from('hello world'.split(''))];
     new Upload(file, options); // eslint-disable-line
   });
+
+  it('should use default options ', () => {
+    const file = [Buffer.from('hello world'.split(''))];
+    const upload = new Upload(file, options);
+
+    expect(upload.options.endpoint).toBe(
+      '/ms/api/availity/internal/core/vault/upload/v1/resumable'
+    );
+  });
 });
