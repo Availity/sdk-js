@@ -1,19 +1,19 @@
 {
   "name": "@availity/authorizations-angular",
   "private": true,
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "description": "Availity authorizations angular logic",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-angular": "^1.0.0-alpha.12",
-    "@availity/authorizations-core": "^1.0.0-alpha.12",
+    "@availity/api-angular": "^1.0.0-alpha.13",
+    "@availity/authorizations-core": "^1.0.0-alpha.13",
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/api-angular": "^1.0.0-alpha.12",
-    "@availity/authorizations-core": "^1.0.0-alpha.12",
+    "@availity/api-angular": "^1.0.0-alpha.13",
+    "@availity/authorizations-core": "^1.0.0-alpha.13",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },
