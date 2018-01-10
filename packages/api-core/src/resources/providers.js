@@ -21,4 +21,16 @@ export default class AvProviders extends AvApi {
     const queryConfig = this.addParams({ customerId }, config);
     return this.query(queryConfig);
   }
+
+  static normalize(providers) {
+    const cloned = providers.slice();
+
+    cloned.forEach(provider => {
+      provider.name = provider.businessName
+        ? provider.businessName
+        : `${provider.lastName}, ${provider.firstName}`;
+    });
+
+    return cloned;
+  }
 }

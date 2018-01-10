@@ -65,6 +65,9 @@ Get providers associated to the logged in user's organization.
 ##### `getProviders(customerId, config)`
 Helper method that gets the providers for the `customerId`.
 
+##### `normalize(providers)`
+Helper method that adds `name` field to the `providers` collection. The name field is computed from other properies of the provider object.
+
 ### AvLogMessage
 Create a log message.
 
