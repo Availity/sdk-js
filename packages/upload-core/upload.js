@@ -2,7 +2,6 @@ import tus from 'tus-js-client';
 
 const defaults = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
-  start: true,
   chunkSize: 1024, // bytes
 };
 
@@ -12,17 +11,21 @@ class Upload {
       throw Error('[options.files] must be defined and of type File(s)');
     }
 
-    if (!options || !options.bucket) {
-      throw Error('[options] and [options.bucket] must be defined');
+    if (!options || !options.bucketId) {
+      throw Error('[options.bucketId] must be defined');
     }
 
-    this.files = Array.isArray(files) ? files : [files];
-    this.options = Object.assign({}, options, defaults);
+    if (!options.customerId) {
+      throw Error('[options.customerId] must be defined');
+    }
+
+    if (!options.clientId) {
+      throw Error('[options.clientId] must be defined');
+    }
+
+    this.files = files;
+    this.options = Object.assign(options, defaults);
     this.completed = false;
-
-    if (this.options.start) {
-      this.start();
-    }
   }
 
   getToken() {
@@ -35,12 +38,15 @@ class Upload {
   start() {
     const { files } = this;
 
-    files.forEach(file => {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
       const upload = new tus.Upload(file, {
         resume: true,
-        endpoint: `${this.options.endpoint}/${this.options.bucketId}`,
+        endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
         headers: {
           'X-XSRF-TOKEN': this.getToken(),
+          'X-Availity-Customer-ID': this.options.customerId,
+          'X-Client-ID': this.options.clientId,
         },
         onError: (...args) => {
           this.onError(upload, args);
@@ -54,7 +60,7 @@ class Upload {
       });
 
       upload.start();
-    });
+    }
   }
 
   onError(upload, err) {

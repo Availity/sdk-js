@@ -1,7 +1,9 @@
 import Upload from './upload';
 
 const options = {
-  bucket: 'healthplan-bucket',
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
 };
 
 describe('upload.core', () => {
@@ -18,16 +20,11 @@ describe('upload.core', () => {
   it('should throw error with missing bucket id', () => {
     expect(() => {
       new Upload([]); // eslint-disable-line
-    }).toThrow('[options.bucket] must be defined');
+    }).toThrow('[options.bucketId] must be defined');
   });
 
   it('should allow single file as constructor arguement', () => {
     const file = Buffer.from('hello world'.split(''));
-    new Upload(file, options); // eslint-disable-line
-  });
-
-  it('should allow array of file as constructor arguement', () => {
-    const file = [Buffer.from('hello world'.split(''))];
     new Upload(file, options); // eslint-disable-line
   });
 
