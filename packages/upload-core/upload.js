@@ -75,15 +75,21 @@ class Upload {
   }
 
   onSuccessCallback() {
-    const response = this.upload._xhr.getResponseHeader('references'); // eslint-disable-line
+    const xhr = this.upload._xhr; // eslint-disable-line
 
-    this.responses = JSON.parse(response);
+    const references = xhr.getResponseHeader('references');
+    if (references) {
+      this.references = JSON.parse(references);
+    }
+
     this.onSuccess();
   }
 
   onSuccess() {
     console.log('download %s from %s', this.upload.file.name, this.upload.url); // eslint-disable-line
-    console.log('references %s', this.responses.join(',')); // eslint-disable-line
+    if (this.references) {
+      console.log('references %s', this.responses.join(',')); // eslint-disable-line
+    }
   }
 }
 
