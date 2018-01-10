@@ -59,4 +59,26 @@ describe('AvProviders', () => {
     api.getProviders(customerId);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
+
+  test('normalize() should add name atttribute to collection', () => {
+    api = new AvProviders({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+
+    const providers = api.normalize([
+      {
+        businessName: 'a',
+      },
+      {
+        lastName: 'b',
+        firstName: 'c',
+      },
+    ]);
+
+    expect(providers[0].name).toBe('a');
+    expect(providers[1].name).toBe('b, c');
+  });
 });

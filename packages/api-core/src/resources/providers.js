@@ -22,7 +22,7 @@ export default class AvProviders extends AvApi {
     return this.query(queryConfig);
   }
 
-  static normalize(providers) {
+  normalize(providers) {
     const cloned = providers.slice();
 
     cloned.forEach(provider => {
