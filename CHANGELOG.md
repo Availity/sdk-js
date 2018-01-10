@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.13"></a>
+# [1.0.0-alpha.13](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2018-01-10)
+
+
+### Features
+
+* **api-core:** add helper function adds name attribute to providers collection ([3b24341](https://github.com/Availity/sdk-js/commit/3b24341))
+
+
+
 <a name="1.0.0-alpha.12"></a>
 # [1.0.0-alpha.12](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2018-01-09)
 
