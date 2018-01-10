@@ -48,32 +48,42 @@ class Upload {
           'X-Availity-Customer-ID': this.options.customerId,
           'X-Client-ID': this.options.clientId,
         },
-        onError: (...args) => {
-          this.onError(upload, args);
+        onError: err => {
+          this.onError(err);
         },
-        onProgress: (...args) => {
-          this.onProgress(upload, args);
+        onProgress: (bytesSent, bytesTotal) => {
+          this.onProgress(bytesSent, bytesTotal);
         },
-        onSuccess: (...args) => {
-          this.onSucess(upload, args);
+        onSuccess: () => {
+          this.onSuccessCallback();
         },
       });
+
+      this.upload = upload;
 
       upload.start();
     }
   }
 
-  onError(upload, err) {
+  onError(err) {
     console.log(err); // eslint-disable-line
   }
 
-  onProgress(upload, bytesUploaded, bytesTotal) {
+  onProgress(bytesUploaded, bytesTotal) {
     const percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
-    console.log('%s complete for %s', percentage, upload.file.name); // eslint-disable-line
+    console.log('%s complete for %s', percentage, this.upload.file.name); // eslint-disable-line
   }
 
-  onSuccess(upload) {
-    console.log('download %s from %s', upload.file.name, upload.url); // eslint-disable-line
+  onSuccessCallback() {
+    const response = this.upload._xhr.getResponseHeader('references'); // eslint-disable-line
+
+    this.responses = JSON.parse(response);
+    this.onSuccess();
+  }
+
+  onSuccess() {
+    console.log('download %s from %s', this.upload.file.name, this.upload.url); // eslint-disable-line
+    console.log('references %s', this.responses.join(',')); // eslint-disable-line
   }
 }
 
