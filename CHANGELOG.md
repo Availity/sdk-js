@@ -1,3 +1,8 @@
+<a name="1.0.0-alpha.14"></a>
+# [1.0.0-alpha.14](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2018-01-11)
+
+
+
 <a name="1.0.0-alpha.13"></a>
 # [1.0.0-alpha.13](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2018-01-10)
 
