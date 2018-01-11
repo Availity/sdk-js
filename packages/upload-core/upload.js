@@ -6,9 +6,9 @@ const defaults = {
 };
 
 class Upload {
-  constructor(files, options) {
-    if (!files) {
-      throw Error('[options.files] must be defined and of type File(s)');
+  constructor(file, options) {
+    if (!file) {
+      throw Error('[options.file] must be defined and of type File(s)');
     }
 
     if (!options || !options.bucketId) {
@@ -23,9 +23,13 @@ class Upload {
       throw Error('[options.clientId] must be defined');
     }
 
-    this.files = files;
+    this.file = file;
+    this.percentage = 0;
     this.options = Object.assign(options, defaults);
     this.completed = false;
+    this.onError = [];
+    this.onSuccess = [];
+    this.onProgress = [];
   }
 
   getToken() {
@@ -36,60 +40,41 @@ class Upload {
   }
 
   start() {
-    const { files } = this;
+    const { file } = this;
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const upload = new tus.Upload(file, {
-        resume: true,
-        endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
-        headers: {
-          'X-XSRF-TOKEN': this.getToken(),
-          'X-Availity-Customer-ID': this.options.customerId,
-          'X-Client-ID': this.options.clientId,
-        },
-        onError: err => {
-          this.onError(err);
-        },
-        onProgress: (bytesSent, bytesTotal) => {
-          this.onProgress(bytesSent, bytesTotal);
-        },
-        onSuccess: () => {
-          this.onSuccessCallback();
-        },
-      });
+    const upload = new tus.Upload(file, {
+      resume: true,
+      endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
+      headers: {
+        'X-XSRF-TOKEN': this.getToken(),
+        'X-Availity-Customer-ID': this.options.customerId,
+        'X-Client-ID': this.options.clientId,
+      },
+      onError: err => {
+        this.error = err;
+        this.onError.forEach(cb => cb(err));
+      },
+      onProgress: (bytesSent, bytesTotal) => {
+        this.percentage = bytesSent / bytesTotal * 100;
+        this.bytesSent = bytesSent;
+        this.bytesTotal = bytesTotal;
+        this.onProgress.forEach(cb => cb(bytesSent, bytesTotal));
+      },
+      onSuccess: () => {
+        const xhr = this.upload._xhr; // eslint-disable-line
+        this.percentage = 100;
+        this.completed = true;
+        const references = xhr.getResponseHeader('references');
+        if (references) {
+          this.references = JSON.parse(references);
+        }
+        this.onSuccess.forEach(cb => cb());
+      },
+    });
 
-      this.upload = upload;
+    this.upload = upload;
 
-      upload.start();
-    }
-  }
-
-  onError(err) {
-    console.log(err); // eslint-disable-line
-  }
-
-  onProgress(bytesUploaded, bytesTotal) {
-    const percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
-    console.log('%s complete for %s', percentage, this.upload.file.name); // eslint-disable-line
-  }
-
-  onSuccessCallback() {
-    const xhr = this.upload._xhr; // eslint-disable-line
-
-    const references = xhr.getResponseHeader('references');
-    if (references) {
-      this.references = JSON.parse(references);
-    }
-
-    this.onSuccess();
-  }
-
-  onSuccess() {
-    console.log('download %s from %s', this.upload.file.name, this.upload.url); // eslint-disable-line
-    if (this.references) {
-      console.log('references %s', this.responses.join(',')); // eslint-disable-line
-    }
+    upload.start();
   }
 }
 
