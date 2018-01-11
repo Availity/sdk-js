@@ -14,7 +14,7 @@ describe('upload.core', () => {
   it('should throw error for missing files', () => {
     expect(() => {
       new Upload(); // eslint-disable-line
-    }).toThrow('[options.files] must be defined and of type File');
+    }).toThrow('[options.file] must be defined and of type File');
   });
 
   it('should throw error with missing bucket id', () => {
