@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.15"></a>
+# [1.0.0-alpha.15](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2018-01-12)
+
+
+### Bug Fixes
+
+* **upload-core:** add additional headers ([9a10f16](https://github.com/Availity/sdk-js/commit/9a10f16))
+
+
+
 <a name="1.0.0-alpha.14"></a>
 # [1.0.0-alpha.14](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2018-01-11)
 
