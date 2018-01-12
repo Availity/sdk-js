@@ -49,6 +49,8 @@ class Upload {
         'X-XSRF-TOKEN': this.getToken(),
         'X-Availity-Customer-ID': this.options.customerId,
         'X-Client-ID': this.options.clientId,
+        'Availity-Filename': file.name,
+        'Availity-Content-Type': file.type,
       },
       onError: err => {
         this.error = err;
