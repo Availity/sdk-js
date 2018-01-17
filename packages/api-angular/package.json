@@ -1,16 +1,16 @@
 {
   "name": "@availity/api-angular",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "description": "Wraps @availity/api-core with Angular $http",
   "main": "src/index.js",
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-core": "^1.0.0-alpha.15",
+    "@availity/api-core": "^1.0.0-alpha.16",
     "angular": "^1.6.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^1.0.0-alpha.15",
+    "@availity/api-core": "^1.0.0-alpha.16",
     "angular": "^1.6.0",
     "angular-mocks": "^1.6.0"
   },
