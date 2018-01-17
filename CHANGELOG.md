@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.16"></a>
+# [1.0.0-alpha.16](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2018-01-17)
+
+
+### Features
+
+* **upload-core:** add progress indicator for file scans ([a84cc85](https://github.com/Availity/sdk-js/commit/a84cc85))
+
+
+
 <a name="1.0.0-alpha.15"></a>
 # [1.0.0-alpha.15](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2018-01-12)
 
