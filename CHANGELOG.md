@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.17"></a>
+# [1.0.0-alpha.17](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2018-01-18)
+
+
+### Bug Fixes
+
+* **upload-core:** serveral fixes ([1e0d0e4](https://github.com/Availity/sdk-js/commit/1e0d0e4))
+
+
+
 <a name="1.0.0-alpha.16"></a>
 # [1.0.0-alpha.16](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2018-01-17)
 
