@@ -2,7 +2,7 @@ import tus from 'tus-js-client';
 
 const defaults = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
-  chunkSize: 1024, // bytes
+  chunkSize: 3e6, // 3MB
 };
 
 class Upload {
@@ -46,6 +46,7 @@ class Upload {
     xhr.open('HEAD', this.upload.url, true);
     xhr.setRequestHeader('Tus-Resumable', '1.0.0');
     xhr.setRequestHeader('X-Client-ID', this.options.clientId);
+    xhr.setRequestHeader('X-Availity-Customer-ID', this.options.customerId);
     xhr.setRequestHeader('X-XSRF-TOKEN', this.getToken());
 
     xhr.onload = () => {
@@ -58,9 +59,7 @@ class Upload {
       this.percentage = this.getPercentage();
       const result = xhr.getResponseHeader('AV-Scan-Result');
 
-      this.completed = true;
-      this.percentage = 100;
-      this.onSuccess.forEach(cb => cb());
+      this.onProgress.forEach(cb => cb());
 
       if (result === 'accepted') {
         this.completed = true;
@@ -110,6 +109,7 @@ class Upload {
     const upload = new tus.Upload(file, {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
+      chunkSize: this.options.chunkSize,
       headers: {
         'X-XSRF-TOKEN': this.getToken(),
         'X-Availity-Customer-ID': this.options.customerId,
@@ -131,10 +131,9 @@ class Upload {
         const xhr = this.upload._xhr; // eslint-disable-line
         this.bytesScanned =
           parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
-        this.percentage = this.getPercentage();
-        this.onProgress.forEach(cb => cb());
-
         const result = xhr.getResponseHeader('AV-Scan-Result');
+        this.percentage = this.getPercentage();
+
         if (result === 'accepted') {
           this.completed = true;
           this.percentage = 100;
@@ -154,10 +153,16 @@ class Upload {
         this.scan();
       },
     });
-
     this.upload = upload;
+    this.id = this.upload.options.fingerprint(this.file);
 
     upload.start();
+  }
+
+  abort() {
+    if (this.upload) {
+      this.upload.abort();
+    }
   }
 }
 
