@@ -55,7 +55,7 @@ describe('AvRegions', () => {
     expect(api.setPageBust).toHaveBeenCalledTimes(2);
   });
 
-  test('getRegions should call avUsers.me() and then query with result', () => {
+  test('getRegions should call avUsers.me() and then query with result', async () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
@@ -71,12 +71,11 @@ describe('AvRegions', () => {
     };
     const expectedConfig = Object.assign({}, testConfig);
     Object.assign(expectedConfig.params, { userId: mockUser.id });
-    return api.getRegions(testConfig).then(() => {
-      expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
-    });
+    await api.getRegions(testConfig);
+    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 
-  test('getRegions should handle undefined config param', () => {
+  test('getRegions should handle undefined config param', async () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
@@ -87,9 +86,8 @@ describe('AvRegions', () => {
     api.query = jest.fn();
 
     const expectedConfig = { params: { userId: mockUser.id } };
-    return api.getRegions().then(() => {
-      expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
-    });
+    await api.getRegions();
+    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 
   test('getCurrent region should query with param currentlySelected: true', () => {

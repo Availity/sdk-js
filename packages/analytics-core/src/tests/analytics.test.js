@@ -150,20 +150,18 @@ describe('AvAnalytics', () => {
       plugins[2].trackPageView = 'test';
     });
 
-    test('trackEvent should call trackEvent on enabled plugins with properties', () => {
+    test('trackEvent should call trackEvent on enabled plugins with properties', async () => {
       const mockProperties = 'testProperties';
-      return mockAvAnalytics.trackEvent(mockProperties).then(() => {
-        expect(plugins[0].trackEvent).not.toHaveBeenCalled();
-        expect(plugins[2].trackEvent).toHaveBeenCalledWith(mockProperties);
-      });
+      await mockAvAnalytics.trackEvent(mockProperties);
+      expect(plugins[0].trackEvent).not.toHaveBeenCalled();
+      expect(plugins[2].trackEvent).toHaveBeenCalledWith(mockProperties);
     });
 
-    test('trackPageView should call trackPageView on enabled plugins with properties', () => {
+    test('trackPageView should call trackPageView on enabled plugins with properties', async () => {
       const mockUrl = 'testProperties';
-      return mockAvAnalytics.trackPageView(mockUrl).then(() => {
-        expect(plugins[0].trackPageView).not.toHaveBeenCalled();
-        expect(plugins[1].trackPageView).toHaveBeenCalledWith(mockUrl);
-      });
+      await mockAvAnalytics.trackPageView(mockUrl);
+      expect(plugins[0].trackPageView).not.toHaveBeenCalled();
+      expect(plugins[1].trackPageView).toHaveBeenCalledWith(mockUrl);
     });
   });
 });

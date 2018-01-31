@@ -553,25 +553,21 @@ describe('AvApi', () => {
       expect(afterResponse).toBeCalledWith(testResponse);
     });
 
-    test('should request when polling', () => {
+    test('should request when polling', async () => {
       const mockAfterResponse = 'after';
       const mockConfig = {
         testVal: 'test',
       };
 
-      const output = api
-        .onResponse({ config: mockConfig }, mockAfterResponse)
-        .then(() => {
-          expect(api.config).toHaveBeenCalledWith(mockConfig);
-          expect(setTimeout).toHaveBeenCalledTimes(1);
-          expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
-          expect(api.request).toHaveBeenCalledWith(
-            expectedNewConfig,
-            mockAfterResponse
-          );
-        });
+      await api.onResponse({ config: mockConfig }, mockAfterResponse);
+      expect(api.config).toHaveBeenCalledWith(mockConfig);
+      expect(setTimeout).toHaveBeenCalledTimes(1);
+      expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
+      expect(api.request).toHaveBeenCalledWith(
+        expectedNewConfig,
+        mockAfterResponse
+      );
       jest.runAllTimers();
-      return output;
     });
   });
 
@@ -588,24 +584,22 @@ describe('AvApi', () => {
       api.onResponse = jest.fn(() => mockFinalResponse);
     });
 
-    test('should call http', () => {
+    test('should call http', async () => {
       const mockConfig = {
         testVal: 'test',
       };
-      return api.request(mockConfig).then(response => {
-        expect(response).toEqual(mockFinalResponse);
-        expect(mockHttp).toHaveBeenCalledWith(mockConfig);
-      });
+      const response = await api.request(mockConfig);
+      expect(response).toEqual(mockFinalResponse);
+      expect(mockHttp).toHaveBeenCalledWith(mockConfig);
     });
 
-    test('should catch error in http, returning undefined if no error.response', () => {
+    test('should catch error in http, returning undefined if no error.response', async () => {
       mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
-      return api.request({}).then(response => {
-        expect(response).toBeUndefined();
-      });
+      const response = api.request({});
+      expect(response).toBeUndefined();
     });
 
-    test('should default attempt in polling is true', () => {
+    test('should default attempt in polling is true', async () => {
       const mockConfig = {
         polling: true,
       };
@@ -613,10 +607,10 @@ describe('AvApi', () => {
         polling: true,
         attempt: 0,
       };
-      return api.request(mockConfig).then(response => {
-        expect(mockHttp).toHaveBeenCalledWith(expectedConfig);
-        expect(response).toEqual(mockFinalResponse);
-      });
+
+      const response = await api.request(mockConfig);
+      expect(mockHttp).toHaveBeenCalledWith(expectedConfig);
+      expect(response).toEqual(mockFinalResponse);
     });
   });
 
