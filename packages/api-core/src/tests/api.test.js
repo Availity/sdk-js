@@ -553,21 +553,27 @@ describe('AvApi', () => {
       expect(afterResponse).toBeCalledWith(testResponse);
     });
 
-    test('should request when polling', async () => {
+    test('should request when polling', () => {
       const mockAfterResponse = 'after';
       const mockConfig = {
         testVal: 'test',
       };
 
-      await api.onResponse({ config: mockConfig }, mockAfterResponse);
-      expect(api.config).toHaveBeenCalledWith(mockConfig);
-      expect(setTimeout).toHaveBeenCalledTimes(1);
-      expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
-      expect(api.request).toHaveBeenCalledWith(
-        expectedNewConfig,
-        mockAfterResponse
-      );
+      const output = api
+        .onResponse({ config: mockConfig }, mockAfterResponse)
+        .then(() => {
+          expect(api.config).toHaveBeenCalledWith(mockConfig);
+          expect(setTimeout).toHaveBeenCalledTimes(1);
+          expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
+          expect(api.request).toHaveBeenCalledWith(
+            expectedNewConfig,
+            mockAfterResponse
+          );
+          return true;
+        });
+
       jest.runAllTimers();
+      return output;
     });
   });
 
@@ -595,7 +601,7 @@ describe('AvApi', () => {
 
     test('should catch error in http, returning undefined if no error.response', async () => {
       mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
-      const response = api.request({});
+      const response = await api.request({});
       expect(response).toBeUndefined();
     });
 
