@@ -6,9 +6,3 @@ rules:
     - error
     - devDependencies:
         - '**/**/tests/*test.js'
-  promise/always-return:
-    - '**/**/**/tests/test.js'
-  promise/catch-or-return:
-    - '**/**/**/tests/test.js'
-  promise/no-callback-in-promise:
-    - '**/**/**/tests/test.js'
