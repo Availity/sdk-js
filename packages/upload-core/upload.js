@@ -53,7 +53,7 @@ class Upload {
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
         this.status = 'rejected';
-        this.errorMessage = 'Invalid status returned: ' + xhr.status;
+        this.errorMessage = `Invalid status returned: ${xhr.status}`;
         this.onError.forEach(cb => cb(xhr));
         return;
       }
