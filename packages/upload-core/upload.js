@@ -33,6 +33,7 @@ class Upload {
     this.bytesTotal = 0;
     this.bytesSent = 0;
     this.bytesScanned = 0;
+    this.errorMessage = null;
     this.timeoutID = undefined;
   }
 
@@ -74,7 +75,8 @@ class Upload {
 
       if (result === 'rejected') {
         clearTimeout(this.timeoutId);
-        this.onError.forEach(cb => cb(new Error('File upload rejected')));
+        this.errorMessage = 'Failed Virus Scan';
+        this.onError.forEach(cb => cb(new Error('Failed Virus Scan')));
         return;
       }
 
@@ -119,6 +121,7 @@ class Upload {
       },
       onError: err => {
         this.error = err;
+        this.errorMessage = 'Network Error';
         this.onError.forEach(cb => cb(err));
       },
       onProgress: (bytesSent, bytesTotal) => {
@@ -146,6 +149,7 @@ class Upload {
         }
 
         if (result === 'rejected') {
+          this.errorMessage = 'File Upload rejected';
           this.onError.forEach(cb => cb(new Error('File upload rejected')));
           return;
         }
