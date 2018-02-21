@@ -89,6 +89,9 @@ class Upload {
     };
 
     xhr.onerror = err => {
+      this.error = err;
+      this.status = 'rejected';
+      this.errorMessage = 'Network Error';
       this.onError.forEach(cb => cb(err));
     };
 
