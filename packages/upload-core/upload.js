@@ -25,7 +25,6 @@ class Upload {
 
     this.file = file;
     this.options = Object.assign(options, defaults);
-    this.completed = false;
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
@@ -33,6 +32,8 @@ class Upload {
     this.bytesTotal = 0;
     this.bytesSent = 0;
     this.bytesScanned = 0;
+    this.errorMessage = null;
+    this.status = 'pending';
     this.timeoutID = undefined;
   }
 
@@ -51,6 +52,8 @@ class Upload {
 
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
+        this.status = 'rejected';
+        this.errorMessage = `Invalid status returned: ${xhr.status}`;
         this.onError.forEach(cb => cb(xhr));
         return;
       }
@@ -62,8 +65,8 @@ class Upload {
       this.onProgress.forEach(cb => cb());
 
       if (result === 'accepted') {
-        this.completed = true;
         this.percentage = 100;
+        this.status = result;
         const references = xhr.getResponseHeader('references');
         if (references) {
           this.references = JSON.parse(references);
@@ -74,7 +77,9 @@ class Upload {
 
       if (result === 'rejected') {
         clearTimeout(this.timeoutId);
-        this.onError.forEach(cb => cb(new Error('File upload rejected')));
+        this.errorMessage = 'Failed Virus Scan';
+        this.status = result;
+        this.onError.forEach(cb => cb(new Error('Failed Virus Scan')));
         return;
       }
 
@@ -84,6 +89,9 @@ class Upload {
     };
 
     xhr.onerror = err => {
+      this.error = err;
+      this.status = 'rejected';
+      this.errorMessage = 'Network Error';
       this.onError.forEach(cb => cb(err));
     };
 
@@ -119,6 +127,7 @@ class Upload {
       },
       onError: err => {
         this.error = err;
+        this.errorMessage = 'Network Error';
         this.onError.forEach(cb => cb(err));
       },
       onProgress: (bytesSent, bytesTotal) => {
@@ -135,8 +144,8 @@ class Upload {
         this.percentage = this.getPercentage();
 
         if (result === 'accepted') {
-          this.completed = true;
           this.percentage = 100;
+          this.status = result;
           const references = xhr.getResponseHeader('references');
           if (references) {
             this.references = JSON.parse(references);
@@ -146,6 +155,8 @@ class Upload {
         }
 
         if (result === 'rejected') {
+          this.status = result;
+          this.errorMessage = 'File upload rejected';
           this.onError.forEach(cb => cb(new Error('File upload rejected')));
           return;
         }
