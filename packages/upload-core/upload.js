@@ -23,6 +23,14 @@ class Upload {
       throw Error('[options.clientId] must be defined');
     }
 
+    if (!this.isValidFileType(file.name, options)) {
+      throw Error(
+        `[options.fileTypes] was defined as ${options.fileTypes} but the file ${
+          file.name
+        } does not meet criteria`
+      );
+    }
+
     this.file = file;
     this.options = Object.assign(options, defaults);
     this.percentage = 0;
@@ -168,6 +176,25 @@ class Upload {
     this.id = this.upload.options.fingerprint(this.file);
 
     upload.start();
+  }
+
+  isValidFileType(fileName, options) {
+    if (options.fileTypes) {
+      if (!fileName) {
+        return false;
+      }
+      for (let i = 0; i < options.fileTypes.length; i++) {
+        options.fileTypes[i] = options.fileTypes[i].toLowerCase();
+      }
+
+      const fileExt = fileName
+        .substring(fileName.lastIndexOf('.'))
+        .toLowerCase();
+      if (options.fileTypes.indexOf(fileExt) < 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   abort() {
