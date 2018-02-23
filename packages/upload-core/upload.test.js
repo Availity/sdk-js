@@ -6,6 +6,13 @@ const options = {
   clientId: 'c',
 };
 
+const optionsWithFileTypes = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+  fileTypes: ['.png', '.pdf'],
+};
+
 describe('upload.core', () => {
   it('should be defined', () => {
     expect(Upload).toBeTruthy();
@@ -23,9 +30,25 @@ describe('upload.core', () => {
     }).toThrow('[options.bucketId] must be defined');
   });
 
-  it('should allow single file as constructor arguement', () => {
+  it('should allow single file as constructor argument', () => {
     const file = Buffer.from('hello world'.split(''));
     new Upload(file, options); // eslint-disable-line
+  });
+
+  it('should throw error for invalid file type', () => {
+    const file = Buffer.from('hello world'.split(''));
+    file.name = 'notCoolFile.docx';
+    expect(() => {
+      new Upload(file, optionsWithFileTypes); // eslint-disable-line
+    }).toThrow(
+      '[options.fileTypes] was defined as .png,.pdf but the file notCoolFile.docx does not meet criteria'
+    );
+  });
+
+  it('should allow the correct file type', () => {
+    const file = Buffer.from('hello world'.split(''));
+    file.name = 'coolFile.PNG';
+    new Upload(file, optionsWithFileTypes); // eslint-disable-line
   });
 
   it('should use default options ', () => {
