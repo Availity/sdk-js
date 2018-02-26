@@ -33,7 +33,7 @@
 
 - Run `npm install`
 - Commits should use the [Angular Commit Format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type). Scope should one of packages under `./packages/`. If a commit applys to multiple packages, leave out the scope.
-- Release versions with Semantic version and `npm run release`. The version is determined by analyzing the commit messaging. To use a customer version, run `npm run release <VERSION>`.
+- Release versions with Semantic version and `npm run release`. The version is determined by analyzing the commit messaging. To use a custom version, run `npm run release <VERSION>`.
 
 ## License
 [MIT](./LICENSE)
