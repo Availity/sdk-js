@@ -2,6 +2,7 @@ import angular from 'angular';
 
 import avApiOptionsProvider from './options';
 import avApiFactory from './api';
+import avMicroserviceApiFactory from './ms';
 
 import avLogMessagesApiFactory from './logs';
 import avNavigationApiFactory from './navigation';
@@ -15,11 +16,13 @@ import avPdfApiFactory from './pdfs';
 import avSpacesApiFactory from './spaces';
 import avUsersApiFactory from './user';
 import avUserPermissionsApiFactory from './userPermissions';
+import avFilesApiFactory from './files';
 
 export default angular
   .module('availity.api', ['ng'])
   .provider('avApiOptions', avApiOptionsProvider)
   .factory('AvApi', avApiFactory)
+  .factory('AvMicroserviceApi', avMicroserviceApiFactory)
   .factory('avLogMessagesApi', avLogMessagesApiFactory)
   .factory('avPdfApi', avPdfApiFactory)
   .factory('avNavigationApi', avNavigationApiFactory)
@@ -31,4 +34,5 @@ export default angular
   .factory('avRegionsApi', avRegionsApiFactory)
   .factory('avSpacesApi', avSpacesApiFactory)
   .factory('avUsersApi', avUsersApiFactory)
-  .factory('avUserPermissionsApi', avUserPermissionsApiFactory).name;
+  .factory('avUserPermissionsApi', avUserPermissionsApiFactory)
+  .factory('avFilesApi', avFilesApiFactory).name;
