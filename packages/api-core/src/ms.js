@@ -2,14 +2,14 @@ import AvApi from './api';
 import API_OPTIONS from './options';
 
 export default class AvMicroservice extends AvApi {
-  constructor(http) {
+  constructor({ http, promise, merge, config }) {
     super({
-      http: http.http,
-      promise: http.promise,
-      merge: http.merge,
-      config: http.config,
+      http,
+      promise,
+      merge,
+      config,
     });
-    this.defaultConfig = this.merge({}, API_OPTIONS.MS, http.config);
+    this.defaultConfig = this.merge({}, API_OPTIONS.MS, config);
   }
 
   getUrl(config) {
