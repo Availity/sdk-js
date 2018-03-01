@@ -2,8 +2,7 @@ import AvApi from './api';
 import API_OPTIONS from './options';
 
 export default class AvMicroservice extends AvApi {
-  constructor(http, promise, merge, config) {
-    //eslint-disable-line
+  constructor(http) {
     super({
       http: http.http,
       promise: http.promise,
