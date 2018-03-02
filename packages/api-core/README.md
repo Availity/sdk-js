@@ -130,3 +130,7 @@ delete(data, config);
 // or without id
 delete(config);
 ```
+
+## AvMicroservice
+
+`AvMicroservice` extends `AvApi` and thus can call the same methods. It has slightly different `config` options used for some child apis.

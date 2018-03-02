@@ -13,6 +13,7 @@
 * [AvProviders](#avproviders)
 * [AvLogMessage](#avlogmessage)
 * [AvProxy](#avproxy)
+* [AvFiles](#avfiles)
 
 ## Intro
 View [AvApi](../README.md) to see the details for configuring API definitions. 
@@ -89,4 +90,11 @@ Create API definitions for services that are proxied to a tenant's API gateway.
 ##### `tenant`
 The Spaces platform customer name which is used as part of the url for API's proxied to 3rd party API gateway.
 
+### AvFiles
+Upload a file to a bucket in the vault
 
+#### Methods
+
+#### `uploadFile(data, config)`
+Method to upload a file. `data` contains FormData elements with a key of either `reference` (if pointed to an existing file) or `filedata` (if uploading a new file)
+`config` should contain `customerId` and `id` (the bucketId)
