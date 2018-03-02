@@ -1,4 +1,5 @@
 import AvApi from './api';
+import AvMicroservice from './ms';
 import AvLogMessages from './resources/logs';
 import AvNavigation from './resources/navigation';
 import AvNotification from './resources/notifications';
@@ -11,10 +12,12 @@ import AvRegions from './resources/regions';
 import AvSpaces from './resources/spaces';
 import AvUsers from './resources/user';
 import AvUserPermissions from './resources/userPermissions';
+import AvFiles from './resources/files';
 
 export default AvApi;
 
 export {
+  AvMicroservice,
   AvLogMessages,
   AvNavigation,
   AvNotification,
@@ -27,4 +30,5 @@ export {
   AvSpaces,
   AvUsers,
   AvUserPermissions,
+  AvFiles,
 };

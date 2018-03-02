@@ -12,7 +12,7 @@ export default class AvApi {
     this.http = http;
     this.Promise = promise;
     this.merge = merge;
-    this.defaultConfig = this.merge({}, API_OPTIONS, config);
+    this.defaultConfig = this.merge({}, API_OPTIONS.API, config);
     this.localStorage = new AvLocalStorage();
   }
 
