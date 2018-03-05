@@ -1,6 +1,6 @@
 {
   "name": "@availity/localstorage-angular",
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0",
   "private": true,
   "description": "localstorage helper class for Angular",
   "main": "src/index.js",
@@ -17,7 +17,7 @@
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/localstorage-core": "^1.0.0-alpha.17",
+    "@availity/localstorage-core": "^1.0.0",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },
