@@ -104,4 +104,4 @@ Method to upload a file. `data` contains FormData elements with a key of either 
 ### AvSettings
 Store and retrieve settings to be reused.
 Use `query(params)` with at least an `applicationId` in the `params` object
-Use `update(data)` with at least an `applicationId` and `userId` in the `scope` object, and key/value pairs of data
+Use `update(data)` with at least an `applicationId` in the `scope` object, and key/value pairs of data
