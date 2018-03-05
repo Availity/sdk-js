@@ -10,6 +10,8 @@ import Api, {
   spacesApi,
   userApi,
   userPermissionsApi,
+  filesApi,
+  settingsApi,
 } from '../';
 
 describe('AvAPi', () => {
@@ -33,5 +35,7 @@ describe('API Definitions', () => {
     expect(spacesApi).toBeDefined();
     expect(userApi).toBeDefined();
     expect(userPermissionsApi).toBeDefined();
+    expect(filesApi).toBeDefined();
+    expect(settingsApi).toBeDefined();
   });
 });
