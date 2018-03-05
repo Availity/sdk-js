@@ -1,4 +1,5 @@
 import AvApi from './api';
+import AvMicroservice from './ms';
 import logMessagesApi from './logs';
 import navigationApi from './navigation';
 import notificationApi from './notification';
@@ -11,10 +12,13 @@ import spacesApi from './spaces';
 import userApi from './user';
 import pdfApi from './pdf';
 import userPermissionsApi from './userPermissions';
+import filesApi from './files';
+import settingsApi from './settings';
 
 export default AvApi;
 
 export {
+  AvMicroservice,
   ProxyApi,
   logMessagesApi,
   navigationApi,
@@ -27,4 +31,6 @@ export {
   spacesApi,
   userApi,
   userPermissionsApi,
+  filesApi,
+  settingsApi,
 };

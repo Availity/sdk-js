@@ -119,4 +119,12 @@ describe('Api Definitions Angular', () => {
     });
     expect(avPdfApi).toBeDefined();
   });
+
+  test('avSettingsApi should be defined', () => {
+    let avSettingsApi;
+    angular.mock.inject(_avSettingsApi_ => {
+      avSettingsApi = _avSettingsApi_;
+    });
+    expect(avSettingsApi).toBeDefined();
+  });
 });

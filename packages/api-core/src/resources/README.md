@@ -14,6 +14,7 @@
 * [AvLogMessage](#avlogmessage)
 * [AvProxy](#avproxy)
 * [AvFiles](#avfiles)
+* [AvSettings](#avsettings)
 
 ## Intro
 View [AvApi](../README.md) to see the details for configuring API definitions. 
@@ -98,3 +99,9 @@ Upload a file to a bucket in the vault
 #### `uploadFile(data, config)`
 Method to upload a file. `data` contains FormData elements with a key of either `reference` (if pointed to an existing file) or `filedata` (if uploading a new file)
 `config` should contain `customerId` and `id` (the bucketId)
+
+
+### AvSettings
+Store and retrieve settings to be reused.
+Use `query(params)` with at least an `applicationId` and `userId` in the `params` object
+Use `update(data)` with at least an `applicationId` and `userId` in the `scope` object, and key/value pairs of data
