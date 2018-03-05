@@ -13,6 +13,7 @@ import AvSpaces from './resources/spaces';
 import AvUsers from './resources/user';
 import AvUserPermissions from './resources/userPermissions';
 import AvFiles from './resources/files';
+import AvSettings from './resources/settings';
 
 export default AvApi;
 
@@ -31,4 +32,5 @@ export {
   AvUsers,
   AvUserPermissions,
   AvFiles,
+  AvSettings,
 };
