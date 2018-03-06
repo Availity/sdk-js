@@ -9,13 +9,13 @@ npm install @availity/upload-core tus-js-client --save
 
 ## Usage
 
-###Required params
+### Required params
 
 - bucketId
 - customerId
 - clientId
 
-###Optional params
+### Optional params
 
 - fileTypes: string array of file extensions to allow (error thrown if file.name does not contain one of the types)
 
