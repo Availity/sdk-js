@@ -23,4 +23,18 @@ export default class AvMicroservice extends AvApi {
       .replace(/[/]+/g, '/')
       .replace(/\/$/, '');
   }
+
+  // make request to http
+  request(config, afterResponse) {
+    return this.http(config)
+      .then(response => this.onResponse(response, afterResponse))
+      .catch(error => {
+        let response;
+        if (error) {
+          response = error;
+          response.error = true;
+        }
+        return afterResponse ? afterResponse(response) : response;
+      });
+  }
 }

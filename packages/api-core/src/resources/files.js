@@ -7,7 +7,6 @@ export default class AvFiles extends AvMicroservice {
         name: 'core/vault/upload/v1',
         headers: {
           'Content-Type': undefined,
-          'X-App-Context': 'ecs-qa-app-context',
         },
       },
       config
@@ -21,8 +20,13 @@ export default class AvFiles extends AvMicroservice {
   }
 
   uploadFile(data, config) {
+    if (!config.customerId || !config.clientId) {
+      throw Error('[config.customerId] and [config.clientId] must be defined');
+    }
     config = this.config(config);
     config.headers['X-Availity-Customer-ID'] = config.customerId;
+    config.headers['X-Client-ID'] = config.clientId;
+
     return this.create(data, config);
   }
 }
