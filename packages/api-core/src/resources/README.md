@@ -98,7 +98,7 @@ Upload a file to a bucket in the vault
 
 #### `uploadFile(data, config)`
 Method to upload a file. `data` contains FormData elements with a key of either `reference` (if pointed to an existing file) or `filedata` (if uploading a new file)
-`config` should contain `customerId` and `id` (the bucketId)
+`config` should contain `customerId`, `id` (the bucketId), and `clientId`
 
 
 ### AvSettings

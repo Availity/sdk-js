@@ -7,6 +7,8 @@ const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const mockConfig = {
   id: '123',
+  clientId: '123-456',
+  customerId: '1194',
 };
 
 describe('AvFiles', () => {
