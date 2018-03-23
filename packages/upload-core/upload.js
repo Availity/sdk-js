@@ -23,14 +23,6 @@ class Upload {
       throw Error('[options.clientId] must be defined');
     }
 
-    if (!this.isValidFileType(file.name, options)) {
-      throw Error(
-        `[options.fileTypes] was defined as ${options.fileTypes} but the file ${
-          file.name
-        } does not meet criteria`
-      );
-    }
-
     this.file = file;
     this.options = Object.assign(options, defaults);
     this.percentage = 0;
@@ -43,6 +35,9 @@ class Upload {
     this.errorMessage = null;
     this.status = 'pending';
     this.timeoutID = undefined;
+    this.error = null;
+
+    this.isValidFileType(file, options);
   }
 
   inStatusCategory(status, category) {
@@ -60,21 +55,27 @@ class Upload {
 
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
-        this.status = 'rejected';
-        this.errorMessage = `Invalid status returned: ${xhr.status}`;
-        this.onError.forEach(cb => cb(xhr));
+        this.setError(
+          'rejected',
+          `Invalid status returned: ${xhr.status}`,
+          xhr
+        );
         return;
       }
 
       this.bytesScanned = parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10);
       this.percentage = this.getPercentage();
-      const result = xhr.getResponseHeader('AV-Scan-Result');
 
-      this.onProgress.forEach(cb => cb());
+      const result = this.getResult(xhr);
+      if (result.status === 'rejected') {
+        this.setError(result.status, result.message);
+        clearTimeout(this.timeoutId);
+        return;
+      }
 
-      if (result === 'accepted') {
+      if (result.status === 'accepted') {
         this.percentage = 100;
-        this.status = result;
+        this.status = result.status;
         const references = xhr.getResponseHeader('references');
         if (references) {
           this.references = JSON.parse(references);
@@ -83,13 +84,7 @@ class Upload {
         return;
       }
 
-      if (result === 'rejected') {
-        clearTimeout(this.timeoutId);
-        this.errorMessage = 'Failed Virus Scan';
-        this.status = result;
-        this.onError.forEach(cb => cb(new Error('Failed Virus Scan')));
-        return;
-      }
+      this.onProgress.forEach(cb => cb());
 
       this.timeoutId = setTimeout(() => {
         this.scan();
@@ -97,10 +92,8 @@ class Upload {
     };
 
     xhr.onerror = err => {
+      this.setError('rejected', 'Network Error', err);
       this.error = err;
-      this.status = 'rejected';
-      this.errorMessage = 'Network Error';
-      this.onError.forEach(cb => cb(err));
     };
 
     xhr.send(null);
@@ -134,9 +127,8 @@ class Upload {
         'Availity-Content-Type': file.type,
       },
       onError: err => {
+        this.setError('rejected', 'Network Error', err);
         this.error = err;
-        this.errorMessage = 'Network Error';
-        this.onError.forEach(cb => cb(err));
       },
       onProgress: (bytesSent, bytesTotal) => {
         this.bytesSent = bytesSent;
@@ -148,12 +140,13 @@ class Upload {
         const xhr = this.upload._xhr; // eslint-disable-line
         this.bytesScanned =
           parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
-        const result = xhr.getResponseHeader('AV-Scan-Result');
         this.percentage = this.getPercentage();
 
-        if (result === 'accepted') {
+        const result = this.getResult(xhr);
+
+        if (result.status === 'accepted') {
           this.percentage = 100;
-          this.status = result;
+          this.status = result.status;
           const references = xhr.getResponseHeader('references');
           if (references) {
             this.references = JSON.parse(references);
@@ -162,10 +155,8 @@ class Upload {
           return;
         }
 
-        if (result === 'rejected') {
-          this.status = result;
-          this.errorMessage = 'File upload rejected';
-          this.onError.forEach(cb => cb(new Error('File upload rejected')));
+        if (result.status === 'rejected') {
+          this.setError(result.status, result.message);
           return;
         }
 
@@ -178,23 +169,65 @@ class Upload {
     upload.start();
   }
 
-  isValidFileType(fileName, options) {
+  isValidFileType(file, options) {
+    const self = this;
     if (options.fileTypes) {
-      if (!fileName) {
+      if (!file.name) {
         return false;
       }
-      for (let i = 0; i < options.fileTypes.length; i++) {
-        options.fileTypes[i] = options.fileTypes[i].toLowerCase();
-      }
-
+      const fileName = file.name;
       const fileExt = fileName
         .substring(fileName.lastIndexOf('.'))
         .toLowerCase();
+      for (let i = 0; i < options.fileTypes.length; i++) {
+        options.fileTypes[i] = options.fileTypes[i].toLowerCase();
+      }
       if (options.fileTypes.indexOf(fileExt) < 0) {
-        return false;
+        self.setError('rejected', 'File type not allowed');
+        throw Error(
+          `[options.fileTypes] was defined as ${
+            options.fileTypes
+          } but the file ${fileName} does not meet criteria`
+        );
       }
     }
-    return true;
+  }
+
+  getResult(xhr) {
+    if (this.hasError()) {
+      return { status: 'rejected' };
+    }
+    const scanResult = xhr.getResponseHeader('AV-Scan-Result');
+    const uploadResult = xhr.getResponseHeader('Upload-Result');
+    const msg = xhr.getResponseHeader('Upload-Message');
+    if (scanResult === 'rejected') {
+      return { status: scanResult, message: msg || 'File scan failed' };
+    }
+
+    if (uploadResult === 'rejected') {
+      return { status: uploadResult, message: msg || 'File upload rejected' };
+    }
+
+    if (scanResult === 'accepted' && uploadResult === 'accepted') {
+      return { status: 'accepted', message: msg || '' };
+    }
+
+    return { status: 'pending', message: msg || '' };
+  }
+
+  setError(status, message, err) {
+    if (!this.hasError()) {
+      this.status = status;
+      this.errorMessage = message || 'An error occurred';
+      this.onError.forEach(cb => cb(err || new Error(message)));
+    }
+  }
+
+  hasError() {
+    if (this.errorMessage) {
+      return true;
+    }
+    return false;
   }
 
   abort() {
