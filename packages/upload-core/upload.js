@@ -37,7 +37,7 @@ class Upload {
     this.timeoutID = undefined;
     this.error = null;
 
-    this.isValidFileType(file, options);
+    // this.isValidFileType(file, options);
   }
 
   inStatusCategory(status, category) {
@@ -115,6 +115,10 @@ class Upload {
   start() {
     const { file } = this;
 
+    if (!this.isValidFileType(file)) {
+      return;
+    }
+
     const upload = new tus.Upload(file, {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
@@ -169,9 +173,8 @@ class Upload {
     upload.start();
   }
 
-  isValidFileType(file, options) {
-    const self = this;
-    if (options.fileTypes) {
+  isValidFileType(file) {
+    if (this.options.fileTypes) {
       if (!file.name) {
         return false;
       }
@@ -179,18 +182,15 @@ class Upload {
       const fileExt = fileName
         .substring(fileName.lastIndexOf('.'))
         .toLowerCase();
-      for (let i = 0; i < options.fileTypes.length; i++) {
-        options.fileTypes[i] = options.fileTypes[i].toLowerCase();
+      for (let i = 0; i < this.options.fileTypes.length; i++) {
+        this.options.fileTypes[i] = this.options.fileTypes[i].toLowerCase();
       }
-      if (options.fileTypes.indexOf(fileExt) < 0) {
-        self.setError('rejected', 'File type not allowed');
-        throw Error(
-          `[options.fileTypes] was defined as ${
-            options.fileTypes
-          } but the file ${fileName} does not meet criteria`
-        );
+      if (this.options.fileTypes.indexOf(fileExt) < 0) {
+        this.setError('rejected', `Document type ${fileExt} is not allowed`);
+        return false;
       }
     }
+    return true;
   }
 
   getResult(xhr) {
