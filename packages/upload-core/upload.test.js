@@ -38,11 +38,9 @@ describe('upload.core', () => {
   it('should throw error for invalid file type', () => {
     const file = Buffer.from('hello world'.split(''));
     file.name = 'notCoolFile.docx';
-    expect(() => {
-      new Upload(file, optionsWithFileTypes); // eslint-disable-line
-    }).toThrow(
-      '[options.fileTypes] was defined as .png,.pdf but the file notCoolFile.docx does not meet criteria'
-    );
+    const upload = new Upload(file, optionsWithFileTypes); // eslint-disable-line
+    upload.start();
+    expect(upload.status).toEqual('rejected');
   });
 
   it('should allow the correct file type', () => {
