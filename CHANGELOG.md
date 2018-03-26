@@ -1,3 +1,22 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.17...v1.0.1) (2018-03-26)
+
+
+### Bug Fixes
+
+* **api-core:** avFiles error handling ([3dd5392](https://github.com/Availity/sdk-js/commit/3dd5392))
+* **upload-core:** error handling ([14fa7ba](https://github.com/Availity/sdk-js/commit/14fa7ba))
+* **upload-core:** fix test case ([831e1b4](https://github.com/Availity/sdk-js/commit/831e1b4))
+* **upload-core:** move file type check to start ([b3dd3dd](https://github.com/Availity/sdk-js/commit/b3dd3dd))
+
+
+### Features
+
+* **upload-core:** upload core file types check ([#7](https://github.com/Availity/sdk-js/issues/7)) ([080d887](https://github.com/Availity/sdk-js/commit/080d887))
+* **uploads:** capture error message ([#6](https://github.com/Availity/sdk-js/issues/6)) ([5af448e](https://github.com/Availity/sdk-js/commit/5af448e))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/Availity/sdk-js/compare/v1.0.0-alpha.17...v1.0.0) (2018-03-05)
 

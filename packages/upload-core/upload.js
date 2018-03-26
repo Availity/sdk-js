@@ -36,8 +36,6 @@ class Upload {
     this.status = 'pending';
     this.timeoutID = undefined;
     this.error = null;
-
-    // this.isValidFileType(file, options);
   }
 
   inStatusCategory(status, category) {
