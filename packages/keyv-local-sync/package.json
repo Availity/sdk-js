@@ -1,0 +1,24 @@
+{
+  "name": "@availity/keyv-local-sync",
+  "version": "1.0.0",
+  "description":
+    "Simple key-value storage for local in memory caches in a synchros fashion",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git"
+  },
+  "keywords": ["key", "value", "store", "cache", "ttl", "sync"],
+  "contributors": [
+    "Luke Childs <lukechilds123@gmail.com> (http://lukechilds.co.uk)",
+    "Evan Sharp <evan.sharp@availity.com> (https://github.com/TheSharpieOne)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "homepage": "https://github.com/availity/sdk-js",
+  "dependencies": {
+    "quick-lru": "^1.1.0"
+  }
+}
