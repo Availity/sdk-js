@@ -1,25 +1,14 @@
 {
   "name": "@availity/keyv-local-sync",
   "version": "1.0.0",
-  "description": "Simple key-value storage for local in memory caches in a synchros fashion",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "nyc ava test/test.js",
-    "test:full": "nyc ava --serial",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
-  },
+  "description":
+    "Simple key-value storage for local in memory caches in a synchros fashion",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/availity/sdk-js.git"
   },
-  "keywords": [
-    "key",
-    "value",
-    "store",
-    "cache",
-    "ttl",
-    "sync"
-  ],
+  "keywords": ["key", "value", "store", "cache", "ttl", "sync"],
   "contributors": [
     "Luke Childs <lukechilds123@gmail.com> (http://lukechilds.co.uk)",
     "Evan Sharp <evan.sharp@availity.com> (https://github.com/TheSharpieOne)"
@@ -31,12 +20,5 @@
   "homepage": "https://github.com/availity/sdk-js",
   "dependencies": {
     "quick-lru": "^1.1.0"
-  },
-  "devDependencies": {
-    "ava": "^0.25.0",
-    "coveralls": "^3.0.0",
-    "nyc": "^11.0.3",
-    "this": "^1.0.2",
-    "timekeeper": "^2.0.0"
   }
 }

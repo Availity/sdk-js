@@ -1,5 +1,3 @@
-'use strict';
-
 const QuickLRU = require('quick-lru');
 
 class KeyvLocalSync {
