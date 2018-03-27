@@ -13,6 +13,13 @@ const optionsWithFileTypes = {
   fileTypes: ['.png', '.pdf'],
 };
 
+const optionsWithFileSize = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+  maxSize: 2e6,
+};
+
 describe('upload.core', () => {
   it('should be defined', () => {
     expect(Upload).toBeTruthy();
@@ -50,11 +57,19 @@ describe('upload.core', () => {
   });
 
   it('should use default options ', () => {
-    const file = [Buffer.from('hello world'.split(''))];
+    const file = Buffer.from('hello world'.split(''));
     const upload = new Upload(file, options);
 
     expect(upload.options.endpoint).toBe(
       '/ms/api/availity/internal/core/vault/upload/v1/resumable'
     );
+  });
+
+  it('should not allow files over maxSize', () => {
+    const file = Buffer.from('hello world!'.split(''));
+    file.size = 1e7;
+    const upload = new Upload(file, optionsWithFileSize);
+    upload.start();
+    expect(upload.status).toEqual('rejected');
   });
 });

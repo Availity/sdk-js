@@ -113,7 +113,7 @@ class Upload {
   start() {
     const { file } = this;
 
-    if (!this.isValidFileType(file)) {
+    if (!this.isValidFile(file)) {
       return;
     }
 
@@ -171,7 +171,7 @@ class Upload {
     upload.start();
   }
 
-  isValidFileType(file) {
+  isValidFile(file) {
     if (this.options.fileTypes) {
       if (!file.name) {
         return false;
@@ -185,6 +185,12 @@ class Upload {
       }
       if (this.options.fileTypes.indexOf(fileExt) < 0) {
         this.setError('rejected', `Document type ${fileExt} is not allowed`);
+        return false;
+      }
+    }
+    if (this.options.maxSize) {
+      if (file.size > this.options.maxSize) {
+        this.setError('rejected', 'Document is too large');
         return false;
       }
     }
