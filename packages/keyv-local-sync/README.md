@@ -3,9 +3,8 @@
 > Simple local real-time key-value storage with support for TTL
 
 [![Build Status](https://travis-ci.org/availity/keyv-local-sync.svg?branch=master)](https://travis-ci.org/availity/keyv-local-sync)
-[![Coverage Status](https://coveralls.io/repos/github/availity/keyv-local-sync/badge.svg?branch=master)](https://coveralls.io/github/availity/keyv-local-sync?branch=master)
-[![npm](https://img.shields.io/npm/dm/keyv-local-sync.svg)](https://www.npmjs.com/package/keyv-local-sync)
-[![npm](https://img.shields.io/npm/v/keyv-local-sync.svg)](https://www.npmjs.com/package/keyv-local-sync)
+[![npm](https://img.shields.io/npm/dm/keyv-local-sync.svg)](https://www.npmjs.com/package/@availity/keyv-local-sync)
+[![npm](https://img.shields.io/npm/v/keyv-local-sync.svg)](https://www.npmjs.com/package/@availity/keyv-local-sync)
 
 keyv-local-sync provides a consistent interface for key-value. It supports TTL based expiry, making it suitable as a cache key-value store.
 
