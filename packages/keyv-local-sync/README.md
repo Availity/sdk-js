@@ -13,14 +13,14 @@ keyv-local-sync provides a consistent interface for key-value. It supports TTL b
 
 There are a few existing modules similar to keyv-local-sync, however keyv-local-sync is different because it:
 
-- Isn't bloated
-- Isn't async, uses local memory-based storage for real-time lookups and storage
-- Cache promises or anything, it's not serialized so you get back exactly what you put in
-- Suitable as a TTL based cache key-value store
-- [Easily embeddable](#add-cache-support-to-your-module) inside another module
-- Works with any storage that implements the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) API
-- Supports namespaces
-- Supports the current active LTS version of Node.js or higher
+*   Isn't bloated
+*   Isn't async, uses local memory-based storage for real-time lookups and storage
+*   Cache promises or anything, it's not serialized so you get back exactly what you put in
+*   Suitable as a TTL based cache key-value store
+*   [Easily embeddable](#add-cache-support-to-your-module) inside another module
+*   Works with any storage that implements the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) API
+*   Supports namespaces
+*   Supports the current active LTS version of Node.js or higher
 
 ## Usage
 
@@ -39,7 +39,6 @@ const KeyvLocalSync = require('@availity/keyv-local-sync');
 const keyvLocalSync = new KeyvLocalSync(); // the default store uses quick-lru
 const keyvLocalSync = new KeyvLocalSync({ store: new Map() });
 
-
 keyvLocalSync.set('foo', 'expires in 1 second', 1000); // true
 keyvLocalSync.set('foo', 'never expires'); // true
 keyvLocalSync.get('foo'); // 'never expires'
@@ -48,6 +47,7 @@ keyvLocalSync.clear(); // undefined
 ```
 
 ### Namespaces
+
 keyv-local-sync instance to avoid key collisions and allow you to clear only a certain namespace while u
 You can namespace your keyv-local-sync instance to avoid key collisions and allow you to clear only a certain namespace.
 
@@ -91,12 +91,11 @@ const keyvLocalSync = new KeyvLocalSync({ size: 1000 });
 
 The following are third-party storage adapters compatible with keyv-local-sync:
 
-- [quick-lru](https://github.com/sindresorhus/quick-lru) - Simple "Least Recently Used" (LRU) cache
-- [keyv-local-sync-file](https://github.com/zaaack/keyv-local-sync-file) - File system storage adapter for keyv-local-sync
+*   [quick-lru](https://github.com/sindresorhus/quick-lru) - Simple "Least Recently Used" (LRU) cache
 
 ## Add Cache Support to your Module
 
-keyv-local-sync is designed to be easily embedded into other modules to add cache support. The recommended pattern is to expose a `cache` option in your modules options which is passed through to keyv-local-sync. Caching will work in memory by default and users have the option to also install a keyv-local-sync storage adapter and pass in a connection string, or any other storage that implements the `Map` API.
+keyv-local-sync is designed to be easily embedded into other modules to add cache support. The recommended pattern is to expose a `cache` option in your modules options which is passed through to keyv-local-sync.
 
 You should also set a namespace for your module so you can safely call `.clear()` without clearing unrelated app data.
 
@@ -104,12 +103,12 @@ Inside your module:
 
 ```js
 class AwesomeModule {
-	constructor(opts) {
-		this.cache = new KeyvLocalSync({
-			store: opts.cache,
-			namespace: 'awesome-module'
-		});
-	}
+    constructor(opts) {
+        this.cache = new KeyvLocalSync({
+            store: opts.cache,
+            namespace: 'awesome-module',
+        });
+    }
 }
 ```
 
