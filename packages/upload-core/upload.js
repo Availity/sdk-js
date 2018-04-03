@@ -121,6 +121,10 @@ class Upload {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
       chunkSize: this.options.chunkSize,
+      metadata: {
+        filename: file.name,
+        filetype: file.type,
+      },
       headers: {
         'X-XSRF-TOKEN': this.getToken(),
         'X-Availity-Customer-ID': this.options.customerId,
