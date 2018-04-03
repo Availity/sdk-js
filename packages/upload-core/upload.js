@@ -43,6 +43,10 @@ class Upload {
   }
 
   scan() {
+    if (!this.isValidFile()) {
+      return;
+    }
+
     const xhr = new window.XMLHttpRequest();
 
     xhr.open('HEAD', this.upload.url, true);
@@ -113,10 +117,6 @@ class Upload {
   start() {
     const { file } = this;
 
-    if (!this.isValidFile(file)) {
-      return;
-    }
-
     const upload = new tus.Upload(file, {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
@@ -134,16 +134,26 @@ class Upload {
         'Availity-Content-Type': file.type,
       },
       onError: err => {
+        if (!this.isValidFile()) {
+          return;
+        }
         this.setError('rejected', 'Network Error', err);
         this.error = err;
       },
       onProgress: (bytesSent, bytesTotal) => {
+        if (!this.isValidFile()) {
+          this.abort();
+          return;
+        }
         this.bytesSent = bytesSent;
         this.bytesTotal = bytesTotal;
         this.percentage = this.getPercentage();
         this.onProgress.forEach(cb => cb());
       },
       onSuccess: () => {
+        if (!this.isValidFile()) {
+          return;
+        }
         const xhr = this.upload._xhr; // eslint-disable-line
         this.bytesScanned =
           parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
@@ -176,12 +186,12 @@ class Upload {
     upload.start();
   }
 
-  isValidFile(file) {
+  isValidFile() {
     if (this.options.fileTypes) {
-      if (!file.name) {
+      if (!this.file.name) {
         return false;
       }
-      const fileName = file.name;
+      const fileName = this.file.name;
       const fileExt = fileName
         .substring(fileName.lastIndexOf('.'))
         .toLowerCase();
@@ -194,7 +204,7 @@ class Upload {
       }
     }
     if (this.options.maxSize) {
-      if (file.size > this.options.maxSize) {
+      if (this.file.size > this.options.maxSize) {
         this.setError('rejected', 'Document is too large');
         return false;
       }
