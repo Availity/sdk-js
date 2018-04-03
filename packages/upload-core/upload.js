@@ -124,7 +124,7 @@ class Upload {
       metadata: {
         'availity-filename': file.name,
         'availity-content-type': file.type,
-        'availity-attachment-name': file.name,
+        'availity-attachment-name': 'filedata',
       },
       headers: {
         'X-XSRF-TOKEN': this.getToken(),
