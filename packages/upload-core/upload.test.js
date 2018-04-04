@@ -13,6 +13,13 @@ const optionsWithFileTypes = {
   fileTypes: ['.png', '.pdf'],
 };
 
+const optionsWithFileSize = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+  maxSize: 2e6,
+};
+
 describe('upload.core', () => {
   it('should be defined', () => {
     expect(Upload).toBeTruthy();
@@ -35,6 +42,14 @@ describe('upload.core', () => {
     new Upload(file, options); // eslint-disable-line
   });
 
+  it('should throw error for invalid file type', () => {
+    const file = Buffer.from('hello world'.split(''));
+    file.name = 'notCoolFile.docx';
+    const upload = new Upload(file, optionsWithFileTypes); // eslint-disable-line
+    upload.start();
+    expect(upload.isValidFile()).toBeFalsy();
+  });
+
   it('should allow the correct file type', () => {
     const file = Buffer.from('hello world'.split(''));
     file.name = 'coolFile.PNG';
@@ -48,5 +63,13 @@ describe('upload.core', () => {
     expect(upload.options.endpoint).toBe(
       '/ms/api/availity/internal/core/vault/upload/v1/resumable'
     );
+  });
+
+  it('should not allow files over maxSize', () => {
+    const file = Buffer.from('hello world!'.split(''));
+    file.size = 1e7;
+    const upload = new Upload(file, optionsWithFileSize);
+    upload.start();
+    expect(upload.isValidFile()).toBeFalsy();
   });
 });
