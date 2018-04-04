@@ -47,7 +47,7 @@ describe('upload.core', () => {
     file.name = 'notCoolFile.docx';
     const upload = new Upload(file, optionsWithFileTypes); // eslint-disable-line
     upload.start();
-    expect(upload.status).toEqual('rejected');
+    expect(upload.isValidFile()).toBeFalsy();
   });
 
   it('should allow the correct file type', () => {
@@ -70,6 +70,6 @@ describe('upload.core', () => {
     file.size = 1e7;
     const upload = new Upload(file, optionsWithFileSize);
     upload.start();
-    expect(upload.status).toEqual('rejected');
+    expect(upload.isValidFile()).toBeFalsy();
   });
 });
