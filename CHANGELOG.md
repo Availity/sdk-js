@@ -1,3 +1,22 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/Availity/sdk-js/compare/v1.1.2...v1.1.3) (2018-04-04)
+
+
+### Bug Fixes
+
+* **upload-core:** add test cases ([86409f8](https://github.com/Availity/sdk-js/commit/86409f8))
+* **upload-core:** fix lint ([0b2054e](https://github.com/Availity/sdk-js/commit/0b2054e))
+* **upload-core:** return file check error at the same time ([a5f88e8](https://github.com/Availity/sdk-js/commit/a5f88e8))
+* **upload-core:** send tus metadata mapping ([6041339](https://github.com/Availity/sdk-js/commit/6041339))
+* **upload-core:** tus attachmentName value ([fb3de99](https://github.com/Availity/sdk-js/commit/fb3de99))
+
+
+### Features
+
+* **upload-core:** add file metadata via tus ([f8a4cf1](https://github.com/Availity/sdk-js/commit/f8a4cf1)), closes [#20](https://github.com/Availity/sdk-js/issues/20)
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/Availity/sdk-js/compare/v1.1.1...v1.1.2) (2018-03-28)
 
