@@ -1,3 +1,20 @@
+<a name="1.1.4"></a>
+## [1.1.4](https://github.com/Availity/sdk-js/compare/v1.1.3...v1.1.4) (2018-04-10)
+
+
+### Bug Fixes
+
+* **upload-core:** clean up attributes ([4b320c9](https://github.com/Availity/sdk-js/commit/4b320c9))
+* **upload-core:** clean up attributes ([5860c4f](https://github.com/Availity/sdk-js/commit/5860c4f))
+* **upload-core:** remove redundant if check ([6d7a973](https://github.com/Availity/sdk-js/commit/6d7a973))
+
+
+### Features
+
+* **upload-core:** add extra metadata field ([577c001](https://github.com/Availity/sdk-js/commit/577c001))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/Availity/sdk-js/compare/v1.1.2...v1.1.3) (2018-04-04)
 
