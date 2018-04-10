@@ -117,21 +117,22 @@ class Upload {
   start() {
     const { file } = this;
 
+    const metadata = {
+      'availity-filename': file.name,
+      'availity-content-type': file.type,
+      'availity-attachment-name': 'N/A',
+    };
+    Object.assign(metadata, this.options.metadata);
+
     const upload = new tus.Upload(file, {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
       chunkSize: this.options.chunkSize,
-      metadata: {
-        'availity-filename': file.name,
-        'availity-content-type': file.type,
-        'availity-attachment-name': 'N/A',
-      },
+      metadata,
       headers: {
         'X-XSRF-TOKEN': this.getToken(),
         'X-Availity-Customer-ID': this.options.customerId,
         'X-Client-ID': this.options.clientId,
-        'Availity-Filename': file.name,
-        'Availity-Content-Type': file.type,
       },
       onError: err => {
         if (!this.isValidFile()) {
@@ -220,7 +221,7 @@ class Upload {
     const uploadResult = xhr.getResponseHeader('Upload-Result');
     const msg = xhr.getResponseHeader('Upload-Message');
     if (scanResult === 'rejected') {
-      return { status: scanResult, message: msg || 'File scan failed' };
+      return { status: scanResult, message: msg || 'Failed AV scan' };
     }
 
     if (uploadResult === 'rejected') {
