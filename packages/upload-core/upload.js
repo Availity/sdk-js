@@ -122,9 +122,7 @@ class Upload {
       'availity-content-type': file.type,
       'availity-attachment-name': 'N/A',
     };
-    if (this.options.metadata) {
-      Object.assign(metadata, this.options.metadata);
-    }
+    Object.assign(metadata, this.options.metadata);
 
     const upload = new tus.Upload(file, {
       resume: true,
