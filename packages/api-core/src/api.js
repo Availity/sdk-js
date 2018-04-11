@@ -118,39 +118,52 @@ export default class AvApi {
   getLocation(response) {
     let location = false;
 
-    const toPoll =
+    if (response.config.getHeader) {
+      location = response.config.getHeader(response, 'Location');
+    } else {
+      location = response.headers.Location;
+    }
+
+    return location;
+  }
+
+  // condition for calls that should continue polling
+  shouldPoll(response) {
+    return (
       response.config.polling &&
       response.status === 202 &&
-      response.config.attempt < response.config.pollingIntervals.length;
-
-    if (toPoll) {
-      if (response.config.getHeader) {
-        location = response.config.getHeader(response, 'Location');
-      } else {
-        location = response.headers.Location;
-      }
-    }
-    return location;
+      response.config.attempt < response.config.pollingIntervals.length
+    );
   }
 
   // handle response with possible polling
   onResponse(response, afterResponse) {
-    const location = this.getLocation(response);
-
-    if (location) {
+    if (this.shouldPoll(response)) {
       const newConfig = this.config(response.config);
-      newConfig.method = 'GET';
-      newConfig.url = location;
-      newConfig.cache = false;
-      return new this.Promise(resolve => {
-        setTimeout(
-          resolve,
-          newConfig.pollingIntervals[newConfig.attempt] || 1000
-        );
-      }).then(() => this.request(newConfig, afterResponse));
+      const pollingUrl = this.getLocation(response);
+
+      if (pollingUrl) {
+        newConfig.method = this.defaultConfig.pollingMethod;
+        newConfig.url = pollingUrl;
+        newConfig.cache = false;
+        return new this.Promise(resolve => {
+          setTimeout(
+            resolve,
+            newConfig.pollingIntervals[newConfig.attempt] || 1000
+          );
+        }).then(() => this.request(newConfig, afterResponse));
+      }
     }
 
     return afterResponse ? afterResponse(response) : response;
+  }
+
+  getError(error) {
+    let response;
+    if (error.response) {
+      response = { error };
+    }
+    return response;
   }
 
   // make request to http
@@ -163,10 +176,7 @@ export default class AvApi {
     return this.http(config)
       .then(response => this.onResponse(response, afterResponse))
       .catch(error => {
-        let response;
-        if (error.response) {
-          response = { error };
-        }
+        const response = this.getError(error);
         return afterResponse ? afterResponse(response) : response;
       });
   }
