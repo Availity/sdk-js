@@ -12,6 +12,7 @@ export default class AvMicroservice extends AvApi {
     this.defaultConfig = this.merge({}, API_OPTIONS.MS, config);
   }
 
+  // override aries 1 url concatentation
   getUrl(config) {
     const { path, name, id } = this.config(config);
     let parts = [path, name];
@@ -24,17 +25,17 @@ export default class AvMicroservice extends AvApi {
       .replace(/\/$/, '');
   }
 
-  // make request to http
-  request(config, afterResponse) {
-    return this.http(config)
-      .then(response => this.onResponse(response, afterResponse))
-      .catch(error => {
-        let response;
-        if (error) {
-          response = error;
-          response.error = true;
-        }
-        return afterResponse ? afterResponse(response) : response;
-      });
+  getError(error) {
+    let response;
+    if (error) {
+      response = error;
+      response.error = true;
+    }
+    return response;
+  }
+
+  // polling location is the same url
+  getLocation(response) {
+    return this.getUrl(response.config);
   }
 }

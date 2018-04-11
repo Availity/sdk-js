@@ -22,6 +22,8 @@ const API_OPTIONS = {
 
     pollingIntervals: [1e3, 2e3, 5e3, 1e4], // in ms
 
+    pollingMethod: 'GET',
+
     // default headers
     headers: {
       // Turn off content encoding for angular apis
@@ -52,6 +54,8 @@ const API_OPTIONS = {
     polling: false, //  1s,  2s,  5s,  10s
 
     pollingIntervals: [1e3, 2e3, 5e3, 1e4], // in ms
+
+    pollingMethod: 'POST',
 
     // default headers
     headers: {

@@ -440,7 +440,7 @@ describe('AvApi', () => {
           polling: false,
         },
       };
-      expect(api.getLocation(testResponse)).toBeFalsy();
+      expect(api.shouldPoll(testResponse)).toBeFalsy();
     });
 
     test('should return false when status is not 202', () => {
@@ -450,7 +450,7 @@ describe('AvApi', () => {
         },
         status: 200,
       };
-      expect(api.getLocation(testResponse)).toBeFalsy();
+      expect(api.shouldPoll(testResponse)).toBeFalsy();
     });
 
     test('should return false when attempt is larger than polling intervals', () => {
@@ -462,7 +462,7 @@ describe('AvApi', () => {
         },
         status: 202,
       };
-      expect(api.getLocation(testResponse)).toBeFalsy();
+      expect(api.shouldPoll(testResponse)).toBeFalsy();
     });
 
     test('should call config.getHeader() when polling is available', () => {
@@ -523,6 +523,7 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
+      api.shouldPoll = jest.fn();
       api.getLocation = jest.fn(() => testLocation);
       api.request = jest.fn();
       api.config = jest.fn(() => testNewConfig);
@@ -554,20 +555,25 @@ describe('AvApi', () => {
     });
 
     test('should request when polling', () => {
-      const mockAfterResponse = 'after';
+      api.shouldPoll = jest.fn(() => true);
+      api.getLocation = jest.fn(() => testLocation);
+
+      const mockAfterResponse = { testKey: 'after' };
+      const afterResponse = jest.fn(() => mockAfterResponse);
+
       const mockConfig = {
         testVal: 'test',
       };
 
       const output = api
-        .onResponse({ config: mockConfig }, mockAfterResponse)
+        .onResponse({ config: mockConfig }, afterResponse)
         .then(() => {
           expect(api.config).toHaveBeenCalledWith(mockConfig);
           expect(setTimeout).toHaveBeenCalledTimes(1);
           expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
           expect(api.request).toHaveBeenCalledWith(
             expectedNewConfig,
-            mockAfterResponse
+            afterResponse
           );
           return true;
         });
