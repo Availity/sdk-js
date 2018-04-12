@@ -13,6 +13,7 @@ function factory($http, $q, avApiOptions) {
       super({
         http: $http,
         promise: $q,
+        merge: angular.merge,
         config: options,
       });
     }
