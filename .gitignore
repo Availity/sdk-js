@@ -2,6 +2,6 @@ packages/*/coverage
 packages/*/dist
 node_modules
 *.log
-/.vscode
-/.DS_Store
-/.idea
+.vscode
+.DS_Store
+.idea
