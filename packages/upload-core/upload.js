@@ -36,13 +36,14 @@ class Upload {
     this.status = 'pending';
     this.timeoutID = undefined;
     this.error = null;
+    this.waitForPw = true;
   }
 
   inStatusCategory(status, category) {
     return status >= category && status < category + 100;
   }
 
-  scan() {
+  scan(data) {
     if (!this.isValidFile()) {
       return;
     }
@@ -54,6 +55,9 @@ class Upload {
     xhr.setRequestHeader('X-Client-ID', this.options.clientId);
     xhr.setRequestHeader('X-Availity-Customer-ID', this.options.customerId);
     xhr.setRequestHeader('X-XSRF-TOKEN', this.getToken());
+    if (data) {
+      xhr.setRequestHeader(data.header, data.value);
+    }
 
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
@@ -69,15 +73,25 @@ class Upload {
       this.percentage = this.getPercentage();
 
       const result = this.getResult(xhr);
+
       if (result.status === 'rejected') {
         this.setError(result.status, result.message);
         clearTimeout(this.timeoutId);
         return;
       }
 
+      if (result.status === 'encrypted') {
+        if (this.waitForPw) {
+          this.setError(result.status, result.message);
+          clearTimeout(this.timeoutId);
+          return;
+        }
+      }
+
       if (result.status === 'accepted') {
         this.percentage = 100;
         this.status = result.status;
+        this.errorMessage = null;
         const references = xhr.getResponseHeader('references');
         if (references) {
           this.references = JSON.parse(references);
@@ -165,6 +179,7 @@ class Upload {
         if (result.status === 'accepted') {
           this.percentage = 100;
           this.status = result.status;
+          this.errorMessage = null;
           const references = xhr.getResponseHeader('references');
           if (references) {
             this.references = JSON.parse(references);
@@ -182,9 +197,16 @@ class Upload {
       },
     });
     this.upload = upload;
-    this.id = this.upload.options.fingerprint(this.file);
+    this.id = this.upload.options
+      .fingerprint(this.file)
+      .replace(/[^a-zA-Z0-9-]/g, '');
 
     upload.start();
+  }
+
+  sendPassword(pw) {
+    this.waitForPw = false;
+    this.scan({ header: 'Encryption-Password', value: pw });
   }
 
   isValidFile() {
@@ -219,13 +241,35 @@ class Upload {
     }
     const scanResult = xhr.getResponseHeader('AV-Scan-Result');
     const uploadResult = xhr.getResponseHeader('Upload-Result');
+    const decryptResult = xhr.getResponseHeader('Decryption-Result');
     const msg = xhr.getResponseHeader('Upload-Message');
     if (scanResult === 'rejected') {
       return { status: scanResult, message: msg || 'Failed AV scan' };
     }
 
     if (uploadResult === 'rejected') {
+      this.waitForPw = true;
+      if (decryptResult === 'rejected') {
+        return {
+          status: uploadResult,
+          message: msg || 'Maximum password attempts reached',
+        };
+      }
       return { status: uploadResult, message: msg || 'File upload rejected' };
+    }
+
+    if (uploadResult === 'encrypted') {
+      // needs pw, isDecrypting, isScanning
+      if (!this.waitForPw) {
+        return { status: 'pending', message: msg || '' };
+      }
+      if (decryptResult === 'rejected') {
+        return { status: uploadResult, message: msg || 'Incorrect password' };
+      }
+      return {
+        status: uploadResult,
+        message: msg || 'Encrypted files require a password',
+      };
     }
 
     if (scanResult === 'accepted' && uploadResult === 'accepted') {
@@ -244,7 +288,7 @@ class Upload {
   }
 
   hasError() {
-    if (this.errorMessage) {
+    if (this.errorMessage && this.status !== 'encrypted') {
       return true;
     }
     return false;
