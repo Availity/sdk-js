@@ -1,3 +1,18 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/Availity/sdk-js/compare/v1.1.4...v1.2.0) (2018-04-12)
+
+
+### Bug Fixes
+
+* **api-angular:** pass merge function to ms ([6a3ea3c](https://github.com/Availity/sdk-js/commit/6a3ea3c))
+
+
+### Features
+
+* **api-core:** refactor polling for extending MS ([04c1474](https://github.com/Availity/sdk-js/commit/04c1474))
+
+
+
 <a name="1.1.4"></a>
 ## [1.1.4](https://github.com/Availity/sdk-js/compare/v1.1.3...v1.1.4) (2018-04-10)
 
