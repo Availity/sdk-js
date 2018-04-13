@@ -2,13 +2,13 @@ import angular from 'angular';
 import 'angular-mocks';
 import avModule from '../';
 
-describe('Api Definitions Angular', () => {
+describe('MicroserviceApi Definitions Angular', () => {
   beforeEach(() => {
     angular.mock.module(avModule);
   });
 
   describe('AvMicroservice', () => {
-    test('should initialize with constructor', () => {
+    test('should initialize AvMicroserviceApi', () => {
       angular.mock.inject(_AvMicroserviceApi_ => {
         const AvMicroserviceApi = _AvMicroserviceApi_;
         expect(AvMicroserviceApi).toBeDefined();
@@ -16,6 +16,9 @@ describe('Api Definitions Angular', () => {
           // eslint-disable-next-line
           new AvMicroserviceApi({ path: '/a/b', name: 'foo' });
         }).not.toThrow();
+
+        const testMsApi = new AvMicroserviceApi({ path: '/a/b', name: 'foo' });
+        expect(testMsApi.defaultConfig.pollingMethod).toEqual('POST');
       });
     });
   });
