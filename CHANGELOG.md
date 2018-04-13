@@ -1,3 +1,13 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/Availity/sdk-js/compare/v1.2.0...v1.3.0) (2018-04-13)
+
+
+### Bug Fixes
+
+* **api-angular:** fix MS extends ([24544cc](https://github.com/Availity/sdk-js/commit/24544cc))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/Availity/sdk-js/compare/v1.1.4...v1.2.0) (2018-04-12)
 
