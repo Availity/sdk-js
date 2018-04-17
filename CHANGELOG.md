@@ -1,3 +1,13 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/Availity/sdk-js/compare/v1.3.0...v1.4.0) (2018-04-17)
+
+
+### Features
+
+* **upload-core:** modify file figerprint to use metadata ([d45ac0c](https://github.com/Availity/sdk-js/commit/d45ac0c))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/Availity/sdk-js/compare/v1.2.0...v1.3.0) (2018-04-13)
 
