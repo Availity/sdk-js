@@ -90,7 +90,6 @@ class AvLocalStorage {
   }
 
   getSessionBust() {
-    // return the avCacheBust value
     return this.get('avCacheBust');
   }
 }

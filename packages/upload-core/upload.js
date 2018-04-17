@@ -1,8 +1,35 @@
 import tus from 'tus-js-client';
 
-const defaults = {
+const hashCode = str => {
+  let hash = 0;
+  if (str.length === 0) return hash;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char; // eslint-disable-line
+    hash = hash & hash; // eslint-disable-line
+  }
+  return hash;
+};
+
+const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
   chunkSize: 3e6, // 3MB
+  removeFingerprintOnSuccess: true,
+  fingerprint(file, options = {}) {
+    const attributes = [file.name, file.type, file.size, file.lastModified];
+
+    const key = ['tus', ...attributes].join('-');
+
+    const signature = [
+      ...attributes,
+      options.endpoint,
+      ...Object.values(options.metadata || {}),
+    ].join('');
+
+    const print = Math.abs(hashCode(signature));
+
+    return `${key}${print}`;
+  },
 };
 
 class Upload {
@@ -24,7 +51,7 @@ class Upload {
     }
 
     this.file = file;
-    this.options = Object.assign(options, defaults);
+    this.options = Object.assign(options, defaultOptions);
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
@@ -43,6 +70,8 @@ class Upload {
   }
 
   scan() {
+    clearTimeout(this.timeoutID);
+
     if (!this.isValidFile()) {
       return;
     }
@@ -71,7 +100,7 @@ class Upload {
       const result = this.getResult(xhr);
       if (result.status === 'rejected') {
         this.setError(result.status, result.message);
-        clearTimeout(this.timeoutId);
+
         return;
       }
 
@@ -87,7 +116,6 @@ class Upload {
       }
 
       this.onProgress.forEach(cb => cb());
-
       this.timeoutId = setTimeout(() => {
         this.scan();
       }, 50);
@@ -128,6 +156,8 @@ class Upload {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
       chunkSize: this.options.chunkSize,
+      removeFingerprintOnSuccess: this.options.removeFingerprintOnSuccess,
+      fingerprint: this.options.fingerprint,
       metadata,
       headers: {
         'X-XSRF-TOKEN': this.getToken(),
@@ -182,7 +212,7 @@ class Upload {
       },
     });
     this.upload = upload;
-    this.id = this.upload.options.fingerprint(this.file);
+    this.id = this.upload.options.fingerprint(this.file, this.options);
 
     upload.start();
   }
