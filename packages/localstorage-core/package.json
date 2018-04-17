@@ -1,6 +1,6 @@
 {
   "name": "@availity/localstorage-core",
-  "version": "1.0.1",
+  "version": "1.4.0",
   "description": "Wraps localStorage with utility functions",
   "keywords": [
     "availity",
