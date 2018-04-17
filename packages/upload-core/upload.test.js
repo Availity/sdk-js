@@ -24,7 +24,6 @@ const optionsWithMeta = {
   bucketId: 'a',
   customerId: 'b',
   clientId: 'c',
-  metadata: { documentTypeId: 'd' },
 };
 
 describe('upload.core', () => {
@@ -85,8 +84,21 @@ describe('upload.core', () => {
     file.name = 'a';
     file.type = 'b';
     file.size = 1e2;
-    const upload = new Upload(file, optionsWithMeta);
+
+    let options = Object.assign(optionsWithMeta, {
+      metadata: { documentTypeId: 'd' },
+    });
+
+    let upload = new Upload(file, options);
     upload.start();
     expect(upload.id).toBe('tus-a-b-100-1485272892');
+
+    options = Object.assign(optionsWithMeta, {
+      metadata: { documentTypeId: 'e' },
+    });
+
+    upload = new Upload(file, options);
+    upload.start();
+    expect(upload.id).toBe('tus-a-b-100-1485272891');
   });
 });
