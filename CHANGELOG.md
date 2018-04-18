@@ -1,3 +1,13 @@
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/Availity/sdk-js/compare/v1.5.0...v1.5.1) (2018-04-18)
+
+
+### Bug Fixes
+
+* **upload-core:** fix for pending decryption status ([d05df81](https://github.com/Availity/sdk-js/commit/d05df81))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/Availity/sdk-js/compare/v1.4.1...v1.5.0) (2018-04-18)
 
