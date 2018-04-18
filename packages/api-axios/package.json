@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "description": "Wraps @availity/api-core with Axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
@@ -10,7 +10,7 @@
     "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^1.2.0",
+    "@availity/api-core": "^1.4.0",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "publishConfig": {

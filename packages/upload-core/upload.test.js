@@ -20,6 +20,12 @@ const optionsWithFileSize = {
   maxSize: 2e6,
 };
 
+const optionsWithMeta = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+};
+
 describe('upload.core', () => {
   it('should be defined', () => {
     expect(Upload).toBeTruthy();
@@ -71,5 +77,28 @@ describe('upload.core', () => {
     const upload = new Upload(file, optionsWithFileSize);
     upload.start();
     expect(upload.isValidFile()).toBeFalsy();
+  });
+
+  it('should use metadata values for fingerprint', () => {
+    const file = Buffer.from('hello world!'.split(''));
+    file.name = 'a';
+    file.type = 'b';
+    file.size = 1e2;
+
+    let options = Object.assign(optionsWithMeta, {
+      metadata: { documentTypeId: 'd' },
+    });
+
+    let upload = new Upload(file, options);
+    upload.start();
+    expect(upload.id).toBe('tus-a-b-100-1485272892');
+
+    options = Object.assign(optionsWithMeta, {
+      metadata: { documentTypeId: 'e' },
+    });
+
+    upload = new Upload(file, options);
+    upload.start();
+    expect(upload.id).toBe('tus-a-b-100-1485272891');
   });
 });

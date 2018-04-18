@@ -1,9 +1,9 @@
 import angular from 'angular';
 
-import Api from '@availity/api-core';
+import { AvMicroservice } from '@availity/api-core';
 
 function factory($http, $q, avApiOptions) {
-  class AvMicroservice extends Api {
+  class AvMicroserviceApi extends AvMicroservice {
     constructor(options) {
       if (!options) {
         throw new Error('[options] cannot be null or undefined');
@@ -18,7 +18,7 @@ function factory($http, $q, avApiOptions) {
       });
     }
   }
-  return AvMicroservice;
+  return AvMicroserviceApi;
 }
 
 export default factory;

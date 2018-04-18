@@ -1,3 +1,33 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/Availity/sdk-js/compare/v1.4.0...v1.4.1) (2018-04-18)
+
+
+### Bug Fixes
+
+* **upload:** replace object.values usage ([8967629](https://github.com/Availity/sdk-js/commit/8967629))
+
+
+
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/Availity/sdk-js/compare/v1.3.0...v1.4.0) (2018-04-17)
+
+
+### Features
+
+* **upload-core:** modify file figerprint to use metadata ([d45ac0c](https://github.com/Availity/sdk-js/commit/d45ac0c))
+
+
+
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/Availity/sdk-js/compare/v1.2.0...v1.3.0) (2018-04-13)
+
+
+### Bug Fixes
+
+* **api-angular:** fix MS extends ([24544cc](https://github.com/Availity/sdk-js/commit/24544cc))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/Availity/sdk-js/compare/v1.1.4...v1.2.0) (2018-04-12)
 

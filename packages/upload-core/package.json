@@ -1,6 +1,6 @@
 {
   "name": "@availity/upload-core",
-  "version": "1.1.4",
+  "version": "1.4.1",
   "description": "Wrapper for tus-js-client",
   "main": "upload.js",
   "scripts": {
@@ -21,6 +21,6 @@
     "access": "public"
   },
   "devDependencies": {
-    "tus-js-client": "^1.4.5"
+    "tus-js-client": "^1.5.1"
   }
 }
