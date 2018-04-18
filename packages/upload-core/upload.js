@@ -290,7 +290,10 @@ class Upload {
 
     if (uploadResult === 'encrypted') {
       // needs pw, isDecrypting, isScanning
-      if (!this.waitForPw && decryptResult === null) {
+      if (
+        !this.waitForPw &&
+        (decryptResult === null || decryptResult === 'pending')
+      ) {
         return { status: 'pending', message: msg || '' };
       }
       if (decryptResult === 'rejected') {
