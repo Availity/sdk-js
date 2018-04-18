@@ -1,3 +1,18 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/Availity/sdk-js/compare/v1.4.1...v1.5.0) (2018-04-18)
+
+
+### Bug Fixes
+
+* **upload-core:** fix encryption conditions ([3d1b517](https://github.com/Availity/sdk-js/commit/3d1b517))
+
+
+### Features
+
+* **upload-core:** adding encryption ([e08b1b2](https://github.com/Availity/sdk-js/commit/e08b1b2))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/Availity/sdk-js/compare/v1.4.0...v1.4.1) (2018-04-18)
 
