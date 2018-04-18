@@ -23,7 +23,7 @@ const defaultOptions = {
     const signature = [
       ...attributes,
       options.endpoint,
-      ...Object.values(options.metadata || {}),
+      ...Object.keys(options.metadata || {}).map(key => options.metadata[key]),
     ].join('');
 
     const print = Math.abs(hashCode(signature));
