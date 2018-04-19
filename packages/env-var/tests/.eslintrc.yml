@@ -1,0 +1,5 @@
+extends: availity/browser
+env:
+  jest: true
+globals:
+  jsdom: true

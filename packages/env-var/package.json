@@ -1,0 +1,26 @@
+{
+  "name": "@availity/env-var",
+  "version": "1.0.0",
+  "description": "Availity-specific way to determine variables based on the current environment the code is running in",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git"
+  },
+  "keywords": [
+    "availity",
+    "environment",
+    "variables"
+  ],
+  "contributors": [
+    "Evan Sharp <evan.sharp@availity.com> (https://github.com/TheSharpieOne)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "homepage": "https://github.com/availity/sdk-js",
+  "publishConfig": {
+    "access": "public"
+  }
+}
