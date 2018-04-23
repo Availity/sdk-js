@@ -1,6 +1,6 @@
 {
   "name": "@availity/keyv-local-sync",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Simple key-value storage for local in memory caches in a synchros fashion",
   "main": "src/index.js",
   "repository": {
