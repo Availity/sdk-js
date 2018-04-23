@@ -60,6 +60,7 @@ class Upload {
     this.bytesSent = 0;
     this.bytesScanned = 0;
     this.errorMessage = null;
+    this.errorCode = null;
     this.status = 'pending';
     this.timeoutID = undefined;
     this.error = null;
@@ -316,8 +317,27 @@ class Upload {
   setError(status, message, err) {
     if (!this.hasError()) {
       this.status = status;
-      this.errorMessage = message || 'An error occurred';
-      this.onError.forEach(cb => cb(err || new Error(message)));
+      this.parseErrorMessage(message, err);
+      this.onError.forEach(cb => cb(err || new Error(this.errorMessage)));
+    }
+  }
+
+  parseErrorMessage(message, err) {
+    if (err) {
+      const originalErrorMessage = err.message;
+      let temp = originalErrorMessage.match(/response\Wcode:\W([0-9]*)/);
+      if (temp && temp.length === 2) {
+        [, this.errorCode] = temp;
+      }
+      temp = originalErrorMessage.match(/response\Wtext:\W(.*)\)/);
+      if (temp && temp.length === 2) {
+        [, this.errorMessage] = temp;
+      }
+      if (!this.errorMessage && this.errorMessage !== '') {
+        this.errorMessage = message;
+      }
+    } else {
+      this.errorMessage = message;
     }
   }
 
