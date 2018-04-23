@@ -101,4 +101,29 @@ describe('upload.core', () => {
     upload.start();
     expect(upload.id).toBe('tus-a-b-100-1485272891');
   });
+
+  it('should parse error messages', () => {
+    const file = Buffer.from('hello world!'.split(''));
+    const upload = new Upload(file, options);
+    upload.start();
+    const err = {
+      message:
+        'tus: unexpected response while creating upload, originated from request (response code: 400, response text: Missing valid positive numeric header: Upload-Length)',
+    };
+    upload.parseErrorMessage('Default Error', err);
+    expect(upload.errorCode).toBe('400');
+    expect(upload.errorMessage).toBe(
+      'Missing valid positive numeric header: Upload-Length'
+    );
+
+    const upload2 = new Upload(file, options);
+    upload2.start();
+    const blankErr = {
+      message:
+        'tus: unexpected response while creating upload, originated from request (response code: 500, response text: ',
+    };
+    upload2.parseErrorMessage('Default Error', blankErr);
+    expect(upload2.errorCode).toBe('500');
+    expect(upload2.errorMessage).toBe('Default Error');
+  });
 });
