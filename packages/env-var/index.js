@@ -24,33 +24,31 @@ export function getCurrentEnv(windowOverride = window) {
       : windowOverride.location;
   const subdomain = hostname.split('.availity')[0];
 
-  return (
-    Object.keys(environments).reduce((prev, env) => {
-      if (prev) return prev;
-      let envTests = environments[env];
-      if (!Array.isArray(envTests)) {
-        envTests = [envTests];
-      }
+  return Object.keys(environments).reduce((prev, env) => {
+    if (prev) return prev;
+    let envTests = environments[env];
+    if (!Array.isArray(envTests)) {
+      envTests = [envTests];
+    }
 
-      return (
-        envTests.some(test => {
-          switch (Object.prototype.toString.call(test)) {
-            case '[object String]':
-              return test === subdomain;
-            case '[object RegExp]':
-              return test.test(subdomain);
-            case '[object Function]':
-              return test();
-            default:
-              return false;
-          }
-        }) && env
-      );
-    }, '') || 'local'
-  );
+    return (
+      envTests.some(test => {
+        switch (Object.prototype.toString.call(test)) {
+          case '[object String]':
+            return test === subdomain;
+          case '[object RegExp]':
+            return test.test(subdomain);
+          case '[object Function]':
+            return test();
+          default:
+            return false;
+        }
+      }) && env
+    );
+  }, '');
 }
 
 export default function(varObj, windowOverride) {
   const env = getCurrentEnv(windowOverride);
-  return varObj[env];
+  return typeof varObj[env] === 'undefined' ? varObj.local : varObj[env];
 }
