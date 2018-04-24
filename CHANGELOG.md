@@ -1,3 +1,14 @@
+<a name="1.6.3"></a>
+## [1.6.3](https://github.com/Availity/sdk-js/compare/v1.6.2...v1.6.3) (2018-04-24)
+
+
+### Bug Fixes
+
+* **upload-core:** check xhr error message from header ([1609d58](https://github.com/Availity/sdk-js/commit/1609d58))
+* **upload-core:** update test ([65efc5a](https://github.com/Availity/sdk-js/commit/65efc5a))
+
+
+
 <a name="1.6.2"></a>
 ## [1.6.2](https://github.com/Availity/sdk-js/compare/v1.6.1...v1.6.2) (2018-04-24)
 
