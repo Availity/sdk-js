@@ -1,3 +1,13 @@
+<a name="1.6.2"></a>
+## [1.6.2](https://github.com/Availity/sdk-js/compare/v1.6.1...v1.6.2) (2018-04-24)
+
+
+### Bug Fixes
+
+* **env-var:** default value not environment ([076540b](https://github.com/Availity/sdk-js/commit/076540b))
+
+
+
 <a name="1.6.1"></a>
 ## [1.6.1](https://github.com/Availity/sdk-js/compare/v1.6.0...v1.6.1) (2018-04-23)
 
