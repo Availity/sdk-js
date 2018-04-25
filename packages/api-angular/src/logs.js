@@ -1,4 +1,5 @@
 import angular from 'angular';
+
 import { AvLogMessages } from '@availity/api-core';
 
 export default ($http, $q, avApiOptions) =>

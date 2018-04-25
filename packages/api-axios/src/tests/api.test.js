@@ -1,41 +1,44 @@
 import Api, {
-  logMessagesApi,
-  navigationApi,
-  notificationApi,
-  organizationsApi,
-  permissionsApi,
-  providersApi,
-  ProxyApi,
-  regionsApi,
-  spacesApi,
-  userApi,
-  userPermissionsApi,
-  filesApi,
-  settingsApi,
+  AvMicroserviceApi,
+  AvProxyApi,
+  avLogMessagesApi,
+  avNavigationApi,
+  avNotificationApi,
+  avOrganizationsApi,
+  avPermissionsApi,
+  avProvidersApi,
+  avRegionsApi,
+  avSpacesApi,
+  avUserApi,
+  avUserPermissionsApi,
+  avFilesApi,
+  avSettingsApi,
 } from '../';
 
 describe('AvAPi', () => {
   test('should be defined', () => {
     const api = new Api({});
     expect(api).toBeDefined();
-    const proxy = new ProxyApi({ tenant: 'healthplan' });
+    const proxy = new AvProxyApi({ tenant: 'healthplan' });
     expect(proxy).toBeDefined();
+    const ms = new AvMicroserviceApi({ path: 'urlPath' });
+    expect(ms).toBeDefined();
   });
 });
 
 describe('API Definitions', () => {
   test('should be defined', () => {
-    expect(logMessagesApi).toBeDefined();
-    expect(navigationApi).toBeDefined();
-    expect(notificationApi).toBeDefined();
-    expect(organizationsApi).toBeDefined();
-    expect(permissionsApi).toBeDefined();
-    expect(providersApi).toBeDefined();
-    expect(regionsApi).toBeDefined();
-    expect(spacesApi).toBeDefined();
-    expect(userApi).toBeDefined();
-    expect(userPermissionsApi).toBeDefined();
-    expect(filesApi).toBeDefined();
-    expect(settingsApi).toBeDefined();
+    expect(avLogMessagesApi).toBeDefined();
+    expect(avNavigationApi).toBeDefined();
+    expect(avNotificationApi).toBeDefined();
+    expect(avOrganizationsApi).toBeDefined();
+    expect(avPermissionsApi).toBeDefined();
+    expect(avProvidersApi).toBeDefined();
+    expect(avRegionsApi).toBeDefined();
+    expect(avSpacesApi).toBeDefined();
+    expect(avUserApi).toBeDefined();
+    expect(avUserPermissionsApi).toBeDefined();
+    expect(avFilesApi).toBeDefined();
+    expect(avSettingsApi).toBeDefined();
   });
 });
