@@ -35,6 +35,9 @@ export default class AvSpaces extends AvApi {
   }
 
   getSpaceName(spaceId) {
+    if (!spaceId) {
+      throw Error('[spaceId] must be defined');
+    }
     return this.get(spaceId).then(response => response.data.name);
   }
 }
