@@ -37,5 +37,9 @@ describe('AvSpaces', () => {
   test('should get name from spaces resource', async () => {
     const name = await api.getSpaceName('1');
     expect(name).toEqual('foo');
+
+    expect(() => {
+      api.getSpaceName();
+    }).toThrow('[spaceId] must be defined');
   });
 });
