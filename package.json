@@ -53,6 +53,7 @@
   "license": "MIT",
   "lint-staged": {
     "*.js": [
+      "npm run test",
       "eslint --fix",
       "prettier --write",
       "git add"
