@@ -100,16 +100,25 @@ describe('AvMicroservice', () => {
       expect(ms.getUrl(testConfig)).toBe(testExpected);
     });
 
-    test('should return joined config.path, name, and id if config.id', () => {
+    test('get() throws error without id', () => {
+      const config = {
+        testValue: 'test',
+      };
+      const id = false;
+      expect(() => {
+        ms.get(id, config);
+      }).toThrow('called method without [id]');
+    });
+
+    test('should return joined config.path, name, and id', () => {
       const testUrl = 'test';
       const testId = 'testId';
       const testExpected = `${defaultPath}/${testUrl}/${testId}`;
       const testConfig = {
         api: true,
         name: testUrl,
-        id: testId,
       };
-      expect(ms.getUrl(testConfig)).toBe(testExpected);
+      expect(ms.getUrl(testConfig, testId)).toBe(testExpected);
     });
 
     test("should remove multiple and trailing /'s", () => {
