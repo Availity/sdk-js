@@ -1,10 +1,10 @@
 import axios from 'axios';
 import utils from 'axios/lib/utils';
-import Api from '@availity/api-core';
+import { AvMicroservice } from '@availity/api-core';
 
 const { merge } = utils;
 
-export default class AvMicroservice extends Api {
+export default class AvMicroserviceApi extends AvMicroservice {
   constructor(options) {
     super({
       http: axios,
