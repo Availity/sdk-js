@@ -1,3 +1,13 @@
+<a name="2.0.2"></a>
+## [2.0.2](https://github.com/Availity/sdk-js/compare/v2.0.1...v2.0.2) (2018-05-04)
+
+
+### Bug Fixes
+
+* api implementation peerDeps ([28c163d](https://github.com/Availity/sdk-js/commit/28c163d))
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/Availity/sdk-js/compare/v2.0.0...v2.0.1) (2018-05-04)
 
