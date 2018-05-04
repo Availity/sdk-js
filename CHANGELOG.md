@@ -1,3 +1,24 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/Availity/sdk-js/compare/v1.6.3...v2.0.0) (2018-05-04)
+
+
+### Bug Fixes
+
+* **api-axios:** fix ms to extend core ms ([a2f65e5](https://github.com/Availity/sdk-js/commit/a2f65e5))
+* **api-core:** avSpaces - throw error when no spaceId given ([7c47280](https://github.com/Availity/sdk-js/commit/7c47280))
+
+
+### Chores
+
+* **api-core:** core, angular, axios api naming consistency ([f129fad](https://github.com/Availity/sdk-js/commit/f129fad))
+
+
+### BREAKING CHANGES
+
+* **api-core:** export naming conventions have been refactored to match for each implementation (angular/axios). Constructors are prefixed with 'Av', implementations are prefixed with 'av', and Apis are postfixed with 'Api'.
+
+
+
 <a name="1.6.3"></a>
 ## [1.6.3](https://github.com/Availity/sdk-js/compare/v1.6.2...v1.6.3) (2018-04-24)
 
