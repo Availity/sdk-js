@@ -1,3 +1,13 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/Availity/sdk-js/compare/v2.0.0...v2.0.1) (2018-05-04)
+
+
+### Bug Fixes
+
+* **api-core:** get id out of arguments ([3e525c2](https://github.com/Availity/sdk-js/commit/3e525c2))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/Availity/sdk-js/compare/v1.6.3...v2.0.0) (2018-05-04)
 
