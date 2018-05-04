@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-angular",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Wraps @availity/api-core with Angular $http",
   "main": "src/index.js",
   "author": "",
