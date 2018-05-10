@@ -158,9 +158,10 @@ class Upload {
 
   start() {
     const { file } = this;
+    const fileName = this.trimFileName(file.name);
 
     const metadata = {
-      'availity-filename': file.name,
+      'availity-filename': fileName,
       'availity-content-type': file.type,
       'availity-attachment-name': 'N/A',
     };
@@ -265,6 +266,14 @@ class Upload {
     return true;
   }
 
+  trimFileName(fileName) {
+    if (this.options.stripFileNamePathSegments !== false) {
+      fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
+      fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+    }
+    return fileName;
+  }
+
   getResult(xhr) {
     if (this.hasError()) {
       return { status: 'rejected' };
@@ -290,7 +299,10 @@ class Upload {
 
     if (uploadResult === 'encrypted') {
       // needs pw, isDecrypting, isScanning
-      if (!this.waitForPw && decryptResult === null) {
+      if (
+        !this.waitForPw &&
+        (decryptResult === null || decryptResult === 'pending')
+      ) {
         return { status: 'pending', message: msg || '' };
       }
       if (decryptResult === 'rejected') {
@@ -313,8 +325,26 @@ class Upload {
   setError(status, message, err) {
     if (!this.hasError()) {
       this.status = status;
-      this.errorMessage = message || 'An error occurred';
-      this.onError.forEach(cb => cb(err || new Error(message)));
+      this.parseErrorMessage(message, err);
+      this.onError.forEach(cb => cb(err || new Error(this.errorMessage)));
+    }
+  }
+
+  parseErrorMessage(message, err) {
+    if (err) {
+      let msg = err.originalRequest.getResponseHeader('Upload-Message');
+      if (!msg) {
+        const temp = err.message.match(/response\Wtext:\W(.*)\)/);
+        if (temp && temp.length === 2) {
+          [, msg] = temp;
+        }
+      }
+      if (!msg) {
+        msg = message;
+      }
+      this.errorMessage = msg;
+    } else {
+      this.errorMessage = message;
     }
   }
 

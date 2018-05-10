@@ -1,4 +1,4 @@
-import Upload from './upload';
+import Upload from '../upload';
 
 const options = {
   bucketId: 'a',
@@ -45,6 +45,7 @@ describe('upload.core', () => {
 
   it('should allow single file as constructor argument', () => {
     const file = Buffer.from('hello world'.split(''));
+    file.name = 'fileName.png';
     new Upload(file, options); // eslint-disable-line
   });
 
@@ -64,6 +65,7 @@ describe('upload.core', () => {
 
   it('should use default options ', () => {
     const file = Buffer.from('hello world'.split(''));
+    file.name = 'optionsFile.png';
     const upload = new Upload(file, options);
 
     expect(upload.options.endpoint).toBe(
@@ -73,6 +75,7 @@ describe('upload.core', () => {
 
   it('should not allow files over maxSize', () => {
     const file = Buffer.from('hello world!'.split(''));
+    file.name = 'sizeFile.pdf';
     file.size = 1e7;
     const upload = new Upload(file, optionsWithFileSize);
     upload.start();
@@ -104,6 +107,7 @@ describe('upload.core', () => {
 
   it('should parse error messages', () => {
     const file = Buffer.from('hello world!'.split(''));
+    file.name = 'a';
     const upload = new Upload(file, options);
     upload.start();
     const getResponseHeaderMethod = function() {
@@ -121,5 +125,30 @@ describe('upload.core', () => {
     upload2.start();
     upload2.parseErrorMessage('Default Error');
     expect(upload2.errorMessage).toBe('Default Error');
+  });
+
+  it('should check filePath for slashes', () => {
+    const file1 = Buffer.from('hello world!'.split(''));
+    file1.name = '\\bad\\file\\path\\file.pdf';
+    const upload1 = new Upload(
+      file1,
+      Object.assign(options, { stripFileNamePathSegments: false })
+    );
+    expect(upload1.trimFileName(file1.name)).toBe(file1.name);
+
+    const file2 = Buffer.from('hello world!'.split(''));
+    file2.name = '\\bad\\file\\path\\file2.pdf';
+    const upload2 = new Upload(file2, optionsWithMeta);
+    expect(upload2.trimFileName(file2.name)).toBe('file2.pdf');
+
+    const file3 = Buffer.from('hello world!'.split(''));
+    file3.name = '/bad/file/path/file3.pdf';
+    const upload3 = new Upload(file3, optionsWithMeta);
+    expect(upload3.trimFileName(file3.name)).toBe('file3.pdf');
+
+    const file4 = Buffer.from('hello world!'.split(''));
+    file4.name = 'goodFileName.pdf';
+    const upload4 = new Upload(file4, optionsWithMeta);
+    expect(upload4.trimFileName(file4.name)).toBe('goodFileName.pdf');
   });
 });
