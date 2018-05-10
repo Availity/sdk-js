@@ -33,4 +33,4 @@ git add .
 git commit -m "docs: changelog v${VERSION}"
 
 echo "==> Bumping lerna version"
-node_modules/.bin/lerna publish --repo-version ${VERSION} --independent
+node_modules/.bin/lerna publish --repo-version ${VERSION} --yes
