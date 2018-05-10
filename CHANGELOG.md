@@ -1,3 +1,14 @@
+<a name="2.0.3"></a>
+## [2.0.3](https://github.com/Availity/sdk-js/compare/v2.0.2...v2.0.3) (2018-05-10)
+
+
+### Bug Fixes
+
+* **api-core:** allow id to be in the config ([55b55af](https://github.com/Availity/sdk-js/commit/55b55af))
+* **upload-core:** fix file path issue ([8c5d974](https://github.com/Availity/sdk-js/commit/8c5d974))
+
+
+
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/Availity/sdk-js/compare/v2.0.1...v2.0.2) (2018-05-04)
 
