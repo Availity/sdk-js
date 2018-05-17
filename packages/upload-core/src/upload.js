@@ -129,6 +129,10 @@ class Upload {
         return;
       }
 
+      if (result.status === 'decrypting') {
+        this.setError(result.status, result.message);
+      }
+
       this.onProgress.forEach(cb => cb());
       this.timeoutId = setTimeout(() => {
         this.scan();
@@ -275,9 +279,6 @@ class Upload {
   }
 
   getResult(xhr) {
-    if (this.hasError()) {
-      return { status: 'rejected' };
-    }
     const scanResult = xhr.getResponseHeader('AV-Scan-Result');
     const uploadResult = xhr.getResponseHeader('Upload-Result');
     const decryptResult = xhr.getResponseHeader('Decryption-Result');
@@ -303,7 +304,7 @@ class Upload {
         !this.waitForPw &&
         (decryptResult === null || decryptResult === 'pending')
       ) {
-        return { status: 'pending', message: msg || '' };
+        return { status: 'decrypting', message: msg || 'Decrypting file' };
       }
       if (decryptResult === 'rejected') {
         this.waitForPw = true;
@@ -323,11 +324,9 @@ class Upload {
   }
 
   setError(status, message, err) {
-    if (!this.hasError()) {
-      this.status = status;
-      this.parseErrorMessage(message, err);
-      this.onError.forEach(cb => cb(err || new Error(this.errorMessage)));
-    }
+    this.status = status;
+    this.parseErrorMessage(message, err);
+    this.onError.forEach(cb => cb(err || new Error(this.errorMessage)));
   }
 
   parseErrorMessage(message, err) {
@@ -346,13 +345,6 @@ class Upload {
     } else {
       this.errorMessage = message;
     }
-  }
-
-  hasError() {
-    if (this.errorMessage && this.status !== 'encrypted') {
-      return true;
-    }
-    return false;
   }
 
   abort() {

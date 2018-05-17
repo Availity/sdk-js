@@ -63,7 +63,7 @@ describe('upload.core', () => {
     new Upload(file, optionsWithFileTypes); // eslint-disable-line
   });
 
-  it('should use default options ', () => {
+  it('should use default options', () => {
     const file = Buffer.from('hello world'.split(''));
     file.name = 'optionsFile.png';
     const upload = new Upload(file, options);
@@ -150,5 +150,14 @@ describe('upload.core', () => {
     file4.name = 'goodFileName.pdf';
     const upload4 = new Upload(file4, optionsWithMeta);
     expect(upload4.trimFileName(file4.name)).toBe('goodFileName.pdf');
+  });
+
+  it('should pass status of decrypting', () => {
+    const file = Buffer.from('hello world'.split(''));
+    file.name = 'decryptThisFile.png';
+    const upload = new Upload(file, options);
+    upload.setError('encrypted', 'Encrypted files require a password');
+    upload.setError('decrypting', 'Decrypting file');
+    expect(upload.status).toBe('decrypting');
   });
 });
