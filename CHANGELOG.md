@@ -1,3 +1,13 @@
+<a name="2.0.5"></a>
+## [2.0.5](https://github.com/Availity/sdk-js/compare/v2.0.4...v2.0.5) (2018-05-18)
+
+
+### Bug Fixes
+
+* **upload-core:** package.json main file path fix ([0f5d91c](https://github.com/Availity/sdk-js/commit/0f5d91c))
+
+
+
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/Availity/sdk-js/compare/v2.0.3...v2.0.4) (2018-05-17)
 
