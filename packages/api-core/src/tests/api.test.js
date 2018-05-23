@@ -69,6 +69,62 @@ describe('AvApi', () => {
     }).toThrowError('[http], [promise], [config], and [merge] must be defined');
   });
 
+  test('getQueryResultKey(data) should determine the key for the list within data', () => {
+    const mockConfig = {
+      name: 'testName',
+    };
+    api = new AvApi({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: mockConfig,
+    });
+    expect(
+      api.getQueryResultKey({ nope: {}, not: true, yup: [], sorry: 3 })
+    ).toEqual('yup');
+  });
+
+  test('getResult(data) should return list within data', () => {
+    const mockConfig = {
+      name: 'testName',
+    };
+    api = new AvApi({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: mockConfig,
+    });
+    const list = [{}, {}];
+    expect(api.getResult({ nope: {}, not: true, yup: list, sorry: 3 })).toEqual(
+      list
+    );
+  });
+
+  test('getPage(config, page, limit) make a request with the right offset', () => {
+    const mockConfig = {
+      name: 'testName',
+    };
+    api = new AvApi({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: mockConfig,
+    });
+    api.query = jest.fn();
+    const offset = 50;
+    const originalConfig = {};
+    const newConfig = {};
+    api.addParams = jest.fn(({ offset }, config, create) => {
+      expect(offset).toBe(0);
+      expect(config).toBe(originalConfig);
+      expect(create).toBeFalsy();
+      return newConfig;
+    });
+    api.getPage(1, originalConfig, offset);
+    expect(api.addParams).toHaveBeenCalled();
+    expect(api.query).toHaveBeenCalledWith(newConfig);
+  });
+
   test('config() should merge passed in config with defaultConfig', () => {
     const mockConfig = {
       name: 'testName',
@@ -635,7 +691,11 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
-      api.request = jest.fn();
+      api.request = jest.fn(() =>
+        Promise.resolve({
+          data: { offset: 0, limit: 50, totalCount: 0, count: 0, list: [] },
+        })
+      );
       api.cacheParams = jest.fn(config => Object.assign({}, config));
       api.config = jest.fn(config => Object.assign({}, config));
       api.getUrl = jest.fn(() => testUrl);
@@ -794,6 +854,73 @@ describe('AvApi', () => {
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
+    test('all() setting method and url', () => {
+      const config = {
+        testValue: 'test',
+      };
+      const expectedConfig = Object.assign(
+        {
+          method: 'GET',
+          url: testUrl,
+        },
+        config
+      );
+      api.all(config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
+    test('all() getting next pages', done => {
+      const config = {
+        testValue: 'test',
+      };
+      api.request = jest.fn(config => {
+        if ((config.params && config.params.offset === 0) || !config.params) {
+          return Promise.resolve({
+            data: {
+              offset: 0,
+              limit: 50,
+              totalCount: 125,
+              count: 50,
+              list: ['page 1'],
+            },
+          });
+        }
+        if (config.params.offset === 50) {
+          return Promise.resolve({
+            data: {
+              offset: 50,
+              limit: 50,
+              totalCount: 125,
+              count: 50,
+              list: ['page 2'],
+            },
+          });
+        }
+        if (config.params.offset === 100) {
+          return Promise.resolve({
+            data: {
+              offset: 100,
+              limit: 50,
+              totalCount: 125,
+              count: 25,
+              list: ['page 3'],
+            },
+          });
+        }
+        throw new Error('Called with unexpected offset');
+      });
+      api
+        .all(config)
+        .then(data => {
+          expect(api.request).toHaveBeenCalledTimes(3);
+          expect(data).toEqual(['page 1', 'page 2', 'page 3']);
+          return done();
+        })
+        .catch(done);
     });
 
     test('update() setting method data and url', () => {
