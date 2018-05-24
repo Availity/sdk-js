@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/Availity/sdk-js/compare/v2.0.5...v2.1.0) (2018-05-24)
+
+
+### Features
+
+* **api-core:** add all method to get all the data from all of the pages ([114519d](https://github.com/Availity/sdk-js/commit/114519d))
+
+
+
 <a name="2.0.5"></a>
 ## [2.0.5](https://github.com/Availity/sdk-js/compare/v2.0.4...v2.0.5) (2018-05-18)
 
