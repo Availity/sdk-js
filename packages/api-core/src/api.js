@@ -241,6 +241,42 @@ export default class AvApi {
     return this.request(config, this.afterQuery);
   }
 
+  all(config) {
+    return this.query(config).then(resp => {
+      const key = this.getQueryResultKey(resp.data);
+      const totalPages = Math.ceil(resp.data.totalCount / resp.data.limit);
+      const result = resp.data[key] || [];
+      if (totalPages > 1) {
+        const otherPages = [];
+        for (let i = 0; i < totalPages - 1; i += 1) {
+          otherPages[i] = i + 2;
+        }
+        return Promise.all(
+          otherPages.map(page =>
+            this.getPage(page, config, resp.data.limit).then(
+              pageResp => pageResp.data[key] || []
+            )
+          )
+        ).then(pages => result.concat(...pages));
+      }
+      return result;
+    });
+  }
+
+  getQueryResultKey(data) {
+    return Object.keys(data).filter(key => Array.isArray(data[key]))[0];
+  }
+
+  getResult(data) {
+    return data[this.getQueryResultKey(data)];
+  }
+
+  getPage(page = 1, config = {}, limit) {
+    limit = limit || (config.params && config.params.limit) || 50;
+    const offset = (page - 1) * limit;
+    return this.query(this.addParams({ offset }, config, false));
+  }
+
   // put request
   update(id, data, config) {
     if (typeof id !== 'string' && typeof id !== 'number') {
