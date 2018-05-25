@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/Availity/sdk-js/compare/v2.1.0...v2.1.1) (2018-05-25)
+
+
+### Bug Fixes
+
+* **api-core:** fix usage of Promise ([8fb3de8](https://github.com/Availity/sdk-js/commit/8fb3de8))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/Availity/sdk-js/compare/v2.0.5...v2.1.0) (2018-05-24)
 
