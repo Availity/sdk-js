@@ -673,7 +673,7 @@ describe('AvApi', () => {
       };
       const expectedConfig = {
         polling: true,
-        attempt: 0,
+        attempt: 1,
       };
 
       const response = await api.request(mockConfig);
