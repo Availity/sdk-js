@@ -1,3 +1,14 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/Availity/sdk-js/compare/v2.1.1...v2.1.2) (2018-06-13)
+
+
+### Bug Fixes
+
+* **api-core:** attempts count not increasing ([2e414a3](https://github.com/Availity/sdk-js/commit/2e414a3))
+* **upload-core:** upload filename check ([cb98b56](https://github.com/Availity/sdk-js/commit/cb98b56))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/Availity/sdk-js/compare/v2.1.0...v2.1.1) (2018-05-25)
 
