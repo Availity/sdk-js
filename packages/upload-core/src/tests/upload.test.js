@@ -160,4 +160,42 @@ describe('upload.core', () => {
     upload.setError('decrypting', 'Decrypting file');
     expect(upload.status).toBe('decrypting');
   });
+
+  it('should validate file name', () => {
+    const file = Buffer.from('hello world'.split(''));
+    file.name = 'good file name.pdf';
+    const upload = new Upload(
+      file,
+      Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9_ ' })
+    );
+    upload.start();
+    expect(upload.isValidFile()).toBeTruthy();
+
+    const file2 = Buffer.from('hello world'.split(''));
+    file2.name = 'Bad-file-name.pdf';
+    const upload2 = new Upload(
+      file2,
+      Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9 _' })
+    );
+    upload2.start();
+    expect(upload2.isValidFile()).toBeFalsy();
+
+    const file3 = Buffer.from('hello world'.split(''));
+    file3.name = '123File(1).xlsx';
+    const upload3 = new Upload(
+      file3,
+      Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' })
+    );
+    upload3.start();
+    expect(upload3.isValidFile()).toBeFalsy();
+
+    const file4 = Buffer.from('hello world'.split(''));
+    file4.name = 'fileName';
+    const upload4 = new Upload(
+      file4,
+      Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' })
+    );
+    upload4.start();
+    expect(upload4.isValidFile()).toBeTruthy();
+  });
 });

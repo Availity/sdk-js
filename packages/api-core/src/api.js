@@ -169,7 +169,7 @@ export default class AvApi {
   // make request to http
   request(config, afterResponse) {
     if (config.polling) {
-      config.attempt = config.attempt || -1;
+      config.attempt = config.attempt || 0;
       config.attempt += 1;
     }
 

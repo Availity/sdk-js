@@ -267,6 +267,20 @@ class Upload {
         return false;
       }
     }
+    if (this.options.allowedFileNameCharacters) {
+      const fileName = this.file.name.substring(
+        0,
+        this.file.name.lastIndexOf('.')
+      );
+      const regExp = new RegExp(
+        `([^${this.options.allowedFileNameCharacters}])`,
+        'g'
+      );
+      if (fileName && fileName.match(regExp) !== null) {
+        this.setError('rejected', 'File name contains characters not allowed');
+        return false;
+      }
+    }
     return true;
   }
 
