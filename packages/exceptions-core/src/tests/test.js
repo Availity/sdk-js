@@ -1,3 +1,4 @@
+import MockDate from 'mockdate';
 import AvExceptions from '../';
 
 jest.useFakeTimers();
@@ -9,7 +10,7 @@ describe('AvExceptions', () => {
   let mockExceptions;
 
   beforeEach(() => {
-    mockLog = jest.fn();
+    mockLog = jest.fn(console.log.bind(console));
   });
 
   test('AvExceptions should be defined', () => {
@@ -21,16 +22,6 @@ describe('AvExceptions', () => {
     expect(() => {
       mockExceptions = new AvExceptions();
     }).toThrow();
-  });
-
-  test('submitError should report error to TrackeKit', () => {
-    mockExceptions = new AvExceptions(mockLog);
-    mockExceptions.TraceKit = {
-      report: jest.fn(),
-    };
-    const testError = 'error';
-    mockExceptions.submitError(testError);
-    expect(mockExceptions.TraceKit.report).toHaveBeenCalledWith(testError);
   });
 
   test('onReport should call onError', () => {
@@ -144,13 +135,17 @@ describe('AvExceptions', () => {
       mockExceptions = new AvExceptions(mockLog);
       mockExceptions.isRepeatError = jest.fn(() => true);
       mockExceptions.prettyPrint = jest.fn(() => 'prettyPrint');
-      mockExceptions.getDateFormat = jest.fn(() => 'getDateFormat');
+      MockDate.set(new Date());
 
       try {
         throw new Error('mock error');
       } catch (e) {
-        exception = mockExceptions.TraceKit.computeStackTrace(e);
+        exception = e;
       }
+    });
+
+    afterEach(() => {
+      MockDate.reset();
     });
 
     test('should return early if not enabled', () => {
@@ -167,13 +162,18 @@ describe('AvExceptions', () => {
       expect(mockExceptions.isRepeatError).toHaveBeenCalled();
     });
 
-    test('should skip isRepeatError if skipRepeat is true ', () => {
-      mockExceptions.onError(exception, true);
-      expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
-      expect(mockLog).toHaveBeenCalled();
+    test('should skip isRepeatError if skipRepeat is true ', done => {
+      mockExceptions
+        .onError(exception, true)
+        .then(() => {
+          expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
+          expect(mockLog).toHaveBeenCalled();
+          return done();
+        })
+        .catch();
     });
 
-    test('should build message and reset currentHits to 0', () => {
+    test('should build message and reset currentHits to 0', done => {
       mockExceptions.isRepeatError.mockImplementation(() => false);
 
       const errorMessage = exception.message;
@@ -183,7 +183,7 @@ describe('AvExceptions', () => {
       };
 
       const message = {
-        errorDate: mockExceptions.getDateFormat(),
+        errorDate: new Date().toJSON(),
         errorName: exception.name,
         errorMessage: exception.message,
         errorStack: mockExceptions.prettyPrint(exception),
@@ -200,15 +200,20 @@ describe('AvExceptions', () => {
           mockExceptions.errorMessageHistory[errorMessage].currentHits,
       };
 
-      mockExceptions.onError(exception);
-      expect(mockExceptions.isRepeatError).toHaveBeenCalled();
-      expect(mockLog).toHaveBeenCalledWith(message);
-      expect(mockExceptions.errorMessageHistory[errorMessage].currentHits).toBe(
-        0
-      );
+      mockExceptions
+        .onError(exception)
+        .then(() => {
+          expect(mockExceptions.isRepeatError).toHaveBeenCalled();
+          expect(mockLog).toHaveBeenCalledWith(message);
+          expect(
+            mockExceptions.errorMessageHistory[errorMessage].currentHits
+          ).toBe(0);
+          return done();
+        })
+        .catch();
     });
 
-    test('should merge errorMessage into message if defined', () => {
+    test('should merge errorMessage into message if defined', done => {
       mockExceptions.isRepeatError.mockImplementation(() => false);
 
       const errorMessage = exception.message;
@@ -218,7 +223,7 @@ describe('AvExceptions', () => {
       };
 
       const message = {
-        errorDate: mockExceptions.getDateFormat(),
+        errorDate: new Date().toJSON(),
         errorName: exception.name,
         errorMessage: exception.message,
         errorStack: mockExceptions.prettyPrint(exception),
@@ -241,72 +246,29 @@ describe('AvExceptions', () => {
       mockExceptions.errorMessage = mockErrorMessage;
       let expectedCall = Object.assign({}, message, mockErrorMessage);
 
-      mockExceptions.onError(exception);
-      expect(mockLog).toHaveBeenCalledWith(expectedCall);
+      mockExceptions
+        .onError(exception)
+        .then(() => {
+          expect(mockLog).toHaveBeenCalledWith(expectedCall);
 
-      mockErrorMessage = {
-        testMessage: 'hello',
-        testName: 'world',
-      };
-      mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
-      expectedCall = Object.assign({}, message, mockErrorMessage);
-
-      mockExceptions.onError(exception);
-      expect(mockLog).toHaveBeenCalledWith(expectedCall);
-      expect(mockExceptions.errorMessage).toHaveBeenCalled();
+          mockErrorMessage = {
+            testMessage: 'hello',
+            testName: 'world',
+          };
+          mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
+          expectedCall = Object.assign({}, message, mockErrorMessage);
+          return mockExceptions.onError(exception);
+        })
+        .then(() => {
+          expect(mockLog).toHaveBeenCalledWith(expectedCall);
+          expect(mockExceptions.errorMessage).toHaveBeenCalled();
+          return done();
+        }).catch();
     });
   });
 
   test('prettyPrint should return string for stacktrace', () => {
-    const inputs = [
-      {},
-      {
-        stack: [
-          {
-            func: 'func1',
-            url: 'url1',
-            line: 'line1',
-            column: 'column1',
-          },
-        ],
-      },
-      {
-        stack: [
-          {
-            func: 'func1',
-            url: 'url1',
-            line: 'line1',
-            column: 'column1',
-          },
-          {
-            func: 'func2',
-            url: 'url2',
-            line: 'line2',
-            column: 'column2',
-          },
-        ],
-      },
-    ];
-    const outputs = [
-      '',
-      '[00] func1 url1:line1:column1',
-      '[00] func1 url1:line1:column1\n[01] func2 url2:line2:column2',
-    ];
     mockExceptions = new AvExceptions(mockLog);
-    for (let i = 0; i < inputs.length; i++) {
-      expect(mockExceptions.prettyPrint(inputs[i])).toBe(outputs[i]);
-    }
-  });
-
-  test('getDateFormat should returned formatted date', () => {
-    const dateFormat = /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d(-|\+)\d\d\d\d$/;
-    const DATE_TO_USE = new Date();
-    const Now = Date;
-    global.Date = jest.fn(() => DATE_TO_USE);
-    global.Date.UTC = Now.UTC;
-    global.Date.parse = Now.parse;
-    global.Date.now = Now.now;
-    mockExceptions = new AvExceptions(mockLog);
-    expect(dateFormat.test(mockExceptions.getDateFormat())).toBe(true);
+    expect(mockExceptions.prettyPrint([2,3,4])).toBe("2\n3\n4");
   });
 });

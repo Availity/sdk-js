@@ -1,4 +1,4 @@
-import TraceKit from 'tracekit';
+import StackTrace from 'stacktrace-js';
 
 export default class AvExceptions {
   constructor(log) {
@@ -12,14 +12,15 @@ export default class AvExceptions {
     this.REPEAT_LIMIT = 5 * 1000; // 5 seconds
     this.errorMessageHistory = {};
 
-    this.TraceKit = TraceKit;
-    this.TraceKit.remoteFetching = false;
-    this.TraceKit.surroundingLinesToCollect = 11;
-    this.TraceKit.report.subscribe(::this.onReport);
+    this.StackTrace = StackTrace;
+
+    window.onerror = (msg, file, line, col, error) => {
+      this.submitError(error);
+    }
   }
 
-  submitError(e) {
-    this.TraceKit.report(e);
+  submitError(error) {
+    this.onError(error);
   }
 
   onReport(errorReport) {
@@ -47,24 +48,8 @@ export default class AvExceptions {
     return this.REPEAT_LIMIT;
   }
 
-  prettyPrint(exception) {
-    let message = '';
-    const stack = (exception && exception.stack) || [];
-    const { length } = stack;
-
-    for (let i = 0; i < length; i++) {
-      let index = i.toString();
-      while (index.length < 2) {
-        index = `0${index}`;
-      }
-      message += `[${index}] ${stack[i].func} ${stack[i].url}:${
-        stack[i].line
-      }:${stack[i].column}`;
-      if (i + 1 < length) {
-        message += '\n';
-      }
-    }
-    return message;
+  prettyPrint(stackFrames) {
+    return stackFrames.map(sf => sf.toString()).join('\n');
   }
 
   isRepeatError(exception) {
@@ -111,53 +96,34 @@ export default class AvExceptions {
     this.errorMessageHistory[errorMessage] =
       this.errorMessageHistory[errorMessage] || {};
 
-    const message = {
-      errorDate: this.getDateFormat(),
-      errorName: exception.name,
-      errorMessage: exception.message,
-      errorStack: this.prettyPrint(exception),
-      url: window.location && window.location.href,
-      appId: this.thisAppId || 'N/A',
-      appVersion: window.APP_VERSION || 'N/A',
-      userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
-      userLanguage: window.navigator && window.navigator.userLanguage,
-      referrer: window.document && window.document.referrer,
-      host: window.document && window.document.domain,
-      sdkVersion: process.env.VERSION,
-      totalHits: this.errorMessageHistory[errorMessage].totalHits,
-      currentHits: this.errorMessageHistory[errorMessage].currentHits,
-    };
+    return StackTrace.fromError(exception).then(stack => {
+      const message = {
+        errorDate: new Date().toJSON(),
+        errorName: exception.name,
+        errorMessage: exception.message,
+        errorStack: this.prettyPrint(stack),
+        url: window.location && window.location.href,
+        appId: this.thisAppId || window.APP_ID || 'N/A',
+        appVersion: window.APP_VERSION || 'N/A',
+        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
+        userLanguage: window.navigator && window.navigator.userLanguage,
+        referrer: window.document && window.document.referrer,
+        host: window.document && window.document.domain,
+        totalHits: this.errorMessageHistory[errorMessage].totalHits,
+        currentHits: this.errorMessageHistory[errorMessage].currentHits,
+      };
 
-    this.errorMessageHistory[errorMessage].currentHits = 0;
+      this.errorMessageHistory[errorMessage].currentHits = 0;
 
-    if (this.errorMessage) {
-      const toAssign =
-        typeof this.errorMessage === 'function'
-          ? this.errorMessage(exception)
-          : this.errorMessage;
-      Object.assign(message, toAssign);
-    }
-
-    return this.log(message);
-  }
-
-  getDateFormat() {
-    const now = new Date();
-    function padStart(value, size) {
-      let output = `${value}`;
-      while (output.length < size) {
-        output = `0${output}`;
+      if (this.errorMessage) {
+        const toAssign =
+          typeof this.errorMessage === 'function'
+            ? this.errorMessage(exception)
+            : this.errorMessage;
+        Object.assign(message, toAssign);
       }
-      return output;
-    }
-    return `${now.getFullYear()}-${padStart(now.getMonth() + 1, 2)}-${padStart(
-      now.getDate(),
-      2
-    )}T${padStart(now.getHours(), 2)}:${padStart(
-      now.getMinutes(),
-      2
-    )}:${padStart(now.getSeconds(), 2)}${
-      now.toString().match(/([-+][0-9]+)\s/)[1]
-    }`;
+
+      return this.log(message);
+    });
   }
 }

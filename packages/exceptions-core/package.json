@@ -7,10 +7,11 @@
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "tracekit": "^0.4.4"
+    "stacktrace-js": "^2.0.0"
   },
   "devDependencies": {
-    "tracekit": "^0.4.4"
+    "mockdate": "^2.0.2",
+    "stacktrace-js": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"

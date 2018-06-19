@@ -1,6 +1,5 @@
 {
   "name": "@availity/exceptions-angular",
-  "private": true,
   "version": "2.1.2",
   "description": "Availity class to log exceptions",
   "main": "src/index.js",
