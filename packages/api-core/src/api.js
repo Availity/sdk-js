@@ -1,4 +1,5 @@
 import AvLocalStorage from '@availity/localstorage-core';
+import qs from 'qs';
 
 import API_OPTIONS from './options';
 
@@ -212,10 +213,19 @@ export default class AvApi {
     config.method = 'POST';
     config.headers = config.headers || {};
     config.headers['X-HTTP-Method-Override'] = 'GET';
+    config.headers['Content-Type'] = config.headers['Content-Type'] || 'application/x-www-form-urlencoded';
     config.url = this.getUrl(config);
     config.data = data;
     if (this.beforePostGet) {
       config.data = this.beforePostGet(config.data);
+    }
+    if (typeof config.data !== 'string' && config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+      config.data = qs.stringify(config.data, {
+        encode: false,
+        arrayFormat: 'repeat',
+        indices: false,
+        allowDots: true,
+      });
     }
     return this.request(config, this.afterPostGet);
   }

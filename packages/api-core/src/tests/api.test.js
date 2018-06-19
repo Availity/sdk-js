@@ -766,10 +766,11 @@ describe('AvApi', () => {
           url: testUrl,
           headers: {
             'X-HTTP-Method-Override': 'GET',
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
         },
         config,
-        { data }
+        { data: 'testData=data' }
       );
       api.postGet(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
@@ -789,10 +790,11 @@ describe('AvApi', () => {
           url: testUrl,
           headers: {
             'X-HTTP-Method-Override': 'GET',
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
         },
         config,
-        { data }
+        { data: 'testData=data' }
       );
       api.beforePostGet = jest.fn(thisData => thisData);
       api.postGet(data, config);
