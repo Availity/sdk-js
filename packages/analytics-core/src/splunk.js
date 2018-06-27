@@ -7,7 +7,6 @@ export default class AvSplunkAnalytics extends AvAnalyticsPlugin {
   }
 
   trackEvent(properties) {
-    properties.url = properties.url || window.location.href || 'N/A';
     properties.level = properties.level || 'info';
     return this.AvLogMessages[properties.level](properties);
   }

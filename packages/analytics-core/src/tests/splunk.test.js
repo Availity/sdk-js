@@ -37,6 +37,7 @@ describe('AvSplunkAnalytics', () => {
   test("trackEvent should default properties.url to location.href or 'N/A'", () => {
     let startingObject = {
       message: 'hello world',
+      url: window.location.href || 'N/A',
     };
     const expectedCall = Object.assign(
       {

@@ -21,9 +21,8 @@ describe('AvAnalytics', () => {
   });
 
   test('AvAnalytics should throw error without plugins or Promise', () => {
-    const plugins = [makePlugin()];
     expect(() => {
-      mockAvAnalytics = new AvAnalytics(plugins);
+      mockAvAnalytics = new AvAnalytics();
     }).toThrow('[plugins], and [promise] must be defined');
   });
 
@@ -50,6 +49,7 @@ describe('AvAnalytics', () => {
     });
 
     test('isPageTracking will not change without start/stop pageTracking functions defined', () => {
+      mockAvAnalytics.startPageTracking = undefined;
       mockAvAnalytics.setPageTracking(true);
       expect(mockAvAnalytics.isPageTracking).toBe(false);
       mockAvAnalytics.setPageTracking(false);
@@ -151,9 +151,17 @@ describe('AvAnalytics', () => {
     });
 
     test('trackEvent should call trackEvent on enabled plugins with properties', async () => {
-      const mockProperties = 'testProperties';
+      const mockProperties = {};
       await mockAvAnalytics.trackEvent(mockProperties);
       expect(plugins[0].trackEvent).not.toHaveBeenCalled();
+      expect(plugins[2].trackEvent).toHaveBeenCalledWith(mockProperties);
+    });
+
+    test('trackEvent should call trackEvent on enabled plugins with url', async () => {
+      const mockProperties = {};
+      await mockAvAnalytics.trackEvent(mockProperties);
+      expect(plugins[0].trackEvent).not.toHaveBeenCalled();
+      expect(mockProperties.url).toBeDefined();
       expect(plugins[2].trackEvent).toHaveBeenCalledWith(mockProperties);
     });
 
