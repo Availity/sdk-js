@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/Availity/sdk-js/compare/v2.2.0...v2.2.1) (2018-06-29)
+
+
+### Bug Fixes
+
+* allow exceptions-core to be published ([0c15350](https://github.com/Availity/sdk-js/commit/0c15350))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/Availity/sdk-js/compare/v2.1.2...v2.2.0) (2018-06-29)
 
