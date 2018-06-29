@@ -1,3 +1,18 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/Availity/sdk-js/compare/v2.1.2...v2.2.0) (2018-06-29)
+
+
+### Bug Fixes
+
+* **api-core:** format postGet payload to standard ([5b885cf](https://github.com/Availity/sdk-js/commit/5b885cf))
+
+
+### Features
+
+* **exception-core:** use stacktrace-js for better stacktraces ([e59fd00](https://github.com/Availity/sdk-js/commit/e59fd00))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/Availity/sdk-js/compare/v2.1.1...v2.1.2) (2018-06-13)
 
