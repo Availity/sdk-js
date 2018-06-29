@@ -1,3 +1,13 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/Availity/sdk-js/compare/v2.2.1...v2.3.0) (2018-06-29)
+
+
+### Features
+
+* **expections-axios:** add basic axios wrapper for execptions ([61803a9](https://github.com/Availity/sdk-js/commit/61803a9))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/Availity/sdk-js/compare/v2.2.0...v2.2.1) (2018-06-29)
 
