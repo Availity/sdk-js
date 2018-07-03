@@ -1,0 +1,24 @@
+import AvMicroservice from '@availity/api-core';
+import fileDownload from 'js-file-download';
+
+export default class DownloadMicroservice extends AvMicroservice {
+  constructor({ config }) {
+    if (!config.clientId) {
+      throw Error('config.clientId] must be defined');
+    }
+
+    const options = Object.assign(
+      { headers: { 'X-Client-ID': config.clientId }, responseType: 'blob' },
+      config
+    );
+    super(options);
+  }
+
+  getAttachment(config) {
+    return this.query(config);
+  }
+
+  downloadAttachment(data, filename, mime) {
+    fileDownload(data, filename, mime);
+  }
+}
