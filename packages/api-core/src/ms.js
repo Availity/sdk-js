@@ -12,7 +12,7 @@ export default class AvMicroservice extends AvApi {
     this.defaultConfig = this.merge({}, API_OPTIONS.MS, config);
   }
 
-  // override aries 1 url concatentation
+  // override aries 1 url concatenation
   getUrl(config, id = '') {
     const { path, name, id: configId } = this.config(config);
     let parts = [path, name];

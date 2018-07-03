@@ -110,7 +110,7 @@ describe('upload.core', () => {
     file.name = 'a';
     const upload = new Upload(file, options);
     upload.start();
-    const getResponseHeaderMethod = function() {
+    const getResponseHeaderMethod = function getResponseHeaderMethod() {
       return 'error message';
     };
     const err = {
