@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-callback-in-promise, promise/valid-params */
 import MockDate from 'mockdate';
 import AvExceptions from '../';
 
@@ -10,7 +11,7 @@ describe('AvExceptions', () => {
   let mockExceptions;
 
   beforeEach(() => {
-    mockLog = jest.fn(console.log.bind(console));
+    mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line
   });
 
   test('AvExceptions should be defined', () => {
@@ -263,12 +264,13 @@ describe('AvExceptions', () => {
           expect(mockLog).toHaveBeenCalledWith(expectedCall);
           expect(mockExceptions.errorMessage).toHaveBeenCalled();
           return done();
-        }).catch();
+        })
+        .catch();
     });
   });
 
   test('prettyPrint should return string for stacktrace', () => {
     mockExceptions = new AvExceptions(mockLog);
-    expect(mockExceptions.prettyPrint([2,3,4])).toBe("2\n3\n4");
+    expect(mockExceptions.prettyPrint([2, 3, 4])).toBe('2\n3\n4');
   });
 });

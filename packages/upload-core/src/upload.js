@@ -150,7 +150,7 @@ class Upload {
   getPercentage() {
     const processedBytes = this.bytesSent + this.bytesScanned;
     const combinedTotalBytes = this.bytesTotal * 2;
-    return processedBytes / combinedTotalBytes * 100;
+    return (processedBytes / combinedTotalBytes) * 100;
   }
 
   getToken() {

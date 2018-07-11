@@ -1,0 +1,25 @@
+{
+  "name": "@availity/download-angular",
+  "version": "2.2.0",
+  "description": "Utility to download files from services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "download",
+    "file",
+    "availity"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "peerDependencies": {
+    "@availity/download-core": "^2.2.0",
+    "angular": "^1.6.0"
+  },
+  "devDependencies": {
+    "@availity/download-core": "^2.2.0",
+    "angular": "^1.6.0",
+    "angular-mocks": "^1.6.0"
+  }
+}
