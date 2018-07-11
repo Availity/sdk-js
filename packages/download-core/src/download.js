@@ -2,7 +2,7 @@ import AvMicroservice from '@availity/api-core';
 import fileDownload from 'js-file-download';
 
 export default class DownloadMicroservice extends AvMicroservice {
-  constructor({ config }) {
+  constructor({ http, promise, merge, config }) {
     if (!config.clientId) {
       throw Error('config.clientId] must be defined');
     }
@@ -11,7 +11,7 @@ export default class DownloadMicroservice extends AvMicroservice {
       { headers: { 'X-Client-ID': config.clientId }, responseType: 'blob' },
       config
     );
-    super(options);
+    super({ http, promise, merge, config: options });
   }
 
   getAttachment(config) {

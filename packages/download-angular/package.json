@@ -14,11 +14,11 @@
   "author": "Robert McGuinness",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/upload-core": "^2.2.0",
+    "@availity/download-core": "^2.2.0",
     "angular": "^1.6.0"
   },
   "devDependencies": {
-    "@availity/upload-core": "^2.2.0",
+    "@availity/download-core": "^2.2.0",
     "angular": "^1.6.0",
     "angular-mocks": "^1.6.0"
   }
