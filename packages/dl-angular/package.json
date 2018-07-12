@@ -1,6 +1,6 @@
 {
-  "name": "@availity/download-angular",
-  "version": "2.2.0",
+  "name": "@availity/dl-angular",
+  "version": "2.3.3",
   "description": "Utility to download files from services",
   "main": "index.js",
   "scripts": {
@@ -14,11 +14,11 @@
   "author": "Robert McGuinness",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/download-core": "^2.2.0",
+    "@availity/dl-core": "^2.3.3",
     "angular": "^1.6.0"
   },
   "devDependencies": {
-    "@availity/download-core": "^2.2.0",
+    "@availity/dl-core": "^2.3.3",
     "angular": "^1.6.0",
     "angular-mocks": "^1.6.0"
   },

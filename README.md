@@ -30,7 +30,7 @@
 *   [localalstorage-core](packages/localstorage-core/README.md) - Wraps localStorage with utility functions.
 *   [message-core](packages/message-core/README.md) - Wraps postMessage function with helper functions and security checks.
 *   [upload-core](packages/upload-core/README.md) - > Wrapper for tus-js-client
-*   [download-core](packages/download-core/README.md) - > Wrapper for js-file-download
+*   [dl-core](packages/dl-core/README.md) - > Wrapper for js-file-download
 
 ## Contribute
 

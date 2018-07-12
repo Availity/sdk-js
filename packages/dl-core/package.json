@@ -1,6 +1,6 @@
 {
-  "name": "@availity/download-core",
-  "version": "2.2.0",
+  "name": "@availity/dl-core",
+  "version": "2.3.3",
   "description": "Utility to download files from services",
   "main": "src/download.js",
   "scripts": {
@@ -14,10 +14,10 @@
   "author": "Robert McGuinness",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-core": "^2.2.0"
+    "@availity/api-core": "^2.3.2"
   },
   "devDependencies": {
-    "@availity/api-core": "^2.2.0"
+    "@availity/api-core": "^2.3.3"
   },
   "dependencies": {
     "js-file-download": "^0.4.1"
