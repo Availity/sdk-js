@@ -1,6 +1,6 @@
 {
   "name": "@availity/upload-core",
-  "version": "2.2.0",
+  "version": "2.3.3",
   "description": "Wrapper for tus-js-client",
   "main": "src/upload.js",
   "scripts": {
