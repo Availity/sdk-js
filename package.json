@@ -18,7 +18,8 @@
     "postinstall": "npm run bootstrap",
     "release": "sh ./scripts/release.sh",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "add": "sh ./scripts/add.sh"
+    "add": "sh ./scripts/add.sh",
+    "remove-locks": "find . -type f -name 'package-lock.json' -delete"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
