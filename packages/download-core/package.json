@@ -21,5 +21,8 @@
   },
   "dependencies": {
     "js-file-download": "^0.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
