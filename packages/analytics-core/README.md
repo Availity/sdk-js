@@ -15,9 +15,11 @@ A package providing a base Analytics class to track events and page views
 
 `AvAnalytics` also has an optional 3rd parameter, a boolean to determine if pageTracking is enabled.
 For page tracking to be used, `startPageTracking` and `stopPageTracking` functions must be defined to create listeners and call `trackPageView`.
+`AvAnalytics` also has an optional 4th parameter, "autoTrack", a boolean which default to `true`.
+When `true`, "autoTrack" will be enabled which will automatically log
 
 ```javascript
-  new AvAnalytics(plugins, promise, pageTracking);
+  new AvAnalytics(plugins, promise, pageTracking, autoTrack);
 ```
 
 ## Plugins
@@ -63,7 +65,6 @@ import {AvSplunkAnalytics} from '@availity/analytics-core';
 const exmpleSplunkAnalytics = new AvSplunkAnalytics(AvLogMessages, isEnabled);
 ```
 
-
 ## Methods
 
 ### `init()`
@@ -82,6 +83,30 @@ Send properties to each plugins `trackEvent` function.
 
 Send url or `location.href` to each plugins `trackEvent` function.
 
+## AutoTrack Logged events
+With "autoTrack" enabled (enabled by default) you can add special `data-analytics-*` to any element which will be rendered to the DOM.
+For native form elements (input, select, and textarea) with the special attribute, `focus` and `blur` events will trigger analytics to be logged.
+For all other element with the special attribute, `click` events will trigger analytics to be logged.
+You can have as many of the `data-analytics-*` attributes on an element as you which, all of the properties will be logged with the `data-analytics-` prefix removed and the remaining camelcased as the key and the value of the attribute as the logged value.
+This works with all libraries such as angular, react, jquery, and pure HTML.
+
+```jsx
+  <a
+    href="/some-place-cool"
+    data-analytics-variation="b"
+    data-analytics-organization-id={orgId}
+    data-analytics-page-num={currentPage}>
+    Go there now!
+  </a>
+```
+
+```jsx
+  import { Input } from 'reactstrap';
+  //...
+  <Input
+    data-analytics-variation="b"
+    data-analytics-organization-id={orgId} />
+```
 
 ## Authors
 **Kasey Powers**
