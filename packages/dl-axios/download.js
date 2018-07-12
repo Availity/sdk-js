@@ -1,6 +1,6 @@
 import axios from 'axios';
 import utils from 'axios/lib/utils';
-import { DownloadMicroservice } from '@availity/download-core';
+import { DownloadMicroservice } from '@availity/dl-core';
 
 const { merge } = utils;
 

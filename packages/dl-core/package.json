@@ -1,8 +1,8 @@
 {
-  "name": "@availity/download-axios",
+  "name": "@availity/dl-core",
   "version": "2.3.3",
   "description": "Utility to download files from services",
-  "main": "index.js",
+  "main": "src/download.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,12 +14,13 @@
   "author": "Robert McGuinness",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/download-core": "^2.2.0",
-    "axios": "^0.16.0 || ^0.17.0"
+    "@availity/api-core": "^2.3.2"
   },
   "devDependencies": {
-    "@availity/download-core": "^2.3.3",
-    "axios": "^0.16.0 || ^0.17.0"
+    "@availity/api-core": "^2.3.3"
+  },
+  "dependencies": {
+    "js-file-download": "^0.4.1"
   },
   "publishConfig": {
     "access": "public"
