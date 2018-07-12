@@ -1,6 +1,6 @@
 import angular from 'angular';
 
-import DownloadMicroservice from '@availity/download-core';
+import DownloadMicroservice from '@availity/dl-core';
 
 function factory($http, $q, avApiOptions) {
   class AvDownloadApi extends DownloadMicroservice {
