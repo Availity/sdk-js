@@ -29,7 +29,8 @@
 *   [api-angular](packages/api-angular/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
 *   [localalstorage-core](packages/localstorage-core/README.md) - Wraps localStorage with utility functions.
 *   [message-core](packages/message-core/README.md) - Wraps postMessage function with helper functions and security checks.
-*   [upload-core](packages/message-core/README.md) - > Wrapper for tus-js-client
+*   [upload-core](packages/upload-core/README.md) - > Wrapper for tus-js-client
+*   [dl-core](packages/dl-core/README.md) - > Wrapper for js-file-download
 
 ## Contribute
 

@@ -4,5 +4,5 @@
     "packages/*"
   ],
   "message": "chore: publish %s",
-  "version": "2.1.2"
+  "version": "2.3.3"
 }

@@ -213,13 +213,17 @@ export default class AvApi {
     config.method = 'POST';
     config.headers = config.headers || {};
     config.headers['X-HTTP-Method-Override'] = 'GET';
-    config.headers['Content-Type'] = config.headers['Content-Type'] || 'application/x-www-form-urlencoded';
+    config.headers['Content-Type'] =
+      config.headers['Content-Type'] || 'application/x-www-form-urlencoded';
     config.url = this.getUrl(config);
     config.data = data;
     if (this.beforePostGet) {
       config.data = this.beforePostGet(config.data);
     }
-    if (typeof config.data !== 'string' && config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+    if (
+      typeof config.data !== 'string' &&
+      config.headers['Content-Type'] === 'application/x-www-form-urlencoded'
+    ) {
       config.data = qs.stringify(config.data, {
         encode: false,
         arrayFormat: 'repeat',
@@ -261,6 +265,7 @@ export default class AvApi {
         for (let i = 0; i < totalPages - 1; i += 1) {
           otherPages[i] = i + 2;
         }
+        /* eslint-disable promise/no-nesting */
         return this.Promise.all(
           otherPages.map(page =>
             this.getPage(page, config, resp.data.limit).then(

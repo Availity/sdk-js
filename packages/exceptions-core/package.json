@@ -1,16 +1,16 @@
 {
   "name": "@availity/exceptions-core",
-  "private": true,
-  "version": "1.0.1",
+  "version": "2.3.3",
   "description": "Availity class to log exceptions",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "tracekit": "^0.4.4"
+    "stacktrace-js": "^2.0.0"
   },
   "devDependencies": {
-    "tracekit": "^0.4.4"
+    "mockdate": "^2.0.2",
+    "stacktrace-js": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"

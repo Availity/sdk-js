@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-callback-in-promise */
 import AvApi from '../api';
 
 jest.useFakeTimers();
