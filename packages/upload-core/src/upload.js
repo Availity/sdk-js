@@ -17,18 +17,25 @@ const defaultOptions = {
   removeFingerprintOnSuccess: true,
   fingerprint(file, options = {}) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
+    let attributesKey = 'tus-';
+    for (let i = 0; i < attributes.length; i++) {
+      if (attributes[i]) {
+        attributesKey += `${attributes[i]}-`;
+      }
+    }
 
-    const key = ['tus', ...attributes].join('-');
-
+    const keys = Object.keys(options.metadata || {}).map(
+      key => options.metadata[key]
+    );
     const signature = [
-      ...attributes,
+      attributes.toString().replace(/,/g, ''),
       options.endpoint,
-      ...Object.keys(options.metadata || {}).map(key => options.metadata[key]),
+      keys,
     ].join('');
 
     const print = Math.abs(hashCode(signature));
 
-    return `${key}${print}`;
+    return `${attributesKey}${print}`;
   },
 };
 

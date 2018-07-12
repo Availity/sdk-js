@@ -1,10 +1,10 @@
-# download-core
+# dl-core
 
 > Utility to download files from services
 
 ## Install
 
-    npm install @availity/api-core @availity/api-angular @availity/download-core @availity/download-angular --save
+    npm install @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular --save
 
 ## Usage
 
