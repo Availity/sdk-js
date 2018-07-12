@@ -1,3 +1,20 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/Availity/sdk-js/compare/v2.3.0...v2.4.0) (2018-07-12)
+
+
+### Bug Fixes
+
+* **upload-core:** IE compatibility no array spreads ([7444173](https://github.com/Availity/sdk-js/commit/7444173))
+
+
+### Features
+
+* **analytics-core:** add autotrack ([849909e](https://github.com/Availity/sdk-js/commit/849909e))
+* **download-angular:** add helpers to download files from microservices ([4809f6f](https://github.com/Availity/sdk-js/commit/4809f6f))
+* **download-core:** fix imports and add download-axios ([20c0f51](https://github.com/Availity/sdk-js/commit/20c0f51))
+
+
+
 <a name="2.3.3"></a>
 ## [2.3.3](https://github.com/Availity/sdk-js/compare/v2.3.0...v2.3.3) (2018-07-12)
 
