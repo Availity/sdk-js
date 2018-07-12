@@ -1,5 +1,5 @@
 {
-  "name": "@availity/download-angular",
+  "name": "@availity/dl-axios",
   "version": "2.2.0",
   "description": "Utility to download files from services",
   "main": "index.js",
@@ -14,13 +14,12 @@
   "author": "Robert McGuinness",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/download-core": "^2.2.0",
-    "angular": "^1.6.0"
+    "@availity/dl-core": "^2.2.0",
+    "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
-    "@availity/download-core": "^2.2.0",
-    "angular": "^1.6.0",
-    "angular-mocks": "^1.6.0"
+    "@availity/dl-core": "^2.2.0",
+    "axios": "^0.16.0 || ^0.17.0"
   },
   "publishConfig": {
     "access": "public"
