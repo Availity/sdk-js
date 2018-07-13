@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-core",
-  "version": "2.4.1",
+  "version": "2.4.3",
   "description": "Utility to download files from services",
   "main": "src/download.js",
   "scripts": {
