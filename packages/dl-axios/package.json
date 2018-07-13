@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-axios",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Utility to download files from services",
   "main": "index.js",
   "scripts": {
