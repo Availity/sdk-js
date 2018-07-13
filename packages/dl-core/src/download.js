@@ -4,7 +4,7 @@ import fileDownload from 'js-file-download';
 export default class DownloadMicroservice extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
     if (!config.clientId) {
-      throw Error('config.clientId] must be defined');
+      throw Error('[config.clientId] must be defined');
     }
 
     const options = Object.assign(

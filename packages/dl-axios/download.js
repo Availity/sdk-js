@@ -4,7 +4,7 @@ import DownloadMicroservice from '@availity/dl-core';
 
 const { merge } = utils;
 
-class AvDownloadApi extends DownloadMicroservice {
+export default class AvDownloadApi extends DownloadMicroservice {
   constructor(options) {
     super({
       http: axios,
@@ -14,5 +14,3 @@ class AvDownloadApi extends DownloadMicroservice {
     });
   }
 }
-
-export default new AvDownloadApi();
