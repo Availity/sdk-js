@@ -1,4 +1,4 @@
-import AvMicroservice from '@availity/api-core';
+import { AvMicroservice } from '@availity/api-core';
 import fileDownload from 'js-file-download';
 
 export default class DownloadMicroservice extends AvMicroservice {
