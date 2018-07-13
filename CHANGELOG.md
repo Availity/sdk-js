@@ -1,3 +1,13 @@
+<a name="2.4.2"></a>
+## [2.4.2](https://github.com/Availity/sdk-js/compare/v2.4.1...v2.4.2) (2018-07-13)
+
+
+### Bug Fixes
+
+* **dl-axios:** fix import ([d42db46](https://github.com/Availity/sdk-js/commit/d42db46))
+
+
+
 <a name="2.4.1"></a>
 ## [2.4.1](https://github.com/Availity/sdk-js/compare/v2.4.0...v2.4.1) (2018-07-13)
 
