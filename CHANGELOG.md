@@ -1,3 +1,13 @@
+<a name="2.4.4"></a>
+## [2.4.4](https://github.com/Availity/sdk-js/compare/v2.4.3...v2.4.4) (2018-07-25)
+
+
+### Bug Fixes
+
+* **analytics-core:** remove camelcase dep ([fc1be33](https://github.com/Availity/sdk-js/commit/fc1be33))
+
+
+
 <a name="2.4.3"></a>
 ## [2.4.3](https://github.com/Availity/sdk-js/compare/v2.4.2...v2.4.3) (2018-07-13)
 
