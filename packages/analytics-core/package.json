@@ -7,8 +7,5 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "camelcase": "^5.0.0"
   }
 }

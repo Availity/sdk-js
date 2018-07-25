@@ -1,5 +1,3 @@
-import camelcase from 'camelcase';
-
 const isLeftClickEvent = event => event.button === 0;
 
 const isModifiedEvent = event =>
@@ -22,6 +20,9 @@ const isPluginEnabled = plugin =>
     ? plugin.isEnabled()
     : plugin.isEnabled;
 
+const camelCase = str =>
+  str.replace(/-([a-z\d])/gi, (match, char) => char.toUpperCase());
+
 const getAnalyticAttrs = elem => {
   const attrs = [...elem.attributes];
   const analyticAttrs = {};
@@ -30,7 +31,7 @@ const getAnalyticAttrs = elem => {
     for (let i = attrs.length - 1; i >= 0; i--) {
       const { name } = attrs[i];
       if (name.indexOf('data-analytics-') === 0) {
-        const camelName = camelcase(name.slice(15));
+        const camelName = camelCase(name.slice(15));
         analyticAttrs[camelName] = elem.getAttribute(name);
       }
     }
