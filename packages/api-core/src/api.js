@@ -122,7 +122,7 @@ export default class AvApi {
     if (response.config.getHeader) {
       location = response.config.getHeader(response, 'Location');
     } else {
-      location = response.headers.Location;
+      location = response.headers.location || response.headers.Location;
     }
 
     return location;
