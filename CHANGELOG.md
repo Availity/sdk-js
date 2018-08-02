@@ -1,3 +1,23 @@
+<a name="2.4.6"></a>
+## [2.4.6](https://github.com/Availity/sdk-js/compare/v2.4.4...v2.4.6) (2018-08-02)
+
+
+### Bug Fixes
+
+* **analytics-core:** fix non-click events ([fce9b26](https://github.com/Availity/sdk-js/commit/fce9b26))
+
+
+
+<a name="2.4.5"></a>
+## [2.4.5](https://github.com/Availity/sdk-js/compare/v2.4.4...v2.4.5) (2018-08-02)
+
+
+### Bug Fixes
+
+* **analytics-core:** fix non-click events ([fce9b26](https://github.com/Availity/sdk-js/commit/fce9b26))
+
+
+
 <a name="2.4.4"></a>
 ## [2.4.4](https://github.com/Availity/sdk-js/compare/v2.4.3...v2.4.4) (2018-07-25)
 
