@@ -289,7 +289,7 @@ export default class AvApi {
   getPage(page = 1, config = {}, limit) {
     limit = limit || (config.params && config.params.limit) || 50;
     const offset = (page - 1) * limit;
-    return this.query(this.addParams({ offset }, config, false));
+    return this.query(this.addParams({ offset, limit }, config, false));
   }
 
   // put request

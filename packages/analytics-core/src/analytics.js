@@ -64,7 +64,7 @@ export default class AvAnalytics {
   handleEvent = event => {
     if (
       isModifiedEvent(event) ||
-      !isLeftClickEvent(event) ||
+      (event.type === 'click' && !isLeftClickEvent(event)) ||
       !isValidEventTypeOnTarget(event)
     ) {
       return;
