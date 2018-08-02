@@ -1,7 +1,7 @@
 {
   "name": "@availity/analytics-angular",
   "private": true,
-  "version": "2.4.4",
+  "version": "2.4.6",
   "description": "availity analytics class for setting up and using plugins",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
@@ -12,8 +12,8 @@
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/analytics-core": "^2.4.4",
-    "@availity/api-angular": "^2.4.0",
+    "@availity/analytics-core": "^2.4.6",
+    "@availity/api-angular": "^2.4.6",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },
