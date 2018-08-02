@@ -312,7 +312,7 @@ export default class AvApi {
   }
 
   put(...args) {
-    return this.update(args);
+    return this.update(...args);
   }
 
   // delete request
@@ -333,6 +333,6 @@ export default class AvApi {
   }
 
   delete(...args) {
-    return this.remove(args);
+    return this.remove(...args);
   }
 }
