@@ -1,3 +1,13 @@
+<a name="2.4.7"></a>
+## [2.4.7](https://github.com/Availity/sdk-js/compare/v2.4.6...v2.4.7) (2018-08-02)
+
+
+### Bug Fixes
+
+* **api-core:** check for lowercase location as well ([4a4a9a0](https://github.com/Availity/sdk-js/commit/4a4a9a0))
+
+
+
 <a name="2.4.6"></a>
 ## [2.4.6](https://github.com/Availity/sdk-js/compare/v2.4.4...v2.4.6) (2018-08-02)
 
