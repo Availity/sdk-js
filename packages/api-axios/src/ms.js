@@ -1,8 +1,6 @@
 import axios from 'axios';
-import utils from 'axios/lib/utils';
+import merge from 'deep-assign';
 import { AvMicroservice } from '@availity/api-core';
-
-const { merge } = utils;
 
 export default class AvMicroserviceApi extends AvMicroservice {
   constructor(options) {

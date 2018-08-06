@@ -1,8 +1,7 @@
 import axios from 'axios';
-import utils from 'axios/lib/utils';
+import merge from 'deep-assign';
 import { AvNavigation } from '@availity/api-core';
 
-const { merge } = utils;
 export default new AvNavigation({
   http: axios,
   promise: Promise,
