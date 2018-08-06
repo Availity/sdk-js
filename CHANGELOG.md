@@ -1,3 +1,14 @@
+<a name="2.4.8"></a>
+## [2.4.8](https://github.com/Availity/sdk-js/compare/v2.4.7...v2.4.8) (2018-08-06)
+
+
+### Bug Fixes
+
+* **api-axios:** replace axios merge with deep-assign ([a7183b1](https://github.com/Availity/sdk-js/commit/a7183b1))
+* **api-core:** spread args for aliases ([5c7516b](https://github.com/Availity/sdk-js/commit/5c7516b))
+
+
+
 <a name="2.4.7"></a>
 ## [2.4.7](https://github.com/Availity/sdk-js/compare/v2.4.6...v2.4.7) (2018-08-02)
 
