@@ -1,24 +1,14 @@
-const flattenObject = ob =>
-  Object.keys(ob).reduce((toReturn, k) => {
-    if (Object.prototype.toString.call(ob[k]) === '[object Date]') {
-      toReturn[k] = ob[k].toJSON();
-    } else if (ob[k] && typeof ob[k] === 'object') {
-      const flatObject = flattenObject(ob[k]);
-      const isArray = Array.isArray(ob[k]);
-      Object.keys(flatObject).forEach(k2 => {
-        toReturn[
-          `${k}.${isArray ? k2.replace(/^(\d+)(\..*)?/, '[$1]$2') : k2}`
-        ] =
-          flatObject[k2];
-      });
-    } else {
-      toReturn[k] = ob[k];
-    }
+import flattenObject from './flattenObject';
 
-    return toReturn;
-  }, {});
+const required = field => {
+  throw new Error(`${field} is required and was not provided`);
+};
 
-export default (spaceId, params = {}, formAttributes = {}) => {
+export default (
+  spaceId = required('spaceId'),
+  params = {},
+  formAttributes = {}
+) => {
   const mergedOptions = Object.assign(
     {
       method: 'post',
@@ -34,7 +24,7 @@ export default (spaceId, params = {}, formAttributes = {}) => {
   const flat = flattenObject(params);
   const fields = Object.keys(flat)
     .map(key => {
-      const name = key.replace(/\.\[\d+\]/g, '[]');
+      const name = key.replace(/\[\d+\]/g, '[]');
       const value = flat[key];
       return `<input type="hidden" name="${name}" value="${value}" />`;
     })
