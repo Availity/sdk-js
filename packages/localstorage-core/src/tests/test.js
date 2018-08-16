@@ -28,11 +28,6 @@ describe('avLocalStorage', () => {
     expect(avLocalStorage).toBeDefined();
   });
 
-  test('supportsLocalStorage should return true with working local storage (mocked here)', () => {
-    expect(avLocalStorage.hasSupport).not.toBeDefined();
-    expect(avLocalStorage.supportsLocalStorage()).toBeTruthy();
-  });
-
   describe('get', () => {
     test('should return localStorage value at key', () => {
       const testKey = 'testKey';
@@ -122,25 +117,6 @@ describe('avLocalStorage', () => {
       window.localStorage.setItem(key, key);
     });
     expect(avLocalStorage.getKeys(testRegex)).toEqual(expectKeys);
-  });
-
-  test('getKeys should return all empty array with no localStorage support', () => {
-    const testKey = 'test';
-    const otherKey = 'other';
-    const allKeys = [];
-    const expectKeys = [];
-    for (let i = 0; i < 5; i++) {
-      const thisTestKey = testKey + i;
-      const thisOtherKey = otherKey + i;
-      allKeys.push(thisTestKey);
-      allKeys.push(thisOtherKey);
-      expectKeys.push(thisTestKey);
-    }
-    allKeys.forEach(key => {
-      window.localStorage.setItem(key, key);
-    });
-    avLocalStorage.hasSupport = false;
-    expect(avLocalStorage.getKeys(testKey)).toEqual([]);
   });
 
   test('removeKeys should remove all keys that match search string', () => {
