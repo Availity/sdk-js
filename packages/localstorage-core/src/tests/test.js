@@ -1,41 +1,27 @@
 import AvLocalStorage from '../';
 
-let storageVal = {};
 let avLocalStorage;
 
-const mockLocalStorage = {
-  get length() {
-    return Object.keys(storageVal).length;
-  },
+const getAllItems = () => {
+  const items = {};
+  const keys = Object.keys(window.localStorage);
+  let i = keys.length;
+
+  while (i > 0) {
+    i -= 1;
+    items[keys[i]] = window.localStorage.getItem(keys[i]);
+  }
+
+  return items;
 };
 
 describe('avLocalStorage', () => {
   beforeEach(() => {
-    storageVal = {};
-
     avLocalStorage = new AvLocalStorage();
+  });
 
-    mockLocalStorage.clear = jest.fn(() => {
-      storageVal = {};
-    });
-    mockLocalStorage.getItem = jest.fn(key => storageVal[key] || null);
-    mockLocalStorage.setItem = jest.fn((key, value) => {
-      storageVal[key] = value.toString();
-    });
-    mockLocalStorage.removeItem = jest.fn(key => {
-      delete storageVal[key];
-    });
-    mockLocalStorage.key = jest.fn(i => {
-      if (i < 0) {
-        return null;
-      }
-      const keys = Object.keys(storageVal);
-      return i < keys.length ? keys[i] : null;
-    });
-
-    window.localStorage = mockLocalStorage;
-
-    delete avLocalStorage.hasSupport;
+  afterEach(() => {
+    window.localStorage.clear();
   });
 
   test('local storage should be defined', () => {
@@ -47,54 +33,18 @@ describe('avLocalStorage', () => {
     expect(avLocalStorage.supportsLocalStorage()).toBeTruthy();
   });
 
-  test('supportsLocalStorage should be false when window.localStorage is undefined', () => {
-    window.localStorage = undefined;
-    expect(window.localStorage).not.toBeDefined();
-    expect(avLocalStorage.hasSupport).not.toBeDefined();
-    expect(avLocalStorage.supportsLocalStorage()).toBeFalsy();
-  });
-
-  test('supportsLocalStorage should be false when window.localStorage throws an error', () => {
-    mockLocalStorage.setItem.mockImplementationOnce(() => {
-      throw Error('test error');
-    });
-    expect(avLocalStorage.hasSupport).not.toBeDefined();
-    expect(avLocalStorage.supportsLocalStorage()).toBeFalsy();
-  });
-
-  test('supportsLocalStorage should save results and only run check once', () => {
-    expect(avLocalStorage.hasSupport).not.toBeDefined();
-
-    expect(mockLocalStorage.setItem.mock.calls.length).toBe(0);
-    expect(mockLocalStorage.getItem.mock.calls.length).toBe(0);
-    expect(mockLocalStorage.removeItem.mock.calls.length).toBe(0);
-
-    expect(avLocalStorage.supportsLocalStorage()).toBeTruthy();
-
-    expect(mockLocalStorage.setItem.mock.calls.length).toBe(1);
-    expect(mockLocalStorage.getItem.mock.calls.length).toBe(1);
-    expect(mockLocalStorage.removeItem.mock.calls.length).toBe(1);
-
-    expect(avLocalStorage.hasSupport).toBeTruthy();
-    expect(avLocalStorage.supportsLocalStorage()).toBeTruthy();
-
-    expect(mockLocalStorage.setItem.mock.calls.length).toBe(1);
-    expect(mockLocalStorage.getItem.mock.calls.length).toBe(1);
-    expect(mockLocalStorage.removeItem.mock.calls.length).toBe(1);
-  });
-
   describe('get', () => {
     test('should return localStorage value at key', () => {
       const testKey = 'testKey';
       const testVal = 'testVal';
-      storageVal[testKey] = testVal;
+      window.localStorage.setItem(testKey, testVal);
       expect(avLocalStorage.get(testKey)).toBe(testVal);
     });
     test('should parse JSON value in localStorage at key', () => {
       const testKey = 'testKey';
       const testVal = { message: 'testVal' };
       const stringified = JSON.stringify(testVal);
-      storageVal[testKey] = stringified;
+      window.localStorage.setItem(testKey, stringified);
       expect(avLocalStorage.get(testKey)).toEqual(testVal);
     });
   });
@@ -104,31 +54,37 @@ describe('avLocalStorage', () => {
       const testKey = 'testKey';
       const testVal = 'testVal';
       avLocalStorage.set(testKey, testVal);
-      expect(storageVal[testKey]).toBe(testVal);
+      expect(window.localStorage.getItem(testKey)).toBe(testVal);
     });
     test('should JSON.stringify non-string values before setting', () => {
       const testKey = 'testKey';
       let testVal = { message: 'testVal' };
       avLocalStorage.set(testKey, testVal);
-      expect(storageVal[testKey]).toBe(JSON.stringify(testVal));
+      expect(window.localStorage.getItem(testKey)).toBe(
+        JSON.stringify(testVal)
+      );
 
-      storageVal = {};
+      window.localStorage.clear();
       testVal = true;
       avLocalStorage.set(testKey, testVal);
-      expect(storageVal[testKey]).toBe(JSON.stringify(testVal));
+      expect(window.localStorage.getItem(testKey)).toBe(
+        JSON.stringify(testVal)
+      );
 
-      storageVal = {};
+      window.localStorage.clear();
       testVal = 50;
       avLocalStorage.set(testKey, testVal);
-      expect(storageVal[testKey]).toBe(JSON.stringify(testVal));
+      expect(window.localStorage.getItem(testKey)).toBe(
+        JSON.stringify(testVal)
+      );
     });
   });
 
   test('remove should remove localStorage key', () => {
     const testKey = 'testKey';
-    storageVal[testKey] = testKey;
+    window.localStorage.setItem(testKey, testKey);
     avLocalStorage.remove(testKey);
-    expect(storageVal[testKey]).not.toBeDefined();
+    expect(window.localStorage.getItem(testKey)).toBeNull();
   });
 
   test('getKeys should return all keys that match the search string', () => {
@@ -144,7 +100,7 @@ describe('avLocalStorage', () => {
       expectKeys.push(thisTestKey);
     }
     allKeys.forEach(key => {
-      storageVal[key] = key;
+      window.localStorage.setItem(key, key);
     });
     expect(avLocalStorage.getKeys(testKey)).toEqual(expectKeys);
   });
@@ -163,7 +119,7 @@ describe('avLocalStorage', () => {
       expectKeys.push(thisTestKey);
     }
     allKeys.forEach(key => {
-      storageVal[key] = key;
+      window.localStorage.setItem(key, key);
     });
     expect(avLocalStorage.getKeys(testRegex)).toEqual(expectKeys);
   });
@@ -181,7 +137,7 @@ describe('avLocalStorage', () => {
       expectKeys.push(thisTestKey);
     }
     allKeys.forEach(key => {
-      storageVal[key] = key;
+      window.localStorage.setItem(key, key);
     });
     avLocalStorage.hasSupport = false;
     expect(avLocalStorage.getKeys(testKey)).toEqual([]);
@@ -200,12 +156,17 @@ describe('avLocalStorage', () => {
       startStorage[thisOtherKey] = thisOtherKey;
       expectStorage[thisOtherKey] = thisOtherKey;
     }
-    storageVal = startStorage;
+    Object.keys(startStorage).forEach(key => {
+      window.localStorage.setItem(key, key);
+    });
     avLocalStorage.removeKeys(testKey);
-    expect(storageVal).toEqual(expectStorage);
-    storageVal = startStorage;
+    expect(getAllItems()).toEqual(expectStorage);
+
+    Object.keys(startStorage).forEach(key => {
+      window.localStorage.setItem(key, key);
+    });
     avLocalStorage.removeKeys(allKey);
-    expect(storageVal).toEqual({});
+    expect(getAllItems()).toEqual({});
   });
 
   test('removeKeys should remove all keys that match search regex', () => {
@@ -223,18 +184,23 @@ describe('avLocalStorage', () => {
       startStorage[thisOtherKey] = thisOtherKey;
       expectStorage[thisOtherKey] = thisOtherKey;
     }
-    storageVal = startStorage;
+    Object.keys(startStorage).forEach(key => {
+      window.localStorage.setItem(key, key);
+    });
     avLocalStorage.removeKeys(testRegex);
-    expect(storageVal).toEqual(expectStorage);
-    storageVal = startStorage;
+    expect(getAllItems()).toEqual(expectStorage);
+
+    Object.keys(startStorage).forEach(key => {
+      window.localStorage.setItem(key, key);
+    });
     avLocalStorage.removeKeys(allRegex);
-    expect(storageVal).toEqual({});
+    expect(getAllItems()).toEqual({});
   });
 
   test("getSessionBust should return value at key 'avCacheBust'", () => {
     const testKey = 'avCacheBust';
     const testVal = 'testVal';
-    storageVal[testKey] = testVal;
+    window.localStorage.setItem(testKey, testVal);
     expect(avLocalStorage.getSessionBust()).toBe(testVal);
   });
 });

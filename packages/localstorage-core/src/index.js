@@ -40,7 +40,7 @@ class AvLocalStorage {
       return output;
     }
 
-    return undefined;
+    return null;
   }
 
   set(key, value) {
