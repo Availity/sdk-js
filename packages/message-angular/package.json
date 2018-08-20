@@ -1,7 +1,7 @@
 {
   "name": "@availity/message-angular",
   "private": true,
-  "version": "1.0.1",
+  "version": "2.5.0",
   "description": "angular wrapper for availity message",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",

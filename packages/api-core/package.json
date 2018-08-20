@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "2.4.8",
+  "version": "2.5.0",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
@@ -17,7 +17,7 @@
     "@availity/localstorage-core": "^1.0.0-alpha.17"
   },
   "devDependencies": {
-    "@availity/localstorage-core": "^1.4.0"
+    "@availity/localstorage-core": "^2.5.0"
   },
   "publishConfig": {
     "access": "public"
