@@ -1,3 +1,13 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/Availity/sdk-js/compare/v2.4.8...v2.5.0) (2018-08-20)
+
+
+### Features
+
+* **native-form:** add native form ([#62](https://github.com/Availity/sdk-js/issues/62)) ([8aa0471](https://github.com/Availity/sdk-js/commit/8aa0471))
+
+
+
 <a name="2.4.8"></a>
 ## [2.4.8](https://github.com/Availity/sdk-js/compare/v2.4.7...v2.4.8) (2018-08-06)
 
