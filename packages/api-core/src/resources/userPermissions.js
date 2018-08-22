@@ -1,3 +1,4 @@
+import qs from 'qs';
 import AvApi from '../api';
 
 export default class AvUserPermissions extends AvApi {
@@ -6,6 +7,8 @@ export default class AvUserPermissions extends AvApi {
       {
         path: 'api/internal',
         name: 'axi-user-permissions',
+        paramsSerializer: params =>
+          qs.stringify(params, { arrayFormat: 'repeat' }),
       },
       config
     );
