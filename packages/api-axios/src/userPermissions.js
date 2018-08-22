@@ -9,5 +9,5 @@ export default new AvUserPermissions({
   merge,
   config: {
     paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' }),
-  }
+  },
 });
