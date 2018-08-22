@@ -6,7 +6,8 @@
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
-    "deep-assign": "^2.0.0"
+    "deep-assign": "^2.0.0",
+    "qs": "^6.5.2"
   },
   "peerDependencies": {
     "@availity/api-core": "^2.0.1",
