@@ -16,10 +16,6 @@ export default class AvOrganizations extends AvApi {
       config: options,
     });
 
-    if (!avUsers) {
-      throw new Error('[avUsers] must be defined and be instance of avUsers');
-    }
-
     this.avUsers = avUsers;
   }
 
@@ -29,6 +25,9 @@ export default class AvOrganizations extends AvApi {
   }
 
   getOrganizations(config) {
+    if (!this.avUsers || !this.avUsers.me) {
+      throw new Error('avUsers must be defined');
+    }
     return this.avUsers
       .me()
       .then(user => this.queryOrganizations(user, config));

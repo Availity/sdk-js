@@ -33,18 +33,6 @@ describe('AvOrganizations', () => {
     });
     expect(api).toBeDefined();
   });
-
-  test('should throw error if no avUsers passed in', () => {
-    expect(() => {
-      api = new AvOrganizations({
-        http: mockHttp,
-        promise: Promise,
-        merge: mockMerge,
-        config: {},
-      });
-    }).toThrow('[avUsers] must be defined');
-  });
-
   test('queryOrganizations() should call query with user.id added to params.userId', () => {
     api = new AvOrganizations({
       http: mockHttp,
@@ -82,6 +70,19 @@ describe('AvOrganizations', () => {
     const expectedConfig = { params: { userId } };
     api.queryOrganizations(user);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+  });
+
+  test('getOrganizations() should throw error if no avUsers passed in', () => {
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+
+    expect(() => {
+      api.getOrganizations();
+    }).toThrow('avUsers must be defined');
   });
 
   test('getOrganizations() should call avUsers.me() and then queryOrganizations()', async () => {
