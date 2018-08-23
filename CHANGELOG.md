@@ -1,3 +1,13 @@
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/Availity/sdk-js/compare/v2.5.0...v2.6.0) (2018-08-23)
+
+
+### Features
+
+* **api-core:** helper function for settings api ([#64](https://github.com/Availity/sdk-js/issues/64)) ([f247235](https://github.com/Availity/sdk-js/commit/f247235))
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/Availity/sdk-js/compare/v2.4.8...v2.5.0) (2018-08-20)
 
