@@ -21,6 +21,56 @@ describe('AvMessage', () => {
     expect(avMessage.enabled('hello')).toBe(true);
   });
 
+  describe('subscribers', () => {
+    test('onMessage should call all subscribers for event', () => {
+      const testEvent = 'testEvent';
+      const fns = [jest.fn(), jest.fn()];
+      avMessage.subscribers = {
+        [testEvent]: fns,
+      };
+      avMessage.onMessage(`${testEvent}Other`);
+      fns.forEach(fn => expect(fn).not.toHaveBeenCalled());
+
+      const data = { testData: 'hello world' };
+      avMessage.onMessage(testEvent, data);
+      fns.forEach(fn => expect(fn).toHaveBeenCalledWith(data));
+    });
+
+    test('subscribe should add function to subscribers', () => {
+      avMessage.subscribers = {};
+      const testEvent = 'testEvent';
+      const fn = 'totally a function';
+      avMessage.subscribe(testEvent, fn);
+      expect(avMessage.subscribers).toEqual({
+        [testEvent]: [fn],
+      });
+
+      const fn2 = 'totally another function';
+      avMessage.subscribe(testEvent, fn2);
+      expect(avMessage.subscribers).toEqual({
+        [testEvent]: [fn, fn2],
+      });
+    });
+
+    test('subscribe should return function to remove subscribers', () => {
+      avMessage.subscribers = {};
+      const testEvent = 'testEvent';
+      const fn = 'totally a function';
+      const unsubscribe = avMessage.subscribe(testEvent, fn);
+
+      const fn2 = 'totally another function';
+      avMessage.subscribe(testEvent, fn2);
+      expect(avMessage.subscribers).toEqual({
+        [testEvent]: [fn, fn2],
+      });
+
+      unsubscribe();
+      expect(avMessage.subscribers).toEqual({
+        [testEvent]: [fn2],
+      });
+    });
+  });
+
   describe('getEventData()', () => {
     let spyParse;
     const mockEvent = {
@@ -47,20 +97,6 @@ describe('AvMessage', () => {
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).not.toHaveBeenCalled();
       expect(avMessage.onMessage).not.toHaveBeenCalled();
-    });
-
-    test('should return early when AvMessages.onMessage not defined', () => {
-      delete avMessage.onMessage;
-      avMessage.getEventData(mockEvent);
-      expect(avMessage.isDomain).not.toHaveBeenCalled();
-      expect(spyParse).not.toHaveBeenCalled();
-    });
-
-    test('should return early when AvMessages.onMessage not function', () => {
-      avMessage.onMessage = 'onMessage';
-      avMessage.getEventData(mockEvent);
-      expect(avMessage.isDomain).not.toHaveBeenCalled();
-      expect(spyParse).not.toHaveBeenCalled();
     });
 
     test('should return early when event does not have all fields', () => {
@@ -153,14 +189,6 @@ describe('AvMessage', () => {
     test('should return location.origin if exists', () => {
       expect(avMessage.domain()).toBe(URL);
     });
-
-    // test('if no location.origin, should return domain generated with hostname', () => {
-    //   expect(avMessage.domain()).toBe(URL);
-    // });
-
-    // test("if no location origin or hostname, should return '*'", () => {
-    //   expect(avMessage.domain()).toBe(URL);
-    // });
   });
 
   test("isDomain should return true if domain() doesn't match regex", () => {
