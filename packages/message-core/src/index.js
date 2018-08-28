@@ -1,4 +1,6 @@
 class AvMessage {
+  subscribers = {};
+
   constructor() {
     this.isEnabled = true;
     this.DEFAULT_EVENT = 'avMessage';
@@ -15,9 +17,7 @@ class AvMessage {
 
   getEventData(event) {
     if (
-      !this.isEnabled ||
-      !this.onMessage ||
-      typeof this.onMessage !== 'function' || // do nothing if not enabled or no onMessage function given
+      !this.isEnabled || // do nothing if not enabled
       !event ||
       !event.data ||
       !event.origin ||
@@ -47,6 +47,35 @@ class AvMessage {
     }
 
     this.onMessage(event, data);
+  }
+
+  subscribe(event, fn) {
+    if (!this.subscribers[event]) {
+      this.subscribers[event] = [];
+    }
+    this.subscribers[event].push(fn);
+    return () => {
+      this.subscribers[event] = this.subscribers[event].filter(
+        val => val !== fn
+      );
+    };
+  }
+
+  // remove all subscribers for this event
+  unsubscribe(event) {
+    delete this.subscribers[event];
+  }
+
+  unsubscribeAll() {
+    this.subscribers = {};
+  }
+
+  onMessage(event, data) {
+    if (this.subscribers[event]) {
+      this.subscribers[event].forEach(fn => {
+        fn(data);
+      });
+    }
   }
 
   // if current domain doesn't match regex DOMAIN, return true.
