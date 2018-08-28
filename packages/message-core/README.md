@@ -16,7 +16,11 @@ it returns a function that can be used to unsubscribe from that event
 
 ### unsubscribe
 
-`avMessage.unsubscribe(eventName)` will remove all listeners for this event
+`avMessage.unsubscribe(eventName)` will remove all listeners for this event.
+
+### unsubscribeAll
+
+`avMessage.unsubscribeAll()` will remove all listeners for all events.
 
 ### enabled
 

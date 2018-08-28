@@ -68,6 +68,11 @@ describe('AvMessage', () => {
       expect(avMessage.subscribers).toEqual({
         [testEvent]: [fn2],
       });
+
+      unsubscribe();
+      expect(avMessage.subscribers).toEqual({
+        [testEvent]: [fn2],
+      });
     });
 
     test('unsusbscribe should remove subscriptions for event', () => {
@@ -80,6 +85,18 @@ describe('AvMessage', () => {
 
       avMessage.unsubscribe('event1');
       expect(avMessage.subscribers).toEqual({ event2 });
+
+      avMessage.unsubscribe();
+      expect(avMessage.subscribers).toEqual({ event2 });
+    });
+
+    test('unsubscribeAll should remove all subscriptions', () => {
+      avMessage.subscribers = {
+        test1: ['a', 'b'],
+        test2: ['b', 'c'],
+      };
+      avMessage.unsubscribeAll();
+      expect(avMessage.subscribers).toEqual({});
     });
   });
 
