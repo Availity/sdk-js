@@ -14,6 +14,10 @@ A package wrapping the postMessage function with helper functions and security c
 
 it returns a function that can be used to unsubscribe from that event
 
+### unsubscribe
+
+`avMessage.unsubscribe(eventName)` will remove all listeners for this event
+
 ### enabled
 
 if a value is passed in, sets messaging's enabled flag true/false based on value.

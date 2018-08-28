@@ -69,6 +69,18 @@ describe('AvMessage', () => {
         [testEvent]: [fn2],
       });
     });
+
+    test('unsusbscribe should remove subscriptions for event', () => {
+      const event1 = ['a', 'b', 'c'];
+      const event2 = ['b', 'c', 'd'];
+      avMessage.subscribers = {
+        event1,
+        event2,
+      };
+
+      avMessage.unsubscribe('event1');
+      expect(avMessage.subscribers).toEqual({ event2 });
+    });
   });
 
   describe('getEventData()', () => {

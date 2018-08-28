@@ -61,6 +61,11 @@ class AvMessage {
     };
   }
 
+  // remove all subscribers for this event
+  unsubscribe(event) {
+    delete this.subscribers[event];
+  }
+
   onMessage(event, data) {
     if (this.subscribers[event]) {
       this.subscribers[event].forEach(fn => {
