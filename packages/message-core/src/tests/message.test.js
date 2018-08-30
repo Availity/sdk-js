@@ -1,4 +1,4 @@
-import AvMessage from '../';
+import AvMessage from '../AvMessage';
 
 let avMessage;
 const URL = 'https://dev.local:9999';
