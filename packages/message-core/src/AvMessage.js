@@ -5,7 +5,7 @@ class AvMessage {
     this.isEnabled = true;
     this.DEFAULT_EVENT = 'avMessage';
     this.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
-    window.addEventListener('message', ::this.getEventData);
+    window.addEventListener('message', this.getEventData);
   }
 
   enabled(value) {
@@ -15,7 +15,7 @@ class AvMessage {
     return this.isEnabled;
   }
 
-  getEventData(event) {
+  getEventData = event => {
     if (
       !this.isEnabled || // do nothing if not enabled
       !event ||
@@ -47,7 +47,7 @@ class AvMessage {
     }
 
     this.onMessage(event, data);
-  }
+  };
 
   subscribe(event, fn) {
     if (!this.subscribers[event]) {
@@ -97,7 +97,7 @@ class AvMessage {
     return '*';
   }
 
-  send(payload, target) {
+  send(payload, target = window.top) {
     if (!this.isEnabled || !payload) {
       // ingore send calls if not enabled
       return;
@@ -105,7 +105,6 @@ class AvMessage {
     try {
       const message =
         typeof payload === 'string' ? payload : JSON.stringify(payload);
-      target = target || window.parent;
       target.postMessage(message, this.domain());
     } catch (err) {
       console.warn('AvMessage.send() ', err); // eslint-disable-line
