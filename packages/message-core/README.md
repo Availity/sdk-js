@@ -6,6 +6,10 @@ A package wrapping the postMessage function with helper functions and security c
 
 `npm install @availity/message-core`
 
+## how to use
+
+`import avMessage from '@availity/message-core`
+
 ## Methods
 
 ### subscribe
