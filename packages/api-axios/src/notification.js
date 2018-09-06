@@ -1,5 +1,5 @@
 import axios from 'axios';
-import merge from 'deep-assign';
+import merge from 'merge-options';
 import { AvNotification } from '@availity/api-core';
 
 class AvNotificationApi extends AvNotification {
