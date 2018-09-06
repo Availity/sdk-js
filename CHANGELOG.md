@@ -1,3 +1,30 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/Availity/sdk-js/compare/v2.6.0...v2.7.0) (2018-09-06)
+
+
+### Bug Fixes
+
+* **api-axios:** us merge-options for merge ([25b75b4](https://github.com/Availity/sdk-js/commit/25b75b4))
+
+
+### Code Refactoring
+
+* **message-core:** AvMessage ([4d2d0be](https://github.com/Availity/sdk-js/commit/4d2d0be))
+
+
+### Features
+
+* **message-core:** add unsubscribe ([dd6b5eb](https://github.com/Availity/sdk-js/commit/dd6b5eb))
+* **message-core:** subscriber functionality ([343b09d](https://github.com/Availity/sdk-js/commit/343b09d))
+* **message-core:** unsusbscribeAll fn ([3a66ff8](https://github.com/Availity/sdk-js/commit/3a66ff8))
+
+
+### BREAKING CHANGES
+
+* **message-core:** Remove message-angular to use subscribers from core
+
+
+
 <a name="2.6.0"></a>
 # [2.6.0](https://github.com/Availity/sdk-js/compare/v2.5.0...v2.6.0) (2018-08-23)
 
