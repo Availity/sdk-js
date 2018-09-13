@@ -1,19 +1,19 @@
 {
   "name": "@availity/api-axios",
-  "version": "2.4.8",
+  "version": "3.0.0",
   "description": "Wraps @availity/api-core with Axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
-    "deep-assign": "^2.0.0"
+    "merge-options": "^1.0.1"
   },
   "peerDependencies": {
     "@availity/api-core": "^2.0.1",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^2.4.8",
+    "@availity/api-core": "^2.6.0",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "publishConfig": {

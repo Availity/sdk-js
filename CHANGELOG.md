@@ -1,3 +1,50 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/Availity/sdk-js/compare/v2.6.0...v3.0.0) (2018-09-06)
+
+
+### Bug Fixes
+
+* **api-axios:** us merge-options for merge ([25b75b4](https://github.com/Availity/sdk-js/commit/25b75b4))
+
+
+### Code Refactoring
+
+* **message-core:** AvMessage ([4d2d0be](https://github.com/Availity/sdk-js/commit/4d2d0be))
+
+
+### Features
+
+* **message-core:** add unsubscribe ([dd6b5eb](https://github.com/Availity/sdk-js/commit/dd6b5eb))
+* **message-core:** subscriber functionality ([343b09d](https://github.com/Availity/sdk-js/commit/343b09d))
+* **message-core:** unsusbscribeAll fn ([3a66ff8](https://github.com/Availity/sdk-js/commit/3a66ff8))
+
+
+### BREAKING CHANGES
+
+* **message-core:** Remove message-angular to use subscribers from core
+
+
+
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/Availity/sdk-js/compare/v2.5.0...v2.6.0) (2018-08-23)
+
+
+### Features
+
+* **api-core:** helper function for settings api ([#64](https://github.com/Availity/sdk-js/issues/64)) ([f247235](https://github.com/Availity/sdk-js/commit/f247235))
+
+
+
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/Availity/sdk-js/compare/v2.4.8...v2.5.0) (2018-08-20)
+
+
+### Features
+
+* **native-form:** add native form ([#62](https://github.com/Availity/sdk-js/issues/62)) ([8aa0471](https://github.com/Availity/sdk-js/commit/8aa0471))
+
+
+
 <a name="2.4.8"></a>
 ## [2.4.8](https://github.com/Availity/sdk-js/compare/v2.4.7...v2.4.8) (2018-08-06)
 

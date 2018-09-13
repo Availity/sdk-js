@@ -1,5 +1,5 @@
 import axios from 'axios';
-import merge from 'deep-assign';
+import merge from 'merge-options';
 import { AvLogMessages } from '@availity/api-core';
 
 export default new AvLogMessages({
