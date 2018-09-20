@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Wraps @availity/api-core with Axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
