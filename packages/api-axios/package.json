@@ -6,7 +6,7 @@
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {
-    "merge-options": "^1.0.1"
+    "merge-options-es5": "^1.0.0"
   },
   "peerDependencies": {
     "@availity/api-core": "^2.0.1",

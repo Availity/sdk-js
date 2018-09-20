@@ -10,7 +10,7 @@
     "@availity/exceptions-core": "^2.2.1"
   },
   "devDependencies": {
-    "@availity/api-axios": "^3.0.0",
+    "@availity/api-axios": "^2.6.1",
     "@availity/exceptions-core": "^2.5.0"
   },
   "publishConfig": {
