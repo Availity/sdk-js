@@ -15,6 +15,8 @@ const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
   chunkSize: 3e6, // 3MB
   removeFingerprintOnSuccess: true,
+  retryDelays: [0, 1000, 3000, 5000],
+  stripFileNamePathSegments: true,
   fingerprint(file, options = {}) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
@@ -58,7 +60,7 @@ class Upload {
     }
 
     this.file = file;
-    this.options = Object.assign(options, defaultOptions);
+    this.options = Object.assign({}, defaultOptions, options);
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
@@ -182,6 +184,7 @@ class Upload {
       resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
       chunkSize: this.options.chunkSize,
+      retryDelays: this.options.retryDelays,
       removeFingerprintOnSuccess: this.options.removeFingerprintOnSuccess,
       fingerprint: this.options.fingerprint,
       metadata,
@@ -292,7 +295,7 @@ class Upload {
   }
 
   trimFileName(fileName) {
-    if (this.options.stripFileNamePathSegments !== false) {
+    if (this.options.stripFileNamePathSegments) {
       fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
       fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
     }

@@ -26,6 +26,13 @@ const optionsWithMeta = {
   clientId: 'c',
 };
 
+const optionsWithRetry = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+  retryDelays: [1000, 2000],
+};
+
 describe('upload.core', () => {
   it('should be defined', () => {
     expect(Upload).toBeTruthy();
@@ -41,6 +48,13 @@ describe('upload.core', () => {
     expect(() => {
       new Upload([]); // eslint-disable-line
     }).toThrow('[options.bucketId] must be defined');
+  });
+
+  it('should allow override to defaults', () => {
+    const file = Buffer.from('hello world'.split(''));
+    file.name = 'fileName.png';
+    const upload = new Upload(file, optionsWithRetry);
+    expect(upload.options.retryDelays[0]).toBe(optionsWithRetry.retryDelays[0]);
   });
 
   it('should allow single file as constructor argument', () => {
