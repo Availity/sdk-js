@@ -1,5 +1,5 @@
 import axios from 'axios';
-import merge from 'merge-options';
+import merge from 'merge-options-es5';
 import { AvProxy } from '@availity/api-core';
 
 export default class AvProxyApi extends AvProxy {
