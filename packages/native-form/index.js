@@ -7,12 +7,13 @@ const required = field => {
 export default (
   spaceId = required('spaceId'),
   params = {},
-  formAttributes = {}
+  formAttributes = {},
+  type = 'saml'
 ) => {
   const mergedOptions = Object.assign(
     {
       method: 'post',
-      action: `/ms/api/availity/internal/spc/magneto/sso/v1/saml/${spaceId}`,
+      action: `/ms/api/availity/internal/spc/magneto/sso/v1/${type}/${spaceId}`,
       target: '_blank',
     },
     formAttributes

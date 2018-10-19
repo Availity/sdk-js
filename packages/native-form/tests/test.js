@@ -80,6 +80,13 @@ describe('nativeForm', () => {
         );
       });
 
+      test('action magneto integration type should be overridable', () => {
+        nativeForm('spaceId123', {}, {}, 'openid');
+        expect(document.querySelector('form').getAttribute('action')).toBe(
+          '/ms/api/availity/internal/spc/magneto/sso/v1/openid/spaceId123'
+        );
+      });
+
       test('method should be post by default', () => {
         nativeForm('spaceId');
         expect(document.querySelector('form').getAttribute('method')).toBe(
