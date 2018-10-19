@@ -12,7 +12,7 @@ export default (
   const mergedOptions = Object.assign(
     {
       method: 'post',
-      action: `/ms/api/availity/internal/spaces/magneto/sso/v1/saml/${spaceId}`,
+      action: `/ms/api/availity/internal/spc/magneto/sso/v1/saml/${spaceId}`,
       target: '_blank',
     },
     formAttributes

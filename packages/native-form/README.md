@@ -20,7 +20,7 @@ nativeForm(spaceId[, params[, formAttributes]]);
 ### Optional params
 
 - params: Object. Additional parameters you want sent in the post.
-- formAttributes: Object. Set/override the form attributes like `target`, `method`, and `action`. `method` defaults to "post", `action` will default to "\`/ms/api/availity/internal/spaces/magneto/sso/v1/saml/${spaceId}\`", and `target` will default to "_blank". Additional attributes can be defined and should be valid on an HTML form element.
+- formAttributes: Object. Set/override the form attributes like `target`, `method`, and `action`. `method` defaults to "post", `action` will default to "\`/ms/api/availity/internal/spc/magneto/sso/v1/saml/${spaceId}\`", and `target` will default to "_blank". Additional attributes can be defined and should be valid on an HTML form element.
 
 ###
 

@@ -69,7 +69,7 @@ describe('nativeForm', () => {
       test('action should have the space id in the URL by default', () => {
         nativeForm('spaceId123');
         expect(document.querySelector('form').getAttribute('action')).toBe(
-          '/ms/api/availity/internal/spaces/magneto/sso/v1/saml/spaceId123'
+          '/ms/api/availity/internal/spc/magneto/sso/v1/saml/spaceId123'
         );
       });
 
