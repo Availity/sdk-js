@@ -36,28 +36,28 @@ export default class AvSettings extends AvApi {
     });
   }
 
-  setApplication(applicaitonId, data, config) {
+  setApplication(applicationId, data, config) {
     if (!this.avUsers || !this.avUsers.me) {
       throw new Error('avUsers must be defined');
     }
 
     if (
-      typeof applicaitonId !== 'string' &&
-      typeof applicaitonId !== 'number'
+      typeof applicationId !== 'string' &&
+      typeof applicationId !== 'number'
     ) {
       config = data;
-      data = applicaitonId;
-      applicaitonId = '';
+      data = applicationId;
+      applicationId = '';
     }
 
-    if (!applicaitonId && (!data || !data.scope || !data.scope.applicationId)) {
+    if (!applicationId && (!data || !data.scope || !data.scope.applicationId)) {
       throw new Error('applicationId must be defined');
     }
 
     return this.avUsers.me().then(user => {
       data = data || {};
       data.scope = data.scope || {};
-      data.scope.applicationId = applicaitonId;
+      data.scope.applicationId = applicationId;
       data.scope.userId = user.id;
       return this.update(data, config);
     });
