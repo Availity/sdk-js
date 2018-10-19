@@ -26,6 +26,9 @@ export default class AvRegions extends AvApi {
   }
 
   getRegions(config) {
+    if (!this.avUsers || !this.avUsers.me) {
+      throw new Error('avUsers must be defined');
+    }
     return this.avUsers.me().then(user => {
       const queryConfig = this.addParams({ userId: user.id }, config);
       return this.query(queryConfig);

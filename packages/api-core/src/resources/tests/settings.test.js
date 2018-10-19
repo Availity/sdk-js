@@ -46,7 +46,16 @@ describe('AvSettings', () => {
     });
 
     test('should throw error if no applicationId passed in', () => {
-      expect(() => api.getApplication()).toThrow();
+      expect(() => api.getApplication()).toThrow(
+        'applicationId must be defined'
+      );
+    });
+
+    test('should throw if no avUsers defined', () => {
+      delete api.avUsers;
+      expect(() => api.getApplication('appId')).toThrow(
+        'avUsers must be defined'
+      );
     });
   });
 
@@ -84,7 +93,16 @@ describe('AvSettings', () => {
     });
 
     test('should throw error if no applicationId in argument or data', () => {
-      expect(() => api.setApplication()).toThrow();
+      expect(() => api.setApplication()).toThrow(
+        'applicationId must be defined'
+      );
+    });
+
+    test('should throw error if no avUsers defined', () => {
+      delete api.avUsers;
+      expect(() => api.setApplication('appId', {})).toThrow(
+        'avUsers must be defined'
+      );
     });
   });
 });

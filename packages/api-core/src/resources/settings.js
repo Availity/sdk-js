@@ -22,7 +22,10 @@ export default class AvSettings extends AvApi {
 
   getApplication(applicationId, config) {
     if (!applicationId) {
-      throw new Error('must define applicationId');
+      throw new Error('applicationId must be defined');
+    }
+    if (!this.avUsers || !this.avUsers.me) {
+      throw new Error('avUsers must be defined');
     }
     return this.avUsers.me().then(user => {
       const queryConfig = this.addParams(
@@ -33,23 +36,28 @@ export default class AvSettings extends AvApi {
     });
   }
 
-  setApplication(applicaitonId, data, config) {
-    if (
-      typeof applicaitonId !== 'string' &&
-      typeof applicaitonId !== 'number'
-    ) {
-      config = data;
-      data = applicaitonId;
-      applicaitonId = '';
+  setApplication(applicationId, data, config) {
+    if (!this.avUsers || !this.avUsers.me) {
+      throw new Error('avUsers must be defined');
     }
 
-    if (!applicaitonId && (!data.scope || !data.scope.applicationId)) {
-      throw new Error('must set applicationId in settings call');
+    if (
+      typeof applicationId !== 'string' &&
+      typeof applicationId !== 'number'
+    ) {
+      config = data;
+      data = applicationId;
+      applicationId = '';
+    }
+
+    if (!applicationId && (!data || !data.scope || !data.scope.applicationId)) {
+      throw new Error('applicationId must be defined');
     }
 
     return this.avUsers.me().then(user => {
+      data = data || {};
       data.scope = data.scope || {};
-      data.scope.applicationId = applicaitonId;
+      data.scope.applicationId = applicationId;
       data.scope.userId = user.id;
       return this.update(data, config);
     });
