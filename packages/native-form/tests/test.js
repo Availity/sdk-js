@@ -69,7 +69,7 @@ describe('nativeForm', () => {
       test('action should have the space id in the URL by default', () => {
         nativeForm('spaceId123');
         expect(document.querySelector('form').getAttribute('action')).toBe(
-          '/ms/api/availity/internal/spaces/magneto/sso/v1/saml/spaceId123'
+          '/ms/api/availity/internal/spc/magneto/sso/v1/saml/spaceId123'
         );
       });
 
@@ -77,6 +77,13 @@ describe('nativeForm', () => {
         nativeForm('spaceId123', {}, { action: '/my/url/here' });
         expect(document.querySelector('form').getAttribute('action')).toBe(
           '/my/url/here'
+        );
+      });
+
+      test('action magneto integration type should be overridable', () => {
+        nativeForm('spaceId123', {}, {}, 'openid');
+        expect(document.querySelector('form').getAttribute('action')).toBe(
+          '/ms/api/availity/internal/spc/magneto/sso/v1/openid/spaceId123'
         );
       });
 
