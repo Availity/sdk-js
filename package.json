@@ -81,7 +81,8 @@
     "transformIgnorePatterns": [
       "<rootDir>.*(node_modules)(?!.*@availity.*).*$"
     ],
-    "testEnvironment": "jest-environment-jsdom-global"
+    "testEnvironment": "jest-environment-jsdom-global",
+    "testURL": "http://localhost/"
   },
   "babel": {
     "env": {
@@ -119,5 +120,5 @@
       "url": "https://github.com/robmcguinness"
     }
   ],
-  "version": "2.4.3"
+  "version": "2.7.0"
 }

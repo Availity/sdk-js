@@ -1,0 +1,20 @@
+{
+  "name": "@availity/native-form",
+  "version": "2.6.0",
+  "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "availity",
+    "form",
+    "native",
+    "submission"
+  ],
+  "author": "Evan Sharp <evan.sharp@availity.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

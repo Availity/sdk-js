@@ -110,6 +110,12 @@ describe('AvMicroservice', () => {
       }).toThrow('called method without [id]');
     });
 
+    test('get() should build url wih id', async () => {
+      await ms.get(1);
+
+      expect(mockHttp.mock.calls[0][0].url).toBe('/ms/api/availity/internal/1');
+    });
+
     test('should return joined config.path, name, and id', () => {
       const testUrl = 'test';
       const testId = 'testId';

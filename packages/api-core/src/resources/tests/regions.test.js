@@ -55,6 +55,19 @@ describe('AvRegions', () => {
     expect(api.setPageBust).toHaveBeenCalledTimes(2);
   });
 
+  test('getRegions should fail if avUsers not defined', () => {
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+
+    expect(() => {
+      api.getRegions();
+    }).toThrow('avUsers must be defined');
+  });
+
   test('getRegions should call avUsers.me() and then query with result', async () => {
     api = new AvRegions({
       http: mockHttp,

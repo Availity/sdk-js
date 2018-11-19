@@ -3,81 +3,106 @@ import AvSettings from '../settings';
 const mockHttp = jest.fn(() => Promise.resolve({}));
 const mockMerge = jest.fn((...args) => Object.assign(...args));
 
-const mockConfig = {
-  scope: {
-    applicationId: '123',
-    userId: 'myUser',
-  },
+const testAppId = 'testApplicationId';
+
+const mockUser = {
+  id: 'mockUserId',
+};
+const mockAvUsers = {
+  me: jest.fn(() => Promise.resolve(mockUser)),
 };
 
 describe('AvSettings', () => {
   let api;
 
+  beforeEach(() => {
+    api = new AvSettings({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
+  });
+
   test('should be defined', () => {
-    api = new AvSettings({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
     expect(api).toBeDefined();
   });
 
-  test('should handle no config passed in', () => {
-    api = new AvSettings({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
+  describe('getApplication', () => {
+    beforeEach(() => {
+      api.query = jest.fn();
     });
-    expect(api).toBeDefined();
+    test('should call avUsers.me and use in query', async () => {
+      const expectedQuery = {
+        params: {
+          applicationId: testAppId,
+          userId: mockUser.id,
+        },
+      };
+      await api.getApplication(testAppId);
+      expect(mockAvUsers.me).toHaveBeenCalled();
+      expect(api.query).toHaveBeenCalledWith(expectedQuery);
+    });
+
+    test('should throw error if no applicationId passed in', () => {
+      expect(() => api.getApplication()).toThrow(
+        'applicationId must be defined'
+      );
+    });
+
+    test('should throw if no avUsers defined', () => {
+      delete api.avUsers;
+      expect(() => api.getApplication('appId')).toThrow(
+        'avUsers must be defined'
+      );
+    });
   });
 
-  test('url should be correct', () => {
-    api = new AvSettings({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-    });
-    expect(api.getUrl(api.config(mockConfig))).toBe('/api/utils/v1/settings');
-  });
-
-  test('query() should be called with params', () => {
-    api = new AvSettings({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
+  describe('setApplication', () => {
+    beforeEach(() => {
+      api.update = jest.fn();
     });
 
-    const data = {
-      params: {
-        applicationId: '123',
-        userId: 'myUser',
-      },
-    };
+    test('should add applicationId and user.me to scope', async () => {
+      const testData = { key: 'value' };
+      const testConfig = {};
+      const expectedUpdate = Object.assign(
+        {
+          scope: {
+            applicationId: testAppId,
+            userId: mockUser.id,
+          },
+        },
+        testData
+      );
 
-    api.query = jest.fn();
-    api.query(data);
-    expect(api.query).toHaveBeenLastCalledWith(data);
-  });
-
-  test('update() should be called with scope', async () => {
-    api = new AvSettings({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
+      await api.setApplication(testAppId, testData, testConfig);
+      expect(mockAvUsers.me).toHaveBeenCalled();
+      expect(api.update).toHaveBeenCalledWith(expectedUpdate, testConfig);
     });
-    const data = {
-      scope: {
-        applicationId: '123',
-        userId: 'myUser',
-      },
-      key: 'value',
-    };
 
-    api.update = jest.fn();
-    api.update(data);
-    expect(api.update).toHaveBeenLastCalledWith(data);
+    test('should not throw error if application id passed in as arugment', () => {
+      expect(() => api.setApplication(testAppId, {})).not.toThrow();
+    });
+
+    test('should not throw error if applicationId in scope', () => {
+      expect(() =>
+        api.setApplication({ scope: { applicationId: testAppId } })
+      ).not.toThrow();
+    });
+
+    test('should throw error if no applicationId in argument or data', () => {
+      expect(() => api.setApplication()).toThrow(
+        'applicationId must be defined'
+      );
+    });
+
+    test('should throw error if no avUsers defined', () => {
+      delete api.avUsers;
+      expect(() => api.setApplication('appId', {})).toThrow(
+        'avUsers must be defined'
+      );
+    });
   });
 });

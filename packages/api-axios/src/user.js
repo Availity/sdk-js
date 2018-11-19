@@ -1,8 +1,7 @@
 import axios from 'axios';
-import utils from 'axios/lib/utils';
+import merge from 'merge-options-es5';
 import { AvUsers } from '@availity/api-core';
 
-const { merge } = utils;
 export default new AvUsers({
   http: axios,
   promise: Promise,

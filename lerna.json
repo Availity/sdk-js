@@ -4,5 +4,11 @@
     "packages/*"
   ],
   "message": "chore: publish %s",
-  "version": "2.4.3"
+  "command": {
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true
+    }
+  },
+  "version": "independent"
 }

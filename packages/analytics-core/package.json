@@ -1,14 +1,11 @@
 {
   "name": "@availity/analytics-core",
-  "version": "2.4.0",
+  "version": "2.4.6",
   "description": "Analytics base configuration for sdk-js",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "camelcase": "^5.0.0"
   }
 }

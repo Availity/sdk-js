@@ -1,3 +1,101 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/Availity/sdk-js/compare/v2.6.0...v2.7.0) (2018-09-06)
+
+
+### Bug Fixes
+
+* **api-axios:** us merge-options for merge ([25b75b4](https://github.com/Availity/sdk-js/commit/25b75b4))
+
+
+### Code Refactoring
+
+* **message-core:** AvMessage ([4d2d0be](https://github.com/Availity/sdk-js/commit/4d2d0be))
+
+
+### Features
+
+* **message-core:** add unsubscribe ([dd6b5eb](https://github.com/Availity/sdk-js/commit/dd6b5eb))
+* **message-core:** subscriber functionality ([343b09d](https://github.com/Availity/sdk-js/commit/343b09d))
+* **message-core:** unsusbscribeAll fn ([3a66ff8](https://github.com/Availity/sdk-js/commit/3a66ff8))
+
+
+### BREAKING CHANGES
+
+* **message-core:** Remove message-angular to use subscribers from core
+
+
+
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/Availity/sdk-js/compare/v2.5.0...v2.6.0) (2018-08-23)
+
+
+### Features
+
+* **api-core:** helper function for settings api ([#64](https://github.com/Availity/sdk-js/issues/64)) ([f247235](https://github.com/Availity/sdk-js/commit/f247235))
+
+
+
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/Availity/sdk-js/compare/v2.4.8...v2.5.0) (2018-08-20)
+
+
+### Features
+
+* **native-form:** add native form ([#62](https://github.com/Availity/sdk-js/issues/62)) ([8aa0471](https://github.com/Availity/sdk-js/commit/8aa0471))
+
+
+
+<a name="2.4.8"></a>
+## [2.4.8](https://github.com/Availity/sdk-js/compare/v2.4.7...v2.4.8) (2018-08-06)
+
+
+### Bug Fixes
+
+* **api-axios:** replace axios merge with deep-assign ([a7183b1](https://github.com/Availity/sdk-js/commit/a7183b1))
+* **api-core:** spread args for aliases ([5c7516b](https://github.com/Availity/sdk-js/commit/5c7516b))
+
+
+
+<a name="2.4.7"></a>
+## [2.4.7](https://github.com/Availity/sdk-js/compare/v2.4.6...v2.4.7) (2018-08-02)
+
+
+### Bug Fixes
+
+* **api-core:** check for lowercase location as well ([4a4a9a0](https://github.com/Availity/sdk-js/commit/4a4a9a0))
+
+
+
+<a name="2.4.6"></a>
+## [2.4.6](https://github.com/Availity/sdk-js/compare/v2.4.4...v2.4.6) (2018-08-02)
+
+
+### Bug Fixes
+
+* **analytics-core:** fix non-click events ([fce9b26](https://github.com/Availity/sdk-js/commit/fce9b26))
+
+
+
+<a name="2.4.5"></a>
+## [2.4.5](https://github.com/Availity/sdk-js/compare/v2.4.4...v2.4.5) (2018-08-02)
+
+
+### Bug Fixes
+
+* **analytics-core:** fix non-click events ([fce9b26](https://github.com/Availity/sdk-js/commit/fce9b26))
+
+
+
+<a name="2.4.4"></a>
+## [2.4.4](https://github.com/Availity/sdk-js/compare/v2.4.3...v2.4.4) (2018-07-25)
+
+
+### Bug Fixes
+
+* **analytics-core:** remove camelcase dep ([fc1be33](https://github.com/Availity/sdk-js/commit/fc1be33))
+
+
+
 <a name="2.4.3"></a>
 ## [2.4.3](https://github.com/Availity/sdk-js/compare/v2.4.2...v2.4.3) (2018-07-13)
 

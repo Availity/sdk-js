@@ -122,7 +122,7 @@ export default class AvApi {
     if (response.config.getHeader) {
       location = response.config.getHeader(response, 'Location');
     } else {
-      location = response.headers.Location;
+      location = response.headers.location || response.headers.Location;
     }
 
     return location;
@@ -289,7 +289,7 @@ export default class AvApi {
   getPage(page = 1, config = {}, limit) {
     limit = limit || (config.params && config.params.limit) || 50;
     const offset = (page - 1) * limit;
-    return this.query(this.addParams({ offset }, config, false));
+    return this.query(this.addParams({ offset, limit }, config, false));
   }
 
   // put request
@@ -312,7 +312,7 @@ export default class AvApi {
   }
 
   put(...args) {
-    return this.update(args);
+    return this.update(...args);
   }
 
   // delete request
@@ -333,6 +333,6 @@ export default class AvApi {
   }
 
   delete(...args) {
-    return this.remove(args);
+    return this.remove(...args);
   }
 }

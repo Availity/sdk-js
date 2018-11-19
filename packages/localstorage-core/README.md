@@ -12,15 +12,11 @@ import AvLocalStorarge from '@availity/localstorage-core`;
 
 const avLocalStorage = new AvLocalStorage();
 
-if(avLocalStorage.supportsLocalStorage()) {
-    consolog.log('Browser support localstorage');
-}
+avLocalStorage.set('myKey', 'myValue')
+console.log(avLocalStorage('myKey')) // logs: "myValue"
 ```
 
 ## Methods
-
-### `supportsLocalStorage`
-Returns boolean result of check if localStorage is supported.
 
 ### `get(key)`
 Returns value stored at `key`, will attempt to parse JSON stored there.
@@ -37,5 +33,5 @@ Returns array of all keys that match the `searchKey` string or `RegExp`.
 ### `removeKeys(searchKey)`
 Remove all keys that match the `searchKey` string or RegExp.
 
-### `getSessionBust`
+### `getSessionBust()`
 Returns session key set by Availity on login.

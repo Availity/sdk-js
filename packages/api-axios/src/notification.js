@@ -1,8 +1,6 @@
 import axios from 'axios';
-import utils from 'axios/lib/utils';
+import merge from 'merge-options-es5';
 import { AvNotification } from '@availity/api-core';
-
-const { merge } = utils;
 
 class AvNotificationApi extends AvNotification {
   constructor(options) {
