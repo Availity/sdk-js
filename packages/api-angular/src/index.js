@@ -17,6 +17,7 @@ import avSpacesApiFactory from './spaces';
 import avUsersApiFactory from './user';
 import avUserPermissionsApiFactory from './userPermissions';
 import avFilesApiFactory from './files';
+import avFilesDeliveryApiFactory from './filesDelivery';
 import avSettingsApiFactory from './settings';
 
 export default angular
@@ -37,4 +38,5 @@ export default angular
   .factory('avUsersApi', avUsersApiFactory)
   .factory('avUserPermissionsApi', avUserPermissionsApiFactory)
   .factory('avFilesApi', avFilesApiFactory)
+  .factory('avFilesDeliveryApi', avFilesDeliveryApiFactory)
   .factory('avSettingsApi', avSettingsApiFactory).name;

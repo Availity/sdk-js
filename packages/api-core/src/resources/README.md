@@ -14,6 +14,7 @@
 * [AvLogMessage](#avlogmessage)
 * [AvProxy](#avproxy)
 * [AvFiles](#avfiles)
+* [AvFilesDelivery](#avfilesdelivery)
 * [AvSettings](#avsettings)
 
 ## Intro
@@ -25,7 +26,7 @@ Get information about current logged in user.
 
 #### Methods
 
-##### `me()` 
+##### `me()`
 Helper function that returns information about logged in user.
 
 ### AvRegions
@@ -100,6 +101,26 @@ Upload a file to a bucket in the vault
 Method to upload a file. `data` contains FormData elements with a key of either `reference` (if pointed to an existing file) or `filedata` (if uploading a new file)
 `config` should contain `customerId`, `id` (the bucketId), and `clientId`
 
+### AvFilesDelivery
+Upload a batch of files to a designated channel configured on the server.
+
+#### Methods
+
+#### `uploadFilesDelivery(data, config)`
+Method to upload a batch of file deliveries. `data` contains an array of `deliveries`. Provide the `fileUri` (reference field from AvFiles), `deliveryChannel`, and the required `metadata` for that channel.
+
+Example:
+```html
+data = {
+  deliveries:
+    [ {
+        fileURI: upload.references[0],
+        deliveryChannel: 'DEMO',
+        metadata: { payerId: "DEMOPAYERID", requestId: "123", patientLastName: "lastName", patientFirstName: "firstName" },
+    } ]
+  };
+```
+`config` should contain `customerId` and `clientId`
 
 ### AvSettings
 Store and retrieve settings to be reused.

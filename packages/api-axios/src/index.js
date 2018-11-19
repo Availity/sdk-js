@@ -13,6 +13,7 @@ import avUserApi from './user';
 import avPdfApi from './pdf';
 import avUserPermissionsApi from './userPermissions';
 import avFilesApi from './files';
+import avFilesDeliveryApi from './filesDelivery';
 import avSettingsApi from './settings';
 
 export default AvApi;
@@ -32,5 +33,6 @@ export {
   avUserApi,
   avUserPermissionsApi,
   avFilesApi,
+  avFilesDeliveryApi,
   avSettingsApi,
 };
