@@ -1,3 +1,30 @@
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/Availity/sdk-js/compare/v3.0.0...v2.8.0) (2018-11-20)
+
+
+### Bug Fixes
+
+* **api-axios:** use merge-options-es5 instead of merge-options ([993ccc6](https://github.com/Availity/sdk-js/commit/993ccc6))
+* **api-core:** Allow array for permissions ([#67](https://github.com/Availity/sdk-js/issues/67)) ([98adf76](https://github.com/Availity/sdk-js/commit/98adf76))
+* **api-core:** filesDelivery merge ([eb75160](https://github.com/Availity/sdk-js/commit/eb75160))
+* **api-core:** typo fix ([f543296](https://github.com/Availity/sdk-js/commit/f543296))
+* **upload-core:** auto retry failed uploads ([#73](https://github.com/Availity/sdk-js/issues/73)) ([c602275](https://github.com/Availity/sdk-js/commit/c602275)), closes [#71](https://github.com/Availity/sdk-js/issues/71)
+
+
+### Features
+
+* add users to axios/angular api ([6647be5](https://github.com/Availity/sdk-js/commit/6647be5))
+* **api-core:** add example response for file delivery ([edc4df5](https://github.com/Availity/sdk-js/commit/edc4df5))
+* **api-core:** add file upload delivery batch api ([eff0a3c](https://github.com/Availity/sdk-js/commit/eff0a3c))
+* **api-core:** helper function for settings api ([4d405a7](https://github.com/Availity/sdk-js/commit/4d405a7))
+
+
+### BREAKING CHANGES
+
+* **api-core:** The query to the API has been changed. To get the previous behavior, supply a custom paramSerializer.
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/Availity/sdk-js/compare/v2.6.0...v2.7.0) (2018-09-06)
 
