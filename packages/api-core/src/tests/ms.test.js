@@ -81,6 +81,7 @@ describe('AvMicroservice', () => {
   });
 
   describe('getUrl', () => {
+    const mockFinalResponse = 'finalResponse';
     beforeEach(() => {
       ms = new AvMicroservice({
         http: mockHttp,
@@ -88,6 +89,7 @@ describe('AvMicroservice', () => {
         merge: mockMerge,
         config: {},
       });
+      ms.onResponse = jest.fn(() => mockFinalResponse);
     });
 
     test('should return joined config.path and name if no config.id', () => {
@@ -110,7 +112,7 @@ describe('AvMicroservice', () => {
       }).toThrow('called method without [id]');
     });
 
-    test('get() should build url wih id', async () => {
+    test('get() should build url with id', async () => {
       await ms.get(1);
 
       expect(mockHttp.mock.calls[0][0].url).toBe('/ms/api/availity/internal/1');

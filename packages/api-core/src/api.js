@@ -1,5 +1,6 @@
 import AvLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
+import get from 'lodash.get';
 
 import API_OPTIONS from './options';
 
@@ -160,10 +161,11 @@ export default class AvApi {
   }
 
   getError(error) {
-    let response;
-    if (error.response) {
-      response = { error };
-    }
+    const response = {};
+    response.errorObject = error;
+    response.code = get(error, 'response.status');
+    response.message = get(error, 'response.statusText');
+    response.url = get(error, 'config.url');
     return response;
   }
 
@@ -176,10 +178,7 @@ export default class AvApi {
 
     return this.http(config)
       .then(response => this.onResponse(response, afterResponse))
-      .catch(error => {
-        const response = this.getError(error);
-        return afterResponse ? afterResponse(response) : response;
-      });
+      .catch(error => this.Promise.reject(this.getError(error)));
   }
 
   // post request
