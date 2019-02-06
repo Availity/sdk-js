@@ -162,7 +162,7 @@ export default class AvApi {
 
   getError(error) {
     const response = {};
-    response.errorObject = error;
+    response.original = error;
     response.code = get(error, 'response.status');
     response.message = get(error, 'response.statusText');
     response.url = get(error, 'config.url');

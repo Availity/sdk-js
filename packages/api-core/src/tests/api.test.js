@@ -694,7 +694,7 @@ describe('AvApi', () => {
     });
     test('should catch error in http, and return that error', async () => {
       const response = await api.request({});
-      expect(response.errorObject).toBe(mockErrorResponse);
+      expect(response.original).toBe(mockErrorResponse);
     });
 
     test('should return error format', async () => {
@@ -702,7 +702,7 @@ describe('AvApi', () => {
       expect(response.code).toBe(500);
       expect(response.message).toBe('Test Error');
       expect(response.url).toBe('/url');
-      expect(response.errorObject).toBe(mockErrorResponse);
+      expect(response.original).toBe(mockErrorResponse);
     });
   });
 
