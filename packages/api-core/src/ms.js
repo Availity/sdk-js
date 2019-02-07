@@ -25,15 +25,6 @@ export default class AvMicroservice extends AvApi {
       .replace(/\/$/, '');
   }
 
-  getError(error) {
-    let response;
-    if (error) {
-      response = error;
-      response.error = true;
-    }
-    return response;
-  }
-
   // polling location is the same url
   getLocation(response) {
     return this.getUrl(response.config);

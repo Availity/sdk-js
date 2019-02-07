@@ -662,12 +662,6 @@ describe('AvApi', () => {
       expect(mockHttp).toHaveBeenCalledWith(mockConfig);
     });
 
-    test('should catch error in http, returning undefined if no error.response', async () => {
-      mockHttp.mockImplementationOnce(() => Promise.reject(new Error('err')));
-      const response = await api.request({});
-      expect(response).toBeUndefined();
-    });
-
     test('should default attempt in polling is true', async () => {
       const mockConfig = {
         polling: true,
@@ -680,6 +674,35 @@ describe('AvApi', () => {
       const response = await api.request(mockConfig);
       expect(mockHttp).toHaveBeenCalledWith(expectedConfig);
       expect(response).toEqual(mockFinalResponse);
+    });
+  });
+
+  describe('request error', () => {
+    const mockErrorResponse = {
+      response: { status: 500, statusText: 'Test Error' },
+      config: { url: '/url' },
+    };
+
+    beforeEach(() => {
+      api = new AvApi({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        config: {},
+      });
+      api.onResponse = jest.fn(() => api.getError(mockErrorResponse));
+    });
+    test('should catch error in http, and return that error', async () => {
+      const response = await api.request({});
+      expect(response.original).toBe(mockErrorResponse);
+    });
+
+    test('should return error format', async () => {
+      const response = await api.request({});
+      expect(response.code).toBe(500);
+      expect(response.message).toBe('Test Error');
+      expect(response.url).toBe('/url');
+      expect(response.original).toBe(mockErrorResponse);
     });
   });
 
