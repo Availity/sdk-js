@@ -586,7 +586,7 @@ describe('AvApi', () => {
       api.config = jest.fn(() => testNewConfig);
     });
 
-    test('should return response if no polling or afterResponse', () => {
+    test('should return response if no polling', () => {
       const testResponse = {
         testKey: 'test',
       };
@@ -595,45 +595,21 @@ describe('AvApi', () => {
       expect(api.request).not.toBeCalled();
     });
 
-    test('should return result of afterResponse if no polling', () => {
-      const testResponse = {
-        testKey: 'test',
-      };
-      const testResponse2 = {
-        otherKey: 'test2',
-      };
-      api.getLocation.mockImplementationOnce(() => false);
-      const afterResponse = jest.fn(() => testResponse2);
-      expect(api.onResponse(testResponse, afterResponse)).toEqual(
-        testResponse2
-      );
-      expect(api.request).not.toBeCalled();
-      expect(afterResponse).toBeCalledWith(testResponse);
-    });
-
     test('should request when polling', () => {
       api.shouldPoll = jest.fn(() => true);
       api.getLocation = jest.fn(() => testLocation);
-
-      const mockAfterResponse = { testKey: 'after' };
-      const afterResponse = jest.fn(() => mockAfterResponse);
 
       const mockConfig = {
         testVal: 'test',
       };
 
-      const output = api
-        .onResponse({ config: mockConfig }, afterResponse)
-        .then(() => {
-          expect(api.config).toHaveBeenCalledWith(mockConfig);
-          expect(setTimeout).toHaveBeenCalledTimes(1);
-          expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
-          expect(api.request).toHaveBeenCalledWith(
-            expectedNewConfig,
-            afterResponse
-          );
-          return true;
-        });
+      const output = api.onResponse({ config: mockConfig }).then(() => {
+        expect(api.config).toHaveBeenCalledWith(mockConfig);
+        expect(setTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
+        expect(api.request).toHaveBeenCalledWith(expectedNewConfig);
+        return true;
+      });
 
       jest.runAllTimers();
       return output;
@@ -690,19 +666,11 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
-      api.onResponse = jest.fn(() => api.getError(mockErrorResponse));
+      api.onResponse = jest.fn(() => mockErrorResponse);
     });
     test('should catch error in http, and return that error', async () => {
       const response = await api.request({});
-      expect(response.original).toBe(mockErrorResponse);
-    });
-
-    test('should return error format', async () => {
-      const response = await api.request({});
-      expect(response.code).toBe(500);
-      expect(response.message).toBe('Test Error');
-      expect(response.url).toBe('/url');
-      expect(response.original).toBe(mockErrorResponse);
+      expect(response).toBe(mockErrorResponse);
     });
   });
 
@@ -742,29 +710,7 @@ describe('AvApi', () => {
       );
       api.create(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
-    });
-
-    test('create() passes data through beforeCreate() if defined', () => {
-      const config = {
-        testValue: 'test',
-      };
-      const data = {
-        testData: 'data',
-      };
-      const expectedConfig = Object.assign(
-        {
-          method: 'POST',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
-      api.beforeCreate = jest.fn(thisData => thisData);
-      api.create(data, config);
-      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
-      expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('create() throws error without data', () => {
@@ -798,33 +744,7 @@ describe('AvApi', () => {
       );
       api.postGet(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
-    });
-
-    test('postGet() passes data through beforeCreate() if defined', () => {
-      const config = {
-        testValue: 'test',
-      };
-      const data = {
-        testData: 'data',
-      };
-      const expectedConfig = Object.assign(
-        {
-          method: 'POST',
-          url: testUrl,
-          headers: {
-            'X-HTTP-Method-Override': 'GET',
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        },
-        config,
-        { data: 'testData=data' }
-      );
-      api.beforePostGet = jest.fn(thisData => thisData);
-      api.postGet(data, config);
-      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
-      expect(api.beforePostGet).toHaveBeenLastCalledWith(data);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('postGet() throws error without data', () => {
@@ -852,7 +772,7 @@ describe('AvApi', () => {
       api.get(id, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('get() throws error without id', () => {
@@ -879,7 +799,7 @@ describe('AvApi', () => {
       api.query(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('all() setting method and url', () => {
@@ -896,7 +816,7 @@ describe('AvApi', () => {
       api.all(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('all() getting next pages', done => {
@@ -967,29 +887,7 @@ describe('AvApi', () => {
       );
       api.update(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
-    });
-
-    test('update() calls beforeUpdate() if defined', () => {
-      const config = {
-        testValue: 'test',
-      };
-      const id = 'id';
-      const data = {
-        testData: 'data',
-      };
-      const expectedConfig = Object.assign(
-        {
-          method: 'PUT',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
-      api.beforeUpdate = jest.fn(thisData => thisData);
-      api.update(id, data, config);
-      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('update() should use only two arguments as data and config', () => {
@@ -1010,7 +908,7 @@ describe('AvApi', () => {
       api.beforeUpdate = jest.fn(thisData => thisData);
       api.update(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('remove() setting method and url', () => {
@@ -1027,7 +925,7 @@ describe('AvApi', () => {
       );
       api.remove(id, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
-      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig);
     });
 
     test('remove() should set first argument as config if not string or number', () => {
@@ -1041,23 +939,7 @@ describe('AvApi', () => {
       };
       api.remove(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
-      expect(api.request).toHaveBeenLastCalledWith(config, undefined);
-    });
-
-    test('remove() should call beforeRemove() if defined', () => {
-      const config = {
-        method: 'DELETE',
-        url: testUrl,
-        data: {
-          a: '1',
-          b: '2',
-        },
-      };
-      api.beforeRemove = jest.fn(thisData => thisData);
-      api.remove(config);
-      expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
-      expect(api.request).toHaveBeenLastCalledWith(config, undefined);
-      expect(api.beforeRemove).toHaveBeenLastCalledWith(config);
+      expect(api.request).toHaveBeenLastCalledWith(config);
     });
   });
 });

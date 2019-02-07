@@ -1,6 +1,5 @@
 import AvLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
-import get from 'lodash.get';
 
 import API_OPTIONS from './options';
 
@@ -139,7 +138,7 @@ export default class AvApi {
   }
 
   // handle response with possible polling
-  onResponse(response, afterResponse) {
+  onResponse(response) {
     if (this.shouldPoll(response)) {
       const newConfig = this.config(response.config);
       const pollingUrl = this.getLocation(response);
@@ -153,32 +152,23 @@ export default class AvApi {
             resolve,
             newConfig.pollingIntervals[newConfig.attempt] || 1000
           );
-        }).then(() => this.request(newConfig, afterResponse));
+        }).then(() => this.request(newConfig));
       }
     }
 
-    return afterResponse ? afterResponse(response) : response;
-  }
-
-  getError(error) {
-    const response = {};
-    response.original = error;
-    response.code = get(error, 'response.status');
-    response.message = get(error, 'response.statusText');
-    response.url = get(error, 'config.url');
     return response;
   }
 
   // make request to http
-  request(config, afterResponse) {
+  request(config) {
     if (config.polling) {
       config.attempt = config.attempt || 0;
       config.attempt += 1;
     }
 
     return this.http(config)
-      .then(response => this.onResponse(response, afterResponse))
-      .catch(error => this.Promise.reject(this.getError(error)));
+      .then(response => this.onResponse(response))
+      .catch(error => this.Promise.reject(error));
   }
 
   // post request
@@ -191,12 +181,7 @@ export default class AvApi {
     config.url = this.getUrl(config);
     config.data = data;
 
-    const beforeFunc = this.beforeCreate || this.beforePost;
-    if (beforeFunc) {
-      config.data = beforeFunc(config.data);
-    }
-
-    return this.request(config, this.afterCreate || this.afterPost);
+    return this.request(config);
   }
 
   post(data, config) {
@@ -216,9 +201,6 @@ export default class AvApi {
       config.headers['Content-Type'] || 'application/x-www-form-urlencoded';
     config.url = this.getUrl(config);
     config.data = data;
-    if (this.beforePostGet) {
-      config.data = this.beforePostGet(config.data);
-    }
     if (
       typeof config.data !== 'string' &&
       config.headers['Content-Type'] === 'application/x-www-form-urlencoded'
@@ -230,7 +212,7 @@ export default class AvApi {
         allowDots: true,
       });
     }
-    return this.request(config, this.afterPostGet);
+    return this.request(config);
   }
 
   // get request with id
@@ -242,7 +224,7 @@ export default class AvApi {
     config.method = 'GET';
     config.url = this.getUrl(config, id);
     config = this.cacheParams(config);
-    return this.request(config, this.afterGet);
+    return this.request(config);
   }
 
   // get request with just params
@@ -251,7 +233,7 @@ export default class AvApi {
     config.method = 'GET';
     config.url = this.getUrl(config);
     config = this.cacheParams(config);
-    return this.request(config, this.afterQuery);
+    return this.request(config);
   }
 
   all(config) {
@@ -303,11 +285,7 @@ export default class AvApi {
     config.url = this.getUrl(config, id);
     config.data = data;
 
-    const beforeFunc = this.beforeUpdate || this.beforePut;
-    if (beforeFunc) {
-      config.data = beforeFunc(config.data);
-    }
-    return this.request(config, this.afterUpdate || this.afterPut);
+    return this.request(config);
   }
 
   put(...args) {
@@ -324,11 +302,7 @@ export default class AvApi {
     config.method = 'DELETE';
     config.url = this.getUrl(config, id);
 
-    const beforeFunc = this.beforeRemove || this.beforeDelete;
-    if (beforeFunc) {
-      config = beforeFunc(config);
-    }
-    return this.request(config, this.afterRemove || this.afterDelete);
+    return this.request(config);
   }
 
   delete(...args) {
