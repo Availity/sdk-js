@@ -20,11 +20,6 @@ export default class AvRegions extends AvApi {
     this.avUsers = avUsers;
   }
 
-  afterUpdate(response) {
-    this.setPageBust();
-    return response;
-  }
-
   getRegions(config) {
     if (!this.avUsers || !this.avUsers.me) {
       throw new Error('avUsers must be defined');

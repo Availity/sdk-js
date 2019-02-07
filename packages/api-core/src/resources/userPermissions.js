@@ -20,12 +20,6 @@ export default class AvUserPermissions extends AvApi {
     });
   }
 
-  afterQuery(response) {
-    return response && response.data && response.data.axiUserPermissions
-      ? response.data.axiUserPermissions
-      : [];
-  }
-
   getPermissions(permissionId, region) {
     return this.query({
       params: { permissionId, region },

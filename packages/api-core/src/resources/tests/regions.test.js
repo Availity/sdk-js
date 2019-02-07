@@ -34,27 +34,6 @@ describe('AvRegions', () => {
     expect(api).toBeDefined();
   });
 
-  test('afterUpdate should call setPageBust and return response', () => {
-    api = new AvRegions({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      config: {},
-    });
-    api.setPageBust = jest.fn();
-    const testResponse1 = {};
-    const regions = ['testRegion'];
-    const testResponse2 = {
-      data: {
-        regions,
-      },
-    };
-    expect(api.afterUpdate(testResponse1)).toEqual(testResponse1);
-    expect(api.afterUpdate(testResponse2)).toEqual(testResponse2);
-    expect(api.setPageBust).toHaveBeenCalledTimes(2);
-  });
-
   test('getRegions should fail if avUsers not defined', () => {
     api = new AvRegions({
       http: mockHttp,

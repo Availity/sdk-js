@@ -25,24 +25,6 @@ describe('AvUserPermissions', () => {
     expect(api).toBeDefined();
   });
 
-  test('afterQuery should return response.data.axiUserPermissions if it exists or an empty array', () => {
-    api = new AvUserPermissions({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
-    const testResponse1 = {};
-    const axiUserPermissions = ['testPermission'];
-    const testResponse2 = {
-      data: {
-        axiUserPermissions,
-      },
-    };
-    expect(api.afterQuery(testResponse1)).toEqual([]);
-    expect(api.afterQuery(testResponse2)).toEqual(axiUserPermissions);
-  });
-
   test('getPermissions should query with permissionId and region params from arguments', () => {
     api = new AvUserPermissions({
       http: mockHttp,
