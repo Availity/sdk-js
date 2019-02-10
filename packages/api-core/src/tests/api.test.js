@@ -678,11 +678,6 @@ describe('AvApi', () => {
   });
 
   describe('request error', () => {
-    const mockErrorResponse = {
-      response: { status: 500, statusText: 'Test Error' },
-      config: { url: '/url' },
-    };
-
     beforeEach(() => {
       api = new AvApi({
         http: mockHttp,
@@ -690,19 +685,12 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
-      api.onResponse = jest.fn(() => api.getError(mockErrorResponse));
+      api.onResponse = jest.fn(() => {
+        throw new Error('boom!');
+      });
     });
-    test('should catch error in http, and return that error', async () => {
-      const response = await api.request({});
-      expect(response.original).toBe(mockErrorResponse);
-    });
-
-    test('should return error format', async () => {
-      const response = await api.request({});
-      expect(response.code).toBe(500);
-      expect(response.message).toBe('Test Error');
-      expect(response.url).toBe('/url');
-      expect(response.original).toBe(mockErrorResponse);
+    test('should throw error', async () => {
+      await expect(api.request({})).rejects.toThrow();
     });
   });
 
