@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-mocks';
-import AvModule from '../';
+import AvModule from '..';
 
 describe('AvAnalyticsPlugin', () => {
   // let $q;

@@ -1,4 +1,4 @@
-import avModule from '../';
+import avModule from '..';
 
 describe('api module', () => {
   test('should be defined', () => {

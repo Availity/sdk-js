@@ -72,7 +72,7 @@ export default class AvAnalytics {
     const target = event.target || event.srcElement;
     const analyticAttrs = getAnalyticAttrs(target);
 
-    if (!Object.keys(analyticAttrs).length) {
+    if (!Object.keys(analyticAttrs).length > 0) {
       return;
     }
     analyticAttrs.elemId =
@@ -108,7 +108,7 @@ export default class AvAnalytics {
   }
 
   setPageTracking(value) {
-    if (arguments.length) {
+    if (arguments.length > 0) {
       this.pageTracking = !!value;
     }
 

@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-mocks';
-import avModule from '../';
+import avModule from '..';
 
 describe('avAuthorizations', () => {
   let avAuthorizations;

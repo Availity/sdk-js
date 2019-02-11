@@ -21,7 +21,9 @@ export default class AvFiles extends AvMicroservice {
 
   uploadFile(data, config) {
     if (!config.customerId || !config.clientId) {
-      throw Error('[config.customerId] and [config.clientId] must be defined');
+      throw new Error(
+        '[config.customerId] and [config.clientId] must be defined'
+      );
     }
     config = this.config(config);
     config.headers['X-Availity-Customer-ID'] = config.customerId;

@@ -1,4 +1,4 @@
-import { AvAnalyticsPlugin } from '../';
+import { AvAnalyticsPlugin } from '..';
 
 describe('AvAnalyticsPlugin', () => {
   let mockPlugin;

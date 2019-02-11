@@ -9,7 +9,7 @@ class AvMessage {
   }
 
   enabled(value) {
-    if (arguments.length) {
+    if (arguments.length > 0) {
       this.isEnabled = !!value;
     }
     return this.isEnabled;
@@ -21,7 +21,7 @@ class AvMessage {
       !event ||
       !event.data ||
       !event.origin ||
-      !event.source || // check event exists and has necesary properties
+      !event.source || // check event exists and has necessary properties
       event.source === window || // don't process messages emitted from the same window
       !this.isDomain(event.origin)
     ) {
@@ -34,8 +34,9 @@ class AvMessage {
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data);
-      } catch (e) {
-        // warn about error
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
       }
     }
 
@@ -106,8 +107,9 @@ class AvMessage {
       const message =
         typeof payload === 'string' ? payload : JSON.stringify(payload);
       target.postMessage(message, this.domain());
-    } catch (err) {
-      console.warn('AvMessage.send() ', err); // eslint-disable-line
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn('AvMessage.send()', error);
     }
   }
 }

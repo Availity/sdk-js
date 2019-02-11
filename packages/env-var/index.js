@@ -39,6 +39,7 @@ export function getCurrentEnv(windowOverride = window) {
           case '[object RegExp]':
             return test.test(subdomain);
           case '[object Function]':
+            // eslint-disable-next-line jest/no-disabled-tests
             return test();
           default:
             return false;

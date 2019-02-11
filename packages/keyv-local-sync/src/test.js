@@ -1,4 +1,4 @@
-import Keyv from './';
+import Keyv from '.';
 
 describe('Keyv', () => {
   test('should exist', () => {
@@ -9,7 +9,8 @@ describe('Keyv', () => {
     }).toThrow();
 
     expect(() => {
-      new Keyv(); // eslint-disable-line
+      // eslint-disable-next-line no-new
+      new Keyv();
     }).not.toThrow();
   });
 

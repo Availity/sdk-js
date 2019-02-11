@@ -1,4 +1,4 @@
-import { AvSplunkAnalytics } from '../';
+import { AvSplunkAnalytics } from '..';
 
 describe('AvSplunkAnalytics', () => {
   let mockLog;

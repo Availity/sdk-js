@@ -1,4 +1,4 @@
-import nativeForm from '../';
+import nativeForm from '..';
 import flattenObject from '../flattenObject';
 
 describe('nativeForm', () => {
@@ -50,7 +50,7 @@ describe('nativeForm', () => {
       if (form) form.remove();
     });
     test('spaceId is required', () => {
-      expect(() => nativeForm()).toThrowError(
+      expect(() => nativeForm()).toThrow(
         'spaceId is required and was not provided'
       );
     });

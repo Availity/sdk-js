@@ -5,8 +5,9 @@ const hashCode = str => {
   if (str.length === 0) return hash;
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char; // eslint-disable-line
-    hash = hash & hash; // eslint-disable-line
+    hash = (hash << 5) - hash + char; // eslint-disable-line no-bitwise
+    // eslint-disable-next-line operator-assignment
+    hash = hash & hash; // eslint-disable-line no-bitwise
   }
   return hash;
 };
@@ -44,19 +45,19 @@ const defaultOptions = {
 class Upload {
   constructor(file, options) {
     if (!file) {
-      throw Error('[options.file] must be defined and of type File(s)');
+      throw new Error('[options.file] must be defined and of type File(s)');
     }
 
     if (!options || !options.bucketId) {
-      throw Error('[options.bucketId] must be defined');
+      throw new Error('[options.bucketId] must be defined');
     }
 
     if (!options.customerId) {
-      throw Error('[options.customerId] must be defined');
+      throw new Error('[options.customerId] must be defined');
     }
 
     if (!options.clientId) {
-      throw Error('[options.clientId] must be defined');
+      throw new Error('[options.clientId] must be defined');
     }
 
     this.file = file;
@@ -72,7 +73,7 @@ class Upload {
     this.status = 'pending';
     this.timeoutID = undefined;
     this.error = null;
-    this.waitForPw = true;
+    this.waitForPassword = true;
   }
 
   inStatusCategory(status, category) {
@@ -97,6 +98,7 @@ class Upload {
       xhr.setRequestHeader(data.header, data.value);
     }
 
+    // eslint-disable-next-line unicorn/prefer-add-event-listener
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
         this.setError(
@@ -119,7 +121,7 @@ class Upload {
       }
 
       if (result.status === 'encrypted') {
-        if (this.waitForPw) {
+        if (this.waitForPassword) {
           this.setError(result.status, result.message);
           clearTimeout(this.timeoutId);
           return;
@@ -148,6 +150,7 @@ class Upload {
       }, 50);
     };
 
+    // eslint-disable-next-line unicorn/prefer-add-event-listener
     xhr.onerror = err => {
       this.setError('rejected', 'Network Error', err);
       this.error = err;
@@ -214,7 +217,7 @@ class Upload {
         if (!this.isValidFile()) {
           return;
         }
-        const xhr = this.upload._xhr; // eslint-disable-line
+        const xhr = this.upload._xhr;
         this.bytesScanned =
           parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
         this.percentage = this.getPercentage();
@@ -250,7 +253,7 @@ class Upload {
   }
 
   sendPassword(pw) {
-    this.waitForPw = false;
+    this.waitForPassword = false;
     this.scan({ header: 'Encryption-Password', value: pw });
   }
 
@@ -312,7 +315,7 @@ class Upload {
     }
 
     if (uploadResult === 'rejected') {
-      this.waitForPw = true;
+      this.waitForPassword = true;
       if (decryptResult === 'rejected') {
         return {
           status: uploadResult,
@@ -325,13 +328,13 @@ class Upload {
     if (uploadResult === 'encrypted') {
       // needs pw, isDecrypting, isScanning
       if (
-        !this.waitForPw &&
+        !this.waitForPassword &&
         (decryptResult === null || decryptResult === 'pending')
       ) {
         return { status: 'decrypting', message: msg || 'Decrypting file' };
       }
       if (decryptResult === 'rejected') {
-        this.waitForPw = true;
+        this.waitForPassword = true;
         return { status: uploadResult, message: msg || 'Incorrect password' };
       }
       return {

@@ -1,6 +1,5 @@
-/* eslint-disable promise/no-callback-in-promise, promise/valid-params */
 import MockDate from 'mockdate';
-import AvExceptions from '../';
+import AvExceptions from '..';
 
 jest.useFakeTimers();
 
@@ -11,7 +10,7 @@ describe('AvExceptions', () => {
   let mockExceptions;
 
   beforeEach(() => {
-    mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line
+    mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line no-console
   });
 
   test('AvExceptions should be defined', () => {
@@ -140,8 +139,8 @@ describe('AvExceptions', () => {
 
       try {
         throw new Error('mock error');
-      } catch (e) {
-        exception = e;
+      } catch (error) {
+        exception = error;
       }
     });
 
@@ -169,9 +168,10 @@ describe('AvExceptions', () => {
         .then(() => {
           expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
           expect(mockLog).toHaveBeenCalled();
+          // eslint-disable-next-line promise/no-callback-in-promise
           return done();
         })
-        .catch();
+        .catch(error => error);
     });
 
     test('should build message and reset currentHits to 0', done => {
@@ -209,9 +209,10 @@ describe('AvExceptions', () => {
           expect(
             mockExceptions.errorMessageHistory[errorMessage].currentHits
           ).toBe(0);
+          // eslint-disable-next-line promise/no-callback-in-promise
           return done();
         })
-        .catch();
+        .catch(error => error);
     });
 
     test('should merge errorMessage into message if defined', done => {
@@ -263,9 +264,10 @@ describe('AvExceptions', () => {
         .then(() => {
           expect(mockLog).toHaveBeenCalledWith(expectedCall);
           expect(mockExceptions.errorMessage).toHaveBeenCalled();
+          // eslint-disable-next-line promise/no-callback-in-promise
           return done();
         })
-        .catch();
+        .catch(error => error);
     });
   });
 

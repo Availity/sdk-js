@@ -1,4 +1,4 @@
-import { AvAnalytics } from '../';
+import { AvAnalytics } from '..';
 
 function makePlugin() {
   return {

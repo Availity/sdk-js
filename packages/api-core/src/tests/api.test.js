@@ -31,7 +31,7 @@ describe('AvApi', () => {
         merge: false,
         config: false,
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       api = new AvApi({
@@ -40,7 +40,7 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       api = new AvApi({
@@ -49,7 +49,7 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       api = new AvApi({
@@ -58,7 +58,7 @@ describe('AvApi', () => {
         merge: false,
         config: {},
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       api = new AvApi({
@@ -67,7 +67,7 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: false,
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
   });
 
   test('getQueryResultKey(data) should determine the key for the list within data', () => {
@@ -171,7 +171,7 @@ describe('AvApi', () => {
       const testResponse = 'test';
       const defaultFn = jest.fn(() => testResponse);
       expect(api.getCacheBustVal(testCache, defaultFn)).toBe(testResponse);
-      expect(defaultFn).toBeCalled();
+      expect(defaultFn).toHaveBeenCalled();
     });
 
     test('should call and return passed in function', () => {
@@ -179,8 +179,8 @@ describe('AvApi', () => {
       const testCache = jest.fn(() => testResponse);
       const defaultFn = jest.fn(() => `${testResponse}2`);
       expect(api.getCacheBustVal(testCache, defaultFn)).toBe(testResponse);
-      expect(testCache).toBeCalled();
-      expect(defaultFn).not.toBeCalled();
+      expect(testCache).toHaveBeenCalled();
+      expect(defaultFn).not.toHaveBeenCalled();
     });
   });
 
@@ -207,7 +207,7 @@ describe('AvApi', () => {
     Date.now = jest.fn(() => test);
     api.setPageBust();
     expect(api.pageBustValue).toBe(test);
-    expect(Date.now).toBeCalled();
+    expect(Date.now).toHaveBeenCalled();
   });
 
   test('getPageBust() should return pageBustValue() if set', () => {
@@ -234,7 +234,7 @@ describe('AvApi', () => {
       api.pageBustValue = test;
     });
     expect(api.getPageBust()).toBe(test);
-    expect(api.setPageBust).toBeCalled();
+    expect(api.setPageBust).toHaveBeenCalled();
   });
 
   describe('addParams', () => {
@@ -376,7 +376,7 @@ describe('AvApi', () => {
       };
       api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(localStorageVal);
-      expect(api.localStorage.getSessionBust).toBeCalled();
+      expect(api.localStorage.getSessionBust).toHaveBeenCalled();
     });
 
     test("sessionBust defaultFn should use pageBust value when  localStorage's sessionBust is not available", () => {
@@ -388,7 +388,7 @@ describe('AvApi', () => {
       };
       api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(testPageBust);
-      expect(api.localStorage.getSessionBust).toBeCalled();
+      expect(api.localStorage.getSessionBust).toHaveBeenCalled();
     });
   });
 
@@ -592,7 +592,7 @@ describe('AvApi', () => {
       };
       api.getLocation.mockImplementationOnce(() => false);
       expect(api.onResponse(testResponse)).toEqual(testResponse);
-      expect(api.request).not.toBeCalled();
+      expect(api.request).not.toHaveBeenCalled();
     });
 
     test('should return result of afterResponse if no polling', () => {
@@ -607,8 +607,8 @@ describe('AvApi', () => {
       expect(api.onResponse(testResponse, afterResponse)).toEqual(
         testResponse2
       );
-      expect(api.request).not.toBeCalled();
-      expect(afterResponse).toBeCalledWith(testResponse);
+      expect(api.request).not.toHaveBeenCalled();
+      expect(afterResponse).toHaveBeenCalledWith(testResponse);
     });
 
     test('should request when polling', () => {

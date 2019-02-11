@@ -10,8 +10,9 @@ class AvExceptionsProvider {
     this.thisAppid = undefined;
     this.REPEAT_LIMIT = undefined;
   }
+
   enabled(value) {
-    if (arguments.length) {
+    if (arguments.length > 0) {
       this.isEnabled = !!value;
     }
     return this.isEnabled;

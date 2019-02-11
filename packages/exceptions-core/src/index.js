@@ -14,9 +14,9 @@ export default class AvExceptions {
 
     this.StackTrace = StackTrace;
 
-    window.onerror = (msg, file, line, col, error) => {
+    window.addEventListener('error', (msg, file, line, col, error) => {
       this.submitError(error);
-    }
+    });
   }
 
   submitError(error) {
@@ -28,7 +28,7 @@ export default class AvExceptions {
   }
 
   enabled(value) {
-    if (arguments.length) {
+    if (arguments.length > 0) {
       this.isEnabled = !!value;
     }
     return this.isEnabled;
@@ -89,7 +89,7 @@ export default class AvExceptions {
       !exception ||
       (!skipRepeat && this.isRepeatError(exception))
     ) {
-      return;
+      return undefined;
     }
 
     const errorMessage = exception.message;
