@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-mocks';
-import avApiModule from '../';
+import avApiModule from '..';
 
 describe('avApiOptionsProvider', () => {
   let provider;

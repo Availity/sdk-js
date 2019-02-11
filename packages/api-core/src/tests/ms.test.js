@@ -8,7 +8,7 @@ const defaultPath = API_OPTIONS.MS.path;
 describe('AvMicroservice', () => {
   let ms;
 
-  test('AvMicroservice should be defined', () => {
+  test('should be defined', () => {
     ms = new AvMicroservice({
       http: mockHttp,
       promise: Promise,
@@ -18,7 +18,7 @@ describe('AvMicroservice', () => {
     expect(ms).toBeDefined();
   });
 
-  test('AvMicroservice should throw errors when missing paramaters', () => {
+  test('should throw errors when missing paramaters', () => {
     // expect(() => {
     //   ms = new AvMicroservice();
     // }).toThrowError('[http], [promise], [config], and [merge] must be defined');
@@ -30,7 +30,7 @@ describe('AvMicroservice', () => {
         merge: false,
         config: false,
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       ms = new AvMicroservice({
@@ -39,7 +39,7 @@ describe('AvMicroservice', () => {
         merge: mockMerge,
         config: {},
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       ms = new AvMicroservice({
@@ -48,7 +48,7 @@ describe('AvMicroservice', () => {
         merge: mockMerge,
         config: {},
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       ms = new AvMicroservice({
@@ -57,7 +57,7 @@ describe('AvMicroservice', () => {
         merge: false,
         config: {},
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       ms = new AvMicroservice({
@@ -66,7 +66,7 @@ describe('AvMicroservice', () => {
         merge: mockMerge,
         config: false,
       });
-    }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    }).toThrow('[http], [promise], [config], and [merge] must be defined');
   });
 
   test('config() should be API_OPTIONS_MS default', () => {
@@ -114,7 +114,6 @@ describe('AvMicroservice', () => {
 
     test('get() should build url with id', async () => {
       await ms.get(1);
-
       expect(mockHttp.mock.calls[0][0].url).toBe('/ms/api/availity/internal/1');
     });
 

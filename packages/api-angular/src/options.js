@@ -8,9 +8,11 @@ class AvApiOptionsProvider {
       },
     };
   }
+
   setOptions(options) {
     angular.merge(this.defaultOptions, options);
   }
+
   getOptions() {
     return angular.copy(this.defaultOptions);
   }

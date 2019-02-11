@@ -2,7 +2,7 @@ class AvAuthorizations {
   constructor(avPermissions, avRegions, promise) {
     // make sure all params are passed in
     if (!avPermissions || !avRegions || !promise) {
-      throw Error('A permission, region, and promise are required');
+      throw new Error('A permission, region, and promise are required');
     }
 
     // save paramaters

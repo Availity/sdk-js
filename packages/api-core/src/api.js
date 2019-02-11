@@ -63,7 +63,7 @@ export default class AvApi {
   // get the cache value with default function
   getCacheBustVal(cacheBust, defaultFn) {
     if (!cacheBust) {
-      return;
+      return undefined;
     }
 
     if (typeof cacheBust === 'boolean' && defaultFn) {

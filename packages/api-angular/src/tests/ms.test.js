@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-mocks';
-import avModule from '../';
+import avModule from '..';
 
 describe('MicroserviceApi Definitions Angular', () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe('MicroserviceApi Definitions Angular', () => {
         const AvMicroserviceApi = _AvMicroserviceApi_;
         expect(AvMicroserviceApi).toBeDefined();
         expect(() => {
-          // eslint-disable-next-line
+          // eslint-disable-next-line no-new
           new AvMicroserviceApi({ path: '/a/b', name: 'foo' });
         }).not.toThrow();
 

@@ -14,7 +14,7 @@ import Api, {
   avFilesApi,
   avFilesDeliveryApi,
   avSettingsApi,
-} from '../';
+} from '..';
 
 describe('AvAPi', () => {
   test('should be defined', () => {

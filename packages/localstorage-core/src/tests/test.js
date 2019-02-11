@@ -1,4 +1,4 @@
-import AvLocalStorage from '../';
+import AvLocalStorage from '..';
 
 let avLocalStorage;
 

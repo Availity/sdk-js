@@ -40,13 +40,15 @@ describe('upload.core', () => {
 
   it('should throw error for missing files', () => {
     expect(() => {
-      new Upload(); // eslint-disable-line
+      // eslint-disable-next-line no-new
+      new Upload();
     }).toThrow('[options.file] must be defined and of type File');
   });
 
   it('should throw error with missing bucket id', () => {
     expect(() => {
-      new Upload([]); // eslint-disable-line
+      // eslint-disable-next-line no-new
+      new Upload([]);
     }).toThrow('[options.bucketId] must be defined');
   });
 
@@ -60,13 +62,14 @@ describe('upload.core', () => {
   it('should allow single file as constructor argument', () => {
     const file = Buffer.from('hello world'.split(''));
     file.name = 'fileName.png';
-    new Upload(file, options); // eslint-disable-line
+    // eslint-disable-next-line no-new
+    new Upload(file, options);
   });
 
   it('should throw error for invalid file type', () => {
     const file = Buffer.from('hello world'.split(''));
     file.name = 'notCoolFile.docx';
-    const upload = new Upload(file, optionsWithFileTypes); // eslint-disable-line
+    const upload = new Upload(file, optionsWithFileTypes);
     upload.start();
     expect(upload.isValidFile()).toBeFalsy();
   });
@@ -74,7 +77,8 @@ describe('upload.core', () => {
   it('should allow the correct file type', () => {
     const file = Buffer.from('hello world'.split(''));
     file.name = 'coolFile.PNG';
-    new Upload(file, optionsWithFileTypes); // eslint-disable-line
+    // eslint-disable-next-line no-new
+    new Upload(file, optionsWithFileTypes);
   });
 
   it('should use default options', () => {

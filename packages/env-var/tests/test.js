@@ -1,6 +1,7 @@
 import envVar, { setEnvironments } from '../index';
 
 const setHostname = hostname => {
+  // eslint-disable-next-line no-undef
   jsdom.reconfigure({
     url: `https://${hostname}/`,
   });

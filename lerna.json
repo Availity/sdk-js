@@ -1,14 +1,13 @@
 {
   "lerna": "2.5.1",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "message": "chore: publish %s",
   "command": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": ["master", "feature/*"],
       "conventionalCommits": true
     }
   },
+  "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json"],
   "version": "independent"
 }

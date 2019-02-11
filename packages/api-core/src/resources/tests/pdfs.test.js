@@ -25,7 +25,7 @@ describe('AvPdfs', () => {
     });
     expect(() => {
       api = api.getPdf({});
-    }).toThrowError('[applicationId], [fileName] and [html] must be defined');
+    }).toThrow('[applicationId], [fileName] and [html] must be defined');
   });
 
   test('should call onPdf() when pdf completes', async () => {

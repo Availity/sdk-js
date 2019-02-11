@@ -5,7 +5,7 @@ class AvLocalStorage {
     let output;
     try {
       output = JSON.parse(value);
-    } catch (e) {
+    } catch (error) {
       output = value;
     }
     return output;
@@ -37,6 +37,8 @@ class AvLocalStorage {
       }
       return output;
     }
+
+    return undefined;
   }
 
   removeKeys(searchKey) {

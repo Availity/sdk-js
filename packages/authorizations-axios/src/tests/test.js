@@ -1,4 +1,4 @@
-import avAuthorizations from '../';
+import avAuthorizations from '..';
 
 describe('AvAuthorizations', () => {
   test('AvAuthorizations should be defined', () => {

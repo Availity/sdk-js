@@ -32,6 +32,6 @@ export default (
     .join('');
 
   form.insertAdjacentHTML('beforeend', fields);
-  document.body.appendChild(form);
+  document.body.append(form);
   form.submit();
 };

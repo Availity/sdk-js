@@ -8,19 +8,21 @@ export default class AvAnalyticsProvider {
 
     this.$get.$inject = ['$log', '$injector', '$q', '$rootScope'];
   }
+
   registerPlugins(plugins) {
     if (typeof plugins === 'string') {
       this.plugins = [plugins];
     } else if (Array.isArray(plugins)) {
       this.plugins = plugins;
     } else {
-      throw new Error(
+      throw new TypeError(
         'AvAnalyticsProvider.registerPlugins() expects a string or an array.'
       );
     }
   }
+
   setVirtualPageTracking(value) {
-    if (arguments.length) {
+    if (arguments.length > 0) {
       this.virtualPageTracking = !!value;
     }
   }
@@ -39,7 +41,7 @@ export default class AvAnalyticsProvider {
           if (typeof plugin === 'string') {
             try {
               plugins.push($injector.get(plugin));
-            } catch (err) {
+            } catch (error) {
               $log.error(`Could not load ${plugin} plugin`);
             }
           } else {

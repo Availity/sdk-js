@@ -1,4 +1,4 @@
-import AvAuthorizations from '../';
+import AvAuthorizations from '..';
 
 expect.extend({
   toBeAuthorized(permissions, ids) {
@@ -107,7 +107,7 @@ describe('AvAuthorizations', () => {
   test('AvAuthorizations throws error when constructed without all params', () => {
     expect(() => {
       testAuthorizations = new AvAuthorizations();
-    }).toThrowError('A permission, region, and promise are required');
+    }).toThrow('A permission, region, and promise are required');
   });
 
   describe('Add permissions to map', () => {
@@ -192,7 +192,7 @@ describe('AvAuthorizations', () => {
 
   test('getRegion should use region api when no region is given', async () => {
     const region = await testAuthorizations.getRegion();
-    expect(mockRegions.getCurrentRegion).toBeCalled();
+    expect(mockRegions.getCurrentRegion).toHaveBeenCalled();
     expect(region).toBe(mockRegion);
   });
 
@@ -257,7 +257,7 @@ describe('AvAuthorizations', () => {
     test('Get permissions should call permission api', async () => {
       const testIds = ['123', '456'];
       await testAuthorizations.getPermissions(testIds);
-      expect(mockPermissions.getPermissions).toBeCalled();
+      expect(mockPermissions.getPermissions).toHaveBeenCalled();
     });
 
     test('should return requested permissions with isAuthorized flag set', async () => {
@@ -271,8 +271,8 @@ describe('AvAuthorizations', () => {
       const testIds = '123';
       try {
         await testAuthorizations.getPermissions(testIds);
-      } catch (err) {
-        expect(err).toBe('permissionIds must be an array of strings');
+      } catch (error) {
+        expect(error).toBe('permissionIds must be an array of strings');
       }
     });
 
@@ -280,8 +280,8 @@ describe('AvAuthorizations', () => {
       const testIds = ['123', 456];
       try {
         await testAuthorizations.getPermissions(testIds);
-      } catch (err) {
-        expect(err).toBe('permissionIds must be an array of strings');
+      } catch (error) {
+        expect(error).toBe('permissionIds must be an array of strings');
       }
     });
   });
@@ -293,14 +293,17 @@ describe('AvAuthorizations', () => {
       testId,
       testRegion
     );
-    expect(mockPermissions.getPermissions).lastCalledWith([testId], testRegion);
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
+      [testId],
+      testRegion
+    );
     expect(permission).toEqual(getMockPermissionValues([testId], true)[0]);
   });
 
   test('getPermission should reject when a non-string is passed in', () => {
     const testId = 123;
-    return testAuthorizations.getPermission(testId).catch(err => {
-      expect(err).toBe('permissionId must be a string');
+    return testAuthorizations.getPermission(testId).catch(error => {
+      expect(error).toBe('permissionId must be a string');
     });
   });
 
@@ -312,7 +315,7 @@ describe('AvAuthorizations', () => {
         testId,
         testRegion
       );
-      expect(mockPermissions.getPermissions).lastCalledWith(
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
         [testId],
         testRegion
       );
@@ -330,7 +333,7 @@ describe('AvAuthorizations', () => {
         testRegion
       );
 
-      expect(mockPermissions.getPermissions).lastCalledWith(
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
         [testId],
         testRegion
       );
@@ -345,7 +348,7 @@ describe('AvAuthorizations', () => {
         testRegion
       );
 
-      expect(mockPermissions.getPermissions).lastCalledWith(
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
         testIds,
         testRegion
       );
@@ -361,13 +364,13 @@ describe('AvAuthorizations', () => {
         unauthorizedMockPermissions
       );
       await testAuthorizations.getPermissions(testIdsFalse, testRegion);
-      expect(mockPermissions.getPermissions).lastCalledWith(
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
         testIdsFalse,
         testRegion
       );
 
       await testAuthorizations.getPermissions(testIdsTrue, testRegion);
-      expect(mockPermissions.getPermissions).lastCalledWith(
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
         testIdsTrue,
         testRegion
       );
@@ -389,7 +392,7 @@ describe('AvAuthorizations', () => {
         testIds,
         testRegion
       );
-      expect(mockPermissions.getPermissions).lastCalledWith(
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
         testIds,
         testRegion
       );
@@ -402,7 +405,10 @@ describe('AvAuthorizations', () => {
     const testId2 = '456';
     const testRegion = 'GA';
     let orgs = await testAuthorizations.getOrganizations(testId, testRegion);
-    expect(mockPermissions.getPermissions).lastCalledWith([testId], testRegion);
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
+      [testId],
+      testRegion
+    );
     expect(orgs).toEqual(
       getMockPermissionValues([testId], true)[0].organizations
     );
@@ -410,7 +416,7 @@ describe('AvAuthorizations', () => {
       unauthorizedMockPermissions
     );
     orgs = await testAuthorizations.getOrganizations(testId2, testRegion);
-    expect(mockPermissions.getPermissions).lastCalledWith(
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
       [testId2],
       testRegion
     );
@@ -426,14 +432,17 @@ describe('AvAuthorizations', () => {
     const testResource = 'testResources';
     const testRegion = 'GA';
     let payers = await testAuthorizations.getPayers(testId, orgId, testRegion);
-    expect(mockPermissions.getPermissions).lastCalledWith([testId], testRegion);
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
+      [testId],
+      testRegion
+    );
     expect(payers).toEqual(testResource);
     mockPermissions.getPermissions.mockImplementationOnce(
       unauthorizedMockPermissions
     );
 
     payers = await testAuthorizations.getPayers(testId2, orgId, testRegion);
-    expect(mockPermissions.getPermissions).lastCalledWith(
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
       [testId2],
       testRegion
     );
