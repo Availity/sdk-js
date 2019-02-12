@@ -9,7 +9,7 @@
     "merge-options-es5": "^1.0.0"
   },
   "peerDependencies": {
-    "@availity/api-core": "^2.0.1",
+    "@availity/api-core": "^4.0.1",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
