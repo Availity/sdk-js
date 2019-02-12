@@ -14,6 +14,7 @@ import Api, {
   avFilesApi,
   avFilesDeliveryApi,
   avSettingsApi,
+  avDisclaimersApi,
 } from '..';
 
 describe('AvAPi', () => {
@@ -42,5 +43,6 @@ describe('API Definitions', () => {
     expect(avFilesApi).toBeDefined();
     expect(avFilesDeliveryApi).toBeDefined();
     expect(avSettingsApi).toBeDefined();
+    expect(avDisclaimersApi).toBeDefined();
   });
 });
