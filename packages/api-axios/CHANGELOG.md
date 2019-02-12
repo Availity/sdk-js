@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@3.0.1...@availity/api-axios@3.1.0) (2019-02-12)
+
+
+### Features
+
+* **api-core:** added graphql resource for slotmachine ([356a686](https://github.com/Availity/sdk-js/commit/356a686))
+* **api-core:** added new resource for disclaimers ([b7de72e](https://github.com/Availity/sdk-js/commit/b7de72e))
+
+
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@3.0.0...@availity/api-axios@3.0.1) (2018-11-20)
 
