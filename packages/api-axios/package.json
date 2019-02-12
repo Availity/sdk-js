@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "3.0.1",
+  "version": "3.0.2-canary.0",
   "description": "Wraps @availity/api-core with Axios",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
@@ -13,7 +13,7 @@
     "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^3.0.0",
+    "@availity/api-core": "^3.0.1-canary.0",
     "axios": "^0.16.0 || ^0.17.0"
   },
   "publishConfig": {

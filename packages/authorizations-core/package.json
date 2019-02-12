@@ -1,7 +1,7 @@
 {
   "name": "@availity/authorizations-core",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2-canary.0",
   "description": "Base configurations for Availity Authorizations",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",

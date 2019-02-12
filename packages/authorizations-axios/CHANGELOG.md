@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2-canary.0](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@3.0.1...@availity/authorizations-axios@3.0.2-canary.0) (2019-02-12)
+
+**Note:** Version bump only for package @availity/authorizations-axios
+
+
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@3.0.0...@availity/authorizations-axios@3.0.1) (2018-11-20)
 
