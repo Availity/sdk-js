@@ -15,6 +15,7 @@ import AvUserPermissions from './resources/userPermissions';
 import AvFiles from './resources/files';
 import AvFilesDelivery from './resources/filesDelivery';
 import AvSettings from './resources/settings';
+import AvDisclaimers from './resources/disclaimers';
 
 export default AvApi;
 
@@ -35,4 +36,5 @@ export {
   AvFiles,
   AvFilesDelivery,
   AvSettings,
+  AvDisclaimers,
 };
