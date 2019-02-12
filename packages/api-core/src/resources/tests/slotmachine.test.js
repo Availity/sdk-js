@@ -57,6 +57,8 @@ describe('AvSlotMachine', () => {
 
     api.create = jest.fn();
     api.query(data);
-    expect(api.create).toHaveBeenLastCalledWith(data);
+    expect(api.create).toHaveBeenLastCalledWith({
+      query: data,
+    });
   });
 });

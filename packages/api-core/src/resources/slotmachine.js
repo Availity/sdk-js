@@ -1,10 +1,10 @@
-import AvApi from '../api';
+import { AvMicroservice } from '..';
 
-export default class AvSlotMachine extends AvApi {
+export default class AvSlotMachine extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
     const options = Object.assign(
       {
-        path: 'ms/api/availity/internal/platform/slotmachine/graphql',
+        name: 'platform/slotmachine/graphql',
       },
       config
     );
@@ -17,6 +17,6 @@ export default class AvSlotMachine extends AvApi {
   }
 
   query(data) {
-    return this.create(data);
+    return this.create({ query: data });
   }
 }
