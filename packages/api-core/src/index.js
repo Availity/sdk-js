@@ -16,6 +16,7 @@ import AvFiles from './resources/files';
 import AvFilesDelivery from './resources/filesDelivery';
 import AvSettings from './resources/settings';
 import AvSlotMachine from './resources/slotmachine';
+import AvDisclaimers from './resources/disclaimers';
 
 export default AvApi;
 
@@ -37,4 +38,5 @@ export {
   AvFilesDelivery,
   AvSettings,
   AvSlotMachine,
+  AvDisclaimers
 };
