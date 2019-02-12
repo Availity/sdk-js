@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@3.1.1...@availity/api-axios@4.0.0) (2019-02-12)
+
+
+### Bug Fixes
+
+* **api-axios:** had to update packge to require v4.0 of api-core ([c5160de](https://github.com/Availity/sdk-js/commit/c5160de))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** api-axios requires v4.0.0 of api-core
+
+
+
+
+
 ## [3.1.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@3.1.0...@availity/api-axios@3.1.1) (2019-02-12)
 
 **Note:** Version bump only for package @availity/api-axios
