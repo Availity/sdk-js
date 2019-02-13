@@ -6,8 +6,8 @@
   "author": "Evan Sharp <evan.sharp@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@availity/api-axios": "^2.2.0",
-    "@availity/exceptions-core": "^2.2.1"
+    "@availity/api-axios": "^4.0.0",
+    "@availity/exceptions-core": "^2.6.1"
   },
   "devDependencies": {
     "@availity/api-axios": "^4.0.0",
