@@ -11,7 +11,10 @@
 	"author": "Robert McGuinness",
 	"license": "MIT",
 	"peerDependencies": {
-		"@availity/api-core": "^2.3.2"
+		"@availity/api-core": "^4.0.1"
+  },
+  "devDependencies": {
+		"@availity/api-core": "^4.0.1"
 	},
 	"dependencies": {
 		"js-file-download": "^0.4.1"
