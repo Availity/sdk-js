@@ -32,6 +32,7 @@ export default (
     .join('');
 
   form.insertAdjacentHTML('beforeend', fields);
-  document.body.append(form);
+  // eslint-disable-next-line unicorn/prefer-node-append
+  document.body.appendChild(form);
   form.submit();
 };
