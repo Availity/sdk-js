@@ -16,7 +16,7 @@ export default class AvSlotMachine extends AvMicroservice {
     });
   }
 
-  query(data) {
-    return this.create({ query: data });
+  query(data, variables) {
+    return this.create({ query: data, variables });
   }
 }
