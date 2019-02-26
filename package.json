@@ -7,17 +7,19 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --no-ci",
     "link": "lerna link",
     "updated": "lerna updated",
     "clean": "lerna clean --yes",
     "publish": "lerna publish",
     "test": "jest --silent",
     "postinstall": "npm run bootstrap",
-    "release": "lerna publish",
-    "release:canary": "lerna publish -c",
+    "release": "npm run check:packages && lerna publish",
+    "release:canary": "npm run check:packages && lerna publish -c",
     "add": "sh ./scripts/add.sh",
-    "remove-locks": "find . -type f -name 'package-lock.json' -delete"
+    "nuke": "npm run remove-locks && npm run clean",
+    "remove-locks": "find . -type f -name 'package-lock.json' -delete",
+    "check:packages": "sh ./scripts/artifactory-check.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -86,7 +88,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run check:packages && lint-staged"
     }
   }
 }

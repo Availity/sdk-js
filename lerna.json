@@ -6,6 +6,9 @@
     "publish": {
       "allowBranch": ["master", "feature/*"],
       "conventionalCommits": true
+    },
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
     }
   },
   "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json"],
