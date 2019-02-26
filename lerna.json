@@ -4,7 +4,6 @@
   "message": "chore: publish %s",
   "command": {
     "publish": {
-      "allowBranch": ["master", "feature/*"],
       "conventionalCommits": true
     },
     "bootstrap": {
