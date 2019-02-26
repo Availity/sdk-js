@@ -15,8 +15,6 @@ import avUserPermissionsApi from './userPermissions';
 import avFilesApi from './files';
 import avFilesDeliveryApi from './filesDelivery';
 import avSettingsApi from './settings';
-import avSlotMachineApi from './slotmachine';
-import avDisclaimersApi from './disclaimers';
 
 export default AvApi;
 
@@ -37,6 +35,4 @@ export {
   avFilesApi,
   avFilesDeliveryApi,
   avSettingsApi,
-  avSlotMachineApi,
-  avDisclaimersApi
 };
