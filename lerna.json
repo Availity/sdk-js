@@ -1,6 +1,6 @@
 {
   "lerna": "2.5.1",
-  "packages": ["packages/*"],
+  "packages": ["packages/api-axios"],
   "message": "chore: publish %s",
   "command": {
     "publish": {
