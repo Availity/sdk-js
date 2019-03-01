@@ -8,7 +8,7 @@
 ## Usage
 
 ```js
-import AvLocalStorage from '@availity/localstorage-core`;
+import AvLocalStorage from '@availity/localstorage-core';
 
 const avLocalStorage = new AvLocalStorage();
 
