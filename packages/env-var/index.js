@@ -19,7 +19,7 @@ export function getLocation(href) {
 
 export function getCurrentEnv(windowOverride = window) {
   const { hostname } =
-    typeof windowOverride === 'string'
+    windowOverride === null || typeof windowOverride === 'string'
       ? getLocation(windowOverride)
       : windowOverride.location;
   const subdomain = hostname.split('.availity')[0];
@@ -49,7 +49,12 @@ export function getCurrentEnv(windowOverride = window) {
   }, '');
 }
 
-export default function(varObj, windowOverride) {
+export default function(varObj, windowOverride, defaultVar) {
   const env = getCurrentEnv(windowOverride);
-  return typeof varObj[env] === 'undefined' ? varObj.local : varObj[env];
+
+  if (typeof varObj[env] !== 'undefined') {
+    return varObj[env];
+  }
+
+  return defaultVar || varObj.local;
 }

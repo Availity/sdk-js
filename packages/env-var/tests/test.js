@@ -197,5 +197,42 @@ describe('Environment Variables', () => {
         ).toBe(true);
       });
     });
+
+    describe('with default env', () => {
+      beforeAll(() => {
+        setEnvironments({ app: 'app.example.com' });
+      });
+
+      test('should render default', () => {
+        setHostname('app.example.com');
+
+        expect(
+          envVar(
+            {
+              www: false,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            null,
+            'default'
+          )
+        ).toBe('default');
+
+        expect(
+          envVar(
+            {
+              app: true,
+              www: false,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            null,
+            'default'
+          )
+        ).toBe(true);
+      });
+    });
   });
 });

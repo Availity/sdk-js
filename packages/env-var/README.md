@@ -27,6 +27,8 @@ const myEnvVal = envVar(valuesObject[, windowOverride]);
 - windowOverride: String or Window Object which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
   - When string, the string will be takes an a fully qualified URL and the hostname will be parsed from it.
   - When Window Object, the location hostname will be used.
+- defaultVar: String or Object which will be the default value when the given var is not found. If not given, then
+will use the `local` param in the `valuesObject` var.
 
 #### Example
 
