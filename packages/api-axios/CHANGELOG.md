@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@4.0.0...@availity/api-axios@4.1.0) (2019-03-04)
+
+
+### Bug Fixes
+
+* **api-axios:** fixed dev dep getting removed ([365776a](https://github.com/Availity/sdk-js/commit/365776a))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
+
+
+### BREAKING CHANGES
+
+* upgrades other packages that are using old package-locks
+
+
+
+
+
 # [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@3.1.1...@availity/api-axios@4.0.0) (2019-02-12)
 
 

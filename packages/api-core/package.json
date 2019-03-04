@@ -1,6 +1,6 @@
 {
 	"name": "@availity/api-core",
-	"version": "4.0.1",
+	"version": "4.1.0",
 	"description": "Base API definitions for the Availity REST API",
 	"keywords": [
 		"availity",
@@ -15,8 +15,8 @@
 	"license": "MIT",
 	"peerDependencies": {
 		"@availity/localstorage-core": "^2.6.1"
-  },
-  "devDependencies": {
+	},
+	"devDependencies": {
 		"@availity/localstorage-core": "^2.6.1"
 	},
 	"publishConfig": {

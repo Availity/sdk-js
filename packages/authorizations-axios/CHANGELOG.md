@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@3.0.4...@availity/authorizations-axios@3.1.0) (2019-03-04)
+
+
+### Bug Fixes
+
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
+
+
+### BREAKING CHANGES
+
+* upgrades other packages that are using old package-locks
+
+
+
+
+
 ## [3.0.4](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@3.0.3...@availity/authorizations-axios@3.0.4) (2019-02-12)
 
 **Note:** Version bump only for package @availity/authorizations-axios

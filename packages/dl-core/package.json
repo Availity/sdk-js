@@ -1,6 +1,6 @@
 {
 	"name": "@availity/dl-core",
-	"version": "2.6.3",
+	"version": "2.7.0",
 	"description": "Utility to download files from services",
 	"main": "src/download.js",
 	"keywords": [
@@ -12,9 +12,9 @@
 	"license": "MIT",
 	"peerDependencies": {
 		"@availity/api-core": "^4.0.1"
-  },
-  "devDependencies": {
-		"@availity/api-core": "^4.0.1"
+	},
+	"devDependencies": {
+		"@availity/api-core": "^4.1.0"
 	},
 	"dependencies": {
 		"js-file-download": "^0.4.1"

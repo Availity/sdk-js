@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/Availity/sdk-js/compare/@availity/dl-core@2.6.3...@availity/dl-core@2.7.0) (2019-03-04)
+
+
+### Bug Fixes
+
+* **dl-core:** fixed dev dep ([15d572a](https://github.com/Availity/sdk-js/commit/15d572a))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
+
+
+### BREAKING CHANGES
+
+* upgrades other packages that are using old package-locks
+
+
+
+
+
 ## [2.6.3](https://github.com/Availity/sdk-js/compare/@availity/dl-core@2.6.2...@availity/dl-core@2.6.3) (2019-02-12)
 
 **Note:** Version bump only for package @availity/dl-core

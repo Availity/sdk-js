@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@2.7.4...@availity/exceptions-axios@2.8.0) (2019-03-04)
+
+
+### Bug Fixes
+
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
+
+
+### BREAKING CHANGES
+
+* upgrades other packages that are using old package-locks
+
+
+
+
+
 ## [2.7.4](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@2.7.3...@availity/exceptions-axios@2.7.4) (2019-02-12)
 
 **Note:** Version bump only for package @availity/exceptions-axios

@@ -1,6 +1,6 @@
 {
 	"name": "@availity/exceptions-core",
-	"version": "2.6.1",
+	"version": "2.7.0",
 	"description": "Availity class to log exceptions",
 	"main": "src/index.js",
 	"author": "Kasey Powers <kasey.powers@availity.com>",
@@ -14,5 +14,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-  }
+	}
 }

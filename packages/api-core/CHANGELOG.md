@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@4.0.1...@availity/api-core@4.1.0) (2019-03-04)
+
+
+### Bug Fixes
+
+* **dl-core:** fixed dev dep ([15d572a](https://github.com/Availity/sdk-js/commit/15d572a))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
+
+
+### Features
+
+* **api-core:** add ability to send in variables in AvSlotMachine.query ([f83e00b](https://github.com/Availity/sdk-js/commit/f83e00b))
+
+
+### BREAKING CHANGES
+
+* upgrades other packages that are using old package-locks
+
+
+
+
+
 ## [4.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@4.0.0...@availity/api-core@4.0.1) (2019-02-12)
 
 **Note:** Version bump only for package @availity/api-core
