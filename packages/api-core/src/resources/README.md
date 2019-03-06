@@ -19,7 +19,7 @@
 
 ## Intro
 
-View [AvApi](../README.md) to see the details for configuring API definitions.
+View [AvApi](../../README.md) to see the details for configuring API definitions.
 
 ### `AvUser`
 
