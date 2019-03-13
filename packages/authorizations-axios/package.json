@@ -1,6 +1,5 @@
 {
   "name": "@availity/authorizations-axios",
-  "private": true,
   "version": "3.1.0",
   "description": "Availity authorizations react logic",
   "main": "src/index.js",
