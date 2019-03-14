@@ -7,10 +7,10 @@ A package providing a base authorizations class to help check which permissions 
 
 ## Configuration
 
-`AvAuthorizations` uses `AvPermissions`, and `AvRegions` from [Api-React](../api-react). To configure their default options,  `AvAuthorizations` takes in an options object that is passed onto them.
+`AvAuthorizations` uses `AvPermissions`, and `AvRegions` from [Api-Axios](../api-axios). To configure their default options,  `AvAuthorizations` takes in an options object that is passed onto them.
 
 ```javascript
-  import AvAuthorizations from '@availity/authorizations-react';
+  import AvAuthorizations from '@availity/authorizations-axios';
   new AvAuthorizations(config);
 ```
 
