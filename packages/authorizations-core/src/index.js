@@ -33,8 +33,9 @@ class AvAuthorizations {
     if (typeof permissionId !== 'string') {
       return this.promise.reject('permissionId must be a string');
     }
-    return this.getPermissions([permissionId], region).then(permissions =>
-      permissions.find(permission => permission.id === permissionId)
+    return this.getPermissions([permissionId], region).then(
+      permissions =>
+        permissions.filter(permission => permission.id === permissionId)[0]
     );
   }
 
@@ -50,7 +51,6 @@ class AvAuthorizations {
           response &&
           response.data &&
           response.data.regions &&
-          response.data.regions[0] &&
           response.data.regions[0] &&
           response.data.regions[0].id
       );
@@ -111,7 +111,7 @@ class AvAuthorizations {
   // add all ids permission object to map
   addPermissions(ids, permissions, region) {
     ids.forEach(id => {
-      const permission = permissions.find(val => val.id === id);
+      const permission = permissions.filter(val => val.id === id)[0];
       this.addPermission(permission || { id }, region);
     });
   }
@@ -139,9 +139,9 @@ class AvAuthorizations {
 
   getPayers(permissionId, organizationId, region) {
     return this.getPermission(permissionId, region).then(permission => {
-      const organization = permission.organizations.find(
+      const organization = permission.organizations.filter(
         org => org.id === organizationId
-      );
+      )[0];
       return (organization && organization.resources) || [];
     });
   }
