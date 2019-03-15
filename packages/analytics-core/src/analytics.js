@@ -69,20 +69,26 @@ export default class AvAnalytics {
 
         analyticAttrs = { ...analyticAttrs, ...attrs };
 
-        analyticAttrs.action = analyticAttrs.action || event.type;
+        // To consider using the element it has to have analytics attrs
+        if (Object.keys(attrs).length > 0) {
+          analyticAttrs.elemId =
+            pth.getAttribute('id') || pth.getAttribute('name');
+        }
       });
     } else {
       analyticAttrs = this.getAnalyticAttrs(target);
-      analyticAttrs.elemId =
-        analyticAttrs.elemId ||
-        target.getAttribute('id') ||
-        target.getAttribute('name');
-      analyticAttrs.action = analyticAttrs.action || event.type;
     }
 
     if (!Object.keys(analyticAttrs).length > 0) {
       return;
     }
+
+    analyticAttrs.action = analyticAttrs.action || event.type;
+    analyticAttrs.elemId =
+      analyticAttrs.elemId ||
+      target.getAttribute('id') ||
+      target.getAttribute('name');
+
     this.trackEvent(analyticAttrs);
   };
 
@@ -103,7 +109,9 @@ export default class AvAnalytics {
       for (let i = attrs.length - 1; i >= 0; i--) {
         const { name } = attrs[i];
         if (name.indexOf(`${this.attributePrefix}-`) === 0) {
-          const camelName = camelCase(name.slice(15));
+          const camelName = camelCase(
+            name.slice(this.attributePrefix.length + 1)
+          );
           analyticAttrs[camelName] = elem.getAttribute(name);
         }
       }
