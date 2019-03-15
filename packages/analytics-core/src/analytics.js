@@ -92,6 +92,10 @@ export default class AvAnalytics {
     !isValidEventTypeOnTarget(event);
 
   getAnalyticAttrs = elem => {
+    if(!elem.attributes) {
+      return {};
+    }
+
     const attrs = [...elem.attributes];
     const analyticAttrs = {};
 
