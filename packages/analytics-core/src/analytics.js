@@ -23,24 +23,14 @@ const isPluginEnabled = plugin =>
 const camelCase = str =>
   str.replace(/-([a-z\d])/gi, (match, char) => char.toUpperCase());
 
-const getAnalyticAttrs = elem => {
-  const attrs = [...elem.attributes];
-  const analyticAttrs = {};
-
-  if (elem.nodeType === 1) {
-    for (let i = attrs.length - 1; i >= 0; i--) {
-      const { name } = attrs[i];
-      if (name.indexOf('data-analytics-') === 0) {
-        const camelName = camelCase(name.slice(15));
-        analyticAttrs[camelName] = elem.getAttribute(name);
-      }
-    }
-  }
-  return analyticAttrs;
-};
-
 export default class AvAnalytics {
-  constructor(plugins, promise = Promise, pageTracking, autoTrack = true) {
+  constructor(
+    plugins,
+    promise = Promise,
+    pageTracking,
+    autoTrack = true,
+    options = {}
+  ) {
     // if plugins or promise are undefined,
     // or if either is skipped and pageTracking boolean is used in their place
     if (!plugins || !promise) {
@@ -50,6 +40,8 @@ export default class AvAnalytics {
     this.plugins = Array.isArray(plugins) ? plugins : [plugins];
     this.pageTracking = !!pageTracking;
     this.Promise = promise;
+    this.recursive = !!options.recursive;
+    this.attributePrefix = options.attributePrefix || 'data-analytics';
 
     this.isPageTracking = false;
     this.hasInit = false;
@@ -62,25 +54,57 @@ export default class AvAnalytics {
   }
 
   handleEvent = event => {
-    if (
-      isModifiedEvent(event) ||
-      (event.type === 'click' && !isLeftClickEvent(event)) ||
-      !isValidEventTypeOnTarget(event)
-    ) {
+    if (this.invalidEvent(event)) {
       return;
     }
+
     const target = event.target || event.srcElement;
-    const analyticAttrs = getAnalyticAttrs(target);
+    const { path } = event;
+    let analyticAttrs = {};
+
+    if (this.recursive) {
+      // Reverse the array so we pull attributes from top down
+      path.reverse().forEach(pth => {
+        const attrs = this.getAnalyticAttrs(pth);
+
+        analyticAttrs = { ...analyticAttrs, ...attrs };
+
+        analyticAttrs.action = analyticAttrs.action || event.type;
+      });
+    } else {
+      analyticAttrs = this.getAnalyticAttrs(target);
+      analyticAttrs.elemId =
+        analyticAttrs.elemId ||
+        target.getAttribute('id') ||
+        target.getAttribute('name');
+      analyticAttrs.action = analyticAttrs.action || event.type;
+    }
 
     if (!Object.keys(analyticAttrs).length > 0) {
       return;
     }
-    analyticAttrs.elemId =
-      analyticAttrs.elemId ||
-      target.getAttribute('id') ||
-      target.getAttribute('name');
-    analyticAttrs.action = analyticAttrs.action || event.type;
     this.trackEvent(analyticAttrs);
+  };
+
+  validEvent = event =>
+    isModifiedEvent(event) ||
+    (event.type === 'click' && !isLeftClickEvent(event)) ||
+    !isValidEventTypeOnTarget(event);
+
+  getAnalyticAttrs = elem => {
+    const attrs = [...elem.attributes];
+    const analyticAttrs = {};
+
+    if (elem.nodeType === 1) {
+      for (let i = attrs.length - 1; i >= 0; i--) {
+        const { name } = attrs[i];
+        if (name.indexOf(`${this.attributePrefix}-`) === 0) {
+          const camelName = camelCase(name.slice(15));
+          analyticAttrs[camelName] = elem.getAttribute(name);
+        }
+      }
+    }
+    return analyticAttrs;
   };
 
   startPageTracking() {
