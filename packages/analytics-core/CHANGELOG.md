@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.5.1...@availity/analytics-core@2.6.0) (2019-03-18)
+
+
+### Bug Fixes
+
+* **analytics-core:** added dynamic length of attr key for slicing ([18df607](https://github.com/Availity/sdk-js/commit/18df607))
+* **analytics-core:** moved extra assignments out ([23130f1](https://github.com/Availity/sdk-js/commit/23130f1))
+
+
+### Features
+
+* **analytics-core:** added config object with attribute prefix and recursive ([4b5b9fa](https://github.com/Availity/sdk-js/commit/4b5b9fa))
+
+
+
+
+
 ## [2.5.1](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.5.0...@availity/analytics-core@2.5.1) (2019-02-12)
 
 **Note:** Version bump only for package @availity/analytics-core
