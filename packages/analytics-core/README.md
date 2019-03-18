@@ -19,7 +19,18 @@ For page tracking to be used, `startPageTracking` and `stopPageTracking` functio
 When `true`, "autoTrack" will be enabled which will automatically log
 
 ```javascript
-  new AvAnalytics(plugins, promise, pageTracking, autoTrack);
+  new AvAnalytics(plugins, promise, pageTracking, autoTrack, options);
+```
+
+### Options
+- **attributePrefix** string. Overrides the default prefix for getting attributes.
+- **recursive** boolean. If `true`, will add on all attributes from the clicke/focused node up to the root element. It requires one attribute to have contain `action`.
+
+ Example using the `recursive` option ( Will add all 3 attributes when the `anchor` tag is clicked. If the container is clicked nothing will happen ):
+```html
+<div class="container" data-analytics-app-name="app">
+    <a href="#" data-analytics-action="click" data-analytics-event-name="linking">Click me!</a>
+</div>
 ```
 
 ## Plugins
