@@ -23,24 +23,35 @@ const isPluginEnabled = plugin =>
 const camelCase = str =>
   str.replace(/-([a-z\d])/gi, (match, char) => char.toUpperCase());
 
-const getAnalyticAttrs = elem => {
-  const attrs = [...elem.attributes];
-  const analyticAttrs = {};
-
-  if (elem.nodeType === 1) {
-    for (let i = attrs.length - 1; i >= 0; i--) {
-      const { name } = attrs[i];
-      if (name.indexOf('data-analytics-') === 0) {
-        const camelName = camelCase(name.slice(15));
-        analyticAttrs[camelName] = elem.getAttribute(name);
-      }
-    }
+/**
+ * Polyfill for [`Event.composedPath()`][1].
+ * https://gist.github.com/kleinfreund/e9787d73776c0e3750dcfcdc89f100ec
+ */
+const getComposedPath = node => {
+  let parent;
+  if (node.parentNode) {
+    parent = node.parentNode;
+  } else if (node.host) {
+    parent = node.host;
+  } else if (node.defaultView) {
+    parent = node.defaultView;
   }
-  return analyticAttrs;
+
+  if (parent !== undefined) {
+    return [node].concat(getComposedPath(parent));
+  }
+
+  return [node];
 };
 
 export default class AvAnalytics {
-  constructor(plugins, promise = Promise, pageTracking, autoTrack = true) {
+  constructor(
+    plugins,
+    promise = Promise,
+    pageTracking,
+    autoTrack = true,
+    options = {}
+  ) {
     // if plugins or promise are undefined,
     // or if either is skipped and pageTracking boolean is used in their place
     if (!plugins || !promise) {
@@ -50,6 +61,8 @@ export default class AvAnalytics {
     this.plugins = Array.isArray(plugins) ? plugins : [plugins];
     this.pageTracking = !!pageTracking;
     this.Promise = promise;
+    this.recursive = !!options.recursive;
+    this.attributePrefix = options.attributePrefix || 'data-analytics';
 
     this.isPageTracking = false;
     this.hasInit = false;
@@ -62,25 +75,73 @@ export default class AvAnalytics {
   }
 
   handleEvent = event => {
+    if (this.invalidEvent(event)) {
+      return;
+    }
+
+    const target = event.target || event.srcElement;
+    const path = getComposedPath(event.target);
+
+    let analyticAttrs = {};
+
+    if (this.recursive) {
+      // Reverse the array so we pull attributes from top down
+      path.reverse().forEach(pth => {
+        const attrs = this.getAnalyticAttrs(pth);
+
+        analyticAttrs = { ...analyticAttrs, ...attrs };
+
+        // To consider using the element it has to have analytics attrs
+        if (Object.keys(attrs).length > 0) {
+          analyticAttrs.elemId =
+            pth.getAttribute('id') || pth.getAttribute('name');
+        }
+      });
+    } else {
+      analyticAttrs = this.getAnalyticAttrs(target);
+    }
+
     if (
-      isModifiedEvent(event) ||
-      (event.type === 'click' && !isLeftClickEvent(event)) ||
-      !isValidEventTypeOnTarget(event)
+      !Object.keys(analyticAttrs).length > 0 ||
+      (this.recursive && !analyticAttrs.action)
     ) {
       return;
     }
-    const target = event.target || event.srcElement;
-    const analyticAttrs = getAnalyticAttrs(target);
 
-    if (!Object.keys(analyticAttrs).length > 0) {
-      return;
-    }
+    analyticAttrs.action = analyticAttrs.action || event.type;
     analyticAttrs.elemId =
       analyticAttrs.elemId ||
       target.getAttribute('id') ||
       target.getAttribute('name');
-    analyticAttrs.action = analyticAttrs.action || event.type;
+
     this.trackEvent(analyticAttrs);
+  };
+
+  validEvent = event =>
+    isModifiedEvent(event) ||
+    (event.type === 'click' && !isLeftClickEvent(event)) ||
+    !isValidEventTypeOnTarget(event);
+
+  getAnalyticAttrs = elem => {
+    if (!elem.attributes) {
+      return {};
+    }
+
+    const attrs = [...elem.attributes];
+    const analyticAttrs = {};
+
+    if (elem.nodeType === 1) {
+      for (let i = attrs.length - 1; i >= 0; i--) {
+        const { name } = attrs[i];
+        if (name.indexOf(`${this.attributePrefix}-`) === 0) {
+          const camelName = camelCase(
+            name.slice(this.attributePrefix.length + 1)
+          );
+          analyticAttrs[camelName] = elem.getAttribute(name);
+        }
+      }
+    }
+    return analyticAttrs;
   };
 
   startPageTracking() {

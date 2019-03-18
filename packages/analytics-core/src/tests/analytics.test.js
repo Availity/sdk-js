@@ -32,6 +32,15 @@ describe('AvAnalytics', () => {
     expect(mockAvAnalytics.plugins).toEqual([plugin]);
   });
 
+  test('AvAnalytics should use custom configs', () => {
+    mockAvAnalytics = new AvAnalytics([], Promise, true, true, {
+      attributePrefix: 'some-attr',
+      recursive: true,
+    });
+    expect(mockAvAnalytics.attributePrefix).toBe('some-attr');
+    expect(mockAvAnalytics.recursive).toBe(true);
+  });
+
   describe('setPageTracking', () => {
     beforeEach(() => {
       const plugins = [makePlugin()];
