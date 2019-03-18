@@ -23,6 +23,27 @@ const isPluginEnabled = plugin =>
 const camelCase = str =>
   str.replace(/-([a-z\d])/gi, (match, char) => char.toUpperCase());
 
+/**
+ * Polyfill for [`Event.composedPath()`][1].
+ * https://gist.github.com/kleinfreund/e9787d73776c0e3750dcfcdc89f100ec
+ */
+const getComposedPath = (node) => {
+  let parent;
+  if (node.parentNode) {
+    parent = node.parentNode;
+  } else if (node.host) {
+    parent = node.host;
+  } else if (node.defaultView) {
+    parent = node.defaultView;
+  }
+
+  if (parent !== undefined) {
+    return [node].concat(getComposedPath(parent));
+  }
+
+  return [node];
+}
+
 export default class AvAnalytics {
   constructor(
     plugins,
@@ -59,7 +80,8 @@ export default class AvAnalytics {
     }
 
     const target = event.target || event.srcElement;
-    const { path } = event;
+    const path = getComposedPath(event.target);
+
     let analyticAttrs = {};
 
     if (this.recursive) {
@@ -79,7 +101,7 @@ export default class AvAnalytics {
       analyticAttrs = this.getAnalyticAttrs(target);
     }
 
-    if (!Object.keys(analyticAttrs).length > 0) {
+    if (!Object.keys(analyticAttrs).length > 0 || (this.recursive && !analyticAttrs.action)) {
       return;
     }
 
