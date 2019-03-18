@@ -27,7 +27,7 @@ const camelCase = str =>
  * Polyfill for [`Event.composedPath()`][1].
  * https://gist.github.com/kleinfreund/e9787d73776c0e3750dcfcdc89f100ec
  */
-const getComposedPath = (node) => {
+const getComposedPath = node => {
   let parent;
   if (node.parentNode) {
     parent = node.parentNode;
@@ -42,7 +42,7 @@ const getComposedPath = (node) => {
   }
 
   return [node];
-}
+};
 
 export default class AvAnalytics {
   constructor(
@@ -101,7 +101,10 @@ export default class AvAnalytics {
       analyticAttrs = this.getAnalyticAttrs(target);
     }
 
-    if (!Object.keys(analyticAttrs).length > 0 || (this.recursive && !analyticAttrs.action)) {
+    if (
+      !Object.keys(analyticAttrs).length > 0 ||
+      (this.recursive && !analyticAttrs.action)
+    ) {
       return;
     }
 
