@@ -1,19 +1,21 @@
-import AvTopApplications from '../AvTopApplications';
+import { AvTopApplications } from '..';
 import { TOP_APPS_UPDATE } from '../../Constants';
 
 describe('AvTopApplications', () => {
   const URL = 'https://dev.local:9999';
+
+  const avMessage = new AvTopApplications();
 
   beforeEach(() => {
     global.jsdom.reconfigure({
       url: URL,
     });
 
-    AvTopApplications.unsubscribeAll();
+    avMessage.unsubscribeAll();
 
-    AvTopApplications.isEnabled = true;
-    AvTopApplications.DEFAULT_EVENT = 'avMessage';
-    AvTopApplications.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
+    avMessage.isEnabled = true;
+    avMessage.DEFAULT_EVENT = 'avMessage';
+    avMessage.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
   });
 
   const mockTarget = {
@@ -23,15 +25,15 @@ describe('AvTopApplications', () => {
   test('subscribes to updates', () => {
     const mockFunc = jest.fn();
 
-    AvTopApplications.onUpdate(mockFunc);
+    avMessage.onUpdate(mockFunc);
 
-    AvTopApplications.onMessage(TOP_APPS_UPDATE, { favorites: ['1'] });
+    avMessage.onMessage(TOP_APPS_UPDATE, { favorites: ['1'] });
 
     expect(mockFunc).toHaveBeenCalledTimes(1);
   });
 
   test('sends update', () => {
-    AvTopApplications.sendUpdate(mockTarget);
+    avMessage.sendUpdate(mockTarget);
 
     expect(mockTarget.postMessage).toHaveBeenCalledTimes(1);
   });

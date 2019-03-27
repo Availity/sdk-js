@@ -1,13 +1,12 @@
 import AvMessage from '../AvMessage';
 import { FAVORITES_UPDATE, MAX_FAVORITES } from '../Constants';
 
-class AvFavorites extends AvMessage {
+export default class AvFavorites extends AvMessage {
   // Subscriber
   onFavoritesUpdate = callback =>
-    this.subscribe(FAVORITES_UPDATE, data => {
-      console.log('data:', data);
-      callback(data && data.favorites ? data.favorites : []);
-    });
+    this.subscribe(FAVORITES_UPDATE, data =>
+      callback(data && data.favorites ? data.favorites : [])
+    );
 
   // Subscriber
   onMaxFavorites = callback => this.subscribe(MAX_FAVORITES, () => callback());
@@ -22,5 +21,3 @@ class AvFavorites extends AvMessage {
   // Action
   sendMaxFavorites = () => this.dispatch(MAX_FAVORITES);
 }
-
-export default new AvFavorites();

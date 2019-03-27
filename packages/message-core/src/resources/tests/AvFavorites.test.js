@@ -1,5 +1,7 @@
-import AvFavorites from '../AvFavorites';
+import { AvFavorites } from '..';
 import { FAVORITES_UPDATE } from '../../Constants';
+
+const avMessage = new AvFavorites();
 
 describe('AvFavorites', () => {
   const URL = 'https://dev.local:9999';
@@ -9,11 +11,11 @@ describe('AvFavorites', () => {
       url: URL,
     });
 
-    AvFavorites.unsubscribeAll();
+    avMessage.unsubscribeAll();
 
-    AvFavorites.isEnabled = true;
-    AvFavorites.DEFAULT_EVENT = 'avMessage';
-    AvFavorites.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
+    avMessage.isEnabled = true;
+    avMessage.DEFAULT_EVENT = 'avMessage';
+    avMessage.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
   });
 
   const mockTarget = {
@@ -23,15 +25,15 @@ describe('AvFavorites', () => {
   test('subscribes to favorites updates', () => {
     const mockFunc = jest.fn();
 
-    AvFavorites.onFavoritesUpdate(mockFunc);
+    avMessage.onFavoritesUpdate(mockFunc);
 
-    AvFavorites.onMessage(FAVORITES_UPDATE, { favorites: ['1'] });
+    avMessage.onMessage(FAVORITES_UPDATE, { favorites: ['1'] });
 
     expect(mockFunc).toHaveBeenCalledWith(expect.arrayContaining(['1']));
   });
 
   test('sends favorites update', () => {
-    AvFavorites.sendFavoritesUpdate(['1', '2'], mockTarget);
+    avMessage.sendFavoritesUpdate(['1', '2'], mockTarget);
 
     expect(mockTarget.postMessage).toHaveBeenCalledWith(
       JSON.stringify({
