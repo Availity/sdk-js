@@ -112,6 +112,14 @@ class AvMessage {
       console.warn('AvMessage.send()', error);
     }
   }
+
+  dispatch = (event, payload = {}, target) => {
+    if (!event && Object.keys(payload).length === 0) {
+      return;
+    }
+
+    this.send({ ...payload, event }, target);
+  };
 }
 
 export default AvMessage;
