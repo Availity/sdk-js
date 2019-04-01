@@ -2,6 +2,7 @@ import AvApi from './api';
 import AvMicroserviceApi from './ms';
 import AvProxyApi from './proxy';
 import avLogMessagesApi from './logs';
+import avLogMessagesApiV2 from './dma';
 import avNavigationApi from './navigation';
 import avNotificationApi from './notification';
 import avOrganizationsApi from './organizations';
@@ -24,6 +25,7 @@ export {
   AvMicroserviceApi,
   AvProxyApi,
   avLogMessagesApi,
+  avLogMessagesApiV2,
   avNavigationApi,
   avNotificationApi,
   avOrganizationsApi,
@@ -38,5 +40,5 @@ export {
   avFilesDeliveryApi,
   avSettingsApi,
   avSlotMachineApi,
-  avDisclaimersApi
+  avDisclaimersApi,
 };
