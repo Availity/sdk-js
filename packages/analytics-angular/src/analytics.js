@@ -53,20 +53,20 @@ export default class AvAnalyticsProvider {
         this.pageListener = undefined;
       }
 
-      startPageTracking() {
+      startPageTracking = () => {
         if (!this.pageListener) {
           this.pageListener = $rootScope.$on(self.PageEvent, () => {
             this.trackPageView();
           });
         }
-      }
+      };
 
-      stopPageTracking() {
+      stopPageTracking = () => {
         if (this.pageListener) {
           this.pageListener();
           delete this.pageListener;
         }
-      }
+      };
     }
 
     return new AvAnalyticsAngular();

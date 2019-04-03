@@ -21,4 +21,14 @@ describe('AvSplunkAnalytics', () => {
     mockAvSplunkAnalytics.trackEvent({ level });
     expect(mockLog.send).toHaveBeenCalledTimes(1);
   });
+
+  test('should fill in customerId and TradingPartnerId if empty', () => {
+    const level = 'info';
+    mockAvSplunkAnalytics.trackEvent({ level });
+    expect(mockLog.send).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        { customerId: 'NA', tradingPartnerId: 'NA', logItems: { level } },
+      ])
+    );
+  });
 });
