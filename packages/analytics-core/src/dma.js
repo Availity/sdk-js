@@ -16,7 +16,7 @@ export default class AvDmaAnalytics extends AvAnalyticsPlugin {
   trackEvent(properties) {
     if (!properties) return {};
 
-    const logItems = {};
+    const data = {};
 
     if (properties.ApplicationId) {
       properties.applicationId = properties.ApplicationId;
@@ -28,27 +28,32 @@ export default class AvDmaAnalytics extends AvAnalyticsPlugin {
       delete properties.Category;
     }
 
-    if (!properties.tradingPartnerId || properties.TradingPartnerId) {
-      properties.tradingPartnerId = 'NA';
+    if (properties.tradingPartnerId || properties.TradingPartnerId) {
+      properties.tradingPartnerId =
+        properties.tradingPartnerId || properties.TradingPartnerId;
       delete properties.TradingPartnerId;
+    } else {
+      properties.tradingPartnerId = 'NA';
     }
 
-    if (!properties.customerId || properties.CustomerId) {
-      properties.customerId = 'NA';
+    if (properties.customerId || properties.CustomerId) {
+      properties.customerId = properties.customerId || properties.CustomerId;
       delete properties.CustomerId;
+    } else {
+      properties.customerId = 'NA';
     }
 
     Object.keys(properties).forEach(key => {
       const isRequiredField = requiredFields.filter(field => key === field)
         .length;
       if (!isRequiredField) {
-        logItems[key] = properties[key];
+        data[key] = properties[key];
 
         delete properties[key];
       }
     });
 
-    return this.AvLogMessages.send([{ ...properties, logItems }]);
+    return this.AvLogMessages.send([{ ...properties, data }]);
   }
 
   trackPageView(url) {

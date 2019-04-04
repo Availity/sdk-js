@@ -27,7 +27,7 @@ describe('AvSplunkAnalytics', () => {
     mockAvSplunkAnalytics.trackEvent({ level });
     expect(mockLog.send).toHaveBeenCalledWith(
       expect.arrayContaining([
-        { customerId: 'NA', tradingPartnerId: 'NA', logItems: { level } },
+        { customerId: 'NA', tradingPartnerId: 'NA', data: { level } },
       ])
     );
   });
