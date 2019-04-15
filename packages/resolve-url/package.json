@@ -1,0 +1,15 @@
+{
+  "name": "@availity/resolve-url",
+  "version": "1.0.0",
+  "description": "Resolve full url relative to host origin",
+  "main": "resolve-url.js",
+  "keywords": [
+    "url",
+    "relative"
+  ],
+  "author": "Rob McGuinness <rob.mcguinness@availity.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "is-absolute-url": "^3.0.0"
+  }
+}
