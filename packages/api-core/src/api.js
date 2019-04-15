@@ -1,5 +1,6 @@
 import AvLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
+import resolveUrl from '@availity/resolve-url';
 
 import API_OPTIONS from './options';
 
@@ -125,7 +126,7 @@ export default class AvApi {
       location = response.headers.location || response.headers.Location;
     }
 
-    return location;
+    return resolveUrl(location);
   }
 
   // condition for calls that should continue polling

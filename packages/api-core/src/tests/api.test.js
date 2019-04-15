@@ -20,10 +20,6 @@ describe('AvApi', () => {
   });
 
   test('AvApi should throw errors when missing paramaters', () => {
-    // expect(() => {
-    //   api = new AvApi();
-    // }).toThrowError('[http], [promise], [config], and [merge] must be defined');
-
     expect(() => {
       api = new AvApi({
         http: false,
@@ -489,6 +485,10 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
+
+      global.jsdom.reconfigure({
+        url: 'https://dev.local/other',
+      });
     });
 
     test('should return false when polling is turned off', () => {
@@ -523,7 +523,7 @@ describe('AvApi', () => {
     });
 
     test('should call config.getHeader() when polling is available', () => {
-      const testLocation = 'test';
+      const testLocation = 'https://dev.local/test';
       const getHeader = jest.fn(() => testLocation);
       const testResponse = {
         config: {
@@ -534,7 +534,7 @@ describe('AvApi', () => {
         },
         status: 202,
       };
-      expect(api.getLocation(testResponse)).toBe(testLocation);
+      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
       expect(getHeader).toHaveBeenCalledTimes(1);
       expect(getHeader).toHaveBeenCalledWith(testResponse, 'Location');
     });
@@ -552,7 +552,7 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(api.getLocation(testResponse)).toBe(testLocation);
+      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
     });
   });
 
