@@ -1,10 +1,6 @@
 # @availity/keyv-local-sync
 
-> Simple local real-time key-value storage with support for TTL
-
-[![Build Status](https://travis-ci.org/availity/keyv-local-sync.svg?branch=master)](https://travis-ci.org/availity/keyv-local-sync)
-[![npm](https://img.shields.io/npm/dm/keyv-local-sync.svg)](https://www.npmjs.com/package/@availity/keyv-local-sync)
-[![npm](https://img.shields.io/npm/v/keyv-local-sync.svg)](https://www.npmjs.com/package/@availity/keyv-local-sync)
+> Simple local real-time key-value storage with support for TTL. Based on [keyv](https://github.com/lukechilds/keyv)
 
 keyv-local-sync provides a consistent interface for key-value. It supports TTL based expiry, making it suitable as a cache key-value store.
 
@@ -12,14 +8,14 @@ keyv-local-sync provides a consistent interface for key-value. It supports TTL b
 
 There are a few existing modules similar to keyv-local-sync, however keyv-local-sync is different because it:
 
-*   Isn't bloated
-*   Isn't async, uses local memory-based storage for real-time lookups and storage
-*   Cache promises or anything, it's not serialized so you get back exactly what you put in
-*   Suitable as a TTL based cache key-value store
-*   [Easily embeddable](#add-cache-support-to-your-module) inside another module
-*   Works with any storage that implements the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) API
-*   Supports namespaces
-*   Supports the current active LTS version of Node.js or higher
+-   Isn't bloated
+-   Isn't async, uses local memory-based storage for real-time lookups and storage
+-   Cache promises or anything, it's not serialized so you get back exactly what you put in
+-   Suitable as a TTL based cache key-value store
+-   [Easily embeddable](#add-cache-support-to-your-module) inside another module
+-   Works with any storage that implements the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) API
+-   Supports namespaces
+-   Supports the current active LTS version of Node.js or higher
 
 ## Usage
 
@@ -90,7 +86,7 @@ const keyvLocalSync = new KeyvLocalSync({ size: 1000 });
 
 The following are third-party storage adapters compatible with keyv-local-sync:
 
-*   [quick-lru](https://github.com/sindresorhus/quick-lru) - Simple "Least Recently Used" (LRU) cache
+-   [quick-lru](https://github.com/sindresorhus/quick-lru) - Simple "Least Recently Used" (LRU) cache
 
 ## Add Cache Support to your Module
 
