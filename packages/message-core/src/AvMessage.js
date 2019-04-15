@@ -35,8 +35,7 @@ class AvMessage {
       try {
         data = JSON.parse(data);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        // no op
       }
     }
 
