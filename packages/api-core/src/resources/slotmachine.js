@@ -1,4 +1,4 @@
-import { AvMicroservice } from '..';
+import AvMicroservice from '../ms';
 
 export default class AvSlotMachine extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
