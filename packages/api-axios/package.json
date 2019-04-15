@@ -1,23 +1,23 @@
 {
-	"name": "@availity/api-axios",
-	"version": "5.0.0",
-	"description": "Wraps @availity/api-core with Axios",
-	"main": "src/index.js",
-	"author": "Kasey Powers <kasey.powers@availity.com>",
-	"license": "MIT",
-	"dependencies": {
-		"merge-options-es5": "^1.0.0"
-	},
-	"peerDependencies": {
-		"@availity/api-core": "^4.0.1",
-		"axios": "^0.16.0 || ^0.17.0"
-	},
-	"devDependencies": {
-		"@availity/api-core": "^5.0.0",
-		"axios": "^0.16.0 || ^0.17.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
+  "name": "@availity/api-axios",
+  "version": "5.0.0",
+  "description": "Wraps @availity/api-core with Axios",
+  "main": "src/index.js",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
+  "license": "MIT",
+  "dependencies": {
+    "merge-options-es5": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@availity/api-core": "^4.0.1",
+    "axios": "^0.16.0 || ^0.17.0: || ^0.18.0"
+  },
+  "devDependencies": {
+    "@availity/api-core": "^5.0.0",
+    "axios": "^0.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
 }
