@@ -10,7 +10,7 @@
     "@availity/api-core": "^4.0.1",
     "@availity/authorizations-core": "^1.0.0",
     "@availity/localstorage-core": "^1.0.0",
-    "axios": "^0.16.0 || ^0.17.0"
+    "axios": "^0.16.0 || ^0.17.0 || ^0.18.0"
   },
   "devDependencies": {
     "@availity/api-axios": "^5.0.0",
