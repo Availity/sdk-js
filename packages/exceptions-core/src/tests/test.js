@@ -1,6 +1,9 @@
 import MockDate from 'mockdate';
+import { fromError } from 'stacktrace-js';
+
 import AvExceptions from '..';
 
+jest.mock('stacktrace-js');
 jest.useFakeTimers();
 
 global.APP_VERSION = false;
@@ -10,7 +13,18 @@ describe('AvExceptions', () => {
   let mockExceptions;
 
   beforeEach(() => {
-    mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line no-console
+    // mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line no-console
+    mockLog = jest.fn(); // eslint-disable-line no-console
+    fromError.mockResolvedValue([
+      {
+        columnNumber: 15,
+        fileName: '/sdk-js/packages/exceptions-core/src/tests/test.js',
+        functionName: 'Object.beforeEach',
+        lineNumber: 141,
+        source:
+          ' at Object.beforeEach (/Users/rmcguinness/Workspaces/os/sdk-js/packages/exceptions-core/src/tests/test.js:141:15)',
+      },
+    ]);
   });
 
   test('AvExceptions should be defined', () => {
