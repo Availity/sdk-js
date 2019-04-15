@@ -34,6 +34,11 @@ const optionsWithRetry = {
 };
 
 describe('upload.core', () => {
+  beforeEach(() => {
+    global.jsdom.reconfigure({
+      url: 'https://dev.local/other',
+    });
+  });
   it('should be defined', () => {
     expect(Upload).toBeTruthy();
   });
@@ -87,7 +92,7 @@ describe('upload.core', () => {
     const upload = new Upload(file, options);
 
     expect(upload.options.endpoint).toBe(
-      '/ms/api/availity/internal/core/vault/upload/v1/resumable'
+      'https://dev.local/ms/api/availity/internal/core/vault/upload/v1/resumable'
     );
   });
 
@@ -112,7 +117,7 @@ describe('upload.core', () => {
 
     let upload = new Upload(file, options);
     upload.start();
-    expect(upload.id).toBe('tus-a-b-100-1485272892');
+    expect(upload.id).toBe('tus-a-b-100-1016975905');
 
     options = Object.assign(optionsWithMeta, {
       metadata: { documentTypeId: 'e' },
@@ -120,7 +125,7 @@ describe('upload.core', () => {
 
     upload = new Upload(file, options);
     upload.start();
-    expect(upload.id).toBe('tus-a-b-100-1485272891');
+    expect(upload.id).toBe('tus-a-b-100-1016975906');
   });
 
   it('should parse error messages', () => {
