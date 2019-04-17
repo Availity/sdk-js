@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.1](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.7.0...@availity/analytics-core@2.7.1) (2019-04-17)
+
+
+### Bug Fixes
+
+* **analytics-core:** revert analytics invalid event method ([e823d2e](https://github.com/Availity/sdk-js/commit/e823d2e))
+
+
+
+
+
 # [2.7.0](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.6.1...@availity/analytics-core@2.7.0) (2019-04-17)
 
 
