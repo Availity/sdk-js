@@ -75,7 +75,7 @@ export default class AvAnalytics {
   }
 
   handleEvent = event => {
-    if (!this.validEvent(event)) {
+    if (this.invalidEvent(event)) {
       return;
     }
     const target = event.target || event.srcElement;
