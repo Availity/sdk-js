@@ -75,7 +75,7 @@ export default class AvAnalytics {
   }
 
   handleEvent = event => {
-    if (this.invalidEvent(event)) {
+    if (!this.validEvent(event)) {
       return;
     }
 
