@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-angular",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Availity authorizations angular logic",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
@@ -11,8 +11,8 @@
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/api-angular": "^4.0.0",
-    "@availity/authorizations-core": "^1.0.4",
+    "@availity/api-angular": "^4.0.1",
+    "@availity/authorizations-core": "^1.0.5",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
   },

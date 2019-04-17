@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-axios",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Availity authorizations react logic",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
@@ -13,9 +13,9 @@
     "axios": "^0.16.0 || ^0.17.0"
   },
   "devDependencies": {
-    "@availity/api-axios": "^5.0.0",
-    "@availity/api-core": "^5.0.0",
-    "@availity/authorizations-core": "^1.0.4",
+    "@availity/api-axios": "^5.0.1",
+    "@availity/api-core": "^5.0.1",
+    "@availity/authorizations-core": "^1.0.5",
     "@availity/localstorage-core": "^2.6.1",
     "axios": "^0.16.0 || ^0.17.0"
   },

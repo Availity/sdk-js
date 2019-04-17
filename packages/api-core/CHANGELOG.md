@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.0.0...@availity/api-core@5.0.1) (2019-04-17)
+
+**Note:** Version bump only for package @availity/api-core
+
+
+
+
+
 # [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@4.0.1...@availity/api-core@5.0.0) (2019-03-18)
 
 
