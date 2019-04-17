@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.0.1...@availity/api-axios@5.1.0) (2019-04-17)
+
+
+### Features
+
+* **analytics-core:** added dma logging service ([68aee41](https://github.com/Availity/sdk-js/commit/68aee41))
+
+
+
+
+
 ## [5.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.0.0...@availity/api-axios@5.0.1) (2019-04-17)
 
 **Note:** Version bump only for package @availity/api-axios
