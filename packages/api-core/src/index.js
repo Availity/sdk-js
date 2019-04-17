@@ -1,6 +1,7 @@
 import AvApi from './api';
 import AvMicroservice from './ms';
 import AvLogMessages from './resources/logs';
+import AvLogMessagesV2 from './resources/dma';
 import AvNavigation from './resources/navigation';
 import AvNotification from './resources/notifications';
 import AvOrganizations from './resources/organizations';
@@ -23,6 +24,7 @@ export default AvApi;
 export {
   AvMicroservice,
   AvLogMessages,
+  AvLogMessagesV2,
   AvNavigation,
   AvNotification,
   AvOrganizations,
@@ -38,5 +40,5 @@ export {
   AvFilesDelivery,
   AvSettings,
   AvSlotMachine,
-  AvDisclaimers
+  AvDisclaimers,
 };

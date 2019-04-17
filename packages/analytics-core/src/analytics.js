@@ -78,7 +78,6 @@ export default class AvAnalytics {
     if (!this.validEvent(event)) {
       return;
     }
-
     const target = event.target || event.srcElement;
     const path = getComposedPath(event.target);
 
@@ -117,7 +116,7 @@ export default class AvAnalytics {
     this.trackEvent(analyticAttrs);
   };
 
-  validEvent = event =>
+  invalidEvent = event =>
     isModifiedEvent(event) ||
     (event.type === 'click' && !isLeftClickEvent(event)) ||
     !isValidEventTypeOnTarget(event);
@@ -144,21 +143,21 @@ export default class AvAnalytics {
     return analyticAttrs;
   };
 
-  startPageTracking() {
+  startPageTracking = () => {
     if (!this.pageListener) {
       this.pageListener = this.trackPageView;
       window.addEventListener('hashchange', this.pageListener, false);
     }
-  }
+  };
 
-  stopPageTracking() {
+  stopPageTracking = () => {
     if (this.pageListener) {
       window.removeEventListener('hashchange', this.pageListener, false);
       delete this.pageListener;
     }
-  }
+  };
 
-  init() {
+  init = () => {
     this.setPageTracking();
 
     this.plugins.forEach(plugin => {
@@ -166,10 +165,11 @@ export default class AvAnalytics {
         plugin.init();
       }
     });
-  }
+  };
 
-  setPageTracking(value) {
-    if (arguments.length > 0) {
+  setPageTracking = value => {
+    // eslint-disable-next-line eqeqeq
+    if (value != undefined) {
       this.pageTracking = !!value;
     }
 
@@ -185,18 +185,19 @@ export default class AvAnalytics {
       }
       this.isPageTracking = this.pageTracking;
     }
-  }
+  };
 
-  trackEvent(properties) {
+  trackEvent = properties => {
     const promises = [];
     properties.url = properties.url || window.location.href || 'N/A';
+
     this.plugins.forEach(plugin => {
       if (isPluginEnabled(plugin) && typeof plugin.trackEvent === 'function') {
         promises.push(plugin.trackEvent(properties));
       }
     });
     return this.Promise.all(promises);
-  }
+  };
 
   trackPageView = url => {
     url = url || window.location.href;

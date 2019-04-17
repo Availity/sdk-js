@@ -14,10 +14,10 @@ export default class AvMicroservice extends AvApi {
 
   // override aries 1 url concatenation
   getUrl(config, id = '') {
-    const { path, name, id: configId } = this.config(config);
-    let parts = [path, name];
+    const { path, version, name, id: configId } = this.config(config);
+    let parts = [path, version || '', name];
     if (id || configId) {
-      parts = [path, name, id || configId];
+      parts = [path, version || '', name, id || configId];
     }
     return parts
       .join('/')

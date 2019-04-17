@@ -6,6 +6,7 @@ import AvMicroserviceApiFactory from './ms';
 
 import AvProxyApiFactory from './proxy';
 import avLogMessagesApiFactory from './logs';
+import avDmaMessagesApiFactory from './dma';
 import avNavigationApiFactory from './navigation';
 import avNotificationApiFactory from './notification';
 import avOrganizationsApiFactory from './organizations';
@@ -27,6 +28,7 @@ export default angular
   .factory('AvMicroserviceApi', AvMicroserviceApiFactory)
   .factory('AvProxyApi', AvProxyApiFactory)
   .factory('avLogMessagesApi', avLogMessagesApiFactory)
+  .factory('avDmaMessagesApi', avDmaMessagesApiFactory)
   .factory('avPdfApi', avPdfApiFactory)
   .factory('avNavigationApi', avNavigationApiFactory)
   .factory('avNotificationApi', avNotificationApiFactory)

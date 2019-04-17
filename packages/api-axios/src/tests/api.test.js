@@ -2,6 +2,7 @@ import Api, {
   AvMicroserviceApi,
   AvProxyApi,
   avLogMessagesApi,
+  avLogMessagesApiV2,
   avNavigationApi,
   avNotificationApi,
   avOrganizationsApi,
@@ -15,7 +16,7 @@ import Api, {
   avFilesDeliveryApi,
   avSettingsApi,
   avSlotMachineApi,
-  avDisclaimersApi
+  avDisclaimersApi,
 } from '..';
 
 describe('AvAPi', () => {
@@ -32,6 +33,7 @@ describe('AvAPi', () => {
 describe('API Definitions', () => {
   test('should be defined', () => {
     expect(avLogMessagesApi).toBeDefined();
+    expect(avLogMessagesApiV2).toBeDefined();
     expect(avNavigationApi).toBeDefined();
     expect(avNotificationApi).toBeDefined();
     expect(avOrganizationsApi).toBeDefined();
