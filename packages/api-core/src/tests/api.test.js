@@ -540,7 +540,7 @@ describe('AvApi', () => {
     });
 
     test('should return response.headers.Location without config.getHeader', () => {
-      const testLocation = 'test';
+      const testLocation = '/test';
       const testResponse = {
         config: {
           polling: true,
@@ -552,7 +552,7 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
+      expect(api.getLocation(testResponse)).toBe('/test');
     });
   });
 
