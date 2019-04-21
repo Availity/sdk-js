@@ -54,7 +54,7 @@ Invalid base URIs cause an error to be thrown.
 resolve('abc', 'def'); // Error
 ```
 
-### Relative to scheme
+### Protocol Relative
 
 When a relative IRI starts with a `//`, then the scheme of the base IRI will be used.
 
@@ -62,7 +62,8 @@ When a relative IRI starts with a `//`, then the scheme of the base IRI will be 
 resolve('//abc', 'http://base.org/'); // Outputs 'http://abc'
 ```
 
-### Absolute relative URIs
+### Root-Relative
+
 
 Relative URIs that starts with a `/` erase the path of the base IRI.
 
@@ -70,7 +71,7 @@ Relative URIs that starts with a `/` erase the path of the base IRI.
 resolve('/abc/def/', 'http://base.org/123/456/'); // Outputs 'http://base.org/abc/def/'
 ```
 
-### Collapsing of dots
+### Relative Directory Traversal
 
 Relative URIs that point to the current directory (`.`)
 or parent directory (`..`) are collapsed.
