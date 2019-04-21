@@ -64,7 +64,7 @@ class Upload {
     this.file = file;
     this.options = Object.assign({}, defaultOptions, options);
 
-    this.options.endpoint = resolveUrl(this.options.endpoint);
+    this.options.endpoint = resolveUrl({ relative: this.options.endpoint });
 
     this.percentage = 0;
     this.onError = [];
