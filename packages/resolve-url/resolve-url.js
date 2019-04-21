@@ -1,20 +1,18 @@
-import isAbssoluteUrl from 'is-absolute-url';
+import isAbsoluteUrl from 'is-absolute-url';
+import { resolve } from 'relative-to-absolute-iri';
 
-const resolveUrl = url => {
-  if (isAbssoluteUrl(url)) {
-    return url;
-  }
-  const { href, pathname } = window.location;
-  const index = href.indexOf(pathname);
-  const base = href.substring(0, index);
-
-  let seperator = '';
-  if (!url.match(/^\//) && !base.match(/\/$/)) {
-    seperator = '/';
+const resolveUrl = ({ relative, base }) => {
+  if (isAbsoluteUrl(relative)) {
+    return relative;
   }
 
-  const fullUrl = base.concat(seperator, url);
-  return fullUrl;
+  if (!base) {
+    const { href, pathname } = window.location;
+    const index = href.indexOf(pathname);
+    base = `${href.substring(0, index)}/`;
+  }
+
+  return resolve(relative, base);
 };
 
 export default resolveUrl;
