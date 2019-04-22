@@ -552,7 +552,7 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(api.getLocation(testResponse)).toBe('/test');
+      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
     });
   });
 

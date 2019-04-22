@@ -1,6 +1,5 @@
 import AvLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
-import isAbsoluteUrl from 'is-absolute-url';
 import resolveUrl from '@availity/resolve-url';
 
 import API_OPTIONS from './options';
@@ -130,15 +129,7 @@ export default class AvApi {
       locationUrl = location || Location;
     }
 
-    if (locationUrl && !isAbsoluteUrl(locationUrl)) {
-      if (base) {
-        locationUrl = resolveUrl({ relative: location, base });
-      } else if (url && isAbsoluteUrl(url)) {
-        locationUrl = resolveUrl({ relative: location, url });
-      }
-    }
-
-    return locationUrl;
+    return resolveUrl({ relative: locationUrl, base: base || url });
   }
 
   // condition for calls that should continue polling

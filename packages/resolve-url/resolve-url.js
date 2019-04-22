@@ -1,7 +1,7 @@
 import isAbsoluteUrl from 'is-absolute-url';
 import { resolve } from 'relative-to-absolute-iri';
 
-const resolveUrl = ({ relative, base }) => {
+const resolveUrl = ({ relative = '', base }) => {
   if (isAbsoluteUrl(relative)) {
     return relative;
   }
