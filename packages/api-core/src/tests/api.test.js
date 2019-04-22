@@ -554,6 +554,40 @@ describe('AvApi', () => {
       };
       expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
     });
+
+    test('should use config.base for to relative url', () => {
+      const testLocation = '/test';
+      const testResponse = {
+        config: {
+          polling: true,
+          pollingIntervals: [100],
+          attempt: 0,
+          base: 'https://other.local/a',
+        },
+        status: 202,
+        headers: {
+          Location: testLocation,
+        },
+      };
+      expect(api.getLocation(testResponse)).toBe('https://other.local/test');
+    });
+
+    test('should use config.url to resolve relative url', () => {
+      const testLocation = '/test';
+      const testResponse = {
+        config: {
+          polling: true,
+          pollingIntervals: [100],
+          attempt: 0,
+          url: 'https://api.local/b',
+        },
+        status: 202,
+        headers: {
+          Location: testLocation,
+        },
+      };
+      expect(api.getLocation(testResponse)).toBe('https://api.local/test');
+    });
   });
 
   describe('onResponse', () => {
