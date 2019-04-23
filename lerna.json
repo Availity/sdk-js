@@ -7,6 +7,9 @@
       "allowBranch": ["master", "feature/*"],
       "conventionalCommits": true
     },
+    "diff": {
+      "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json"]
+    },
     "bootstrap": {
       "npmClientArgs": ["--no-package-lock"]
     }
