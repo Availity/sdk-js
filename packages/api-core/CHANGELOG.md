@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.1.0...@availity/api-core@5.1.1) (2019-04-23)
+
+
+### Bug Fixes
+
+* **api-core:** relative location header ([2ac4c5f](https://github.com/Availity/sdk-js/commit/2ac4c5f)), closes [#77](https://github.com/Availity/sdk-js/issues/77)
+* **api-core:** resolve relative url from request url ([8e6abbb](https://github.com/Availity/sdk-js/commit/8e6abbb)), closes [#77](https://github.com/Availity/sdk-js/issues/77)
+
+
+
+
+
 # [5.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.0.1...@availity/api-core@5.1.0) (2019-04-17)
 
 

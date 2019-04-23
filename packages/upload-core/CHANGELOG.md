@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@2.7.1...@availity/upload-core@3.0.0) (2019-04-23)
+
+
+### Bug Fixes
+
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
+* **upload-core:** resolve absolute url from relative ([2efbbfb](https://github.com/Availity/sdk-js/commit/2efbbfb))
+* **upload-core:** use full url for tus client ([3190f47](https://github.com/Availity/sdk-js/commit/3190f47)), closes [#101](https://github.com/Availity/sdk-js/issues/101)
+
+
+### BREAKING CHANGES
+
+* upgrades other packages that are using old package-locks
+
+
+
+
+
 ## [2.7.1](https://github.com/Availity/sdk-js/compare/@availity/upload-core@2.7.0...@availity/upload-core@2.7.1) (2019-02-12)
 
 **Note:** Version bump only for package @availity/upload-core
