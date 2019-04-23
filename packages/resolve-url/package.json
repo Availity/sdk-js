@@ -12,5 +12,8 @@
   "dependencies": {
     "is-absolute-url": "^3.0.0",
     "relative-to-absolute-iri": "^1.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
