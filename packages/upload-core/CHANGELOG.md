@@ -8,15 +8,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96))
-* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f4))
 * **upload-core:** resolve absolute url from relative ([2efbbfb](https://github.com/Availity/sdk-js/commit/2efbbfb))
 * **upload-core:** use full url for tus client ([3190f47](https://github.com/Availity/sdk-js/commit/3190f47)), closes [#101](https://github.com/Availity/sdk-js/issues/101)
 
 
 ### BREAKING CHANGES
 
-* upgrades other packages that are using old package-locks
+* There should be no breaking changes in this version. `v3.0.0` was accidently published by our build process. 
 
 
 
