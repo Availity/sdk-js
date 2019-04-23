@@ -21,6 +21,7 @@
     "nuke": "npm run remove-locks && npm run clean",
     "remove-locks": "find . -type f -name 'package-lock.json' -delete",
     "check:packages": "sh ./scripts/artifactory-check.sh",
+    "pub": "lerna exec --bail false --concurrency 1 -- npm publish",
     "new": "plop"
   },
   "devDependencies": {
