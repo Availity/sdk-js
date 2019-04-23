@@ -1,31 +1,31 @@
 {
-	"name": "@availity/api-core",
-	"version": "5.1.0",
-	"description": "Base API definitions for the Availity REST API",
-	"keywords": [
-		"availity",
-		"api",
-		"http",
-		"rest"
-	],
-	"main": "src/index.js",
-	"author": "Kasey Powers <kasey.powers@availity.com>",
-	"repository": "https://github.com/Availity/sdk-js",
-	"bugs": "https://github.com/Availity/sdk-js/issues",
-	"license": "MIT",
-	"peerDependencies": {
-		"@availity/localstorage-core": "^2.6.1"
+  "name": "@availity/api-core",
+  "version": "5.1.0",
+  "description": "Base API definitions for the Availity REST API",
+  "keywords": [
+    "availity",
+    "api",
+    "http",
+    "rest"
+  ],
+  "main": "src/index.js",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
+  "repository": "https://github.com/Availity/sdk-js",
+  "bugs": "https://github.com/Availity/sdk-js/issues",
+  "license": "MIT",
+  "peerDependencies": {
+    "@availity/localstorage-core": "^2.6.1"
   },
-	"devDependencies": {
-		"@availity/localstorage-core": "^2.6.1"
+  "devDependencies": {
+    "@availity/localstorage-core": "^2.6.1"
   },
-	"publishConfig": {
-		"access": "public"
-	},
-	"dependencies": {
-    "@availity/resolve-url": "^1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@availity/resolve-url": "^1.0.0-alpha.0",
     "is-absolute-url": "^3.0.0",
-		"qs": "^6.5.2"
-	},
-	"gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
+    "qs": "^6.5.2"
+  },
+  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
 }
