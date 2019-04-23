@@ -20,10 +20,6 @@ describe('AvApi', () => {
   });
 
   test('AvApi should throw errors when missing paramaters', () => {
-    // expect(() => {
-    //   api = new AvApi();
-    // }).toThrowError('[http], [promise], [config], and [merge] must be defined');
-
     expect(() => {
       api = new AvApi({
         http: false,
@@ -489,6 +485,10 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
+
+      global.jsdom.reconfigure({
+        url: 'https://dev.local/other',
+      });
     });
 
     test('should return false when polling is turned off', () => {
@@ -523,7 +523,7 @@ describe('AvApi', () => {
     });
 
     test('should call config.getHeader() when polling is available', () => {
-      const testLocation = 'test';
+      const testLocation = 'https://dev.local/test';
       const getHeader = jest.fn(() => testLocation);
       const testResponse = {
         config: {
@@ -534,13 +534,13 @@ describe('AvApi', () => {
         },
         status: 202,
       };
-      expect(api.getLocation(testResponse)).toBe(testLocation);
+      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
       expect(getHeader).toHaveBeenCalledTimes(1);
       expect(getHeader).toHaveBeenCalledWith(testResponse, 'Location');
     });
 
     test('should return response.headers.Location without config.getHeader', () => {
-      const testLocation = 'test';
+      const testLocation = '/test';
       const testResponse = {
         config: {
           polling: true,
@@ -552,7 +552,41 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(api.getLocation(testResponse)).toBe(testLocation);
+      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
+    });
+
+    test('should use config.base for to relative url', () => {
+      const testLocation = '/test';
+      const testResponse = {
+        config: {
+          polling: true,
+          pollingIntervals: [100],
+          attempt: 0,
+          base: 'https://other.local/a',
+        },
+        status: 202,
+        headers: {
+          Location: testLocation,
+        },
+      };
+      expect(api.getLocation(testResponse)).toBe('https://other.local/test');
+    });
+
+    test('should use config.url to resolve relative url', () => {
+      const testLocation = '/test';
+      const testResponse = {
+        config: {
+          polling: true,
+          pollingIntervals: [100],
+          attempt: 0,
+          url: 'https://api.local/b',
+        },
+        status: 202,
+        headers: {
+          Location: testLocation,
+        },
+      };
+      expect(api.getLocation(testResponse)).toBe('https://api.local/test');
     });
   });
 

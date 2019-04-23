@@ -1,4 +1,5 @@
 import tus from 'tus-js-client';
+import resolveUrl from '@availity/resolve-url';
 
 const hashCode = str => {
   let hash = 0;
@@ -62,6 +63,9 @@ class Upload {
 
     this.file = file;
     this.options = Object.assign({}, defaultOptions, options);
+
+    this.options.endpoint = resolveUrl({ relative: this.options.endpoint });
+
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
@@ -82,10 +86,6 @@ class Upload {
 
   scan(data) {
     clearTimeout(this.timeoutID);
-
-    if (!this.isValidFile()) {
-      return;
-    }
 
     const xhr = new window.XMLHttpRequest();
 
@@ -174,6 +174,11 @@ class Upload {
 
   start() {
     const { file } = this;
+
+    if (!this.isValidFile()) {
+      return;
+    }
+
     const fileName = this.trimFileName(file.name);
 
     const metadata = {
@@ -197,26 +202,16 @@ class Upload {
         'X-Client-ID': this.options.clientId,
       },
       onError: err => {
-        if (!this.isValidFile()) {
-          return;
-        }
         this.setError('rejected', 'Network Error', err);
         this.error = err;
       },
       onProgress: (bytesSent, bytesTotal) => {
-        if (!this.isValidFile()) {
-          this.abort();
-          return;
-        }
         this.bytesSent = bytesSent;
         this.bytesTotal = bytesTotal;
         this.percentage = this.getPercentage();
         this.onProgress.forEach(cb => cb());
       },
       onSuccess: () => {
-        if (!this.isValidFile()) {
-          return;
-        }
         const xhr = this.upload._xhr;
         this.bytesScanned =
           parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;

@@ -20,14 +20,14 @@
 -   [api-angular](packages/api-angular/README.md) - A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
 -   [localalstorage-core](packages/localstorage-core/README.md) - Wraps localStorage with utility functions.
 -   [message-core](packages/message-core/README.md) - Wraps postMessage function with helper functions and security checks.
-- [upload-core](packages/upload-core/README.md) - Wrapper for tus-js-client
-- [dl-core](packages/dl-core/README.md) - Wrapper for js-file-download
+-   [upload-core](packages/upload-core/README.md) - > Wrapper for tus-js-client
+-   [dl-core](packages/dl-core/README.md) - > Wrapper for js-file-download
 
 ## Contribute
 
-- Run `npm install`
-- Commits should use the [Angular Commit Format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type). Scope should one of packages under `./packages/`. If a commit applys to multiple packages, leave out the scope.
-- Release versions with Semantic version and `npm run release`. The version is determined by analyzing the commit messaging. To use a custom version, run `npm run release <VERSION>`.
+-   Run `npm install`
+-   Commits should use the [Angular Commit Format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type). Scope should one of packages under `./packages/`. If a commit applys to multiple packages, leave out the scope.
+-   Release versions with Semantic version and `npm run release`. The version is determined by analyzing the commit messaging. To use a custom version, run `npm run release <VERSION>`.
 
 ## License
 

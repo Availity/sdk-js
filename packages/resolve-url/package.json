@@ -1,0 +1,16 @@
+{
+  "name": "@availity/resolve-url",
+  "version": "1.0.0",
+  "description": "Resolve absolute url from relative urls",
+  "main": "resolve-url.js",
+  "keywords": [
+    "url",
+    "relative"
+  ],
+  "author": "Rob McGuinness <rob.mcguinness@availity.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "is-absolute-url": "^3.0.0",
+    "relative-to-absolute-iri": "^1.0.2"
+  }
+}

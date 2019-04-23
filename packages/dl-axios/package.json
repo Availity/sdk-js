@@ -15,11 +15,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@availity/dl-core": "^2.3.3",
-    "axios": "^0.16.0 || ^0.17.0"
+    "axios": "^0.16.0 || ^0.17.0 || ^0.18.0"
   },
   "devDependencies": {
     "@availity/dl-core": "^3.0.2",
-    "axios": "^0.16.0 || ^0.17.0"
+    "axios": "^0.18.0"
   },
   "publishConfig": {
     "access": "public"

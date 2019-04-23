@@ -1,5 +1,6 @@
 import AvLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
+import resolveUrl from '@availity/resolve-url';
 
 import API_OPTIONS from './options';
 
@@ -33,7 +34,7 @@ export default class AvApi {
     return output;
   }
 
-  // set the cache paramaters
+  // set the cache parameters
   cacheParams(config) {
     const params = {};
 
@@ -117,15 +118,18 @@ export default class AvApi {
 
   // return location if should poll otherwise false
   getLocation(response) {
-    let location = false;
+    let locationUrl;
+    const { config, headers = {} } = response;
+    const { getHeader, base, url } = config;
+    const { location, Location } = headers;
 
-    if (response.config.getHeader) {
-      location = response.config.getHeader(response, 'Location');
+    if (getHeader) {
+      locationUrl = getHeader(response, 'Location');
     } else {
-      location = response.headers.location || response.headers.Location;
+      locationUrl = location || Location;
     }
 
-    return location;
+    return resolveUrl({ relative: locationUrl, base: base || url });
   }
 
   // condition for calls that should continue polling
