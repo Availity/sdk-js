@@ -14,7 +14,7 @@
 	},
 	"devDependencies": {
 		"@availity/api-core": "^5.1.1",
-		"axios": "^0.16.0 || ^0.17.0"
+		"axios": "^0.18.0"
 	},
 	"publishConfig": {
 		"access": "public"
