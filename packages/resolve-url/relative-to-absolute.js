@@ -139,7 +139,7 @@ export function resolve(relativeIRI, baseIRI) {
   }
 
   // If the value starts with a query character, concat directly (but strip the existing query)
-  if (relativeIRI.startsWith('?')) {
+  if (relativeIRI.indexOf('?') === 0) {
     const baseQueryPos = baseIRI.indexOf('?');
     if (baseQueryPos > 0) {
       baseIRI = baseIRI.substr(0, baseQueryPos);
@@ -148,7 +148,7 @@ export function resolve(relativeIRI, baseIRI) {
   }
 
   // If the value starts with a fragment character, concat directly
-  if (relativeIRI.startsWith('#')) {
+  if (relativeIRI.indexOf('#') === 0) {
     return baseIRI + relativeIRI;
   }
 
