@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.0.1...@availity/resolve-url@1.0.2) (2019-04-25)
+
+
+### Bug Fixes
+
+* **resolve-url:** startsWith not supported in IE ([1a3d0b7](https://github.com/Availity/sdk-js/commit/1a3d0b7))
+
+
+
+
+
 ## [1.0.1](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.0.0...@availity/resolve-url@1.0.1) (2019-04-25)
 
 

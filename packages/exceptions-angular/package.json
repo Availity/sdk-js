@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-angular",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Availity class to log exceptions",
   "main": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
@@ -11,7 +11,7 @@
     "angular": "^1.6.4"
   },
   "devDependencies": {
-    "@availity/api-angular": "^4.1.2",
+    "@availity/api-angular": "^4.1.3",
     "@availity/exceptions-core": "^3.0.2",
     "angular": "^1.6.4",
     "angular-mocks": "^1.6.4"
