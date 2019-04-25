@@ -8,11 +8,7 @@
     "relative"
   ],
   "author": "Rob McGuinness <rob.mcguinness@availity.com>",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "is-absolute-url": "^3.0.0",
-    "relative-to-absolute-iri": "^1.0.2"
-  },
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   }

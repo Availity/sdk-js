@@ -1,5 +1,5 @@
-import isAbsoluteUrl from 'is-absolute-url';
-import { resolve } from 'relative-to-absolute-iri';
+import isAbsoluteUrl from './is-absolute-url';
+import { resolve } from './relative-to-absolute';
 
 const resolveUrl = ({ relative = '', base }) => {
   if (isAbsoluteUrl(relative)) {
