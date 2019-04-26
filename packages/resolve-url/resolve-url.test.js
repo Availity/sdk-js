@@ -3,7 +3,7 @@ import resolveUrl from '.';
 describe('resolve-url', () => {
   beforeEach(() => {
     global.jsdom.reconfigure({
-      url: 'https://dev.local/other/',
+      url: 'https://dev.local/',
     });
   });
   test('should resolve relative url', () => {
@@ -29,7 +29,7 @@ describe('resolve-url', () => {
     expect(fullUrl).toBe('https://dev.local/a/b/c');
 
     global.jsdom.reconfigure({
-      url: 'https://dev.local/other',
+      url: 'https://dev.local/other/',
     });
 
     // missing forward slash in relative and base url

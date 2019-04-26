@@ -7,9 +7,8 @@ const resolveUrl = ({ relative = '', base }) => {
   }
 
   if (!base) {
-    const { href, pathname } = window.location;
-    const index = href.indexOf(pathname);
-    base = `${href.substring(0, index)}/`;
+    const { origin } = window.location;
+    base = `${origin}/`;
   }
 
   return resolve(relative, base);
