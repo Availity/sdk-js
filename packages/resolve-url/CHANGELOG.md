@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.0.2...@availity/resolve-url@1.0.3) (2019-04-26)
+
+
+### Bug Fixes
+
+* **resolve-url:** use window.location.origin ([bcfe310](https://github.com/Availity/sdk-js/commit/bcfe310))
+
+
+
+
+
 ## [1.0.2](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.0.1...@availity/resolve-url@1.0.2) (2019-04-25)
 
 
