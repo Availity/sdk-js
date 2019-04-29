@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.0.3...@availity/resolve-url@1.1.0) (2019-04-29)
+
+
+### Features
+
+* **resolve-url:** add isAbsoluteUrl to exports ([016cee6](https://github.com/Availity/sdk-js/commit/016cee6))
+
+
+
+
+
 ## [1.0.3](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.0.2...@availity/resolve-url@1.0.3) (2019-04-26)
 
 

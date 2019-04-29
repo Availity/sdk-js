@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/Availity/sdk-js/compare/@availity/dl-angular@3.0.6...@availity/dl-angular@3.0.7) (2019-04-29)
+
+**Note:** Version bump only for package @availity/dl-angular
+
+
+
+
+
 ## [3.0.6](https://github.com/Availity/sdk-js/compare/@availity/dl-angular@3.0.5...@availity/dl-angular@3.0.6) (2019-04-26)
 
 **Note:** Version bump only for package @availity/dl-angular
