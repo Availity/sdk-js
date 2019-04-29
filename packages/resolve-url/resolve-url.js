@@ -14,4 +14,5 @@ const resolveUrl = ({ relative = '', base }) => {
   return resolve(relative, base);
 };
 
+export { isAbsoluteUrl };
 export default resolveUrl;
