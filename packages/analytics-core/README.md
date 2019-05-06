@@ -73,7 +73,7 @@ It defaults the url and level before sending.
 ```javascript
 import {AvSplunkAnalytics} from '@availity/analytics-core';
 
-const exmpleSplunkAnalytics = new AvSplunkAnalytics(AvLogMessages, isEnabled);
+const exampleSplunkAnalytics = new AvSplunkAnalytics(new AvLogMessages({ http, promise, merge }), isEnabled);
 ```
 
 ## Methods
