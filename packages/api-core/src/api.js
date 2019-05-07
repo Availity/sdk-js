@@ -135,6 +135,8 @@ export default class AvApi {
   // condition for calls that should continue polling
   shouldPoll(response) {
     return (
+      response &&
+      response.config &&
       response.config.polling &&
       response.status === 202 &&
       response.config.attempt < response.config.pollingIntervals.length
