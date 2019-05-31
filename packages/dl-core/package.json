@@ -17,7 +17,7 @@
 		"@availity/api-core": "^5.1.5"
 	},
 	"dependencies": {
-		"js-file-download": "^0.4.1"
+		"js-file-download": "^0.4.7"
 	},
 	"publishConfig": {
 		"access": "public"
