@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.9](https://github.com/Availity/sdk-js/compare/@availity/analytics-angular@3.0.8...@availity/analytics-angular@3.0.9) (2019-05-31)
+
+**Note:** Version bump only for package @availity/analytics-angular
+
+
+
+
+
 ## [3.0.8](https://github.com/Availity/sdk-js/compare/@availity/analytics-angular@3.0.7...@availity/analytics-angular@3.0.8) (2019-04-29)
 
 **Note:** Version bump only for package @availity/analytics-angular

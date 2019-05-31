@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.6](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.1.5...@availity/api-core@5.1.6) (2019-05-31)
+
+
+### Bug Fixes
+
+* **api-core:** graceful exit when polling ([9708eff](https://github.com/Availity/sdk-js/commit/9708eff))
+
+
+
+
+
 ## [5.1.5](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.1.4...@availity/api-core@5.1.5) (2019-04-29)
 
 **Note:** Version bump only for package @availity/api-core
