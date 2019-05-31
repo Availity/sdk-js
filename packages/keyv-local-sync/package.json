@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/availity/sdk-js",
   "dependencies": {
-    "quick-lru": "^1.1.0"
+    "quick-lru": "^4.0.1"
   },
   "publishConfig": {
     "access": "public"
