@@ -192,8 +192,12 @@ export default class AvAnalytics {
     properties.url = properties.url || window.location.href || 'N/A';
 
     this.plugins.forEach(plugin => {
+      const props = {
+        ...properties,
+      };
+
       if (isPluginEnabled(plugin) && typeof plugin.trackEvent === 'function') {
-        promises.push(plugin.trackEvent(properties));
+        promises.push(plugin.trackEvent(props));
       }
     });
     return this.Promise.all(promises);
