@@ -32,8 +32,6 @@ export default class AvDmaAnalytics extends AvAnalyticsPlugin {
       properties.tradingPartnerId =
         properties.tradingPartnerId || properties.TradingPartnerId;
       delete properties.TradingPartnerId;
-    } else {
-      properties.tradingPartnerId = 'NA';
     }
 
     if (properties.customerId || properties.CustomerId) {
