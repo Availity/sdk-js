@@ -44,6 +44,7 @@ function async getUser() {
 -   `avSettingsApi`
 -   `avSlotMachineApi`
 -   `avDisclaimersApi`
+-   `avCodesApi`
 
 Details about each api can be found [here](../api-core/src/resources/README.md)
 
@@ -68,6 +69,7 @@ import AvApi, {
     avSettingsApi,
     avSlotMachineApi,
     avDisclaimersApi
+    avCodesApi,
 } from '@availity/api-axios';
 ```
 

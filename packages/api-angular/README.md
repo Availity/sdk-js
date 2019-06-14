@@ -42,6 +42,7 @@ app.service('myCustomService', avUsersApi => {
 -   `avFilesApi`
 -   `avFilesDeliverApi`
 -   `avSettingsApi`
+-   `avCodesApi`
 
 Details about each api can be found [here](../api-core/src/resources/README.md)
 
