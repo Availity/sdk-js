@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/Availity/sdk-js/compare/@availity/api-angular@4.1.6...@availity/api-angular@4.2.0) (2019-06-14)
+
+
+### Features
+
+* **api-core:** add codes resource ([4ea7ba4](https://github.com/Availity/sdk-js/commit/4ea7ba4))
+
+
+
+
+
 ## [4.1.6](https://github.com/Availity/sdk-js/compare/@availity/api-angular@4.1.5...@availity/api-angular@4.1.6) (2019-05-31)
 
 **Note:** Version bump only for package @availity/api-angular
