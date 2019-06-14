@@ -143,4 +143,12 @@ describe('Api Definitions Angular', () => {
     });
     expect(avFilesDeliveryApi).toBeDefined();
   });
+
+  test('avCodesApi should be defined', () => {
+    let avCodesApi;
+    angular.mock.inject(_avCodesApi_ => {
+      avCodesApi = _avCodesApi_;
+    });
+    expect(avCodesApi).toBeDefined();
+  });
 });

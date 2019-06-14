@@ -20,6 +20,7 @@ import avUserPermissionsApiFactory from './userPermissions';
 import avFilesApiFactory from './files';
 import avFilesDeliveryApiFactory from './filesDelivery';
 import avSettingsApiFactory from './settings';
+import avCodesApiFactory from './codes';
 
 export default angular
   .module('availity.api', ['ng'])
@@ -41,4 +42,5 @@ export default angular
   .factory('avUserPermissionsApi', avUserPermissionsApiFactory)
   .factory('avFilesApi', avFilesApiFactory)
   .factory('avFilesDeliveryApi', avFilesDeliveryApiFactory)
-  .factory('avSettingsApi', avSettingsApiFactory).name;
+  .factory('avSettingsApi', avSettingsApiFactory)
+  .factory('avCodesApi', avCodesApiFactory).name;
