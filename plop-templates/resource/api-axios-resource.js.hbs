@@ -1,0 +1,10 @@
+import axios from 'axios';
+import merge from 'merge-options-es5';
+import { Av{{pascalCase resourceName}} } from '@availity/api-core';
+
+export default new Av{{pascalCase resourceName}}({
+  http: axios,
+  promise: Promise,
+  merge,
+});
+

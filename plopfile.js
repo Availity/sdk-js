@@ -53,4 +53,57 @@ module.exports = plop => {
       },
     ],
   });
+
+  plop.setGenerator('api resource', {
+    description: 'Create new api resource',
+    prompts: [
+      {
+        type: 'input',
+        name: 'resourceName',
+        message: 'resource name',
+      },
+      {
+        type: 'confirm',
+        name: 'isMicroservice',
+        message: 'Is this resource for a microservice?',
+        default: false,
+      },
+    ],
+    actions: data => {
+      const actions = [
+        {
+          type: 'add',
+          path: 'packages/api-angular/src/{{camelCase resourceName}}.js',
+          templateFile: 'plop-templates/resource/api-angular-resource.js.hbs',
+        },
+        {
+          type: 'add',
+          path: 'packages/api-axios/src/{{camelCase resourceName}}.js',
+          templateFile: 'plop-templates/resource/api-axios-resource.js.hbs',
+        },
+        {
+          type: 'add',
+          path:
+            'packages/api-core/src/resources/tests/{{camelCase resourceName}}.test.js',
+          templateFile: 'plop-templates/resource/api-core-test.js.hbs',
+        },
+      ];
+
+      if (data.isMicroservice) {
+        actions.push({
+          type: 'add',
+          path: 'packages/api-core/src/resources/{{camelCase resourceName}}.js',
+          templateFile: 'plop-templates/resource/api-core-ms-resource.js.hbs',
+        });
+      } else {
+        actions.push({
+          type: 'add',
+          path: 'packages/api-core/src/resources/{{camelCase resourceName}}.js',
+          templateFile: 'plop-templates/resource/api-core-resource.js.hbs',
+        });
+      }
+
+      return actions;
+    },
+  });
 };
