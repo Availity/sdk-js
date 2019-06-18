@@ -23,6 +23,19 @@
 -   [upload-core](packages/upload-core/README.md) - > Wrapper for tus-js-client
 -   [dl-core](packages/dl-core/README.md) - > Wrapper for js-file-download
 
+## Adding a new API Resource
+
+1. Run `npm run new`
+2. Select the "api resource" template
+3. Follow the prompts
+4. Export the resource in `api-core`, [here](packages/api-core/src/index.js)
+5. Export the resource in `api-axios`, [here](packages/api-axios/src/index.js)
+6. Export the resource in `api-angular`, [here](packages/api-angular/src/index.js)
+7. Add the resource to the README of `api-axios`, [here](packages/api-axios/README.md)
+8. Add the resource to the README of `api-angular`, [here](packages/api-angular/README.md)
+9. Add test that the resource is defined in `api-axios`, [here](packages/api-axios/src/tests/api.test.js)
+10. Add test that the resource is defined in `api-angular`, [here](packages/api-angular/src/tests/api.test.js)
+
 ## Contributing
 
 `skd-js` is a monorepo managed using [lerna](https://github.com/lerna/lerna) in independent mode (each packages is versioned and published individually).

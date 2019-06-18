@@ -1,0 +1,28 @@
+import Av{{pascalCase resourceName}} from '../{{camelCase resourceName}}';
+
+const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockMerge = jest.fn((...args) => Object.assign(...args));
+
+describe('Av{{pascalCase resourceName}}', () => {
+  let api;
+
+  test('should be defined', () => {
+    api = new Av{{pascalCase resourceName}}({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+    expect(api).toBeDefined();
+  });
+
+  test('should handle no config passed in', () => {
+    api = new Av{{pascalCase resourceName}}({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+    });
+    expect(api).toBeDefined();
+  });
+});
+
