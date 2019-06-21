@@ -4,7 +4,7 @@ export default class AvSlotMachine extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
     const options = Object.assign(
       {
-        name: 'platform/slotmachine/graphql',
+        name: 'spc/slotmachine/graphql',
       },
       config
     );
