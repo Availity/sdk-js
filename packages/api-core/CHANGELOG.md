@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.2.0...@availity/api-core@5.2.1) (2019-06-21)
+
+
+### Bug Fixes
+
+* **api-core:** fix namespace of slotmachine resource ([3c3af84](https://github.com/Availity/sdk-js/commit/3c3af84))
+
+
+
+
+
 # [5.2.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.1.6...@availity/api-core@5.2.0) (2019-06-14)
 
 

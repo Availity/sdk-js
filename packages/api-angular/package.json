@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-angular",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Wraps @availity/api-core with Angular $http",
   "main": "src/index.js",
   "author": "",
@@ -10,7 +10,7 @@
     "angular": "^1.6.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^5.2.0",
+    "@availity/api-core": "^5.2.1",
     "angular": "^1.6.0",
     "angular-mocks": "^1.6.0"
   },

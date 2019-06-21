@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.10](https://github.com/Availity/sdk-js/compare/@availity/authorizations-angular@3.0.9...@availity/authorizations-angular@3.0.10) (2019-06-21)
+
+**Note:** Version bump only for package @availity/authorizations-angular
+
+
+
+
+
 ## [3.0.9](https://github.com/Availity/sdk-js/compare/@availity/authorizations-angular@3.0.8...@availity/authorizations-angular@3.0.9) (2019-06-14)
 
 **Note:** Version bump only for package @availity/authorizations-angular
