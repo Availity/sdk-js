@@ -1,6 +1,8 @@
 # Angular Exceptions
 
-A package wrapping the Exceptions class into angular. Using avLogMessagesApi to log errors.
+> A package wrapping the Exceptions class into angular. Using avLogMessagesApi to log errors.
+
+[![Version](https://img.shields.io/npm/v/@availity/exceptions-angular.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/exceptions-angular)
 
 More details about configuration can be found in [Exceptions-Core](../exceptions-core)
 

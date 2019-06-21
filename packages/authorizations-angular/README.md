@@ -1,6 +1,8 @@
 # Angular Authorizations
 
-A package providing a base authorizations class to help check which permissions a user has.
+> A package providing a base authorizations class to help check which permissions a user has.
+
+[![Version](https://img.shields.io/npm/v/@availity/authorizations-angular.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/authorizations-angular)
 
 ## Install
 `npm install @availity/authorizations-angular`

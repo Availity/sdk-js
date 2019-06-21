@@ -2,6 +2,8 @@
 
 > Simple local real-time key-value storage with support for TTL. Based on [keyv](https://github.com/lukechilds/keyv)
 
+[![Version](https://img.shields.io/npm/v/@availity/keyv-local-sync.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/keyv-local-sync)
+
 keyv-local-sync provides a consistent interface for key-value. It supports TTL based expiry, making it suitable as a cache key-value store.
 
 ## Features

@@ -2,6 +2,8 @@
 
 > A package wrapping [@av/api-core](../api-core/README.md) with Angular `$http`.
 
+[![Version](https://img.shields.io/npm/v/@availity/api-angular.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-angular)
+
 ## Install
 
 `npm install @availity/api-angular @availity/api-core @availity/localstorage-core --save`
