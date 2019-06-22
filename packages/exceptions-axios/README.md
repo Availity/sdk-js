@@ -1,6 +1,8 @@
 # Axios Exceptions
 
-A package wrapping the Exceptions class to use axios. Using avLogMessagesApi to log errors.
+> A package wrapping the Exceptions class to use axios. Using avLogMessagesApi to log errors.
+
+[![Version](https://img.shields.io/npm/v/@availity/exceptions-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/exceptions-axios)
 
 More details about configuration can be found in [Exceptions-Core](../exceptions-core)
 

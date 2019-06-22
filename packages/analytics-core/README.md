@@ -1,6 +1,8 @@
 # Analytics Core
 
-A package providing a base Analytics class to track events and page views
+> A package providing a base Analytics class to track events and page views
+
+[![Version](https://img.shields.io/npm/v/@availity/analytics-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/analytics-core)
 
 ## Install
 `npm install @availity/analytics-core`
