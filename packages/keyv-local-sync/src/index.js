@@ -53,4 +53,4 @@ class KeyvLocalSync {
   }
 }
 
-module.exports = KeyvLocalSync;
+export default KeyvLocalSync;
