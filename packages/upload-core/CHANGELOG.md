@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.5](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.4...@availity/upload-core@3.0.5) (2019-06-26)
+
+
+### Bug Fixes
+
+* **upload-core:** increase timeout for scan in upload ([8dc438b](https://github.com/Availity/sdk-js/commit/8dc438b))
+
+
+
+
+
 ## [3.0.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.3...@availity/upload-core@3.0.4) (2019-04-29)
 
 **Note:** Version bump only for package @availity/upload-core
