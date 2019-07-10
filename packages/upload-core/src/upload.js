@@ -1,6 +1,7 @@
 import tus from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
 
+// https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript/8831937#8831937
 const hashCode = str => {
   let hash = 0;
   if (str.length === 0) return hash;
@@ -19,7 +20,7 @@ const defaultOptions = {
   removeFingerprintOnSuccess: true,
   retryDelays: [0, 1000, 3000, 5000],
   stripFileNamePathSegments: true,
-  fingerprint(file, options = {}) {
+  fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
     for (let i = 0; i < attributes.length; i++) {
@@ -38,6 +39,10 @@ const defaultOptions = {
     ].join('');
 
     const print = Math.abs(hashCode(signature));
+
+    if (callback) {
+      return callback(null, `${attributesKey}${print}`);
+    }
 
     return `${attributesKey}${print}`;
   },
@@ -78,6 +83,69 @@ class Upload {
     this.timeoutID = undefined;
     this.error = null;
     this.waitForPassword = true;
+
+    const fileName = this.trimFileName(file.name);
+
+    const metadata = {
+      'availity-filename': fileName,
+      'availity-content-type': file.type,
+      'availity-attachment-name': 'N/A',
+    };
+    Object.assign(metadata, this.options.metadata);
+
+    const upload = new tus.Upload(this.file, {
+      resume: true,
+      endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
+      chunkSize: this.options.chunkSize,
+      retryDelays: this.options.retryDelays,
+      removeFingerprintOnSuccess: this.options.removeFingerprintOnSuccess,
+      fingerprint: this.options.fingerprint,
+      metadata,
+      headers: {
+        'X-XSRF-TOKEN': this.getToken(),
+        'X-Availity-Customer-ID': this.options.customerId,
+        'X-Client-ID': this.options.clientId,
+      },
+      onError: err => {
+        this.setError('rejected', 'Network Error', err);
+        this.error = err;
+      },
+      onProgress: (bytesSent, bytesTotal) => {
+        this.bytesSent = bytesSent;
+        this.bytesTotal = bytesTotal;
+        this.percentage = this.getPercentage();
+        this.onProgress.forEach(cb => cb());
+      },
+      onSuccess: () => {
+        const xhr = this.upload._xhr;
+        this.bytesScanned =
+          parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
+        this.percentage = this.getPercentage();
+
+        const result = this.getResult(xhr);
+
+        if (result.status === 'accepted') {
+          this.percentage = 100;
+          this.status = result.status;
+          this.errorMessage = null;
+          const references = xhr.getResponseHeader('references');
+          if (references) {
+            this.references = JSON.parse(references);
+          }
+          this.onSuccess.forEach(cb => cb());
+          return;
+        }
+
+        if (result.status === 'rejected') {
+          this.setError(result.status, result.message);
+          return;
+        }
+
+        this.scan();
+      },
+    });
+    this.upload = upload;
+    this.id = this.generateId();
   }
 
   inStatusCategory(status, category) {
@@ -173,78 +241,42 @@ class Upload {
   }
 
   start() {
-    const { file } = this;
-
     if (!this.isValidFile()) {
       return;
     }
+    this.upload.start();
+  }
 
-    const fileName = this.trimFileName(file.name);
+  generateId() {
+    const { fingerprint } = this.options;
+    return fingerprint(this.file, this.options).replace(/[^a-zA-Z0-9-]/g, '');
+  }
 
-    const metadata = {
-      'availity-filename': fileName,
-      'availity-content-type': file.type,
-      'availity-attachment-name': 'N/A',
-    };
-    Object.assign(metadata, this.options.metadata);
+  fingerprint(file, options = {}, callback) {
+    const attributes = [file.name, file.type, file.size, file.lastModified];
+    let attributesKey = 'tus-';
+    for (let i = 0; i < attributes.length; i++) {
+      if (attributes[i]) {
+        attributesKey += `${attributes[i]}-`;
+      }
+    }
 
-    const upload = new tus.Upload(file, {
-      resume: true,
-      endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
-      chunkSize: this.options.chunkSize,
-      retryDelays: this.options.retryDelays,
-      removeFingerprintOnSuccess: this.options.removeFingerprintOnSuccess,
-      fingerprint: this.options.fingerprint,
-      metadata,
-      headers: {
-        'X-XSRF-TOKEN': this.getToken(),
-        'X-Availity-Customer-ID': this.options.customerId,
-        'X-Client-ID': this.options.clientId,
-      },
-      onError: err => {
-        this.setError('rejected', 'Network Error', err);
-        this.error = err;
-      },
-      onProgress: (bytesSent, bytesTotal) => {
-        this.bytesSent = bytesSent;
-        this.bytesTotal = bytesTotal;
-        this.percentage = this.getPercentage();
-        this.onProgress.forEach(cb => cb());
-      },
-      onSuccess: () => {
-        const xhr = this.upload._xhr;
-        this.bytesScanned =
-          parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
-        this.percentage = this.getPercentage();
+    const keys = Object.keys(options.metadata || {}).map(
+      key => options.metadata[key]
+    );
+    const signature = [
+      attributes.toString().replace(/,/g, ''),
+      options.endpoint,
+      keys,
+    ].join('');
 
-        const result = this.getResult(xhr);
+    const print = Math.abs(hashCode(signature));
 
-        if (result.status === 'accepted') {
-          this.percentage = 100;
-          this.status = result.status;
-          this.errorMessage = null;
-          const references = xhr.getResponseHeader('references');
-          if (references) {
-            this.references = JSON.parse(references);
-          }
-          this.onSuccess.forEach(cb => cb());
-          return;
-        }
+    if (callback) {
+      return callback(null, `${attributesKey}${print}`);
+    }
 
-        if (result.status === 'rejected') {
-          this.setError(result.status, result.message);
-          return;
-        }
-
-        this.scan();
-      },
-    });
-    this.upload = upload;
-    this.id = this.upload.options
-      .fingerprint(this.file, this.options)
-      .replace(/[^a-zA-Z0-9-]/g, '');
-
-    upload.start();
+    return `${attributesKey}${print}`;
   }
 
   sendPassword(pw) {
@@ -252,7 +284,18 @@ class Upload {
     this.scan({ header: 'Encryption-Password', value: pw });
   }
 
-  isValidFile() {
+  isValidSize() {
+    if (this.options.maxSize) {
+      if (this.file.size > this.options.maxSize) {
+        this.setError('rejected', 'Document is too large');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  isAlowedFileTypes() {
     if (this.options.fileTypes) {
       if (!this.file.name) {
         return false;
@@ -261,20 +304,21 @@ class Upload {
       const fileExt = fileName
         .substring(fileName.lastIndexOf('.'))
         .toLowerCase();
+
       for (let i = 0; i < this.options.fileTypes.length; i++) {
         this.options.fileTypes[i] = this.options.fileTypes[i].toLowerCase();
       }
+
       if (this.options.fileTypes.indexOf(fileExt) < 0) {
         this.setError('rejected', `Document type ${fileExt} is not allowed`);
         return false;
       }
     }
-    if (this.options.maxSize) {
-      if (this.file.size > this.options.maxSize) {
-        this.setError('rejected', 'Document is too large');
-        return false;
-      }
-    }
+
+    return true;
+  }
+
+  isAllowedFileNameCharacters() {
     if (this.options.allowedFileNameCharacters) {
       const fileName = this.file.name.substring(
         0,
@@ -289,7 +333,16 @@ class Upload {
         return false;
       }
     }
+
     return true;
+  }
+
+  isValidFile() {
+    return (
+      this.isAllowedFileNameCharacters() &&
+      this.isAlowedFileTypes() &&
+      this.isValidSize()
+    );
   }
 
   trimFileName(fileName) {
@@ -347,7 +400,12 @@ class Upload {
 
   setError(status, message, err) {
     this.status = status;
-    this.parseErrorMessage(message, err);
+    try {
+      this.parseErrorMessage(message, err);
+    } catch {
+      /* the error callback should always be called */
+    }
+
     this.onError.forEach(cb => cb(err || new Error(this.errorMessage)));
   }
 
