@@ -233,7 +233,6 @@ describe('upload-core', () => {
               'tus-resumable': '1.0.0',
               'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
               'transfer-encoding': 'chunked',
-              'AV-Scan-Result': 'accepted',
               'Upload-Offset': 12,
               references:
                 '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
@@ -262,26 +261,11 @@ describe('upload-core', () => {
         upload.start();
       });
 
-      // it('should parse error messages', () => {
-      //   const file = Buffer.from('hello world!'.split(''));
-      //   file.name = 'a';
-      //   const upload = new Upload(file, options);
-      //   upload.start();
-      //   const getResponseHeaderMethod = function getResponseHeaderMethod() {
-      //     return 'error message';
-      //   };
-      //   const err = {
-      //     originalRequest: { getResponseHeader: getResponseHeaderMethod },
-      //     message:
-      //       'tus: unexpected response while creating upload, originated from request (response code: 400, response text: Missing valid positive numeric header: Upload-Length)',
-      //   };
-      //   upload.parseErrorMessage('Default Error', err);
-      //   expect(upload.errorMessage).toBe('error message');
-
-      //   const upload2 = new Upload(file, options);
-      //   upload2.start();
-      //   upload2.parseErrorMessage('Default Error');
-      //   expect(upload2.errorMessage).toBe('Default Error');
+      // it('should resume an upload from a stored url', done => {
+      //   window.localStorage.setItem(
+      //     'fingerprinted',
+      //     'http://tus.io/uploads/resuming'
+      //   );
       // });
     });
   });
