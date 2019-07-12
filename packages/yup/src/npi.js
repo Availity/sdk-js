@@ -2,13 +2,11 @@ const INTEGER_REGEX = /^\d*$/;
 
 function npi(msg) {
   return this.test({
-    name: 'isRequired',
+    name: 'npi',
     exclusive: true,
     message: msg || 'This field is invalid.',
     test(value) {
       if (!value) return true;
-
-      value = value + '';
 
       if (!INTEGER_REGEX.test(value) || value.length !== 10) {
         return false;
@@ -29,7 +27,7 @@ function npi(msg) {
       for (let i = value.length; i > 0; i--) {
         let next = parseInt(value.charAt(i - 1), 10);
         if (alternate) {
-          next = next * 2;
+          next *= 2;
           if (next > 9) {
             next = (next % 10) + 1;
           }
@@ -42,7 +40,7 @@ function npi(msg) {
       const calculatedCheck = roundUp - total;
 
       return calculatedCheck === digit;
-    }
+    },
   });
 }
 
