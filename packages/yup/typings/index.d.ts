@@ -5,6 +5,8 @@ declare module 'yup' {
     min: string;
     max: string;
     format?: string;
+    start?: string | 'startDate';
+    end?: string | 'endDate';
   };
 
   interface StringSchema<T extends string | null | undefined = string>

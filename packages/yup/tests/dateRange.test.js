@@ -22,22 +22,25 @@ describe('date', () => {
     expect(valid).toBe(true);
   });
 
-  test('should return error if invalid', async () => {
+  test('should work with custom value keys', async () => {
     const schema = yup
-      .string()
-      .dateFormat()
-      .required();
+      .object()
+      .shape({
+        helloDate: yup.string().isRequired(),
+        worldDate: yup.string().isRequired(),
+      })
+      .dateRange({
+        min: '12/10/2012',
+        max: '12/13/2012',
+        start: 'helloDate',
+        end: 'worldDate',
+      });
 
-    const valid = await schema.isValid('12/12/20122');
+    const valid = await schema.isValid({
+      helloDate: '12/11/2012',
+      worldDate: '12/12/2012',
+    });
 
-    expect(valid).toBe(false);
-  });
-
-  test('should render custom error message', async () => {
-    const schema = yup.string().dateFormat('MM/DD/YYYY', 'Test Error Message');
-
-    await expect(schema.validate('12/02/20122')).rejects.toThrow(
-      'Test Error Message'
-    );
+    expect(valid).toBe(true);
   });
 });

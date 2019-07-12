@@ -1,6 +1,10 @@
 import moment from 'moment';
+import get from 'lodash.get';
 
-export default function({ min, max, format = 'MM/DD/YYYY' }, msg) {
+export default function(
+  { min, max, format = 'MM/DD/YYYY', start = 'startDate', end = 'endDate' },
+  msg
+) {
   const minDate = moment(min, format, true);
 
   const maxDate = moment(max, format, true);
@@ -17,7 +21,9 @@ export default function({ min, max, format = 'MM/DD/YYYY' }, msg) {
       )} and ${maxDate.format(format)}`,
     test(value) {
       if (!value) return false;
-      let { startDate, endDate } = value;
+      let startDate = get(value, start);
+      let endDate = get(value, end);
+
       if (!startDate || !endDate) return false;
 
       startDate = moment(startDate, format, true);

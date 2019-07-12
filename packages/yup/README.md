@@ -54,6 +54,8 @@ Evaluates a date range object.
   - **min** - `string`. **required**. The min date that can be selected.
   - **max** - `string`. **required**. The max date that can be selected.
   - **format** - `string`. optional. The format to parse the dates with.
+  - **start** - `string`. optional. The key for the start date. Default: `startDate`
+  - **end** - `string`. optional. The key for the end date. Default: `endDate`
 - **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must be between XX/XX/XXXX and XX/XX/XXXX."
 
 
