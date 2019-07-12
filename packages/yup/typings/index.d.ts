@@ -12,6 +12,7 @@ declare module 'yup' {
     isRequired(required?: boolean, errorMessage?: string): StringSchema<T>;
     dateFormat(format?: string, errorMessage?: string): StringSchema<T>;
     between(options: DateRangeOptions, errorMessage?: string): StringSchema<T>;
+    npi(errorMessage?: string): StringSchema<T>;
   }
   interface ObjectSchema<T extends object | null | undefined = object>
     extends Schema<T> {
@@ -23,6 +24,12 @@ declare module 'yup' {
 
   interface ArraySchema<T> extends BasicArraySchema<T[]>{
     isRequired(required?: boolean, errorMessage?: string): ArraySchema<T>;
+  }
+
+  interface NumberSchema<T extends number | null | undefined = number>
+    extends Schema<T> {
+    isRequired(required?: boolean, errorMessage?: string): NumberSchema<T>;
+    npi(errorMessage?: string): NumberSchema<T>;
   }
 
 }
