@@ -8,6 +8,8 @@ function npi(msg) {
     test(value) {
       if (!value) return true;
 
+      value += '';
+
       if (!INTEGER_REGEX.test(value) || value.length !== 10) {
         return false;
       }
