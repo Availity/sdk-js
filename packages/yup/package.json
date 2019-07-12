@@ -16,17 +16,16 @@
   "author": "Kyle Gray <kyle.gray@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "moment": "^2.24.0",
     "yup": "^0.27.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "moment": "^2.24.0",
     "yup": "^0.27.0"
   },
   "dependencies": {
+    "dayjs": "^1.8.15",
     "lodash.get": "^4.4.2"
   }
 }

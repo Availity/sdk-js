@@ -29,9 +29,6 @@ schema.isValid('12-12-2012');
 - [dateFormat](#dateFormat)
 - [between](#between)
 
-> Note any date validation methods will required [moment](https://www.npmjs.com/package/moment) to be installed
-
-
 
 ## Methods
 ### isRequired [**String**,**Array**,**Number**]

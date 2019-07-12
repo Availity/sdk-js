@@ -1,13 +1,20 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import get from 'lodash.get';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 export default function(
   { min, max, format = 'MM/DD/YYYY', start = 'startDate', end = 'endDate' },
   msg
 ) {
-  const minDate = moment(min, format, true);
+  const minDate = dayjs(min, format, true);
 
-  const maxDate = moment(max, format, true);
+  const maxDate = dayjs(max, format, true);
 
   // Can't use arrow function because we rely on 'this' referencing yup's internals
   return this.test({
@@ -26,9 +33,9 @@ export default function(
 
       if (!startDate || !endDate) return false;
 
-      startDate = moment(startDate, format, true);
+      startDate = dayjs(startDate, format, true);
 
-      endDate = moment(endDate, format, true);
+      endDate = dayjs(endDate, format, true);
 
       return (
         startDate.isValid() &&
