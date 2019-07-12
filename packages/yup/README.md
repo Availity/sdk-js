@@ -36,7 +36,7 @@ schema.isValid('12-12-2012');
 ## Methods
 ### isRequired [**String**,**Array**,**Number**]
 #### Parameters
-- **required** - `boolean`. **required**. Whether or not the given string is required.
+- **required** - `boolean`. Optional. Whether or not the given string is required. Default: `true`
 - **message** - `string`. Optional. Custom error message when invalid. Default: `This Field is Required.`
 
 #### Example

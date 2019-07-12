@@ -1,17 +1,9 @@
 import moment from 'moment';
 
 export default function({ min, max, format = 'MM/DD/YYYY' }, msg) {
-  const minDate = moment(
-    min,
-    ['MM/DD/YYYY', format, 'MMDDYYYY', 'YYYYMMDD'],
-    true
-  );
+  const minDate = moment(min, format, true);
 
-  const maxDate = moment(
-    max,
-    ['MM/DD/YYYY', format, 'MMDDYYYY', 'YYYYMMDD'],
-    true
-  );
+  const maxDate = moment(max, format, true);
 
   // Can't use arrow function because we rely on 'this' referencing yup's internals
   return this.test({
@@ -28,17 +20,9 @@ export default function({ min, max, format = 'MM/DD/YYYY' }, msg) {
       let { startDate, endDate } = value;
       if (!startDate || !endDate) return false;
 
-      startDate = moment(
-        startDate,
-        ['MM/DD/YYYY', format, 'MMDDYYYY', 'YYYYMMDD'],
-        true
-      );
+      startDate = moment(startDate, format, true);
 
-      endDate = moment(
-        endDate,
-        ['MM/DD/YYYY', format, 'MMDDYYYY', 'YYYYMMDD'],
-        true
-      );
+      endDate = moment(endDate, format, true);
 
       return (
         startDate.isValid() &&

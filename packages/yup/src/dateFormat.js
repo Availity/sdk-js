@@ -8,11 +8,7 @@ export default function(format = 'MM/DD/YYYY', msg) {
     // NOTE: Intentional use of single quotes - yup will handle the string interpolation
     message: msg || 'This field is invalid.',
     test(value) {
-      const date = moment(
-        value,
-        ['MM/DD/YYYY', format, 'MMDDYYYY', 'YYYYMMDD'],
-        true
-      );
+      const date = moment(value, format, true);
       return date.isValid();
     },
   });
