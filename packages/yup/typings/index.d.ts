@@ -1,27 +1,13 @@
 import * as yup from 'yup';
+import './dateRange';
+import './date';
 
 declare module 'yup' {
-  type DateRangeOptions = {
-    min: string;
-    max: string;
-    format?: string;
-    start?: string | 'startDate';
-    end?: string | 'endDate';
-  };
 
   interface StringSchema<T extends string | null | undefined = string>
     extends Schema<T> {
     isRequired(required?: boolean, errorMessage?: string): StringSchema<T>;
-    dateFormat(format?: string, errorMessage?: string): StringSchema<T>;
-    between(options: DateRangeOptions, errorMessage?: string): StringSchema<T>;
     npi(errorMessage?: string): StringSchema<T>;
-  }
-  interface ObjectSchema<T extends object | null | undefined = object>
-    extends Schema<T> {
-    dateRange(
-      options: DateRangeOptions,
-      errorMessage?: string
-    ): ObjectSchema<T>;
   }
 
   interface ArraySchema<T> extends BasicArraySchema<T[]>{
