@@ -51,10 +51,7 @@ describe('DateRange', () => {
 
 describe('date', () => {
   test('should validate', async () => {
-    const schema = yup.dateRange({
-      min: '12/10/2012',
-      max: '12/13/2012',
-    });
+    const schema = yup.dateRange().between('12/10/2012', '12/13/2012');
 
     const valid = await schema.isValid({
       startDate: '12/11/2012',
@@ -65,12 +62,12 @@ describe('date', () => {
   });
 
   test('should work with custom value keys', async () => {
-    const schema = yup.dateRange({
-      min: '12/10/2012',
-      max: '12/13/2012',
-      start: 'helloDate',
-      end: 'worldDate',
-    });
+    const schema = yup
+      .dateRange({
+        startKey: 'helloDate',
+        endKey: 'worldDate',
+      })
+      .between('12/10/2012', '12/13/2012');
 
     const valid = await schema.isValid({
       helloDate: '12/11/2012',

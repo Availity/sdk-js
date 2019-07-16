@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import merge from 'merge-options';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrAfter);
@@ -16,10 +17,12 @@ const defaultOptions = {
 };
 
 export default class DateRangeSchema extends yup.mixed {
-  constructor({ startKey, endKey, format } = defaultOptions) {
+  constructor(options) {
     super({
       type: 'dateRange',
     });
+
+    const { startKey, endKey, format } = merge({}, defaultOptions, options);
 
     this.startKey = startKey;
     this.endKey = endKey;
