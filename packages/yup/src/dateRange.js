@@ -30,7 +30,7 @@ export default class DateRangeSchema extends yup.mixed {
         const start = get(value, startKey);
         const end = get(value, endKey);
 
-        if ((start && !end) || (!start && end)) {
+        if (!end || !start) {
           throw new yup.ValidationError('Start and End Date are required.');
         }
 
