@@ -295,7 +295,7 @@ class Upload {
     return true;
   }
 
-  isAlowedFileTypes() {
+  isAllowedFileTypes() {
     if (this.options.fileTypes) {
       if (!this.file.name) {
         return false;
@@ -340,7 +340,7 @@ class Upload {
   isValidFile() {
     return (
       this.isAllowedFileNameCharacters() &&
-      this.isAlowedFileTypes() &&
+      this.isAllowedFileTypes() &&
       this.isValidSize()
     );
   }
