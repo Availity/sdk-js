@@ -50,8 +50,10 @@
     "jest-environment-jsdom-global": "^1.1.0",
     "lerna": "^3.11.0",
     "lint-staged": "^9.1.0",
+    "nock": "^10.0.6",
     "plop": "^2.3.0",
-    "prettier": "^1.13.7"
+    "prettier": "^1.13.7",
+    "xhr-mock": "^2.4.1"
   },
   "license": "MIT",
   "lint-staged": {
