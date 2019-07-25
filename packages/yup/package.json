@@ -27,6 +27,6 @@
   "dependencies": {
     "dayjs": "^1.8.15",
     "lodash.get": "^4.4.2",
-    "merge-options": "^1.0.1"
+    "merge-options-es5": "^1.0.0"
   }
 }

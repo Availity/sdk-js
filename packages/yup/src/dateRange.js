@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import merge from 'merge-options';
+import merge from 'merge-options-es5';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrAfter);
