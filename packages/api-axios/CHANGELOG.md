@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.2.1...@availity/api-axios@5.3.0) (2019-07-25)
+
+
+### Features
+
+* **api-core:** add thanos resource ([5b7c77a](https://github.com/Availity/sdk-js/commit/5b7c77a))
+
+
+
+
+
 ## [5.2.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.2.0...@availity/api-axios@5.2.1) (2019-06-21)
 
 **Note:** Version bump only for package @availity/api-axios

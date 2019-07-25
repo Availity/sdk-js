@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.5...@availity/upload-core@3.0.6) (2019-07-25)
+
+**Note:** Version bump only for package @availity/upload-core
+
+
+
+
+
 ## [3.0.5](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.4...@availity/upload-core@3.0.5) (2019-06-26)
 
 
