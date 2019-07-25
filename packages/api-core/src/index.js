@@ -1,5 +1,6 @@
 import AvApi from './api';
 import AvMicroservice from './ms';
+import AvThanos from './resources/thanos';
 import AvLogMessages from './resources/logs';
 import AvLogMessagesV2 from './resources/dma';
 import AvNavigation from './resources/navigation';
@@ -23,6 +24,7 @@ import AvCodes from './resources/codes';
 export default AvApi;
 
 export {
+  AvThanos,
   AvMicroservice,
   AvLogMessages,
   AvLogMessagesV2,
