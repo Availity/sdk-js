@@ -1,6 +1,7 @@
 import Api, {
   AvMicroserviceApi,
   AvProxyApi,
+  avThanosApi,
   avLogMessagesApi,
   avLogMessagesApiV2,
   avNavigationApi,
@@ -33,6 +34,7 @@ describe('AvAPi', () => {
 
 describe('API Definitions', () => {
   test('should be defined', () => {
+    expect(avThanosApi).toBeDefined();
     expect(avLogMessagesApi).toBeDefined();
     expect(avLogMessagesApiV2).toBeDefined();
     expect(avNavigationApi).toBeDefined();

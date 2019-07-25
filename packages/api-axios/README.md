@@ -30,6 +30,7 @@ function async getUser() {
 
 -   `AvMicroserviceApi`
 -   `AvProxyApi`
+-   `avThanosApi`
 -   `avLogMessagesApi`
 -   `avNavigationApi`
 -   `avNotificationApi`
@@ -55,6 +56,7 @@ Details about each api can be found [here](../api-core/src/resources/README.md)
 import AvApi, {
     AvMicroserviceApi,
     AvProxyApi,
+    avThanosApi,
     avLogMessagesApi,
     avNavigationApi,
     avNotificationApi,
