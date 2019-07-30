@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.5...@availity/upload-core@3.0.6) (2019-07-30)
+
+
+### Bug Fixes
+
+* **upload-core:** change error name for lint ([1d3ae92](https://github.com/Availity/sdk-js/commit/1d3ae92))
+* **upload-core:** leave the catch param syntax ([1b58c3d](https://github.com/Availity/sdk-js/commit/1b58c3d))
+
+
+
+
+
+
 ## [3.0.5](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.4...@availity/upload-core@3.0.5) (2019-06-26)
 
 
