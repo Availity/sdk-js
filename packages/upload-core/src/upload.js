@@ -402,7 +402,7 @@ class Upload {
     this.status = status;
     try {
       this.parseErrorMessage(message, err);
-    } catch (e) {
+    } catch (error) {
       /* the error callback should always be called */
     }
 
