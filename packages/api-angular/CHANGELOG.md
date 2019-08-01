@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/Availity/sdk-js/compare/@availity/api-angular@4.2.1...@availity/api-angular@4.4.0) (2019-08-01)
+
+
+### Features
+
+* **api-core:** add webQL resource ([67b9797](https://github.com/Availity/sdk-js/commit/67b9797))
+
+
+
+
+
 # [4.3.0](https://github.com/Availity/sdk-js/compare/@availity/api-angular@4.2.1...@availity/api-angular@4.3.0) (2019-08-01)
 
 
