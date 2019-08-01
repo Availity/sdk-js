@@ -87,6 +87,84 @@ module.exports = plop => {
             'packages/api-core/src/resources/tests/{{camelCase resourceName}}.test.js',
           templateFile: 'plop-templates/resource/api-core-test.js.hbs',
         },
+        {
+          type: 'append',
+          path: 'packages/api-core/src/index.js',
+          pattern: "import AvMicroservice from './ms';",
+          template:
+            "import Av{{pascalCase resourceName}} from './resources/{{camelCase resourceName}}';",
+        },
+        {
+          type: 'append',
+          path: 'packages/api-core/src/index.js',
+          pattern: 'export {',
+          template: '  Av{{pascalCase resourceName}},',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-axios/src/index.js',
+          pattern: "import AvProxyApi from './proxy';",
+          template:
+            "import av{{pascalCase resourceName}}Api from './{{camelCase resourceName}}';",
+        },
+        {
+          type: 'append',
+          path: 'packages/api-axios/src/index.js',
+          pattern: 'AvProxyApi,',
+          template: '  av{{pascalCase resourceName}}Api,',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-angular/src/index.js',
+          pattern: "import AvProxyApiFactory from './proxy';",
+          template:
+            "import av{{pascalCase resourceName}}ApiFactory from './{{camelCase resourceName}}';",
+        },
+        {
+          type: 'append',
+          path: 'packages/api-angular/src/index.js',
+          pattern: ".factory('AvProxyApi', AvProxyApiFactory)",
+          template:
+            "  .factory('av{{pascalCase resourceName}}Api', av{{pascalCase resourceName}}ApiFactory)",
+        },
+        {
+          type: 'append',
+          path: 'packages/api-axios/README.md',
+          pattern: '-   `AvProxyApi`',
+          template: '-   `av{{pascalCase resourceName}}Api`',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-axios/README.md',
+          pattern: '    AvProxyApi,',
+          template: '    av{{pascalCase resourceName}}Api,',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-angular/README.md',
+          pattern: '-   `AvProxyApi`',
+          template: '-   `av{{pascalCase resourceName}}Api`',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-axios/src/tests/api.test.js',
+          pattern: 'AvProxyApi,',
+          template: '  av{{pascalCase resourceName}}Api,',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-axios/src/tests/api.test.js',
+          pattern: /describe\('API Definitions', \(\) => \{\n.*test\('should be defined', \(\) => \{/,
+          template:
+            '    expect(av{{pascalCase resourceName}}Api).toBeDefined();',
+        },
+        {
+          type: 'append',
+          path: 'packages/api-angular/src/tests/api.test.js',
+          pattern: /beforeEach\(\(\) => \{\n.*angular\.mock\.module\(avModule\);\n.*\}\);/,
+          templateFile: 'plop-templates/resource/test-api-angular.hbs',
+          separator: '\n\n',
+        },
       ];
 
       if (data.isMicroservice) {

@@ -28,13 +28,6 @@
 1. Run `npm run new`
 2. Select the "api resource" template
 3. Follow the prompts
-4. Export the resource in `api-core`, [here](packages/api-core/src/index.js)
-5. Export the resource in `api-axios`, [here](packages/api-axios/src/index.js)
-6. Export the resource in `api-angular`, [here](packages/api-angular/src/index.js)
-7. Add the resource to the README of `api-axios`, [here](packages/api-axios/README.md)
-8. Add the resource to the README of `api-angular`, [here](packages/api-angular/README.md)
-9. Add test that the resource is defined in `api-axios`, [here](packages/api-axios/src/tests/api.test.js)
-10. Add test that the resource is defined in `api-angular`, [here](packages/api-angular/src/tests/api.test.js)
 
 ## Contributing
 
