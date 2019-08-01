@@ -31,6 +31,7 @@ app.service('myCustomService', avUsersApi => {
 -   `AvMicroserviceApi`
 -   `avLogMessagesApi`
 -   `AvProxyApi`
+-   `avWebQLApi`
 -   `avPdfApi`
 -   `avNavigationApi`
 -   `avNotificationApi`

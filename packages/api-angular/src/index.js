@@ -5,6 +5,7 @@ import AvApiFactory from './api';
 import AvMicroserviceApiFactory from './ms';
 
 import AvProxyApiFactory from './proxy';
+import avWebQLApiFactory from './webQL';
 import avLogMessagesApiFactory from './logs';
 import avDmaMessagesApiFactory from './dma';
 import avNavigationApiFactory from './navigation';
@@ -28,6 +29,7 @@ export default angular
   .factory('AvApi', AvApiFactory)
   .factory('AvMicroserviceApi', AvMicroserviceApiFactory)
   .factory('AvProxyApi', AvProxyApiFactory)
+  .factory('avWebQLApi', avWebQLApiFactory)
   .factory('avLogMessagesApi', avLogMessagesApiFactory)
   .factory('avDmaMessagesApi', avDmaMessagesApiFactory)
   .factory('avPdfApi', avPdfApiFactory)
