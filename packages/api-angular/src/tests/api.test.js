@@ -7,6 +7,14 @@ describe('Api Definitions Angular', () => {
     angular.mock.module(avModule);
   });
 
+  test('avWebQLApi should be defined', () => {
+    let avWebQLApi;
+    angular.mock.inject(_avWebQLApi_ => {
+      avWebQLApi = _avWebQLApi_;
+    });
+    expect(avWebQLApi).toBeDefined();
+  });
+
   test('avLogMessagesApi should be defined', () => {
     let avLogMessagesApi;
     angular.mock.inject(_avLogMessagesApi_ => {
