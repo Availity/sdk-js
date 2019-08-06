@@ -14,6 +14,7 @@ declare module 'yup' {
       maxDate: string,
       errorMessage?: string
     ): DateSchema<T>;
+    isRequired(required?: boolean, errorMessage?: string): DateSchema<T>;
   }
 
   export interface DateSchemaConstructor {

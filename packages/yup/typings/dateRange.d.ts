@@ -12,6 +12,17 @@ declare module 'yup' {
     format?: string | 'MM/DD/YYYY';
   }
 
+  type DistanceValue = {
+    value: number,
+    units?: string;
+    errorMessage?: string
+  }
+
+  type DistanceOpts = {
+    min?: DistanceValue;
+    max?: DistanceValue
+  }
+
   interface DateRangeSchema<
     T extends DateRangeObject | null | undefined = DateRangeObject
   > extends MixedSchema<T> {
@@ -22,6 +33,8 @@ declare module 'yup' {
       maxDate: string,
       errorMessage?: string
     ): DateRangeSchema<T>;
+    isRequired(required?: boolean, errorMessage?: string): DateRangeSchema<T>;
+    distance(distanceOpts: DistanceOpts);
   }
 
   export interface DateRangeSchemaConstructor {

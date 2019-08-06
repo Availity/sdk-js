@@ -14,6 +14,8 @@ const defaultOpts = {
   format: 'MM/DD/YYYY',
 };
 
+const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
+
 export default class DateSchema extends yup.mixed {
   constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
     super({
@@ -21,11 +23,11 @@ export default class DateSchema extends yup.mixed {
     });
 
     this.format = format;
+    this.getValidDate = this.getValidDate.bind(this);
 
     this.withMutation(() => {
       this.transform(function mutate(value) {
-        const date = dayjs(value, format);
-        return date;
+        return this.getValidDate(value);
       });
     });
   }
@@ -47,8 +49,23 @@ export default class DateSchema extends yup.mixed {
     return value.isValid();
   }
 
+  getValidDate(value) {
+    let date = dayjs(value, this.format);
+
+    if (!date.isValid()) {
+      let i;
+      for (i = 0; i < formats.length; i++) {
+        date = dayjs(value, formats[i]);
+
+        if (date.isValid()) return date;
+      }
+    }
+
+    return date;
+  }
+
   min(min, message) {
-    const minDate = dayjs(min, this.format);
+    const minDate = this.getValidDate(min);
 
     return this.test({
       message:
@@ -57,13 +74,16 @@ export default class DateSchema extends yup.mixed {
       exclusive: true,
       params: { min },
       test(value) {
+        if (!min || !minDate.isValid()) {
+          return true;
+        }
         return value === null || minDate.isSameOrBefore(value, 'MM/DD/YYYY');
       },
     });
   }
 
   max(max, message) {
-    const maxDate = dayjs(max, this.format);
+    const maxDate = this.getValidDate(max);
 
     return this.test({
       message:
@@ -72,15 +92,33 @@ export default class DateSchema extends yup.mixed {
       exclusive: true,
       params: { max },
       test(value) {
+        if (!max || !maxDate.isValid()) {
+          return true;
+        }
         return value === null || maxDate.isSameOrAfter(value);
       },
     });
   }
 
-  between(min, max, msg) {
-    const minDate = dayjs(min, this.format);
+  isRequired(isRequired = true, msg) {
+    return this.test({
+      name: 'isRequired',
+      exclusive: true,
+      message: msg || 'This field is required.',
+      test(value) {
+        if (!isRequired) {
+          return true;
+        }
 
-    const maxDate = dayjs(max, this.format);
+        return value !== undefined;
+      },
+    });
+  }
+
+  between(min, max, msg) {
+    const minDate = this.getValidDate(min);
+
+    const maxDate = this.getValidDate(max);
 
     // Can't use arrow function because we rely on 'this' referencing yup's internals
     return this.test({
@@ -93,6 +131,10 @@ export default class DateSchema extends yup.mixed {
           this.format
         )} and ${maxDate.format(this.format)}.`,
       test(value) {
+        if (!min || !max || !minDate.isValid() || !maxDate.isValid()) {
+          return true;
+        }
+
         return value.isBetween(minDate, maxDate);
       },
     });

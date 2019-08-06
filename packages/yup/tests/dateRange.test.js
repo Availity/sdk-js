@@ -22,7 +22,7 @@ describe('DateRange', () => {
         endDate: '12/14/2012',
       });
     } catch (error) {
-      expect(error.message).toBe('Start and End Date are required.');
+      expect(error.errors[0]).toBe('Start and End Date are required.');
     }
   });
 
@@ -72,6 +72,29 @@ describe('date', () => {
     const valid = await schema.isValid({
       helloDate: '12/11/2012',
       worldDate: '12/12/2012',
+    });
+
+    expect(valid).toBe(true);
+  });
+
+  test('should validate distance', async () => {
+    const schema = yup.dateRange().distance({
+      min: {
+        value: 5,
+        units: 'day',
+      },
+    });
+
+    let valid = await schema.isValid({
+      startDate: '12/11/2012',
+      endDate: '12/13/2012',
+    });
+
+    expect(valid).toBe(false);
+
+    valid = await schema.isValid({
+      startDate: '12/11/2012',
+      endDate: '12/18/2012',
     });
 
     expect(valid).toBe(true);
