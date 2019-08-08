@@ -1,14 +1,7 @@
-import dayjs from 'dayjs';
+import moment from 'moment';
 import get from 'lodash.get';
 import * as yup from 'yup';
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
 import merge from 'merge-options-es5';
-
-dayjs.extend(customParseFormat);
-dayjs.extend(isSameOrAfter);
-dayjs.extend(isSameOrBefore);
 
 const defaultOptions = {
   startKey: 'startDate',
@@ -67,18 +60,7 @@ export default class DateRangeSchema extends yup.mixed {
   }
 
   getValidDate(value) {
-    let date = dayjs(value, this.format);
-
-    if (!date.isValid()) {
-      let i;
-      for (i = 0; i < formats.length; i++) {
-        date = dayjs(value, formats[i]);
-
-        if (date.isValid()) return date;
-      }
-    }
-
-    return date;
+    return moment(value, [this.format, ...formats], true);
   }
 
   distance({ min, max } = defaultValue) {

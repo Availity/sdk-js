@@ -3,9 +3,7 @@ import * as yup from 'yup';
 
 const INVALID = 'Date is invalid.';
 
-const defaults = {
-  format: 'MM/DD/YYYY',
-};
+const defaults = {};
 
 const validate = async (date, { format, min, max, message } = defaults) => {
   let schema = yup.date({
@@ -40,10 +38,10 @@ describe('Date', () => {
   });
 
   test('invalid', async () => {
-    await expect(validate('2012/12/12')).rejects.toThrow(INVALID);
-    await expect(
-      validate('12/22/2012', { format: 'YYYY/MM/DD' })
-    ).rejects.toThrow(INVALID);
+    await expect(validate('2012')).rejects.toThrow(INVALID);
+    await expect(validate('12-2012')).rejects.toThrow(INVALID);
+    await expect(validate('12-2012-12')).rejects.toThrow(INVALID);
+    await expect(validate('invalid-date')).rejects.toThrow(INVALID);
   });
 
   test('min date', async () => {

@@ -1,20 +1,11 @@
 import * as yup from 'yup';
-import dayjs from 'dayjs';
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import isBetween from 'dayjs/plugin/isBetween';
-
-dayjs.extend(customParseFormat);
-dayjs.extend(isSameOrAfter);
-dayjs.extend(isSameOrBefore);
-dayjs.extend(isBetween);
+import moment from 'moment';
 
 const defaultOpts = {
   format: 'MM/DD/YYYY',
 };
 
-const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
+const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
 export default class DateSchema extends yup.mixed {
   constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
@@ -50,18 +41,7 @@ export default class DateSchema extends yup.mixed {
   }
 
   getValidDate(value) {
-    let date = dayjs(value, this.format);
-
-    if (!date.isValid()) {
-      let i;
-      for (i = 0; i < formats.length; i++) {
-        date = dayjs(value, formats[i]);
-
-        if (date.isValid()) return date;
-      }
-    }
-
-    return date;
+    return moment(value, [this.format, ...formats], true);
   }
 
   min(min, message) {
