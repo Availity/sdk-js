@@ -18,7 +18,17 @@ Import the package in the root of your project somewhere and you will have acces
 import '@availity/yup';
 import * as yup from 'yup';
 
-const schema = yup.string().dateFormat('MM/DD/YYYY');
+const schema = yup.string().isRequired(true,'This field is required.');
+
+schema.isValid('12-12-2012');
+```
+
+If you want to utilize the custom date validators you can import using `/moment` instead of the default like:
+```javascript
+import '@availity/yup/moment';
+import * as yup from 'yup';
+
+const schema = yup.date();
 
 schema.isValid('12-12-2012');
 ```
@@ -26,8 +36,9 @@ schema.isValid('12-12-2012');
 ## Table of Contents
 
 -   [isRequired](#isRequired)
+-   [npi](#npi)
 -   [dateRange](#dateRange)
--   [date](#dateFormat)
+-   [date](#date)
 
 ## Methods
 
@@ -47,6 +58,18 @@ yup.string().isRequired();
 yup.string().isRequired(true, 'Custom Error Message');
 yup.number().isRequired();
 yup.array().isRequired();
+```
+
+### npi [**String**]
+
+#### Parameters
+
+-   **message** - `string`. Optional. Custom error message when invalid. Default: `This Field is Required.`
+
+#### Example
+
+```javascript
+yup.string().npi()
 ```
 
 ## Additional Schemas
@@ -141,6 +164,39 @@ schema.isValid({
     endDate: '12/03/2012',
 }); // valid
 ```
+
+
+### distance
+
+Evaluates if date range is within a set distance
+
+#### parameters
+
+-   **options** - `object`. **required**. distance options.
+    - **min** - `object`. optional. The minimum distance between the date ranges
+        - **value** - `number`. **required**. the value of the minimum distance
+        - **units** - `string`. optional. the weight of the value. default `day`
+    - **max** - `object`. optional. The maximum distance between the date ranges
+        - **value** - `number`. **required**. the value of the max distance
+        - **units** - `string`. optional. the weight of the value. default `day`
+    - **format** - `string`. optional. custom parse format for date validation
+
+#### example
+
+```javascript
+const schema = yup.dateRange().distance({
+    min: {
+        value: 3,
+        units: 'day'
+    }
+});
+
+schema.isValid({
+    startDate: '12/02/2012',
+    endDate: '12/03/2012',
+}); // valid
+```
+
 ## **date**
 Overrides the default date yup object and accepts a string or `dayjs` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
 
