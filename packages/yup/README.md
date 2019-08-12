@@ -198,7 +198,7 @@ schema.isValid({
 ```
 
 ## **date**
-Overrides the default date yup object and accepts a string or `dayjs` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
+Overrides the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
 
 ### **Methods**
 

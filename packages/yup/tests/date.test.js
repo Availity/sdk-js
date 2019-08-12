@@ -1,4 +1,4 @@
-import '..';
+import '../moment'
 import * as yup from 'yup';
 
 const INVALID = 'Date is invalid.';
