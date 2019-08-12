@@ -97,7 +97,7 @@ const schema = yup.dateRange({
 });
 
 schema.isValid({
-    startdate: '07/05/2012',
+    startDate: '07/05/2012',
     endDate: '07/10/2012',
 });
 ```
