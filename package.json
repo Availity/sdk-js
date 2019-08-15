@@ -6,6 +6,7 @@
     "url": "https://github.com/Availity/sdk-js.git"
   },
   "scripts": {
+    "codecov:ci": "codecov",
     "lint": "eslint .",
     "bootstrap": "lerna bootstrap --no-ci",
     "link": "lerna link",
@@ -13,8 +14,10 @@
     "clean": "lerna clean --yes",
     "publish": "lerna publish",
     "test": "jest",
+    "test:ci": "jest --runInBand --collectCoverage",
     "postinstall": "npm run bootstrap",
     "release": "npm run check:packages && lerna publish",
+    "release:ci": "lerna publish --yes",
     "release:canary": "npm run check:packages && lerna publish -c",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "add": "sh ./scripts/add.sh",
@@ -42,6 +45,7 @@
     "@commitlint/config-lerna-scopes": "^8.0.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
+    "codecov": "^3.5.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^6.0.0",
     "eslint-config-availity": "^4.0.8",
