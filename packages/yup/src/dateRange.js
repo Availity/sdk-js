@@ -63,20 +63,30 @@ export default class DateRangeSchema extends yup.mixed {
     return moment(value, [this.format, ...formats], true);
   }
 
-  distance({ min, max } = defaultValue) {
+  distance({
+    min: {
+      value: minValue,
+      units: minUnits = 'day',
+      errorMessage: minErrorMessage,
+    } = {},
+    max: {
+      value: maxValue,
+      units: maxUnits = 'day',
+      errorMessage: maxErrorMessage,
+    } = {},
+  } = defaultValue) {
     return this.test({
       name: 'distance',
       exclusive: true,
-      params: { min, max },
       test({ endDate, startDate } = defaultValue) {
-        if ((!min && !max) || !startDate || !endDate) return true;
+        if ((!minValue && !maxValue) || !startDate || !endDate) return true;
 
-        if (max) {
-          if (endDate.isAfter(startDate.add(max.value, max.units), 'day')) {
+        if (maxValue) {
+          if (endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
             return new yup.ValidationError(
-              max.errorMessage ||
-                `The end date must be within ${max.value} ${max.units}${
-                  max.value > 1 ? 's' : ''
+              maxErrorMessage ||
+                `The end date must be within ${maxValue} ${maxUnits}${
+                  maxValue > 1 ? 's' : ''
                 } of the start date`,
               {
                 startDate,
@@ -86,12 +96,12 @@ export default class DateRangeSchema extends yup.mixed {
             );
           }
         }
-        if (min) {
-          if (endDate.isBefore(startDate.add(min.value, min.units), 'day')) {
+        if (minValue) {
+          if (endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
             return new yup.ValidationError(
-              min.errorMessage ||
-                `The end date must be greater than ${min.value} ${min.units}${
-                  min.value > 1 ? 's' : ''
+              minErrorMessage ||
+                `The end date must be greater than ${minValue} ${minUnits}${
+                  minValue > 1 ? 's' : ''
                 } of the start date`,
               { startDate, endDate },
               this.path
