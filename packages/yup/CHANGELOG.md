@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/Availity/sdk-js/compare/@availity/yup@1.1.0...@availity/yup@1.1.1) (2019-08-19)
+
+
+### Bug Fixes
+
+* **yup:** fixed bug in daterange causing to validate improperly ([5e90f3e](https://github.com/Availity/sdk-js/commit/5e90f3e))
+
+
+
+
+
 # 1.1.0 (2019-08-12)
 
 
