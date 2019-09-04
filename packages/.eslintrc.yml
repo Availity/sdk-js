@@ -1,0 +1,5 @@
+extends: availity/browser
+globals:
+    Buffer: false
+    global: false
+    process: false
