@@ -9,6 +9,7 @@
     "codecov:ci": "codecov",
     "lint": "eslint .",
     "start:docs": "npm run start --prefix packages/docs",
+    "deploy:docs": "npm run build:deploy --prefix packages/docs && gh-pages -d packages/docs/public",
     "bootstrap": "lerna bootstrap --no-ci",
     "link": "lerna link",
     "updated": "lerna updated",
