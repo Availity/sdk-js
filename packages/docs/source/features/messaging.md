@@ -43,13 +43,3 @@ returns a string of the windows current domain.
 
 `avMessage.send(payload, target)` will send the payload to the target if AvMessage is enabled.
 target defaults to the parent window. payload will be stringified if not a string.
-
-## Authors
-
-**Kasey Powers**
-
--   [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
-
-## License
-
-[MIT](../../LICENSE)

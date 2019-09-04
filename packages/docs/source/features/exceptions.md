@@ -73,13 +73,3 @@ repeat time is the time `AvExceptions` will wait after an error is called before
 if a number is passed in, this sets repeat time value. The default is 5 seconds.
 
 returns repeatTime value.
-
-## Authors
-
-**Kasey Powers**
-
--   [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
-
-## License
-
-[MIT](../../LICENSE)

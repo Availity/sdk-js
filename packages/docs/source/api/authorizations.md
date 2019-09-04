@@ -11,7 +11,7 @@ summary: A package providing a base authorizations class to help check which per
 ## Configuration
 
 `AvAuthorizations` requires `AvPermissions`, `AvRegions`, and a Promise lib.
-`AvPermissions` and `AvRegions` can be found in [Api-Core](../api-core) but can be any objects that have `getPermissions()` and `getCurrentRegion()` promises respectively.
+`AvPermissions` and `AvRegions` can be found in [Api-Core](/api/definitions/) but can be any objects that have `getPermissions()` and `getCurrentRegion()` promises respectively.
 
 ```javascript
   new AvAuthorizations(AvPermissions, AvRegions, promise);
@@ -44,10 +44,3 @@ For all methods, if no region is passed in, defaults to current region.
 ### `getPayers`
 
 `getPayers(permissionId, organizationId, region)` will check permissionId for an organization with `organizationId` and resolve to its `resources` or an empty array.
-
-## Authors
-**Kasey Powers**
-* [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
-
-## License
-[MIT](../../LICENSE)

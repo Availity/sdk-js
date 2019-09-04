@@ -36,9 +36,9 @@ schema.isValid('12-12-2012');
 
 ## Table of Contents
 
--   [isRequired](#isRequired)
--   [npi](#npi)
--   [dateRange](#dateRange)
+-   [isRequired](#isrequired-stringarraynumber)
+-   [npi](#npi-string)
+-   [dateRange](#daterange)
 -   [date](#date)
 
 ## Methods
