@@ -1,16 +1,17 @@
-const themeOptions = require('@availity/gatsby-theme/theme-options');
+const themeOptions = require('@availity/gatsby-theme-docs/theme-options');
 
 module.exports = {
   pathPrefix: '/sdk-js',
   __experimentalThemes: [
     {
-      resolve: '@availity/gatsby-theme',
+      resolve: '@availity/gatsby-theme-docs',
       options: {
         ...themeOptions,
         root: __dirname,
         subtitle: 'SDK Resources',
         description: 'Documentation for Resources',
         githubRepo: 'availity/sdk-js',
+        contentDir: 'packages/docs/source',
         sidebarCategories: {
           null: ['index', 'contributing'],
           API: [
