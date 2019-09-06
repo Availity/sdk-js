@@ -1,0 +1,28 @@
+---
+title: Contributing
+---
+
+`skd-js` is a monorepo managed using [lerna](https://github.com/lerna/lerna) in independent mode (each packages is versioned and published individually).
+
+-   Run `npm install`
+-   Commits should use the [Angular Commit Format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type). Scope should one of un-prefixed name of the packages under `./packages/`. If a commit applies to multiple packages, leave out the scope.
+-   Release and publish using  `npm run release`. The version is determined by analyzing the commit messages.
+
+> Preview how lerna will version the packages by running:
+
+```bash
+npx lerna version --no-git-tag-version --no-push
+```
+
+> Determine why lerna choose a semver version for the packages by running:
+
+```bash
+npx lerna version --no-git-tag-version --no-push --loglevel silly
+```
+
+## Adding a new API Resource
+
+1. Run `npm run new`
+2. Select the "api resource" template
+3. Follow the prompts
+

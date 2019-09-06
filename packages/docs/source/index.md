@@ -1,8 +1,7 @@
-# sdk-js
-
-> Javascript SDK for Availity
-
-## [Documentation](https://availity.github.io/sdk-js/)
+---
+title: Introduction
+summary: Javascript SDK for Availity
+---
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&logo=MIT)](http://opensource.org/licenses/MIT)
 [![Dependency Status](https://img.shields.io/david/dev/Availity/sdk-js.svg?style=for-the-badge)](https://david-dm.org/Availity/sdk-js)
@@ -13,7 +12,3 @@
 -   Internet Explorer 11 and newer
 -   Google Chrome
 -   Mozilla Firefox
-
-## License
-
-[MIT](./LICENSE)

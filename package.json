@@ -8,6 +8,8 @@
   "scripts": {
     "codecov:ci": "codecov",
     "lint": "eslint .",
+    "start:docs": "npm run start --prefix packages/docs",
+    "deploy:docs": "npm run build:deploy --prefix packages/docs && gh-pages -d packages/docs/public",
     "bootstrap": "lerna bootstrap --no-ci",
     "link": "lerna link",
     "updated": "lerna updated",
@@ -49,6 +51,7 @@
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^6.0.0",
     "eslint-config-availity": "^4.0.8",
+    "gh-pages": "^2.1.1",
     "husky": "^3.0.0",
     "jest": "^24.1.0",
     "jest-environment-jsdom-global": "^1.1.0",
