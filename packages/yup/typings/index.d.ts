@@ -8,6 +8,7 @@ declare module 'yup' {
     extends Schema<T> {
     isRequired(required?: boolean, errorMessage?: string): StringSchema<T>;
     npi(errorMessage?: string): StringSchema<T>;
+    phone(errorMessage?: string): StringSchema<T>;
   }
 
   interface ArraySchema<T> extends BasicArraySchema<T[]>{
@@ -18,6 +19,7 @@ declare module 'yup' {
     extends Schema<T> {
     isRequired(required?: boolean, errorMessage?: string): NumberSchema<T>;
     npi(errorMessage?: string): NumberSchema<T>;
+    phone(errorMessage?: string): NumberSchema<T>;
   }
 
 }
