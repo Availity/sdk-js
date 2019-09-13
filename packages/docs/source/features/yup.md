@@ -38,6 +38,7 @@ schema.isValid('12-12-2012');
 
 -   [isRequired](#isrequired-stringarraynumber)
 -   [npi](#npi-string)
+-   [phone](#phone-stringnumber)
 -   [dateRange](#daterange)
 -   [date](#date)
 
@@ -65,13 +66,42 @@ yup.array().isRequired();
 
 #### Parameters
 
--   **message** - `string`. Optional. Custom error message when invalid. Default: `This Field is Required.`
+-   **message** - `string`. Optional. Custom error message when invalid. Default: `This field is invalid.`
 
 #### Example
 
 ```javascript
 yup.string().npi()
 ```
+
+### phone [**String**,**Number**]
+
+Validates a phone number. Must be 10 digits without country code, can be formatted when using string schema.
+
+#### Parameters
+
+-   **message** - `string`. Optional. Custom error message when invalid. Default: `This field is invalid.`
+
+#### Example
+
+```javascript
+const schema = yup.string().phone();
+
+schema.isValid('(444) 444-4444'); // true
+schema.isValid('+1 (444) 444-4444'); // true
+schema.isValid('444-444-4444'); // true
+schema.isValid('+1 444-444-4444'); // true
+schema.isValid('444.444.4444'); // true
+schema.isValid('(444) 444 4444'); // true
+
+const schema = yup.number.phone();
+
+schema.isValid('4444444444'); // true
+schema.isValid('444 444 4444'); // true
+schema.isValid('44444444445'); // false
+schema.isValid('+14444444444'); // false
+```
+
 
 ## Additional Schemas
 
