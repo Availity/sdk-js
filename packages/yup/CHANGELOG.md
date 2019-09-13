@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Availity/sdk-js/compare/@availity/yup@1.2.0...@availity/yup@1.3.0) (2019-09-13)
+
+
+### Features
+
+* **yup:** add type definitions for phone schema ([319ca88](https://github.com/Availity/sdk-js/commit/319ca88))
+
+
+
+
+
 # [1.2.0](https://github.com/Availity/sdk-js/compare/@availity/yup@1.1.1...@availity/yup@1.2.0) (2019-09-13)
 
 
