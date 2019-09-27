@@ -17,3 +17,5 @@
 ## License
 
 [MIT](./LICENSE)
+
+## [Contributing](.github/CONTRIBUTING.md)
