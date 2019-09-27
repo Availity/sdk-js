@@ -13,7 +13,7 @@
     "codecov:ci": "codecov",
     "lint": "eslint .",
     "start": "yarn workspace @availity/docs start",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public",
+    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public --message 'deployed docs [skip ci]'",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
     "updated": "lerna updated",
