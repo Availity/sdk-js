@@ -30,7 +30,7 @@ module.exports = {
         subtitle: 'SDK Resources',
         description: 'Documentation for Resources',
         githubRepo: 'availity/sdk-js',
-        contentDir: 'packages/docs/source',
+        contentDir: 'docs/source',
         sidebarCategories: {
           null: ['index', 'contributing'],
           API: [

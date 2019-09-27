@@ -3,7 +3,8 @@
   "private": true,
   "description": "Javascript SDK for Availity",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "repository": {
     "type": "git",
@@ -13,7 +14,7 @@
     "codecov:ci": "codecov",
     "lint": "eslint .",
     "start": "yarn workspace @availity/docs start",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public --message 'deployed docs [skip ci]'",
+    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
     "updated": "lerna updated",
@@ -53,7 +54,7 @@
     "codecov": "^3.5.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^6.0.0",
-    "eslint-config-availity": "^4.0.8",
+    "eslint-config-availity": "^5.0.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.0",
     "jest": "^24.1.0",

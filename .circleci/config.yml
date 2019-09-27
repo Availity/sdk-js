@@ -20,26 +20,26 @@ jobs:
       - run:
           name: Lint
           command: |
-            npm run lint
+            yarn lint
       - run: # Test
           name: Run Test
           command: |
-            npm run test:ci
+            yarn test:ci
       - run: # Coverage
           name: Coverage
-          command: npm run codecov:ci
+          command: yarn codecov:ci
   deploy:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
       - restore_cache: # special step to restore the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Setup Dependencies
           command: yarn install
       - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
       - run:
@@ -50,8 +50,8 @@ jobs:
             git config --global user.name $GITHUB_USER
       - run:
           command: |
-            npm run release:ci
-            npm run deploy:docs
+            yarn release:ci
+            yarn deploy:docs
 
 workflows:
   version: 2
