@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Availity/sdk-js/compare/@availity/docs@1.1.5...@availity/docs@1.2.0) (2019-09-27)
+
+
+### Features
+
+* **yup:** add phone validation schema ([98c3e29](https://github.com/Availity/sdk-js/commit/98c3e29))
+
+
+
+
+
 ## [1.1.5](https://github.com/Availity/sdk-js/compare/@availity/docs@1.1.4...@availity/docs@1.1.5) (2019-09-12)
 
 **Note:** Version bump only for package @availity/docs
