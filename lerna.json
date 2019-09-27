@@ -1,19 +1,19 @@
 {
-  "lerna": "2.5.1",
-  "packages": ["packages/*"],
-  "message": "chore: publish",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "independent",
+  "packages": [
+    "packages/*"
+  ],
+  "message": "chore: publish release [skip ci]",
   "command": {
     "publish": {
-      "allowBranch": ["master", "feature/*"],
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "allowBranch": ["master", "feature/*"]
     },
     "diff": {
       "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json"]
-    },
-    "bootstrap": {
-      "npmClientArgs": ["--no-package-lock"]
     }
   },
-  "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json"],
-  "version": "independent"
+  "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json"]
 }

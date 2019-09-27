@@ -23,8 +23,9 @@
   },
   "dependencies": {
     "@availity/analytics-core": "^2.7.2",
-    "@availity/gatsby-theme-docs": "^1.4.7",
+    "@availity/gatsby-theme-docs": "^1.4.13",
     "gatsby": "^2.13.83",
+    "gatsby-plugin-compile-es6-packages": "^2.1.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "reactstrap": "^8.0.1"

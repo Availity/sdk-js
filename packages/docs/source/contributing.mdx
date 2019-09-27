@@ -2,27 +2,37 @@
 title: Contributing
 ---
 
-`skd-js` is a monorepo managed using [lerna](https://github.com/lerna/lerna) in independent mode (each packages is versioned and published individually).
+This is a monorepo managed using [lerna](https://github.com/lerna/lerna) in independent mode (each package is versioned and published individually).
 
--   Run `npm install`
--   Commits should use the [Angular Commit Format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type). Scope should one of un-prefixed name of the packages under `./packages/`. If a commit applies to multiple packages, leave out the scope.
--   Release and publish using  `npm run release`. The version is determined by analyzing the commit messages.
-
-> Preview how lerna will version the packages by running:
+## Adding a New Package
 
 ```bash
-npx lerna version --no-git-tag-version --no-push
+$ npm run new
 ```
 
-> Determine why lerna choose a semver version for the packages by running:
+## Installing
+
+1. Ensure [yarn](https://yarnpkg.com/lang/en/) is installed
 
 ```bash
-npx lerna version --no-git-tag-version --no-push --loglevel silly
+$ npm install -g yarn
 ```
 
-## Adding a new API Resource
+2. Install the dependencies
 
-1. Run `npm run new`
-2. Select the "api resource" template
-3. Follow the prompts
+```bash
+$ yarn install
+```
 
+All subsequent installs should be quick after the first one.
+
+### Commits
+
+Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should one of un-prefixed names of the packages under `./packages/`. If a commit applies to multiple packages, leave out the scope.
+
+### Canary Releases
+
+Useful for testing out changes. Canary releases do not impact the current `latest` tag version.
+```bash
+lerna publish -c
+```
