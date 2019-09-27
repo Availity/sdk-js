@@ -48,8 +48,8 @@
 
 "@availity/gatsby-theme-docs@^1.4.13":
   version "1.4.13"
-  resolved "https://artifactory.availity.com/artifactory/api/npm/npm/@availity/gatsby-theme-docs/-/gatsby-theme-docs-1.4.13.tgz#54bd0b1e3242e690af1a58d9fb07f487022e809c"
-  integrity sha1-VL0LHjJC5pCvGljZ+wf0hwIugJw=
+  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-docs/-/gatsby-theme-docs-1.4.13.tgz#54bd0b1e3242e690af1a58d9fb07f487022e809c"
+  integrity sha512-WfJzPaZSZZRtqkmpWHlEBRVKs8BaSrZu1RO3QvOU5hLC0Zt6YnpffSSblWbKNa7I3o8dVodWut7yDmemZH7LQA==
   dependencies:
     "@availity/api-axios" "^5.4.0"
     "@availity/api-core" "^5.4.0"
