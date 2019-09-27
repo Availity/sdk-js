@@ -3,7 +3,8 @@
   "private": true,
   "description": "Javascript SDK for Availity",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "repository": {
     "type": "git",
@@ -13,7 +14,7 @@
     "codecov:ci": "codecov",
     "lint": "eslint .",
     "start": "yarn workspace @availity/docs start",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public",
+    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
     "updated": "lerna updated",
@@ -27,7 +28,7 @@
     "release:canary": "npm run check:packages && lerna publish -c",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "add": "sh ./scripts/add.sh",
-    "nuke": "npm run remove-locks && npm run clean",
+    "nuke": "npm run remove-locks && yarn clean",
     "remove-locks": "find . -type f -name 'package-lock.json' -delete",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "pub": "lerna exec --bail false --concurrency 1 -- npm publish",
@@ -53,10 +54,11 @@
     "codecov": "^3.5.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^6.0.0",
-    "eslint-config-availity": "^4.0.8",
+    "eslint-config-availity": "^5.0.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.0",
     "jest": "^24.1.0",
+    "jest-environment-jsdom": "^24.9.0",
     "jest-environment-jsdom-global": "^1.1.0",
     "lerna": "^3.11.0",
     "lint-staged": "^9.1.0",

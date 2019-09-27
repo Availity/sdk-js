@@ -7,10 +7,11 @@ export default class DownloadMicroservice extends AvMicroservice {
       throw new Error('[config.clientId] must be defined');
     }
 
-    const options = Object.assign(
-      { headers: { 'X-Client-ID': config.clientId }, responseType: 'blob' },
-      config
-    );
+    const options = {
+      headers: { 'X-Client-ID': config.clientId },
+      responseType: 'blob',
+      ...config,
+    };
     super({ http, promise, merge, config: options });
   }
 

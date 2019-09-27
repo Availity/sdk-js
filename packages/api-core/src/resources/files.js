@@ -2,15 +2,13 @@ import AvMicroservice from '../ms';
 
 export default class AvFiles extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        name: 'core/vault/upload/v1',
-        headers: {
-          'Content-Type': undefined,
-        },
+    const options = {
+      name: 'core/vault/upload/v1',
+      headers: {
+        'Content-Type': undefined,
       },
-      config
-    );
+      ...config,
+    };
     super({
       http,
       promise,

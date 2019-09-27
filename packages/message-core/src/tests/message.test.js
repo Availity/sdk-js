@@ -129,9 +129,9 @@ describe('AvMessage', () => {
     });
 
     test('should return early when event does not have all fields', () => {
-      const mockEvent1 = Object.assign({}, mockEvent, { data: false });
-      const mockEvent2 = Object.assign({}, mockEvent, { origin: false });
-      const mockEvent3 = Object.assign({}, mockEvent, { source: false });
+      const mockEvent1 = { ...mockEvent, data: false };
+      const mockEvent2 = { ...mockEvent, origin: false };
+      const mockEvent3 = { ...mockEvent, source: false };
       avMessage.getEventData(mockEvent1);
       avMessage.getEventData(mockEvent2);
       avMessage.getEventData(mockEvent3);
@@ -141,7 +141,7 @@ describe('AvMessage', () => {
     });
 
     test('should return early when event source is window', () => {
-      const testEvent = Object.assign({}, mockEvent, { source: window });
+      const testEvent = { ...mockEvent, source: window };
       avMessage.getEventData(testEvent);
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).not.toHaveBeenCalled();
@@ -170,7 +170,7 @@ describe('AvMessage', () => {
     });
 
     test('if data is not string should not attempt to parse it', () => {
-      avMessage.getEventData(Object.assign({}, mockEvent, { data: 10 }));
+      avMessage.getEventData({ ...mockEvent, data: 10 });
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalled();
@@ -189,9 +189,7 @@ describe('AvMessage', () => {
     test('should call onMessage with default event if data is object without event param', () => {
       spyParse.mockRestore();
       const testData = { value: 'hello' };
-      avMessage.getEventData(
-        Object.assign({}, mockEvent, { data: JSON.stringify(testData) })
-      );
+      avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalledWith(
         avMessage.DEFAULT_EVENT,
@@ -203,9 +201,7 @@ describe('AvMessage', () => {
       spyParse.mockRestore();
       const testEvent = 'testEvent';
       const testData = { value: 'hello', event: testEvent };
-      avMessage.getEventData(
-        Object.assign({}, mockEvent, { data: JSON.stringify(testData) })
-      );
+      avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalledWith(
         testData.event,

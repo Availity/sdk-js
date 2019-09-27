@@ -2,13 +2,12 @@ import AvApi from '../api';
 
 export default class AvDisclaimers extends AvApi {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        path: '/api/sdk/platform',
-        name: '/disclaimers',
-      },
-      config
-    );
+    const options = {
+      path: '/api/sdk/platform',
+      name: '/disclaimers',
+
+      ...config,
+    };
     super({
       http,
       promise,

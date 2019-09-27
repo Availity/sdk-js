@@ -5,13 +5,11 @@ export default class AvProxy extends AvApi {
     if (!config || !config.tenant) {
       throw new Error('Must specify tenant name for Proxy');
     }
-    const options = Object.assign(
-      {
-        path: `api/v1/proxy/${config.tenant}`,
-        version: '',
-      },
-      config
-    );
+    const options = {
+      path: `api/v1/proxy/${config.tenant}`,
+      version: '',
+      ...config,
+    };
     super({
       http,
       promise,

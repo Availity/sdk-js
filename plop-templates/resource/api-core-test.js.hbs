@@ -1,7 +1,7 @@
 import Av{{pascalCase resourceName}} from '../{{camelCase resourceName}}';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
+const mockMerge = jest.fn((...args) => ({...args}));
 
 describe('Av{{pascalCase resourceName}}', () => {
   let api;

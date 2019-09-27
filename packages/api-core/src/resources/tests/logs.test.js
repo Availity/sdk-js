@@ -42,7 +42,7 @@ describe('AvLogMessages', () => {
     const entries = {
       value: 'testEntries',
     };
-    const expectedResult = Object.assign({}, { level, entries });
+    const expectedResult = { level, entries };
     entries.level = 'testEntriesLevel';
     expect(api.send(level, entries)).toEqual(expectedResult);
   });

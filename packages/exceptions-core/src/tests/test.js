@@ -260,7 +260,7 @@ describe('AvExceptions', () => {
         testValue: 'hello world',
       };
       mockExceptions.errorMessage = mockErrorMessage;
-      let expectedCall = Object.assign({}, message, mockErrorMessage);
+      let expectedCall = { ...message, ...mockErrorMessage };
 
       mockExceptions
         .onError(exception)
@@ -272,7 +272,7 @@ describe('AvExceptions', () => {
             testName: 'world',
           };
           mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
-          expectedCall = Object.assign({}, message, mockErrorMessage);
+          expectedCall = { ...message, ...mockErrorMessage };
           return mockExceptions.onError(exception);
         })
         .then(() => {

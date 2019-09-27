@@ -2,13 +2,11 @@ import AvApi from '../api';
 
 export default class AvSpaces extends AvApi {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        path: 'api/sdk/platform',
-        name: 'spaces',
-      },
-      config
-    );
+    const options = {
+      path: 'api/sdk/platform',
+      name: 'spaces',
+      ...config,
+    };
     super({
       http,
       promise,

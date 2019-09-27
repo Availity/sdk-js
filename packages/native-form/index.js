@@ -10,14 +10,12 @@ export default (
   formAttributes = {},
   type = 'saml'
 ) => {
-  const mergedOptions = Object.assign(
-    {
-      method: 'post',
-      action: `/ms/api/availity/internal/spc/magneto/sso/v1/${type}/${spaceId}`,
-      target: '_blank',
-    },
-    formAttributes
-  );
+  const mergedOptions = {
+    method: 'post',
+    action: `/ms/api/availity/internal/spc/magneto/sso/v1/${type}/${spaceId}`,
+    target: '_blank',
+    ...formAttributes,
+  };
   const form = document.createElement('form');
   Object.keys(mergedOptions).forEach(key => {
     form.setAttribute(key, mergedOptions[key]);

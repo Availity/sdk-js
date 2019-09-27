@@ -39,7 +39,7 @@ describe('AvDisclaimers', () => {
       name: 'testName',
       params: { testParam: 'hello world' },
     };
-    const expectedConfig = Object.assign({}, testConfig);
+    const expectedConfig = { ...testConfig };
     Object.assign(expectedConfig.params, { id });
     api.getDisclaimers(id, testConfig);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);

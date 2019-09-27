@@ -24,13 +24,13 @@ export default class AvApi {
   }
 
   addParams(params = {}, config = {}, newObj = true) {
-    const output = newObj ? Object.assign({ params: {} }, config) : config;
+    const output = newObj ? { params: {}, ...config } : config;
 
     if (!newObj) {
       output.params = output.params || {};
     }
 
-    output.params = Object.assign({}, output.params, params);
+    output.params = { ...output.params, ...params };
     return output;
   }
 

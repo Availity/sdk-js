@@ -39,7 +39,7 @@ describe('AvProviders', () => {
       name: 'testName',
       params: { testParam: 'hello world' },
     };
-    const expectedConfig = Object.assign({}, testConfig);
+    const expectedConfig = { ...testConfig };
     Object.assign(expectedConfig.params, { customerId });
     api.getProviders(customerId, testConfig);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);

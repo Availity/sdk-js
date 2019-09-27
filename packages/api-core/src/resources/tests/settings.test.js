@@ -67,15 +67,13 @@ describe('AvSettings', () => {
     test('should add applicationId and user.me to scope', async () => {
       const testData = { key: 'value' };
       const testConfig = {};
-      const expectedUpdate = Object.assign(
-        {
-          scope: {
-            applicationId: testAppId,
-            userId: mockUser.id,
-          },
+      const expectedUpdate = {
+        scope: {
+          applicationId: testAppId,
+          userId: mockUser.id,
         },
-        testData
-      );
+        ...testData,
+      };
 
       await api.setApplication(testAppId, testData, testConfig);
       expect(mockAvUsers.me).toHaveBeenCalled();
