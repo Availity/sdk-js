@@ -12,7 +12,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Setup Dependencies
-          command: npm install
+          command: yarn install
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -37,7 +37,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Setup Dependencies
-          command: npm install
+          command: yarn install
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

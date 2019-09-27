@@ -27,7 +27,7 @@
     "release:canary": "npm run check:packages && lerna publish -c",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "add": "sh ./scripts/add.sh",
-    "nuke": "npm run remove-locks && npm run clean",
+    "nuke": "npm run remove-locks && yarn clean",
     "remove-locks": "find . -type f -name 'package-lock.json' -delete",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "pub": "lerna exec --bail false --concurrency 1 -- npm publish",
