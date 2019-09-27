@@ -2,13 +2,11 @@ import AvApi from '../api';
 
 export default class AvPdfs extends AvApi {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        path: 'api/utils',
-        name: 'pdfs',
-      },
-      config
-    );
+    const options = {
+      path: 'api/utils',
+      name: 'pdfs',
+      ...config,
+    };
     super({
       http,
       promise,

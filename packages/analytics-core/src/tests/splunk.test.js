@@ -39,13 +39,11 @@ describe('AvSplunkAnalytics', () => {
       message: 'hello world',
       url: window.location.href || 'N/A',
     };
-    const expectedCall = Object.assign(
-      {
-        url: window.location.href || 'N/A',
-        level: 'info',
-      },
-      startingObject
-    );
+    const expectedCall = {
+      ...startingObject,
+      url: window.location.href || 'N/A',
+      level: 'info',
+    };
     mockAvSplunkAnalytics.trackEvent(startingObject);
     expect(mockLog.info).toHaveBeenCalledWith(expectedCall);
 

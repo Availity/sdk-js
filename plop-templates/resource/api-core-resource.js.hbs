@@ -2,12 +2,10 @@ import AvApi from '../api';
 
 export default class Av{{pascalCase resourceName}} extends AvApi {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        path: '',
-        name: '',
-      },
-      config
+    const options = {
+      path: '',
+      name: '',
+      ...config
     );
     super({
       http,

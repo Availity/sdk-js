@@ -2,13 +2,11 @@ const QuickLRU = require('quick-lru');
 
 class KeyvLocalSync {
   constructor(opts) {
-    this.opts = Object.assign(
-      {
-        namespace: 'keyv-local-sync',
-        maxSize: 1000,
-      },
-      opts
-    );
+    this.opts = {
+      namespace: 'keyv-local-sync',
+      maxSize: 1000,
+      ...opts,
+    };
 
     if (!this.opts.store) {
       this.opts.store = new QuickLRU({ maxSize: this.opts.maxSize });

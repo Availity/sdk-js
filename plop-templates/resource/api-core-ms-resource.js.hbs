@@ -2,12 +2,10 @@ import AvMicroservice from '../ms';
 
 export default class Av{{pascalCase resourceName}} extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        path: '',
-        name: '',
-      },
-      config
+    const options = {
+      path: '',
+      name: '',
+      ...config
     );
     super({
       http,

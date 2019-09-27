@@ -37,7 +37,7 @@ describe('avApiOptionsProvider', () => {
       expect(provider.defaultOptions).toEqual({});
       provider.setOptions(testDefaults1);
       expect(provider.defaultOptions).toEqual(testDefaults1);
-      const expectedResult = Object.assign({}, testDefaults1, testDefaults2);
+      const expectedResult = { ...testDefaults1, ...testDefaults2 };
       provider.setOptions(testDefaults2);
       expect(provider.defaultOptions).toEqual(expectedResult);
     });

@@ -49,7 +49,7 @@ describe('AvOrganizations', () => {
       name: 'testName',
       params: { otherParam: 'helloWorld' },
     };
-    const expectedConfig = Object.assign({}, testConfig);
+    const expectedConfig = { ...testConfig };
     expectedConfig.params.userId = userId;
 
     api.queryOrganizations(user, testConfig);

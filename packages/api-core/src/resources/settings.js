@@ -2,15 +2,13 @@ import AvApi from '../api';
 
 export default class AvSettings extends AvApi {
   constructor({ http, promise, merge, avUsers, config }) {
-    const options = Object.assign(
-      {
-        path: 'api/utils',
-        name: 'settings',
-        sessionBust: false,
-        pageBust: true,
-      },
-      config
-    );
+    const options = {
+      path: 'api/utils',
+      name: 'settings',
+      sessionBust: false,
+      pageBust: true,
+      ...config,
+    };
     super({
       http,
       promise,

@@ -82,7 +82,7 @@ describe('AvRegions', () => {
       name: 'testName',
       params: { testParam: 'helloWorld' },
     };
-    const expectedConfig = Object.assign({}, testConfig);
+    const expectedConfig = { ...testConfig };
     Object.assign(expectedConfig.params, { userId: mockUser.id });
     await api.getRegions(testConfig);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);

@@ -133,7 +133,7 @@ describe('AvApi', () => {
       config: mockConfig,
     });
     const testConfig = { path: '/api/internal' };
-    const testExpectConfig = Object.assign({}, api.defaultConfig, testConfig);
+    const testExpectConfig = { ...api.defaultConfig, ...testConfig };
     expect(api.config(testConfig)).toEqual(testExpectConfig);
   });
 
@@ -250,7 +250,7 @@ describe('AvApi', () => {
       const testParams = {
         part2: 'world',
       };
-      const expectedParams = Object.assign({}, configParams, testParams);
+      const expectedParams = { ...configParams, ...testParams };
 
       const testConfig = { params: configParams };
       const expectedResults = { params: expectedParams };
@@ -265,7 +265,7 @@ describe('AvApi', () => {
       const testParams = {
         part2: 'world',
       };
-      const expectedParams = Object.assign({}, configParams, testParams);
+      const expectedParams = { ...configParams, ...testParams };
 
       const testConfig = { params: configParams };
       const testConfig2 = { params: configParams };
@@ -284,7 +284,7 @@ describe('AvApi', () => {
       const testParams = {
         part2: 'world',
       };
-      const expectedParams = Object.assign({}, configParams, testParams);
+      const expectedParams = { ...configParams, ...testParams };
 
       const testConfig = { params: configParams };
       const testConfig2 = { params: configParams };
@@ -742,8 +742,8 @@ describe('AvApi', () => {
           data: { offset: 0, limit: 50, totalCount: 0, count: 0, list: [] },
         })
       );
-      api.cacheParams = jest.fn(config => Object.assign({}, config));
-      api.config = jest.fn(config => Object.assign({}, config));
+      api.cacheParams = jest.fn(config => ({ ...config }));
+      api.config = jest.fn(config => ({ ...config }));
       api.getUrl = jest.fn(() => testUrl);
     });
 
@@ -754,14 +754,12 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'POST',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        ...config,
+        data,
+      };
       api.create(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -774,14 +772,12 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'POST',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        ...config,
+        data,
+      };
       api.beforeCreate = jest.fn(thisData => thisData);
       api.create(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
@@ -806,18 +802,17 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'POST',
-          url: testUrl,
-          headers: {
-            'X-HTTP-Method-Override': 'GET',
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        headers: {
+          'X-HTTP-Method-Override': 'GET',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        config,
-        { data: 'testData=data' }
-      );
+        ...config,
+        data: 'testData=data',
+      };
+
       api.postGet(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -830,18 +825,16 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'POST',
-          url: testUrl,
-          headers: {
-            'X-HTTP-Method-Override': 'GET',
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        headers: {
+          'X-HTTP-Method-Override': 'GET',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        config,
-        { data: 'testData=data' }
-      );
+        ...config,
+        data: 'testData=data',
+      };
       api.beforePostGet = jest.fn(thisData => thisData);
       api.postGet(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
@@ -864,13 +857,11 @@ describe('AvApi', () => {
         testValue: 'test',
       };
       const id = 'id';
-      const expectedConfig = Object.assign(
-        {
-          method: 'GET',
-          url: testUrl,
-        },
-        config
-      );
+      const expectedConfig = {
+        method: 'GET',
+        url: testUrl,
+        ...config,
+      };
       api.get(id, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
@@ -891,13 +882,11 @@ describe('AvApi', () => {
       const config = {
         testValue: 'test',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'GET',
-          url: testUrl,
-        },
-        config
-      );
+      const expectedConfig = {
+        method: 'GET',
+        url: testUrl,
+        ...config,
+      };
       api.query(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
@@ -908,13 +897,11 @@ describe('AvApi', () => {
       const config = {
         testValue: 'test',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'GET',
-          url: testUrl,
-        },
-        config
-      );
+      const expectedConfig = {
+        method: 'GET',
+        url: testUrl,
+        ...config,
+      };
       api.all(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.cacheParams).toHaveBeenLastCalledWith(expectedConfig);
@@ -979,14 +966,12 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'PUT',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
+      const expectedConfig = {
+        method: 'PUT',
+        url: testUrl,
+        ...config,
+        data,
+      };
       api.update(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1000,14 +985,12 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'PUT',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
+      const expectedConfig = {
+        method: 'PUT',
+        url: testUrl,
+        ...config,
+        data,
+      };
       api.beforeUpdate = jest.fn(thisData => thisData);
       api.update(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
@@ -1021,14 +1004,12 @@ describe('AvApi', () => {
       const data = {
         testData: 'data',
       };
-      const expectedConfig = Object.assign(
-        {
-          method: 'PUT',
-          url: testUrl,
-        },
-        config,
-        { data }
-      );
+      const expectedConfig = {
+        method: 'PUT',
+        url: testUrl,
+        ...config,
+        data,
+      };
       api.beforeUpdate = jest.fn(thisData => thisData);
       api.update(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
@@ -1040,13 +1021,11 @@ describe('AvApi', () => {
         testValue: 'test',
       };
       const id = 'id';
-      const expectedConfig = Object.assign(
-        {
-          method: 'DELETE',
-          url: testUrl,
-        },
-        config
-      );
+      const expectedConfig = {
+        method: 'DELETE',
+        url: testUrl,
+        ...config,
+      };
       api.remove(id, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);

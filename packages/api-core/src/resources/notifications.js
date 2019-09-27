@@ -2,13 +2,11 @@ import AvApi from '../api';
 
 export default class AvNotifications extends AvApi {
   constructor({ http, promise, merge, config }) {
-    const options = Object.assign(
-      {
-        path: 'api',
-        name: 'notifications',
-      },
-      config
-    );
+    const options = {
+      path: 'api',
+      name: 'notifications',
+      ...config,
+    };
     super({
       http,
       promise,

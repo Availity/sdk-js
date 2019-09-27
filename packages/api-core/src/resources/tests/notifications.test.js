@@ -35,7 +35,7 @@ describe('AvNotification', () => {
     api.remove = jest.fn();
 
     const topic = 'test delete topic';
-    const expectedConfig = Object.assign({}, { params: { topicId: topic } });
+    const expectedConfig = { params: { topicId: topic } };
 
     api.deleteByTopic(topic);
     expect(api.remove).toHaveBeenLastCalledWith(expectedConfig);
