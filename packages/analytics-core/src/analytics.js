@@ -68,11 +68,21 @@ export default class AvAnalytics {
     this.hasInit = false;
 
     if (autoTrack) {
-      document.body.addEventListener('click', this.handleEvent, true);
-      document.body.addEventListener('focus', this.handleEvent, true);
-      document.body.addEventListener('blur', this.handleEvent, true);
+      this.startAutoTrack();
     }
   }
+
+  startAutoTrack = () => {
+    document.body.addEventListener('click', this.handleEvent, true);
+    document.body.addEventListener('focus', this.handleEvent, true);
+    document.body.addEventListener('blur', this.handleEvent, true);
+  };
+
+  stopAutoTrack = () => {
+    document.body.removeEventListener('click', this.handleEvent, true);
+    document.body.removeEventListener('focus', this.handleEvent, true);
+    document.body.removeEventListener('blur', this.handleEvent, true);
+  };
 
   handleEvent = event => {
     if (this.invalidEvent(event)) {
