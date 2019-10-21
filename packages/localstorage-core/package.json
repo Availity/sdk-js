@@ -9,6 +9,7 @@
   "repository": "https://github.com/Availity/sdk-js",
   "bugs": "https://github.com/Availity/sdk-js/issues",
   "main": "src/index.js",
+  "types": "types/index.d.ts",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "publishConfig": {

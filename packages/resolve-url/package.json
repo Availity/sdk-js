@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "Resolve absolute url from relative urls",
   "main": "resolve-url.js",
+  "types": "resolve-url.d.ts",
   "keywords": [
     "url",
     "relative"

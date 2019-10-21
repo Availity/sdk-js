@@ -1,4 +1,4 @@
-import AvLocalStorage from '@availity/localstorage-core';
+import * as avLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
 import resolveUrl from '@availity/resolve-url';
 
@@ -15,7 +15,6 @@ export default class AvApi {
     this.Promise = promise;
     this.merge = merge;
     this.defaultConfig = this.merge({}, API_OPTIONS.API, config);
-    this.localStorage = new AvLocalStorage();
   }
 
   // get the merged config
@@ -53,7 +52,7 @@ export default class AvApi {
     if (config.sessionBust) {
       params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
-        () => this.localStorage.getSessionBust() || this.getPageBust()
+        () => avLocalStorage.getSessionBust() || this.getPageBust()
       );
     }
 

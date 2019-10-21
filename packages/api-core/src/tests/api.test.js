@@ -1,7 +1,10 @@
 /* eslint-disable promise/no-callback-in-promise */
+import * as avLocalStorage from '@availity/localstorage-core';
 import AvApi from '../api';
 
 jest.useFakeTimers();
+
+jest.mock('@availity/localstorage-core');
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 const mockMerge = jest.fn((...args) => Object.assign(...args));
@@ -366,25 +369,26 @@ describe('AvApi', () => {
 
     test("sessionBust defaultFn should use localStorage's sessionBust when available", () => {
       const localStorageVal = 'test';
-      api.localStorage.getSessionBust = jest.fn(() => localStorageVal);
+
+      avLocalStorage.getSessionBust = jest.fn(() => localStorageVal);
       const testConfig = {
         sessionBust: true,
       };
       api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(localStorageVal);
-      expect(api.localStorage.getSessionBust).toHaveBeenCalled();
+      expect(avLocalStorage.getSessionBust).toHaveBeenCalled();
     });
 
     test("sessionBust defaultFn should use pageBust value when  localStorage's sessionBust is not available", () => {
-      api.localStorage.getSessionBust = jest.fn(() => {});
       const testPageBust = 'testPage';
+      avLocalStorage.getSessionBust = jest.fn(() => 'testPage');
       api.pageBustValue = testPageBust;
       const testConfig = {
         sessionBust: true,
       };
       api.cacheParams(testConfig);
       expect(testConfig.params.sessionBust).toBe(testPageBust);
-      expect(api.localStorage.getSessionBust).toHaveBeenCalled();
+      expect(avLocalStorage.getSessionBust).toHaveBeenCalled();
     });
   });
 

@@ -65,6 +65,7 @@
     "nock": "^10.0.6",
     "plop": "^2.3.0",
     "prettier": "^1.13.7",
+    "typescript": "^3.6.4",
     "xhr-mock": "^2.4.1"
   },
   "license": "MIT",
