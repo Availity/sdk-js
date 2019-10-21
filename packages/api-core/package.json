@@ -13,16 +13,11 @@
   "repository": "https://github.com/Availity/sdk-js",
   "bugs": "https://github.com/Availity/sdk-js/issues",
   "license": "MIT",
-  "peerDependencies": {
-    "@availity/localstorage-core": "^2.6.1"
-  },
-  "devDependencies": {
-    "@availity/localstorage-core": "^2.6.1"
-  },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
+    "@availity/localstorage-core": "^2.6.1",
     "@availity/resolve-url": "^1.1.0",
     "qs": "^6.5.2"
   },

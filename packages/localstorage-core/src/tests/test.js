@@ -1,6 +1,4 @@
-import AvLocalStorage from '..';
-
-let avLocalStorage;
+import * as avLocalStorage from '..';
 
 const getAllItems = () => {
   const items = {};
@@ -16,10 +14,6 @@ const getAllItems = () => {
 };
 
 describe('avLocalStorage', () => {
-  beforeEach(() => {
-    avLocalStorage = new AvLocalStorage();
-  });
-
   afterEach(() => {
     window.localStorage.clear();
   });

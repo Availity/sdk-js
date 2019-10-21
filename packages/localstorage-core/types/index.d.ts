@@ -1,15 +1,21 @@
-class AvLocalStorageCore {
-  public get: (key: string) => any;
+declare function get(key: string): any;
 
-  public set: (key: string, value: any) => void;
+declare function set(key: string, value: any): void;
 
-  public remove: (key: string) => void;
+declare function remove(key: string): void;
 
-  public getKeys: (searchKey: string) => void;
+declare function getKeys(searchKey: string): void;
 
-  public removeKeys: (searchKey: string) => void;
+declare function removeKeys(searchKey: string): void;
 
-  public getSessionBust: () => any;
+declare function getSessionBust(): any;
+
+
+export {
+  get,
+  set,
+  remove,
+  getKeys,
+  removeKeys,
+  getSessionBust
 }
-
-export default AvLocalStorageCore;
