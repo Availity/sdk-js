@@ -1,6 +1,6 @@
 # sdk-js
 
-> Javascript SDK for Availity
+> :warning: This version is for making bugfixese only to angular packages! :warning:
 
 ## [Documentation](https://availity.github.io/sdk-js/)
 
