@@ -1,6 +1,6 @@
 {
   "name": "@availity/resolve-url",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Resolve absolute url from relative urls",
   "main": "resolve-url.js",
   "types": "resolve-url.d.ts",

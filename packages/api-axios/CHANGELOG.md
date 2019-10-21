@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.3](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.4.2...@availity/api-axios@5.4.3) (2019-10-21)
+
+**Note:** Version bump only for package @availity/api-axios
+
+
+
+
+
 ## [5.4.2](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.4.1...@availity/api-axios@5.4.2) (2019-09-27)
 
 **Note:** Version bump only for package @availity/api-axios

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.4.1...@availity/api-core@6.0.0) (2019-10-21)
+
+
+### Code Refactoring
+
+* **localstorage-core:** converted class to function ([9f1fdf0](https://github.com/Availity/sdk-js/commit/9f1fdf0))
+
+
+### BREAKING CHANGES
+
+* **localstorage-core:** Class is now a Function and doesn't require to be instantiated.
+
+
+
+
+
 ## [5.4.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@5.4.0...@availity/api-core@5.4.1) (2019-09-27)
 
 **Note:** Version bump only for package @availity/api-core

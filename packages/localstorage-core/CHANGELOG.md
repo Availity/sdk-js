@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/localstorage-core@2.6.1...@availity/localstorage-core@3.0.0) (2019-10-21)
+
+
+### Code Refactoring
+
+* **localstorage-core:** converted class to function ([9f1fdf0](https://github.com/Availity/sdk-js/commit/9f1fdf0))
+
+
+### BREAKING CHANGES
+
+* **localstorage-core:** Class is now a Function and doesn't require to be instantiated.
+
+
+
+
+
 ## [2.6.1](https://github.com/Availity/sdk-js/compare/@availity/localstorage-core@2.6.0...@availity/localstorage-core@2.6.1) (2019-02-12)
 
 **Note:** Version bump only for package @availity/localstorage-core
