@@ -2,7 +2,8 @@
   "name": "@availity/env-var",
   "version": "1.9.1",
   "description": "Availity-specific way to determine variables based on the current environment the code is running in",
-  "main": "src/index.js",
+  "main": "index.js",
+  "types":"index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/availity/sdk-js.git"
