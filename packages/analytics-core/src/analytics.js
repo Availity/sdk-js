@@ -118,6 +118,7 @@ export default class AvAnalytics {
     }
 
     analyticAttrs.action = analyticAttrs.action || event.type;
+    analyticAttrs.event = event.type;
     analyticAttrs.elemId =
       analyticAttrs.elemId ||
       target.getAttribute('id') ||
