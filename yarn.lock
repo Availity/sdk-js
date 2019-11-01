@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@availity/api-core@^5.4.0":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@availity/api-core/-/api-core-5.4.1.tgz#493150e1915db6496ccd61c60b55b607d0921227"
+  integrity sha512-JC4N5t09Wu6/G3dOjRO5AHEIAePyN5wA2iDHS74TgfWUhF65yzMz++iGCEpSfRx1mO0d7UptlpnGYvSC9bCM1Q==
+  dependencies:
+    "@availity/resolve-url" "^1.1.0"
+    qs "^6.5.2"
+
 "@availity/app-icon@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@availity/app-icon/-/app-icon-1.3.1.tgz#3593d4bf3d10ed798ea8e038c5d333b26b389dc0"
@@ -97,6 +105,11 @@
   integrity sha512-XX+BEKQcToY6venZDYuFWLTnb1/4AwMGcgyu5AU28HZNBnb2p22LKxStNErZ9vSlxa6/aqTqr3lmZFyLg/lnBw==
   dependencies:
     classnames "^2.2.6"
+
+"@availity/localstorage-core@^2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@availity/localstorage-core/-/localstorage-core-2.6.1.tgz#caf7db0feca9a93735e3a8e005ed180ce8a23906"
+  integrity sha512-Vkgy7qvwiPvqaYf73uZIP1fISKprlMVQHbMB5qEvNX93HkZq9SqxTbo6UE4/yqLRoyqG1Myn45SvXpHvMQ7Bfw==
 
 "@availity/page-header@^8.0.2":
   version "8.0.3"
