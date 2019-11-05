@@ -119,7 +119,7 @@ export default class AvApi {
   getLocation(response) {
     let locationUrl;
     const { config, headers = {} } = response;
-    const { getHeader, base, url } = config;
+    const { getHeader, base } = config;
     const { location, Location } = headers;
 
     if (getHeader) {
@@ -128,7 +128,7 @@ export default class AvApi {
       locationUrl = location || Location;
     }
 
-    return resolveUrl({ relative: locationUrl, base: base || url });
+    return resolveUrl({ relative: locationUrl, base });
   }
 
   // condition for calls that should continue polling
