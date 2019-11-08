@@ -6,6 +6,7 @@ import phone from './src/phone';
 yup.addMethod(yup.string, 'isRequired', isRequired);
 yup.addMethod(yup.number, 'isRequired', isRequired);
 yup.addMethod(yup.array, 'isRequired', isRequired);
+yup.addMethod(yup.object, 'isRequired', isRequired);
 
 yup.addMethod(yup.string, 'npi', npi);
 yup.addMethod(yup.number, 'npi', npi);

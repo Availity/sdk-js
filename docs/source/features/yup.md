@@ -46,7 +46,7 @@ schema.isValid('12-12-2012');
 
 ---
 
-### isRequired [**String**,**Array**,**Number**]
+### isRequired [**String**,**Array**,**Number**,**Object**]
 
 #### Parameters
 
@@ -60,6 +60,7 @@ yup.string().isRequired();
 yup.string().isRequired(true, 'Custom Error Message');
 yup.number().isRequired();
 yup.array().isRequired();
+yup.object().isRequired();
 ```
 
 ### npi [**String**]
