@@ -1,3 +1,5 @@
+import clone from 'lodash.clone';
+
 const isLeftClickEvent = event => event.button === 0;
 
 const isModifiedEvent = event =>
@@ -137,7 +139,7 @@ export default class AvAnalytics {
       return {};
     }
 
-    const attrs = [...elem.attributes];
+    const attrs = clone(elem.attributes);
     const analyticAttrs = {};
 
     if (elem.nodeType === 1) {
