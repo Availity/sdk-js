@@ -1,4 +1,5 @@
 import clone from 'lodash.clone';
+import merge from 'merge-options-es5';
 
 const isLeftClickEvent = event => event.button === 0;
 
@@ -100,7 +101,7 @@ export default class AvAnalytics {
       path.reverse().forEach(pth => {
         const attrs = this.getAnalyticAttrs(pth);
 
-        analyticAttrs = { ...analyticAttrs, ...attrs };
+        analyticAttrs = merge({}, analyticAttrs, attrs);
 
         // To consider using the element it has to have analytics attrs
         if (Object.keys(attrs).length > 0) {

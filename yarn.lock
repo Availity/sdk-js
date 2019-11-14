@@ -11669,8 +11669,8 @@ merge-descriptors@1.0.1:
 
 merge-options-es5@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/merge-options-es5/-/merge-options-es5-1.0.0.tgz#6a16ec6a6142811e50f59ad338993306fd8a5204"
-  integrity sha512-8uRqnY/uIN1SeeoWUc/PyltdYKVX57goIhipWJO31kasIXsUuwN3va5iMa9MjXWq3nOwH/cdC9dzTOf9xNnmWw==
+  resolved "https://artifactory.availity.com/artifactory/api/npm/npm/merge-options-es5/-/merge-options-es5-1.0.0.tgz#6a16ec6a6142811e50f59ad338993306fd8a5204"
+  integrity sha1-ahbsamFCgR5Q9ZrTOJkzBv2KUgQ=
   dependencies:
     babel-cli "^6.26.0"
     is-plain-obj "^1.1"
