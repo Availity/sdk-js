@@ -60,6 +60,7 @@ export default class AvAnalytics {
 
     this.plugins = Array.isArray(plugins) ? plugins : [plugins];
     this.pageTracking = !!pageTracking;
+
     this.Promise = promise;
     this.recursive = !!options.recursive;
     this.attributePrefix = options.attributePrefix || 'data-analytics';
@@ -137,7 +138,7 @@ export default class AvAnalytics {
       return {};
     }
 
-    const attrs = [...elem.attributes];
+    const attrs = elem.attributes;
     const analyticAttrs = {};
 
     if (elem.nodeType === 1) {
