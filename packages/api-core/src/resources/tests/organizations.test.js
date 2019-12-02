@@ -13,6 +13,10 @@ const mockAvUsers = {
 describe('AvOrganizations', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     api = new AvOrganizations({
       http: mockHttp,
@@ -102,5 +106,25 @@ describe('AvOrganizations', () => {
       mockUser,
       testConfig
     );
+  });
+
+  test('getOrganizations() should skip call to avUsers.me() when userId provided and then query()', async () => {
+    api = new AvOrganizations({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
+    api.queryOrganizations = jest.fn();
+    api.query = jest.fn();
+
+    const testConfig = { name: 'testName', params: { userId: 'bmoolenaar' } };
+
+    await api.getOrganizations(testConfig);
+
+    expect(api.queryOrganizations).not.toHaveBeenCalled();
+    expect(api.avUsers.me).not.toHaveBeenCalled();
+    expect(api.query).toHaveBeenLastCalledWith(testConfig);
   });
 });
