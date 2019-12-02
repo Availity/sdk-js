@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-angular",
-  "version": "3.0.15",
+  "version": "3.0.16",
   "description": "Utility to download files from services",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "angular": "^1.6.0"
   },
   "devDependencies": {
-    "@availity/dl-core": "^3.0.15",
+    "@availity/dl-core": "^3.0.16",
     "angular": "^1.6.0",
     "angular-mocks": "^1.6.0"
   },

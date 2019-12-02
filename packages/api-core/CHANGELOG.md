@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.0.1...@availity/api-core@6.0.2) (2019-12-02)
+
+
+### Performance Improvements
+
+* **api-core:** use userId from params if it exists in getOrganizations ([5e5225f](https://github.com/Availity/sdk-js/commit/5e5225f))
+
+
+
+
+
 ## [6.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.0.0...@availity/api-core@6.0.1) (2019-11-05)
 
 
