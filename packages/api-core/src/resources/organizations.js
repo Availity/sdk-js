@@ -23,9 +23,14 @@ export default class AvOrganizations extends AvApi {
   }
 
   getOrganizations(config) {
+    if (config && config.params && config.params.userId) {
+      return this.query(config);
+    }
+
     if (!this.avUsers || !this.avUsers.me) {
       throw new Error('avUsers must be defined');
     }
+
     return this.avUsers
       .me()
       .then(user => this.queryOrganizations(user, config));
