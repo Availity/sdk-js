@@ -15,6 +15,10 @@ const mockAvUsers = {
 describe('AvSettings', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   beforeEach(() => {
     api = new AvSettings({
       http: mockHttp,
@@ -56,6 +60,19 @@ describe('AvSettings', () => {
       expect(() => api.getApplication('appId')).toThrow(
         'avUsers must be defined'
       );
+    });
+
+    test('should skip call to avUsers.me if userId is in config params', async () => {
+      const expectedQuery = {
+        params: {
+          applicationId: testAppId,
+          userId: 'bmoolenaar',
+        },
+      };
+      const testConfig = { params: { userId: 'bmoolenaar' } };
+      await api.getApplication(testAppId, testConfig);
+      expect(mockAvUsers.me).not.toHaveBeenCalled();
+      expect(api.query).toHaveBeenCalledWith(expectedQuery);
     });
   });
 
@@ -101,6 +118,22 @@ describe('AvSettings', () => {
       expect(() => api.setApplication('appId', {})).toThrow(
         'avUsers must be defined'
       );
+    });
+
+    test('should skip call to avUsers.me if userId is in data.scope', async () => {
+      const testData = { scope: { userId: 'bmoolenaar' }, key: 'value' };
+      const testConfig = {};
+      const expectedUpdate = {
+        scope: {
+          applicationId: testAppId,
+          userId: 'bmoolenaar',
+        },
+        key: 'value',
+      };
+
+      await api.setApplication(testAppId, testData, testConfig);
+      expect(mockAvUsers.me).not.toHaveBeenCalled();
+      expect(api.update).toHaveBeenCalledWith(expectedUpdate, testConfig);
     });
   });
 });

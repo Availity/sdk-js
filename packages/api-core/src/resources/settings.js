@@ -25,6 +25,12 @@ export default class AvSettings extends AvApi {
     if (!this.avUsers || !this.avUsers.me) {
       throw new Error('avUsers must be defined');
     }
+
+    if (config && config.params && config.params.userId) {
+      const queryConfig = this.addParams({ applicationId }, config);
+      return this.query(queryConfig);
+    }
+
     return this.avUsers.me().then(user => {
       const queryConfig = this.addParams(
         { applicationId, userId: user.id },
@@ -50,6 +56,11 @@ export default class AvSettings extends AvApi {
 
     if (!applicationId && (!data || !data.scope || !data.scope.applicationId)) {
       throw new Error('applicationId must be defined');
+    }
+
+    if (data && data.scope && data.scope.userId) {
+      data.scope.applicationId = applicationId;
+      return this.update(data, config);
     }
 
     return this.avUsers.me().then(user => {
