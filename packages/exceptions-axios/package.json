@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-axios",
-  "version": "3.0.17",
+  "version": "3.0.18",
   "description": "Availity class to log exceptions via axios",
   "main": "src/index.js",
   "author": "Evan Sharp <evan.sharp@availity.com>",
@@ -10,7 +10,7 @@
     "@availity/exceptions-core": "^2.6.1"
   },
   "devDependencies": {
-    "@availity/api-axios": "^5.4.5",
+    "@availity/api-axios": "^5.4.6",
     "@availity/exceptions-core": "^3.0.3"
   },
   "publishConfig": {
