@@ -194,6 +194,29 @@ export default class AvApi {
     return this.request(config, this.afterCreate || this.afterPost);
   }
 
+  sendBeacon(data, config) {
+    if (!data) {
+      throw new Error('called method without [data]');
+    }
+    config = this.config(config);
+    config.method = 'POST';
+    config.url = this.getUrl(config);
+    config.data = data;
+
+    const beforeFunc = this.beforeCreate || this.beforePost;
+    if (beforeFunc) {
+      config.data = beforeFunc(config.data);
+    }
+
+    if (navigator.sendBeacon) {
+      const result = navigator.sendBeacon(config.url, config.data);
+      // A truthy return value from navigator.sendBeacon means the browser successfully queued the request
+      if (result) return this.Promise.resolve();
+    }
+    // Fall back to XHR if browser does not support navigator.sendBeacon or browser fails to queue the request
+    return this.request(config, this.afterCreate || this.afterPost);
+  }
+
   post(data, config) {
     return this.create(data, config);
   }

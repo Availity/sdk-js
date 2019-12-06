@@ -5,6 +5,9 @@ const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvLogMessages', () => {
   let api;
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   test('should be defined', () => {
     api = new AvLogMessages({
@@ -24,31 +27,17 @@ describe('AvLogMessages', () => {
       config: {},
     });
     const level = 'testLevel';
-    const entries = 'testEntries';
-    expect(api.send(level, entries)).toEqual({
-      level,
-      entries,
-    });
-  });
+    const entries = { foo: 'bar', deeply: { nested: 'value' } };
+    const sent = api.send(level, entries);
 
-  test('send() should delete entries.level', () => {
-    api = new AvLogMessages({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
-    const level = 'testLevel';
-    const entries = {
-      value: 'testEntries',
-    };
-    const expectedResult = { level, entries };
-    entries.level = 'testEntriesLevel';
-    expect(api.send(level, entries)).toEqual(expectedResult);
+    expect(sent instanceof FormData).toBe(true);
+    expect(sent.get('level')).toBe('testLevel');
+    expect(sent.get('entries.foo')).toBe('bar');
+    expect(sent.get('entries.deeply.nested')).toBe('value');
   });
 
   describe('log levels', () => {
-    const testEntries = 'testEntry';
+    const testEntries = { a: '1', b: '2' };
 
     beforeEach(() => {
       api = new AvLogMessages({
@@ -58,30 +47,30 @@ describe('AvLogMessages', () => {
         config: {},
       });
       api.send = jest.fn();
-      api.create = jest.fn();
+      api.sendBeacon = jest.fn();
     });
 
-    test("debug should create with level 'debug'", () => {
+    test("debug should sendBeacon with level 'debug'", () => {
       api.debug(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('debug', testEntries);
-      expect(api.create).toHaveBeenCalled();
+      expect(api.sendBeacon).toHaveBeenCalled();
     });
     test("info should create with level 'info'", () => {
       api.info(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('info', testEntries);
-      expect(api.create).toHaveBeenCalled();
+      expect(api.sendBeacon).toHaveBeenCalled();
     });
 
     test("warn should create with level 'warn'", () => {
       api.warn(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('warn', testEntries);
-      expect(api.create).toHaveBeenCalled();
+      expect(api.sendBeacon).toHaveBeenCalled();
     });
 
     test("error should create with level 'error'", () => {
       api.error(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('error', testEntries);
-      expect(api.create).toHaveBeenCalled();
+      expect(api.sendBeacon).toHaveBeenCalled();
     });
   });
 });
