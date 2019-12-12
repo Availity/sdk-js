@@ -8,7 +8,8 @@
     "http",
     "rest"
   ],
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "repository": "https://github.com/Availity/sdk-js",
   "bugs": "https://github.com/Availity/sdk-js/issues",

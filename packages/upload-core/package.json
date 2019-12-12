@@ -3,6 +3,7 @@
   "version": "3.0.10",
   "description": "Wrapper for tus-js-client",
   "main": "src/upload.js",
+  "module": "lib/upload.js",
   "scripts": {
     "test": "test"
   },

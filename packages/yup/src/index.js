@@ -1,7 +1,7 @@
 import * as yup from 'yup';
-import isRequired from './src/isRequired';
-import npi from './src/npi';
-import phone from './src/phone';
+import isRequired from './isRequired';
+import npi from './npi';
+import phone from './phone';
 
 yup.addMethod(yup.string, 'isRequired', isRequired);
 yup.addMethod(yup.number, 'isRequired', isRequired);

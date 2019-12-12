@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import './index';
+import './src/index';
 
 import MomentDate from './src/date';
 import DateRange from './src/dateRange';

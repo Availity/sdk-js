@@ -1,8 +1,3 @@
-module.exports = {
-  testEnvironment: 'jest-environment-jsdom-global',
-  testURL: 'http://localhost/',
-};
-
 module.exports = api => {
   api.cache(true);
 

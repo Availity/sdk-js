@@ -3,6 +3,7 @@
   "version": "3.0.2",
   "description": "Simple key-value storage for local in memory caches in a synchros fashion",
   "main": "src/index.js",
+  "module": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/availity/sdk-js.git"

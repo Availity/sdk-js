@@ -3,6 +3,7 @@
   "version": "3.0.18",
   "description": "Availity class to log exceptions via axios",
   "main": "src/index.js",
+  "module": "lib/index.js",
   "author": "Evan Sharp <evan.sharp@availity.com>",
   "license": "MIT",
   "peerDependencies": {

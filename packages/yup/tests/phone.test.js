@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import '..';
+import '../src';
 
 describe('phone', () => {
   test('should accept empty string', async () => {

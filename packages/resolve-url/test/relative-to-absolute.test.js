@@ -1,4 +1,4 @@
-import { removeDotSegments, resolve } from './relative-to-absolute';
+import { removeDotSegments, resolve } from '../src/relative-to-absolute';
 
 describe('#resolve', () => {
   it('create an IRI from an absolute IRI when no baseIRI is given', () => {

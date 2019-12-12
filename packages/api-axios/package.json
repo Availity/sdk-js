@@ -2,7 +2,8 @@
   "name": "@availity/api-axios",
   "version": "5.4.6",
   "description": "Wraps @availity/api-core with Axios",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "dependencies": {

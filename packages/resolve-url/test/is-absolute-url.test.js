@@ -1,5 +1,5 @@
 // From https://github.com/sindresorhus/is-absolute-url/blob/master/test.js
-import isAbsoluteUrl from './is-absolute-url';
+import isAbsoluteUrl from '../src/is-absolute-url';
 
 describe('is-absolute-url', () => {
   it('should be absolute url', () => {
