@@ -18,6 +18,9 @@ jobs:
           paths:
             - ./node_modules
       - run:
+        name: Build Dependencies
+          command: yarn build
+      - run:
           name: Lint
           command: |
             yarn lint
