@@ -21,6 +21,7 @@
     "clean": "lerna clean --yes",
     "prePublish": "yarn build",
     "publish": "lerna publish",
+    "preTest": "yarn build",
     "test": "jest",
     "test:ci": "jest --runInBand --collectCoverage",
     "postinstall": "npm run bootstrap",
