@@ -1,5 +1,7 @@
 extends: availity/browser
+rules:
+  unicorn/prefer-string-slice: 0
 globals:
-    Buffer: false
-    global: false
-    process: false
+  Buffer: false
+  global: false
+  process: false

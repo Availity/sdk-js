@@ -23,7 +23,7 @@
     "publish": "lerna publish",
     "preTest": "yarn build",
     "test": "jest",
-    "test:ci": "jest --runInBand --collectCoverage",
+    "test:ci": "yarn test --runInBand --collectCoverage",
     "postinstall": "npm run bootstrap",
     "release": "npm run check:packages && yarn publish --yes",
     "release:ci": "yarn publish --yes",
