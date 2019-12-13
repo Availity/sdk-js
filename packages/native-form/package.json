@@ -2,8 +2,8 @@
   "name": "@availity/native-form",
   "version": "2.8.4",
   "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
-  "main": "src/index.js",
-  "module": "lib/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "types": "index.d.ts",
   "scripts": {
     "test": "test"

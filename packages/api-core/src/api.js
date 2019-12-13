@@ -1,4 +1,3 @@
-import * as avLocalStorage from '@availity/localstorage-core';
 import qs from 'qs';
 import resolveUrl from '@availity/resolve-url';
 
@@ -33,6 +32,10 @@ export default class AvApi {
     return output;
   }
 
+  getSessionBust() {
+    return window.localStorage.getItem('avCacheBust');
+  }
+
   // set the cache parameters
   cacheParams(config) {
     const params = {};
@@ -52,7 +55,7 @@ export default class AvApi {
     if (config.sessionBust) {
       params.sessionBust = this.getCacheBustVal(
         config.sessionBust,
-        () => avLocalStorage.getSessionBust() || this.getPageBust()
+        () => this.getSessionBust() || this.getPageBust()
       );
     }
 

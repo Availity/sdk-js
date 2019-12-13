@@ -2,8 +2,8 @@
   "name": "@availity/resolve-url",
   "version": "1.1.1",
   "description": "Resolve absolute url from relative urls",
-  "main": "src/index.js",
-  "module": "lib/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "types": "types/index.d.ts",
   "keywords": [
     "url",
