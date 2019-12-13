@@ -25,7 +25,7 @@
     "publish": "lerna publish",
     "publish:canary": "lerna publish -c",
     "preTest": "yarn build",
-    "test": "jest && yarn bundlesize",
+    "test": "jest",
     "test:ci": "yarn test --runInBand --collectCoverage",
     "postinstall": "npm run bootstrap",
     "release": "npm run check:packages && yarn publish --yes",

@@ -27,6 +27,10 @@ jobs:
           name: Run Test
           command: |
             yarn test:ci
+      - run:
+          name: Bundle Size
+          command: |
+            yarn bundlesize
       - run: # Coverage
           name: Coverage
           command: yarn codecov:ci
