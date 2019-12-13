@@ -22,6 +22,7 @@
     "clean": "lerna clean --yes",
     "prePublish": "yarn build",
     "publish": "lerna publish",
+    "publish:canary": "lerna publish -c",
     "preTest": "yarn build",
     "test": "jest",
     "test:ci": "yarn test --runInBand --collectCoverage",
