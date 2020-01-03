@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.4](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.3...@availity/analytics-core@2.8.4) (2020-01-03)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
 ## [2.8.3](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.2...@availity/analytics-core@2.8.3) (2020-01-03)
 
 **Note:** Version bump only for package @availity/analytics-core

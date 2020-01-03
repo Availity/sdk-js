@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.4](https://github.com/availity/sdk-js/compare/@availity/env-var@1.9.3...@availity/env-var@1.9.4) (2020-01-03)
+
+**Note:** Version bump only for package @availity/env-var
+
+
+
+
+
 ## [1.9.3](https://github.com/availity/sdk-js/compare/@availity/env-var@1.9.2...@availity/env-var@1.9.3) (2020-01-03)
 
 **Note:** Version bump only for package @availity/env-var

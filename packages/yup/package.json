@@ -1,6 +1,6 @@
 {
   "name": "@availity/yup",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Additional Methods for Yup validation library",
   "main": "lib/index.js",
   "module": "src/index.js",
