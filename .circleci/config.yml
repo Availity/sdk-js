@@ -55,6 +55,10 @@ jobs:
             git config --global user.email $GITHUB_EMAIL
             git config --global user.name $GITHUB_USER
       - run:
+          name: Build
+          command: |
+            yarn build
+      - run:
           command: |
             yarn release:ci
             yarn deploy:docs
