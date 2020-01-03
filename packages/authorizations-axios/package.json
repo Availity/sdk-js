@@ -2,7 +2,8 @@
   "name": "@availity/authorizations-axios",
   "version": "5.0.3",
   "description": "Availity authorizations react logic",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "peerDependencies": {

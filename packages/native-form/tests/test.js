@@ -1,5 +1,5 @@
 import nativeForm from '..';
-import flattenObject from '../flattenObject';
+import flattenObject from '../src/flattenObject';
 
 describe('nativeForm', () => {
   const complexObject = {

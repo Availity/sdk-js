@@ -3,8 +3,7 @@
   "private": true,
   "description": "Javascript SDK for Availity",
   "workspaces": [
-    "packages/*",
-    "docs"
+    "packages/*"
   ],
   "repository": {
     "type": "git",
@@ -15,16 +14,22 @@
     "lint": "eslint .",
     "start": "yarn workspace @availity/docs start",
     "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
+    "build:docs": "yarn workspace @availity/docs build",
+    "build": "NODE_ENV=production lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.test.js",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
+    "bundlesize": "bundlesize",
     "updated": "lerna updated",
     "clean": "lerna clean --yes",
+    "prePublish": "yarn build",
     "publish": "lerna publish",
+    "publish:canary": "lerna publish -c",
+    "preTest": "yarn build",
     "test": "jest",
-    "test:ci": "jest --runInBand --collectCoverage",
+    "test:ci": "yarn test --runInBand --collectCoverage",
     "postinstall": "npm run bootstrap",
-    "release": "npm run check:packages && lerna publish",
-    "release:ci": "lerna publish --yes",
+    "release": "npm run check:packages && yarn publish --yes",
+    "release:ci": "yarn publish --yes",
     "release:canary": "npm run check:packages && lerna publish -c",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "add": "sh ./scripts/add.sh",
@@ -35,6 +40,7 @@
     "new": "plop"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.5",
     "@babel/core": "^7.5.0",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-proposal-decorators": "^7.0.0",
@@ -51,10 +57,12 @@
     "@commitlint/config-conventional": "^8.0.0",
     "@commitlint/config-lerna-scopes": "^8.0.0",
     "babel-jest": "^24.1.0",
+    "babel-preset-react-app": "^9.1.0",
+    "bundlesize": "^0.18.0",
     "codecov": "^3.5.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^6.0.0",
-    "eslint-config-availity": "^5.0.0",
+    "eslint-config-availity": "^5.2.3",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.0",
     "jest": "^24.1.0",
@@ -94,6 +102,12 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "bundlesize": [
+    {
+      "path": "./packages/**/lib/index.js",
+      "maxSize": "1.5 kB"
+    }
+  ],
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",

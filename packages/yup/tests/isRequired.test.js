@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import '..';
+import '../src';
 
 describe('isRequired', () => {
   test('should return error on empty input', async () => {

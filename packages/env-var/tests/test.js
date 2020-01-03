@@ -1,4 +1,4 @@
-import envVar, { setEnvironments } from '../index';
+import envVar, { setEnvironments } from '../src';
 
 const setHostname = hostname => {
   // eslint-disable-next-line no-undef

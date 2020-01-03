@@ -7,7 +7,7 @@
 ## Install
 
 ```
-npm install @availity/api-axios @availity/api-core @availity/localstorage-core --save
+npm install @availity/api-axios @availity/api-core --save
 ```
 
 Polyfill `Promise` if needed:

@@ -2,7 +2,8 @@
   "name": "@availity/analytics-core",
   "version": "2.8.2",
   "description": "Analytics base configuration for sdk-js",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "publishConfig": {
