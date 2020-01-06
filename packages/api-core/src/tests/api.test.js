@@ -13,6 +13,10 @@ describe('AvApi', () => {
 
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('AvApi should be defined', () => {
     api = new AvApi({
       http: mockHttp,
@@ -1062,6 +1066,113 @@ describe('AvApi', () => {
       expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
       expect(api.request).toHaveBeenLastCalledWith(config, undefined);
       expect(api.beforeRemove).toHaveBeenLastCalledWith(config);
+    });
+
+    test('sendBeacon() setting method data and url', () => {
+      navigator.sendBeacon = undefined;
+      const config = {
+        testValue: 'test',
+      };
+      const data = new FormData();
+      data.append('testData', 'data');
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.sendBeacon(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
+    test('sendBeacon() passes data through beforeCreate() if defined', () => {
+      navigator.sendBeacon = undefined;
+      const config = {
+        testValue: 'test',
+      };
+      const data = new FormData();
+      data.append('testData', 'data');
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.beforeCreate = jest.fn(thisData => thisData);
+      api.sendBeacon(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+      expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
+    });
+
+    test('sendBeacon() throws error without data', () => {
+      navigator.sendBeacon = jest.fn(() => true);
+      const config = {
+        testValue: 'test',
+      };
+      const data = undefined;
+      expect(() => {
+        api.create(data, config);
+      }).toThrow('called method without [data]');
+    });
+
+    test('sendBeacon() sends beacon', async () => {
+      navigator.sendBeacon = jest.fn(() => true);
+      const config = {
+        testValue: 'test',
+      };
+      const data = new FormData();
+      data.append('testData', 'data');
+
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.beforeCreate = jest.fn(thisData => thisData);
+      const resp = await api.sendBeacon(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
+      // Check that sendBeacon was called with correct arguments
+      expect(navigator.sendBeacon).toHaveBeenCalledTimes(1);
+      expect(navigator.sendBeacon).toHaveBeenLastCalledWith(
+        expectedConfig.url,
+        expectedConfig.data
+      );
+      // Check that sendBeacon resolves with empty object
+      expect(resp).toBeUndefined();
+      // Check that api.request was not called
+      expect(api.request).not.toHaveBeenCalled();
+    });
+
+    test('sendBeacon() defaults to request when browser fails to queue request', async () => {
+      navigator.sendBeacon = jest.fn(() => false);
+      const config = {
+        testValue: 'test',
+      };
+      const data = new FormData();
+      data.append('testData', 'data');
+
+      const expectedConfig = {
+        method: 'POST',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.beforeCreate = jest.fn(thisData => thisData);
+      api.sendBeacon(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
+      expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
+      // Check that sendBeacon was called with correct arguments
+      expect(navigator.sendBeacon).toHaveBeenCalledTimes(1);
+      expect(navigator.sendBeacon).toHaveBeenLastCalledWith(
+        expectedConfig.url,
+        expectedConfig.data
+      );
+      // Check api.request was called
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
   });
 });
