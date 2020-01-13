@@ -8,10 +8,10 @@ const flattenObject = ob =>
       Object.keys(flatObject).forEach(k2 => {
         toReturn[
           `${k}${isArray ? k2.replace(/^(\d+)(\..*)?/, '[$1]$2') : `.${k2}`}`
-        ] = flatObject[k2].toString();
+        ] = flatObject[k2] && flatObject[k2].toString();
       });
     } else {
-      toReturn[k] = ob[k].toString();
+      toReturn[k] = ob[k] && ob[k].toString();
     }
 
     return toReturn;
