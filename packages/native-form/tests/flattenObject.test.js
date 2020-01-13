@@ -16,8 +16,9 @@ describe('AvApi', () => {
 
   test('handles undefined', () => {
     const obj = {
-      int: 123,
-      string: undefined,
+      int: 0,
+      false: false,
+      undefined,
       obj: {
         int: 123,
         string: 'string',
@@ -25,8 +26,9 @@ describe('AvApi', () => {
     };
 
     const flatObj = flattenObject(obj);
-    expect(flatObj.int).toBe('123');
+    expect(flatObj.int).toBe('0');
+    expect(flatObj.false).toBe('false');
     expect(flatObj['obj.string']).toBe('string');
-    expect(flatObj.string).toBeUndefined();
+    expect(flatObj.undefined).toBeUndefined();
   });
 });
