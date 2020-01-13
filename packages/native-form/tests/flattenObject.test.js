@@ -1,6 +1,6 @@
 import flattenObject from '../src/flattenObject';
 
-describe('AvApi', () => {
+describe('flattenObject', () => {
   test('should flatten', () => {
     const obj = {
       int: 123,
