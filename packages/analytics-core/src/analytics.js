@@ -113,7 +113,8 @@ export default class AvAnalytics {
 
     if (
       !Object.keys(analyticAttrs).length > 0 ||
-      (this.recursive && !analyticAttrs.action)
+      (this.recursive && !analyticAttrs.action) ||
+      analyticAttrs.action !== event.type
     ) {
       return;
     }
