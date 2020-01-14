@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.1.0...@availity/api-core@6.1.1) (2020-01-14)
+
+
+### Bug Fixes
+
+* **api-core:** fixed error trying to call toString on undefined ([0792f85](https://github.com/Availity/sdk-js/commit/0792f85))
+* **api-core:** updated handling of falsey values ([b810189](https://github.com/Availity/sdk-js/commit/b810189))
+* **api-core:** updated test suite name ([b0a75c6](https://github.com/Availity/sdk-js/commit/b0a75c6))
+
+
+
+
+
 # [6.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.0.5...@availity/api-core@6.1.0) (2020-01-06)
 
 
