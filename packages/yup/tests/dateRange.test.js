@@ -1,5 +1,5 @@
-import '../moment'
 import * as yup from 'yup';
+import '../moment';
 
 describe('DateRange', () => {
   test('start comes before end', async () => {
