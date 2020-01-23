@@ -13,15 +13,15 @@ declare module 'yup' {
   }
 
   type DistanceValue = {
-    value: number,
+    value: number;
     units?: string;
-    errorMessage?: string
-  }
+    errorMessage?: string;
+  };
 
   type DistanceOpts = {
     min?: DistanceValue;
-    max?: DistanceValue
-  }
+    max?: DistanceValue;
+  };
 
   interface DateRangeSchema<
     T extends DateRangeObject | null | undefined = DateRangeObject

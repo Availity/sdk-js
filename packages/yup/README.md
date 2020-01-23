@@ -6,8 +6,16 @@
 
 ## Install
 
+### NPM
+
 ```bash
-npm install @availity/yup yup --save
+$ npm install @availity/yup yup
+```
+
+### Yarn
+
+```bash
+$ yarn add @availity/yup yup
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/features/yup)

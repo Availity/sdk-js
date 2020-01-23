@@ -7,11 +7,23 @@ summary: A package wrapping the postMessage function with helper functions and s
 
 ## Install
 
-`npm install @availity/message-core`
+### NPM
 
-## how to use
+```bash
+$ npm install @availity/message-core
+```
 
-`import avMessage from '@availity/message-core`
+### Yarn
+
+```bash
+$ yarn add @availity/message-core
+```
+
+## Usage
+
+```js
+import avMessage from '@availity/message-core
+```
 
 ## Methods
 

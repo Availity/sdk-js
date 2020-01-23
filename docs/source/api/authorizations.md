@@ -6,15 +6,26 @@ summary: A package providing a base authorizations class to help check which per
 [![Version](https://img.shields.io/npm/v/@availity/authorizations-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/authorizations-core)
 
 ## Install
-`npm install @availity/authorizations-core`
+
+### NPM
+
+```bash
+$ npm install @availity/authorizations-core @availity/api-axios @availity/api-core
+```
+
+### Yarn
+
+```bash
+yarn add @availity/authorizations-core @availity/api-axios @availity/api-core
+```
 
 ## Configuration
 
 `AvAuthorizations` requires `AvPermissions`, `AvRegions`, and a Promise lib.
 `AvPermissions` and `AvRegions` can be found in [Api-Core](/api/definitions/) but can be any objects that have `getPermissions()` and `getCurrentRegion()` promises respectively.
 
-```javascript
-  new AvAuthorizations(AvPermissions, AvRegions, promise);
+```js
+new AvAuthorizations(AvPermissions, AvRegions, promise);
 ```
 
 ## Methods

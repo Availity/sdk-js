@@ -9,13 +9,23 @@ Can grab some information from global error events, or more data if using the Av
 
 ## Install
 
-`npm install @availity/exceptions-core`
+### NPM
+
+```bash
+$ npm install @availity/exceptions-core
+```
+
+### Yarn
+
+```bash
+$ yarn add @availity/exceptions-core
+```
 
 ## Configure
 
 `AvExceptions` requires a logging function to call. And its recommended to have code in place to call `AvExceptions.submitError(error)` for better stack traces.
 
-```javascript
+```js
 import AvExceptions from '@availity/exceptions-core';
 
 function exampleLogging(logMessage) {

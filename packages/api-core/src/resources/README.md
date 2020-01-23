@@ -28,6 +28,7 @@ Get information about current logged in user.
 #### Methods
 
 ##### `me()`
+
 Helper function that returns information about logged in user.
 
 ### `AvRegions`
@@ -122,49 +123,38 @@ Method to upload a file. `data` contains FormData elements with a key of either 
 `config` should contain `customerId`, `id` (the bucketId), and `clientId`
 
 ### `AvFilesDelivery`
+
 Upload a batch of files to a designated channel configured on the server.
 
 #### Methods
 
 #### `uploadFilesDelivery(data, config)`
+
 Method to upload a batch of file deliveries. `data` contains an array of `deliveries`. Provide the `fileUri` (reference field from AvFiles), `deliveryChannel`, and the required `metadata` for that channel.
 
 Example `data`:
+
 ```html
-data = {
-  deliveries:
-    [ {
-        fileURI: upload.references[0],
-        deliveryChannel: 'DEMO',
-        metadata: { payerId: "PAYERID", requestId: "123", patientLastName: "lastName", patientFirstName: "firstName" },
-    } ]
-  };
+data = { deliveries: [ { fileURI: upload.references[0], deliveryChannel: 'DEMO',
+metadata: { payerId: "PAYERID", requestId: "123", patientLastName: "lastName",
+patientFirstName: "firstName" }, } ] };
 ```
+
 `config` should contain `customerId` and `clientId`
 
 #### Example Response
+
 ```html
-{ "id": "123456",                   // batchId
-  "status": "COMPLETE",             // COMPLETE/INPROGRESS
-  "deliveries": [
-    {
-      "id": "56789",                // deliveryId
-      "deliveryBatchId": "123456",
-      "fileURI": <fileUri>,
-      "deliveryChannel": "DEMO",
-      "deliveryStatus": "ERRORED",  // INPROGRESS/REJECTED/ERRORED/DELIVERED
-      "errors": [
-        {
-          "message": "error message",
-          "subject": "subject of error"
-        }
-      ],
-      "metadata": {
-        payerId: "PAYERID", requestId: "123", patientLastName: "lastName", patientFirstName: "firstName"
-      }
-    }
-  ]
-}
+{ "id": "123456", // batchId "status": "COMPLETE", // COMPLETE/INPROGRESS
+"deliveries": [ { "id": "56789", // deliveryId "deliveryBatchId": "123456",
+"fileURI":
+<fileUri
+    >, "deliveryChannel": "DEMO", "deliveryStatus": "ERRORED", //
+    INPROGRESS/REJECTED/ERRORED/DELIVERED "errors": [ { "message": "error
+    message", "subject": "subject of error" } ], "metadata": { payerId:
+    "PAYERID", requestId: "123", patientLastName: "lastName", patientFirstName:
+    "firstName" } } ] }</fileUri
+>
 ```
 
 ### `AvSettings`
@@ -172,7 +162,6 @@ data = {
 Store and retrieve settings to be reused.
 Use `query(params)` with at least an `applicationId` in the `params` object
 Use `update(data)` with at least an `applicationId` in the `scope` object, and key/value pairs of data
-
 
 ### `AvSlotMachine`
 
