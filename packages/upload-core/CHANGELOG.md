@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.14](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.13...@availity/upload-core@3.0.14) (2020-01-23)
+
+**Note:** Version bump only for package @availity/upload-core
+
+
+
+
+
 ## [3.0.13](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.12...@availity/upload-core@3.0.13) (2020-01-07)
 
 ### Bug Fixes
