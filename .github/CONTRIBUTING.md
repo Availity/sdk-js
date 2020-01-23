@@ -17,6 +17,8 @@ We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you do
 $ yarn install
 ```
 
+All subsequent installs should be quick after the first initial one.
+
 ## Adding a New Package
 
 1.
@@ -26,8 +28,6 @@ $ yarn new
 ```
 
 2. Add link to new package in README
-
-All subsequent installs should be quick after the first initial one.
 
 ## Running
 
