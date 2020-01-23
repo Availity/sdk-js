@@ -6,14 +6,30 @@
 
 ## Install
 
+### NPM
+
+```bash
+$ npm install @availity/api-axios @availity/api-core
 ```
-npm install @availity/api-axios @availity/api-core --save
+
+### Yarn
+
+```bash
+$ yarn add @availity/api-axios @availity/api-core
 ```
 
 Polyfill `Promise` if needed:
 
-```js
-npm install es6-promise --save
+### NPM
+
+```bash
+$ npm install es6-promise
+```
+
+### Yarn
+
+```bash
+$ yarn add es6-promise
 ```
 
 ## Usage
@@ -30,24 +46,24 @@ function async getUser() {
 
 -   `AvMicroserviceApi`
 -   `AvProxyApi`
--   `avWebQLApi`
+-   `avCodesApi`
+-   `avDisclaimersApi`
+-   `avFilesApi`
+-   `avFilesDeliveryApi`
 -   `avLogMessagesApi`
 -   `avNavigationApi`
 -   `avNotificationApi`
 -   `avOrganizationsApi`
+-   `avPdfApi`
 -   `avPermissionsApi`
 -   `avProvidersApi`
 -   `avRegionsApi`
--   `avPdfApi`
+-   `avSettingsApi`
+-   `avSlotMachineApi`
 -   `avSpacesApi`
 -   `avUserApi`
 -   `avUserPermissionsApi`
--   `avFilesApi`
--   `avFilesDeliveryApi`
--   `avSettingsApi`
--   `avSlotMachineApi`
--   `avDisclaimersApi`
--   `avCodesApi`
+-   `avWebQLApi`
 
 Details about each api can be found [here](../api-core/src/resources/README.md)
 
@@ -56,24 +72,24 @@ Details about each api can be found [here](../api-core/src/resources/README.md)
 import AvApi, {
     AvMicroserviceApi,
     AvProxyApi,
-    avWebQLApi,
+    avCodesApi,
+    avDisclaimersApi
+    avFilesApi,
+    avFilesDeliveryApi,
     avLogMessagesApi,
     avNavigationApi,
     avNotificationApi,
     avOrganizationsApi,
+    avPdfApi,
     avPermissionsApi,
     avProvidersApi,
     avRegionsApi,
-    avPdfApi,
+    avSettingsApi,
+    avSlotMachineApi,
     avSpacesApi,
     avUserApi,
     avUserPermissionsApi,
-    avFilesApi,
-    avFilesDeliveryApi,
-    avSettingsApi,
-    avSlotMachineApi,
-    avDisclaimersApi
-    avCodesApi,
+    avWebQLApi,
 } from '@availity/api-axios';
 ```
 
@@ -83,6 +99,7 @@ Create new API definitions by extending `AvApi`. Extending `AvApi` provides serv
 
 ```js
 import AvApi from '@availity/api-axios';
+
 class AvExampleResource extends AvApi {
     constructor() {
         super({
@@ -90,6 +107,7 @@ class AvExampleResource extends AvApi {
         });
     }
 }
+
 export default new AvExampleResource();
 ```
 
@@ -99,6 +117,7 @@ Create new API definitions by extending `AvApiProxy`. Extending `AvApiProxy` pro
 
 ```js
 import { AvApiProxy } from '@availity/api-axios';
+
 class AvExampleResource extends AvApiProxy {
     constructor() {
         super({
@@ -107,5 +126,6 @@ class AvExampleResource extends AvApiProxy {
         });
     }
 }
+
 export default new AvExampleResource();
 ```

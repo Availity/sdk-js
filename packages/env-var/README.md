@@ -6,8 +6,16 @@
 
 ## Install
 
+### NPM
+
 ```bash
-npm install @availity/env-var --save
+$ npm install @availity/env-var
+```
+
+### Yarn
+
+```bash
+$ yarn add @availity/env-var
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/features/env-var)

@@ -1,10 +1,10 @@
-export type ENVIORNEMNT = 'local'|'test'|'qa'|'prod';
+export type ENVIORNEMNT = 'local' | 'test' | 'qa' | 'prod';
 
 interface EnvOpts<T> {
-  local?: T,
-  test?: T,
-  qa?: T,
-  prod?: T
+  local?: T;
+  test?: T;
+  qa?: T;
+  prod?: T;
 }
 
 declare function envVar<T>(
@@ -13,11 +13,7 @@ declare function envVar<T>(
   defaultVar?: T
 ): T;
 
-
-declare function setEnvironments<T>(
-  envs: EnvOpts<T>,
-  override?: boolean
-): void;
+declare function setEnvironments<T>(envs: EnvOpts<T>, override?: boolean): void;
 
 export { setEnvironments };
 

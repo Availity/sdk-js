@@ -7,25 +7,34 @@ summary: Method extensions for the [yup](https://github.com/jquense/yup)
 
 ## Install
 
+### NPM
+
 ```bash
-npm install @availity/yup yup --save
+$ npm install @availity/yup yup
+```
+
+### Yarn
+
+```bash
+$ yarn add @availity/yup yup
 ```
 
 ## Usage
 
 Import the package in the root of your project somewhere and you will have access to all of the provided yup methods.
 
-```javascript
+```js
 import '@availity/yup';
 import * as yup from 'yup';
 
-const schema = yup.string().isRequired(true,'This field is required.');
+const schema = yup.string().isRequired(true, 'This field is required.');
 
 schema.isValid('12-12-2012');
 ```
 
 If you want to utilize the custom date validators you can import using `/moment` instead of the default like:
-```javascript
+
+```js
 import '@availity/yup/moment';
 import * as yup from 'yup';
 
@@ -55,7 +64,7 @@ schema.isValid('12-12-2012');
 
 #### Example
 
-```javascript
+```js
 yup.string().isRequired();
 yup.string().isRequired(true, 'Custom Error Message');
 yup.number().isRequired();
@@ -71,8 +80,8 @@ yup.object().isRequired();
 
 #### Example
 
-```javascript
-yup.string().npi()
+```js
+yup.string().npi();
 ```
 
 ### phone [**String**,**Number**]
@@ -85,7 +94,7 @@ Validates a phone number. Must be 10 digits without country code, can be formatt
 
 #### Example
 
-```javascript
+```js
 const schema = yup.string().phone();
 
 schema.isValid('(444) 444-4444'); // true
@@ -102,7 +111,6 @@ schema.isValid('444 444 4444'); // true
 schema.isValid('44444444445'); // false
 schema.isValid('+14444444444'); // false
 ```
-
 
 ## Additional Schemas
 
@@ -122,7 +130,7 @@ Evaluates a date range object.
 
 ### Example
 
-```javascript
+```js
 const schema = yup.dateRange({
     min: '07/04/2012',
     max: '07/12/2012',
@@ -148,7 +156,7 @@ Accepts range of dates the date range can fall between.
 
 #### example
 
-```javascript
+```js
 const schema = yup.dateRange().between('12/01/2012', '12/10/2012');
 
 schema.isValid({
@@ -168,7 +176,7 @@ Accepts date the date range must start after.
 
 #### example
 
-```javascript
+```js
 const schema = yup.dateRange().min('12/01/2012');
 
 schema.isValid({
@@ -188,7 +196,7 @@ Accepts date, the date range must start before.
 
 #### example
 
-```javascript
+```js
 const schema = yup.dateRange().max('12/10/2012');
 
 schema.isValid({
@@ -197,7 +205,6 @@ schema.isValid({
 }); // valid
 ```
 
-
 ### distance
 
 Evaluates if date range is within a set distance
@@ -205,22 +212,22 @@ Evaluates if date range is within a set distance
 #### parameters
 
 -   **options** - `object`. **required**. distance options.
-    - **min** - `object`. optional. The minimum distance between the date ranges
-        - **value** - `number`. **required**. the value of the minimum distance
-        - **units** - `string`. optional. the weight of the value. default `day`
-    - **max** - `object`. optional. The maximum distance between the date ranges
-        - **value** - `number`. **required**. the value of the max distance
-        - **units** - `string`. optional. the weight of the value. default `day`
-    - **format** - `string`. optional. custom parse format for date validation
+    -   **min** - `object`. optional. The minimum distance between the date ranges
+        -   **value** - `number`. **required**. the value of the minimum distance
+        -   **units** - `string`. optional. the weight of the value. default `day`
+    -   **max** - `object`. optional. The maximum distance between the date ranges
+        -   **value** - `number`. **required**. the value of the max distance
+        -   **units** - `string`. optional. the weight of the value. default `day`
+    -   **format** - `string`. optional. custom parse format for date validation
 
 #### example
 
-```javascript
+```js
 const schema = yup.dateRange().distance({
     min: {
         value: 3,
-        units: 'day'
-    }
+        units: 'day',
+    },
 });
 
 schema.isValid({
@@ -230,6 +237,7 @@ schema.isValid({
 ```
 
 ## **date**
+
 Overrides the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
 
 ### **Methods**
@@ -246,7 +254,7 @@ Takes an object of dates the given date must fall between
 
 #### example
 
-```javascript
+```js
 const schema = yup.date().between('12/01/2012', '12/10/2012');
 
 schema.isValid('12/02/2012'); // valid

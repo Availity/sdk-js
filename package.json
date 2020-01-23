@@ -26,6 +26,7 @@
     "publish": "lerna publish",
     "publish:canary": "lerna publish -c",
     "preTest": "yarn build",
+    "prettier": "prettier --write '**/*.{js,ts}'",
     "test": "jest",
     "test:ci": "yarn test --runInBand --collectCoverage",
     "postinstall": "npm run bootstrap",

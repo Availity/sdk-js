@@ -5,15 +5,26 @@
 [![Version](https://img.shields.io/npm/v/@availity/authorizations-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/authorizations-axios)
 
 ## Install
-`npm install @availity/authorizations-axios`
+
+### NPM
+
+```bash
+$ npm install @availity/authorizations-axios
+```
+
+### Yarn
+
+```bash
+$ yarn add @availity/authorizations-axios
+```
 
 ## Configuration
 
-`AvAuthorizations` uses `AvPermissions`, and `AvRegions` from [Api-Axios](../api-axios). To configure their default options,  `AvAuthorizations` takes in an options object that is passed onto them.
+`AvAuthorizations` uses `AvPermissions`, and `AvRegions` from [Api-Axios](../api-axios). To configure their default options, `AvAuthorizations` takes in an options object that is passed onto them.
 
-```javascript
-  import AvAuthorizations from '@availity/authorizations-axios';
-  new AvAuthorizations(config);
+```js
+import AvAuthorizations from '@availity/authorizations-axios';
+new AvAuthorizations(config);
 ```
 
 ## Methods
@@ -45,8 +56,11 @@ For all methods, if no region is passed in, defaults to current region.
 `getPayers(permissionId, organizationId, region)` will check permissionId for an organization with `organizationId` and resolve to its `resources` or an empty array.
 
 ## Authors
+
 **Kasey Powers**
-* [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
+
+-   [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
 
 ## License
+
 [MIT](../../LICENSE)

@@ -6,8 +6,16 @@
 
 ## Install
 
+### NPM
+
+```bash
+$ npm install @availity/native-form
 ```
-npm install @availity/native-form --save
+
+### Yarn
+
+```bash
+$ yarn add @availity/native-form
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/features/native-form)

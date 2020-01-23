@@ -1,3 +1,3 @@
-declare function isAbsoluteUrl(url: string):boolean;
+declare function isAbsoluteUrl(url: string): boolean;
 
 export default isAbsoluteUrl;
