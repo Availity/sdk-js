@@ -39,8 +39,10 @@ describe('AvPdfs', () => {
 
     const response = {
       data: {
-        pdf: {
-          href: '/path/to/sample.pdf',
+        links: {
+          pdf: {
+            href: '/path/to/sample.pdf',
+          },
         },
       },
     };
