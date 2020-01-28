@@ -16,7 +16,7 @@ export default class AvPdfs extends AvApi {
   }
 
   onPdf(response) {
-    window.location = response.data.pdf.href;
+    window.location = response.data.links.pdf.href;
   }
 
   getPdf(data, config) {
