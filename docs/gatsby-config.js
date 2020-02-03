@@ -45,6 +45,7 @@ module.exports = {
             'features/env-var',
             'features/messaging',
             'features/native-form',
+            'features/relay-id',
             'features/resolve-url',
             'features/yup',
             'features/exceptions',
