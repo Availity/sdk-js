@@ -33,6 +33,7 @@ $ yarn add @availity/upload-core tus-js-client
 -   maxSize: maximum size allowed per file
 -   metadata: object mapping metadata keys and values to add to the TUS upload
 -   allowedFileNameCharacters: restrict the file name characters to a regex set
+-   pollingTime: custom av scan polling time (default 5000ms)
 
 ```js
 import Upload from '@availity/upload-core';
@@ -45,6 +46,7 @@ const upload = new Upload(file, {
     maxSize: 3e8,
     metadata: { key: 'value' },
     allowedFileNameCharacters: '_a-zA-Z0-9 ', // alphanumeric, spaces, underscore
+    pollingTime: 1000,
 });
 upload.start();
 ```

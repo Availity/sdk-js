@@ -215,7 +215,7 @@ class Upload {
       this.onProgress.forEach(cb => cb());
       this.timeoutId = setTimeout(() => {
         this.scan();
-      }, 1000);
+      }, this.options.pollingTime || 5000);
     };
 
     // eslint-disable-next-line unicorn/prefer-add-event-listener
