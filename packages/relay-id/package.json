@@ -1,6 +1,6 @@
 {
   "name": "@availity/relay-id",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple package to decode/encode relay ids for graphql microservices that leverage the relay spec.",
   "main": "lib/index.js",
   "module": "src/index.js",
