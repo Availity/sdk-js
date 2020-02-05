@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.14...@availity/upload-core@3.1.0) (2020-02-05)
+
+
+### Features
+
+* **upload-core:** increase file upload polling time and add config ([563c224](https://github.com/Availity/sdk-js/commit/563c224))
+* **upload-core:** leverage existing defaultOptions ([c5e83c6](https://github.com/Availity/sdk-js/commit/c5e83c6))
+
+
+
+
+
 ## [3.0.14](https://github.com/Availity/sdk-js/compare/@availity/upload-core@3.0.13...@availity/upload-core@3.0.14) (2020-01-23)
 
 **Note:** Version bump only for package @availity/upload-core
