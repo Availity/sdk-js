@@ -18,6 +18,7 @@ const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
   chunkSize: 3e6, // 3MB
   removeFingerprintOnSuccess: true,
+  pollingTime: 5000,
   retryDelays: [0, 1000, 3000, 5000],
   stripFileNamePathSegments: true,
   fingerprint(file, options = {}, callback) {
@@ -215,7 +216,7 @@ class Upload {
       this.onProgress.forEach(cb => cb());
       this.timeoutId = setTimeout(() => {
         this.scan();
-      }, this.options.pollingTime || 5000);
+      }, this.options.pollingTime);
     };
 
     // eslint-disable-next-line unicorn/prefer-add-event-listener
