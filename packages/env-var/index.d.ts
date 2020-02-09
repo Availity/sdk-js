@@ -13,7 +13,7 @@ declare function envVar<T>(
   defaultVar?: T
 ): T;
 
-declare function setEnvironments<T>(envs: EnvOpts<T>, override?: boolean): void;
+declare function setEnvironments(envs: EnvOpts<any>, override?: boolean): void;
 
 export { setEnvironments };
 
