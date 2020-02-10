@@ -23,7 +23,9 @@
   },
   "dependencies": {
     "@availity/analytics-core": "^2.8.5",
-    "@availity/gatsby-theme-docs": "^2.0.3",
+    "@availity/gatsby-theme-docs": "^4.0.1",
+    "@availity/spaces": "^4.0.2",
+    "formik": "^2.1.4",
     "gatsby": "^2.13.83",
     "gatsby-plugin-compile-es6-packages": "^2.1.0",
     "react": "^16.8.3",

@@ -45,7 +45,7 @@ schema.isValid('12-12-2012');
 
 ## Table of Contents
 
--   [isRequired](#isrequired-stringarraynumber)
+-   [isRequired](#isrequired-stringarraynumberobject)
 -   [npi](#npi-string)
 -   [phone](#phone-stringnumber)
 -   [dateRange](#daterange)

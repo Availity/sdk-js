@@ -11,6 +11,7 @@ module.exports = {
           '@availity/page-header',
           '@availity/feedback',
           '@availity/icon',
+          '@availity/spaces',
           '@availity/app-icon',
           '@availity/form',
           '@availity/select',
