@@ -7,10 +7,10 @@ const defaultOpts = {
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
-export default class DateSchema extends yup.mixed {
+export default class AvDateSchema extends yup.mixed {
   constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
     super({
-      type: 'date',
+      type: 'avDate',
     });
 
     this.format = format;

@@ -5,7 +5,7 @@ declare module 'yup' {
     format?: string | 'MM/DD/YYYY';
   }
 
-  interface DateSchema<T extends string | null | undefined = string>
+  interface AvDateSchema<T extends string | null | undefined = string>
     extends MixedSchema<T> {
     min(date: string, errorMessage?: string): DateRangeSchema<T>;
     max(date: string, errorMessage?: string): DateRangeSchema<T>;
@@ -13,14 +13,14 @@ declare module 'yup' {
       minDate: string,
       maxDate: string,
       errorMessage?: string
-    ): DateSchema<T>;
-    isRequired(required?: boolean, errorMessage?: string): DateSchema<T>;
+    ): AvDateSchema<T>;
+    isRequired(required?: boolean, errorMessage?: string): AvDateSchema<T>;
   }
 
-  export interface DateSchemaConstructor {
-    (opts: DateOpts): DateSchema;
-    new (opts: DateOpts): DateSchema;
+  export interface AvDateSchemaConstructor {
+    (opts: DateOpts): AvDateSchema;
+    new (opts: DateOpts): AvDateSchema;
   }
 
-  export const date: DateSchemaConstructor;
+  export const avDate: AvDateSchemaConstructor;
 }

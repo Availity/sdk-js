@@ -6,7 +6,7 @@ const INVALID = 'Date is invalid.';
 const defaults = {};
 
 const validate = async (date, { format, min, max, message } = defaults) => {
-  let schema = yup.date({
+  let schema = yup.avDate({
     format,
   });
 
