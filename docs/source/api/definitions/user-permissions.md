@@ -45,13 +45,13 @@ Find a user's assigned permissions. The request parameters act as filters on the
       "customerId" : "261361",
       "name" : "Test Org",
       "resources" : [ {
-        "id" : "10248",
-        "payerId" : "BCBSF",
-        "payerName" : "FLORIDA BLUE"
+        "id" : "12345",
+        "payerId" : "ACME",
+        "payerName" : "ACME CORP"
       }, {
-        "id" : "11366",
-        "payerId" : "HUMANA",
-        "payerName" : "HUMANA"
+        "id" : "67890",
+        "payerId" : "VANDELAY",
+        "payerName" : "VANDELAY INDUSTRIES"
       } ]
     }, {
     "id" : "264320",
@@ -59,8 +59,8 @@ Find a user's assigned permissions. The request parameters act as filters on the
     "name" : "New Home Page",
     "resources" : [ {
       "id" : "10248",
-      "payerId" : "BCBSF",
-      "payerName" : "FLORIDA BLUE"
+      "payerId" : "ACME",
+      "payerName" : "ACME CORP"
       } ]
     } ]
   } ]
@@ -89,12 +89,12 @@ Retreives a user's permissions given the id
     "name" : "Test Org",
     "resources" : [ {
       "id" : "10248",
-      "payerId" : "BCBSF",
-      "payerName" : "FLORIDA BLUE"
+      "payerId" : "ACME",
+      "payerName" : "ACME CORP"
     }, {
       "id" : "11366",
-      "payerId" : "HUMANA",
-      "payerName" : "HUMANA"
+      "payerId" : "VANDELAY",
+      "payerName" : "VANDELAY INDUSTRIES"
     } ]
   }, {
     "id" : "264320",
@@ -102,8 +102,8 @@ Retreives a user's permissions given the id
     "name" : "New Home Page",
     "resources" : [ {
       "id" : "10248",
-      "payerId" : "BCBSF",
-      "payerName" : "FLORIDA BLUE"
+      "payerId" : "ACME",
+      "payerName" : "ACME CORP"
     } ]
   } ]
 }
