@@ -38,7 +38,7 @@ If you want to utilize the custom date validators you can import using `/moment`
 import '@availity/yup/moment';
 import * as yup from 'yup';
 
-const schema = yup.date();
+const schema = yup.avDate();
 
 schema.isValid('12-12-2012');
 ```
@@ -49,7 +49,7 @@ schema.isValid('12-12-2012');
 -   [npi](#npi-string)
 -   [phone](#phone-stringnumber)
 -   [dateRange](#daterange)
--   [date](#date)
+-   [avDate](#avDate)
 
 ## Methods
 
@@ -260,9 +260,9 @@ schema.isValid({
 }); // valid
 ```
 
-## **date**
+## **avDate**
 
-Overrides the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
+Similar to the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
 
 ### **Methods**
 
@@ -282,7 +282,7 @@ Takes an object of dates the given date must fall between
 import '@availity/yup';
 import * as yup from 'yup';
 
-const schema = yup.date().between('12/01/2012', '12/10/2012');
+const schema = yup.avDate().between('12/01/2012', '12/10/2012');
 
 schema.isValid('12/02/2012'); // valid
 ```
