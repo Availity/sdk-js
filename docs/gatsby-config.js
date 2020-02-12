@@ -46,7 +46,6 @@ module.exports = {
                 'api/definitions/navigation',
                 'api/definitions/notifications',
                 'api/definitions/organizations',
-                'api/definitions/organization-validation',
                 'api/definitions/pdfs',
                 'api/definitions/permissions',
                 'api/definitions/providers',
