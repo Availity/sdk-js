@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Availity/sdk-js/compare/@availity/yup@1.3.4...@availity/yup@2.0.0) (2020-02-12)
+
+
+### Bug Fixes
+
+* **yup:** fixes type resolution bug where internal yup.date was no longer being overridden ([01ba375](https://github.com/Availity/sdk-js/commit/01ba3752455b98ebd701d5cfddeb4ab79af3c1a3))
+
+
+### BREAKING CHANGES
+
+* **yup:** Fixes TypeError: Cannot set property date of #<Object> by renaming 'date' and 'DateSchema' to 'avDa
+te' and 'AvDateSchema'.
+
+
+
+
+
 ## [1.3.4](https://github.com/Availity/sdk-js/compare/@availity/yup@1.3.3...@availity/yup@1.3.4) (2020-01-23)
 
 **Note:** Version bump only for package @availity/yup
