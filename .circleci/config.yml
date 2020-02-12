@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache: # special step to restore the dependency cache
@@ -36,7 +36,7 @@ jobs:
           command: yarn codecov:ci
   deploy:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache: # special step to restore the dependency cache
