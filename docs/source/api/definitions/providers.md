@@ -38,7 +38,7 @@ GET https://apps.availity.com/api/internal/v1/providers?customerId=123456
     }
   },
   "providers" : [ {
-    "id" : "274929-269194-251527",
+    "id" : "274929-269194-123456",
     "businessName" : "GENERIC PHARMACY",
     "uiDisplayName" : "GENERIC PHARMACY",
     "atypical" : false,
@@ -97,11 +97,11 @@ GET https://apps.availity.com/api/internal/v1/providers?customerId=123456
       }
     }
   }, {
-    "id" : "274329-269194-251393",
-    "lastName" : "POTTY",
-    "firstName" : "ANISH",
-    "middleName" : "GOVIND",
-    "uiDisplayName" : "POTTY, ANISH GOVIND",
+    "id" : "274329-269194-123456",
+    "lastName" : "LINCOLN",
+    "firstName" : "ABE",
+    "middleName" : "E",
+    "uiDisplayName" : "LINCOLN, ABE E",
     "atypical" : false,
     "npi" : "1902208000",
     "customerIds" : [ "123456" ],

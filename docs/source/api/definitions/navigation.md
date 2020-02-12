@@ -49,11 +49,11 @@ GET https://apps.availity.com/api/sdk/platform/v1/navigation/spaces?region=TX&li
     }
   },
   "spaces" : [ {
-    "id" : "registration_florida_medicaid",
-    "name" : "Registration (Florida Medicaid)",
-    "description" : "Registration (Florida Medicaid)",
+    "id" : "acme",
+    "name" : "Acme",
+    "description" : "Acme",
     "link" : {
-      "text" : "Registration (Florida Medicaid)",
+      "text" : "Acme",
       "url" : "/availity/ServiceRegistrationServlet?menuTempl=6248",
       "target" : "newBody"
     },
@@ -77,11 +77,11 @@ GET https://apps.availity.com/api/sdk/platform/v1/navigation/spaces?region=TX&li
     "parentIds" : [ "enrollments_center_links" ],
     "hasAccess" : false
     }, {
-    "id" : "request_medicare_member_roster",
-    "name" : "Request Medicare Member Roster (Humana)",
-    "description" : "Request Medicare Member Roster (Humana)",
+    "id" : "Request Roster",
+    "name" : "Request Roster",
+    "description" : "Request Roster",
     "link" : {
-      "text" : "Request Medicare Member Roster (Humana)",
+      "text" : "Request Roster",
       "url" : "/availity/common/linkout_disclaimer.jsp",
       "target" : "_blank"
     },
