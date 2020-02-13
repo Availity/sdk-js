@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.11](https://github.com/availity/sdk-js/compare/@availity/env-var@1.9.9...@availity/env-var@1.9.11) (2020-02-13)
+
+
+### Bug Fixes
+
+* update babel and jest configs, rename tests ([c80e194](https://github.com/availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+
+
+
 ## [1.9.10](https://github.com/availity/sdk-js/compare/@availity/env-var@1.9.9...@availity/env-var@1.9.10) (2020-02-13)
 
 
