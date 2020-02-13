@@ -16,6 +16,7 @@ module.exports = api => {
         'babel-preset-react-app',
         {
           absoluteRuntime: false,
+          useESModules: false,
         },
       ],
     ],
