@@ -2,6 +2,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>.*(node_modules)(?!.*@availity.*).*$',
     '<rootDir>/plopfile.js',
+    '/lib/',
     '/docs/',
   ],
   coveragePathIgnorePatterns: [
@@ -9,6 +10,7 @@ module.exports = {
     '/coverage/',
     '/dist/',
     '/docs/',
+    '/lib/',
   ],
   testEnvironment: 'jest-environment-jsdom-global',
   testURL: 'http://localhost:8080',
