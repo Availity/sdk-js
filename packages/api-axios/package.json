@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "5.4.19",
+  "version": "5.4.20",
   "description": "Wraps @availity/api-core with Axios",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -14,7 +14,7 @@
     "axios": "^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0"
   },
   "devDependencies": {
-    "@availity/api-core": "^6.1.10",
+    "@availity/api-core": "^6.1.11",
     "axios": "^0.19.0"
   },
   "publishConfig": {

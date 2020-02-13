@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "6.1.10",
+  "version": "6.1.11",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@availity/resolve-url": "^1.1.11",
+    "@availity/resolve-url": "^1.1.12",
     "qs": "^6.5.2"
   },
   "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
