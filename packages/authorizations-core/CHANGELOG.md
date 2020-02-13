@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/Availity/sdk-js/compare/@availity/authorizations-core@1.0.12...@availity/authorizations-core@1.0.15) (2020-02-13)
+
+**Note:** Version bump only for package @availity/authorizations-core
+
+
+
+
+
 ## [1.0.14](https://github.com/Availity/sdk-js/compare/@availity/authorizations-core@1.0.13...@availity/authorizations-core@1.0.14) (2020-02-13)
 
 **Note:** Version bump only for package @availity/authorizations-core
