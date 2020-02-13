@@ -73,8 +73,7 @@
     "*.js": [
       "eslint --fix",
       "prettier --write",
-      "jest --bail --findRelatedTests",
-      "git add"
+      "jest --bail --findRelatedTests"
     ]
   },
   "commitlint": {
