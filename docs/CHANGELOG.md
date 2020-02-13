@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/Availity/sdk-js/compare/@availity/docs@2.0.3...@availity/docs@2.0.4) (2020-02-13)
+
+**Note:** Version bump only for package @availity/docs
+
+
+
+
+
 ## [2.0.3](https://github.com/Availity/sdk-js/compare/@availity/docs@2.0.0...@availity/docs@2.0.3) (2020-02-13)
 
 **Note:** Version bump only for package @availity/docs
