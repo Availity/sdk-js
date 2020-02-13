@@ -16,13 +16,13 @@
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
   "peerDependencies": {
-    "tus-js-client": "^1.0.0"
+    "tus-js-client": "1.7.1"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "tus-js-client": "^1.7.1"
+    "tus-js-client": "1.7.1"
   },
   "dependencies": {
     "@availity/resolve-url": "^1.1.5"
