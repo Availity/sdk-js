@@ -49,7 +49,7 @@ schema.isValid('12-12-2012');
 -   [npi](#npi-string)
 -   [phone](#phone-stringnumber)
 -   [dateRange](#daterange)
--   [avDate](#avDate)
+-   [avDate](#avdate)
 
 ## Methods
 
