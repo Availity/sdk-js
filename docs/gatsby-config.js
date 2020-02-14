@@ -36,6 +36,7 @@ module.exports = {
           null: ['index', 'contributing'],
           API: [
             'api/getting-started',
+            'api/axios-resources',
             {
               resolve: 'api/definitions/index',
               pages: [
@@ -70,6 +71,7 @@ module.exports = {
             'features/yup',
             'features/exceptions',
           ],
+          Recipes: ['recipes/proxy'],
         },
       },
     },
