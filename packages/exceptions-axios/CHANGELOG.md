@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.33](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.30...@availity/exceptions-axios@3.0.33) (2020-02-13)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
+## [3.0.32](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.31...@availity/exceptions-axios@3.0.32) (2020-02-13)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
+## [3.0.31](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.29...@availity/exceptions-axios@3.0.31) (2020-02-13)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
+## [3.0.30](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.28...@availity/exceptions-axios@3.0.30) (2020-02-13)
+
+
+### Bug Fixes
+
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+
+
+
+## [3.0.29](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.28...@availity/exceptions-axios@3.0.29) (2020-02-13)
+
+
+### Bug Fixes
+
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+
+
+
+## [3.0.28](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.25...@availity/exceptions-axios@3.0.28) (2020-02-13)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
+## [3.0.27](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.26...@availity/exceptions-axios@3.0.27) (2020-02-13)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
+## [3.0.26](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.25...@availity/exceptions-axios@3.0.26) (2020-02-13)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
 ## [3.0.25](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.24...@availity/exceptions-axios@3.0.25) (2020-02-12)
 
 **Note:** Version bump only for package @availity/exceptions-axios

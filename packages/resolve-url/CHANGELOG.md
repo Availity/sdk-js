@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.13](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.10...@availity/resolve-url@1.1.13) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.12](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.11...@availity/resolve-url@1.1.12) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.11](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.9...@availity/resolve-url@1.1.11) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.10](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.8...@availity/resolve-url@1.1.10) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.9](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.8...@availity/resolve-url@1.1.9) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.8](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.5...@availity/resolve-url@1.1.8) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.7](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.6...@availity/resolve-url@1.1.7) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
+## [1.1.6](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.5...@availity/resolve-url@1.1.6) (2020-02-13)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
 ## [1.1.5](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.4...@availity/resolve-url@1.1.5) (2020-02-12)
 
 

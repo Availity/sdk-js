@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.32](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.29...@availity/dl-axios@3.0.32) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.31](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.30...@availity/dl-axios@3.0.31) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.30](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.28...@availity/dl-axios@3.0.30) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.29](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.27...@availity/dl-axios@3.0.29) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.28](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.27...@availity/dl-axios@3.0.28) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.27](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.24...@availity/dl-axios@3.0.27) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.26](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.25...@availity/dl-axios@3.0.26) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
+## [3.0.25](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.24...@availity/dl-axios@3.0.25) (2020-02-13)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
 ## [3.0.24](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@3.0.23...@availity/dl-axios@3.0.24) (2020-02-12)
 
 **Note:** Version bump only for package @availity/dl-axios

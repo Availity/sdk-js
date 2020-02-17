@@ -1,4 +1,4 @@
-import nativeForm from '..';
+import nativeForm from '../src';
 import flattenObject from '../src/flattenObject';
 
 describe('nativeForm', () => {

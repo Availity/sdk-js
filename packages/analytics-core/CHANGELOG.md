@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.14](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.11...@availity/analytics-core@2.8.14) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.13](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.12...@availity/analytics-core@2.8.13) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.12](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.10...@availity/analytics-core@2.8.12) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.11](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.9...@availity/analytics-core@2.8.11) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.10](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.9...@availity/analytics-core@2.8.10) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.9](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.6...@availity/analytics-core@2.8.9) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.8](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.7...@availity/analytics-core@2.8.8) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [2.8.7](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.6...@availity/analytics-core@2.8.7) (2020-02-13)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
 ## [2.8.6](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@2.8.5...@availity/analytics-core@2.8.6) (2020-02-12)
 
 **Note:** Version bump only for package @availity/analytics-core

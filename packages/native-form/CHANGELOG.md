@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.15](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.12...@availity/native-form@2.8.15) (2020-02-13)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [2.8.14](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.13...@availity/native-form@2.8.14) (2020-02-13)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [2.8.13](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.11...@availity/native-form@2.8.13) (2020-02-13)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [2.8.12](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.10...@availity/native-form@2.8.12) (2020-02-13)
+
+
+### Bug Fixes
+
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+
+
+
+## [2.8.11](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.10...@availity/native-form@2.8.11) (2020-02-13)
+
+
+### Bug Fixes
+
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+
+
+
+## [2.8.10](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.7...@availity/native-form@2.8.10) (2020-02-13)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [2.8.9](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.8...@availity/native-form@2.8.9) (2020-02-13)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [2.8.8](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.7...@availity/native-form@2.8.8) (2020-02-13)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
 ## [2.8.7](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.6...@availity/native-form@2.8.7) (2020-01-14)
 
 ### Bug Fixes
