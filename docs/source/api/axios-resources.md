@@ -22,24 +22,14 @@ summary: A package providing a base authorizations class to help check which per
 -   [AvFilesDelivery](#avfilesdelivery)
 -   [AvSettings](#avsettings)
 
-<!-- ## Intro
-
-View [AvApi](../../README.md) to see the details for configuring API definitions. -->
-
-### `AvUser`
-
-Get information about current logged in user.
-
-#### Exported Classes
+All axios resources will have the same basic exported class structure as below. For each resource, replace the `class` with the resource name as well as `name` in `options`
 
 ```javascript
-import AvApi from '../api';
-
-export default class AvUsers extends AvApi {
+export default class AvPermissions extends AvApi {
   constructor({ http, promise, merge, config }) {
     const options = {
       path: 'api/sdk/platform',
-      name: 'users',
+      name: 'permissions',
       ...config,
     };
     super({
@@ -50,6 +40,14 @@ export default class AvUsers extends AvApi {
     });
   }
 ```
+
+### `AvUser`
+
+Get information about current logged in user.
+
+#### Exported Class
+
+`name` in `options` as `users`
 
 #### Methods
 
@@ -67,27 +65,7 @@ Gets the logged in user's current selected region as well as the regions the use
 
 #### Exported Class
 
-```javascript
-import AvApi from '../api';
-
-export default class AvRegions extends AvApi {
-  constructor({ http, promise, merge, avUsers, config }) {
-    const options = {
-      path: 'api/sdk/platform',
-      name: 'regions',
-      sessionBust: false,
-      pageBust: true,
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-    this.avUsers = avUsers;
-  }
-```
+Add `avUsers` to the `constructor`. Add `sessionBust: false` and `pagebust: true` to `options`. Include `this.avUsers = avUsers` before `constructor` closes. `name` in `options` as `regions`.
 
 #### Methods
 
@@ -136,22 +114,7 @@ Get permissions belonging to the logged in user.
 
 #### Exported Class
 
-```javascript
-export default class AvPermissions extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: 'api/sdk/platform',
-      name: 'permissions',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`name` in `options` as `permissions`
 
 #### Methods
 
@@ -215,24 +178,7 @@ Get metadata for the various content types for the Spaces platform.
 
 #### Exported Classes
 
-```javascript
-import AvApi from '../api';
-
-export default class AvSpaces extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: 'api/sdk/platform',
-      name: 'spaces',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`name` in `options` as `spaces`
 
 #### Methods
 
@@ -270,26 +216,7 @@ Service that allows you to get logged=in user's active organizations.
 
 #### Exported Class
 
-```javascript
-import AvApi from '../api';
-
-export default class AvOrganizations extends AvApi {
-  constructor({ http, promise, merge, avUsers, config }) {
-    const options = {
-      path: 'api/sdk/platform',
-      name: 'organizations',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-
-    this.avUsers = avUsers;
-  }
-```
+Add `avUsers` into constructor. Add `this.avUsers = avUsers` before `constructor` closes.
 
 #### Methods
 
@@ -330,24 +257,7 @@ Get providers associated to the logged in user's organization.
 
 #### Exported Classes
 
-```javascript
-import AvApi from '../api';
-
-export default class AvProviders extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: 'api/internal',
-      name: 'providers',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`path` as `api/internal`. `name` as `providers`
 
 #### Methods
 
@@ -386,24 +296,9 @@ Create a log message.
 
 #### Exported Class
 
-```javascript
-import AvApi from '../api';
-import flattenObject from '../flattenObject';
+`import flattenObject from '../flattenObject'`
 
-export default class AvLogMessages extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      name: 'log-messages',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+No `path` in the constructor. `name` as `log-messages`
 
 #### Methods
 
@@ -459,25 +354,7 @@ All methods take a key value object. A key named 'level` determines the log leve
 
 #### Exported Class
 
-```javascript
-
-import AvApi from '../api';
-
-export default class AvPdfs extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: 'api/utils',
-      name: 'pdfs',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`path` as `api/utils`. `name` as `pdfs`.
 
 #### Methods
 
@@ -538,26 +415,7 @@ Upload a file to a bucket in the vault
 
 #### Exported Class
 
-```javascript
-   import AvMicroservice from '../ms';
-
-export default class AvFiles extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      name: 'core/vault/upload/v1',
-      headers: {
-        'Content-Type': undefined,
-      },
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`name` as `core/vault/upload/v1`. No `path`. `headers` as `{'Content-Type': undefined}`
 
 #### Methods
 
@@ -674,27 +532,7 @@ Use `update(data)` with at least an `applicationId` in the `scope` object, and k
 
 #### Exported Class
 
-```javascript
-import AvApi from '../api';
-
-export default class AvSettings extends AvApi {
-  constructor({ http, promise, merge, avUsers, config }) {
-    const options = {
-      path: 'api/utils',
-      name: 'settings',
-      sessionBust: false,
-      pageBust: true,
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-    this.avUsers = avUsers;
-  }
-```
+`path` as `api/utils`. `name` as `settings` . Add `sessionBust: false` and `pageBust: false` to `options`. Add `avUsers` to `constructor`. Add `this.avUsers = avUsers` before `constructor` cloes.
 
 #### Methods
 
@@ -762,26 +600,7 @@ Get disclaimers for payer space
 
 #### Exported Class
 
-```javascript
-
-import AvApi from '../api';
-
-export default class AvDisclaimers extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: '/api/sdk/platform',
-      name: '/disclaimers',
-
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`name` as `/disclaimers`
 
 #### Methods
 
@@ -798,23 +617,7 @@ GraphQL Server containing different queries and mutation
 
 #### Exported Class
 
-```javascript
-import AvMicroservice from '../ms';
-
-export default class AvSlotMachine extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      name: 'spc/slotmachine/graphql',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
+`name` as `spc/slotmachine/graphql`.
 
 #### Methods
 
