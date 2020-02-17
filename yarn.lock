@@ -17241,13 +17241,8 @@ tunnel-agent@^0.6.0:
 
 tus-js-client@1.7.1:
   version "1.7.1"
-<<<<<<< HEAD
-  resolved "https://artifactory.availity.com/artifactory/api/npm/npm/tus-js-client/-/tus-js-client-1.7.1.tgz#1485176052f9a360a957f475edf8e5076e339881"
-  integrity sha1-FIUXYFL5o2CpV/R17fjlB24zmIE=
-=======
   resolved "https://registry.yarnpkg.com/tus-js-client/-/tus-js-client-1.7.1.tgz#1485176052f9a360a957f475edf8e5076e339881"
   integrity sha512-38NMOvjZm/HQTdmwLctXqctsUUsiuZsdUGBew6xn3/s1D7ofzjW/VBRAp+uAWrzN0ziAmo2WuiZ9FMP9UeU0UQ==
->>>>>>> master
   dependencies:
     buffer-from "^0.1.1"
     extend "^3.0.0"
