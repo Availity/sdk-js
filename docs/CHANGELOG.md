@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Availity/sdk-js/compare/@availity/docs@2.0.8...@availity/docs@2.1.0) (2020-02-17)
+
+
+### Bug Fixes
+
+* edit on github button working now ([eddeeaf](https://github.com/Availity/sdk-js/commit/eddeeafff4ab430e4ec49d6306646f91ba7a3eb7))
+* **docs:** fix broken link for avDate ([6ed09f8](https://github.com/Availity/sdk-js/commit/6ed09f89e076662b24df714ba6405b6ca2b77a5a))
+
+
+### Features
+
+* adding axios resource page with exported class and methods ([12ab83d](https://github.com/Availity/sdk-js/commit/12ab83d6ca03dfa6b402fe1b1b441373a383f1bb))
+* adding axios resource page with exported class and methods ([ef7c882](https://github.com/Availity/sdk-js/commit/ef7c882b1ab9a7b6520d44918ec6ba482f9a93d6))
+* migrate api definitions to docs ([893467b](https://github.com/Availity/sdk-js/commit/893467bf3cc00547adcf7e64c9230bc649be0962))
+
+
+
+
+
 ## [2.0.8](https://github.com/Availity/sdk-js/compare/@availity/docs@2.0.5...@availity/docs@2.0.8) (2020-02-13)
 
 **Note:** Version bump only for package @availity/docs
