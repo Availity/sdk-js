@@ -13,6 +13,10 @@ const mockAvUsers = {
 describe('AvRegions', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     api = new AvRegions({
       http: mockHttp,
@@ -86,6 +90,26 @@ describe('AvRegions', () => {
     Object.assign(expectedConfig.params, { userId: mockUser.id });
     await api.getRegions(testConfig);
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+  });
+
+  test('getRegions should skip call to avUsers.me() if a userId is provided', async () => {
+    api = new AvRegions({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      avUsers: mockAvUsers,
+      config: {},
+    });
+    api.query = jest.fn();
+
+    const testConfig = {
+      name: 'testName',
+      params: { userId: mockUser.id },
+    };
+
+    await api.getRegions(testConfig);
+    expect(api.query).toHaveBeenLastCalledWith(testConfig);
+    expect(api.avUsers.me).not.toHaveBeenCalled();
   });
 
   test('getRegions should handle undefined config param', async () => {
