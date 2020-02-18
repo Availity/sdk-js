@@ -7,12 +7,10 @@ summary: A package providing a base authorizations class to help check which per
 
 ## Table of Contents
 
--   [Intro](#intro)
 -   [AvUser](#avuser)
 -   [AvRegions](#avregions)
 -   [AvPermissions](#avpermissions)
 -   [AvUserPermissions](#avuserpermissions)
--   [AvNavigation](#avnavigation)
 -   [AvSpaces](#avspaces)
 -   [AvOrganizations](#avorganizations)
 -   [AvProviders](#avproviders)
