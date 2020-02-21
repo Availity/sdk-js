@@ -4,60 +4,9 @@ title: Creating a Proxy
 
 When developing Availity applications there is no use in a UI that doesn't connect to some data source. We have developed a proxy to enable you to test against real routes from other hosts from your local source.
 
-## Creating a Project
+## Getting Started
 
-If you are creating a new project, you can run the following command that will architect everything you need to get started. Replace `proxy-sample` with whatever your project name is.
-
-```bash
-npx @availity/workflow init proxy-sample --current-dir
-```
-
-## Proxy Data Structure
-
-<img width="100%" src="proxy-data.png" alt="Proxy Data Structure" />
-
-Inside of the `config` folder is a file titled `routes.json`. This contains an object `key/value` pair of all the API routes you override from your UI.
-
-In our case, we have an API call being made that requests data from `/ms/api/availity/internal/spc/slotmachine/graphql`.
-
-The key of the nested object is a `file` type, thus we specify its a `file` and the value is the path to the data file we want returned.
-
-The above pictured scenario can be explained by saying "the specified path will return JSON containing the data from the file `data/slotmachine.data`. Note that the JSON will be returned for any type of request method, and parameters passed in.
-
-## Starting proxy Server
-
-The easiest way to know if the server is running is you should see a message saying `Ekko servered started at...`.
-
-```shell hideCopy=true
-Dev/proxy-sample/proxy-sample is 📦 v0.1.0 via ⬢ v12.16.0 took 1m44s
-❯ yarn start
-yarn run v1.19.2
-$ av start
-› REACT
-› Using project/config/workflow.js
-› Using @availity/workflow/public/index.html
-› Using @availity/workflow/public/favicon.ico
-› Webpack 0% compiling
-› Webpack 10% building
-› Proxy created: [ '/api', '/ms' ] -> http://localhost:60162
-› Proxy rewrite rule created: "^/api" ~> ""
-ℹ ｢wds｣: Project is running at http://localhost:3000/
-ℹ ｢wds｣: webpack output is served from undefined
-ℹ ｢wds｣: Content not from webpack is served from /Users/sstrange/Documents/Dev/proxy-sample/proxy-sample/build
-ℹ ｢wds｣: 404s will fallback to /index.html
-› Started development server
-› Loading plugin @availity/mock-data
-› Ekko server started at http://localhost:60162
-› Webpack 40% building
-› Webpack 50% building
-› Webpack 60% building
-› Webpack 70% building
-› Webpack 80% basic chunk modules optimization
-› Webpack 90% record hash
-› Webpack 100%
-› Opening browser at http://localhost:3000#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04
-› Webpack stats:
-```
+Most of this process is already documented [here](https://availity.github.io/availity-workflow/tutorial/mocks/), but we will do a light explanation. In the link provided you will find: how to set up your project, learn about routes for mock/proxy data, and what your terminal should look like when the server is running. Basically everything you need to know to get at least halfway out the door you will find there.
 
 ## Example
 
