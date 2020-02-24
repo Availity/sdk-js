@@ -2,7 +2,7 @@
 title: Creating a Proxy
 ---
 
-When developing Availity applications there is no use in a UI that doesn't connect to some data source. We have developed a proxy to enable you to test against real routes from other hosts from your local source.
+When calling out to external APIs, the portal doesn't allow traffic to come from anywhere by default. Our proxy service will map a route on our end to an external route configured by an administrator. Once that has been setup you can then begin to use the `avProxyApi` to fetch data from the external route.
 
 ## Getting Started
 
@@ -10,29 +10,35 @@ Most of this process is already documented [here](https://availity.github.io/ava
 
 ## Example
 
-The best way to learn is by examples and that is what we are going to do here.
-
 We are going to clear out the `App.js` file for tesing purposes and instead paste the below code snippet.
 
 ### Adding API Code Snippet
 
 ```jsx header=App.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AvProxyApi } from '@availity/api-axios';
 
 const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
 
-const fetchData = async () => {
-    const response = await proxyApi.query({ sessionBust: false });
-    return response;
-};
-
 const App = () => {
+    const [climbingHolds, setClimbingHolds] = useState(''); // initialize state
+
+    const fetchData = async () => {
+        const response = await proxyApi.query({ sessionBust: false });
+        setClimbingHolds(response.data.climbingHolds);
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
 
-    return <div>My name is...</div>;
+    return (
+        <div>
+            {climbingHolds.map(hold => {
+                return <li key={hold.name}>{hold.name}</li>;
+            })}
+        </div>
+    );
 };
 
 export default App;
@@ -63,27 +69,20 @@ Now that we have the route we need to test out our `climbingholds.json` response
 
 ```json header=climbingholds.json
 {
-  "data": {
-    "climbingHolds": {
-      "totalCount": 1,
-      "page": 1,
-      "perPage": 50,
-      "climbingHolds": [
+    "totalCount": 1,
+    "page": 1,
+    "perPage": 50,
+    "climbingHolds": [
         {
-          "id": "123",
-          "name": "Jug"
+            "name": "Jug"
         },
         {
-          "id": "456",
-          "name": "Pinch"
-        }
+            "name": "Pinch"
+        },
         {
-          "id": "789",
-          "name": "Crimp"
+            "name": "Crimp"
         }
-      ]
-    }
-  }
+    ]
 }
 ```
 
@@ -92,6 +91,8 @@ While the response we added was not simple, it is more indicative of a real resp
 If you your application is currently running you will need to restart it as the proxy server will need to be restarted in order to get the updated proxy data.
 
 To determine if your proxy is working correctly, open your browser to `localhost:3000` . Right click in the browser and select 'Inspect'. Navigate to the network tab and you should see your proxy response.
+
+The climbing hold list should be rendered on the screen.
 
 <img width="100%" src="browser-response.png" alt="Browser Response" />
 
