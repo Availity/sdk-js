@@ -20,4 +20,8 @@ declare module 'yup' {
     npi(errorMessage?: string): NumberSchema<T>;
     phone(errorMessage?: string): NumberSchema<T>;
   }
+
+  interface ObjectSchema<T> extends Schema<T> {
+    isRequired(required?: boolean, errorMessage?: string): ObjectSchema<T>;
+  }
 }
