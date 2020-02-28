@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/Availity/sdk-js/compare/@availity/docs@2.1.0...@availity/docs@2.2.0) (2020-02-28)
+
+
+### Features
+
+* adding docs for creating a proxy ([d968fc3](https://github.com/Availity/sdk-js/commit/d968fc3553ee069744ef95607b8de0f870711445))
+
+
+
+
+
 # [2.1.0](https://github.com/Availity/sdk-js/compare/@availity/docs@2.0.8...@availity/docs@2.1.0) (2020-02-17)
 
 
