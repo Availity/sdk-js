@@ -16,7 +16,7 @@ export default class AvApi {
     this.defaultConfig = this.merge({}, API_OPTIONS.API, config);
   }
 
-  // get the merged config
+  // merge config
   config(config = {}) {
     return this.merge({}, this.defaultConfig, config);
   }
