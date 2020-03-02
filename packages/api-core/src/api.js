@@ -212,7 +212,12 @@ export default class AvApi {
     }
 
     if (navigator.sendBeacon) {
-      const result = navigator.sendBeacon(config.url, config.data);
+      const result = navigator.sendBeacon(
+        config.url,
+        new Blob([config.data], {
+          type: 'application/x-www-form-urlencoded',
+        })
+      );
       // A truthy return value from navigator.sendBeacon means the browser successfully queued the request
       if (result) return this.Promise.resolve();
     }
