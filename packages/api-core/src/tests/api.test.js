@@ -1122,7 +1122,7 @@ describe('AvApi', () => {
       const config = {
         testValue: 'test',
       };
-      const data = new FormData();
+      const data = new URLSearchParams();
       data.append('testData', 'data');
 
       const expectedConfig = {
@@ -1139,7 +1139,9 @@ describe('AvApi', () => {
       expect(navigator.sendBeacon).toHaveBeenCalledTimes(1);
       expect(navigator.sendBeacon).toHaveBeenLastCalledWith(
         expectedConfig.url,
-        expectedConfig.data
+        new Blob([expectedConfig.data], {
+          type: 'application/x-www-form-urlencoded',
+        })
       );
       // Check that sendBeacon resolves with empty object
       expect(resp).toBeUndefined();
@@ -1169,7 +1171,9 @@ describe('AvApi', () => {
       expect(navigator.sendBeacon).toHaveBeenCalledTimes(1);
       expect(navigator.sendBeacon).toHaveBeenLastCalledWith(
         expectedConfig.url,
-        expectedConfig.data
+        new Blob([expectedConfig.data], {
+          type: 'application/x-www-form-urlencoded',
+        })
       );
       // Check api.request was called
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);

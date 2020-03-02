@@ -30,7 +30,7 @@ describe('AvLogMessages', () => {
     const entries = { foo: 'bar', deeply: { nested: 'value' } };
     const sent = api.send(level, entries);
 
-    expect(sent instanceof FormData).toBe(true);
+    expect(sent instanceof URLSearchParams).toBe(true);
     expect(sent.get('level')).toBe('testLevel');
     expect(sent.get('entries.foo')).toBe('bar');
     expect(sent.get('entries.deeply.nested')).toBe('value');

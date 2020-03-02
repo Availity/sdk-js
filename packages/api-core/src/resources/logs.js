@@ -19,10 +19,7 @@ export default class AvLogMessages extends AvApi {
     delete entries.level;
     const payload = { level, entries };
     const flattened = flattenObject(payload);
-    return Object.keys(flattened).reduce((accum, key) => {
-      accum.append(key, flattened[key]);
-      return accum;
-    }, new FormData());
+    return new URLSearchParams(flattened);
   }
 
   debug(entries) {
