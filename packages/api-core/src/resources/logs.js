@@ -1,3 +1,4 @@
+import URLSearchParams from '@ungap/url-search-params';
 import AvApi from '../api';
 import flattenObject from '../flattenObject';
 
