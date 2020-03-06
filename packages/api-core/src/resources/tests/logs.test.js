@@ -30,10 +30,11 @@ describe('AvLogMessages', () => {
     const entries = { foo: 'bar', deeply: { nested: 'value' } };
     const sent = api.send(level, entries);
 
-    expect(sent instanceof URLSearchParams).toBe(true);
-    expect(sent.get('level')).toBe('testLevel');
-    expect(sent.get('entries.foo')).toBe('bar');
-    expect(sent.get('entries.deeply.nested')).toBe('value');
+    const params = new URLSearchParams(sent);
+
+    expect(params.get('level')).toBe('testLevel');
+    expect(params.get('entries.foo')).toBe('bar');
+    expect(params.get('entries.deeply.nested')).toBe('value');
   });
 
   describe('log levels', () => {
