@@ -111,7 +111,13 @@ export default class AvDateSchema extends yup.mixed {
           this.format
         )} and ${maxDate.format(this.format)}.`,
       test(value) {
-        if (!min || !max || !minDate.isValid() || !maxDate.isValid()) {
+        if (
+          !value ||
+          !min ||
+          !max ||
+          !minDate.isValid() ||
+          !maxDate.isValid()
+        ) {
           return true;
         }
 
