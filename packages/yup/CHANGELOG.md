@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.10](https://github.com/Availity/sdk-js/compare/@availity/yup@2.0.9...@availity/yup@2.0.10) (2020-03-17)
+
+
+### Bug Fixes
+
+* **yup:** fixes duplicate name key preventing some validation tests for running, changes wording of validation messages ([ef144eb](https://github.com/Availity/sdk-js/commit/ef144eb972f821dc2c180ee74e7f9b5a0ae019bc))
+* **yup:** fixes unhandled error for when value === undefined in avDate().between() validation ([d779f59](https://github.com/Availity/sdk-js/commit/d779f591cadeba3184faec13034e7b12a66d697a))
+
+
+
+
+
 ## [2.0.9](https://github.com/Availity/sdk-js/compare/@availity/yup@2.0.8...@availity/yup@2.0.9) (2020-02-28)
 
 **Note:** Version bump only for package @availity/yup
