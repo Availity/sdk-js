@@ -49,7 +49,7 @@ export default class AvDateSchema extends yup.mixed {
 
     return this.test({
       message:
-        message || `Date must come after ${minDate.format(this.format)}.`,
+        message || `Date must be ${minDate.format(this.format)} or later.`,
       name: 'min',
       exclusive: true,
       params: { min },
@@ -67,7 +67,7 @@ export default class AvDateSchema extends yup.mixed {
 
     return this.test({
       message:
-        message || `Date must come before ${maxDate.format(this.format)}.`,
+        message || `Date must be ${maxDate.format(this.format)} or earlier.`,
       name: 'max',
       exclusive: true,
       params: { max },
@@ -111,7 +111,13 @@ export default class AvDateSchema extends yup.mixed {
           this.format
         )} and ${maxDate.format(this.format)}.`,
       test(value) {
-        if (!min || !max || !minDate.isValid() || !maxDate.isValid()) {
+        if (
+          !value ||
+          !min ||
+          !max ||
+          !minDate.isValid() ||
+          !maxDate.isValid()
+        ) {
           return true;
         }
 

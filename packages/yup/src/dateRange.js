@@ -120,7 +120,8 @@ export default class DateRangeSchema extends yup.mixed {
     const minDate = this.getValidDate(min);
     return this.test({
       message:
-        message || `Date Range must start after ${minDate.format(format)}`,
+        message ||
+        `Date Range must start on or after ${minDate.format(format)}`,
       name: 'min',
       exclusive: true,
       params: { min },
@@ -140,8 +141,8 @@ export default class DateRangeSchema extends yup.mixed {
 
     return this.test({
       message:
-        message || `Date Range must end before ${maxDate.format(format)}`,
-      name: 'min',
+        message || `Date Range must end on or before ${maxDate.format(format)}`,
+      name: 'max',
       exclusive: true,
       params: { max },
       test({ endDate } = defaultValue) {
@@ -163,7 +164,7 @@ export default class DateRangeSchema extends yup.mixed {
         `Date Range must be between ${minDate.format(
           format
         )} and ${maxDate.format(format)}`,
-      name: 'min',
+      name: 'between',
       exclusive: true,
       params: { min, max },
       test({ startDate, endDate } = defaultValue) {

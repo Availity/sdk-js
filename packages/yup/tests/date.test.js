@@ -61,7 +61,7 @@ describe('Date', () => {
       validate('12/10/2012', {
         min: '12/11/2012',
       })
-    ).rejects.toThrow(`Date must come after 12/11/2012.`);
+    ).rejects.toThrow(`Date must be 12/11/2012 or later.`);
 
     await expect(
       validate('2012/12/12', {
@@ -95,7 +95,7 @@ describe('Date', () => {
       validate('12/12/2012', {
         max: '12/11/2012',
       })
-    ).rejects.toThrow(`Date must come before 12/11/2012.`);
+    ).rejects.toThrow(`Date must be 12/11/2012 or earlier.`);
 
     await expect(
       validate('2012/12/11', {
