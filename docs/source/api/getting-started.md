@@ -151,12 +151,22 @@ Update an entity with a PUT call. When an id is passed in, `/id` is added to the
 
 ```js
 update(id, data, config);
-// or wihthout id
+// or without id
 update(data, config);
 // or
 put(id, data, config);
 // or or without it
 put(data, config);
+```
+
+#### patch
+
+Update an entity with a PATCH call. When an id is passed in, `/id` is added to the url.
+
+```js
+patch(id, data, config);
+// or without id
+patch(data, config);
 ```
 
 #### remove or delete
