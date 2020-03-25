@@ -159,6 +159,16 @@ put(id, data, config);
 put(data, config);
 ```
 
+#### patch
+
+Update an entity with a PATCH call. When an id is passed in, `/id` is added to the url.
+
+```js
+patch(id, data, config);
+// or wihthout id
+patch(data, config);
+```
+
 #### remove or delete
 
 Remove an entity with a DELETE call. When an id is passed in, `/id` is added to the url. If the first parameter is a string or number, it is treated as an ID, otherwise data.
