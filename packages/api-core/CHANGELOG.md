@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.1.16...@availity/api-core@6.2.0) (2020-03-25)
+
+
+### Features
+
+* **api-core:** added tests for new patch method, see issue [#225](https://github.com/Availity/sdk-js/issues/225) ([5498a78](https://github.com/Availity/sdk-js/commit/5498a78f3e63567e40eb1b6bb1e035c3f70c124b))
+* **api-core:** proposed support for patch method, see issue [#225](https://github.com/Availity/sdk-js/issues/225) ([2ff4085](https://github.com/Availity/sdk-js/commit/2ff40857dd9d36b383278f4c4743e45de511ddee))
+
+
+
+
+
 ## [6.1.16](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.1.15...@availity/api-core@6.1.16) (2020-03-06)
 
 **Note:** Version bump only for package @availity/api-core
