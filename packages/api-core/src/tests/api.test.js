@@ -1023,6 +1023,64 @@ describe('AvApi', () => {
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
+    test('patch() setting method data and url', () => {
+      const config = {
+        testValue: 'test',
+      };
+      const id = 'id';
+      const data = {
+        testData: 'data',
+      };
+      const expectedConfig = {
+        method: 'PATCH',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.patch(id, data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
+    test('patch() calls beforePatch() if defined', () => {
+      const config = {
+        testValue: 'test',
+      };
+      const id = 'id';
+      const data = {
+        testData: 'data',
+      };
+      const expectedConfig = {
+        method: 'PATCH',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.beforePatch = jest.fn(thisData => thisData);
+      api.patch(id, data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
+    test('patch() should use only two arguments as data and config', () => {
+      const config = {
+        testValue: 'test',
+      };
+      const data = {
+        testData: 'data',
+      };
+      const expectedConfig = {
+        method: 'PATCH',
+        url: testUrl,
+        ...config,
+        data,
+      };
+      api.beforePatch = jest.fn(thisData => thisData);
+      api.patch(data, config);
+      expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
+      expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
     test('remove() setting method and url', () => {
       const config = {
         testValue: 'test',
