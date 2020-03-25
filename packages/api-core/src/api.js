@@ -339,6 +339,26 @@ export default class AvApi {
     return this.update(...args);
   }
 
+  // patch request
+  patch(id, data, config) {
+    if (typeof id !== 'string' && typeof id !== 'number') {
+      config = data;
+      data = id;
+      id = '';
+    }
+
+    config = this.config(config);
+    config.method = 'PATCH';
+    config.url = this.getUrl(config, id);
+    config.data = data;
+
+    const beforeFunc = this.beforePatch;
+    if (beforeFunc) {
+      config.data = beforeFunc(config.data);
+    }
+    return this.request(config, this.afterPatch);
+  }
+
   // delete request
   remove(id, config) {
     if (typeof id !== 'string' && typeof id !== 'number') {
