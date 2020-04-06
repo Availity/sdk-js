@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-core",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Base configurations for Availity Authorizations",
   "main": "lib/index.js",
   "module": "src/index.js",
