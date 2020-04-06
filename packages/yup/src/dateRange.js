@@ -1,6 +1,6 @@
 import moment from 'moment';
 import get from 'lodash.get';
-import * as yup from 'yup';
+import { mixed, ValidationError } from 'yup';
 import merge from 'merge-options-es5';
 
 const defaultOptions = {
@@ -13,7 +13,7 @@ const defaultValue = {};
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
 
-export default class DateRangeSchema extends yup.mixed {
+export default class DateRangeSchema extends mixed {
   constructor(options) {
     super({
       type: 'dateRange',
@@ -83,7 +83,7 @@ export default class DateRangeSchema extends yup.mixed {
 
         if (maxValue) {
           if (endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
-            return new yup.ValidationError(
+            return new ValidationError(
               maxErrorMessage ||
                 `The end date must be within ${maxValue} ${maxUnits}${
                   maxValue > 1 ? 's' : ''
@@ -98,7 +98,7 @@ export default class DateRangeSchema extends yup.mixed {
         }
         if (minValue) {
           if (endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
-            return new yup.ValidationError(
+            return new ValidationError(
               minErrorMessage ||
                 `The end date must be greater than ${minValue} ${minUnits}${
                   minValue > 1 ? 's' : ''
@@ -210,7 +210,7 @@ export default class DateRangeSchema extends yup.mixed {
         }
 
         return errors.length > 0
-          ? new yup.ValidationError(errors, { startDate, endDate }, this.path)
+          ? new ValidationError(errors, { startDate, endDate }, this.path)
           : true;
       },
     });
