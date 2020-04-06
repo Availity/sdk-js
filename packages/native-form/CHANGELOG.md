@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.8.16 (2020-04-06)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
 ## [2.8.15](https://github.com/Availity/sdk-js/compare/@availity/native-form@2.8.12...@availity/native-form@2.8.15) (2020-02-13)
 
 **Note:** Version bump only for package @availity/native-form

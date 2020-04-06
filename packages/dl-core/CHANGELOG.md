@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.38 (2020-04-06)
+
+**Note:** Version bump only for package @availity/dl-core
+
+
+
+
+
 ## [3.0.37](https://github.com/Availity/sdk-js/compare/@availity/dl-core@3.0.36...@availity/dl-core@3.0.37) (2020-03-25)
 
 **Note:** Version bump only for package @availity/dl-core
