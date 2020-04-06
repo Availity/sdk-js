@@ -32,15 +32,23 @@ const schema = yup.string().isRequired(true, 'This field is required.');
 schema.isValid('12-12-2012');
 ```
 
-If you want to utilize the custom date validators you can import using `/moment` instead of the default like:
+If you want to utilize the custom date validators you need to import them directly:
 
 ```js
-import '@availity/yup/moment';
-import * as yup from 'yup';
+import { avDate, dateRange } from '@availity/yup';
 
-const schema = yup.avDate();
+const dateSchema = avDate();
+const dateRangeSchema = dateRange({
+      startKey: 'helloDate',
+      endKey: 'worldDate',
+}).between('12/10/2012', '12/13/2012');
 
-schema.isValid('12-12-2012');
+
+dateSchema.isValid('12-12-2012');
+dateRangeSchema.isValid({
+    helloDate: '12/11/2012',
+    worldDate: '12/12/2012',
+});
 ```
 
 ## Table of Contents
@@ -140,17 +148,16 @@ Evaluates a date range object.
 ### Example
 
 ```js
-import '@availity/yup';
-import * as yup from 'yup';
+import { dateRange } from '@availity/yup';
 
-const schema = yup.dateRange({
-    min: '07/04/2012',
-    max: '07/12/2012',
-});
+const dateRangeSchema = dateRange({
+    startKey: 'helloDate',
+    endKey: 'worldDate',
+}).between('12/10/2012', '12/13/2012');
 
-schema.isValid({
-    startDate: '07/05/2012',
-    endDate: '07/10/2012',
+dateRangeSchema.isValid({
+    helloDate: '12/11/2012',
+    worldDate: '12/12/2012',
 });
 ```
 
@@ -169,10 +176,9 @@ Accepts range of dates the date range can fall between.
 #### example
 
 ```js
-import '@availity/yup';
-import * as yup from 'yup';
+import { dateRange } from '@availity/yup';
 
-const schema = yup.dateRange().between('12/01/2012', '12/10/2012');
+const schema = dateRange().between('12/01/2012', '12/10/2012');
 
 schema.isValid({
     startDate: '12/02/2012',
@@ -192,10 +198,9 @@ Accepts date the date range must start after.
 #### example
 
 ```js
-import '@availity/yup';
-import * as yup from 'yup';
+import { dateRange } from '@availity/yup';
 
-const schema = yup.dateRange().min('12/01/2012');
+const schema = dateRange().min('12/01/2012');
 
 schema.isValid({
     startDate: '12/02/2012',
@@ -215,10 +220,9 @@ Accepts date, the date range must start before.
 #### example
 
 ```js
-import '@availity/yup';
-import * as yup from 'yup';
+import { dateRange } from '@availity/yup';
 
-const schema = yup.dateRange().max('12/10/2012');
+const schema = dateRange().max('12/10/2012');
 
 schema.isValid({
     startDate: '12/02/2012',
@@ -244,10 +248,9 @@ Evaluates if date range is within a set distance
 #### example
 
 ```js
-import '@availity/yup';
-import * as yup from 'yup';
+import { dateRange } from '@availity/yup';
 
-const schema = yup.dateRange().distance({
+const schema = dateRange().distance({
     min: {
         value: 3,
         units: 'day',
@@ -279,10 +282,9 @@ Takes an object of dates the given date must fall between
 #### example
 
 ```js
-import '@availity/yup';
-import * as yup from 'yup';
+import { avDate } from '@availity/yup';
 
-const schema = yup.avDate().between('12/01/2012', '12/10/2012');
+const schema = avDate().between('12/01/2012', '12/10/2012');
 
 schema.isValid('12/02/2012'); // valid
 ```

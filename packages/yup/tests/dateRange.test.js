@@ -1,9 +1,8 @@
-import * as yup from 'yup';
-import '../moment';
+import { dateRange } from '../src';
 
 describe('DateRange', () => {
   test('start comes before end', async () => {
-    const schema = yup.dateRange();
+    const schema = dateRange();
 
     await expect(
       schema.validate({
@@ -14,7 +13,7 @@ describe('DateRange', () => {
   });
 
   test('Invalid Dates', async () => {
-    const schema = yup.dateRange();
+    const schema = dateRange();
 
     try {
       await schema.validate({
@@ -27,7 +26,7 @@ describe('DateRange', () => {
   });
 
   test('defines min', async () => {
-    const schema = yup.dateRange().min('12/12/2012');
+    const schema = dateRange().min('12/12/2012');
 
     const valid = await schema.isValid({
       startDate: '12/13/2012',
@@ -38,7 +37,7 @@ describe('DateRange', () => {
   });
 
   test('errors on invalid', async () => {
-    const schema = yup.dateRange().min('12/12/2012');
+    const schema = dateRange().min('12/12/2012');
 
     const valid = await schema.isValid({
       startDate: '12/11/2012',
@@ -51,7 +50,7 @@ describe('DateRange', () => {
 
 describe('date', () => {
   test('should validate', async () => {
-    const schema = yup.dateRange().between('12/10/2012', '12/13/2012');
+    const schema = dateRange().between('12/10/2012', '12/13/2012');
 
     const valid = await schema.isValid({
       startDate: '12/11/2012',
@@ -62,12 +61,10 @@ describe('date', () => {
   });
 
   test('should work with custom value keys', async () => {
-    const schema = yup
-      .dateRange({
-        startKey: 'helloDate',
-        endKey: 'worldDate',
-      })
-      .between('12/10/2012', '12/13/2012');
+    const schema = dateRange({
+      startKey: 'helloDate',
+      endKey: 'worldDate',
+    }).between('12/10/2012', '12/13/2012');
 
     const valid = await schema.isValid({
       helloDate: '12/11/2012',
@@ -78,7 +75,7 @@ describe('date', () => {
   });
 
   test('should validate distance', async () => {
-    const schema = yup.dateRange().distance({
+    const schema = dateRange().distance({
       min: {
         value: 5,
         units: 'day',

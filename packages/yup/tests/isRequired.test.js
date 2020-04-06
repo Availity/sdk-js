@@ -1,9 +1,9 @@
-import * as yup from 'yup';
+import { array, number, string } from 'yup';
 import '../src';
 
 describe('isRequired', () => {
   test('should return error on empty input', async () => {
-    const schema = yup.string().isRequired();
+    const schema = string().isRequired();
 
     const valid = await schema.isValid('');
 
@@ -11,7 +11,7 @@ describe('isRequired', () => {
   });
 
   test('should return error on no number', async () => {
-    const schema = yup.number().isRequired();
+    const schema = number().isRequired();
 
     const valid = await schema.isValid(null);
 
@@ -19,7 +19,7 @@ describe('isRequired', () => {
   });
 
   test('should return error on empty array', async () => {
-    const schema = yup.array().isRequired();
+    const schema = array().isRequired();
 
     const valid = await schema.isValid([]);
 
@@ -27,8 +27,7 @@ describe('isRequired', () => {
   });
 
   test('should accept null input', async () => {
-    const schema = yup
-      .string()
+    const schema = string()
       .isRequired(true)
       .nullable();
 
@@ -38,7 +37,7 @@ describe('isRequired', () => {
   });
 
   test('should accept input', async () => {
-    const schema = yup.string().isRequired(true);
+    const schema = string().isRequired(true);
 
     const valid = await schema.isValid('Test');
 
@@ -46,7 +45,7 @@ describe('isRequired', () => {
   });
 
   test('should render custom error message', async () => {
-    const schema = yup.string().isRequired(true, 'Test Error Message');
+    const schema = string().isRequired(true, 'Test Error Message');
 
     await expect(schema.validate()).rejects.toThrow('Test Error Message');
   });

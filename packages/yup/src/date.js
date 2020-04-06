@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+import { mixed } from 'yup';
 import moment from 'moment';
 
 const defaultOpts = {
@@ -7,7 +7,7 @@ const defaultOpts = {
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
-export default class AvDateSchema extends yup.mixed {
+export default class AvDateSchema extends mixed {
   constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
     super({
       type: 'avDate',

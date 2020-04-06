@@ -1,12 +1,11 @@
-import * as yup from 'yup';
-import '../moment';
+import { avDate } from '../src';
 
 const INVALID = 'Date is invalid.';
 
 const defaults = {};
 
 const validate = async (date, { format, min, max, message } = defaults) => {
-  let schema = yup.avDate({
+  let schema = avDate({
     format,
   });
 

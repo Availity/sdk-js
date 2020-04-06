@@ -1,15 +1,20 @@
-import * as yup from 'yup';
+import { addMethod, array, number, object, string } from 'yup';
 import isRequired from './isRequired';
 import npi from './npi';
 import phone from './phone';
+import AvDate from './date';
+import DateRange from './dateRange';
 
-yup.addMethod(yup.string, 'isRequired', isRequired);
-yup.addMethod(yup.number, 'isRequired', isRequired);
-yup.addMethod(yup.array, 'isRequired', isRequired);
-yup.addMethod(yup.object, 'isRequired', isRequired);
+export const avDate = opts => new AvDate(opts);
+export const dateRange = opts => new DateRange(opts);
 
-yup.addMethod(yup.string, 'npi', npi);
-yup.addMethod(yup.number, 'npi', npi);
+addMethod(string, 'isRequired', isRequired);
+addMethod(number, 'isRequired', isRequired);
+addMethod(array, 'isRequired', isRequired);
+addMethod(object, 'isRequired', isRequired);
 
-yup.addMethod(yup.string, 'phone', phone);
-yup.addMethod(yup.number, 'phone', phone);
+addMethod(string, 'npi', npi);
+addMethod(number, 'npi', npi);
+
+addMethod(string, 'phone', phone);
+addMethod(number, 'phone', phone);
