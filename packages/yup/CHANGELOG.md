@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/yup@2.0.10...@availity/yup@3.0.0) (2020-04-06)
+
+
+### Bug Fixes
+
+* **yup:** fix issue with exports not being found if yup and @availity/yup not imported in right order ([fa24f1d](https://github.com/Availity/sdk-js/commit/fa24f1d6f43bcf1371ca7b0613cacc2f3a0d3b01))
+
+
+### BREAKING CHANGES
+
+* **yup:** avDate and dateRange should now be imported directly from @availity/yup, eliminating the need for a 'magic' import from moment.js that depends on import order
+
+
+
+
+
 ## [2.0.10](https://github.com/Availity/sdk-js/compare/@availity/yup@2.0.9...@availity/yup@2.0.10) (2020-03-17)
 
 
