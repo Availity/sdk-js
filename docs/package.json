@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@availity/docs",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "license": "MIT",
   "keywords": [
     "react",
@@ -22,7 +22,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@availity/analytics-core": "^2.8.14",
+    "@availity/analytics-core": "^2.8.15",
     "@availity/gatsby-theme-docs": "^4.0.1",
     "@availity/spaces": "^4.0.2",
     "formik": "^2.1.4",
