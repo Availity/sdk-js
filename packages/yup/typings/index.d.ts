@@ -1,6 +1,6 @@
 import * as yup from 'yup';
-import './dateRange';
-import './date';
+import './dateRange.d.ts';
+import './date.d.ts';
 
 declare module 'yup' {
   interface StringSchema<T extends string | null | undefined = string>
