@@ -41,4 +41,4 @@ jobs:
       - run: git config --global user.email ${{ secrets.GH_EMAIL }}
       - run: git config --global user.name ${{ secrets.GH_USER }}
       - run: yarn release:ci
-      - run: yarn deploy:ci
+      - run: yarn deploy:docs
