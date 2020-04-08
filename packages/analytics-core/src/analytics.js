@@ -217,6 +217,11 @@ export default class AvAnalytics {
   };
 
   trackPageView = url => {
+    // hashchanges are an object so we want to grab the new url from it
+    if (typeof url === 'object') {
+      url = url.newURL;
+    }
+
     url = url || window.location.href;
     const promises = [];
     this.plugins.forEach(plugin => {
