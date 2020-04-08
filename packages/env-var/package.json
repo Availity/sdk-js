@@ -1,6 +1,6 @@
 {
   "name": "@availity/env-var",
-  "version": "1.9.16",
+  "version": "1.9.17",
   "description": "Availity-specific way to determine variables based on the current environment the code is running in",
   "main": "lib/index.js",
   "module": "src/index.js",
