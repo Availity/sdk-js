@@ -1,15 +1,15 @@
+import { avLogMessagesApiV2 } from '@availity/api-axios';
 import { AvDmaAnalytics } from '..';
 
+jest.mock('@availity/api-axios');
+
 describe('AvSplunkAnalytics', () => {
-  let mockLog;
   let mockAvSplunkAnalytics;
 
   beforeEach(() => {
-    mockLog = {
-      send: jest.fn(),
-    };
-
-    mockAvSplunkAnalytics = new AvDmaAnalytics(mockLog);
+    avLogMessagesApiV2.sendBeacon = jest.fn();
+    // avLogMessagesApiV2.info = jest.fn;
+    mockAvSplunkAnalytics = new AvDmaAnalytics(avLogMessagesApiV2);
   });
 
   test('AvSplunkAnalytics should be defined', () => {
@@ -18,15 +18,14 @@ describe('AvSplunkAnalytics', () => {
 
   test('trackEvent should call AvLogMessages.send', () => {
     const level = 'info';
-    mockAvSplunkAnalytics.trackEvent({ level });
-    expect(mockLog.send).toHaveBeenCalledTimes(1);
+    mockAvSplunkAnalytics.trackEvent({ level, label: 'test' });
+    expect(avLogMessagesApiV2.info).toHaveBeenCalledTimes(1);
   });
 
-  test('should fill in customerId and TradingPartnerId if empty', () => {
+  test('trackEvent should not allow unknown keys', () => {
     const level = 'info';
-    mockAvSplunkAnalytics.trackEvent({ level });
-    expect(mockLog.send).toHaveBeenCalledWith(
-      expect.arrayContaining([{ customerId: 'NA', data: { level } }])
-    );
+    expect(() => {
+      mockAvSplunkAnalytics.trackEvent({ level, test: 'test' });
+    }).toThrow();
   });
 });

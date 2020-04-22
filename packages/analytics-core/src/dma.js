@@ -1,11 +1,27 @@
+import * as yup from 'yup';
 import AvAnalyticsPlugin from './plugin';
 
-const requiredFields = [
-  'tradingPartnerId',
-  'customerId',
-  'category',
-  'applicationId',
-];
+const schema = yup
+  .object()
+  .shape({
+    level: yup.string().optional(),
+    applicationId: yup.string().optional(),
+    payerSpaceId: yup.string().optional(),
+    label: yup.string().optional(),
+    appName: yup.string().optional(),
+    category: yup.string().optional(),
+    section: yup.string().optional(),
+    url: yup.string().optional(),
+    value: yup.string().optional(),
+    raw: yup.string().optional(),
+    feed: yup.string().optional(),
+    feedback: yup.string().optional(),
+    feedbackName: yup.string().optional(),
+    additionalFeedback: yup.string().optional(),
+    smile: yup.string().optional(),
+    surveyId: yup.string().optional(),
+  })
+  .noUnknown(true);
 
 export default class AvDmaAnalytics extends AvAnalyticsPlugin {
   constructor(AvLogMessages, enabled) {
@@ -14,44 +30,13 @@ export default class AvDmaAnalytics extends AvAnalyticsPlugin {
   }
 
   trackEvent(properties) {
-    if (!properties) return {};
-
-    const data = {};
-
-    if (properties.ApplicationId) {
-      properties.applicationId = properties.ApplicationId;
-      delete properties.ApplicationId;
-    }
-
-    if (properties.Category) {
-      properties.category = properties.Category;
-      delete properties.Category;
-    }
-
-    if (properties.tradingPartnerId || properties.TradingPartnerId) {
-      properties.tradingPartnerId =
-        properties.tradingPartnerId || properties.TradingPartnerId;
-      delete properties.TradingPartnerId;
-    }
-
-    if (properties.customerId || properties.CustomerId) {
-      properties.customerId = properties.customerId || properties.CustomerId;
-      delete properties.CustomerId;
-    } else {
-      properties.customerId = 'NA';
-    }
-
-    Object.keys(properties).forEach(key => {
-      const isRequiredField = requiredFields.filter(field => key === field)
-        .length;
-      if (!isRequiredField) {
-        data[key] = properties[key];
-
-        delete properties[key];
-      }
+    properties.level = properties.level || 'info';
+    // joi validate the properties
+    schema.validateSync(properties, {
+      strict: true,
     });
 
-    return this.AvLogMessages.send([{ ...properties, data }]);
+    return this.AvLogMessages[properties.level](properties);
   }
 
   trackPageView(url) {

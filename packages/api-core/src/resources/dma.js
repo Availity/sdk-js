@@ -1,11 +1,10 @@
+import flattenObject from '@availity/api-core/lib/flattenObject';
 import AvMicroservice from '../ms';
 
-export default class AvLogMessages extends AvMicroservice {
+class DmaLogMessages extends AvMicroservice {
   constructor({ http, promise, merge, config }) {
     const options = {
-      path: '/ms/api/availity/internal/dma/log-message-service/portal',
-      name: 'log-messages',
-      version: '/v2',
+      name: 'spc/analytics/log',
       ...config,
     };
     super({
@@ -16,7 +15,43 @@ export default class AvLogMessages extends AvMicroservice {
     });
   }
 
-  send(entries) {
-    return this.create(entries);
+  send(level, entries) {
+    delete entries.level;
+    const payload = { level, entries };
+    const flattened = flattenObject(payload);
+
+    flattened.X_Client_ID = 'smile';
+    flattened.X_XSRF_TOKEN = document.cookie.replace(
+      /(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    );
+
+    const fields = Object.keys(flattened)
+      .map(key => {
+        const name = key.replace(/\[\d+\]/g, '[]');
+        const value = flattened[key];
+        return `${name}=${encodeURIComponent(value)}`;
+      })
+      .join('&');
+
+    return fields;
+  }
+
+  debug(entries) {
+    return this.sendBeacon(this.send('debug', entries));
+  }
+
+  info(entries) {
+    return this.sendBeacon(this.send('info', entries));
+  }
+
+  warn(entries) {
+    return this.sendBeacon(this.send('warn', entries));
+  }
+
+  error(entries) {
+    return this.sendBeacon(this.send('error', entries));
   }
 }
+
+export default DmaLogMessages;
