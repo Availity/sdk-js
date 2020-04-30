@@ -60,11 +60,14 @@ export default class AvAnalytics {
 
     this.plugins = Array.isArray(plugins) ? plugins : [plugins];
     this.pageTracking = !!pageTracking;
-    this.eventModifiers = options.eventModifiers
-      ? Array.isArray(options.eventModifiers)
+
+    if (options.eventModifiers) {
+      this.eventModifiers = Array.isArray(options.eventModifiers)
         ? options.eventModifiers
-        : [options.eventModifiers]
-      : ['action'];
+        : [options.eventModifiers];
+    } else {
+      this.eventModifiers = ['action'];
+    }
 
     this.Promise = promise;
     this.recursive = !!options.recursive;
