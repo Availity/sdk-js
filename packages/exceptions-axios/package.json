@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-axios",
-  "version": "3.0.42",
+  "version": "3.0.43",
   "description": "Availity class to log exceptions via axios",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -11,8 +11,8 @@
     "@availity/exceptions-core": "^2.6.1"
   },
   "devDependencies": {
-    "@availity/api-axios": "^5.4.30",
-    "@availity/exceptions-core": "^3.0.17"
+    "@availity/api-axios": "^5.4.31",
+    "@availity/exceptions-core": "^3.0.18"
   },
   "publishConfig": {
     "access": "public"

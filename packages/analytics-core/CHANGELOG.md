@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.8.19 (2020-04-30)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
 ## 2.8.18 (2020-04-22)
 
 **Note:** Version bump only for package @availity/analytics-core

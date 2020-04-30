@@ -1,6 +1,6 @@
 {
   "name": "@availity/message-core",
-  "version": "4.0.17",
+  "version": "4.0.18",
   "description": "availity wrapper for postMessage logic",
   "main": "lib/index.js",
   "module": "src/index.js",

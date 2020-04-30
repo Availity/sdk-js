@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.5 (2020-04-30)
+
+**Note:** Version bump only for package @availity/upload-core
+
+
+
+
+
 ## 3.2.4 (2020-04-22)
 
 **Note:** Version bump only for package @availity/upload-core
