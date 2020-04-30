@@ -60,6 +60,11 @@ export default class AvAnalytics {
 
     this.plugins = Array.isArray(plugins) ? plugins : [plugins];
     this.pageTracking = !!pageTracking;
+    this.eventModifiers = options.eventModifiers
+      ? Array.isArray(options.eventModifiers)
+        ? options.eventModifiers
+        : [options.eventModifiers]
+      : ['action'];
 
     this.Promise = promise;
     this.recursive = !!options.recursive;
@@ -111,10 +116,14 @@ export default class AvAnalytics {
       analyticAttrs = this.getAnalyticAttrs(target);
     }
 
+    const actions = analyticAttrs
+      ? this.eventModifiers.filter(mod => analyticAttrs[mod] === event.type)
+      : [];
+
     if (
       !Object.keys(analyticAttrs).length > 0 ||
-      (this.recursive && !analyticAttrs.action) ||
-      analyticAttrs.action !== event.type
+      (this.recursive && actions.length === 0) ||
+      actions.length === 0
     ) {
       return;
     }
