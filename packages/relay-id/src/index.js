@@ -20,7 +20,7 @@ export function toGlobalId(type, id) {
 
 /**
  * Takes the "global ID" created by toGlobalID, and returns the type name and ID
- * used to create it.
+ * used to create it. test change
  */
 export function fromGlobalId(globalId) {
   const unbasedGlobalId = unbase64(globalId);
