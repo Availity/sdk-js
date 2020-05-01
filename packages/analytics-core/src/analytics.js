@@ -139,6 +139,10 @@ export default class AvAnalytics {
       target.getAttribute('name') ||
       undefined;
 
+    if (analyticAttrs.elemId === undefined) {
+      delete analyticAttrs.elemId;
+    }
+
     // remove keys for the click listeners
     actions.forEach(key => {
       if (key !== 'action' && key !== 'event') {
