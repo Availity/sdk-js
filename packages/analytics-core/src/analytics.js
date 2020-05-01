@@ -112,7 +112,7 @@ export default class AvAnalytics {
         // To consider using the element it has to have analytics attrs
         if (Object.keys(attrs).length > 0) {
           analyticAttrs.elemId =
-            pth.getAttribute('id') || pth.getAttribute('name');
+            pth.getAttribute('id') || pth.getAttribute('name') || undefined;
         }
       });
     } else {
@@ -136,7 +136,15 @@ export default class AvAnalytics {
     analyticAttrs.elemId =
       analyticAttrs.elemId ||
       target.getAttribute('id') ||
-      target.getAttribute('name');
+      target.getAttribute('name') ||
+      undefined;
+
+    // remove keys for the click listeners
+    actions.forEach(key => {
+      if (key !== 'action' && key !== 'event') {
+        delete analyticAttrs[key];
+      }
+    });
 
     this.trackEvent(analyticAttrs);
   };
