@@ -16,6 +16,7 @@
     "start": "yarn workspace @availity/docs start",
     "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "build:docs": "yarn workspace @availity/docs build",
+    "build:docs:ci": "yarn workspace @availity/docs build:deploy",
     "build": "NODE_ENV=production lerna exec --parallel -- babel --root-mode upward src -d lib --ignore ./docs/**,**/*.test.js",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
