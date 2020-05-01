@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.4.32 (2020-05-01)
+
+**Note:** Version bump only for package @availity/api-axios
+
+
+
+
+
 ## 5.4.31 (2020-04-30)
 
 **Note:** Version bump only for package @availity/api-axios

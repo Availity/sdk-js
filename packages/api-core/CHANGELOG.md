@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.2.6 (2020-05-01)
+
+**Note:** Version bump only for package @availity/api-core
+
+
+
+
+
 ## 6.2.5 (2020-04-30)
 
 **Note:** Version bump only for package @availity/api-core

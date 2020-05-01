@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-core",
-  "version": "3.0.42",
+  "version": "3.0.43",
   "description": "Utility to download files from services",
   "main": "lib/download.js",
   "module": "src/download.js",
@@ -15,7 +15,7 @@
     "@availity/api-core": "^4.0.1"
   },
   "devDependencies": {
-    "@availity/api-core": "^6.2.5"
+    "@availity/api-core": "^6.2.6"
   },
   "dependencies": {
     "js-file-download": "^0.4.7"
