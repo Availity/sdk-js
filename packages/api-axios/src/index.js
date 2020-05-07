@@ -20,7 +20,6 @@ import avSettingsApi from './settings';
 import avSlotMachineApi from './slotmachine';
 import avDisclaimersApi from './disclaimers';
 import avCodesApi from './codes';
-import avFilteredOrganizationsApi from './filteredOrganizations';
 
 export default AvApi;
 
@@ -46,5 +45,4 @@ export {
   avSlotMachineApi,
   avDisclaimersApi,
   avCodesApi,
-  avFilteredOrganizationsApi,
 };

@@ -20,7 +20,6 @@ import AvSettings from './resources/settings';
 import AvSlotMachine from './resources/slotmachine';
 import AvDisclaimers from './resources/disclaimers';
 import AvCodes from './resources/codes';
-import AvFilteredOrganizations from './resources/filteredOrganizations';
 
 export default AvApi;
 
@@ -46,5 +45,4 @@ export {
   AvSlotMachine,
   AvDisclaimers,
   AvCodes,
-  AvFilteredOrganizations,
 };
