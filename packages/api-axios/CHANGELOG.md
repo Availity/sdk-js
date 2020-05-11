@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.4.32...@availity/api-axios@5.5.0) (2020-05-11)
+
+
+### Features
+
+* **api-axios:** add support for filtering organizations by permission and resource ([69b2a3a](https://github.com/Availity/sdk-js/commit/69b2a3a9b965fa00fe41aa0651365c59800e323d))
+
+
+
+
+
 ## 5.4.32 (2020-05-01)
 
 **Note:** Version bump only for package @availity/api-axios

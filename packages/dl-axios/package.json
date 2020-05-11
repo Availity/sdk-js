@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-axios",
-  "version": "3.0.43",
+  "version": "3.0.44",
   "description": "Utility to download files from services",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -19,7 +19,7 @@
     "axios": "^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0"
   },
   "devDependencies": {
-    "@availity/dl-core": "^3.0.43",
+    "@availity/dl-core": "^3.0.44",
     "axios": "^0.19.0"
   },
   "publishConfig": {

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.2.6...@availity/api-core@6.3.0) (2020-05-11)
+
+
+### Features
+
+* **api-core:** add support for filtering organizations by permission and resource ([b607943](https://github.com/Availity/sdk-js/commit/b607943c9908d7d684013ec18678a1c05b9f1baf))
+
+
+
+
+
 ## 6.2.6 (2020-05-01)
 
 **Note:** Version bump only for package @availity/api-core
