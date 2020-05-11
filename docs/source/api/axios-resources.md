@@ -249,22 +249,20 @@ Returns organizations belonging to the logged in user.
   }
 ```
 
-##### `postGet(data, config)`
+##### `postGet(data, config, additionalPostGetArgs)`
 
 ```javascript
 async postGet(data, config) {
-    const { additionalPostGetArgs, ...restQueryParams } = qs.parse(data);
-
     if (additionalPostGetArgs) {
       const { data: organizationsData } = await super.postGet(
-        restQueryParams, // will be re-stringified
+        data,
         config
       );
 
       return this.getFilteredOrganizations(
         organizationsData,
         additionalPostGetArgs,
-        restQueryParams
+        data
       );
     }
 
@@ -276,7 +274,7 @@ async postGet(data, config) {
 
 Returns organizations belonging to the logged in user that also have specified `resources`. Meant to be called by `AvOrganizationSelect`, but can be called directly if you already have `organizations` data.
 
-##### Please note that pagination will not occur for `organizationsData` when `getFilteredOrganizations` is called directly. If pagination is needed, use `AvOrganizationSelect` or `postGet(data, config)` should be used, where `additionalPostGetArgs` is a stringified object inside `data`
+##### Please note that pagination will not occur for `organizationsData` when `getFilteredOrganizations` is called directly. If pagination is needed, use `AvOrganizationSelect` with the `resourceIds` prop or `postGet(data, config, additionalPostGetArgs)`, where `additionalPostGetArgs` is an object containing the `resourceIds` prop.
 
 Arguments should be structured as follows:
 
@@ -288,9 +286,9 @@ organizationsData: {
     totalCount
 },
 additionalPostGetArgs: {
-    resourceIds // resourceIds should be in stringified format
+    resourceIds // string or array of strings
 },
-restQueryParams: {
+data: {
     permissionId,
     region
 }
@@ -300,10 +298,10 @@ restQueryParams: {
   async getFilteredOrganizations(
     organizationsData,
     additionalPostGetArgs,
-    restQueryParams
+    data
   ) {
-    const { resourceIds } = JSON.parse(additionalPostGetArgs);
-    const { permissionId, region } = restQueryParams;
+    const { resourceIds } = additionalPostGetArgs;
+    const { permissionId, region } = data;
     const {
       organizations,
       limit: orgLimit,
