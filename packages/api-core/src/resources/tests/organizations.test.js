@@ -218,9 +218,9 @@ describe('AvOrganizations', () => {
       region: 'CA',
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: ['10111', '11000'],
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },
@@ -249,9 +249,9 @@ describe('AvOrganizations', () => {
       region: 'CA',
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: '10111',
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },
@@ -280,9 +280,9 @@ describe('AvOrganizations', () => {
       region: 'CA',
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: ['10111'],
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },
@@ -311,9 +311,9 @@ describe('AvOrganizations', () => {
       region: 'CA',
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: '10111',
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },
@@ -342,9 +342,9 @@ describe('AvOrganizations', () => {
       region: 'CA',
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: ['10111'],
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },
@@ -372,9 +372,9 @@ describe('AvOrganizations', () => {
       permissionId: ['7777'],
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: ['10111'],
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },
@@ -403,9 +403,9 @@ describe('AvOrganizations', () => {
       region: 'CA',
     };
 
-    const additionalPostGetArgs = JSON.stringify({
+    const additionalPostGetArgs = {
       resourceIds: ['10111'],
-    });
+    };
 
     const {
       data: { authorizedFilteredOrgs },

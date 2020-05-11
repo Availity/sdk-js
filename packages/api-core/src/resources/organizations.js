@@ -1,4 +1,3 @@
-import qs from 'qs';
 import AvApi from '../api';
 
 export default class AvOrganizations extends AvApi {
@@ -45,34 +44,28 @@ export default class AvOrganizations extends AvApi {
       .then(user => this.queryOrganizations(user, config));
   }
 
-  async postGet(data, config) {
-    const { additionalPostGetArgs, ...restQueryParams } = qs.parse(data);
-
+  async postGet(data, config, additionalPostGetArgs) {
     if (additionalPostGetArgs) {
-      const { data: organizationsData } = await super.postGet(
-        restQueryParams, // will be re-stringified
-        config
-      );
+      const { data: organizationsData } = await super.postGet(data, config);
 
       return this.getFilteredOrganizations(
         organizationsData,
         additionalPostGetArgs,
-        restQueryParams
+        data
       );
     }
 
     // Else return normal organizations call
-    // Can use data here because it's already stringified and doesn't have additional params
     return super.postGet(data, config);
   }
 
   async getFilteredOrganizations(
     organizationsData,
     additionalPostGetArgs,
-    restQueryParams
+    data
   ) {
-    const { resourceIds } = JSON.parse(additionalPostGetArgs);
-    const { permissionId, region } = restQueryParams;
+    const { resourceIds } = additionalPostGetArgs;
+    const { permissionId, region } = data;
     const {
       organizations,
       limit: orgLimit,
