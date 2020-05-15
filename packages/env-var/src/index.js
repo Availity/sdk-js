@@ -1,8 +1,22 @@
+const cfEnv = (subdomain, pathname) => {
+  if (pathname && /^.*?data$/.test(subdomain)) {
+    const match = pathname.match(/^\/data\/([A-Za-z0-9]{3})\/.*/);
+    return match ? match[1] : null;
+  }
+  return null;
+};
+
 let environments = {
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-apps$/],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-apps$/],
-  prod: [/^apps$/],
+  test: [
+    /^t(?:(?:\d\d)|(?:est))-apps$/,
+    (s, p) => /^t(?:(?:\d\d)|(?:st))$/.test(cfEnv(s, p)),
+  ],
+  qa: [
+    /^q(?:(?:\d\d)|(?:ap?))-apps$/,
+    (s, p) => /^q(?:(?:\d\d)|(?:ua)|(?:ap))$/.test(cfEnv(s, p)),
+  ],
+  prod: [/^apps$/, (s, p) => cfEnv(s, p) === 'prd'],
 };
 export function setEnvironments(envs, override) {
   if (override) {
@@ -18,7 +32,7 @@ export function getLocation(href) {
 }
 
 export function getCurrentEnv(windowOverride = window) {
-  const { hostname } =
+  const { hostname, pathname } =
     windowOverride === null || typeof windowOverride === 'string'
       ? getLocation(windowOverride)
       : windowOverride.location;
@@ -40,7 +54,7 @@ export function getCurrentEnv(windowOverride = window) {
             return test.test(subdomain);
           case '[object Function]':
             // eslint-disable-next-line jest/no-disabled-tests
-            return test();
+            return test(subdomain, pathname);
           default:
             return false;
         }

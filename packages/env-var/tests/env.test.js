@@ -7,8 +7,8 @@ const setHostname = hostname => {
   });
 };
 
-const getFakeWindowLocation = hostname => ({
-  location: { hostname },
+const getFakeWindowLocation = (hostname, pathname) => ({
+  location: { hostname, pathname },
 });
 
 const generateTest = (hostname, env, overrideWindow) => {
@@ -38,6 +38,16 @@ describe('Environment Variables', () => {
       ['qap-apps.availity.com', 'qa'],
       ['q01-apps.availity.com', 'qa'],
       ['apps.availity.com', 'prod'],
+      ['digital.data.availity.com/data/tst/spaces/index.html', 'test'],
+      ['foo.data.availity.com/data/t01/spaces/index.html', 'test'],
+      ['foo.data.availity.com/data/t14/spaces/index.html', 'test'],
+      ['foo.data.availity.com/data/qua/spaces/index.html', 'qa'],
+      ['foo.data.availity.com/data/qap/spaces/index.html', 'qa'],
+      ['foo.data.availity.com/data/q01/spaces/index.html', 'qa'],
+      ['bar.data.availity.com/data/prd/spaces/index.html', 'prod'],
+      ['bar.data.availity.com/data/abc/spaces/index.html', 'local'],
+      ['bar.data.availity.com/other/index.html', 'local'],
+      ['bar.data.availity.com', 'local'],
     ].forEach(args => {
       generateTest(...args);
     });
@@ -86,6 +96,30 @@ describe('Environment Variables', () => {
           'qa',
           getFakeWindowLocation('q01-apps.availity.com'),
         ],
+        [
+          'apps.availity.com',
+          'prod',
+          getFakeWindowLocation(
+            'bar.data.availity.com',
+            '/data/prd/spaces/index.html'
+          ),
+        ],
+        [
+          'apps.availity.com',
+          'qa',
+          getFakeWindowLocation(
+            'bar.data.availity.com',
+            '/data/q01/spaces/index.html'
+          ),
+        ],
+        [
+          'apps.availity.com',
+          'test',
+          getFakeWindowLocation(
+            'bar.data.availity.com',
+            '/data/tst/spaces/index.html'
+          ),
+        ],
       ].forEach(args => {
         generateTest(...args);
       });
@@ -103,6 +137,41 @@ describe('Environment Variables', () => {
         ['qap-apps.availity.com', 'prod', 'https://apps.availity.com'],
         ['q01-apps.availity.com', 'prod', 'https://apps.availity.com'],
         ['apps.availity.com', 'qa', 'https://q01-apps.availity.com'],
+        [
+          'digital.data.availity.com/data/tst/spaces/index.html',
+          'prod',
+          'https://bar.data.availity.com/data/prd/spaces/index.html',
+        ],
+        [
+          'foo.data.availity.com/data/t01/spaces/index.html',
+          'prod',
+          'https://bar.data.availity.com/data/prd/spaces/index.html',
+        ],
+        [
+          'foo.data.availity.com/data/t14/spaces/index.html',
+          'prod',
+          'https://bar.data.availity.com/data/prd/spaces/index.html',
+        ],
+        [
+          'foo.data.availity.com/data/qua/spaces/index.html',
+          'prod',
+          'https://bar.data.availity.com/data/prd/spaces/index.html',
+        ],
+        [
+          'foo.data.availity.com/data/qap/spaces/index.html',
+          'prod',
+          'https://bar.data.availity.com/data/prd/spaces/index.html',
+        ],
+        [
+          'foo.data.availity.com/data/q01/spaces/index.html',
+          'prod',
+          'https://bar.data.availity.com/data/prd/spaces/index.html',
+        ],
+        [
+          'bar.data.availity.com/data/prd/spaces/index.html',
+          'qa',
+          'https://bar.data.availity.com/data/q01/spaces/index.html',
+        ],
       ].forEach(args => {
         generateTest(...args);
       });
