@@ -105,7 +105,7 @@ setEnvironments({
 Get the specific current environment, without rolling up to the general environment. Whereas `envVar` treats the `t01` environment as `test`, for example, `getSpecificEnv` returns `'t01'` for the `t01` environment.
 
 ```js
-import { getCurrentEnv } from '@availity/env-var';
+import { getSpecificEnv } from '@availity/env-var';
 
 const specificEnv = getSpecificEnv([windowOverride]);
 ```
@@ -123,7 +123,7 @@ None
 #### Example
 
 ```js
-import { getCurrentEnv } from '@availity/env-var';
+import { getSpecificEnv } from '@availity/env-var';
 
 /*
 depending on the environment this code runs in, specificEnv would be something different,
