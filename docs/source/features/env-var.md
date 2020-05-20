@@ -99,3 +99,74 @@ setEnvironments({
     myEnv: ['custom-stuff-here'],
 });
 ```
+
+### getSpecificEnv
+
+Get the specific current environment, without rolling up to the general environment. Whereas `envVar` treats the `t01` environment as `test`, for example, `getSpecificEnv` returns `'t01'` for the `t01` environment.
+
+```js
+import { getCurrentEnv } from '@availity/env-var';
+
+const specificEnv = getSpecificEnv([windowOverride]);
+```
+
+#### Required params
+
+None
+
+#### Optional params
+
+-   windowOverride: String or Window Object which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
+    -   When string, the string will be takes an a fully qualified URL and the hostname will be parsed from it.
+    -   When Window Object, the location hostname will be used.
+
+#### Example
+
+```js
+import { getCurrentEnv } from '@availity/env-var';
+
+/*
+depending on the environment this code runs in, specificEnv would be something different,
+like 't01' or 'stg' or 'prod'
+*/
+const specificEnv = getSpecificEnv();
+```
+
+### setSpecificEnvironments
+
+Set the tests that will be used to determine the specific environment the code is currently being executed in.
+
+```js
+import { setSpecificEnvironments } from '@availity/env-var';
+
+setSpecificEnvironments(possibleEnvironments[, replaceExisting]);
+```
+
+#### Required params
+
+-   possibleEnvironments: An array of objects with the following keys:
+    -  regex: the regular expression to match against the current subdomain
+    -  fn: the function to run to return the name of the environment as a string
+
+The code will iterate through the objects, matching the subdomain against the `regex`. If the regex matches, the code calls the corresponding `fn`, passing an object containing the match (capturing groups), subdomain, and pathname. The iteration stops when it receives a non-empty answer from a function or when it reaches the end, in which case it returns `'local'`.
+
+#### Optional params
+
+-   replaceExisting: Boolean, when true possibleEnvironments will replace the existing environments instead of merging.
+
+#### Example
+
+```js
+import { setSpecificEnvironments } from '@availity/env-var';
+
+setSpecificEnvironments([
+    {
+        regex: /^(?:(.*)-)?apps$/,
+        fn: options => options.match[1] || 'prod',
+    },
+    {
+        regex: /.*?\.(?:av|aw|gc)(n|p)$/,
+        fn: options => options.subdomain || options.pathname.split('/')[2],
+    }
+]);
+```
