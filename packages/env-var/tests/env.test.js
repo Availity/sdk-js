@@ -1,4 +1,4 @@
-import envVar, { setEnvironments } from '../src';
+import envVar, { setEnvironments, getSpecificEnv } from '../src';
 
 const setHostname = hostname => {
   // eslint-disable-next-line no-undef
@@ -7,8 +7,8 @@ const setHostname = hostname => {
   });
 };
 
-const getFakeWindowLocation = hostname => ({
-  location: { hostname },
+const getFakeWindowLocation = (hostname, pathname) => ({
+  location: { hostname, pathname },
 });
 
 const generateTest = (hostname, env, overrideWindow) => {
@@ -38,6 +38,33 @@ describe('Environment Variables', () => {
       ['qap-apps.availity.com', 'qa'],
       ['q01-apps.availity.com', 'qa'],
       ['apps.availity.com', 'prod'],
+      ['digital.awp.availity.com/cdn/prd/spaces/index.html', 'prod'],
+      ['digital.avp.availity.com/cdn/prd/spaces/index.html', 'prod'],
+      ['digital.gcp.availity.com/cdn/prd/spaces/index.html', 'prod'],
+      ['digital.awn.availity.com/cdn/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.avn.availity.com/cdn/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.gcn.availity.com/cdn/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.awp.availity.com/cdn/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.avp.availity.com/cdn/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.gcp.availity.com/cdn/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.awp.availity.com/api/prd/spaces/index.html', 'prod'],
+      ['digital.avp.availity.com/api/prd/spaces/index.html', 'prod'],
+      ['digital.gcp.availity.com/api/prd/spaces/index.html', 'prod'],
+      ['digital.awn.availity.com/api/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.avn.availity.com/api/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.gcn.availity.com/api/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.awp.availity.com/api/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.avp.availity.com/api/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.gcp.availity.com/api/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.gap.availity.com/api/prd/spaces/index.html', 'local'], // Unrecognized cloud
+      ['digital.avp.availity.com/apic/prd/spaces/index.html', 'local'], // Unrecognized namespace
+      ['digital.avp.availity.com/api/prod/spaces/index.html', 'local'], // Unrecognized environment
+      ['digital.awn.availity.com/cdn/stg/spaces/index.html', 'qa'],
+      ['digital.avn.availity.com/cdn/qua/spaces/index.html', 'qa'],
+      ['digital.gcn.availity.com/cdn/qap/spaces/index.html', 'qa'],
+      ['digital.awn.availity.com/cdn/tst/spaces/index.html', 'test'],
+      ['digital.avn.availity.com/cdn/t01/spaces/index.html', 'test'],
+      ['digital.gcn.availity.com/cdn/t25/spaces/index.html', 'test'],
     ].forEach(args => {
       generateTest(...args);
     });
@@ -86,6 +113,21 @@ describe('Environment Variables', () => {
           'qa',
           getFakeWindowLocation('q01-apps.availity.com'),
         ],
+        [
+          'apps.availity.com',
+          'prod',
+          getFakeWindowLocation('bar.awp.availity.com', '/cdn/prd/index.html'),
+        ],
+        [
+          'apps.availity.com',
+          'qa',
+          getFakeWindowLocation('bar.awn.availity.com', '/cdn/q01/index.html'),
+        ],
+        [
+          'apps.availity.com',
+          'test',
+          getFakeWindowLocation('bar.awn.availity.com', '/cdn/tst/index.html'),
+        ],
       ].forEach(args => {
         generateTest(...args);
       });
@@ -103,6 +145,41 @@ describe('Environment Variables', () => {
         ['qap-apps.availity.com', 'prod', 'https://apps.availity.com'],
         ['q01-apps.availity.com', 'prod', 'https://apps.availity.com'],
         ['apps.availity.com', 'qa', 'https://q01-apps.availity.com'],
+        [
+          'foo.awn.availity.com/cdn/tst/spaces/index.html',
+          'prod',
+          'https://foo.awp.availity.com/api/prd/spaces/index.html',
+        ],
+        [
+          'foo.awn.availity.com/cdn/t01/spaces/index.html',
+          'prod',
+          'https://foo.awp.availity.com/api/prd/spaces/index.html',
+        ],
+        [
+          'foo.awn.availity.com/cdn/t14/spaces/index.html',
+          'prod',
+          'https://foo.awp.availity.com/api/prd/spaces/index.html',
+        ],
+        [
+          'foo.awn.availity.com/cdn/stg/spaces/index.html',
+          'prod',
+          'https://foo.awp.availity.com/api/prd/spaces/index.html',
+        ],
+        [
+          'foo.awn.availity.com/cdn/qap/spaces/index.html',
+          'prod',
+          'https://foo.awp.availity.com/api/prd/spaces/index.html',
+        ],
+        [
+          'foo.awn.availity.com/cdn/q01/spaces/index.html',
+          'prod',
+          'https://foo.awp.availity.com/api/prd/spaces/index.html',
+        ],
+        [
+          'foo.awp.availity.com/cdn/prd/spaces/index.html',
+          'qa',
+          'https://foo.awn.availity.com/api/stg/spaces/index.html',
+        ],
       ].forEach(args => {
         generateTest(...args);
       });
@@ -233,6 +310,60 @@ describe('Environment Variables', () => {
           )
         ).toBe(true);
       });
+    });
+  });
+
+  const generateSpecificTest = (url, env, overrideWindow) => {
+    test(`should return specific environment ${env} for ${url}`, () => {
+      setHostname(url);
+      expect(getSpecificEnv(overrideWindow)).toBe(env);
+    });
+  };
+
+  describe('Specific environments', () => {
+    [
+      ['fallback-apps.availity.com', 'fallback'],
+      ['localhost', 'local'],
+      ['127.0.0.1', 'local'],
+      ['test-apps.availity.com', 'test'],
+      ['t01-apps.availity.com', 't01'],
+      ['t14-apps.availity.com', 't14'],
+      ['qa-apps.availity.com', 'qa'],
+      ['qap-apps.availity.com', 'qap'],
+      ['q01-apps.availity.com', 'q01'],
+      ['apps.availity.com', 'prod'],
+      ['digital.awp.availity.com/cdn/prd/spaces/index.html', 'prd'],
+      ['digital.avp.availity.com/cdn/prd/spaces/index.html', 'prd'],
+      ['digital.gcp.availity.com/cdn/prd/spaces/index.html', 'prd'],
+      ['digital.awn.availity.com/cdn/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.avn.availity.com/cdn/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.gcn.availity.com/cdn/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.awp.availity.com/cdn/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.avp.availity.com/cdn/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.gcp.availity.com/cdn/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.awp.availity.com/api/prd/spaces/index.html', 'prd'],
+      ['digital.avp.availity.com/api/prd/spaces/index.html', 'prd'],
+      ['digital.gcp.availity.com/api/prd/spaces/index.html', 'prd'],
+      ['digital.awn.availity.com/api/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.avn.availity.com/api/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.gcn.availity.com/api/prd/spaces/index.html', 'local'], // Non-prod domain, prod URI
+      ['digital.awp.availity.com/api/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.avp.availity.com/api/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.gcp.availity.com/api/tst/spaces/index.html', 'local'], // Prod domain, non-prod URI
+      ['digital.gap.availity.com/api/prd/spaces/index.html', 'local'], // Unrecognized cloud
+      ['digital.avp.availity.com/apic/prd/spaces/index.html', 'local'], // Unrecognized namespace
+      ['digital.avp.availity.com/api/prod/spaces/index.html', 'local'], // Unrecognized environment
+      ['digital.awn.availity.com/cdn/stg/spaces/index.html', 'stg'],
+      ['digital.avn.availity.com/cdn/qua/spaces/index.html', 'qua'],
+      ['digital.gcn.availity.com/cdn/qap/spaces/index.html', 'qap'],
+      ['digital.awn.availity.com/cdn/tst/spaces/index.html', 'tst'],
+      ['digital.avn.availity.com/cdn/t01/spaces/index.html', 't01'],
+      ['digital.gcn.availity.com/cdn/t25/spaces/index.html', 't25'],
+      ['digital.box.availity.com/cdn/t25/spaces/index.html', 'local'],
+      ['digital.awn.availity.com/cdn/apple/spaces/index.html', 'local'],
+      ['digital.awn.availity.com/nahfam/stg/spaces/index.html', 'local'],
+    ].forEach(args => {
+      generateSpecificTest(...args);
     });
   });
 });

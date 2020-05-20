@@ -1,9 +1,55 @@
+// Cloud domains are in the format <team>.<cloud provider><zone>.availity.com
+// where <cloud provider> is a two character abbreviation for the cloud provider
+// and zone is a one character abbreviation for prod vs non-prod.
+// Cloud URIs are in the format /<namespace>/<environment>/...
+// where <namespace> is a three character abbreviation, e.g., cdn or api
+// and <environment> is a three character abbreviation, e.g., prd or t01
+const getCloudEnv = options => {
+  const { subdomain, pathname } = options;
+  if (!(subdomain && pathname)) return null;
+
+  const subMatch = subdomain.match(/.*?\.(?:av|aw|gc)(n|p)$/);
+  if (!subMatch) return null;
+
+  const pathMatch = pathname.match(/^\/[a-z]{3}\/([a-z0-9]{3})\/.*/);
+  if (!pathMatch) return null;
+
+  // ??p domains must be prod, ??n domains can't be prod
+  const isProdPath = pathMatch[1] === 'prd';
+  switch (subMatch[1]) {
+    case 'p':
+      return isProdPath ? pathMatch[1] : null;
+    case 'n':
+      return isProdPath ? null : pathMatch[1];
+    default:
+      return null;
+  }
+};
+
 let environments = {
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-apps$/],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-apps$/],
-  prod: [/^apps$/],
+  test: [
+    /^t(?:(?:\d\d)|(?:est))-apps$/,
+    options => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options)),
+  ],
+  qa: [
+    /^q(?:(?:\d\d)|(?:ap?))-apps$/,
+    options => /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options)),
+  ],
+  prod: [/^apps$/, options => getCloudEnv(options) === 'prd'],
 };
+
+let specificEnvironments = [
+  {
+    regex: /^(?:(.*)-)?apps$/,
+    fn: options => options.match[1] || 'prod',
+  },
+  {
+    regex: /.*?\.(?:av|aw|gc)(n|p)$/,
+    fn: getCloudEnv,
+  },
+];
+
 export function setEnvironments(envs, override) {
   if (override) {
     environments = envs;
@@ -11,18 +57,35 @@ export function setEnvironments(envs, override) {
     Object.assign(environments, envs);
   }
 }
+
+export function setSpecificEnvironments(envs, override) {
+  if (override) {
+    specificEnvironments = envs;
+  } else {
+    Object.assign(specificEnvironments, envs);
+  }
+}
+
 export function getLocation(href) {
   const anchor = document.createElement('a');
   anchor.href = href;
   return anchor;
 }
 
-export function getCurrentEnv(windowOverride = window) {
-  const { hostname } =
+function getLocationComponents(windowOverride) {
+  const { hostname, pathname } =
     windowOverride === null || typeof windowOverride === 'string'
       ? getLocation(windowOverride)
       : windowOverride.location;
   const subdomain = hostname.split('.availity')[0];
+  return {
+    subdomain,
+    pathname,
+  };
+}
+
+export function getCurrentEnv(windowOverride = window) {
+  const { subdomain, pathname } = getLocationComponents(windowOverride);
 
   return Object.keys(environments).reduce((prev, env) => {
     if (prev) return prev;
@@ -40,13 +103,27 @@ export function getCurrentEnv(windowOverride = window) {
             return test.test(subdomain);
           case '[object Function]':
             // eslint-disable-next-line jest/no-disabled-tests
-            return test();
+            return test({ subdomain, pathname });
           default:
             return false;
         }
       }) && env
     );
   }, '');
+}
+
+// Returns the specific environment, e.g. t01, not test
+export function getSpecificEnv(windowOverride = window) {
+  const { subdomain, pathname } = getLocationComponents(windowOverride);
+
+  return (
+    specificEnvironments.reduce((prev, env) => {
+      if (prev) return prev;
+      const { regex, fn } = env;
+      const match = subdomain.match(regex);
+      return match ? fn({ match, subdomain, pathname }) : null;
+    }, null) || 'local'
+  );
 }
 
 export default function(varObj, windowOverride, defaultVar) {
