@@ -45,7 +45,11 @@ export default class AvOrganizations extends AvApi {
   }
 
   async postGet(data, config, additionalPostGetArgs) {
-    if (additionalPostGetArgs) {
+    if (additionalPostGetArgs && additionalPostGetArgs.resourceIds) {
+      const { permissionIds } = additionalPostGetArgs;
+      if (permissionIds) {
+        data.permissionId = permissionIds;
+      }
       const { data: organizationsData } = await super.postGet(data, config);
 
       return this.getFilteredOrganizations(
@@ -64,7 +68,8 @@ export default class AvOrganizations extends AvApi {
     additionalPostGetArgs,
     data
   ) {
-    const { resourceIds } = additionalPostGetArgs;
+    // for filtered orgs, can pass both permissions and resources in postGetArgs, and we will use the permissionIds here over the data.permissionId
+    const { resourceIds, permissionIds } = additionalPostGetArgs;
     const { permissionId, region } = data;
     const {
       organizations,
@@ -73,9 +78,13 @@ export default class AvOrganizations extends AvApi {
       totalCount: totalOrgCount,
     } = organizationsData;
 
-    if (typeof permissionId !== 'string' && !Array.isArray(permissionId)) {
+    const permissionIdsToUse = permissionIds || permissionId;
+    if (
+      typeof permissionIdsToUse !== 'string' &&
+      !Array.isArray(permissionIdsToUse)
+    ) {
       throw new TypeError(
-        'permissionId must be either an array of ids or a string'
+        'permissionId(s) must be either an array of ids or a string'
       );
     }
     if (typeof resourceIds !== 'string' && !Array.isArray(resourceIds)) {
@@ -90,7 +99,7 @@ export default class AvOrganizations extends AvApi {
 
     if (
       region !== this.previousRegionId ||
-      !this.arePermissionsEqual(permissionId)
+      !this.arePermissionsEqual(permissionIdsToUse)
     ) {
       // avUserPermissions will return a list of user organizations that match given permission and region
       // This call does not need to be paginated and
@@ -99,47 +108,79 @@ export default class AvOrganizations extends AvApi {
       const {
         data: { axiUserPermissions: userPermissions },
       } = await this.avUserPermissions.postGet({
-        permissionId,
+        permissionIdsToUse,
         region,
-        limit: permissionId.length,
+        limit: permissionIdsToUse.length,
       });
 
       if (userPermissions) {
-        this.userPermissions = userPermissions;
-        this.previousPermissionIds = permissionId;
+        this.userPermissions = userPermissions.reduce((accum, cur) => {
+          accum[cur.id] = cur;
+          return accum;
+        }, {});
+        this.previousPermissionIds = permissionIdsToUse;
         this.previousRegionId = region;
       } else {
         throw new Error('avUserPermissions call failed');
       }
     }
 
-    // Reduce the userPermissions result into a collection of orgs that contain a valid resource
-    const authorizedOrgs = this.userPermissions.reduce(
-      (accum, userPermission) => {
-        userPermission.organizations.forEach(userOrg => {
-          const isDuplicate = accum.some(item => item.id === userOrg.id);
-          if (!isDuplicate) {
-            // If this org contains one of the passed in resourceIds, it is an authorized org
-            const match = userOrg.resources.some(userResource => {
-              return resourceIdsArray.some(
-                resource => Number(resource) === Number(userResource.id)
+    // loop thru the permissionId list of ORs, finding and adding matching orgs in the userPermissions. ANDs are beneath/within the ORs
+    const permissionIdsOR = Array.isArray(permissionIdsToUse)
+      ? permissionIdsToUse
+      : [permissionIdsToUse];
+    const authorizedOrgs = permissionIdsOR.reduce(
+      (accum, permissionIdOR, permIndex) => {
+        let matchedOrgs = {};
+        if (Array.isArray(permissionIdOR)) {
+          matchedOrgs = permissionIdOR.reduce(
+            (matchedANDOrgs, permissionIdAND, index) => {
+              const matchedOrgsTemp = this.findOrgsWithResources(
+                this.userPermissions[permissionIdAND],
+                resourceIdsArray,
+                permIndex,
+                index
               );
-            });
-            if (match) {
-              accum.push({ id: userOrg.id });
-            }
+              if (index === 0) {
+                Object.keys(matchedOrgsTemp).forEach(orgId => {
+                  matchedANDOrgs[orgId] = matchedOrgsTemp[orgId];
+                });
+              } else {
+                // AND the perms in this list
+                Object.keys(matchedANDOrgs).forEach(orgId => {
+                  if (!matchedOrgsTemp[orgId]) {
+                    // one of the orgs does not have a required permission
+                    matchedANDOrgs[orgId] = undefined;
+                  }
+                });
+              }
+              return matchedANDOrgs;
+            },
+            {}
+          );
+        } else {
+          // just one permission, get the orgs under this permission
+          matchedOrgs = this.findOrgsWithResources(
+            this.userPermissions[permissionIdOR],
+            resourceIdsArray,
+            permIndex
+          );
+        }
+        Object.keys(matchedOrgs).forEach(orgId => {
+          if (!accum[orgId]) {
+            accum[orgId] = matchedOrgs[orgId];
           }
         });
-
         return accum;
       },
-      []
+      {}
     );
 
     // avUserPermissions call doesn't return much useful organization data
     // but we can match valid ids to useful data returned from avOrganizations
-    const authorizedFilteredOrgs = organizations.filter(org =>
-      authorizedOrgs.some(authorizedOrg => authorizedOrg.id === org.id)
+    const authorizedFilteredOrgs = organizations.filter(
+      org => authorizedOrgs[org.id]
+      // authorizedOrgs.some((authorizedOrg) => authorizedOrg.id === org.id)
     );
 
     // Transform back into data object that ResourceSelect can use and paginate
@@ -151,6 +192,52 @@ export default class AvOrganizations extends AvApi {
         offset: orgOffset,
       },
     };
+  }
+
+  findOrgsWithResources(
+    permissionObject,
+    resourceIdsArray,
+    permIndex,
+    resIndex
+  ) {
+    const matchedOrgs = {};
+
+    if (permissionObject) {
+      // the resource(s)
+      const resourceIdsPerm = resourceIdsArray[permIndex];
+      permissionObject.organizations.forEach(organization => {
+        if (Array.isArray(resourceIdsPerm)) {
+          const resourceIdsPermAnd = resourceIdsPerm[resIndex];
+          if (Array.isArray(resourceIdsPermAnd)) {
+            // check for EVERY resource
+            const isMatch = resourceIdsPermAnd.every(resourceId =>
+              organization.resources.some(
+                resource => `${resource.id}` === resourceId
+              )
+            );
+            if (isMatch) {
+              matchedOrgs[organization.id] = organization;
+            }
+          } else {
+            const isMatch = organization.resources.some(
+              resource => `${resource.id}` === resourceIdsPermAnd
+            );
+            if (isMatch) {
+              matchedOrgs[organization.id] = organization;
+            }
+          }
+        } else {
+          // check for the one resource
+          const isMatch = organization.resources.some(
+            resource => `${resource.id}` === resourceIdsPerm
+          );
+          if (isMatch) {
+            matchedOrgs[organization.id] = organization;
+          }
+        }
+      });
+    }
+    return matchedOrgs;
   }
 
   arePermissionsEqual(permissionId) {

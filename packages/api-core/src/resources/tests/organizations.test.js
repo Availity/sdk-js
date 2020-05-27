@@ -41,6 +41,18 @@ const mockPermissions = {
               {
                 id: '10111',
               },
+              {
+                id: '10222',
+              },
+            ],
+          },
+          {
+            id: '2222',
+            name: 'Second Test Org',
+            resources: [
+              {
+                id: '10111',
+              },
             ],
           },
         ],
@@ -51,6 +63,18 @@ const mockPermissions = {
           {
             id: '2222',
             name: 'Second Test Org',
+            resources: [
+              {
+                id: '11000',
+              },
+              {
+                id: '11011',
+              },
+            ],
+          },
+          {
+            id: '1435',
+            name: 'Availity Test Org',
             resources: [
               {
                 id: '11000',
@@ -68,6 +92,15 @@ const mockPermissions = {
             resources: [
               {
                 id: '99999',
+              },
+            ],
+          },
+          {
+            id: '1435',
+            name: 'Availity Test Org',
+            resources: [
+              {
+                id: '90000',
               },
             ],
           },
@@ -91,331 +124,471 @@ describe('AvOrganizations', () => {
     jest.clearAllMocks();
   });
 
-  test('should be defined', () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      config: {},
+  describe('without resourceIds', () => {
+    test('should be defined', () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        config: {},
+      });
+      expect(api).toBeDefined();
     });
-    expect(api).toBeDefined();
+
+    test('should handle no config passed in', () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+      });
+      expect(api).toBeDefined();
+    });
+    test('queryOrganizations() should call query with user.id added to params.userId', () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        config: {},
+      });
+      api.query = jest.fn();
+
+      const userId = 'testUserId';
+      const user = { id: userId };
+      const testConfig = {
+        name: 'testName',
+        params: { otherParam: 'helloWorld' },
+      };
+      const expectedConfig = { ...testConfig };
+      expectedConfig.params.userId = userId;
+
+      api.queryOrganizations(user, testConfig);
+      expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+    });
+
+    test('queryOrganizations() should handle undefined config param', () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        config: {},
+      });
+      api.query = jest.fn();
+      const userId = 'testUserId';
+      const user = { id: userId };
+      const expectedConfig = { params: { userId } };
+      api.queryOrganizations(user);
+      expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
+    });
+
+    test('getOrganizations() should throw error if no avUsers passed in', () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        config: {},
+      });
+
+      expect(() => {
+        api.getOrganizations();
+      }).toThrow('avUsers must be defined');
+    });
+
+    test('getOrganizations() should call avUsers.me() and then queryOrganizations()', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        config: {},
+      });
+      api.queryOrganizations = jest.fn();
+
+      const testConfig = { name: 'testName' };
+
+      await api.getOrganizations(testConfig);
+      expect(api.queryOrganizations).toHaveBeenLastCalledWith(
+        mockUser,
+        testConfig
+      );
+    });
+
+    test('getOrganizations() should skip call to avUsers.me() when userId provided and then query()', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        config: {},
+      });
+      api.queryOrganizations = jest.fn();
+      api.query = jest.fn();
+
+      const testConfig = { name: 'testName', params: { userId: 'bmoolenaar' } };
+
+      await api.getOrganizations(testConfig);
+
+      expect(api.queryOrganizations).not.toHaveBeenCalled();
+      expect(api.avUsers.me).not.toHaveBeenCalled();
+      expect(api.query).toHaveBeenLastCalledWith(testConfig);
+    });
   });
+  describe('with resourceIds', () => {
+    test('should filter out org that does not have valid resource', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-  test('should handle no config passed in', () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-    });
-    expect(api).toBeDefined();
-  });
-  test('queryOrganizations() should call query with user.id added to params.userId', () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      config: {},
-    });
-    api.query = jest.fn();
+      const data = {
+        limit: 50,
+        offset: 0,
+        permissionId: ['7777', '8888'],
+        region: 'CA',
+      };
 
-    const userId = 'testUserId';
-    const user = { id: userId };
-    const testConfig = {
-      name: 'testName',
-      params: { otherParam: 'helloWorld' },
-    };
-    const expectedConfig = { ...testConfig };
-    expectedConfig.params.userId = userId;
+      const additionalPostGetArgs = {
+        resourceIds: ['10111', '11000'],
+      };
 
-    api.queryOrganizations(user, testConfig);
-    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('queryOrganizations() should handle undefined config param', () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      config: {},
-    });
-    api.query = jest.fn();
-    const userId = 'testUserId';
-    const user = { id: userId };
-    const expectedConfig = { params: { userId } };
-    api.queryOrganizations(user);
-    expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
-  });
-
-  test('getOrganizations() should throw error if no avUsers passed in', () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
+      expect(authorizedFilteredOrgs.length).toBe(2);
+      expect(authorizedFilteredOrgs[0].id).toBe('1435');
+      expect(authorizedFilteredOrgs[1].id).toBe('2222');
     });
 
-    expect(() => {
-      api.getOrganizations();
-    }).toThrow('avUsers must be defined');
-  });
+    test('should work when permissionId and resourceId are strings', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-  test('getOrganizations() should call avUsers.me() and then queryOrganizations()', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      config: {},
-    });
-    api.queryOrganizations = jest.fn();
+      const data = {
+        limit: 50,
+        offset: 0,
+        permissionId: '7777',
+        region: 'CA',
+      };
 
-    const testConfig = { name: 'testName' };
+      const additionalPostGetArgs = {
+        resourceIds: '10222',
+      };
 
-    await api.getOrganizations(testConfig);
-    expect(api.queryOrganizations).toHaveBeenLastCalledWith(
-      mockUser,
-      testConfig
-    );
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('getOrganizations() should skip call to avUsers.me() when userId provided and then query()', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      config: {},
-    });
-    api.queryOrganizations = jest.fn();
-    api.query = jest.fn();
-
-    const testConfig = { name: 'testName', params: { userId: 'bmoolenaar' } };
-
-    await api.getOrganizations(testConfig);
-
-    expect(api.queryOrganizations).not.toHaveBeenCalled();
-    expect(api.avUsers.me).not.toHaveBeenCalled();
-    expect(api.query).toHaveBeenLastCalledWith(testConfig);
-  });
-
-  test('should filter out org that does not have valid resource', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(1);
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: ['7777', '8888'],
-      region: 'CA',
-    };
+    test('should work when permissionId and resourceId are arrays', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: ['10111', '11000'],
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        permissionIds: ['7777'],
+        resourceIds: ['10222'],
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(2);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('should work when permissionId and resourceId are strings', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(1);
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: '7777',
-      region: 'CA',
-    };
+    test('should work when permissionId is an array and resourceId is a string', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: '10111',
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+        permissionId: ['7777'],
+        region: 'CA',
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        resourceIds: '10222',
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(1);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('should work when permissionId and resourceId are arrays', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(1);
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: ['7777'],
-      region: 'CA',
-    };
+    test('should work when permissionId is a string and resourceId is an array', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: ['10111'],
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+        permissionId: '7777',
+        region: 'CA',
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        resourceIds: ['10222'],
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(1);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('should work when permissionId is an array and resourceId is a string', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(1);
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: ['7777'],
-      region: 'CA',
-    };
+    test('should work without region passed in', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: '10111',
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        permissionIds: ['7777'],
+        resourceIds: ['10222'],
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(1);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('should work when permissionId is a string and resourceId is an array', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(1);
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: '7777',
-      region: 'CA',
-    };
+    test('should use org data from avOrganizations and not avUserPermissions', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: ['10111'],
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        permissionIds: '7777',
+        resourceIds: ['10222'],
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(1);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('should work without region passed in', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(1);
+      expect(authorizedFilteredOrgs[0].address).toBeDefined();
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: ['7777'],
-    };
+    test('should filter organizations by AND permissions', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: ['10111'],
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        permissionIds: [['7777', '8888']],
+        resourceIds: [['10111', '11000']],
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(1);
-  });
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
 
-  test('should  use org data from avOrganizations and not avUserPermissions', async () => {
-    api = new AvOrganizations({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      avUsers: mockAvUsers,
-      avUserPermissions: mockAvUserPermissions,
+      expect(authorizedFilteredOrgs.length).toBe(2);
+      expect(authorizedFilteredOrgs[0].id).toBe('1435');
+      expect(authorizedFilteredOrgs[1].id).toBe('2222');
     });
 
-    const data = {
-      limit: 50,
-      offset: 0,
-      permissionId: '7777',
-      region: 'CA',
-    };
+    test('should filter organizations by AND permissions + AND resources', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
 
-    const additionalPostGetArgs = {
-      resourceIds: ['10111'],
-    };
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
 
-    const {
-      data: { authorizedFilteredOrgs },
-    } = await api.getFilteredOrganizations(
-      mockOrg,
-      additionalPostGetArgs,
-      data
-    );
+      const additionalPostGetArgs = {
+        permissionIds: [['7777', '8888']],
+        resourceIds: [[['10111', '10222'], '11000']],
+      };
 
-    expect(authorizedFilteredOrgs.length).toBe(1);
-    expect(authorizedFilteredOrgs[0].address).toBeDefined();
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(1);
+      expect(authorizedFilteredOrgs[0].id).toBe('1435');
+    });
+
+    test('should filter organizations by OR + AND permissions', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [
+          ['7777', '9999'],
+          ['7777', '8888'],
+        ],
+        resourceIds: [
+          ['10111', '90000'],
+          ['10111', '11011'],
+        ],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(2);
+      expect(authorizedFilteredOrgs[0].id).toBe('1435');
+      expect(authorizedFilteredOrgs[1].id).toBe('2222');
+    });
+
+    test('should filter organizations by AND permissions + AND resources with no results', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [['7777', '9999']],
+        resourceIds: [['10111', '10222'], '99999'],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(0);
+    });
   });
 });
