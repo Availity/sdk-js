@@ -124,7 +124,7 @@ describe('AvOrganizations', () => {
     jest.clearAllMocks();
   });
 
-  describe('without resourceIds', () => {
+  describe('without additionalPostGetArgs', () => {
     test('should be defined', () => {
       api = new AvOrganizations({
         http: mockHttp,
@@ -236,7 +236,7 @@ describe('AvOrganizations', () => {
       expect(api.query).toHaveBeenLastCalledWith(testConfig);
     });
   });
-  describe('with resourceIds', () => {
+  describe('with additionalPostGetArgs', () => {
     test('should filter out org that does not have valid resource', async () => {
       api = new AvOrganizations({
         http: mockHttp,
@@ -288,6 +288,37 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         resourceIds: '10222',
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(1);
+    });
+
+    test('should work when permissionId and resourceId are numbers', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        limit: 50,
+        offset: 0,
+        permissionId: 7777,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        resourceIds: 10222,
       };
 
       const {
@@ -489,6 +520,37 @@ describe('AvOrganizations', () => {
       expect(authorizedFilteredOrgs[1].id).toBe('2222');
     });
 
+    test('should filter organizations by permissions and no resources', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        limit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [[7777, 9999]],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(1);
+      expect(authorizedFilteredOrgs[0].id).toBe('1435');
+    });
+
     test('should filter organizations by AND permissions + AND resources', async () => {
       api = new AvOrganizations({
         http: mockHttp,
@@ -505,8 +567,8 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        permissionIds: [['7777', '8888']],
-        resourceIds: [[['10111', '10222'], '11000']],
+        permissionIds: [[7777, 8888]],
+        resourceIds: [[[10111, 10222], 11000]],
       };
 
       const {
@@ -538,12 +600,12 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [
-          ['7777', '9999'],
-          ['7777', '8888'],
+          [7777, 9999],
+          [7777, 8888],
         ],
         resourceIds: [
-          ['10111', '90000'],
-          ['10111', '11011'],
+          [10111, 90000],
+          [10111, 11011],
         ],
       };
 
@@ -576,8 +638,8 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        permissionIds: [['7777', '9999']],
-        resourceIds: [['10111', '10222'], '99999'],
+        permissionIds: [[7777, 9999]],
+        resourceIds: [[10111, 10222], 99999],
       };
 
       const {
@@ -589,6 +651,82 @@ describe('AvOrganizations', () => {
       );
 
       expect(authorizedFilteredOrgs.length).toBe(0);
+    });
+
+    test('should filter organizations by AND resources', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        leimit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [7777],
+        resourceIds: [[10111, 10222]],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(1);
+    });
+  });
+
+  describe('arePermissionsEqual', () => {
+    test('works for strings', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+      api.previousPermissionIds = '7777';
+      expect(api.arePermissionsEqual('7777')).toBe(true);
+      expect(api.arePermissionsEqual(7777)).toBe(true);
+      expect(api.arePermissionsEqual([7777])).toBe(true);
+      expect(api.arePermissionsEqual([8888])).toBe(false);
+    });
+
+    test('works for array', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+      api.previousPermissionIds = ['7777', '8888'];
+      expect(api.arePermissionsEqual(['8888', '7777'])).toBe(true);
+      expect(api.arePermissionsEqual(['7777', '9999'])).toBe(false);
+    });
+
+    test('works for nested array', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+      api.previousPermissionIds = [[7777, 8888], [9999]];
+      expect(api.arePermissionsEqual(['8888', '7777', '9999'])).toBe(true);
+      expect(api.arePermissionsEqual([['8888', '7777'], ['9999']])).toBe(true);
+      expect(api.arePermissionsEqual([['7777', '8888']])).toBe(false);
+      expect(api.arePermissionsEqual([['7777', '8888'], ['5555']])).toBe(false);
     });
   });
 });

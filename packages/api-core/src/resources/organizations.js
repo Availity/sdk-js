@@ -1,3 +1,4 @@
+import qs from 'qs';
 import AvApi from '../api';
 
 export default class AvOrganizations extends AvApi {
@@ -45,10 +46,16 @@ export default class AvOrganizations extends AvApi {
   }
 
   async postGet(data, config, additionalPostGetArgs) {
-    if (additionalPostGetArgs && additionalPostGetArgs.resourceIds) {
+    if (additionalPostGetArgs) {
       const { permissionIds } = additionalPostGetArgs;
       if (permissionIds) {
-        data.permissionId = permissionIds;
+        if (typeof data === 'string') {
+          const dataTemp = qs.parse(data);
+          dataTemp.permissionId = permissionIds;
+          data = qs.stringify(dataTemp, { arrayFormat: 'repeat' });
+        } else if (typeof data === 'object') {
+          data.permissionId = permissionIds;
+        }
       }
       const { data: organizationsData } = await super.postGet(data, config);
 
@@ -69,7 +76,7 @@ export default class AvOrganizations extends AvApi {
     data
   ) {
     // for filtered orgs, can pass both permissions and resources in postGetArgs, and we will use the permissionIds here over the data.permissionId
-    const { resourceIds, permissionIds } = additionalPostGetArgs;
+    const { resourceIds = [], permissionIds } = additionalPostGetArgs;
     const { permissionId, region } = data;
     const {
       organizations,
@@ -81,25 +88,35 @@ export default class AvOrganizations extends AvApi {
     const permissionIdsToUse = permissionIds || permissionId;
     if (
       typeof permissionIdsToUse !== 'string' &&
+      typeof permissionIdsToUse !== 'number' &&
       !Array.isArray(permissionIdsToUse)
     ) {
       throw new TypeError(
-        'permissionId(s) must be either an array of ids or a string'
+        'permissionId(s) must be either an array of ids, a string, or a number'
       );
     }
-    if (typeof resourceIds !== 'string' && !Array.isArray(resourceIds)) {
+    if (
+      typeof resourceIds !== 'string' &&
+      typeof resourceIds !== 'number' &&
+      !Array.isArray(resourceIds)
+    ) {
       throw new TypeError(
-        'resourceIds must be either an array of ids or a string'
+        'resourceIds must be either an array of ids, a string, or a number'
       );
     }
 
     // resourceIds is passed as readOnly, convert so that we can use Array methods on it
-    const resourceIdsArray =
-      typeof resourceIds === 'string' ? [resourceIds] : resourceIds;
+    const resourceIdsArray = Array.isArray(resourceIds)
+      ? resourceIds
+      : [`${resourceIds}`];
+
+    const permissionIdsOR = Array.isArray(permissionIdsToUse)
+      ? permissionIdsToUse
+      : [`${permissionIdsToUse}`];
 
     if (
       region !== this.previousRegionId ||
-      !this.arePermissionsEqual(permissionIdsToUse)
+      !this.arePermissionsEqual(permissionIdsOR)
     ) {
       // avUserPermissions will return a list of user organizations that match given permission and region
       // This call does not need to be paginated and
@@ -108,9 +125,9 @@ export default class AvOrganizations extends AvApi {
       const {
         data: { axiUserPermissions: userPermissions },
       } = await this.avUserPermissions.postGet({
-        permissionIdsToUse,
+        permissionId: permissionIdsOR,
         region,
-        limit: permissionIdsToUse.length,
+        limit: permissionIdsOR.length,
       });
 
       if (userPermissions) {
@@ -118,7 +135,7 @@ export default class AvOrganizations extends AvApi {
           accum[cur.id] = cur;
           return accum;
         }, {});
-        this.previousPermissionIds = permissionIdsToUse;
+        this.previousPermissionIds = permissionIdsOR;
         this.previousRegionId = region;
       } else {
         throw new Error('avUserPermissions call failed');
@@ -126,9 +143,6 @@ export default class AvOrganizations extends AvApi {
     }
 
     // loop thru the permissionId list of ORs, finding and adding matching orgs in the userPermissions. ANDs are beneath/within the ORs
-    const permissionIdsOR = Array.isArray(permissionIdsToUse)
-      ? permissionIdsToUse
-      : [permissionIdsToUse];
     const authorizedOrgs = permissionIdsOR.reduce(
       (accum, permissionIdOR, permIndex) => {
         let matchedOrgs = {};
@@ -136,7 +150,7 @@ export default class AvOrganizations extends AvApi {
           matchedOrgs = permissionIdOR.reduce(
             (matchedANDOrgs, permissionIdAND, index) => {
               const matchedOrgsTemp = this.findOrgsWithResources(
-                this.userPermissions[permissionIdAND],
+                this.userPermissions[`${permissionIdAND}`],
                 resourceIdsArray,
                 permIndex,
                 index
@@ -161,7 +175,7 @@ export default class AvOrganizations extends AvApi {
         } else {
           // just one permission, get the orgs under this permission
           matchedOrgs = this.findOrgsWithResources(
-            this.userPermissions[permissionIdOR],
+            this.userPermissions[`${permissionIdOR}`],
             resourceIdsArray,
             permIndex
           );
@@ -207,12 +221,17 @@ export default class AvOrganizations extends AvApi {
       const resourceIdsPerm = resourceIdsArray[permIndex];
       permissionObject.organizations.forEach(organization => {
         if (Array.isArray(resourceIdsPerm)) {
-          const resourceIdsPermAnd = resourceIdsPerm[resIndex];
+          let resourceIdsPermAnd;
+          if (resIndex !== undefined) {
+            resourceIdsPermAnd = resourceIdsPerm[resIndex];
+          } else {
+            resourceIdsPermAnd = resourceIdsPerm;
+          }
           if (Array.isArray(resourceIdsPermAnd)) {
             // check for EVERY resource
             const isMatch = resourceIdsPermAnd.every(resourceId =>
               organization.resources.some(
-                resource => `${resource.id}` === resourceId
+                resource => `${resource.id}` === `${resourceId}`
               )
             );
             if (isMatch) {
@@ -220,7 +239,7 @@ export default class AvOrganizations extends AvApi {
             }
           } else {
             const isMatch = organization.resources.some(
-              resource => `${resource.id}` === resourceIdsPermAnd
+              resource => `${resource.id}` === `${resourceIdsPermAnd}`
             );
             if (isMatch) {
               matchedOrgs[organization.id] = organization;
@@ -229,9 +248,9 @@ export default class AvOrganizations extends AvApi {
         } else {
           // check for the one resource
           const isMatch = organization.resources.some(
-            resource => `${resource.id}` === resourceIdsPerm
+            resource => `${resource.id}` === `${resourceIdsPerm}`
           );
-          if (isMatch) {
+          if (isMatch || !resourceIdsPerm) {
             matchedOrgs[organization.id] = organization;
           }
         }
@@ -241,28 +260,43 @@ export default class AvOrganizations extends AvApi {
   }
 
   arePermissionsEqual(permissionId) {
-    if (typeof permissionId !== typeof this.previousPermissionIds) return false;
-
-    if (typeof permissionId === 'string')
-      return permissionId === this.previousPermissionIds;
-
-    if (
-      Array.isArray(permissionId) &&
-      Array.isArray(this.previousPermissionIds)
-    ) {
-      if (permissionId.length !== this.previousPermissionIds.length)
-        return false;
-
-      // if lengths are equal, need a way to check if values are the same or not
-      // Sets won't allow duplicate values
-      // if size of Set is greater than length of original arrays
-      // then a different value was inserted and they are not equal
-      const idSet = new Set([...permissionId], [...this.previousPermissionIds]);
-      if (idSet.size !== permissionId.length) return false;
-
-      return true;
+    // handle nested arrays by collecting all permission values for both new and previous, then Set-ing them
+    const permissionArray = [];
+    if (typeof permissionId === 'string' || typeof permissionId === 'number') {
+      permissionArray.push(`${permissionId}`);
+    } else if (Array.isArray(permissionId)) {
+      permissionId.forEach(permissionOR => {
+        if (Array.isArray(permissionOR)) {
+          permissionOR.forEach(permissionAND => {
+            permissionArray.push(`${permissionAND}`);
+          });
+        } else {
+          permissionArray.push(`${permissionOR}`);
+        }
+      });
     }
 
-    return false;
+    const prevPermissionArray = [];
+    if (
+      typeof this.previousPermissionIds === 'string' ||
+      typeof this.previousPermissionIds === 'number'
+    ) {
+      prevPermissionArray.push(`${this.previousPermissionIds}`);
+    } else if (Array.isArray(this.previousPermissionIds)) {
+      this.previousPermissionIds.forEach(permissionOR => {
+        if (Array.isArray(permissionOR)) {
+          permissionOR.forEach(permissionAND => {
+            prevPermissionArray.push(`${permissionAND}`);
+          });
+        } else {
+          prevPermissionArray.push(`${permissionOR}`);
+        }
+      });
+    }
+
+    const idSet = new Set([...permissionArray]);
+    const idSetCombined = new Set([...permissionArray, ...prevPermissionArray]);
+
+    return idSet.size === idSetCombined.size;
   }
 }
