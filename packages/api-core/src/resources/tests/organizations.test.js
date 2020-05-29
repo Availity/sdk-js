@@ -254,7 +254,7 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        resourceIds: ['10111', '11000'],
+        resourceIds: [['10111'], ['11000']],
       };
 
       const {
@@ -287,7 +287,7 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        resourceIds: '10222',
+        resourceIds: ['10222'],
       };
 
       const {
@@ -318,7 +318,7 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        resourceIds: 10222,
+        resourceIds: [10222],
       };
 
       const {
@@ -504,7 +504,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [['7777', '8888']],
-        resourceIds: [['10111', '11000']],
+        resourceIds: [[['10111'], ['11000']]],
       };
 
       const {
@@ -568,7 +568,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [[7777, 8888]],
-        resourceIds: [[[10111, 10222], 11000]],
+        resourceIds: [[[[10111, 10222]], 11000]],
       };
 
       const {
@@ -604,8 +604,8 @@ describe('AvOrganizations', () => {
           [7777, 8888],
         ],
         resourceIds: [
-          [10111, 90000],
-          [10111, 11011],
+          [[10111], [90000]],
+          [[10111], [11011]],
         ],
       };
 
@@ -639,7 +639,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [[7777, 9999]],
-        resourceIds: [[10111, 10222], 99999],
+        resourceIds: [[[[10111, 10222]]], 99999],
       };
 
       const {
@@ -670,7 +670,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [7777],
-        resourceIds: [[10111, 10222]],
+        resourceIds: [[[10111, 10222]]],
       };
 
       const {
@@ -682,6 +682,37 @@ describe('AvOrganizations', () => {
       );
 
       expect(authorizedFilteredOrgs.length).toBe(1);
+    });
+
+    test('should filter organizations by OR resources', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        leimit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [9999, 8888],
+        resourceIds: [[99999, 90000]], // OR for perm 9999, no resources needed for perm 8888
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(3);
     });
   });
 

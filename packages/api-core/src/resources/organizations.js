@@ -211,35 +211,47 @@ export default class AvOrganizations extends AvApi {
   findOrgsWithResources(
     permissionObject,
     resourceIdsArray,
-    permIndex,
-    resIndex
+    permIndexOR,
+    permIndexAND
   ) {
     const matchedOrgs = {};
 
     if (permissionObject) {
       // the resource(s)
-      const resourceIdsPerm = resourceIdsArray[permIndex];
+      const resourceIdsORForPermOR = resourceIdsArray[permIndexOR];
       permissionObject.organizations.forEach(organization => {
-        if (Array.isArray(resourceIdsPerm)) {
-          let resourceIdsPermAnd;
-          if (resIndex !== undefined) {
-            resourceIdsPermAnd = resourceIdsPerm[resIndex];
-          } else {
-            resourceIdsPermAnd = resourceIdsPerm;
+        if (Array.isArray(resourceIdsORForPermOR)) {
+          let resourceIdsORForPermAND = resourceIdsORForPermOR;
+          if (permIndexAND !== undefined) {
+            // adjust for nested AND permission
+            resourceIdsORForPermAND = resourceIdsORForPermOR[permIndexAND];
           }
-          if (Array.isArray(resourceIdsPermAnd)) {
-            // check for EVERY resource
-            const isMatch = resourceIdsPermAnd.every(resourceId =>
-              organization.resources.some(
-                resource => `${resource.id}` === `${resourceId}`
-              )
-            );
-            if (isMatch) {
-              matchedOrgs[organization.id] = organization;
+          if (Array.isArray(resourceIdsORForPermAND)) {
+            // array of multiple resources in one means AND them
+            if (Array.isArray(resourceIdsORForPermAND[0])) {
+              const isMatch = resourceIdsORForPermAND[0].every(resourceId =>
+                organization.resources.some(
+                  resource => `${resource.id}` === `${resourceId}`
+                )
+              );
+              if (isMatch) {
+                matchedOrgs[organization.id] = organization;
+              }
+              // otherwise OR them
+            } else {
+              const isMatch = resourceIdsORForPermAND.some(resourceId =>
+                organization.resources.some(
+                  resource => `${resource.id}` === `${resourceId}`
+                )
+              );
+              if (isMatch) {
+                matchedOrgs[organization.id] = organization;
+              }
             }
+            // a single OR resource doesn't need to be in an array
           } else {
             const isMatch = organization.resources.some(
-              resource => `${resource.id}` === `${resourceIdsPermAnd}`
+              resource => `${resource.id}` === `${resourceIdsORForPermAND}`
             );
             if (isMatch) {
               matchedOrgs[organization.id] = organization;
@@ -248,9 +260,9 @@ export default class AvOrganizations extends AvApi {
         } else {
           // check for the one resource
           const isMatch = organization.resources.some(
-            resource => `${resource.id}` === `${resourceIdsPerm}`
+            resource => `${resource.id}` === `${resourceIdsORForPermOR}`
           );
-          if (isMatch || !resourceIdsPerm) {
+          if (isMatch || !resourceIdsORForPermOR) {
             matchedOrgs[organization.id] = organization;
           }
         }
