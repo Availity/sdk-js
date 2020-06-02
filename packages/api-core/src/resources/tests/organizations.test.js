@@ -716,6 +716,128 @@ describe('AvOrganizations', () => {
 
       expect(authorizedFilteredOrgs.length).toBe(2);
     });
+
+    test('should not filter organizations by missing permission OR', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        leimit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [9999, 1234],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(2);
+    });
+
+    test('should filter organizations by missing permission AND', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        leimit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [[9999, 1234]],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(0);
+    });
+
+    test('should not filter organizations by missing resource OR', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        leimit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [9999],
+        resourceIds: [99999, 11223],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(1);
+    });
+
+    test('should filter organizations by missing resource AND', async () => {
+      api = new AvOrganizations({
+        http: mockHttp,
+        promise: Promise,
+        merge: mockMerge,
+        avUsers: mockAvUsers,
+        avUserPermissions: mockAvUserPermissions,
+      });
+
+      const data = {
+        leimit: 50,
+        offset: 0,
+        region: 'CA',
+      };
+
+      const additionalPostGetArgs = {
+        permissionIds: [9999],
+        resourceIds: [[99999, 11223]],
+      };
+
+      const {
+        data: { authorizedFilteredOrgs },
+      } = await api.getFilteredOrganizations(
+        mockOrg,
+        additionalPostGetArgs,
+        data
+      );
+
+      expect(authorizedFilteredOrgs.length).toBe(0);
+    });
   });
 
   describe('sanitizeIds', () => {

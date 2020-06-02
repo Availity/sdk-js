@@ -131,26 +131,33 @@ export default class AvOrganizations extends AvApi {
       if (Array.isArray(permissionIdOR)) {
         const matchedOrgs = permissionIdOR.reduce(
           (matchedANDOrgsByPerm, permissionIdAND, index) => {
-            this.userPermissions[`${permissionIdAND}`].organizations.forEach(
-              org => {
-                if (index === 0) {
-                  // add the orgs for the first permission
-                  matchedANDOrgsByPerm[org.id] = org;
-                } else if (matchedANDOrgsByPerm[org.id]) {
-                  // if duplicate, add resources
-                  matchedANDOrgsByPerm[org.id].resources = matchedANDOrgsByPerm[
-                    org.id
-                  ].resources.concat(org.resources);
+            if (this.userPermissions[permissionIdAND]) {
+              this.userPermissions[permissionIdAND].organizations.forEach(
+                org => {
+                  if (index === 0) {
+                    // add the orgs for the first permission
+                    matchedANDOrgsByPerm[org.id] = org;
+                  } else if (matchedANDOrgsByPerm[org.id]) {
+                    // if duplicate, add resources
+                    matchedANDOrgsByPerm[
+                      org.id
+                    ].resources = matchedANDOrgsByPerm[org.id].resources.concat(
+                      org.resources
+                    );
+                  }
                 }
-              }
-            );
+              );
+            }
             // filter unmatched orgs out
             matchedANDOrgsByPerm = Object.keys(matchedANDOrgsByPerm)
-              .filter(orgId =>
-                this.userPermissions[permissionIdAND].organizations.some(
-                  org => org.id === orgId
-                )
-              )
+              .filter(orgId => {
+                if (this.userPermissions[permissionIdAND]) {
+                  return this.userPermissions[
+                    permissionIdAND
+                  ].organizations.some(org => org.id === orgId);
+                }
+                return false;
+              })
               .reduce((obj, orgId) => {
                 obj[orgId] = matchedANDOrgsByPerm[orgId];
                 return obj;
@@ -166,8 +173,7 @@ export default class AvOrganizations extends AvApi {
             accum[orgId].match = false;
           }
         });
-      } else {
-        // just one permission, get the orgs under this permission
+      } else if (this.userPermissions[permissionIdOR]) {
         this.userPermissions[permissionIdOR].organizations.forEach(org => {
           if (!accum[org.id]) {
             accum[org.id] = org;
