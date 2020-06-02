@@ -718,6 +718,30 @@ describe('AvOrganizations', () => {
     });
   });
 
+  describe('sanitizeIds', () => {
+    test('converts arrays/numbers to strings', () => {
+      expect(api.sanitizeIds(7777)).toEqual('7777');
+      expect(api.sanitizeIds([7777])).toEqual(['7777']);
+      expect(api.sanitizeIds([7777, '8888'])).toEqual(['7777', '8888']);
+      expect(api.sanitizeIds('7777')).toEqual('7777');
+      expect(api.sanitizeIds([[7777]])).toEqual([['7777']]);
+      expect(api.sanitizeIds([[7777, 8888], 9999])).toEqual([
+        ['7777', '8888'],
+        '9999',
+      ]);
+      expect(api.sanitizeIds([9999, ''])).toEqual(['9999', '']);
+      expect(
+        api.sanitizeIds([
+          [7777, 9999],
+          [7777, 8888],
+        ])
+      ).toEqual([
+        ['7777', '9999'],
+        ['7777', '8888'],
+      ]);
+    });
+  });
+
   describe('arePermissionsEqual', () => {
     test('works for strings', async () => {
       api = new AvOrganizations({
@@ -727,11 +751,11 @@ describe('AvOrganizations', () => {
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
-      api.previousPermissionIds = '7777';
-      expect(api.arePermissionsEqual('7777')).toBe(true);
-      expect(api.arePermissionsEqual(7777)).toBe(true);
-      expect(api.arePermissionsEqual([7777])).toBe(true);
-      expect(api.arePermissionsEqual([8888])).toBe(false);
+      api.previousPermissionIds = api.sanitizeIds('7777');
+      expect(api.arePermissionsEqual(api.sanitizeIds('7777'))).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds(7777))).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds([7777]))).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds([8888]))).toBe(false);
     });
 
     test('works for array', async () => {
@@ -742,9 +766,13 @@ describe('AvOrganizations', () => {
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
-      api.previousPermissionIds = ['7777', '8888'];
-      expect(api.arePermissionsEqual(['8888', '7777'])).toBe(true);
-      expect(api.arePermissionsEqual(['7777', '9999'])).toBe(false);
+      api.previousPermissionIds = api.sanitizeIds(['7777', '8888']);
+      expect(api.arePermissionsEqual(api.sanitizeIds(['8888', '7777']))).toBe(
+        true
+      );
+      expect(api.arePermissionsEqual(api.sanitizeIds(['7777', '9999']))).toBe(
+        false
+      );
     });
 
     test('works for nested array', async () => {
@@ -755,11 +783,19 @@ describe('AvOrganizations', () => {
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
-      api.previousPermissionIds = [[7777, 8888], [9999]];
-      expect(api.arePermissionsEqual(['8888', '7777', '9999'])).toBe(true);
-      expect(api.arePermissionsEqual([['8888', '7777'], ['9999']])).toBe(true);
-      expect(api.arePermissionsEqual([['7777', '8888']])).toBe(false);
-      expect(api.arePermissionsEqual([['7777', '8888'], ['5555']])).toBe(false);
+      api.previousPermissionIds = api.sanitizeIds([[7777, 8888], [9999]]);
+      expect(
+        api.arePermissionsEqual(api.sanitizeIds(['8888', '7777', '9999']))
+      ).toBe(true);
+      expect(
+        api.arePermissionsEqual(api.sanitizeIds([['8888', '7777'], ['9999']]))
+      ).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds([['7777', '8888']]))).toBe(
+        false
+      );
+      expect(
+        api.arePermissionsEqual(api.sanitizeIds([['7777', '8888'], ['5555']]))
+      ).toBe(false);
     });
   });
 });

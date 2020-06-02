@@ -85,30 +85,14 @@ export default class AvOrganizations extends AvApi {
       totalCount: totalOrgCount,
     } = organizationsData;
 
-    const permissionIdsToUse = permissionIds || permissionId;
-    if (
-      typeof permissionIdsToUse !== 'string' &&
-      typeof permissionIdsToUse !== 'number' &&
-      !Array.isArray(permissionIdsToUse)
-    ) {
-      throw new TypeError(
-        'permissionId(s) must be either an array of ids, a string, or a number'
-      );
-    }
-    if (
-      typeof resourceIds !== 'string' &&
-      typeof resourceIds !== 'number' &&
-      !Array.isArray(resourceIds)
-    ) {
-      throw new TypeError(
-        'resourceIds must be either an array of ids, a string, or a number'
-      );
-    }
+    let permissionIdsToUse = permissionIds || permissionId;
+    permissionIdsToUse = this.sanitizeIds(permissionIdsToUse);
+    const resourceIdsToUse = this.sanitizeIds(resourceIds);
 
     // resourceIds is passed as readOnly, convert so that we can use Array methods on it
-    const resourceIdsArray = Array.isArray(resourceIds)
-      ? resourceIds
-      : [`${resourceIds}`];
+    const resourceIdsArray = Array.isArray(resourceIdsToUse)
+      ? resourceIdsToUse
+      : [`${resourceIdsToUse}`];
 
     const permissionIdsOR = Array.isArray(permissionIdsToUse)
       ? permissionIdsToUse
@@ -163,7 +147,7 @@ export default class AvOrganizations extends AvApi {
             // filter unmatched orgs out
             matchedANDOrgsByPerm = Object.keys(matchedANDOrgsByPerm)
               .filter(orgId =>
-                this.userPermissions[`${permissionIdAND}`].organizations.some(
+                this.userPermissions[permissionIdAND].organizations.some(
                   org => org.id === orgId
                 )
               )
@@ -184,7 +168,7 @@ export default class AvOrganizations extends AvApi {
         });
       } else {
         // just one permission, get the orgs under this permission
-        this.userPermissions[`${permissionIdOR}`].organizations.forEach(org => {
+        this.userPermissions[permissionIdOR].organizations.forEach(org => {
           if (!accum[org.id]) {
             accum[org.id] = org;
             accum[org.id].match = false;
@@ -211,9 +195,7 @@ export default class AvOrganizations extends AvApi {
           Object.keys(authorizedOrgs).forEach(orgId => {
             if (authorizedOrgs[orgId]) {
               const isMatch = resourceIdOR.every(resId =>
-                authorizedOrgs[orgId].resources.some(
-                  res => `${res.id}` === `${resId}`
-                )
+                authorizedOrgs[orgId].resources.some(res => res.id === resId)
               );
               if (isMatch) {
                 authorizedOrgs[orgId].match = true;
@@ -223,7 +205,7 @@ export default class AvOrganizations extends AvApi {
         } else {
           Object.keys(authorizedOrgs).forEach(orgId => {
             const isMatch = authorizedOrgs[orgId].resources.some(
-              res => `${res.id}` === `${resourceIdOR}`
+              res => res.id === resourceIdOR
             );
             if (isMatch || !resourceIdOR) {
               authorizedOrgs[orgId].match = true;
@@ -259,15 +241,15 @@ export default class AvOrganizations extends AvApi {
     // handle nested arrays by collecting all permission values for both new and previous, then Set-ing them
     const permissionArray = [];
     if (typeof permissionId === 'string' || typeof permissionId === 'number') {
-      permissionArray.push(`${permissionId}`);
+      permissionArray.push(permissionId);
     } else if (Array.isArray(permissionId)) {
       permissionId.forEach(permissionOR => {
         if (Array.isArray(permissionOR)) {
           permissionOR.forEach(permissionAND => {
-            permissionArray.push(`${permissionAND}`);
+            permissionArray.push(permissionAND);
           });
         } else {
-          permissionArray.push(`${permissionOR}`);
+          permissionArray.push(permissionOR);
         }
       });
     }
@@ -277,15 +259,15 @@ export default class AvOrganizations extends AvApi {
       typeof this.previousPermissionIds === 'string' ||
       typeof this.previousPermissionIds === 'number'
     ) {
-      prevPermissionArray.push(`${this.previousPermissionIds}`);
+      prevPermissionArray.push(this.previousPermissionIds);
     } else if (Array.isArray(this.previousPermissionIds)) {
       this.previousPermissionIds.forEach(permissionOR => {
         if (Array.isArray(permissionOR)) {
           permissionOR.forEach(permissionAND => {
-            prevPermissionArray.push(`${permissionAND}`);
+            prevPermissionArray.push(permissionAND);
           });
         } else {
-          prevPermissionArray.push(`${permissionOR}`);
+          prevPermissionArray.push(permissionOR);
         }
       });
     }
@@ -294,5 +276,20 @@ export default class AvOrganizations extends AvApi {
     const idSetCombined = new Set([...permissionArray, ...prevPermissionArray]);
 
     return idSet.size === idSetCombined.size;
+  }
+
+  sanitizeIds(unsanitized) {
+    if (typeof unsanitized === 'string') {
+      return unsanitized;
+    }
+    if (typeof unsanitized === 'number') {
+      return `${unsanitized}`;
+    }
+    if (Array.isArray(unsanitized)) {
+      return unsanitized.map(dirty => this.sanitizeIds(dirty));
+    }
+    throw new TypeError(
+      'permission/resourcesId(s) must be either an array of ids, a string, or a number'
+    );
   }
 }
