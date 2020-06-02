@@ -144,9 +144,8 @@ export default class AvOrganizations extends AvApi {
 
     // loop thru the permissionId list of ORs, finding and adding matching orgs in the userPermissions. ANDs are beneath/within the ORs
     const authorizedOrgs = permissionIdsOR.reduce((accum, permissionIdOR) => {
-      let matchedOrgs = {};
       if (Array.isArray(permissionIdOR)) {
-        matchedOrgs = permissionIdOR.reduce(
+        const matchedOrgs = permissionIdOR.reduce(
           (matchedANDOrgsByPerm, permissionIdAND, index) => {
             this.userPermissions[`${permissionIdAND}`].organizations.forEach(
               org => {
@@ -180,6 +179,7 @@ export default class AvOrganizations extends AvApi {
         Object.keys(matchedOrgs).forEach(orgId => {
           if (!accum[orgId]) {
             accum[orgId] = matchedOrgs[orgId];
+            accum[orgId].match = false;
           }
         });
       } else {
@@ -187,6 +187,7 @@ export default class AvOrganizations extends AvApi {
         this.userPermissions[`${permissionIdOR}`].organizations.forEach(org => {
           if (!accum[org.id]) {
             accum[org.id] = org;
+            accum[org.id].match = false;
           } else {
             // add the resources
             accum[org.id].resources = accum[org.id].resources.concat(
