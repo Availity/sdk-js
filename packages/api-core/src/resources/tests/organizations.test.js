@@ -236,6 +236,7 @@ describe('AvOrganizations', () => {
       expect(api.query).toHaveBeenLastCalledWith(testConfig);
     });
   });
+
   describe('with additionalPostGetArgs', () => {
     test('should filter out org that does not have valid resource', async () => {
       api = new AvOrganizations({
@@ -254,7 +255,7 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        resourceIds: [['10111'], ['11000']],
+        resourceIds: ['10111', '11000'],
       };
 
       const {
@@ -318,7 +319,7 @@ describe('AvOrganizations', () => {
       };
 
       const additionalPostGetArgs = {
-        resourceIds: [10222],
+        resourceIds: [10111],
       };
 
       const {
@@ -329,7 +330,7 @@ describe('AvOrganizations', () => {
         data
       );
 
-      expect(authorizedFilteredOrgs.length).toBe(1);
+      expect(authorizedFilteredOrgs.length).toBe(2);
     });
 
     test('should work when permissionId and resourceId are arrays', async () => {
@@ -504,7 +505,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [['7777', '8888']],
-        resourceIds: [[['10111'], ['11000']]],
+        resourceIds: [['10111', '11000']],
       };
 
       const {
@@ -551,6 +552,7 @@ describe('AvOrganizations', () => {
       expect(authorizedFilteredOrgs[0].id).toBe('1435');
     });
 
+    //
     test('should filter organizations by AND permissions + AND resources', async () => {
       api = new AvOrganizations({
         http: mockHttp,
@@ -568,7 +570,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [[7777, 8888]],
-        resourceIds: [[[[10111, 10222]], 11000]],
+        resourceIds: [[10111, 10222, 11000]],
       };
 
       const {
@@ -604,8 +606,8 @@ describe('AvOrganizations', () => {
           [7777, 8888],
         ],
         resourceIds: [
-          [[10111], [90000]],
-          [[10111], [11011]],
+          [10111, 90000],
+          [10111, 11011],
         ],
       };
 
@@ -639,7 +641,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [[7777, 9999]],
-        resourceIds: [[[[10111, 10222]]], 99999],
+        resourceIds: [[10111, 10222, 99999]],
       };
 
       const {
@@ -670,7 +672,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [7777],
-        resourceIds: [[[10111, 10222]]],
+        resourceIds: [[10111, 10222]],
       };
 
       const {
@@ -701,7 +703,7 @@ describe('AvOrganizations', () => {
 
       const additionalPostGetArgs = {
         permissionIds: [9999, 8888],
-        resourceIds: [[99999, 90000]], // OR for perm 9999, no resources needed for perm 8888
+        resourceIds: [99999, 90000], // OR for perm 9999, no resources on 8888 means none are valid
       };
 
       const {
@@ -712,7 +714,7 @@ describe('AvOrganizations', () => {
         data
       );
 
-      expect(authorizedFilteredOrgs.length).toBe(3);
+      expect(authorizedFilteredOrgs.length).toBe(2);
     });
   });
 
