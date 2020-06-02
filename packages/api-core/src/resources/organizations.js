@@ -92,11 +92,11 @@ export default class AvOrganizations extends AvApi {
     // resourceIds is passed as readOnly, convert so that we can use Array methods on it
     const resourceIdsArray = Array.isArray(resourceIdsToUse)
       ? resourceIdsToUse
-      : [`${resourceIdsToUse}`];
+      : [resourceIdsToUse];
 
     const permissionIdsOR = Array.isArray(permissionIdsToUse)
       ? permissionIdsToUse
-      : [`${permissionIdsToUse}`];
+      : [permissionIdsToUse];
 
     if (
       region !== this.previousRegionId ||
