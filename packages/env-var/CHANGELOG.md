@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.11.0 (2020-06-03)
+
+
+### Features
+
+* **env-var:** add sandbox support to cloud environment ([8ada30c](https://github.com/availity/sdk-js/commit/8ada30cabe64eb95cc37f3b3e0d68444585c0373))
+
+
+
+
+
 # 1.10.0 (2020-05-20)
 
 
