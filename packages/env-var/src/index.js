@@ -1,6 +1,6 @@
 // Cloud domains are in the format <team>.<cloud provider><zone>.availity.com
 // where <cloud provider> is a two character abbreviation for the cloud provider
-// and zone is a one character abbreviation for prod vs non-prod.
+// and zone is a one character abbreviation for prod, non-prod,or sandbox.
 // Cloud URIs are in the format /<namespace>/<environment>/...
 // where <namespace> is a three character abbreviation, e.g., cdn or api
 // and <environment> is a three character abbreviation, e.g., prd or t01
@@ -8,18 +8,19 @@ const getCloudEnv = options => {
   const { subdomain, pathname } = options;
   if (!(subdomain && pathname)) return null;
 
-  const subMatch = subdomain.match(/.*?\.(?:av|aw|gc)(n|p)$/);
+  const subMatch = subdomain.match(/.*?\.(?:aw|az|gc)(n|p|s)$/);
   if (!subMatch) return null;
 
   const pathMatch = pathname.match(/^\/[a-z]{3}\/([a-z0-9]{3})\/.*/);
   if (!pathMatch) return null;
 
-  // ??p domains must be prod, ??n domains can't be prod
+  // ??p domains must be prod, ??n and ??s domains can't be prod
   const isProdPath = pathMatch[1] === 'prd';
   switch (subMatch[1]) {
     case 'p':
       return isProdPath ? pathMatch[1] : null;
     case 'n':
+    case 's':
       return isProdPath ? null : pathMatch[1];
     default:
       return null;
@@ -45,7 +46,7 @@ let specificEnvironments = [
     fn: options => options.match[1] || 'prod',
   },
   {
-    regex: /.*?\.(?:av|aw|gc)(n|p)$/,
+    regex: /.*?\.(?:aw|az|gc)(n|p|s)$/,
     fn: getCloudEnv,
   },
 ];
