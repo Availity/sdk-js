@@ -1,3 +1,4 @@
+import qs from 'qs';
 import AvApi from '../api';
 
 export default class AvOrganizations extends AvApi {
@@ -46,6 +47,16 @@ export default class AvOrganizations extends AvApi {
 
   async postGet(data, config, additionalPostGetArgs) {
     if (additionalPostGetArgs) {
+      const { permissionIds } = additionalPostGetArgs;
+      if (permissionIds) {
+        if (typeof data === 'string') {
+          const dataTemp = qs.parse(data);
+          dataTemp.permissionId = permissionIds;
+          data = qs.stringify(dataTemp, { arrayFormat: 'repeat' });
+        } else if (typeof data === 'object') {
+          data.permissionId = permissionIds;
+        }
+      }
       const { data: organizationsData } = await super.postGet(data, config);
 
       return this.getFilteredOrganizations(
@@ -64,7 +75,8 @@ export default class AvOrganizations extends AvApi {
     additionalPostGetArgs,
     data
   ) {
-    const { resourceIds } = additionalPostGetArgs;
+    // for filtered orgs, can pass both permissions and resources in postGetArgs, and we will use the permissionIds here over the data.permissionId
+    const { resourceIds = [], permissionIds } = additionalPostGetArgs;
     const { permissionId, region } = data;
     const {
       organizations,
@@ -73,24 +85,22 @@ export default class AvOrganizations extends AvApi {
       totalCount: totalOrgCount,
     } = organizationsData;
 
-    if (typeof permissionId !== 'string' && !Array.isArray(permissionId)) {
-      throw new TypeError(
-        'permissionId must be either an array of ids or a string'
-      );
-    }
-    if (typeof resourceIds !== 'string' && !Array.isArray(resourceIds)) {
-      throw new TypeError(
-        'resourceIds must be either an array of ids or a string'
-      );
-    }
+    let permissionIdsToUse = permissionIds || permissionId;
+    permissionIdsToUse = this.sanitizeIds(permissionIdsToUse);
+    const resourceIdsToUse = this.sanitizeIds(resourceIds);
 
     // resourceIds is passed as readOnly, convert so that we can use Array methods on it
-    const resourceIdsArray =
-      typeof resourceIds === 'string' ? [resourceIds] : resourceIds;
+    const resourceIdsArray = Array.isArray(resourceIdsToUse)
+      ? resourceIdsToUse
+      : [resourceIdsToUse];
+
+    const permissionIdsOR = Array.isArray(permissionIdsToUse)
+      ? permissionIdsToUse
+      : [permissionIdsToUse];
 
     if (
       region !== this.previousRegionId ||
-      !this.arePermissionsEqual(permissionId)
+      !this.arePermissionsEqual(permissionIdsOR)
     ) {
       // avUserPermissions will return a list of user organizations that match given permission and region
       // This call does not need to be paginated and
@@ -99,47 +109,127 @@ export default class AvOrganizations extends AvApi {
       const {
         data: { axiUserPermissions: userPermissions },
       } = await this.avUserPermissions.postGet({
-        permissionId,
+        permissionId: permissionIdsOR,
         region,
-        limit: permissionId.length,
+        limit: permissionIdsOR.length,
       });
 
       if (userPermissions) {
-        this.userPermissions = userPermissions;
-        this.previousPermissionIds = permissionId;
+        this.userPermissions = userPermissions.reduce((accum, cur) => {
+          accum[cur.id] = cur;
+          return accum;
+        }, {});
+        this.previousPermissionIds = permissionIdsOR;
         this.previousRegionId = region;
       } else {
         throw new Error('avUserPermissions call failed');
       }
     }
 
-    // Reduce the userPermissions result into a collection of orgs that contain a valid resource
-    const authorizedOrgs = this.userPermissions.reduce(
-      (accum, userPermission) => {
-        userPermission.organizations.forEach(userOrg => {
-          const isDuplicate = accum.some(item => item.id === userOrg.id);
-          if (!isDuplicate) {
-            // If this org contains one of the passed in resourceIds, it is an authorized org
-            const match = userOrg.resources.some(userResource => {
-              return resourceIdsArray.some(
-                resource => Number(resource) === Number(userResource.id)
+    // loop thru the permissionId list of ORs, finding and adding matching orgs in the userPermissions. ANDs are beneath/within the ORs
+    const authorizedOrgs = permissionIdsOR.reduce((accum, permissionIdOR) => {
+      if (Array.isArray(permissionIdOR)) {
+        const matchedOrgs = permissionIdOR.reduce(
+          (matchedANDOrgsByPerm, permissionIdAND, index) => {
+            if (this.userPermissions[permissionIdAND]) {
+              this.userPermissions[permissionIdAND].organizations.forEach(
+                org => {
+                  if (index === 0) {
+                    // add the orgs for the first permission
+                    matchedANDOrgsByPerm[org.id] = org;
+                  } else if (matchedANDOrgsByPerm[org.id]) {
+                    // if duplicate, add resources
+                    matchedANDOrgsByPerm[
+                      org.id
+                    ].resources = matchedANDOrgsByPerm[org.id].resources.concat(
+                      org.resources
+                    );
+                  }
+                }
               );
-            });
-            if (match) {
-              accum.push({ id: userOrg.id });
             }
+            // filter unmatched orgs out
+            matchedANDOrgsByPerm = Object.keys(matchedANDOrgsByPerm)
+              .filter(orgId => {
+                if (this.userPermissions[permissionIdAND]) {
+                  return this.userPermissions[
+                    permissionIdAND
+                  ].organizations.some(org => org.id === orgId);
+                }
+                return false;
+              })
+              .reduce((obj, orgId) => {
+                obj[orgId] = matchedANDOrgsByPerm[orgId];
+                return obj;
+              }, {});
+
+            return matchedANDOrgsByPerm;
+          },
+          {}
+        );
+        Object.keys(matchedOrgs).forEach(orgId => {
+          if (!accum[orgId]) {
+            accum[orgId] = matchedOrgs[orgId];
+            accum[orgId].match = false;
           }
         });
+      } else if (this.userPermissions[permissionIdOR]) {
+        this.userPermissions[permissionIdOR].organizations.forEach(org => {
+          if (!accum[org.id]) {
+            accum[org.id] = org;
+            accum[org.id].match = false;
+          } else {
+            // add the resources
+            accum[org.id].resources = accum[org.id].resources.concat(
+              org.resources
+            );
+          }
+        });
+      }
+      return accum;
+    }, {});
 
-        return accum;
-      },
-      []
-    );
+    // loop thru the orgs from permission filtering and check resourceIds list to further filter
+    if (resourceIdsArray.length === 0) {
+      Object.keys(authorizedOrgs).forEach(orgId => {
+        authorizedOrgs[orgId].match = true;
+      });
+    } else {
+      resourceIdsArray.forEach(resourceIdOR => {
+        if (Array.isArray(resourceIdOR)) {
+          // there is AND logic
+          Object.keys(authorizedOrgs).forEach(orgId => {
+            if (authorizedOrgs[orgId]) {
+              const isMatch = resourceIdOR.every(resId =>
+                authorizedOrgs[orgId].resources.some(res => res.id === resId)
+              );
+              if (isMatch) {
+                authorizedOrgs[orgId].match = true;
+              }
+            }
+          });
+        } else {
+          Object.keys(authorizedOrgs).forEach(orgId => {
+            const isMatch = authorizedOrgs[orgId].resources.some(
+              res => res.id === resourceIdOR
+            );
+            if (isMatch || !resourceIdOR) {
+              authorizedOrgs[orgId].match = true;
+            }
+          });
+        }
+      }, {});
+    }
 
     // avUserPermissions call doesn't return much useful organization data
     // but we can match valid ids to useful data returned from avOrganizations
     const authorizedFilteredOrgs = organizations.filter(org =>
-      authorizedOrgs.some(authorizedOrg => authorizedOrg.id === org.id)
+      Object.keys(authorizedOrgs).some(
+        orgId =>
+          authorizedOrgs[orgId] &&
+          authorizedOrgs[orgId].match &&
+          orgId === org.id
+      )
     );
 
     // Transform back into data object that ResourceSelect can use and paginate
@@ -154,28 +244,58 @@ export default class AvOrganizations extends AvApi {
   }
 
   arePermissionsEqual(permissionId) {
-    if (typeof permissionId !== typeof this.previousPermissionIds) return false;
-
-    if (typeof permissionId === 'string')
-      return permissionId === this.previousPermissionIds;
-
-    if (
-      Array.isArray(permissionId) &&
-      Array.isArray(this.previousPermissionIds)
-    ) {
-      if (permissionId.length !== this.previousPermissionIds.length)
-        return false;
-
-      // if lengths are equal, need a way to check if values are the same or not
-      // Sets won't allow duplicate values
-      // if size of Set is greater than length of original arrays
-      // then a different value was inserted and they are not equal
-      const idSet = new Set([...permissionId], [...this.previousPermissionIds]);
-      if (idSet.size !== permissionId.length) return false;
-
-      return true;
+    // handle nested arrays by collecting all permission values for both new and previous, then Set-ing them
+    const permissionArray = [];
+    if (typeof permissionId === 'string' || typeof permissionId === 'number') {
+      permissionArray.push(permissionId);
+    } else if (Array.isArray(permissionId)) {
+      permissionId.forEach(permissionOR => {
+        if (Array.isArray(permissionOR)) {
+          permissionOR.forEach(permissionAND => {
+            permissionArray.push(permissionAND);
+          });
+        } else {
+          permissionArray.push(permissionOR);
+        }
+      });
     }
 
-    return false;
+    const prevPermissionArray = [];
+    if (
+      typeof this.previousPermissionIds === 'string' ||
+      typeof this.previousPermissionIds === 'number'
+    ) {
+      prevPermissionArray.push(this.previousPermissionIds);
+    } else if (Array.isArray(this.previousPermissionIds)) {
+      this.previousPermissionIds.forEach(permissionOR => {
+        if (Array.isArray(permissionOR)) {
+          permissionOR.forEach(permissionAND => {
+            prevPermissionArray.push(permissionAND);
+          });
+        } else {
+          prevPermissionArray.push(permissionOR);
+        }
+      });
+    }
+
+    const idSet = new Set([...permissionArray]);
+    const idSetCombined = new Set([...permissionArray, ...prevPermissionArray]);
+
+    return idSet.size === idSetCombined.size;
+  }
+
+  sanitizeIds(unsanitized) {
+    if (typeof unsanitized === 'string') {
+      return unsanitized;
+    }
+    if (typeof unsanitized === 'number') {
+      return `${unsanitized}`;
+    }
+    if (Array.isArray(unsanitized)) {
+      return unsanitized.map(dirty => this.sanitizeIds(dirty));
+    }
+    throw new TypeError(
+      'permission/resourcesId(s) must be either an array of ids, a string, or a number'
+    );
   }
 }

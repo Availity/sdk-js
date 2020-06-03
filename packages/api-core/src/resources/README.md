@@ -59,7 +59,7 @@ Get metadata for the various content types for the Spaces platform.
 
 ### `AvOrganizations`
 
-Service that allows you to get logged=in user's active organizations.
+Service that allows you to get logged in user's active organizations.
 
 #### Methods
 
@@ -70,6 +70,10 @@ Returns organizations belonging to the `user`.
 ##### `getOrganizations(config)`
 
 Returns organizations belonging to the logged in user.
+
+##### `postGet(data, config, additionalPostGetArgs)`
+
+Filters the returned organizations by permissions/resources if additionalPostGetArgs are passed
 
 ### `AvProviders`
 
