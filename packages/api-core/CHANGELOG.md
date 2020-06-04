@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.5.0 (2020-06-04)
+
+
+### Features
+
+* **api-core:** route api calls to on-prem when called from cloud apps ([94fa9df](https://github.com/Availity/sdk-js/commit/94fa9dff730e514fd21abe0910d460e7958e9a94))
+
+
+
+
+
 # 6.4.0 (2020-06-03)
 
 
