@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.2](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.5.1...@availity/api-core@6.5.2) (2020-06-04)
+
+
+### Bug Fixes
+
+* **api-core:** remove incorrect limit for axiUserPermissions in orgFilter ([edbddbf](https://github.com/Availity/sdk-js/commit/edbddbf2c7181d6ab634fc9fb5f0967d1d92d02b))
+
+
+
+
+
 ## [6.5.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.5.0...@availity/api-core@6.5.1) (2020-06-04)
 
 
