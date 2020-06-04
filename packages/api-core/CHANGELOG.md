@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.5.0...@availity/api-core@6.5.1) (2020-06-04)
+
+
+### Bug Fixes
+
+* **api-core:** filteredOrgs not sending region to axiUserPerms ([3706a72](https://github.com/Availity/sdk-js/commit/3706a7274ac4cd67271e9088d6fa8b8392c49c83))
+
+
+
+
+
 # 6.5.0 (2020-06-04)
 
 
