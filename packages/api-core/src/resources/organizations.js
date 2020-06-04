@@ -77,6 +77,9 @@ export default class AvOrganizations extends AvApi {
   ) {
     // for filtered orgs, can pass both permissions and resources in postGetArgs, and we will use the permissionIds here over the data.permissionId
     const { resourceIds = [], permissionIds } = additionalPostGetArgs;
+    if (typeof data === 'string') {
+      data = qs.parse(data);
+    }
     const { permissionId, region } = data;
     const {
       organizations,
