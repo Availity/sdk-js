@@ -1,5 +1,6 @@
 import AvApi from './api';
 import API_OPTIONS from './options';
+import resolveHost from './resolve-host';
 
 export default class AvMicroservice extends AvApi {
   constructor({ http, promise, merge, config }) {
@@ -19,10 +20,13 @@ export default class AvMicroservice extends AvApi {
     if (id || configId) {
       parts = [path, version || '', name, id || configId];
     }
-    return parts
+    const uri = parts
       .join('/')
       .replace(/[/]+/g, '/')
       .replace(/\/$/, '');
+
+    const hostname = resolveHost(config.host, config.window || window);
+    return (hostname ? `https://${hostname}` : '') + uri;
   }
 
   // polling location is the same url

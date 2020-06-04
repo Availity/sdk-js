@@ -2,6 +2,7 @@ import qs from 'qs';
 import resolveUrl from '@availity/resolve-url';
 
 import API_OPTIONS from './options';
+import resolveHost from './resolve-host';
 
 export default class AvApi {
   constructor({ http, promise, merge, config }) {
@@ -100,6 +101,7 @@ export default class AvApi {
     }
 
     const { path, version, name, url } = config;
+
     let parts = [];
     if (name) {
       parts = ['', path, version, name, id];
@@ -108,10 +110,15 @@ export default class AvApi {
     }
 
     // join parts, remove multiple /'s and trailing /
-    return parts
+    const uri = parts
       .join('/')
       .replace(/[/]+/g, '/')
       .replace(/\/$/, '');
+
+    const hostname = url
+      ? null
+      : resolveHost(config.host, config.window || window);
+    return (hostname ? `https://${hostname}` : '') + uri;
   }
 
   getRequestUrl() {

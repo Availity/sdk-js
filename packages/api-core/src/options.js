@@ -31,6 +31,9 @@ const API_OPTIONS = {
     },
 
     sessionBust: true,
+
+    // send credentials on CORS requests
+    withCredentials: true,
   },
   MS: {
     // default base segment for Availity API endpoints
@@ -64,6 +67,9 @@ const API_OPTIONS = {
     },
 
     sessionBust: false,
+
+    // send credentials on CORS requests
+    withCredentials: true,
   },
 };
 
