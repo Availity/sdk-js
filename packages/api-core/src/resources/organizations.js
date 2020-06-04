@@ -108,13 +108,11 @@ export default class AvOrganizations extends AvApi {
       // avUserPermissions will return a list of user organizations that match given permission and region
       // This call does not need to be paginated and
       // we should not need to call it every time we paginate orgs if region and permissions are the same
-      // Limit is set to permissionId.length because that represents maximum results we can get back
       const {
         data: { axiUserPermissions: userPermissions },
       } = await this.avUserPermissions.postGet({
         permissionId: permissionIdsOR,
         region,
-        limit: permissionIdsOR.length,
       });
 
       if (userPermissions) {
