@@ -74,6 +74,16 @@ describe('AvApi', () => {
     }).toThrow('[http], [promise], [config], and [merge] must be defined');
   });
 
+  test('AvApi should default to withCredentials set to true', () => {
+    api = new AvApi({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+    expect(api.defaultConfig.withCredentials).toBeTruthy();
+  });
+
   test('getQueryResultKey(data) should determine the key for the list within data', () => {
     const mockConfig = {
       name: 'testName',
@@ -481,6 +491,138 @@ describe('AvApi', () => {
         },
       });
       expect(fakeApi.getRequestUrl()).toBe('/api/v1/test');
+    });
+
+    test('should return full URL when host is specified', () => {
+      const testUrl = 'https://apps.availity.com/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        host: 'apps.availity.com',
+      };
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return cloud URL when host is specified', () => {
+      const testUrl = 'https://digital.awp.availity.com/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        host: 'digital.awp.availity.com',
+      };
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return apps when location is prod cloud', () => {
+      const testUrl = 'https://apps.availity.com/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        window: {
+          location: {
+            hostname: 'digital.awp.availity.com',
+            pathname: '/cdn/prd/spaces/index.html',
+          },
+        },
+      };
+
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return test-apps when location is tst cloud', () => {
+      const testUrl = 'https://test-apps.availity.com/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        window: {
+          location: {
+            hostname: 'digital.awn.availity.com',
+            pathname: '/cdn/tst/spaces/index.html',
+          },
+        },
+      };
+
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return qa-apps when location is stg cloud', () => {
+      const testUrl = 'https://qa-apps.availity.com/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        window: {
+          location: {
+            hostname: 'digital.awn.availity.com',
+            pathname: '/cdn/stg/spaces/index.html',
+          },
+        },
+      };
+
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return t01-apps when location is t01 cloud', () => {
+      const testUrl = 'https://t01-apps.availity.com/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        window: {
+          location: {
+            hostname: 'digital.awn.availity.com',
+            pathname: '/cdn/t01/spaces/index.html',
+          },
+        },
+      };
+
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return relative URL when location host is prod cloud but path is non-prod', () => {
+      const testUrl = '/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        window: {
+          location: {
+            hostname: 'digital.awp.availity.com',
+            pathname: '/cdn/tst/spaces/index.html',
+          },
+        },
+      };
+
+      expect(api.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    test('should return relative URL when location host is non-prod cloud but path is prod', () => {
+      const testUrl = '/api/v1/test';
+      const testConfig = {
+        api: true,
+        path: '/api/',
+        version: '/v1/',
+        name: '/test',
+        window: {
+          location: {
+            hostname: 'digital.awn.availity.com',
+            pathname: '/cdn/prd/spaces/index.html',
+          },
+        },
+      };
+
+      expect(api.getUrl(testConfig)).toBe(testUrl);
     });
   });
 
