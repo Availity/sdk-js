@@ -58,35 +58,41 @@ export default class AvOrganizations extends AvApi {
         }
       }
       const { data: organizationsData } = await super.postGet(data, config);
+      const { organizations, limit, offset, totalCount } = organizationsData;
 
-      return this.getFilteredOrganizations(
-        organizationsData,
+      const authorizedOrgs = await this.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
+
+      // avUserPermissions call doesn't return much useful organization data
+      // but we can match valid ids to useful data returned from avOrganizations
+      const authorizedFilteredOrgs = organizations.filter(org =>
+        authorizedOrgs.some(authOrg => authOrg.id === org.id)
+      );
+
+      // Transform back into data object that ResourceSelect can use and paginate
+      return {
+        data: {
+          authorizedFilteredOrgs,
+          totalCount,
+          limit,
+          offset,
+        },
+      };
     }
 
     // Else return normal organizations call
     return super.postGet(data, config);
   }
 
-  async getFilteredOrganizations(
-    organizationsData,
-    additionalPostGetArgs,
-    data
-  ) {
+  async getFilteredOrganizations(additionalPostGetArgs, data) {
     // for filtered orgs, can pass both permissions and resources in postGetArgs, and we will use the permissionIds here over the data.permissionId
     const { resourceIds = [], permissionIds } = additionalPostGetArgs;
     if (typeof data === 'string') {
       data = qs.parse(data);
     }
     const { permissionId, region } = data;
-    const {
-      organizations,
-      limit: orgLimit,
-      offset: orgOffset,
-      totalCount: totalOrgCount,
-    } = organizationsData;
 
     let permissionIdsToUse = permissionIds || permissionId;
     permissionIdsToUse = this.sanitizeIds(permissionIdsToUse);
@@ -222,26 +228,12 @@ export default class AvOrganizations extends AvApi {
       }, {});
     }
 
-    // avUserPermissions call doesn't return much useful organization data
-    // but we can match valid ids to useful data returned from avOrganizations
-    const authorizedFilteredOrgs = organizations.filter(org =>
-      Object.keys(authorizedOrgs).some(
-        orgId =>
-          authorizedOrgs[orgId] &&
-          authorizedOrgs[orgId].match &&
-          orgId === org.id
-      )
-    );
-
-    // Transform back into data object that ResourceSelect can use and paginate
-    return {
-      data: {
-        authorizedFilteredOrgs,
-        totalCount: totalOrgCount,
-        limit: orgLimit,
-        offset: orgOffset,
-      },
-    };
+    return Object.keys(authorizedOrgs).reduce((accum, orgId) => {
+      if (authorizedOrgs[orgId].match) {
+        accum.push(authorizedOrgs[orgId]);
+      }
+      return accum;
+    }, []);
   }
 
   arePermissionsEqual(permissionId) {

@@ -258,10 +258,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10111', '11000'],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -291,10 +288,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -322,10 +316,7 @@ describe('AvOrganizations', () => {
         resourceIds: [10111],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -353,10 +344,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -384,10 +372,7 @@ describe('AvOrganizations', () => {
         resourceIds: '10222',
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -415,10 +400,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -445,10 +427,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -456,7 +435,7 @@ describe('AvOrganizations', () => {
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
 
-    test('should use org data from avOrganizations and not avUserPermissions', async () => {
+    test('should return org data from avUserPermissions', async () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
@@ -476,16 +455,18 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
 
       expect(authorizedFilteredOrgs.length).toBe(1);
-      expect(authorizedFilteredOrgs[0].address).toBeDefined();
+      expect(authorizedFilteredOrgs[0].resources).toBeDefined();
+
+      const orgs = mockOrg.organizations.filter(org =>
+        authorizedFilteredOrgs.some(authOrg => authOrg.id === org.id)
+      );
+      expect(orgs[0].address).toBeDefined();
     });
 
     test('should filter organizations by AND permissions', async () => {
@@ -508,10 +489,7 @@ describe('AvOrganizations', () => {
         resourceIds: [['10111', '11000']],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -540,10 +518,7 @@ describe('AvOrganizations', () => {
         permissionIds: [[7777, 9999]],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -573,10 +548,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[10111, 10222, 11000]],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -611,10 +583,7 @@ describe('AvOrganizations', () => {
         ],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -644,10 +613,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[10111, 10222, 99999]],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -665,7 +631,7 @@ describe('AvOrganizations', () => {
       });
 
       const data = {
-        leimit: 50,
+        limit: 50,
         offset: 0,
         region: 'CA',
       };
@@ -675,10 +641,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[10111, 10222]],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -696,7 +659,7 @@ describe('AvOrganizations', () => {
       });
 
       const data = {
-        leimit: 50,
+        limit: 50,
         offset: 0,
         region: 'CA',
       };
@@ -706,10 +669,7 @@ describe('AvOrganizations', () => {
         resourceIds: [99999, 90000], // OR for perm 9999, no resources on 8888 means none are valid
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -727,7 +687,7 @@ describe('AvOrganizations', () => {
       });
 
       const data = {
-        leimit: 50,
+        limit: 50,
         offset: 0,
         region: 'CA',
       };
@@ -736,10 +696,7 @@ describe('AvOrganizations', () => {
         permissionIds: [9999, 1234],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -757,7 +714,7 @@ describe('AvOrganizations', () => {
       });
 
       const data = {
-        leimit: 50,
+        limit: 50,
         offset: 0,
         region: 'CA',
       };
@@ -766,10 +723,7 @@ describe('AvOrganizations', () => {
         permissionIds: [[9999, 1234]],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -787,7 +741,7 @@ describe('AvOrganizations', () => {
       });
 
       const data = {
-        leimit: 50,
+        limit: 50,
         offset: 0,
         region: 'CA',
       };
@@ -797,10 +751,7 @@ describe('AvOrganizations', () => {
         resourceIds: [99999, 11223],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
@@ -818,7 +769,7 @@ describe('AvOrganizations', () => {
       });
 
       const data = {
-        leimit: 50,
+        limit: 50,
         offset: 0,
         region: 'CA',
       };
@@ -828,10 +779,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[99999, 11223]],
       };
 
-      const {
-        data: { authorizedFilteredOrgs },
-      } = await api.getFilteredOrganizations(
-        mockOrg,
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
         additionalPostGetArgs,
         data
       );
