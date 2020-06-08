@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.5.2...@availity/api-core@6.6.0) (2020-06-08)
+
+
+### Bug Fixes
+
+* **api-core:** fix org filtering when permission/resource not returned ([7b08f09](https://github.com/Availity/sdk-js/commit/7b08f09fcb7545818a6d3aaacf9c6eabb3969ba7))
+* **api-core:** organization filtering fix for resource OR ([cb16c6a](https://github.com/Availity/sdk-js/commit/cb16c6a36fbf7d653c9ff70a0555981001c21606))
+* **api-core:** organization permissions fix equal check, allow number ([6fc93c1](https://github.com/Availity/sdk-js/commit/6fc93c114523350cad0d37d8167b5047707c33a9))
+
+
+### Features
+
+* **api-core:** add permission AND/OR logic to organization filter ([90acf02](https://github.com/Availity/sdk-js/commit/90acf029028413c9fb98443d136abb795295eb5c))
+
+
+
+
+
 ## [6.5.2](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.5.1...@availity/api-core@6.5.2) (2020-06-04)
 
 
