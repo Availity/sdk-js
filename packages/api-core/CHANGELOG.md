@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.6.0...@availity/api-core@6.6.1) (2020-06-15)
+
+
+### Bug Fixes
+
+* **api-core:** adds @availity/env-var as dependency ([4160e21](https://github.com/Availity/sdk-js/commit/4160e21e68376f62749c8690ca4babbc8ac76a99))
+
+
+
+
+
 # [6.6.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.5.2...@availity/api-core@6.6.0) (2020-06-08)
 
 

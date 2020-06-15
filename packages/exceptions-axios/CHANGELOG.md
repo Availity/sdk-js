@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.51](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.50...@availity/exceptions-axios@3.0.51) (2020-06-15)
+
+**Note:** Version bump only for package @availity/exceptions-axios
+
+
+
+
+
 ## [3.0.50](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@3.0.49...@availity/exceptions-axios@3.0.50) (2020-06-08)
 
 **Note:** Version bump only for package @availity/exceptions-axios
