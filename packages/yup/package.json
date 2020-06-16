@@ -28,6 +28,7 @@
     "yup": "^0.28.1"
   },
   "dependencies": {
+    "@babel/runtime": "^7.10.2",
     "lodash.get": "^4.4.2",
     "merge-options-es5": "^1.0.0"
   },

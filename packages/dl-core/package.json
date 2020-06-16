@@ -18,6 +18,7 @@
     "@availity/api-core": "^6.6.1"
   },
   "dependencies": {
+    "@babel/runtime": "^7.10.2",
     "js-file-download": "^0.4.7"
   },
   "publishConfig": {
