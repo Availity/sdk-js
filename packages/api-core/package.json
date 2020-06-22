@@ -20,6 +20,7 @@
   "dependencies": {
     "@availity/env-var": "^1.11.0",
     "@availity/resolve-url": "^1.1.19",
+    "@babel/runtime": "^7.10.2",
     "qs": "^6.5.2"
   },
   "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"

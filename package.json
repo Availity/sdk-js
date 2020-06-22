@@ -36,9 +36,10 @@
     "release:canary": "npm run check:packages && lerna publish -c",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "add": "sh ./scripts/add.sh",
-    "nuke": "npm run remove-locks && yarn clean",
-    "remove-locks": "find . -type f -name 'package-lock.json' -delete",
+    "nuke": "yarn remove-locks && yarn clean",
+    "remove-locks": "find . -type f -name 'yarn.lock' -delete",
     "check:packages": "sh ./scripts/artifactory-check.sh",
+    "check:dependencies": "node scripts/check-missing-deps.js",
     "pub": "lerna exec --bail false --concurrency 1 -- npm publish",
     "new": "plop"
   },
@@ -55,6 +56,7 @@
     "codecov": "^3.5.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^6.0.0",
+    "dependency-check": "^4.1.0",
     "eslint-config-availity": "^5.2.3",
     "gh-pages": "^2.1.1",
     "husky": "^4.2.1",
@@ -103,7 +105,8 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn check:dependencies && yarn check:packages"
     }
   }
 }
