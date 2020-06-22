@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "6.6.1",
+  "version": "6.6.2",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@availity/env-var": "^1.11.0",
-    "@availity/resolve-url": "^1.1.19",
+    "@availity/resolve-url": "^1.1.20",
     "@babel/runtime": "^7.10.2",
     "qs": "^6.5.2"
   },
