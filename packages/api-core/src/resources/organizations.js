@@ -272,9 +272,10 @@ export default class AvOrganizations extends AvApi {
     }
 
     const idSet = new Set([...permissionArray]);
+    const idSetPrev = new Set([...prevPermissionArray]);
     const idSetCombined = new Set([...permissionArray, ...prevPermissionArray]);
 
-    return idSet.size === idSetCombined.size;
+    return idSet.size === idSetPrev.size && idSet.size === idSetCombined.size;
   }
 
   sanitizeIds(unsanitized) {

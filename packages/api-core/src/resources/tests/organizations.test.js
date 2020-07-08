@@ -843,6 +843,11 @@ describe('AvOrganizations', () => {
       expect(api.arePermissionsEqual(api.sanitizeIds(['7777', '9999']))).toBe(
         false
       );
+      expect(api.arePermissionsEqual(api.sanitizeIds(['7777']))).toBe(false);
+      expect(api.arePermissionsEqual(api.sanitizeIds(['8888']))).toBe(false);
+      expect(
+        api.arePermissionsEqual(api.sanitizeIds(['7777', '8888', '9999']))
+      ).toBe(false);
     });
 
     test('works for nested array', async () => {
