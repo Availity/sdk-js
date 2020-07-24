@@ -127,6 +127,12 @@ export function getSpecificEnv(windowOverride = window) {
   );
 }
 
+// returns boolean if the URL matches cloud pattern
+export function isCloud(windowOverride = window) {
+  const options = getLocationComponents(windowOverride);
+  return !!getCloudEnv(options);
+}
+
 export default function(varObj, windowOverride, defaultVar) {
   const env = getCurrentEnv(windowOverride);
 

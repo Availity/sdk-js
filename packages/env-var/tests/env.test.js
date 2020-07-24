@@ -1,4 +1,4 @@
-import envVar, { setEnvironments, getSpecificEnv } from '../src';
+import envVar, { setEnvironments, getSpecificEnv, isCloud } from '../src';
 
 const setHostname = hostname => {
   // eslint-disable-next-line no-undef
@@ -389,6 +389,66 @@ describe('Environment Variables', () => {
       ['digital.aws.availity.com/nahfam/stg/spaces/index.html', 'local'],
     ].forEach(args => {
       generateSpecificTest(...args);
+    });
+  });
+
+  const isCloudTest = (url, flag, overrideWindow) => {
+    test(`should return ${flag} for ${url}`, () => {
+      setHostname(url);
+      expect(isCloud(overrideWindow)).toBe(flag);
+    });
+  };
+
+  describe('isCloud URLs', () => {
+    [
+      ['fallback-apps.availity.com', false],
+      ['localhost', false],
+      ['127.0.0.1', false],
+      ['test-apps.availity.com', false],
+      ['t01-apps.availity.com', false],
+      ['t14-apps.availity.com', false],
+      ['qa-apps.availity.com', false],
+      ['qap-apps.availity.com', false],
+      ['q01-apps.availity.com', false],
+      ['apps.availity.com', false],
+      ['digital.awp.availity.com/cdn/prd/spaces/index.html', true],
+      ['digital.azp.availity.com/cdn/prd/spaces/index.html', true],
+      ['digital.gcp.availity.com/cdn/prd/spaces/index.html', true],
+      ['digital.awn.availity.com/cdn/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.aws.availity.com/cdn/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.azn.availity.com/cdn/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.gcn.availity.com/cdn/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.awp.availity.com/cdn/tst/spaces/index.html', false], // Prod domain, non-prod URI
+      ['digital.azp.availity.com/cdn/tst/spaces/index.html', false], // Prod domain, non-prod URI
+      ['digital.gcp.availity.com/cdn/tst/spaces/index.html', false], // Prod domain, non-prod URI
+      ['digital.awp.availity.com/api/prd/spaces/index.html', true],
+      ['digital.azp.availity.com/api/prd/spaces/index.html', true],
+      ['digital.gcp.availity.com/api/prd/spaces/index.html', true],
+      ['digital.awn.availity.com/api/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.aws.availity.com/api/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.azn.availity.com/api/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.gcn.availity.com/api/prd/spaces/index.html', false], // Non-prod domain, prod URI
+      ['digital.awp.availity.com/api/tst/spaces/index.html', false], // Prod domain, non-prod URI
+      ['digital.azp.availity.com/api/tst/spaces/index.html', false], // Prod domain, non-prod URI
+      ['digital.gcp.availity.com/api/tst/spaces/index.html', false], // Prod domain, non-prod URI
+      ['digital.gap.availity.com/api/prd/spaces/index.html', false], // Unrecognized cloud
+      ['digital.azp.availity.com/apic/prd/spaces/index.html', false], // Unrecognized namespace
+      ['digital.azp.availity.com/api/prod/spaces/index.html', false], // Unrecognized environment
+      ['digital.awn.availity.com/cdn/stg/spaces/index.html', true],
+      ['digital.aws.availity.com/cdn/stg/spaces/index.html', true],
+      ['digital.azn.availity.com/cdn/qua/spaces/index.html', true],
+      ['digital.gcn.availity.com/cdn/qap/spaces/index.html', true],
+      ['digital.awn.availity.com/cdn/tst/spaces/index.html', true],
+      ['digital.aws.availity.com/cdn/tst/spaces/index.html', true],
+      ['digital.azn.availity.com/cdn/t01/spaces/index.html', true],
+      ['digital.gcn.availity.com/cdn/t25/spaces/index.html', true],
+      ['digital.box.availity.com/cdn/t25/spaces/index.html', false],
+      ['digital.awn.availity.com/cdn/apple/spaces/index.html', false],
+      ['digital.aws.availity.com/cdn/apple/spaces/index.html', false],
+      ['digital.awn.availity.com/nahfam/stg/spaces/index.html', false],
+      ['digital.aws.availity.com/nahfam/stg/spaces/index.html', false],
+    ].forEach(args => {
+      isCloudTest(...args);
     });
   });
 });
