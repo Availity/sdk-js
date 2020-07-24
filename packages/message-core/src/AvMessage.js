@@ -1,3 +1,5 @@
+import { isCloud, getLocation } from '@availity/env-var';
+
 class AvMessage {
   subscribers = {};
 
@@ -85,6 +87,10 @@ class AvMessage {
 
   domain() {
     if (window.location.origin) {
+      if (document.referrer && isCloud()) {
+        const referrerAnchor = getLocation(document.referrer);
+        return `${referrerAnchor.protocol}//${referrerAnchor.host}`;
+      }
       return window.location.origin;
     }
 

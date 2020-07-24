@@ -2,11 +2,17 @@ import AvMessage from '../AvMessage';
 
 let avMessage;
 const URL = 'https://dev.local:9999';
+const CLOUD_HOST = 'https://digital.awn.availity.com';
+const CLOUD_URL = `${CLOUD_HOST}/cdn/stg/spaces/index.html`;
 
 describe('AvMessage', () => {
   beforeEach(() => {
     global.jsdom.reconfigure({
       url: URL,
+    });
+    Object.defineProperty(document, 'referrer', {
+      value: URL,
+      configurable: true,
     });
 
     avMessage = new AvMessage();
@@ -213,6 +219,24 @@ describe('AvMessage', () => {
   describe('domain()', () => {
     test('should return location.origin if exists', () => {
       expect(avMessage.domain()).toBe(URL);
+    });
+  });
+
+  describe('domain() should return proper domain for Cloud', () => {
+    beforeEach(() => {
+      global.jsdom.reconfigure({
+        url: CLOUD_URL,
+      });
+    });
+    test('should return document.referrer if exists', () => {
+      expect(avMessage.domain()).toBe(URL);
+    });
+    test('should return window.location if referrer is not present', () => {
+      Object.defineProperty(document, 'referrer', {
+        value: '',
+        configurable: true,
+      });
+      expect(avMessage.domain()).toBe(CLOUD_HOST);
     });
   });
 
