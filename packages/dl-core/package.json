@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-core",
-  "version": "3.0.52",
+  "version": "3.0.53-alpha.1+79ac0d0",
   "description": "Utility to download files from services",
   "main": "lib/download.js",
   "module": "src/download.js",
@@ -15,7 +15,7 @@
     "@availity/api-core": "^4.0.1"
   },
   "devDependencies": {
-    "@availity/api-core": "^6.6.3"
+    "@availity/api-core": "^6.6.4-alpha.1+79ac0d0"
   },
   "dependencies": {
     "@babel/runtime": "^7.10.2",
@@ -24,5 +24,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
+  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36"
 }

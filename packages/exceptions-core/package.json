@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-core",
-  "version": "3.0.20",
+  "version": "3.0.21-alpha.3+79ac0d0",
   "description": "Availity class to log exceptions",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -16,7 +16,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56",
+  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36",
   "dependencies": {
     "@babel/runtime": "^7.10.2"
   }

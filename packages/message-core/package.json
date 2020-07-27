@@ -1,6 +1,6 @@
 {
   "name": "@availity/message-core",
-  "version": "4.0.20",
+  "version": "4.0.21-alpha.3+79ac0d0",
   "description": "availity wrapper for postMessage logic",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -11,7 +11,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@availity/env-var": "^1.11.0",
+    "@availity/env-var": "^1.11.1-alpha.15+79ac0d0",
     "@babel/runtime": "^7.10.2"
-  }
+  },
+  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36"
 }

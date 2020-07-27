@@ -1,6 +1,6 @@
 {
   "name": "@availity/yup",
-  "version": "3.0.7",
+  "version": "3.0.8-alpha.3+79ac0d0",
   "description": "Additional Methods for Yup validation library",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -32,5 +32,5 @@
     "lodash.get": "^4.4.2",
     "merge-options-es5": "^1.0.0"
   },
-  "gitHead": "7290d74ff71d4ceef68da9ec3cb3f3b036eee8c2"
+  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36"
 }

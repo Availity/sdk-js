@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-core",
-  "version": "1.0.22",
+  "version": "1.0.23-alpha.3+79ac0d0",
   "description": "Base configurations for Availity Authorizations",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -9,7 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56",
+  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36",
   "dependencies": {
     "@babel/runtime": "^7.10.2"
   }
