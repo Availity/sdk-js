@@ -1,6 +1,6 @@
 {
   "name": "@availity/analytics-core",
-  "version": "2.8.24-alpha.3+79ac0d0",
+  "version": "2.8.24-alpha.4+463e932",
   "description": "Analytics base configuration for sdk-js",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -9,7 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36",
+  "gitHead": "463e932f0e29fd34741d0d113e204d804af49417",
   "dependencies": {
     "@babel/runtime": "^7.10.2",
     "yup": "^0.28.4"

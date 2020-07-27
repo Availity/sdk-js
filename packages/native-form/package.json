@@ -1,6 +1,6 @@
 {
   "name": "@availity/native-form",
-  "version": "2.8.23-alpha.3+79ac0d0",
+  "version": "2.8.23-alpha.4+463e932",
   "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -22,5 +22,5 @@
   "dependencies": {
     "@babel/runtime": "^7.10.2"
   },
-  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36"
+  "gitHead": "463e932f0e29fd34741d0d113e204d804af49417"
 }

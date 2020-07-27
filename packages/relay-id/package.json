@@ -1,6 +1,6 @@
 {
   "name": "@availity/relay-id",
-  "version": "1.1.15-alpha.30+79ac0d0",
+  "version": "1.1.15-alpha.31+463e932",
   "description": "Simple package to decode/encode relay ids for graphql microservices that leverage the relay spec.",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -19,5 +19,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36"
+  "gitHead": "463e932f0e29fd34741d0d113e204d804af49417"
 }

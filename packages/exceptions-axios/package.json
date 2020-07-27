@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-axios",
-  "version": "3.0.54-alpha.1+79ac0d0",
+  "version": "3.0.54-alpha.2+463e932",
   "description": "Availity class to log exceptions via axios",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -11,13 +11,13 @@
     "@availity/exceptions-core": "^2.6.1"
   },
   "devDependencies": {
-    "@availity/api-axios": "^5.5.9-alpha.1+79ac0d0",
-    "@availity/exceptions-core": "^3.0.21-alpha.3+79ac0d0"
+    "@availity/api-axios": "^5.5.9-alpha.2+463e932",
+    "@availity/exceptions-core": "^3.0.21-alpha.4+463e932"
   },
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "79ac0d042568357cad52d8920bf3813d4341df36",
+  "gitHead": "463e932f0e29fd34741d0d113e204d804af49417",
   "dependencies": {
     "@babel/runtime": "^7.10.2"
   }
