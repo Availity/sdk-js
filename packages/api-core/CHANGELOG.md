@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.4](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.6.3...@availity/api-core@6.6.4) (2020-08-24)
+
+
+### Bug Fixes
+
+* **api-core:** filesDelivery polling issue ([8e5f451](https://github.com/Availity/sdk-js/commit/8e5f4512e98537c5d8c530e97e51986b8debf16e))
+
+
+
+
+
 ## [6.6.3](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.6.2...@availity/api-core@6.6.3) (2020-07-08)
 
 
