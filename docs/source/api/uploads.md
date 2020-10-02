@@ -48,5 +48,6 @@ const upload = new Upload(file, {
     allowedFileNameCharacters: '_a-zA-Z0-9 ', // alphanumeric, spaces, underscore
     pollingTime: 1000,
 });
+await upload.init();
 upload.start();
 ```
