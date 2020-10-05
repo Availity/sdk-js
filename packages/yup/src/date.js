@@ -31,7 +31,7 @@ export default class AvDateSchema extends mixed {
         if (value !== undefined && !this.schema.isType(value)) {
           return false;
         }
-        return true;
+        return value.isValid();
       },
     });
   }

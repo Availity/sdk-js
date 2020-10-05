@@ -41,6 +41,7 @@ describe('Date', () => {
     await expect(validate('12-2012')).rejects.toThrow(INVALID);
     await expect(validate('12-2012-12')).rejects.toThrow(INVALID);
     await expect(validate('invalid-date')).rejects.toThrow(INVALID);
+    await expect(validate('01/01/20011')).rejects.toThrow(INVALID);
   });
 
   test('min date', async () => {
