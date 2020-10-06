@@ -28,8 +28,12 @@ export default class AvDateSchema extends mixed {
       message: 'Date is invalid.',
       name: 'typeError',
       test(value) {
-        if (value !== undefined && !this.schema.isType(value)) {
-          return false;
+        if (value !== undefined) {
+          if (!this.schema.isType(value)) {
+            return false;
+          }
+        } else {
+          return true;
         }
         return value.isValid();
       },
