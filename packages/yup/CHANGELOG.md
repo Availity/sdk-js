@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.8 (2020-10-06)
+
+
+### Bug Fixes
+
+* **yup:** avDate fix for edge case invalid date length ([55f8b78](https://github.com/Availity/sdk-js/commit/55f8b781595a1f5aa610d63da53c4ffe3c7710e4))
+* **yup:** avDate fix handles undefined correctly now ([85d25b7](https://github.com/Availity/sdk-js/commit/85d25b751b340273de8396abc310e5a27934376c))
+
+
+
+
+
 ## 3.0.7 (2020-06-22)
 
 **Note:** Version bump only for package @availity/yup
