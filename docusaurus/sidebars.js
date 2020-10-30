@@ -1,6 +1,17 @@
 module.exports = {
   someSidebar: {
-    'SDK Resources': ['index', 'contributing'],
+    'SDK Resources': [
+      'index',
+      'contributing',
+      'analytics',
+      'env-var',
+      'messaging',
+      'native-form',
+      'relay-id',
+      'resolve-url',
+      'yup',
+      'exceptions',
+    ],
     API: [
       'api/getting-started',
       'api/axios-resources',
@@ -29,16 +40,6 @@ module.exports = {
       'api/downloads',
       'api/uploads',
     ],
-    Features: [
-      'features/analytics',
-      'features/env-var',
-      'features/messaging',
-      'features/native-form',
-      'features/relay-id',
-      'features/resolve-url',
-      'features/yup',
-      'features/exceptions',
-    ],
-    Recipes: ['recipes/proxy'],
+    Recipes: ['recipes/proxy', 'recipes/httpRequest'],
   },
 };
