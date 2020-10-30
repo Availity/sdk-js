@@ -3,12 +3,12 @@ module.exports = {
   themes: [['@docusaurus/theme-search-algolia', { id: '01' }]],
   onBrokenLinks: 'log',
   title: 'Availity Docs',
-  tagline: 'React components using Availity UIKit and Bootstrap 4',
+  tagline: 'Javascript SDK for Availity',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'availity', // Usually your GitHub org/user name.
-  projectName: 'availity-react', // Usually your repo name.
+  projectName: 'availity-sdk', // Usually your repo name.
   themeConfig: {
     algolia: {
       apiKey: 'eec0154a008662c32d440b7de7982cd2',
@@ -33,12 +33,13 @@ module.exports = {
       items: [
         {
           to: 'http://localhost:3000', // needs to be updated once docs are deployed
-          label: 'Availity-Workflow',
+          label: 'CLI',
           position: 'right',
         },
         {
           to: 'http://localhost:3001', // needs to be updated once docs are deployed
 
+          class: 'active',
           label: 'SDK',
           position: 'right',
         },
@@ -46,7 +47,7 @@ module.exports = {
           to:
             'https://deploy-preview-571--stupefied-hypatia-4db77c.netlify.app/',
 
-          label: 'Components',
+          label: 'React',
           position: 'right',
         },
 
@@ -66,7 +67,6 @@ module.exports = {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
           routeBasePath: '/',
-          homePageId: 'index',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
