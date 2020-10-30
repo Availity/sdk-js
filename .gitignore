@@ -9,3 +9,6 @@ lib
 coverage/
 
 /.history
+yarn-error.log
+/**/build
+/**/.docusaurus
