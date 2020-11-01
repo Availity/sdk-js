@@ -29,7 +29,7 @@
     "gatsby": "^2.13.83",
     "gatsby-plugin-compile-es6-packages": "^2.1.0",
     "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react-dom": "^17.0.1",
     "reactstrap": "^8.0.1"
   }
 }
