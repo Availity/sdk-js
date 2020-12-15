@@ -20,7 +20,7 @@ class DmaLogMessages extends AvMicroservice {
     const payload = { level, entries };
     const flattened = flattenObject(payload);
 
-    flattened.X_Client_ID = 'smile';
+    flattened.X_Client_ID = this.clientId;
     flattened.X_XSRF_TOKEN = document.cookie.replace(
       /(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/,
       '$1'
