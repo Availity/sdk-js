@@ -297,8 +297,10 @@ export default class AvApi {
         for (let i = 0; i < totalPages - 1; i += 1) {
           otherPages[i] = i + 2;
         }
+        // eslint-disable-next-line promise/no-nesting
         return this.Promise.all(
           otherPages.map(page =>
+            // eslint-disable-next-line promise/no-nesting
             this.getPage(page, config, resp.data.limit).then(
               pageResp => pageResp.data[key] || []
             )

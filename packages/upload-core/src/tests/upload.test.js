@@ -61,10 +61,11 @@ describe('upload-core', () => {
       }).toThrow('[options.bucketId] must be defined');
     });
 
-    it('should allow override to defaults', () => {
+    it('should allow override to defaults', async () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'fileName.png';
       const upload = new Upload(file, optionsWithRetry);
+      await upload.init();
       expect(upload.options.retryDelays[0]).toBe(
         optionsWithRetry.retryDelays[0]
       );
@@ -77,10 +78,11 @@ describe('upload-core', () => {
       new Upload(file, options);
     });
 
-    it('should throw error for invalid file type', () => {
+    it('should throw error for invalid file type', async () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'notCoolFile.docx';
       const upload = new Upload(file, optionsWithFileTypes);
+      await upload.init();
       expect(upload.isValidFile()).toBeFalsy();
     });
 
@@ -91,25 +93,27 @@ describe('upload-core', () => {
       new Upload(file, optionsWithFileTypes);
     });
 
-    it('should use default options', () => {
+    it('should use default options', async () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'optionsFile.png';
       const upload = new Upload(file, options);
+      await upload.init();
 
       expect(upload.options.endpoint).toBe(
         'https://dev.local/ms/api/availity/internal/core/vault/upload/v1/resumable'
       );
     });
 
-    it('should not allow files over maxSize', () => {
+    it('should not allow files over maxSize', async () => {
       const file = Buffer.from('hello world!'.split(''));
       file.name = 'sizeFile.pdf';
       file.size = 1e7;
       const upload = new Upload(file, optionsWithFileSize);
+      await upload.init();
       expect(upload.isValidFile()).toBeFalsy();
     });
 
-    it('should use metadata values for fingerprint', () => {
+    it('should use metadata values for fingerprint', async () => {
       const file = Buffer.from('hello world!'.split(''));
       file.name = 'a';
       file.type = 'b';
@@ -120,83 +124,86 @@ describe('upload-core', () => {
       });
 
       let upload = new Upload(file, options);
-      expect(upload.generateId()).toBe('tus-a-b-100-1016975905');
+      await upload.init();
+      expect(await upload.generateId()).toBe('tus-a-b-100-1016975905');
 
       options = Object.assign(optionsWithMeta, {
         metadata: { documentTypeId: 'e' },
       });
 
       upload = new Upload(file, options);
-      expect(upload.generateId()).toBe('tus-a-b-100-1016975906');
+      await upload.init();
+      expect(await upload.generateId()).toBe('tus-a-b-100-1016975906');
     });
   });
 
   describe('utils', () => {
-    it('should check filePath for slashes', () => {
+    it('should check filePath for slashes', async () => {
       const file1 = Buffer.from('hello world!'.split(''));
       file1.name = '\\bad\\file\\path\\file.pdf';
       const upload1 = new Upload(
         file1,
         Object.assign(options, { stripFileNamePathSegments: false })
       );
+      await upload1.init();
       expect(upload1.trimFileName(file1.name)).toBe(file1.name);
-
       const file2 = Buffer.from('hello world!'.split(''));
       file2.name = '\\bad\\file\\path\\file2.pdf';
       const upload2 = new Upload(file2, optionsWithMeta);
+      await upload2.init();
       expect(upload2.trimFileName(file2.name)).toBe('file2.pdf');
-
       const file3 = Buffer.from('hello world!'.split(''));
       file3.name = '/bad/file/path/file3.pdf';
       const upload3 = new Upload(file3, optionsWithMeta);
+      await upload3.init();
       expect(upload3.trimFileName(file3.name)).toBe('file3.pdf');
-
       const file4 = Buffer.from('hello world!'.split(''));
       file4.name = 'goodFileName.pdf';
       const upload4 = new Upload(file4, optionsWithMeta);
+      await upload4.init();
       expect(upload4.trimFileName(file4.name)).toBe('goodFileName.pdf');
     });
-
-    it('should pass status of decrypting', () => {
+    it('should pass status of decrypting', async () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'decryptThisFile.png';
       const upload = new Upload(file, options);
+      await upload.init();
       upload.setError('encrypted', 'Encrypted files require a password');
       upload.setError('decrypting', 'Decrypting file');
       expect(upload.status).toBe('decrypting');
     });
-
-    it('should validate file name', () => {
+    it('should validate file name', async () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'good file name.pdf';
       const upload = new Upload(
         file,
         Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9_ ' })
       );
+      await upload.init();
       expect(upload.isValidFile()).toBeTruthy();
-
       const file2 = Buffer.from('hello world'.split(''));
       file2.name = 'Bad-file-name.pdf';
       const upload2 = new Upload(
         file2,
         Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9 _' })
       );
+      await upload2.init();
       expect(upload2.isValidFile()).toBeFalsy();
-
       const file3 = Buffer.from('hello world'.split(''));
       file3.name = '123File(1).xlsx';
       const upload3 = new Upload(
         file3,
         Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' })
       );
+      await upload3.init();
       expect(upload3.isValidFile()).toBeFalsy();
-
       const file4 = Buffer.from('hello world'.split(''));
       file4.name = 'fileName';
       const upload4 = new Upload(
         file4,
         Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' })
       );
+      await upload4.init();
       expect(upload4.isValidFile()).toBeTruthy();
     });
 
@@ -208,7 +215,7 @@ describe('upload-core', () => {
       afterEach(() => {
         xhrMock.teardown();
       });
-      it('should upload a file', done => {
+      it('should upload a file', async done => {
         nock('https://dev.local')
           .post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/')
           .reply(
@@ -242,6 +249,7 @@ describe('upload-core', () => {
         const file = Buffer.from('hello world!');
         file.name = 'a';
         const upload = new Upload(file, options);
+        await upload.init();
         const success = jest.fn();
         upload.onSuccess.push(success);
         upload.onSuccess.push(() => {
@@ -258,15 +266,15 @@ describe('upload-core', () => {
           },
         });
 
-        upload.start();
+        await upload.start();
       });
 
-      // it('should resume an upload from a stored url', done => {
-      //   window.localStorage.setItem(
-      //     'fingerprinted',
-      //     'http://tus.io/uploads/resuming'
-      //   );
-      // });
+      it('should resume an upload from a stored url', () => {
+        window.localStorage.setItem(
+          'fingerprinted',
+          'http://tus.io/uploads/resuming'
+        );
+      });
     });
   });
 });

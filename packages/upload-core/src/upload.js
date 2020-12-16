@@ -1,4 +1,4 @@
-import tus from 'tus-js-client';
+import * as tus from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
 
 // https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript/8831937#8831937
@@ -21,7 +21,7 @@ const defaultOptions = {
   pollingTime: 5000,
   retryDelays: [0, 1000, 3000, 5000],
   stripFileNamePathSegments: true,
-  fingerprint(file, options = {}, callback) {
+  fingerprint(file, options = {}) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
     for (let i = 0; i < attributes.length; i++) {
@@ -41,11 +41,7 @@ const defaultOptions = {
 
     const print = Math.abs(hashCode(signature));
 
-    if (callback) {
-      return callback(null, `${attributesKey}${print}`);
-    }
-
-    return `${attributesKey}${print}`;
+    return Promise.resolve(`${attributesKey}${print}`);
   },
 };
 
@@ -95,7 +91,6 @@ class Upload {
     Object.assign(metadata, this.options.metadata);
 
     const upload = new tus.Upload(this.file, {
-      resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
       chunkSize: this.options.chunkSize,
       retryDelays: this.options.retryDelays,
@@ -117,19 +112,17 @@ class Upload {
         this.percentage = this.getPercentage();
         this.onProgress.forEach(cb => cb());
       },
-      onSuccess: () => {
-        const xhr = this.upload._xhr;
-        this.bytesScanned =
-          parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
+      onAfterResponse: (req, res) => {
+        this.bytesScanned = parseInt(res.getHeader('AV-Scan-Bytes'), 10) || 0;
         this.percentage = this.getPercentage();
 
-        const result = this.getResult(xhr);
+        const result = this.getResult(res, 'getHeader');
 
         if (result.status === 'accepted') {
           this.percentage = 100;
           this.status = result.status;
           this.errorMessage = null;
-          const references = xhr.getResponseHeader('references');
+          const references = res.getHeader('references');
           if (references) {
             this.references = JSON.parse(references);
           }
@@ -142,11 +135,16 @@ class Upload {
           return;
         }
 
-        this.scan();
+        if (this.upload.url) {
+          this.scan();
+        }
       },
     });
     this.upload = upload;
-    this.id = this.generateId();
+  }
+
+  async init() {
+    this.id = await this.generateId();
   }
 
   inStatusCategory(status, category) {
@@ -181,7 +179,7 @@ class Upload {
       this.bytesScanned = parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10);
       this.percentage = this.getPercentage();
 
-      const result = this.getResult(xhr);
+      const result = this.getResult(xhr, 'getResponseHeader');
 
       if (result.status === 'rejected') {
         this.setError(result.status, result.message);
@@ -241,19 +239,24 @@ class Upload {
     );
   }
 
-  start() {
+  async start() {
     if (!this.isValidFile()) {
       return;
+    }
+    const previousUploads = await this.upload.findPreviousUploads();
+    if (previousUploads.length > 0) {
+      this.upload.resumeFromPreviousUpload(previousUploads[0]);
     }
     this.upload.start();
   }
 
-  generateId() {
+  async generateId() {
     const { fingerprint } = this.options;
-    return fingerprint(this.file, this.options).replace(/[^a-zA-Z0-9-]/g, '');
+    const print = await fingerprint(this.file, this.options);
+    return print.replace(/[^a-zA-Z0-9-]/g, '');
   }
 
-  fingerprint(file, options = {}, callback) {
+  fingerprint(file, options = {}) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
     for (let i = 0; i < attributes.length; i++) {
@@ -273,11 +276,7 @@ class Upload {
 
     const print = Math.abs(hashCode(signature));
 
-    if (callback) {
-      return callback(null, `${attributesKey}${print}`);
-    }
-
-    return `${attributesKey}${print}`;
+    return Promise.resolve(`${attributesKey}${print}`);
   }
 
   sendPassword(pw) {
@@ -354,11 +353,11 @@ class Upload {
     return fileName;
   }
 
-  getResult(xhr) {
-    const scanResult = xhr.getResponseHeader('AV-Scan-Result');
-    const uploadResult = xhr.getResponseHeader('Upload-Result');
-    const decryptResult = xhr.getResponseHeader('Decryption-Result');
-    const msg = xhr.getResponseHeader('Upload-Message');
+  getResult(res, getHeader) {
+    const scanResult = res[getHeader]('AV-Scan-Result');
+    const uploadResult = res[getHeader]('Upload-Result');
+    const decryptResult = res[getHeader]('Decryption-Result');
+    const msg = res[getHeader]('Upload-Message');
     if (scanResult === 'rejected') {
       return { status: scanResult, message: msg || 'Failed AV scan' };
     }
