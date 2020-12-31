@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.6.5 (2020-12-16)
+
+
+### Bug Fixes
+
+* **api-core:** fix clientId ([ed46ad4](https://github.com/Availity/sdk-js/commit/ed46ad490b3c026025c0b46a350507da2cc256cd))
+
+
+
+
+
 ## [6.6.4](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.6.3...@availity/api-core@6.6.4) (2020-08-24)
 
 
