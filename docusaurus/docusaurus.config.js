@@ -19,7 +19,7 @@ module.exports = {
     //   backgroundColor: '#e29f0d',
     //   textColor: 'black',
     //   content:
-    //     '⭐️ If you like Availity-Workflow, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/availity/availity-workflow">GitHub</a>! ⭐️',
+    //     '⭐️ If you like SDK-JS, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/availity/sdk-js">GitHub</a>! ⭐️',
     // },
     colorMode: {
       defaultMode: 'dark',

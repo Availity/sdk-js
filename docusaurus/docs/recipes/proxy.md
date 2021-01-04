@@ -14,7 +14,7 @@ We are going to clear out the `App.js` file for tesing purposes and instead past
 
 ### Adding API Code Snippet
 
-```jsx header=App.js
+```javascript
 import React, { useEffect, useState } from 'react';
 import { AvProxyApi } from '@availity/api-axios';
 

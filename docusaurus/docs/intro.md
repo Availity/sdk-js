@@ -15,7 +15,6 @@ Javascript SDK containing different packages for interfacing with Availity's sys
 
 Resources for communicating with Availity's APIs
 
-
 ### [Recipes](./recipes/proxy.md)
 
 Useful tips and Examples
