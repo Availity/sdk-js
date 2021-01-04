@@ -4,7 +4,7 @@
   "description": "Javascript SDK for Availity",
   "workspaces": [
     "packages/*",
-    "docs"
+    "docusaurus"
   ],
   "repository": {
     "type": "git",
@@ -13,11 +13,10 @@
   "scripts": {
     "codecov:ci": "codecov",
     "lint": "eslint .",
-    "start": "yarn workspace @availity/docs start",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
-    "build:docs": "yarn workspace @availity/docs build",
-    "build:docs:ci": "yarn workspace @availity/docs build:deploy",
-    "build": "NODE_ENV=production lerna exec --parallel -- babel --root-mode upward src -d lib --ignore ./docs/**,**/*.test.js",
+    "start": "yarn workspace @availity/dinosaurdocs start",
+    "deploy:docs": "yarn workspace @availity/dinosaurdocs build && gh-pages -d docusaurus/build --message 'deployed docs [skip ci]'",
+    "build:docs": "yarn workspace @availity/dinosaurdocs build",
+    "build": "NODE_ENV=production lerna exec --parallel -- babel --root-mode upward src -d lib --ignore ./docusaurus/**,**/*.test.js",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
     "bundlesize": "bundlesize",
