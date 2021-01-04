@@ -7,8 +7,8 @@ module.exports = {
   url: 'https://availity.github.io/sdk-js',
   baseUrl: '/sdk-js/',
   favicon: 'img/favicon.ico',
-  organizationName: 'availity', // Usually your GitHub org/user name.
-  projectName: 'sdk-js', // Usually your repo name.
+  organizationName: 'availity',
+  projectName: 'sdk-js',
   themeConfig: {
     algolia: {
       apiKey: 'eec0154a008662c32d440b7de7982cd2',
@@ -46,7 +46,6 @@ module.exports = {
         },
         {
           to: '/', // availity.github.io/sdk-js, this repo
-          target: '_self',
           label: 'SDK-JS',
           position: 'right',
         },
