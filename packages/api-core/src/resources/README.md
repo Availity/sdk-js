@@ -139,9 +139,20 @@ Method to upload a batch of file deliveries. `data` contains an array of `delive
 Example `data`:
 
 ```html
-data = { deliveries: [ { fileURI: upload.references[0], deliveryChannel: 'DEMO',
-metadata: { payerId: "PAYERID", requestId: "123", patientLastName: "lastName",
-patientFirstName: "firstName" }, } ] };
+data = {
+    deliveries: [
+        {
+            fileURI: upload.references[0],
+            deliveryChannel: 'DEMO',
+            metadata: {
+                payerId: "PAYERID",
+                requestId: "123",
+                patientLastName: "lastName",
+                patientFirstName: "firstName"
+            },
+        }
+    ]
+};
 ```
 
 `config` should contain `customerId` and `clientId`
@@ -149,16 +160,31 @@ patientFirstName: "firstName" }, } ] };
 #### Example Response
 
 ```html
-{ "id": "123456", // batchId "status": "COMPLETE", // COMPLETE/INPROGRESS
-"deliveries": [ { "id": "56789", // deliveryId "deliveryBatchId": "123456",
-"fileURI":
-<fileUri
-    >, "deliveryChannel": "DEMO", "deliveryStatus": "ERRORED", //
-    INPROGRESS/REJECTED/ERRORED/DELIVERED "errors": [ { "message": "error
-    message", "subject": "subject of error" } ], "metadata": { payerId:
-    "PAYERID", requestId: "123", patientLastName: "lastName", patientFirstName:
-    "firstName" } } ] }</fileUri
->
+{
+    "id": "123456", // batchId
+    "status": "COMPLETE", // COMPLETE/INPROGRESS
+    "deliveries": [
+        {
+            "id": "56789", // deliveryId
+            "deliveryBatchId": "123456",
+            "fileURI": <fileUri>,
+            "deliveryChannel": "DEMO",
+            "deliveryStatus": "ERRORED", // INPROGRESS/REJECTED/ERRORED/DELIVERED
+            "errors": [
+                {
+                    "message": "error message",
+                    "subject": "subject of error"
+                }
+            ],
+            "metadata": {
+                payerId: "PAYERID",
+                requestId: "123",
+                patientLastName: "lastName",
+                patientFirstName: "firstName"
+            }
+        }
+    ]
+}
 ```
 
 ### `AvSettings`
