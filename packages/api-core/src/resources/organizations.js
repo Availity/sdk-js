@@ -92,7 +92,8 @@ export default class AvOrganizations extends AvApi {
     if (typeof data === 'string') {
       data = qs.parse(data);
     }
-    const { permissionId, region } = data;
+    const { permissionId } = data;
+    const region = data['regions.code'];
 
     let permissionIdsToUse = permissionIds || permissionId;
     permissionIdsToUse = this.sanitizeIds(permissionIdsToUse);
