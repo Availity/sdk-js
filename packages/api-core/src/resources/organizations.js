@@ -47,13 +47,27 @@ export default class AvOrganizations extends AvApi {
 
   async postGet(data, config, additionalPostGetArgs) {
     if (additionalPostGetArgs) {
+      this.region = undefined;
+
       const { permissionIds } = additionalPostGetArgs;
-      if (permissionIds) {
-        if (typeof data === 'string') {
-          const dataTemp = qs.parse(data);
+      if (typeof data === 'string') {
+        const dataTemp = qs.parse(data);
+        const { region } = dataTemp;
+        if (region) {
+          this.region = region;
+          delete dataTemp.region;
+        }
+        if (permissionIds) {
           dataTemp.permissionId = permissionIds;
-          data = qs.stringify(dataTemp, { arrayFormat: 'repeat' });
-        } else if (typeof data === 'object') {
+        }
+        data = qs.stringify(dataTemp, { arrayFormat: 'repeat' });
+      } else if (typeof data === 'object') {
+        const { region } = data;
+        if (region) {
+          this.region = region;
+          delete data.region;
+        }
+        if (permissionIds) {
           data.permissionId = permissionIds;
         }
       }
@@ -92,7 +106,8 @@ export default class AvOrganizations extends AvApi {
     if (typeof data === 'string') {
       data = qs.parse(data);
     }
-    const { permissionId, region } = data;
+    const { permissionId } = data;
+    const { region } = this;
 
     let permissionIdsToUse = permissionIds || permissionId;
     permissionIdsToUse = this.sanitizeIds(permissionIdsToUse);
