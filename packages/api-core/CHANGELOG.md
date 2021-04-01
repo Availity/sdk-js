@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.6.6 (2021-04-01)
+
+
+### Bug Fixes
+
+* **api-core:** pass region param to axi-user-permissions call if additionalPostGetArgs ([3a41740](https://github.com/Availity/sdk-js/commit/3a41740f0b241e112cef64643985c49908ed3578))
+* **api-core:** use correct region param for permissions call inside organizations ([724cc65](https://github.com/Availity/sdk-js/commit/724cc657bfc594ec10ed085003094a2dfac4b41d))
+
+
+
+
+
 ## 6.6.5 (2020-12-16)
 
 
