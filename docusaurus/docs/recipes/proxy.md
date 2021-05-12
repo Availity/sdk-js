@@ -21,7 +21,7 @@ import { AvProxyApi } from '@availity/api-axios';
 const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
 
 const App = () => {
-    const [climbingHolds, setClimbingHolds] = useState(''); // initialize state
+    const [climbingHolds, setClimbingHolds] = useState([]); // initialize state
 
     const fetchData = async () => {
         const response = await proxyApi.query({ sessionBust: false });
