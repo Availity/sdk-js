@@ -18,4 +18,4 @@ $ npm install @availity/relay-id
 $ yarn add @availity/relay-id
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/relay-id)
+## [Documentation](https://availity.github.io/sdk-js/resources/relay-id)

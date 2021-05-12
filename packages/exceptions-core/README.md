@@ -18,4 +18,4 @@ $ npm install @availity/exceptions-core
 $ yarn add @availity/exceptions-core
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/exceptions)
+## [Documentation](https://availity.github.io/sdk-js/resources/exceptions)
