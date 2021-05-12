@@ -18,4 +18,4 @@ $ npm install @availity/yup yup
 $ yarn add @availity/yup yup
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/yup)
+## [Documentation](https://availity.github.io/sdk-js/resources/yup)

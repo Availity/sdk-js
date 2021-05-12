@@ -18,4 +18,4 @@ $ npm install @availity/message-core
 $ yarn add @availity/message-core
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/message-core)
+## [Documentation](https://availity.github.io/sdk-js/resources/messaging)

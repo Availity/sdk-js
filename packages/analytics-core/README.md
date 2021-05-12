@@ -16,4 +16,4 @@ $ npm install @availity/analytics-core
 $ yarn add @availity/analytics-core
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/analytics)
+## [Documentation](https://availity.github.io/sdk-js/resources/analytics)
