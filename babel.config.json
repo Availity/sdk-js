@@ -1,0 +1,21 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "defaults, ie 11",
+        "useBuiltIns": "usage",
+        "corejs": { "version": "3.12.1", "proposals": true },
+        "loose": true
+      }
+    ],
+    [
+      "babel-preset-react-app",
+      {
+        "absoluteRuntime": false,
+        "useESModules": false
+      }
+    ]
+  ],
+  "ignore": ["node_modules", "**/lib/*.test.js"]
+}
