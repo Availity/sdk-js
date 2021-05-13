@@ -18,5 +18,8 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "core-js": "^3.12.1"
   }
 }

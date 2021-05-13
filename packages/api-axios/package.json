@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.10.2",
+    "core-js": "^3.12.1",
     "merge-options-es5": "^1.0.0"
   },
   "peerDependencies": {
