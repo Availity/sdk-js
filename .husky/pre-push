@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn check:dependencies && yarn check:packages
+yarn lint && yarn test && check:dependencies && yarn check:packages
