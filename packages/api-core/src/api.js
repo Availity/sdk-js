@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-nesting */
 import qs from 'qs';
 import resolveUrl from '@availity/resolve-url';
 
@@ -100,7 +101,7 @@ export default class AvApi {
       return config.url;
     }
 
-    const { path, version, name, url } = config;
+    const { path, version, name, url, host } = config;
 
     let parts = [];
     parts = name ? ['', path, version, name, id] : [url, id];
@@ -108,9 +109,7 @@ export default class AvApi {
     // join parts, remove multiple /'s and trailing /
     const uri = parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
 
-    const hostname = url
-      ? null
-      : resolveHost(config.host, config.window || window);
+    const hostname = url ? null : resolveHost(host, config.window || window);
     return (hostname ? `https://${hostname}` : '') + uri;
   }
 
@@ -120,12 +119,11 @@ export default class AvApi {
 
   // return location if should poll otherwise false
   getLocation(response) {
-    let locationUrl;
     const { config, headers = {} } = response;
     const { getHeader, base } = config;
     const { location, Location } = headers;
 
-    locationUrl = getHeader
+    const locationUrl = getHeader
       ? getHeader(response, 'Location')
       : location || Location;
 
@@ -294,7 +292,7 @@ export default class AvApi {
               (pageResp) => pageResp.data[key] || []
             )
           )
-        ).then((pages) => result.concat(...pages));
+        ).then((pages) => [...result, ...pages]);
       }
       return result;
     });

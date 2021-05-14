@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import MockDate from 'mockdate';
 import { fromError } from 'stacktrace-js';
 
@@ -14,7 +15,7 @@ describe('AvExceptions', () => {
 
   beforeEach(() => {
     // mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line no-console
-    mockLog = jest.fn(); // eslint-disable-line no-console
+    mockLog = jest.fn();
     fromError.mockResolvedValue([
       {
         columnNumber: 15,
@@ -176,113 +177,112 @@ describe('AvExceptions', () => {
       expect(mockExceptions.isRepeatError).toHaveBeenCalled();
     });
 
-    test('should skip isRepeatError if skipRepeat is true', done => {
-      mockExceptions
-        .onError(exception, true)
-        .then(() => {
-          expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
-          expect(mockLog).toHaveBeenCalled();
-          // eslint-disable-next-line promise/no-callback-in-promise
-          return done();
-        })
-        .catch(error => error);
-    });
+    test('should skip isRepeatError if skipRepeat is true', () =>
+      new Promise((resolve) => {
+        mockExceptions
+          .onError(exception, true)
+          .then(() => {
+            expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
+            expect(mockLog).toHaveBeenCalled();
+            return resolve();
+          })
+          .catch((error) => error);
+      }));
 
-    test('should build message and reset currentHits to 0', done => {
-      mockExceptions.isRepeatError.mockImplementation(() => false);
+    test('should build message and reset currentHits to 0', () =>
+      new Promise((resolve) => {
+        mockExceptions.isRepeatError.mockImplementation(() => false);
 
-      const errorMessage = exception.message;
+        const errorMessage = exception.message;
 
-      mockExceptions.errorMessageHistory[errorMessage] = {
-        currentHits: 2,
-      };
+        mockExceptions.errorMessageHistory[errorMessage] = {
+          currentHits: 2,
+        };
 
-      const message = {
-        errorDate: new Date().toJSON(),
-        errorName: exception.name,
-        errorMessage: exception.message,
-        errorStack: mockExceptions.prettyPrint(exception),
-        url: window.location && window.location.href,
-        appId: mockExceptions.thisAppId || 'N/A',
-        appVersion: window.APP_VERSION || 'N/A',
-        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
-        userLanguage: window.navigator && window.navigator.userLanguage,
-        referrer: window.document && window.document.referrer,
-        host: window.document && window.document.domain,
-        sdkVersion: process.env.VERSION,
-        totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-        currentHits:
-          mockExceptions.errorMessageHistory[errorMessage].currentHits,
-      };
+        const message = {
+          errorDate: new Date().toJSON(),
+          errorName: exception.name,
+          errorMessage: exception.message,
+          errorStack: mockExceptions.prettyPrint(exception),
+          url: window.location && window.location.href,
+          appId: mockExceptions.thisAppId || 'N/A',
+          appVersion: window.APP_VERSION || 'N/A',
+          userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
+          userLanguage: window.navigator && window.navigator.userLanguage,
+          referrer: window.document && window.document.referrer,
+          host: window.document && window.document.domain,
+          sdkVersion: process.env.VERSION,
+          totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
+          currentHits:
+            mockExceptions.errorMessageHistory[errorMessage].currentHits,
+        };
 
-      mockExceptions
-        .onError(exception)
-        .then(() => {
-          expect(mockExceptions.isRepeatError).toHaveBeenCalled();
-          expect(mockLog).toHaveBeenCalledWith(message);
-          expect(
-            mockExceptions.errorMessageHistory[errorMessage].currentHits
-          ).toBe(0);
-          // eslint-disable-next-line promise/no-callback-in-promise
-          return done();
-        })
-        .catch(error => error);
-    });
+        mockExceptions
+          .onError(exception)
+          .then(() => {
+            expect(mockExceptions.isRepeatError).toHaveBeenCalled();
+            expect(mockLog).toHaveBeenCalledWith(message);
+            expect(
+              mockExceptions.errorMessageHistory[errorMessage].currentHits
+            ).toBe(0);
+            return resolve();
+          })
+          .catch((error) => error);
+      }));
+    test('should merge errorMessage into message if defined', () =>
+      new Promise((resolve) => {
+        mockExceptions.isRepeatError.mockImplementation(() => false);
 
-    test('should merge errorMessage into message if defined', done => {
-      mockExceptions.isRepeatError.mockImplementation(() => false);
+        const errorMessage = exception.message;
 
-      const errorMessage = exception.message;
+        mockExceptions.errorMessageHistory[errorMessage] = {
+          currentHits: 0,
+        };
 
-      mockExceptions.errorMessageHistory[errorMessage] = {
-        currentHits: 0,
-      };
+        const message = {
+          errorDate: new Date().toJSON(),
+          errorName: exception.name,
+          errorMessage: exception.message,
+          errorStack: mockExceptions.prettyPrint(exception),
+          url: window.location && window.location.href,
+          appId: mockExceptions.thisAppId || 'N/A',
+          appVersion: window.APP_VERSION || 'N/A',
+          userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
+          userLanguage: window.navigator && window.navigator.userLanguage,
+          referrer: window.document && window.document.referrer,
+          host: window.document && window.document.domain,
+          sdkVersion: process.env.VERSION,
+          totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
+          currentHits:
+            mockExceptions.errorMessageHistory[errorMessage].currentHits,
+        };
 
-      const message = {
-        errorDate: new Date().toJSON(),
-        errorName: exception.name,
-        errorMessage: exception.message,
-        errorStack: mockExceptions.prettyPrint(exception),
-        url: window.location && window.location.href,
-        appId: mockExceptions.thisAppId || 'N/A',
-        appVersion: window.APP_VERSION || 'N/A',
-        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
-        userLanguage: window.navigator && window.navigator.userLanguage,
-        referrer: window.document && window.document.referrer,
-        host: window.document && window.document.domain,
-        sdkVersion: process.env.VERSION,
-        totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-        currentHits:
-          mockExceptions.errorMessageHistory[errorMessage].currentHits,
-      };
+        let mockErrorMessage = {
+          testValue: 'hello world',
+        };
+        mockExceptions.errorMessage = mockErrorMessage;
+        let expectedCall = { ...message, ...mockErrorMessage };
 
-      let mockErrorMessage = {
-        testValue: 'hello world',
-      };
-      mockExceptions.errorMessage = mockErrorMessage;
-      let expectedCall = { ...message, ...mockErrorMessage };
+        mockExceptions
+          .onError(exception)
+          .then(() => {
+            expect(mockLog).toHaveBeenCalledWith(expectedCall);
 
-      mockExceptions
-        .onError(exception)
-        .then(() => {
-          expect(mockLog).toHaveBeenCalledWith(expectedCall);
-
-          mockErrorMessage = {
-            testMessage: 'hello',
-            testName: 'world',
-          };
-          mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
-          expectedCall = { ...message, ...mockErrorMessage };
-          return mockExceptions.onError(exception);
-        })
-        .then(() => {
-          expect(mockLog).toHaveBeenCalledWith(expectedCall);
-          expect(mockExceptions.errorMessage).toHaveBeenCalled();
-          // eslint-disable-next-line promise/no-callback-in-promise
-          return done();
-        })
-        .catch(error => error);
-    });
+            mockErrorMessage = {
+              testMessage: 'hello',
+              testName: 'world',
+            };
+            mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
+            expectedCall = { ...message, ...mockErrorMessage };
+            return mockExceptions.onError(exception);
+          })
+          .then(() => {
+            expect(mockLog).toHaveBeenCalledWith(expectedCall);
+            expect(mockExceptions.errorMessage).toHaveBeenCalled();
+            return resolve();
+          })
+          .catch((error) => error);
+      }));
   });
 
   test('prettyPrint should return string for stacktrace', () => {

@@ -1,6 +1,7 @@
+/* eslint-disable unicorn/better-regex */
 const { execSync } = require('child_process');
 
-module.exports = plop => {
+module.exports = (plop) => {
   plop.setHelper('userFullName', () => {
     const name = execSync(
       'git config --global --includes user.name'
@@ -37,8 +38,7 @@ module.exports = plop => {
       },
       {
         type: 'add',
-        path:
-          'packages/{{kebabCase packageName}}/{{kebabCase packageName}}.test.js',
+        path: 'packages/{{kebabCase packageName}}/{{kebabCase packageName}}.test.js',
         templateFile: 'plop-templates/library/main.test.js.hbs',
       },
       {
@@ -69,7 +69,7 @@ module.exports = plop => {
         default: false,
       },
     ],
-    actions: data => {
+    actions: (data) => {
       const actions = [
         {
           type: 'add',
@@ -83,8 +83,7 @@ module.exports = plop => {
         },
         {
           type: 'add',
-          path:
-            'packages/api-core/src/resources/tests/{{camelCase resourceName}}.test.js',
+          path: 'packages/api-core/src/resources/tests/{{camelCase resourceName}}.test.js',
           templateFile: 'plop-templates/resource/api-core-test.js.hbs',
         },
         {
@@ -154,14 +153,16 @@ module.exports = plop => {
         {
           type: 'append',
           path: 'packages/api-axios/src/tests/api.test.js',
-          pattern: /describe\('API Definitions', \(\) => \{\n.*test\('should be defined', \(\) => \{/,
+          pattern:
+            /describe\('API Definitions', \(\) => \{\n.*test\('should be defined', \(\) => \{/,
           template:
             '    expect(av{{pascalCase resourceName}}Api).toBeDefined();',
         },
         {
           type: 'append',
           path: 'packages/api-angular/src/tests/api.test.js',
-          pattern: /beforeEach\(\(\) => \{\n.*angular\.mock\.module\(avModule\);\n.*\}\);/,
+          pattern:
+            /beforeEach\(\(\) => \{\n.*angular\.mock\.module\(avModule\);\n.*\}\);/,
           templateFile: 'plop-templates/resource/test-api-angular.hbs',
           separator: '\n\n',
         },

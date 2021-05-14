@@ -1,4 +1,4 @@
-/* eslint-disable promise/no-callback-in-promise */
+/* eslint-disable jest/no-conditional-expect */ // TODO: refactor
 import AvApi from '../api';
 
 jest.useFakeTimers();
@@ -891,8 +891,8 @@ describe('AvApi', () => {
           data: { offset: 0, limit: 50, totalCount: 0, count: 0, list: [] },
         })
       );
-      api.cacheParams = jest.fn(config => ({ ...config }));
-      api.config = jest.fn(config => ({ ...config }));
+      api.cacheParams = jest.fn((config) => ({ ...config }));
+      api.config = jest.fn((config) => ({ ...config }));
       api.getUrl = jest.fn(() => testUrl);
     });
 
@@ -927,7 +927,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn(thisData => thisData);
+      api.beforeCreate = jest.fn((thisData) => thisData);
       api.create(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -984,7 +984,7 @@ describe('AvApi', () => {
         ...config,
         data: 'testData=data',
       };
-      api.beforePostGet = jest.fn(thisData => thisData);
+      api.beforePostGet = jest.fn((thisData) => thisData);
       api.postGet(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1057,55 +1057,56 @@ describe('AvApi', () => {
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
     });
 
-    test('all() getting next pages', done => {
-      const config = {
-        testValue: 'test',
-      };
-      api.request = jest.fn(config => {
-        if ((config.params && config.params.offset === 0) || !config.params) {
-          return Promise.resolve({
-            data: {
-              offset: 0,
-              limit: 50,
-              totalCount: 125,
-              count: 50,
-              list: ['page 1'],
-            },
-          });
-        }
-        if (config.params.offset === 50) {
-          return Promise.resolve({
-            data: {
-              offset: 50,
-              limit: 50,
-              totalCount: 125,
-              count: 50,
-              list: ['page 2'],
-            },
-          });
-        }
-        if (config.params.offset === 100) {
-          return Promise.resolve({
-            data: {
-              offset: 100,
-              limit: 50,
-              totalCount: 125,
-              count: 25,
-              list: ['page 3'],
-            },
-          });
-        }
-        throw new Error('Called with unexpected offset');
-      });
-      api
-        .all(config)
-        .then(data => {
-          expect(api.request).toHaveBeenCalledTimes(3);
-          expect(data).toEqual(['page 1', 'page 2', 'page 3']);
-          return done();
-        })
-        .catch(done);
-    });
+    test('all() getting next pages', async () =>
+      new Promise((resolve) => {
+        const config = {
+          testValue: 'test',
+        };
+        api.request = jest.fn((config) => {
+          if ((config.params && config.params.offset === 0) || !config.params) {
+            return Promise.resolve({
+              data: {
+                offset: 0,
+                limit: 50,
+                totalCount: 125,
+                count: 50,
+                list: ['page 1'],
+              },
+            });
+          }
+          if (config.params.offset === 50) {
+            return Promise.resolve({
+              data: {
+                offset: 50,
+                limit: 50,
+                totalCount: 125,
+                count: 50,
+                list: ['page 2'],
+              },
+            });
+          }
+          if (config.params.offset === 100) {
+            return Promise.resolve({
+              data: {
+                offset: 100,
+                limit: 50,
+                totalCount: 125,
+                count: 25,
+                list: ['page 3'],
+              },
+            });
+          }
+          throw new Error('Called with unexpected offset');
+        });
+        api
+          .all(config)
+          .then((data) => {
+            expect(api.request).toHaveBeenCalledTimes(3);
+            expect(data).toEqual(['page 1', 'page 2', 'page 3']);
+            return resolve();
+          })
+          .catch(resolve);
+      }));
 
     test('update() setting method data and url', () => {
       const config = {
@@ -1140,7 +1141,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeUpdate = jest.fn(thisData => thisData);
+      api.beforeUpdate = jest.fn((thisData) => thisData);
       api.update(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1159,7 +1160,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeUpdate = jest.fn(thisData => thisData);
+      api.beforeUpdate = jest.fn((thisData) => thisData);
       api.update(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1198,7 +1199,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforePatch = jest.fn(thisData => thisData);
+      api.beforePatch = jest.fn((thisData) => thisData);
       api.patch(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1217,7 +1218,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforePatch = jest.fn(thisData => thisData);
+      api.beforePatch = jest.fn((thisData) => thisData);
       api.patch(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1261,7 +1262,7 @@ describe('AvApi', () => {
           b: '2',
         },
       };
-      api.beforeRemove = jest.fn(thisData => thisData);
+      api.beforeRemove = jest.fn((thisData) => thisData);
       api.remove(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
       expect(api.request).toHaveBeenLastCalledWith(config, undefined);
@@ -1299,7 +1300,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn(thisData => thisData);
+      api.beforeCreate = jest.fn((thisData) => thisData);
       api.sendBeacon(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1331,7 +1332,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn(thisData => thisData);
+      api.beforeCreate = jest.fn((thisData) => thisData);
       const resp = await api.sendBeacon(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
@@ -1363,7 +1364,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn(thisData => thisData);
+      api.beforeCreate = jest.fn((thisData) => thisData);
       api.sendBeacon(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.beforeCreate).toHaveBeenLastCalledWith(data);

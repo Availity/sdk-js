@@ -38,7 +38,7 @@ const getComposedPath = (node) => {
   }
 
   if (parent !== undefined) {
-    return [node].concat(getComposedPath(parent));
+    return [node, getComposedPath(parent)];
   }
 
   return [node];
