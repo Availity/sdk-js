@@ -123,16 +123,16 @@ describe('AvAnalytics', () => {
 
     test('should check each plugin is enabled', () => {
       mockAvAnalytics.init();
-      plugins.forEach(plugin => {
+      for (const plugin of plugins) {
         expect(plugin.isEnabled).toHaveBeenCalled();
-      });
+      }
     });
 
     test('should call init on enabled plugins', () => {
       mockAvAnalytics.init();
-      plugins.forEach(plugin => {
+      for (const plugin of plugins) {
         expect(plugin.init).toHaveBeenCalledTimes(1);
-      });
+      }
 
       plugins[0].isEnabled.mockImplementationOnce(() => false);
       mockAvAnalytics.init();

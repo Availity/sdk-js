@@ -18,11 +18,11 @@ describe('nativeForm', () => {
         result = flattenObject(complexObject);
       });
       test('should be 1 level deep', () => {
-        Object.keys(result).forEach(key => {
+        for (const key of Object.keys(result)) {
           expect(Object.prototype.toString.call(result[key])).toBe(
             '[object String]'
           );
-        });
+        }
       });
       test('should correctly represent the keys as dot notation', () => {
         const expected = {
@@ -148,14 +148,14 @@ describe('nativeForm', () => {
           nativeForm('spaceId123', complexObject);
           const flat = flattenObject(complexObject);
           const count = {};
-          Object.keys(flat).forEach(key => {
-            const name = key.replace(/\[\d+\]/g, '[]');
+          for (const key of Object.keys(flat)) {
+            const name = key.replace(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
             expect(
               document.querySelectorAll(`[name="${name}"`)[count[name]]
             ).not.toBeNull();
             count[name] += 1;
-          });
+          }
         });
 
         test('data should match the values within the object', () => {
@@ -163,15 +163,15 @@ describe('nativeForm', () => {
           nativeForm('spaceId123', complexObject);
           const flat = flattenObject(complexObject);
           const count = {};
-          Object.keys(flat).forEach(key => {
-            const name = key.replace(/\[\d+\]/g, '[]');
+          for (const key of Object.keys(flat)) {
+            const name = key.replace(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
             const value = flat[key];
             expect(
               document.querySelectorAll(`[name="${name}"`)[count[name]].value
             ).toBe(value);
             count[name] += 1;
-          });
+          }
         });
       });
     });

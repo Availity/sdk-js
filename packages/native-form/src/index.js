@@ -17,13 +17,13 @@ export default (
     ...formAttributes,
   };
   const form = document.createElement('form');
-  Object.keys(mergedOptions).forEach(key => {
+  for (const key of Object.keys(mergedOptions)) {
     form.setAttribute(key, mergedOptions[key]);
-  });
+  }
   const flat = flattenObject(params);
   const fields = Object.keys(flat)
     .map(key => {
-      const name = key.replace(/\[\d+\]/g, '[]');
+      const name = key.replace(/\[\d+]/g, '[]');
       const value = flat[key];
       return `<input type="hidden" name="${name}" value="${value}" />`;
     })

@@ -17,14 +17,14 @@ class AvAuthorizations {
   // return true/false if this permissionId is authorized in this region
   isAuthorized(permissionId, region) {
     return this.getPermission(permissionId, region).then(
-      permission => permission.isAuthorized
+      (permission) => permission.isAuthorized
     );
   }
 
   // return true/false if any of ther permissions in array are authorized in this region
   isAnyAuthorized(permissionIds, region) {
-    return this.getPermissions(permissionIds, region).then(permissions =>
-      permissions.some(permission => permission.isAuthorized)
+    return this.getPermissions(permissionIds, region).then((permissions) =>
+      permissions.some((permission) => permission.isAuthorized)
     );
   }
 
@@ -33,9 +33,8 @@ class AvAuthorizations {
     if (typeof permissionId !== 'string') {
       return this.promise.reject('permissionId must be a string');
     }
-    return this.getPermissions([permissionId], region).then(
-      permissions =>
-        permissions.filter(permission => permission.id === permissionId)[0]
+    return this.getPermissions([permissionId], region).then((permissions) =>
+      permissions.find((permission) => permission.id === permissionId)
     );
   }
 
@@ -47,7 +46,7 @@ class AvAuthorizations {
     return this.avRegions
       .getCurrentRegion()
       .then(
-        response =>
+        (response) =>
           response &&
           response.data &&
           response.data.regions &&
@@ -61,7 +60,7 @@ class AvAuthorizations {
     // check permissionIds
     let throwError = !Array.isArray(permissionIds);
     if (!throwError) {
-      throwError = permissionIds.some(id => typeof id !== 'string');
+      throwError = permissionIds.some((id) => typeof id !== 'string');
     }
     if (throwError) {
       return this.promise.reject('permissionIds must be an array of strings');
@@ -71,7 +70,7 @@ class AvAuthorizations {
     let neededIds = [];
     // get the region to use
     return this.getRegion(region)
-      .then(response => {
+      .then((response) => {
         useRegion = response;
         // get ids still needed
         neededIds = this.getMissingIds(permissionIds, useRegion);
@@ -80,7 +79,7 @@ class AvAuthorizations {
         }
         return this.promise.resolve([]);
       })
-      .then(permissions => {
+      .then((permissions) => {
         // add new permissions to the map
         this.addPermissions(neededIds, permissions, useRegion);
         // return the final results from the map
@@ -110,10 +109,10 @@ class AvAuthorizations {
 
   // add all ids permission object to map
   addPermissions(ids, permissions, region) {
-    ids.forEach(id => {
-      const permission = permissions.filter(val => val.id === id)[0];
+    for (const id of ids) {
+      const permission = permissions.find((val) => val.id === id);
       this.addPermission(permission || { id }, region);
-    });
+    }
   }
 
   // add this permission to map
@@ -125,23 +124,21 @@ class AvAuthorizations {
     // set default values
     permission.geographies = permission.geographies || [];
     permission.organizations = permission.organizations || [];
-    permission.isAuthorized = !!(
-      permission.organizations.length && permission.organizations.length > 0
-    );
+    permission.isAuthorized = permission.organizations.length > 0;
     this.authorizedMap[permission.id][region] = permission;
   }
 
   getOrganizations(permissionId, region) {
     return this.getPermission(permissionId, region).then(
-      permission => permission.organizations
+      (permission) => permission.organizations
     );
   }
 
   getPayers(permissionId, organizationId, region) {
-    return this.getPermission(permissionId, region).then(permission => {
-      const organization = permission.organizations.filter(
-        org => org.id === organizationId
-      )[0];
+    return this.getPermission(permissionId, region).then((permission) => {
+      const organization = permission.organizations.find(
+        (org) => org.id === organizationId
+      );
       return (organization && organization.resources) || [];
     });
   }

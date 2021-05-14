@@ -21,13 +21,13 @@ export default class AvSpaces extends AvApi {
     let spaceId = '';
 
     if (Array.isArray(pairs)) {
-      pairs.forEach(item => {
+      for (const item of pairs) {
         const pair = item.split('=');
         const key = pair[0];
         if (key === 'spaceId') {
           spaceId = pair[1] && decodeURIComponent(pair[1]);
         }
-      });
+      }
     }
     return spaceId;
   }

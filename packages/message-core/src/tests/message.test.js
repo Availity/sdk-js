@@ -12,7 +12,7 @@ describe('AvMessage', () => {
     avMessage = new AvMessage();
     avMessage.isEnabled = true;
     avMessage.DEFAULT_EVENT = 'avMessage';
-    avMessage.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
+    avMessage.DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
   });
 
   test('enabled() should set the value if one passed in', () => {
@@ -29,11 +29,11 @@ describe('AvMessage', () => {
         [testEvent]: fns,
       };
       avMessage.onMessage(`${testEvent}Other`);
-      fns.forEach(fn => expect(fn).not.toHaveBeenCalled());
+      for (const fn of fns)  expect(fn).not.toHaveBeenCalled();
 
       const data = { testData: 'hello world' };
       avMessage.onMessage(testEvent, data);
-      fns.forEach(fn => expect(fn).toHaveBeenCalledWith(data));
+      for (const fn of fns)  expect(fn).toHaveBeenCalledWith(data);
     });
 
     test('subscribe should add function to subscribers', () => {

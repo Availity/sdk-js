@@ -103,17 +103,10 @@ export default class AvApi {
     const { path, version, name, url } = config;
 
     let parts = [];
-    if (name) {
-      parts = ['', path, version, name, id];
-    } else {
-      parts = [url, id];
-    }
+    parts = name ? ['', path, version, name, id] : [url, id];
 
     // join parts, remove multiple /'s and trailing /
-    const uri = parts
-      .join('/')
-      .replace(/[/]+/g, '/')
-      .replace(/\/$/, '');
+    const uri = parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
 
     const hostname = url
       ? null
@@ -132,11 +125,9 @@ export default class AvApi {
     const { getHeader, base } = config;
     const { location, Location } = headers;
 
-    if (getHeader) {
-      locationUrl = getHeader(response, 'Location');
-    } else {
-      locationUrl = location || Location;
-    }
+    locationUrl = getHeader
+      ? getHeader(response, 'Location')
+      : location || Location;
 
     return resolveUrl({ relative: locationUrl, base });
   }
@@ -162,7 +153,7 @@ export default class AvApi {
         newConfig.method = this.defaultConfig.pollingMethod;
         newConfig.url = pollingUrl;
         newConfig.cache = false;
-        return new this.Promise(resolve => {
+        return new this.Promise((resolve) => {
           setTimeout(
             resolve,
             newConfig.pollingIntervals[newConfig.attempt] || 1000
@@ -181,7 +172,7 @@ export default class AvApi {
       config.attempt += 1;
     }
 
-    return this.http(config).then(response =>
+    return this.http(config).then((response) =>
       this.onResponse(response, afterResponse)
     );
   }
@@ -288,7 +279,7 @@ export default class AvApi {
   }
 
   all(config) {
-    return this.query(config).then(resp => {
+    return this.query(config).then((resp) => {
       const key = this.getQueryResultKey(resp.data);
       const totalPages = Math.ceil(resp.data.totalCount / resp.data.limit);
       const result = resp.data[key] || [];
@@ -298,19 +289,19 @@ export default class AvApi {
           otherPages[i] = i + 2;
         }
         return this.Promise.all(
-          otherPages.map(page =>
+          otherPages.map((page) =>
             this.getPage(page, config, resp.data.limit).then(
-              pageResp => pageResp.data[key] || []
+              (pageResp) => pageResp.data[key] || []
             )
           )
-        ).then(pages => result.concat(...pages));
+        ).then((pages) => result.concat(...pages));
       }
       return result;
     });
   }
 
   getQueryResultKey(data) {
-    return Object.keys(data).filter(key => Array.isArray(data[key]))[0];
+    return Object.keys(data).find((key) => Array.isArray(data[key]));
   }
 
   getResult(data) {

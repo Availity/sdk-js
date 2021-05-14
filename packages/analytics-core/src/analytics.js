@@ -1,6 +1,6 @@
-const isLeftClickEvent = event => event.button === 0;
+const isLeftClickEvent = (event) => event.button === 0;
 
-const isModifiedEvent = event =>
+const isModifiedEvent = (event) =>
   !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 
 const trackMap = {
@@ -10,24 +10,24 @@ const trackMap = {
   default: ['click'],
 };
 
-const isValidEventTypeOnTarget = event =>
+const isValidEventTypeOnTarget = (event) =>
   (trackMap[event.target.nodeName.toLowerCase()] || trackMap.default).indexOf(
     event.type
   ) > -1;
 
-const isPluginEnabled = plugin =>
+const isPluginEnabled = (plugin) =>
   typeof plugin.isEnabled === 'function'
     ? plugin.isEnabled()
     : plugin.isEnabled;
 
-const camelCase = str =>
-  str.replace(/-([a-z\d])/gi, (match, char) => char.toUpperCase());
+const camelCase = (str) =>
+  str.replace(/-([\da-z])/gi, (match, char) => char.toUpperCase());
 
 /**
  * Polyfill for [`Event.composedPath()`][1].
  * https://gist.github.com/kleinfreund/e9787d73776c0e3750dcfcdc89f100ec
  */
-const getComposedPath = node => {
+const getComposedPath = (node) => {
   let parent;
   if (node.parentNode) {
     parent = node.parentNode;
@@ -93,7 +93,7 @@ export default class AvAnalytics {
     document.body.removeEventListener('blur', this.handleEvent, true);
   };
 
-  handleEvent = event => {
+  handleEvent = (event) => {
     if (this.invalidEvent(event)) {
       return;
     }
@@ -104,7 +104,7 @@ export default class AvAnalytics {
 
     if (this.recursive) {
       // Reverse the array so we pull attributes from top down
-      path.reverse().forEach(pth => {
+      for (const pth of path.reverse()) {
         const attrs = this.getAnalyticAttrs(pth);
 
         analyticAttrs = { ...analyticAttrs, ...attrs };
@@ -114,17 +114,17 @@ export default class AvAnalytics {
           analyticAttrs.elemId =
             pth.getAttribute('id') || pth.getAttribute('name') || undefined;
         }
-      });
+      }
     } else {
       analyticAttrs = this.getAnalyticAttrs(target);
     }
 
     const actions = analyticAttrs
-      ? this.eventModifiers.filter(mod => analyticAttrs[mod] === event.type)
+      ? this.eventModifiers.filter((mod) => analyticAttrs[mod] === event.type)
       : [];
 
     if (
-      !Object.keys(analyticAttrs).length > 0 ||
+      Object.keys(analyticAttrs).length === 0 ||
       (this.recursive && actions.length === 0) ||
       actions.length === 0
     ) {
@@ -144,21 +144,21 @@ export default class AvAnalytics {
     }
 
     // remove keys for the click listeners
-    actions.forEach(key => {
+    for (const key of actions) {
       if (key !== 'action' && key !== 'event') {
         delete analyticAttrs[key];
       }
-    });
+    }
 
     this.trackEvent(analyticAttrs);
   };
 
-  invalidEvent = event =>
+  invalidEvent = (event) =>
     isModifiedEvent(event) ||
     (event.type === 'click' && !isLeftClickEvent(event)) ||
     !isValidEventTypeOnTarget(event);
 
-  getAnalyticAttrs = elem => {
+  getAnalyticAttrs = (elem) => {
     if (!elem.attributes) {
       return {};
     }
@@ -197,14 +197,14 @@ export default class AvAnalytics {
   init = () => {
     this.setPageTracking();
 
-    this.plugins.forEach(plugin => {
+    for (const plugin of this.plugins) {
       if (isPluginEnabled(plugin) && typeof plugin.init === 'function') {
         plugin.init();
       }
-    });
+    }
   };
 
-  setPageTracking = value => {
+  setPageTracking = (value) => {
     // eslint-disable-next-line eqeqeq
     if (value != undefined) {
       this.pageTracking = !!value;
@@ -224,11 +224,11 @@ export default class AvAnalytics {
     }
   };
 
-  trackEvent = properties => {
+  trackEvent = (properties) => {
     const promises = [];
     properties.url = properties.url || window.location.href || 'N/A';
 
-    this.plugins.forEach(plugin => {
+    for (const plugin of this.plugins) {
       const props = {
         ...properties,
       };
@@ -236,11 +236,11 @@ export default class AvAnalytics {
       if (isPluginEnabled(plugin) && typeof plugin.trackEvent === 'function') {
         promises.push(plugin.trackEvent(props));
       }
-    });
+    }
     return this.Promise.all(promises);
   };
 
-  trackPageView = url => {
+  trackPageView = (url) => {
     // hashchanges are an object so we want to grab the new url from it
     if (typeof url === 'object') {
       url = url.newURL;
@@ -248,14 +248,14 @@ export default class AvAnalytics {
 
     url = url || window.location.href;
     const promises = [];
-    this.plugins.forEach(plugin => {
+    for (const plugin of this.plugins) {
       if (
         isPluginEnabled(plugin) &&
         typeof plugin.trackPageView === 'function'
       ) {
         promises.push(plugin.trackPageView(url));
       }
-    });
+    }
     return this.Promise.all(promises);
   };
 }

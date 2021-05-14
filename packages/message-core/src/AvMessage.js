@@ -4,7 +4,7 @@ class AvMessage {
   constructor() {
     this.isEnabled = true;
     this.DEFAULT_EVENT = 'avMessage';
-    this.DOMAIN = /https?:\/\/([\w\d-]+\.)?availity\.(com|net)/;
+    this.DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
     window.addEventListener('message', this.getEventData);
   }
 
@@ -34,7 +34,7 @@ class AvMessage {
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data);
-      } catch (error) {
+      } catch {
         // no op
       }
     }
@@ -72,9 +72,9 @@ class AvMessage {
 
   onMessage(event, data) {
     if (this.subscribers[event]) {
-      this.subscribers[event].forEach(fn => {
+      for (const fn of this.subscribers[event]) {
         fn(data);
-      });
+      }
     }
   }
 
