@@ -176,7 +176,7 @@ describe('AvExceptions', () => {
       expect(mockExceptions.isRepeatError).toHaveBeenCalled();
     });
 
-    test('should skip isRepeatError if skipRepeat is true ', done => {
+    test('should skip isRepeatError if skipRepeat is true', done => {
       mockExceptions
         .onError(exception, true)
         .then(() => {

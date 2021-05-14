@@ -27,7 +27,7 @@ describe('Environment Variables', () => {
     );
   });
   describe('Default environments', () => {
-    [
+    for (const args of [
       ['fallback-apps.availity.com', 'local'],
       ['localhost', 'local'],
       ['127.0.0.1', 'local'],
@@ -69,12 +69,12 @@ describe('Environment Variables', () => {
       ['digital.aws.availity.com/cdn/tst/spaces/index.html', 'test'],
       ['digital.azn.availity.com/cdn/t01/spaces/index.html', 'test'],
       ['digital.gcn.availity.com/cdn/t25/spaces/index.html', 'test'],
-    ].forEach(args => {
+    ]) {
       generateTest(...args);
-    });
+    }
 
     describe('Override window', () => {
-      [
+      for (const args of [
         [
           'fallback-apps.availity.com',
           'prod',
@@ -142,13 +142,13 @@ describe('Environment Variables', () => {
           'test',
           getFakeWindowLocation('bar.aws.availity.com', '/cdn/tst/index.html'),
         ],
-      ].forEach(args => {
+      ]) {
         generateTest(...args);
-      });
+      }
     });
 
     describe('Provide URL', () => {
-      [
+      for (const args of [
         ['fallback-apps.availity.com', 'prod', 'https://apps.availity.com'],
         ['localhost', 'prod', 'https://apps.availity.com'],
         ['127.0.0.1', 'prod', 'https://apps.availity.com'],
@@ -199,9 +199,9 @@ describe('Environment Variables', () => {
           'qa',
           'https://foo.aws.availity.com/api/stg/spaces/index.html',
         ],
-      ].forEach(args => {
+      ]) {
         generateTest(...args);
-      });
+      }
     });
   });
 
@@ -340,7 +340,7 @@ describe('Environment Variables', () => {
   };
 
   describe('Specific environments', () => {
-    [
+    for (const args of [
       ['fallback-apps.availity.com', 'fallback'],
       ['localhost', 'local'],
       ['127.0.0.1', 'local'],
@@ -387,8 +387,8 @@ describe('Environment Variables', () => {
       ['digital.aws.availity.com/cdn/apple/spaces/index.html', 'local'],
       ['digital.awn.availity.com/nahfam/stg/spaces/index.html', 'local'],
       ['digital.aws.availity.com/nahfam/stg/spaces/index.html', 'local'],
-    ].forEach(args => {
+    ]) {
       generateSpecificTest(...args);
-    });
+    }
   });
 });

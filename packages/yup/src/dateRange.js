@@ -81,8 +81,7 @@ export default class DateRangeSchema extends mixed {
       test({ endDate, startDate } = defaultValue) {
         if ((!minValue && !maxValue) || !startDate || !endDate) return true;
 
-        if (maxValue) {
-          if (endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
+        if (maxValue && endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
             return new ValidationError(
               maxErrorMessage ||
                 `The end date must be within ${maxValue} ${maxUnits}${
@@ -95,9 +94,7 @@ export default class DateRangeSchema extends mixed {
               this.path
             );
           }
-        }
-        if (minValue) {
-          if (endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
+        if (minValue && endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
             return new ValidationError(
               minErrorMessage ||
                 `The end date must be greater than ${minValue} ${minUnits}${
@@ -107,7 +104,6 @@ export default class DateRangeSchema extends mixed {
               this.path
             );
           }
-        }
 
         return true;
       },

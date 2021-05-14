@@ -243,8 +243,7 @@ describe('upload-core', () => {
         file.name = 'a';
         const upload = new Upload(file, options);
         const success = jest.fn();
-        upload.onSuccess.push(success);
-        upload.onSuccess.push(() => {
+        upload.onSuccess.push(success, () => {
           expect(success).toHaveBeenCalled();
           done();
         });

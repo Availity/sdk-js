@@ -8,10 +8,10 @@ const getCloudEnv = options => {
   const { subdomain, pathname } = options;
   if (!(subdomain && pathname)) return null;
 
-  const subMatch = subdomain.match(/.*?\.(?:aw|az|gc)(n|p|s)$/);
+  const subMatch = subdomain.match(/.*?\.(?:aw|az|gc)([nps])$/);
   if (!subMatch) return null;
 
-  const pathMatch = pathname.match(/^\/[a-z]{3}\/([a-z0-9]{3})\/.*/);
+  const pathMatch = pathname.match(/^\/[a-z]{3}\/([\da-z]{3})\/.*/);
   if (!pathMatch) return null;
 
   // ??p domains must be prod, ??n and ??s domains can't be prod
@@ -46,7 +46,7 @@ let specificEnvironments = [
     fn: options => options.match[1] || 'prod',
   },
   {
-    regex: /.*?\.(?:aw|az|gc)(n|p|s)$/,
+    regex: /.*?\.(?:aw|az|gc)([nps])$/,
     fn: getCloudEnv,
   },
 ];

@@ -4,7 +4,7 @@ const isAbsoluteUrl = url => {
     throw new TypeError(`Expected a \`string\`, got \`${typeof url}\``);
   }
 
-  return /^[a-z][a-z\d+.-]*:/.test(url);
+  return /^[a-z][\d+.a-z-]*:/.test(url);
 };
 
 export default isAbsoluteUrl;
