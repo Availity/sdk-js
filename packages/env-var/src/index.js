@@ -4,7 +4,7 @@
 // Cloud URIs are in the format /<namespace>/<environment>/...
 // where <namespace> is a three character abbreviation, e.g., cdn or api
 // and <environment> is a three character abbreviation, e.g., prd or t01
-const getCloudEnv = options => {
+const getCloudEnv = (options) => {
   const { subdomain, pathname } = options;
   if (!(subdomain && pathname)) return null;
 
@@ -31,19 +31,20 @@ let environments = {
   local: ['127.0.0.1', 'localhost'],
   test: [
     /^t(?:(?:\d\d)|(?:est))-apps$/,
-    options => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options)),
+    (options) => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options)),
   ],
   qa: [
     /^q(?:(?:\d\d)|(?:ap?))-apps$/,
-    options => /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options)),
+    (options) =>
+      /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options)),
   ],
-  prod: [/^apps$/, options => getCloudEnv(options) === 'prd'],
+  prod: [/^apps$/, (options) => getCloudEnv(options) === 'prd'],
 };
 
 let specificEnvironments = [
   {
     regex: /^(?:(.*)-)?apps$/,
-    fn: options => options.match[1] || 'prod',
+    fn: (options) => options.match[1] || 'prod',
   },
   {
     regex: /.*?\.(?:aw|az|gc)([nps])$/,
@@ -96,15 +97,14 @@ export function getCurrentEnv(windowOverride = window) {
     }
 
     return (
-      envTests.some(test => {
-        switch (Object.prototype.toString.call(test)) {
+      envTests.some((testObj) => {
+        switch (Object.prototype.toString.call(testObj)) {
           case '[object String]':
-            return test === subdomain;
+            return testObj === subdomain;
           case '[object RegExp]':
-            return test.test(subdomain);
+            return testObj.test(subdomain);
           case '[object Function]':
-            // eslint-disable-next-line jest/no-disabled-tests
-            return test({ subdomain, pathname });
+            return testObj({ subdomain, pathname });
           default:
             return false;
         }
@@ -127,7 +127,8 @@ export function getSpecificEnv(windowOverride = window) {
   );
 }
 
-export default function(varObj, windowOverride, defaultVar) {
+// eslint-disable-next-line func-names
+export default function (varObj, windowOverride, defaultVar) {
   const env = getCurrentEnv(windowOverride);
 
   if (typeof varObj[env] !== 'undefined') {
