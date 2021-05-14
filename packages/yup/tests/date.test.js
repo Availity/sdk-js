@@ -42,6 +42,9 @@ describe('Date', () => {
     await expect(validate('12-2012-12')).rejects.toThrow(INVALID);
     await expect(validate('invalid-date')).rejects.toThrow(INVALID);
     await expect(validate('01/01/20011')).rejects.toThrow(INVALID);
+
+    // Allow user to clear date field without showing typeError
+    await expect(validate('')).resolves.toBeTruthy();
   });
 
   test('min date', async () => {

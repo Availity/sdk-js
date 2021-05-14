@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.9 (2021-05-14)
+
+
+### Bug Fixes
+
+* **yup:** avDate.typeError should not display for empty fields ([8bf47fb](https://github.com/Availity/sdk-js/commit/8bf47fb3a64f5b956b8ce0d4b27dbac46e08c864))
+
+
+
+
+
 ## 3.0.8 (2020-10-06)
 
 
