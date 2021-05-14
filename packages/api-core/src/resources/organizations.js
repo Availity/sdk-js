@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-destructuring */
 import qs from 'qs';
 import AvApi from '../api';
 
@@ -42,7 +43,7 @@ export default class AvOrganizations extends AvApi {
 
     return this.avUsers
       .me()
-      .then(user => this.queryOrganizations(user, config));
+      .then((user) => this.queryOrganizations(user, config));
   }
 
   async postGet(data, config, additionalPostGetArgs) {
@@ -81,8 +82,8 @@ export default class AvOrganizations extends AvApi {
 
       // avUserPermissions call doesn't return much useful organization data
       // but we can match valid ids to useful data returned from avOrganizations
-      const authorizedFilteredOrgs = organizations.filter(org =>
-        authorizedOrgs.some(authOrg => authOrg.id === org.id)
+      const authorizedFilteredOrgs = organizations.filter((org) =>
+        authorizedOrgs.some((authOrg) => authOrg.id === org.id)
       );
 
       // Transform back into data object that ResourceSelect can use and paginate
@@ -154,28 +155,27 @@ export default class AvOrganizations extends AvApi {
         const matchedOrgs = permissionIdOR.reduce(
           (matchedANDOrgsByPerm, permissionIdAND, index) => {
             if (this.userPermissions[permissionIdAND]) {
-              for (const org of this.userPermissions[permissionIdAND].organizations) {
-                  if (index === 0) {
-                    // add the orgs for the first permission
-                    matchedANDOrgsByPerm[org.id] = org;
-                  } else if (matchedANDOrgsByPerm[org.id]) {
-                    // if duplicate, add resources
-                    matchedANDOrgsByPerm[
-                      org.id
-                    ].resources = matchedANDOrgsByPerm[org.id].resources.concat(
-                      org.resources
-                    );
-                  }
+              for (const org of this.userPermissions[permissionIdAND]
+                .organizations) {
+                if (index === 0) {
+                  // add the orgs for the first permission
+                  matchedANDOrgsByPerm[org.id] = org;
+                } else if (matchedANDOrgsByPerm[org.id]) {
+                  // if duplicate, add resources
+                  matchedANDOrgsByPerm[org.id].resources = [
+                    ...matchedANDOrgsByPerm[org.id].resources,
+                    ...org.resources,
+                  ];
                 }
-              
+              }
             }
             // filter unmatched orgs out
             matchedANDOrgsByPerm = Object.keys(matchedANDOrgsByPerm)
-              .filter(orgId => {
+              .filter((orgId) => {
                 if (this.userPermissions[permissionIdAND]) {
                   return this.userPermissions[
                     permissionIdAND
-                  ].organizations.some(org => org.id === orgId);
+                  ].organizations.some((org) => org.id === orgId);
                 }
                 return false;
               })
@@ -201,9 +201,10 @@ export default class AvOrganizations extends AvApi {
             accum[org.id].match = false;
           } else {
             // add the resources
-            accum[org.id].resources = accum[org.id].resources.concat(
-              org.resources
-            );
+            accum[org.id].resources = [
+              ...accum[org.id].resources,
+              ...org.resources,
+            ];
           }
         }
       }
@@ -216,13 +217,15 @@ export default class AvOrganizations extends AvApi {
         authorizedOrgs[orgId].match = true;
       }
     } else {
-      resourceIdsArray.forEach(resourceIdOR => {
+      // TODO: fix test when refactoring to for...of
+      // eslint-disable-next-line unicorn/no-array-for-each
+      resourceIdsArray.forEach((resourceIdOR) => {
         if (Array.isArray(resourceIdOR)) {
           // there is AND logic
           for (const orgId of Object.keys(authorizedOrgs)) {
             if (authorizedOrgs[orgId]) {
-              const isMatch = resourceIdOR.every(resId =>
-                authorizedOrgs[orgId].resources.some(res => res.id === resId)
+              const isMatch = resourceIdOR.every((resId) =>
+                authorizedOrgs[orgId].resources.some((res) => res.id === resId)
               );
               if (isMatch) {
                 authorizedOrgs[orgId].match = true;
@@ -232,7 +235,7 @@ export default class AvOrganizations extends AvApi {
         } else {
           for (const orgId of Object.keys(authorizedOrgs)) {
             const isMatch = authorizedOrgs[orgId].resources.some(
-              res => res.id === resourceIdOR
+              (res) => res.id === resourceIdOR
             );
             if (isMatch || !resourceIdOR) {
               authorizedOrgs[orgId].match = true;
@@ -300,7 +303,7 @@ export default class AvOrganizations extends AvApi {
       return `${unsanitized}`;
     }
     if (Array.isArray(unsanitized)) {
-      return unsanitized.map(dirty => this.sanitizeIds(dirty));
+      return unsanitized.map((dirty) => this.sanitizeIds(dirty));
     }
     throw new TypeError(
       'permission/resourcesId(s) must be either an array of ids, a string, or a number'
