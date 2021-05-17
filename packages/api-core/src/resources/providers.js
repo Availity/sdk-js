@@ -21,13 +21,13 @@ export default class AvProviders extends AvApi {
   }
 
   normalize(providers) {
-    const cloned = providers.slice();
+    const cloned = [...providers];
 
-    cloned.forEach(provider => {
+    for (const provider of cloned) {
       provider.name = provider.businessName
         ? provider.businessName
         : `${provider.lastName}, ${provider.firstName}`;
-    });
+    }
 
     return cloned;
   }

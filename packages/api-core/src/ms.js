@@ -22,7 +22,7 @@ export default class AvMicroservice extends AvApi {
     }
     const uri = parts
       .join('/')
-      .replace(/[/]+/g, '/')
+      .replace(/\/+/g, '/')
       .replace(/\/$/, '');
 
     const hostname = resolveHost(config.host, config.window || window);

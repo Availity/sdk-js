@@ -15,14 +15,12 @@ describe('DateRange', () => {
   test('Invalid Dates', async () => {
     const schema = dateRange();
 
-    try {
-      await schema.validate({
+    await expect(
+      schema.validate({
         startDate: '',
         endDate: '12/14/2012',
-      });
-    } catch (error) {
-      expect(error.errors[0]).toBe('Start and End Date are required.');
-    }
+      })
+    ).rejects.toThrow('Start and End Date are required.');
   });
 
   test('defines min', async () => {

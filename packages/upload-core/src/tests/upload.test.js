@@ -73,8 +73,8 @@ describe('upload-core', () => {
     it('should allow single file as constructor argument', () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'fileName.png';
-      // eslint-disable-next-line no-new
-      new Upload(file, options);
+      const upload = new Upload(file, options);
+      expect(upload.isValidFile()).toBeTruthy();
     });
 
     it('should throw error for invalid file type', () => {
@@ -87,8 +87,8 @@ describe('upload-core', () => {
     it('should allow the correct file type', () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'coolFile.png';
-      // eslint-disable-next-line no-new
-      new Upload(file, optionsWithFileTypes);
+      const upload = new Upload(file, optionsWithFileTypes);
+      expect(upload.isValidFile()).toBeTruthy();
     });
 
     it('should use default options', () => {
@@ -208,65 +208,58 @@ describe('upload-core', () => {
       afterEach(() => {
         xhrMock.teardown();
       });
-      it('should upload a file', done => {
-        nock('https://dev.local')
-          .post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/')
-          .reply(
-            201,
-            {},
-            {
-              'tus-resumable': '1.0.0',
-              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-              'transfer-encoding': 'chunked',
-              location: '4611142db7c049bbbe37376583a3f46b',
-            }
-          );
+      it('should upload a file', () =>
+        new Promise((resolve) => {
+          nock('https://dev.local')
+            .post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/')
+            .reply(
+              201,
+              {},
+              {
+                'tus-resumable': '1.0.0',
+                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+                'transfer-encoding': 'chunked',
+                location: '4611142db7c049bbbe37376583a3f46b',
+              }
+            );
 
-        nock('https://dev.local')
-          .patch(
-            '/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b'
-          )
-          .reply(
-            204,
-            {},
-            {
-              'tus-resumable': '1.0.0',
-              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-              'transfer-encoding': 'chunked',
-              'Upload-Offset': 12,
-              references:
-                '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
-            }
-          );
+          nock('https://dev.local')
+            .patch(
+              '/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b'
+            )
+            .reply(
+              204,
+              {},
+              {
+                'tus-resumable': '1.0.0',
+                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+                'transfer-encoding': 'chunked',
+                'Upload-Offset': 12,
+                references:
+                  '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+              }
+            );
 
-        const file = Buffer.from('hello world!');
-        file.name = 'a';
-        const upload = new Upload(file, options);
-        const success = jest.fn();
-        upload.onSuccess.push(success);
-        upload.onSuccess.push(() => {
-          expect(success).toHaveBeenCalled();
-          done();
-        });
+          const file = Buffer.from('hello world!');
+          file.name = 'a';
+          const upload = new Upload(file, options);
+          const success = jest.fn();
+          upload.onSuccess.push(success, () => {
+            expect(success).toHaveBeenCalled();
+            resolve();
+          });
 
-        xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
-          status: 200,
-          headers: {
-            'Content-Length': '0',
-            'AV-Scan-Result': 'accepted',
-            'Upload-Result': 'accepted',
-          },
-        });
+          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
+            status: 200,
+            headers: {
+              'Content-Length': '0',
+              'AV-Scan-Result': 'accepted',
+              'Upload-Result': 'accepted',
+            },
+          });
 
-        upload.start();
-      });
-
-      // it('should resume an upload from a stored url', done => {
-      //   window.localStorage.setItem(
-      //     'fingerprinted',
-      //     'http://tus.io/uploads/resuming'
-      //   );
-      // });
+          upload.start();
+        }));
     });
   });
 });

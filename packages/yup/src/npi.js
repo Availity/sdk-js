@@ -19,7 +19,7 @@ function npi(msg) {
         return false;
       }
 
-      const digit = parseInt(value.charAt(9), 10);
+      const digit = Number.parseInt(value.charAt(9), 10);
       value = value.substring(0, 9);
       value = `80840${value}`;
 
@@ -27,7 +27,7 @@ function npi(msg) {
       let total = 0;
 
       for (let i = value.length; i > 0; i--) {
-        let next = parseInt(value.charAt(i - 1), 10);
+        let next = Number.parseInt(value.charAt(i - 1), 10);
         if (alternate) {
           next *= 2;
           if (next > 9) {

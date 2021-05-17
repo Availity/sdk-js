@@ -27,6 +27,7 @@
   "dependencies": {
     "@availity/resolve-url": "^1.1.20",
     "@babel/runtime": "^7.10.2",
+    "core-js": "^3.12.1",
     "tus-js-client": "1.7.1"
   }
 }

@@ -463,10 +463,10 @@ describe('AvOrganizations', () => {
       expect(authorizedFilteredOrgs.length).toBe(1);
       expect(authorizedFilteredOrgs[0].resources).toBeDefined();
 
-      const orgs = mockOrg.organizations.filter(org =>
+      const orgs = mockOrg.organizations.find(org =>
         authorizedFilteredOrgs.some(authOrg => authOrg.id === org.id)
       );
-      expect(orgs[0].address).toBeDefined();
+      expect(orgs.address).toBeDefined();
     });
 
     test('should filter organizations by AND permissions', async () => {

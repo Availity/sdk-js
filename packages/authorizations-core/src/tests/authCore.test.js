@@ -1,3 +1,6 @@
+/* eslint-disable jest/no-try-expect */
+/* eslint-disable jest/no-conditional-expect */
+// TODO: investigate why refactored tests don't throw
 import AvAuthorizations from '..';
 
 expect.extend({
@@ -28,8 +31,8 @@ expect.extend({
       };
     }
     // check all the ids against provided permissions, testing isAuthorized against isNot
-    isPass = ids.every(id => {
-      const permission = permissions.find(val => val.id === id);
+    isPass = ids.every((id) => {
+      const permission = permissions.find((val) => val.id === id);
       return permission && permission.isAuthorized === !this.isNot;
     });
     return {
@@ -45,18 +48,18 @@ expect.extend({
 });
 
 function authorizedMockPermissions(permissionIds) {
-  return permissionIds.map(id => ({
+  return permissionIds.map((id) => ({
     id,
     organizations: [{ id: 'testOrg', resources: 'testResources' }],
   }));
 }
 
 function unauthorizedMockPermissions(permissionIds) {
-  return permissionIds.map(id => ({ id }));
+  return permissionIds.map((id) => ({ id }));
 }
 
 function getMockPermissionValues(permissionIds, isAuthorized) {
-  return permissionIds.map(id => {
+  return permissionIds.map((id) => {
     const output = {
       id,
       isAuthorized,
@@ -302,7 +305,7 @@ describe('AvAuthorizations', () => {
 
   test('getPermission should reject when a non-string is passed in', () => {
     const testId = 123;
-    return testAuthorizations.getPermission(testId).catch(error => {
+    return testAuthorizations.getPermission(testId).catch((error) => {
       expect(error).toBe('permissionId must be a string');
     });
   });

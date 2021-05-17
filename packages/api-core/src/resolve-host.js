@@ -11,7 +11,7 @@ export default function resolveHost(host, overrideWindow) {
   if (host) return host;
 
   if (
-    /.*?\.(?:aw|az|gc)[n|p|s]\.availity\.com$/.test(
+    /.*?\.(?:aw|az|gc)[nps|]\.availity\.com$/.test(
       overrideWindow.location.hostname
     )
   ) {

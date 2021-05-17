@@ -66,7 +66,7 @@ export function removeDotSegments(path) {
       case '#':
       case '?':
         // Query and fragment string should be appended unchanged
-        if (!segmentBuffers.length > 0) {
+        if (segmentBuffers.length === 0) {
           segmentBuffers.push([]);
         }
         segmentBuffers[segmentBuffers.length - 1].push(path.substr(i));
@@ -75,7 +75,7 @@ export function removeDotSegments(path) {
         break;
       default:
         // Not a special character, just append it to our buffer
-        if (!segmentBuffers.length > 0) {
+        if (segmentBuffers.length === 0) {
           segmentBuffers.push([]);
         }
         segmentBuffers[segmentBuffers.length - 1].push(path[i]);
@@ -84,7 +84,7 @@ export function removeDotSegments(path) {
     }
   }
 
-  return `/${segmentBuffers.map(buffer => buffer.join('')).join('/')}`;
+  return `/${segmentBuffers.map((buffer) => buffer.join('')).join('/')}`;
 }
 
 /**
@@ -124,8 +124,7 @@ export function removeDotSegmentsOfPath(iri, colonPosition) {
  * @param {string} baseIRI The optional base IRI.
  * @return {string} an absolute IRI.
  */
-export function resolve(relativeIRI, baseIRI) {
-  baseIRI = baseIRI || '';
+export function resolve(relativeIRI, baseIRI = '') {
   const baseFragmentPos = baseIRI.indexOf('#');
 
   // Ignore any fragments in the base IRI
@@ -134,7 +133,7 @@ export function resolve(relativeIRI, baseIRI) {
   }
 
   // Convert empty value directly to base IRI
-  if (!relativeIRI.length > 0) {
+  if (relativeIRI.length === 0) {
     return baseIRI;
   }
 
@@ -153,7 +152,7 @@ export function resolve(relativeIRI, baseIRI) {
   }
 
   // Ignore baseIRI if it is empty
-  if (!baseIRI.length > 0) {
+  if (baseIRI.length === 0) {
     return removeDotSegmentsOfPath(relativeIRI, relativeIRI.indexOf(':'));
   }
 

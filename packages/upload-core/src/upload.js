@@ -115,12 +115,12 @@ class Upload {
         this.bytesSent = bytesSent;
         this.bytesTotal = bytesTotal;
         this.percentage = this.getPercentage();
-        this.onProgress.forEach(cb => cb());
+        for (const cb of this.onProgress)  cb();
       },
       onSuccess: () => {
         const xhr = this.upload._xhr;
         this.bytesScanned =
-          parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
+          Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
         this.percentage = this.getPercentage();
 
         const result = this.getResult(xhr);
@@ -133,7 +133,7 @@ class Upload {
           if (references) {
             this.references = JSON.parse(references);
           }
-          this.onSuccess.forEach(cb => cb());
+          for (const cb of this.onSuccess)  cb();
           return;
         }
 
@@ -178,7 +178,7 @@ class Upload {
         return;
       }
 
-      this.bytesScanned = parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10);
+      this.bytesScanned = Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10);
       this.percentage = this.getPercentage();
 
       const result = this.getResult(xhr);
@@ -189,13 +189,11 @@ class Upload {
         return;
       }
 
-      if (result.status === 'encrypted') {
-        if (this.waitForPassword) {
+      if (result.status === 'encrypted' && this.waitForPassword) {
           this.setError(result.status, result.message);
           clearTimeout(this.timeoutId);
           return;
         }
-      }
 
       if (result.status === 'accepted') {
         this.percentage = 100;
@@ -205,7 +203,7 @@ class Upload {
         if (references) {
           this.references = JSON.parse(references);
         }
-        this.onSuccess.forEach(cb => cb());
+        for (const cb of this.onSuccess)  cb();
         return;
       }
 
@@ -213,7 +211,7 @@ class Upload {
         this.setError(result.status, result.message);
       }
 
-      this.onProgress.forEach(cb => cb());
+      for (const cb of this.onProgress)  cb();
       this.timeoutId = setTimeout(() => {
         this.scan();
       }, this.options.pollingTime);
@@ -250,7 +248,7 @@ class Upload {
 
   generateId() {
     const { fingerprint } = this.options;
-    return fingerprint(this.file, this.options).replace(/[^a-zA-Z0-9-]/g, '');
+    return fingerprint(this.file, this.options).replace(/[^\dA-Za-z-]/g, '');
   }
 
   fingerprint(file, options = {}, callback) {
@@ -286,12 +284,10 @@ class Upload {
   }
 
   isValidSize() {
-    if (this.options.maxSize) {
-      if (this.file.size > this.options.maxSize) {
+    if (this.options.maxSize && this.file.size > this.options.maxSize) {
         this.setError('rejected', 'Document is too large');
         return false;
       }
-    }
 
     return true;
   }
@@ -403,11 +399,11 @@ class Upload {
     this.status = status;
     try {
       this.parseErrorMessage(message, err);
-    } catch (error) {
+    } catch {
       /* the error callback should always be called */
     }
 
-    this.onError.forEach(cb => cb(err || new Error(this.errorMessage)));
+    for (const cb of this.onError)  cb(err || new Error(this.errorMessage));
   }
 
   parseErrorMessage(message, err) {

@@ -28,7 +28,7 @@ export default class AvLogMessages extends AvApi {
 
     const fields = Object.keys(flattened)
       .map(key => {
-        const name = key.replace(/\[\d+\]/g, '[]');
+        const name = key.replace(/\[\d+]/g, '[]');
         const value = flattened[key];
         return `${name}=${encodeURIComponent(value)}`;
       })
