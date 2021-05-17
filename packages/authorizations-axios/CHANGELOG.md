@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.42](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@5.0.41...@availity/authorizations-axios@5.0.42) (2021-05-17)
+
+**Note:** Version bump only for package @availity/authorizations-axios
+
+
+
+
+
 ## 5.0.41 (2021-04-01)
 
 **Note:** Version bump only for package @availity/authorizations-axios

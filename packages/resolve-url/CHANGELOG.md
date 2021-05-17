@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.21 (2021-05-17)
+
+
+### Bug Fixes
+
+* **resolve-url:** fixes incorrect regex results failing tests, assign default param to baseIRI ([2aebb4b](https://github.com/Availity/sdk-js/commit/2aebb4b5ac512b8be1818a97914b84e6b734b1da))
+
+
+
+
+
 ## 1.1.20 (2020-06-22)
 
 **Note:** Version bump only for package @availity/resolve-url
