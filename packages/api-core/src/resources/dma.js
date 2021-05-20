@@ -1,4 +1,4 @@
-import flattenObject from '@availity/api-core/lib/flattenObject';
+import flattenObject from '../flattenObject';
 import AvMicroservice from '../ms';
 
 class DmaLogMessages extends AvMicroservice {
@@ -27,7 +27,7 @@ class DmaLogMessages extends AvMicroservice {
     );
 
     const fields = Object.keys(flattened)
-      .map(key => {
+      .map((key) => {
         const name = key.replace(/\[\d+]/g, '[]');
         const value = flattened[key];
         return `${name}=${encodeURIComponent(value)}`;
