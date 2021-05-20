@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@7.0.0...@availity/api-core@7.0.1) (2021-05-20)
+
+
+### Bug Fixes
+
+* **api-core:** fix flattenObject import ([8c4375e](https://github.com/Availity/sdk-js/commit/8c4375eae85ae3d70f5c16d5c5691a746bc1d38b))
+
+
+
+
+
 # [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@6.6.6...@availity/api-core@7.0.0) (2021-05-17)
 
 
