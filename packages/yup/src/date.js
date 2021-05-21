@@ -8,12 +8,13 @@ const defaultOpts = {
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
 export default class AvDateSchema extends mixed {
-  constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
+  constructor({ format = 'MM/DD/YYYY', typeErrorMessage = 'Date is invalid.' } = defaultOpts) {
     super({
       type: 'avDate',
     });
 
     this.format = format;
+    this.typeErrorMessage = typeErrorMessage;
     this.getValidDate = this.getValidDate.bind(this);
 
     this.withMutation(() => {
@@ -24,8 +25,8 @@ export default class AvDateSchema extends mixed {
   }
 
   typeError() {
-    return this.test({
-      message: 'Date is invalid.',
+    return this.typeErrorMessage && this.test({
+      message: this.typeErrorMessage,
       name: 'typeError',
       test(value) {
         if (value !== undefined) {
