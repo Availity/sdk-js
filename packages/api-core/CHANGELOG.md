@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.2](https://github.com/Availity/sdk-js/compare/@availity/api-core@7.0.1...@availity/api-core@7.0.2) (2021-05-25)
+
+
+### Bug Fixes
+
+* **api-core:** all should append individual items ([1bf476e](https://github.com/Availity/sdk-js/commit/1bf476e4125355bc45fbbd8895c7affc48c13bdc))
+* **api-core:** use flat for lint ([dcabbdf](https://github.com/Availity/sdk-js/commit/dcabbdf97e9fd9d8cba101af31a0a22e9e704f64))
+* **api-core:** use flat for lint with spread ([56b4cd9](https://github.com/Availity/sdk-js/commit/56b4cd979edc0af07b9a00682d999ae234bc9c95))
+
+
+
+
+
 ## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@7.0.0...@availity/api-core@7.0.1) (2021-05-20)
 
 
