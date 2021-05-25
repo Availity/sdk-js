@@ -30,7 +30,7 @@
   "dependencies": {
     "@babel/runtime": "^7.10.2",
     "core-js": "^3.12.1",
-    "lodash.get": "^4.4.2",
+    "lodash": "^4.17.21",
     "merge-options-es5": "^1.0.0"
   },
   "gitHead": "7290d74ff71d4ceef68da9ec3cb3f3b036eee8c2"

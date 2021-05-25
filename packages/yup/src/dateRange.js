@@ -1,5 +1,5 @@
 import moment from 'moment';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import { mixed, ValidationError } from 'yup';
 import merge from 'merge-options-es5';
 
