@@ -292,7 +292,7 @@ export default class AvApi {
               (pageResp) => pageResp.data[key] || []
             )
           )
-        ).then((pages) => result.concat(...pages));
+        ).then((pages) => result.concat(...pages).flat());
       }
       return result;
     });
