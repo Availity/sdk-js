@@ -11,7 +11,7 @@ const validate = async (
   let schema = avDate({
     format,
     typeErrorMessage,
-  }).typeError();
+  });
 
   if (min && !max) {
     schema = schema.min(min, message);
