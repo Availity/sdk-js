@@ -4,7 +4,10 @@ const INVALID = 'Date is invalid.';
 
 const defaults = {};
 
-const validate = async (date, { format, min, max, message } = defaults) => {
+const validate = async (
+  date,
+  { format, min, max, message, inclusivity } = defaults
+) => {
   let schema = avDate({
     format,
   });
@@ -18,7 +21,9 @@ const validate = async (date, { format, min, max, message } = defaults) => {
   }
 
   if (min && max) {
-    schema = schema.between(min, max, message);
+    schema = inclusivity
+      ? schema.between(min, max, message, inclusivity)
+      : schema.between(min, max, message);
   }
 
   return schema.validate(date);
@@ -145,5 +150,14 @@ describe('Date', () => {
         format: 'YYYY/MM/DD',
       })
     ).rejects.toThrow();
+
+    await expect(
+      validate('2012/12/12', {
+        max: '2012/12/12',
+        min: '2012/12/10',
+        format: 'YYYY/MM/DD',
+        inclusivity: '(]',
+      })
+    ).resolves.toBeTruthy();
   });
 });
