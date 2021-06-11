@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Availity/sdk-js/compare/@availity/yup@3.0.11...@availity/yup@3.1.0) (2021-06-11)
+
+
+### Features
+
+* **yup:** support inclusivity option ([94b1283](https://github.com/Availity/sdk-js/commit/94b1283c29e00f0db49ea58ae62d1cf16beef678))
+* **yup:** unit test for inclusivity ([25bf64b](https://github.com/Availity/sdk-js/commit/25bf64bd1fbd9b03ff609d8b8614ce40b7a4f4be))
+
+
+
+
+
 ## 3.0.11 (2021-05-25)
 
 **Note:** Version bump only for package @availity/yup
