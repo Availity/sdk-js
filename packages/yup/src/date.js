@@ -107,7 +107,7 @@ export default class AvDateSchema extends mixed {
     });
   }
 
-  between(min, max, msg) {
+  between(min, max, msg, inclusivity = '()' ) {
     const minDate = this.getValidDate(min);
 
     const maxDate = this.getValidDate(max);
@@ -133,7 +133,7 @@ export default class AvDateSchema extends mixed {
           return true;
         }
 
-        return value.isBetween(minDate, maxDate);
+        return value.isBetween(minDate, maxDate, undefined, inclusivity);
       },
     });
   }
