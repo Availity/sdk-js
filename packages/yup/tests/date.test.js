@@ -6,11 +6,10 @@ const defaults = {};
 
 const validate = async (
   date,
-  { format, min, max, message, typeErrorMessage } = defaults
+  { format, min, max, message, customErrorMessage } = defaults
 ) => {
   let schema = avDate({
     format,
-    typeErrorMessage,
   });
 
   if (min && !max) {
@@ -23,6 +22,10 @@ const validate = async (
 
   if (min && max) {
     schema = schema.between(min, max, message);
+  }
+
+  if (customErrorMessage) {
+    schema = schema.typeError(customErrorMessage);
   }
 
   return schema.validate(date);
@@ -49,14 +52,11 @@ describe('Date', () => {
 
     // Allow user to clear date field without showing typeError
     await expect(validate('')).resolves.toBeTruthy();
-  });
 
-  test('invalid withTypeErrorMessage', async () => {
+    // With custom message
     await expect(
-      validate('invalid-date', {
-        typeErrorMessage: 'Custom Error Message',
-      })
-    ).rejects.toThrow('Custom Error Message');
+      validate('invalid-date', { customErrorMessage: 'custom error message' })
+    ).rejects.toThrow('custom error message');
   });
 
   test('min date', async () => {

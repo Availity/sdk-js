@@ -8,18 +8,17 @@ const defaultOpts = {
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
 export default class AvDateSchema extends mixed {
-  constructor({ format = 'MM/DD/YYYY', typeErrorMessage } = defaultOpts) {
+  constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
     super({
       type: 'avDate',
     });
 
     this.format = format;
-    this.typeErrorMessage = typeErrorMessage;
     this.getValidDate = this.getValidDate.bind(this);
 
     this.withMutation(() => {
-      if (typeErrorMessage) {
-        super.typeError(typeErrorMessage);
+      if (!this.tests.some((test) => test?.OPTIONS?.name === 'typeError')) {
+        super.typeError('Date is invalid.');
       }
       this.transform(function mutate(value) {
         return this.getValidDate(value);
@@ -27,33 +26,12 @@ export default class AvDateSchema extends mixed {
     });
   }
 
-  typeError() {
-    return this.test({
-      message: 'Date is invalid.',
-      name: 'typeError',
-      test(value) {
-        if (value !== undefined) {
-          if (!this.schema.isType(value)) {
-            // Values that do not pass the previous .isType() check are expected to be a moment object
-            // because this.getValidDate(value) will have run. So as long as the passed in value
-            // is defined, moment._i will contain a string value to validate.
-            // If user enters a date and then removes it, should not show a typeError
-            // Note: this does not prevent other tests, like isRequired, from showing messages
-            // If user has touched a required field, error message should still show
-            return value._i === '';
-          }
-
-          // When this.schema.isType(value) returns true
-          // we are avDate type with appropriate format
-          return true;
-        }
-        return true;
-      },
-    });
-  }
-
   _typeCheck(value) {
-    return value.isValid();
+    // So as long as the passed in value is defined, moment._i will contain a string value to validate.
+    // If user enters a date and then removes it, should not show a typeError
+    // Note: this does not prevent other tests, like isRequired, from showing messages
+    // If user has touched a required field, required error message should still show
+    return value.isValid() || value._i === '';
   }
 
   getValidDate(value) {
