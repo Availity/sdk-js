@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/Availity/sdk-js/compare/@availity/yup@3.1.0...@availity/yup@3.1.1) (2021-06-16)
+
+
+### Bug Fixes
+
+* **yup:** refactor typeError, use _typeCheck ([24cea5e](https://github.com/Availity/sdk-js/commit/24cea5e2140d72ecec169dfde9fd94eb18956e66))
+
+
+
+
+
 # [3.1.0](https://github.com/Availity/sdk-js/compare/@availity/yup@3.0.11...@availity/yup@3.1.0) (2021-06-11)
 
 
