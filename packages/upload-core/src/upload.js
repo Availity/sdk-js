@@ -355,10 +355,11 @@ class Upload {
       const check =  (event: ProgressEvent<FileReader>) => {
           try {
             Tiff.pageCount(event.currentTarget.result);
-            obj.isUncorrupt = 0;
+            obj.isUncorrupt = 1;
           } catch (error) {
             console.log(error);
-            obj.isUncorrupt = 1;
+            this.setError('rejected', 'The tiff file is corrupt.');
+            obj.isUncorrupt = 0;
           }
       };
       const fileReader = new FileReader()
