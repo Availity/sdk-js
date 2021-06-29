@@ -336,27 +336,31 @@ class Upload {
   }
 
 
+  async recursingUncorruptChecker(obj) {
+    await new Promise((resolve,reject) => setTimeout(r, 100));
+    if (obj.isUncorrupt !== -1 ) {
+      return obj.isUncorrupt === 1;
+    } else {
+      return this.recursingUncorruptChecker(obj);
+    }
+  }
 
-  async isUncorrupt() {
-    let obj = {isUncorrupt : -1};
+  isUncorrupt() {
+    const obj = {isUncorrupt : -1};
     if (this.file.type === 'image/tiff') {
       const check =  (event: ProgressEvent<FileReader>) => {
           try {
-            const pageCount = Tiff.pageCount(event.currentTarget.result);
+            Tiff.pageCount(event.currentTarget.result);
             obj.isUncorrupt = 0;
           } catch (error) {
+            console.log(error);
             obj.isUncorrupt = 1;
           }
       };
       const fileReader = new FileReader()
       fileReader.addEventListener("loadend", check);
       fileReader.readAsArrayBuffer(this.file);
-      while (true) {
-        await new Promise(r => setTimeout(r, 100));
-        if (obj.isUncorrupt !== -1 ) {
-          return obj.isUncorrupt === 1 ? true : false;
-        }
-      }
+      return recursingUncorruptChecker(obj);
     } else {
       return true;
     }
