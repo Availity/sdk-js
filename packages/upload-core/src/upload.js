@@ -334,11 +334,39 @@ class Upload {
     return true;
   }
 
+
+
+  async isUncorrupt() {
+    let obj = {isUncorrupt : -1};
+    if (this.file.type === 'image/tiff') {
+      const check =  (event: ProgressEvent<FileReader>) => {
+          try {
+            const pageCount = Tiff.pageCount(event.currentTarget.result);
+            obj.isUncorrupt = 0;
+          } catch (error) {
+            obj.isUncorrupt = 1;
+          }
+      };
+      const fileReader = new FileReader()
+      fileReader.addEventListener("loadend", check);
+      fileReader.readAsArrayBuffer(file);
+      while (true) {
+        await new Promise(r => setTimeout(r, 100));
+        if (obj.isUncorrupt !== -1 ) {
+          return obj.isUncorrupt === 1 ? true : false;
+        }
+      }
+    } else {
+      return true;
+    }
+  }
+
   isValidFile() {
     return (
       this.isAllowedFileNameCharacters() &&
       this.isAllowedFileTypes() &&
-      this.isValidSize()
+      this.isValidSize() &&
+      this.isUncorrupt()
     );
   }
 
