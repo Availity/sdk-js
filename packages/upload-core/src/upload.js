@@ -364,7 +364,7 @@ class Upload {
       const fileReader = new FileReader()
       fileReader.addEventListener("loadend", check);
       fileReader.readAsArrayBuffer(this.file);
-      return recursingUncorruptChecker(obj);
+      return this.recursingUncorruptChecker(obj);
     }
     return true;
   }
