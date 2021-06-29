@@ -350,7 +350,7 @@ class Upload {
       };
       const fileReader = new FileReader()
       fileReader.addEventListener("loadend", check);
-      fileReader.readAsArrayBuffer(file);
+      fileReader.readAsArrayBuffer(this.file);
       while (true) {
         await new Promise(r => setTimeout(r, 100));
         if (obj.isUncorrupt !== -1 ) {
