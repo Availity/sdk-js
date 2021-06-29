@@ -337,7 +337,12 @@ class Upload {
 
 
   async recursingUncorruptChecker(obj) {
-    await new Promise((resolve,reject) => setTimeout(resolve, 100));
+    await new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve();
+        reject();
+      }, 100)
+    });
     if (obj.isUncorrupt !== -1 ) {
       return obj.isUncorrupt === 1;
     }
