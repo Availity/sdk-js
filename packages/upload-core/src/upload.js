@@ -1,5 +1,6 @@
 import tus from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
+import * as Tiff from 'tiff';
 
 // https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript/8831937#8831937
 const hashCode = str => {
