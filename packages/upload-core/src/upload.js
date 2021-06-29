@@ -337,12 +337,11 @@ class Upload {
 
 
   async recursingUncorruptChecker(obj) {
-    await new Promise((resolve,reject) => setTimeout(r, 100));
+    await new Promise((resolve,reject) => setTimeout(resolve, 100));
     if (obj.isUncorrupt !== -1 ) {
       return obj.isUncorrupt === 1;
-    } else {
-      return this.recursingUncorruptChecker(obj);
     }
+    return this.recursingUncorruptChecker(obj);
   }
 
   isUncorrupt() {
@@ -361,9 +360,8 @@ class Upload {
       fileReader.addEventListener("loadend", check);
       fileReader.readAsArrayBuffer(this.file);
       return recursingUncorruptChecker(obj);
-    } else {
-      return true;
     }
+    return true;
   }
 
   isValidFile() {
