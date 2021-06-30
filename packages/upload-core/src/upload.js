@@ -1,6 +1,5 @@
 import tus from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
-import * as Tiff from 'tiff';
 
 // https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript/8831937#8831937
 const hashCode = str => {
@@ -148,6 +147,10 @@ class Upload {
     });
     this.upload = upload;
     this.id = this.generateId();
+
+    if (this.options.onPreStart) {
+      this.options.onPreStart();
+    }
   }
 
   inStatusCategory(status, category) {
@@ -336,46 +339,12 @@ class Upload {
   }
 
 
-  async recursingUncorruptChecker(obj) {
-    await new Promise((resolve,reject) => {
-      setTimeout(() => {
-        resolve();
-        reject();
-      }, 100)
-    });
-    if (obj.isUncorrupt !== -1 ) {
-      return obj.isUncorrupt === 1;
-    }
-    return this.recursingUncorruptChecker(obj);
-  }
-
-  isUncorrupt() {
-    const obj = {isUncorrupt : -1};
-    if (this.file.type === 'image/tiff') {
-      const check =  (event: ProgressEvent<FileReader>) => {
-          try {
-            Tiff.pageCount(event.currentTarget.result);
-            obj.isUncorrupt = 1;
-          } catch (error) {
-            console.log(error);
-            this.setError('rejected', 'The tiff file is corrupt.');
-            obj.isUncorrupt = 0;
-          }
-      };
-      const fileReader = new FileReader()
-      fileReader.addEventListener("loadend", check);
-      fileReader.readAsArrayBuffer(this.file);
-      return this.recursingUncorruptChecker(obj);
-    }
-    return true;
-  }
 
   isValidFile() {
     return (
       this.isAllowedFileNameCharacters() &&
       this.isAllowedFileTypes() &&
-      this.isValidSize() &&
-      this.isUncorrupt()
+      this.isValidSize()
     );
   }
 
