@@ -80,6 +80,14 @@ describe('upload-core', () => {
       expect(upload.options.onPreStart).toBeDefined();
     });
 
+    it('should not start if errors are set', () => {
+      const file = Buffer.from('hello world'.split(""));
+      file.name='somefile.png';
+      const upload = new Upload(file,options);
+      upload.setError('rejected', 'failed pre check');
+      expect(upload.start()).toBeUndefined();
+    });
+
     it('should allow single file as constructor argument', () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'fileName.png';
