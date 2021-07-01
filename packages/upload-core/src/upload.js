@@ -247,6 +247,9 @@ class Upload {
     if (!this.isValidFile()) {
       return;
     }
+    if (this.errorMessage || this.error || this.status === 'rejected') {
+      return;
+    }
     this.upload.start();
   }
 

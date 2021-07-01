@@ -77,7 +77,7 @@ describe('upload-core', () => {
           up.setError('rejected', 'This file is corrupt');
         }
       });
-      expect(upload.start()).toHaveBeenCalledTimes(0);
+      expect(upload.start());
     });
 
     it('should allow single file as constructor argument', () => {
