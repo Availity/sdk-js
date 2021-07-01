@@ -149,7 +149,7 @@ class Upload {
     this.id = this.generateId();
 
     if (this.options.onPreStart) {
-      this.options.onPreStart();
+      this.options.onPreStart(this);
     }
   }
 

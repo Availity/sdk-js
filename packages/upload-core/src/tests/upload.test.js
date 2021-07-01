@@ -70,6 +70,16 @@ describe('upload-core', () => {
       );
     });
 
+    it("should allow onFilePreUpload calls to prevent uploads when error is set", () => {
+      const file = Buffer.from('some random file data'.split(''));
+      file.name = 'fileName.png';
+      const upload = new Upload(file, { ...options, onPreStart : (up) => {
+          up.setError('rejected', 'This file is corrupt');
+        }
+      });
+      expect(upload.start()).toHaveBeenCalledTimes(0);
+    });
+
     it('should allow single file as constructor argument', () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'fileName.png';
