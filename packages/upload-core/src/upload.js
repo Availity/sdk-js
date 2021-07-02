@@ -71,10 +71,11 @@ class Upload {
     this.options = { ...defaultOptions, ...options };
 
     this.options.endpoint = resolveUrl({ relative: this.options.endpoint });
-
+    this.preStartValidationResults = [];
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
+    this.onPreStart = [];
     this.onProgress = [];
     this.bytesTotal = 0;
     this.bytesSent = 0;
@@ -147,10 +148,6 @@ class Upload {
     });
     this.upload = upload;
     this.id = this.generateId();
-
-    if (this.options.onPreStart) {
-      this.options.onPreStart(this);
-    }
   }
 
   inStatusCategory(status, category) {
@@ -247,9 +244,12 @@ class Upload {
     if (!this.isValidFile()) {
       return;
     }
-    if (this.errorMessage || this.error || this.status === 'rejected') {
-      return;
+    // if cb condition fails, push failure onto array
+    for (const cb of props.onPreStart){
+      const validationResult = cb();
+      this.preStartValidationResults.push(validationResult); // some T/F value
     }
+    if (this.preStartValidationResults.some((result) => !result)) return;// return if validation result fals
     this.upload.start();
   }
 
