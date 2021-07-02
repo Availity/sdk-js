@@ -90,6 +90,9 @@ describe('upload-core', () => {
     });
 
     it('should not make XHR call if one of the functions in onPreStart returns a false', () => {
+      const file = Buffer.from('hello world'.split(""));
+      file.name='somefile.png';
+      const upload = new Upload(file,options);
       upload.onPreStart = [() => false];
       upload.start();
       expect(upload.status).toEqual('pending');
