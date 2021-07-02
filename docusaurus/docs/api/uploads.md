@@ -36,6 +36,14 @@ $ yarn add @availity/upload-core tus-js-client
 -   allowedFileNameCharacters: restrict the file name characters to a regex set
 -   pollingTime: custom av scan polling time (default 5000ms)
 
+### Upload object variables that can be set before call to start().
+**Each one of these should be an array of functions**
+
+- **onPreStart**: each function should return a boolean.  If false, upload-core will not make xhr request.
+- **onProgress**: occurs during initial and at various points of the Xhr call to backend. 
+- **onSuccess**: each function is called once if there is a success.
+- **onError**: each function is called once if there is an error.
+
 ```js
 import Upload from '@availity/upload-core';
 

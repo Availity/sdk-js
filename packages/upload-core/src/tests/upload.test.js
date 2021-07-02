@@ -85,7 +85,14 @@ describe('upload-core', () => {
       file.name='somefile.png';
       const upload = new Upload(file,options);
       upload.setError('rejected', 'failed pre check');
-      expect(upload.start()).toBeUndefined();
+      upload.start();
+      expect(upload.status).toEqual('rejected');
+    });
+
+    it('should not make XHR call if one of the functions in onPreStart returns a false', () => {
+      upload.onPreStart = [() => false];
+      upload.start();
+      expect(upload.status).toEqual('pending');
     });
 
     it('should allow single file as constructor argument', () => {

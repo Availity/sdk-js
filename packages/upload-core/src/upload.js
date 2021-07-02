@@ -75,7 +75,7 @@ class Upload {
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
-    this.onPreStart = [];
+    this.onPreStart = options.onPreStart ? options.onPreStart : [];
     this.onProgress = [];
     this.bytesTotal = 0;
     this.bytesSent = 0;
@@ -245,7 +245,7 @@ class Upload {
       return;
     }
     // if cb condition fails, push failure onto array
-    for (const cb of props.onPreStart){
+    for (const cb of this.onPreStart){
       const validationResult = cb();
       this.preStartValidationResults.push(validationResult); // some T/F value
     }
