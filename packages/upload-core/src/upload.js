@@ -75,7 +75,6 @@ class Upload {
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
-    this.onPreStart = [];
     this.onProgress = [];
     this.bytesTotal = 0;
     this.bytesSent = 0;
@@ -245,11 +244,11 @@ class Upload {
       return;
     }
     // if cb condition fails, push failure onto array
-    for (const cb of this.onPreStart){
+    for (const cb of this.options.onPreStart){
       const validationResult = cb();
       this.preStartValidationResults.push(validationResult); // some T/F value
     }
-    if (this.preStartValidationResults.some((result) => !result)) return;// return if validation result fals
+    if (this.preStartValidationResults.some((result) => !result)) return;  // return if validation result fals
     this.upload.start();
   }
 
