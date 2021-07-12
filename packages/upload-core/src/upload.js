@@ -76,10 +76,7 @@ class Upload {
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
-<<<<<<< HEAD
-=======
     this.onPreStart = this.options.onPreStart;
->>>>>>> 9b5e81bef0216d13fab6ca0bbe87370e2019f490
     this.onProgress = [];
     this.bytesTotal = 0;
     this.bytesSent = 0;
