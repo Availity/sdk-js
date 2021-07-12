@@ -35,6 +35,20 @@ const optionsWithRetry = {
   retryDelays: [1000, 2000],
 };
 
+const optionsWithOnPreStartFail = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+  onPreStart: [() => true, () => false, () => true],
+};
+
+const optionsWithOnPreStartPass = {
+  bucketId: 'a',
+  customerId: 'b',
+  clientId: 'c',
+  onPreStart: [() => true, () => true, () => true],
+};
+
 describe('upload-core', () => {
   beforeEach(() => {
     global.jsdom.reconfigure({
@@ -68,6 +82,16 @@ describe('upload-core', () => {
       expect(upload.options.retryDelays[0]).toBe(
         optionsWithRetry.retryDelays[0]
       );
+    });
+
+    it('should not start upload if any one of the functions in onPreStart returns false', () => {
+      const file = Buffer.from('hello world'.split(''));
+      file.name = 'somefile.png';
+      const upload = new Upload(file, optionsWithOnPreStartFail);
+
+      upload.start();
+      expect(upload.status).toEqual('rejected');
+      expect(upload.errorMessage).toEqual('preStart validation failed');
     });
 
     it('should allow single file as constructor argument', () => {
@@ -243,6 +267,59 @@ describe('upload-core', () => {
           const file = Buffer.from('hello world!');
           file.name = 'a';
           const upload = new Upload(file, options);
+          const success = jest.fn();
+          upload.onSuccess.push(success, () => {
+            expect(success).toHaveBeenCalled();
+            resolve();
+          });
+
+          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
+            status: 200,
+            headers: {
+              'Content-Length': '0',
+              'AV-Scan-Result': 'accepted',
+              'Upload-Result': 'accepted',
+            },
+          });
+
+          upload.start();
+        }));
+
+      it('should start upload if all the functions in onPreStart returns true', () =>
+        new Promise((resolve) => {
+          nock('https://dev.local')
+            .post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/')
+            .reply(
+              201,
+              {},
+              {
+                'tus-resumable': '1.0.0',
+                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+                'transfer-encoding': 'chunked',
+                location: '4611142db7c049bbbe37376583a3f46b',
+              }
+            );
+
+          nock('https://dev.local')
+            .patch(
+              '/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b'
+            )
+            .reply(
+              204,
+              {},
+              {
+                'tus-resumable': '1.0.0',
+                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+                'transfer-encoding': 'chunked',
+                'Upload-Offset': 12,
+                references:
+                  '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+              }
+            );
+
+          const file = Buffer.from('hello world!');
+          file.name = 'a';
+          const upload = new Upload(file, optionsWithOnPreStartPass);
           const success = jest.fn();
           upload.onSuccess.push(success, () => {
             expect(success).toHaveBeenCalled();

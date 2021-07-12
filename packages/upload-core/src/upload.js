@@ -2,7 +2,7 @@ import tus from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
 
 // https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript/8831937#8831937
-const hashCode = str => {
+const hashCode = (str) => {
   let hash = 0;
   if (str.length === 0) return hash;
   for (let i = 0; i < str.length; i++) {
@@ -21,6 +21,7 @@ const defaultOptions = {
   pollingTime: 5000,
   retryDelays: [0, 1000, 3000, 5000],
   stripFileNamePathSegments: true,
+  onPreStart: [],
   fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
@@ -31,7 +32,7 @@ const defaultOptions = {
     }
 
     const keys = Object.keys(options.metadata || {}).map(
-      key => options.metadata[key]
+      (key) => options.metadata[key]
     );
     const signature = [
       attributes.toString().replace(/,/g, ''),
@@ -71,10 +72,11 @@ class Upload {
     this.options = { ...defaultOptions, ...options };
 
     this.options.endpoint = resolveUrl({ relative: this.options.endpoint });
-
+    this.preStartValidationResults = [];
     this.percentage = 0;
     this.onError = [];
     this.onSuccess = [];
+    this.onPreStart = this.options.onPreStart;
     this.onProgress = [];
     this.bytesTotal = 0;
     this.bytesSent = 0;
@@ -107,7 +109,7 @@ class Upload {
         'X-Availity-Customer-ID': this.options.customerId,
         'X-Client-ID': this.options.clientId,
       },
-      onError: err => {
+      onError: (err) => {
         this.setError('rejected', 'Network Error', err);
         this.error = err;
       },
@@ -115,7 +117,7 @@ class Upload {
         this.bytesSent = bytesSent;
         this.bytesTotal = bytesTotal;
         this.percentage = this.getPercentage();
-        for (const cb of this.onProgress)  cb();
+        for (const cb of this.onProgress) cb();
       },
       onSuccess: () => {
         const xhr = this.upload._xhr;
@@ -133,7 +135,7 @@ class Upload {
           if (references) {
             this.references = JSON.parse(references);
           }
-          for (const cb of this.onSuccess)  cb();
+          for (const cb of this.onSuccess) cb();
           return;
         }
 
@@ -178,7 +180,10 @@ class Upload {
         return;
       }
 
-      this.bytesScanned = Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10);
+      this.bytesScanned = Number.parseInt(
+        xhr.getResponseHeader('AV-Scan-Bytes'),
+        10
+      );
       this.percentage = this.getPercentage();
 
       const result = this.getResult(xhr);
@@ -190,10 +195,10 @@ class Upload {
       }
 
       if (result.status === 'encrypted' && this.waitForPassword) {
-          this.setError(result.status, result.message);
-          clearTimeout(this.timeoutId);
-          return;
-        }
+        this.setError(result.status, result.message);
+        clearTimeout(this.timeoutId);
+        return;
+      }
 
       if (result.status === 'accepted') {
         this.percentage = 100;
@@ -203,7 +208,7 @@ class Upload {
         if (references) {
           this.references = JSON.parse(references);
         }
-        for (const cb of this.onSuccess)  cb();
+        for (const cb of this.onSuccess) cb();
         return;
       }
 
@@ -211,14 +216,14 @@ class Upload {
         this.setError(result.status, result.message);
       }
 
-      for (const cb of this.onProgress)  cb();
+      for (const cb of this.onProgress) cb();
       this.timeoutId = setTimeout(() => {
         this.scan();
       }, this.options.pollingTime);
     };
 
     // eslint-disable-next-line unicorn/prefer-add-event-listener
-    xhr.onerror = err => {
+    xhr.onerror = (err) => {
       this.setError('rejected', 'Network Error', err);
       this.error = err;
     };
@@ -243,6 +248,21 @@ class Upload {
     if (!this.isValidFile()) {
       return;
     }
+
+    // if cb condition fails, push failure onto array
+    for (const cb of this.onPreStart) {
+      const validationResult = cb(this);
+      this.preStartValidationResults.push(validationResult); // some T/F value
+    }
+
+    if (this.preStartValidationResults.some((result) => !result)) {
+      // If preStartValidation failed but dev did not set an error
+      if (this.status === 'pending') {
+        this.setError('rejected', 'preStart validation failed');
+      }
+      return;
+    }
+
     this.upload.start();
   }
 
@@ -261,7 +281,7 @@ class Upload {
     }
 
     const keys = Object.keys(options.metadata || {}).map(
-      key => options.metadata[key]
+      (key) => options.metadata[key]
     );
     const signature = [
       attributes.toString().replace(/,/g, ''),
@@ -285,9 +305,9 @@ class Upload {
 
   isValidSize() {
     if (this.options.maxSize && this.file.size > this.options.maxSize) {
-        this.setError('rejected', 'Document is too large');
-        return false;
-      }
+      this.setError('rejected', 'Document is too large');
+      return false;
+    }
 
     return true;
   }
@@ -403,7 +423,7 @@ class Upload {
       /* the error callback should always be called */
     }
 
-    for (const cb of this.onError)  cb(err || new Error(this.errorMessage));
+    for (const cb of this.onError) cb(err || new Error(this.errorMessage));
   }
 
   parseErrorMessage(message, err) {
