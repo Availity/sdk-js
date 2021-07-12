@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.1.0 (2021-07-02)
+
+
+### Bug Fixes
+
+* **POCL-2710:** fixed build issues. ([d63daee](https://github.com/Availity/sdk-js/commit/d63daee4c112567386d0a08ebd0c1cbbf6a75a30))
+* **POCL-2710:** fixed missing setError. ([2ae4e65](https://github.com/Availity/sdk-js/commit/2ae4e6570bbc7c85fb7b91f28ab6b802ccde1760))
+* **POCL-2710:** fixed missing this [#2](https://github.com/Availity/sdk-js/issues/2). ([53d7846](https://github.com/Availity/sdk-js/commit/53d7846112ce76bffa8fb90df3c9015523526ca0))
+* **POCL-2710:** fixed Promise [#2](https://github.com/Availity/sdk-js/issues/2). ([c3b99f6](https://github.com/Availity/sdk-js/commit/c3b99f6ab45eab15d1ab6a6d680e4017a7b132f6))
+* **POCL-2710:** fixed Promise. ([e258aa0](https://github.com/Availity/sdk-js/commit/e258aa02860428d7409e6366bebdcd09384be752))
+
+
+### Features
+
+* **POCL-2710:** added missing import. ([c10a8c8](https://github.com/Availity/sdk-js/commit/c10a8c89b91b60c6846223a5775401a18914dc91))
+* **POCL-2710:** fixed missing this. before file. ([1c3b8de](https://github.com/Availity/sdk-js/commit/1c3b8de474c7cd8070a85dea7660530977756b53))
+* **POCL-2710:** implemented logic for scanning files for corruption client-side. ([c3ba4a9](https://github.com/Availity/sdk-js/commit/c3ba4a9b975e6f477c2ff648b0e3060c627a1475))
+* **upload-core:** added changes to use usPreStart array to push functions for custom checks. ([8bc716f](https://github.com/Availity/sdk-js/commit/8bc716f093a7890f563b17bdad6d39965020af00))
+* **upload-core:** added missing yarn.lock ([48bfdb7](https://github.com/Availity/sdk-js/commit/48bfdb7d91a7cf7f7ab3c39f21d15cc6c5a303ab))
+* **upload-core:** fixed prop to this.  Added a test and fixed another test.. ([207df80](https://github.com/Availity/sdk-js/commit/207df80faff7e61a2529b53e4f306baa5c08b551))
+* **upload-core:** missing upload var. ([1deb94e](https://github.com/Availity/sdk-js/commit/1deb94e8852608a3c1afb4bc4e1aefde5361b27f))
+* **upload-core:** removed extra devDependency from upload-core, tiff ([fefea00](https://github.com/Availity/sdk-js/commit/fefea00170c64c44cb31f36d39640fa0752cedb0))
+* **upload-core:** removed extra devDependency from upload-core, tiff ([3d20697](https://github.com/Availity/sdk-js/commit/3d20697f4639b126ffb9edf31d6d84b468848e59))
+* **upload-core:** rmvl of options.onPreStart. ([2c46961](https://github.com/Availity/sdk-js/commit/2c469618144798116817e315d1ae6d82c2716c5e))
+* **upload-core:** testing whether codevoc passes ([cf08634](https://github.com/Availity/sdk-js/commit/cf086346e2adfe04525adccf59efb1ab2750cd1f))
+* **upload-core:** testing whether codevoc passes ([0c17562](https://github.com/Availity/sdk-js/commit/0c17562a10f500b651a28d9d0e5bf2479e7376b6))
+* **upload-core:** updated upload-core to include optional parameter, onFilePreUpload, to be called before upload starts ([545c87e](https://github.com/Availity/sdk-js/commit/545c87e04015a7c26da17fed75550f461c8c59c3))
+
+
+
+
+
 # 4.0.0 (2021-05-17)
 
 
