@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/Availity/sdk-js/compare/@availity/upload-core@4.1.0...@availity/upload-core@4.1.1) (2021-07-13)
+
+
+### Bug Fixes
+
+* **upload-core:** added test ([463bfce](https://github.com/Availity/sdk-js/commit/463bfce39148a8a32f94c93b7daaa8cb66350cf6))
+* **upload-core:** added this to cb() method for onPreStart ([68ed9ac](https://github.com/Availity/sdk-js/commit/68ed9ac888e74cf2e4a1d68052b5db38fdaff531))
+
+
+
+
+
 # 4.1.0 (2021-07-02)
 
 
