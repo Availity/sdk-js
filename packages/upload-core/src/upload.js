@@ -251,7 +251,7 @@ class Upload {
 
     // if cb condition fails, push failure onto array
     for (const cb of this.onPreStart) {
-      const validationResult = cb();
+      const validationResult = cb(this);
       this.preStartValidationResults.push(validationResult); // some T/F value
     }
 
