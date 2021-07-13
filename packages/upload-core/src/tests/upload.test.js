@@ -284,7 +284,17 @@ describe('upload-core', () => {
 
           upload.start();
         }));
-
+        it('should pickup upload object on each array of functions in onPreStart', () => {
+          const file = Buffer.from('hello world!');
+          file.name = 'a';
+        const upload = new Upload(file, {
+          ...optionsWithOnPreStartFail, onPreStart: [(upload) => {
+            expect(upload).toBeDefined()
+            return false;
+          }]
+        });
+          upload.start();
+        });
       it('should start upload if all the functions in onPreStart returns true', () =>
         new Promise((resolve) => {
           nock('https://dev.local')
