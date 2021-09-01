@@ -32,6 +32,7 @@ const nativeForm = async (
         {
           query: ssoTypeQuery,
           variables: { id: spaceId },
+          operationName: 'ssoTypeFindById',
         },
         { headers: { 'X-Client-ID': clientId } }
       );
