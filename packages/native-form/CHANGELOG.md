@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-01)
+
+
+### Features
+
+* **native-form:** add operationName to graphql request for query tracking ([5772f57](https://github.com/Availity/sdk-js/commit/5772f57f30278ede6d85daefe2ab7341e8b78b92))
+* **native-form:** call avWebQLApi to obtain sso type ([23a1bd9](https://github.com/Availity/sdk-js/commit/23a1bd98cc71334454d137be822a5a5a23a32447))
+
+
+### BREAKING CHANGES
+
+* **native-form:** native-form now exports an async function, no longer defaults type
+MIGRATION:
+ Before: nativeForm(...args);
+ After: await nativeForm(...args);
+
+
+
+
+
 # 3.0.0 (2021-05-17)
 
 
