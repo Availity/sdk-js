@@ -2,20 +2,20 @@
 
 ## Table of Contents
 
--   [Intro](#intro)
--   [AvUser](#avuser)
--   [AvRegions](#avregions)
--   [AvPermissions](#avpermissions)
--   [AvUserPermissions](#avuserpermissions)
--   [AvNavigation](#avnavigation)
--   [AvSpaces](#avspaces)
--   [AvOrganizations](#avorganizations)
--   [AvProviders](#avproviders)
--   [AvLogMessage](#avlogmessage)
--   [AvProxy](#avproxy)
--   [AvFiles](#avfiles)
--   [AvFilesDelivery](#avfilesdelivery)
--   [AvSettings](#avsettings)
+- [Intro](#intro)
+- [AvUser](#avuser)
+- [AvRegions](#avregions)
+- [AvPermissions](#avpermissions)
+- [AvUserPermissions](#avuserpermissions)
+- [AvNavigation](#avnavigation)
+- [AvSpaces](#avspaces)
+- [AvOrganizations](#avorganizations)
+- [AvProviders](#avproviders)
+- [AvLogMessage](#avlogmessage)
+- [AvProxy](#avproxy)
+- [AvFiles](#avfiles)
+- [AvFilesDelivery](#avfilesdelivery)
+- [AvSettings](#avsettings)
 
 ## Intro
 
@@ -138,20 +138,20 @@ Method to upload a batch of file deliveries. `data` contains an array of `delive
 
 Example `data`:
 
-```html
+```js
 data = {
-    deliveries: [
-        {
-            fileURI: upload.references[0],
-            deliveryChannel: 'DEMO',
-            metadata: {
-                payerId: "PAYERID",
-                requestId: "123",
-                patientLastName: "lastName",
-                patientFirstName: "firstName"
-            },
-        }
-    ]
+  deliveries: [
+    {
+      fileURI: upload.references[0],
+      deliveryChannel: 'DEMO',
+      metadata: {
+        payerId: 'PAYERID',
+        requestId: '123',
+        patientLastName: 'lastName',
+        patientFirstName: 'firstName',
+      },
+    },
+  ],
 };
 ```
 
@@ -159,31 +159,31 @@ data = {
 
 #### Example Response
 
-```html
+```json
 {
-    "id": "123456", // batchId
-    "status": "COMPLETE", // COMPLETE/INPROGRESS
-    "deliveries": [
+  "id": "123456", // batchId
+  "status": "COMPLETE", // COMPLETE/INPROGRESS
+  "deliveries": [
+    {
+      "id": "56789", // deliveryId
+      "deliveryBatchId": "123456",
+      "fileURI": "<fileUri>",
+      "deliveryChannel": "DEMO",
+      "deliveryStatus": "ERRORED", // INPROGRESS/REJECTED/ERRORED/DELIVERED
+      "errors": [
         {
-            "id": "56789", // deliveryId
-            "deliveryBatchId": "123456",
-            "fileURI": <fileUri>,
-            "deliveryChannel": "DEMO",
-            "deliveryStatus": "ERRORED", // INPROGRESS/REJECTED/ERRORED/DELIVERED
-            "errors": [
-                {
-                    "message": "error message",
-                    "subject": "subject of error"
-                }
-            ],
-            "metadata": {
-                payerId: "PAYERID",
-                requestId: "123",
-                patientLastName: "lastName",
-                patientFirstName: "firstName"
-            }
+          "message": "error message",
+          "subject": "subject of error"
         }
-    ]
+      ],
+      "metadata": {
+        "payerId": "PAYERID",
+        "requestId": "123",
+        "patientLastName": "lastName",
+        "patientFirstName": "firstName"
+      }
+    }
+  ]
 }
 ```
 

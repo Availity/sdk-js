@@ -31,7 +31,7 @@ export default class AvSettings extends AvApi {
       return this.query(queryConfig);
     }
 
-    return this.avUsers.me().then(user => {
+    return this.avUsers.me().then((user) => {
       const queryConfig = this.addParams(
         { applicationId, userId: user.id },
         config
@@ -63,7 +63,7 @@ export default class AvSettings extends AvApi {
       return this.update(data, config);
     }
 
-    return this.avUsers.me().then(user => {
+    return this.avUsers.me().then((user) => {
       data = data || {};
       data.scope = data.scope || {};
       data.scope.applicationId = applicationId;

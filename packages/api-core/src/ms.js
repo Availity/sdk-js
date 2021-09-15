@@ -20,10 +20,7 @@ export default class AvMicroservice extends AvApi {
     if (id || configId) {
       parts = [path, version || '', name, id || configId];
     }
-    const uri = parts
-      .join('/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '');
+    const uri = parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
 
     const hostname = resolveHost(config.host, config.window || window);
     return (hostname ? `https://${hostname}` : '') + uri;

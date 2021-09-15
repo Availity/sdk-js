@@ -463,8 +463,8 @@ describe('AvOrganizations', () => {
       expect(authorizedFilteredOrgs.length).toBe(1);
       expect(authorizedFilteredOrgs[0].resources).toBeDefined();
 
-      const orgs = mockOrg.organizations.find(org =>
-        authorizedFilteredOrgs.some(authOrg => authOrg.id === org.id)
+      const orgs = mockOrg.organizations.find((org) =>
+        authorizedFilteredOrgs.some((authOrg) => authOrg.id === org.id)
       );
       expect(orgs.address).toBeDefined();
     });

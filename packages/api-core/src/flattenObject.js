@@ -1,7 +1,8 @@
 // Copied from https://github.com/Availity/sdk-js/blob/master/packages/native-form/flattenObject.js
-const parseValue = value => value === undefined || value === null ? value : value.toString();
+const parseValue = (value) =>
+  value === undefined || value === null ? value : value.toString();
 
-const flattenObject = ob =>
+const flattenObject = (ob) =>
   Object.keys(ob).reduce((toReturn, k) => {
     if (Object.prototype.toString.call(ob[k]) === '[object Date]') {
       toReturn[k] = ob[k].toJSON();
