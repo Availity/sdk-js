@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/api-axios @availity/api-core
+npm install @availity/api-axios @availity/api-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/api-axios @availity/api-core
+yarn add @availity/api-axios @availity/api-core
 ```
 
 Polyfill `Promise` if needed:
@@ -23,73 +23,76 @@ Polyfill `Promise` if needed:
 ### NPM
 
 ```bash
-$ npm install es6-promise
+npm install es6-promise
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add es6-promise
+yarn add es6-promise
 ```
 
 ## Usage
 
 ```js
-import { userApi } from '@availity/api-axios'
+import { avUserApi } from '@availity/api-axios';
 
-function async getUser() {
-    const user = await userApi.me();
+async function getUser() {
+  const user = await avUserApi.me();
+  return user;
 }
 ```
 
 ## API Definitions
 
--   `AvMicroserviceApi`
--   `AvProxyApi`
--   `avCodesApi`
--   `avDisclaimersApi`
--   `avFilesApi`
--   `avFilesDeliveryApi`
--   `avLogMessagesApi`
--   `avNavigationApi`
--   `avNotificationApi`
--   `avOrganizationsApi`
--   `avPdfApi`
--   `avPermissionsApi`
--   `avProvidersApi`
--   `avRegionsApi`
--   `avSettingsApi`
--   `avSlotMachineApi`
--   `avSpacesApi`
--   `avUserApi`
--   `avUserPermissionsApi`
--   `avWebQLApi`
+- `AvMicroserviceApi`
+- `AvProxyApi`
+- `avCodesApi`
+- `avDisclaimersApi`
+- `avFilesApi`
+- `avFilesDeliveryApi`
+- `avLogMessagesApi`
+- `avLogMessagesApiV2`
+- `avNavigationApi`
+- `avNotificationApi`
+- `avOrganizationsApi`
+- `avPdfApi`
+- `avPermissionsApi`
+- `avProvidersApi`
+- `avRegionsApi`
+- `avSettingsApi`
+- `avSlotMachineApi`
+- `avSpacesApi`
+- `avUserApi`
+- `avUserPermissionsApi`
+- `avWebQLApi`
 
 Details about each api can be found [here](../api-core/src/resources/README.md)
 
 ```js
 // complete example
 import AvApi, {
-    AvMicroserviceApi,
-    AvProxyApi,
-    avCodesApi,
-    avDisclaimersApi
-    avFilesApi,
-    avFilesDeliveryApi,
-    avLogMessagesApi,
-    avNavigationApi,
-    avNotificationApi,
-    avOrganizationsApi,
-    avPdfApi,
-    avPermissionsApi,
-    avProvidersApi,
-    avRegionsApi,
-    avSettingsApi,
-    avSlotMachineApi,
-    avSpacesApi,
-    avUserApi,
-    avUserPermissionsApi,
-    avWebQLApi,
+  AvMicroserviceApi,
+  AvProxyApi,
+  avCodesApi,
+  avDisclaimersApi,
+  avFilesApi,
+  avFilesDeliveryApi,
+  avLogMessagesApi,
+  avLogMessagesApiV2,
+  avNavigationApi,
+  avNotificationApi,
+  avOrganizationsApi,
+  avPdfApi,
+  avPermissionsApi,
+  avProvidersApi,
+  avRegionsApi,
+  avSettingsApi,
+  avSlotMachineApi,
+  avSpacesApi,
+  avUserApi,
+  avUserPermissionsApi,
+  avWebQLApi,
 } from '@availity/api-axios';
 ```
 
@@ -101,11 +104,11 @@ Create new API definitions by extending `AvApi`. Extending `AvApi` provides serv
 import AvApi from '@availity/api-axios';
 
 class AvExampleResource extends AvApi {
-    constructor() {
-        super({
-            name: 'exampleApi',
-        });
-    }
+  constructor() {
+    super({
+      name: 'exampleApi',
+    });
+  }
 }
 
 export default new AvExampleResource();
@@ -119,12 +122,12 @@ Create new API definitions by extending `AvApiProxy`. Extending `AvApiProxy` pro
 import { AvApiProxy } from '@availity/api-axios';
 
 class AvExampleResource extends AvApiProxy {
-    constructor() {
-        super({
-            tenant: 'myhealthplan',
-            name: 'patients',
-        });
-    }
+  constructor() {
+    super({
+      tenant: 'myhealthplan',
+      name: 'patients',
+    });
+  }
 }
 
 export default new AvExampleResource();
