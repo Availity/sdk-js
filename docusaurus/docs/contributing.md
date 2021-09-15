@@ -7,7 +7,7 @@ This is a monorepo managed using [lerna](https://github.com/lerna/lerna) in inde
 Install [lerna](https://github.com/lerna/lerna) globally with the following command
 
 ```bash
-$ yarn global add lerna
+yarn global add lerna
 ```
 
 ## Installing
@@ -16,7 +16,7 @@ We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you do
 `npm install -g yarn`. Otherwise you can run the below to install all the dependencies.
 
 ```bash
-$ yarn install
+yarn install
 ```
 
 All subsequent installs should be quick after the first initial one.
@@ -26,7 +26,7 @@ All subsequent installs should be quick after the first initial one.
 1. Use `plop` to generate new package
 
 ```bash
-$ yarn new
+yarn new
 ```
 
 2. Add link to new package in README
@@ -34,7 +34,7 @@ $ yarn new
 ## Running
 
 ```bash
-$ yarn start
+yarn start
 ```
 
 ### Commits
@@ -44,7 +44,7 @@ Commits should use the [Angular Commit Format](https://github.com/angular/angula
 Example
 
 ```bash
-$ git commit -m "feat(api-axios): added new feature"
+git commit -m "feat(api-axios): added new feature"
 ```
 
 ### Releasing

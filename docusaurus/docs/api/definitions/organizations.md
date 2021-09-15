@@ -36,7 +36,7 @@ GET https://apps.availity.com/api/sdk/platform/v1/organizations?userId=aka987654
 
 ### Example Response
 
-```javascript
+```json
 {
   "totalCount": 1,
   "count": 1,
@@ -121,7 +121,7 @@ GET https://apps.availity.com/api/sdk/platform/v1/organizations?userId=aka987654
         {
           "code": "AL",
           "value": "Alabama"
-        },
+        }
       ],
       "npis": [
         {
@@ -177,12 +177,12 @@ Retrieves by its id.
 ### Example Request
 
 ```bash
-https://apps.availity.com/api/sdk/platform/v1/organizations/1111
+GET https://apps.availity.com/api/sdk/platform/v1/organizations/1111
 ```
 
 ### Example Response
 
-```javascript
+```json
 {
   "links": {
     "self": {
@@ -198,107 +198,107 @@ https://apps.availity.com/api/sdk/platform/v1/organizations/1111
       "href": "https:/apps.availity.com/api/sdk/platform/v1/users?organizationId=1111"
     }
   },
-    "id": "1111",
-    "customerId": "2222",
-    "name": "Acme Medical Center",
-    "dbaName": "Acme Medical Center",
-    "status": "Live",
-    "statusCode": "3",
-    "types": [
+  "id": "1111",
+  "customerId": "2222",
+  "name": "Acme Medical Center",
+  "dbaName": "Acme Medical Center",
+  "status": "Live",
+  "statusCode": "3",
+  "types": [
+    {
+      "code": 18,
+      "name": "Hospital"
+    }
+  ],
+  "primaryControllingAuthority": {
+    "lastName": "Lincoln",
+    "firstName": "Abraham",
+    "primaryPhone": "5555555555",
+    "email": "abraham.lincoln@availity.com"
+  },
+  "physicalAddress": {
+    "line1": "10752 Deerwood Pk. Blvd. S.",
+    "line2": "Ste. 110",
+    "city": "Jacksonville",
+    "state": "Florida",
+    "stateCode": "FL",
+    "zipCode": "32256"
+  },
+  "mailingAddress": {
+    "line1": "10752 Deerwood Pk. Blvd. S.",
+    "line2": "Ste. 110",
+    "city": "Jacksonville",
+    "state": "Florida",
+    "stateCode": "FL",
+    "zipCode": "32256"
+  },
+  "billingAddress": {
+    "line1": "10752 Deerwood Pk. Blvd. S.",
+    "line2": "Ste. 110",
+    "city": "Jacksonville",
+    "state": "Florida",
+    "stateCode": "FL",
+    "zipCode": "32256"
+  },
+  "regions": [
+    {
+      "code": "TX",
+      "value": "Texas"
+    },
+    {
+      "code": "AK",
+      "value": "Alaska"
+    }
+  ],
+  "npis": [
+    {
+      "number": "1234567893"
+    }
+  ],
+  "taxIds": [
+    {
+      "number": "999999999",
+      "type": "E"
+    },
+    {
+      "number": "888888889",
+      "type": "ALTTAX"
+    }
+  ],
+  "payerAssignedProviderIds": {
+    "ACMEFL": [
       {
-        "code": 18,
-        "name": "Hospital"
-      }
-    ],
-    "primaryControllingAuthority": {
-      "lastName": "Lincoln",
-      "firstName": "Abraham",
-      "primaryPhone": "5555555555",
-      "email": "abraham.lincoln@availity.com"
-    },
-    "physicalAddress": {
-      "line1": "10752 Deerwood Pk. Blvd. S.",
-      "line2": "Ste. 110",
-      "city": "Jacksonville",
-      "state": "Florida",
-      "stateCode": "FL",
-      "zipCode": "32256"
-    },
-    "mailingAddress": {
-      "line1": "10752 Deerwood Pk. Blvd. S.",
-      "line2": "Ste. 110",
-      "city": "Jacksonville",
-      "state": "Florida",
-      "stateCode": "FL",
-      "zipCode": "32256"
-    },
-    "billingAddress": {
-      "line1": "10752 Deerwood Pk. Blvd. S.",
-      "line2": "Ste. 110",
-      "city": "Jacksonville",
-      "state": "Florida",
-      "stateCode": "FL",
-      "zipCode": "32256"
-    },
-    "regions": [
-      {
-        "code": "TX",
-        "value": "Texas"
+        "number": "20001"
       },
       {
-        "code": "AK",
-        "value": "Alaska"
-      },
-    ],
-    "npis": [
-      {
-        "number": "1234567893"
+        "number": "20002"
       }
     ],
-    "taxIds": [
+    "ACMEGA": [
       {
-        "number": "999999999",
-        "type": "E"
-      },
-      {
-        "number": "888888889",
-        "type": "ALTTAX"
+        "number": "20005"
       }
-    ],
-    "payerAssignedProviderIds": {
-      "ACMEFL": [
-        {
-          "number": "20001"
-        },
-        {
-          "number": "20002"
-        }
-      ],
-      "ACMEGA": [
-        {
-          "number": "20005"
-        }
-      ]
-    },
-    "phoneNumber": {
-      "areaCode": "555",
-      "exchange": "555",
-      "phoneNumber": "5555"
-    },
-    "faxNumber": {
-      "areaCode": "555",
-      "exchange": "555",
-      "phoneNumber": "5555"
-    },
-    "numberOfLicensedPhysicians": "0",
-    "numberOfLicensedClinicians": "2"
-  }
+    ]
+  },
+  "phoneNumber": {
+    "areaCode": "555",
+    "exchange": "555",
+    "phoneNumber": "5555"
+  },
+  "faxNumber": {
+    "areaCode": "555",
+    "exchange": "555",
+    "phoneNumber": "5555"
+  },
+  "numberOfLicensedPhysicians": "0",
+  "numberOfLicensedClinicians": "2"
+}
 ```
 
 ## FAQ
 
--   Which taxId should I use?
-    -   An array of taxIds is returned for each organization, and will have the first result as the "primary" taxId. The type will be either "E" (EIN) or "S" (SSN). Additional taxIds will have the type "ALTTAX" as secondary or alternative taxIds.
+- Which taxId should I use?
+  - An array of taxIds is returned for each organization, and will have the first result as the "primary" taxId. The type will be either "E" (EIN) or "S" (SSN). Additional taxIds will have the type "ALTTAX" as secondary or alternative taxIds.
 
 ## Validation Status
 
@@ -306,9 +306,9 @@ For selected payers, organizations can be validated using two checks. Note that 
 
 Organization validation comprises three components:
 
--   Checking the validation status
--   Prompting the user for check information
--   Securing the back end
+- Checking the validation status
+- Prompting the user for check information
+- Securing the back end
 
 Generally, your application workflow should be:
 
@@ -347,28 +347,28 @@ GET https://apps.availity.com/api/internal/v1/organization-validations?applicati
 
 ```json
 {
-    "totalCount": 1,
-    "count": 1,
-    "offset": 0,
-    "limit": 1,
-    "links": {
-        "self": {
-            "href": "https://apps.availity.com/api/internal/v1/organization-validations?applicationId=app123&customerId=1194&payerId=payerx"
-        }
-    },
-    "orgValidationInfos": [
-        {
-            "status": "UNVERIFIED"
-        }
-    ]
+  "totalCount": 1,
+  "count": 1,
+  "offset": 0,
+  "limit": 1,
+  "links": {
+    "self": {
+      "href": "https://apps.availity.com/api/internal/v1/organization-validations?applicationId=app123&customerId=1194&payerId=payerx"
+    }
+  },
+  "orgValidationInfos": [
+    {
+      "status": "UNVERIFIED"
+    }
+  ]
 }
 ```
 
 ### Possible Values for Status
 
--   **LOCKED** - The organization has been locked, and will require manual intervention from Availity to unlock.
--   **UNVERIFIED** - The organization has not yet been verified.
--   **VERIFIED** - The organization has been verified.
+- **LOCKED** - The organization has been locked, and will require manual intervention from Availity to unlock.
+- **UNVERIFIED** - The organization has not yet been verified.
+- **VERIFIED** - The organization has been verified.
 
 ## Prompting for Check Information
 
@@ -378,17 +378,17 @@ The code to show the modal looks like this:
 
 ```javascript
 window.parent.postMessage(
-    {
-        event: 'av:checkVerification:open',
-        applicationId: applicationId,
-        customerId: customerId,
-        payerId: payerId,
-    },
-    window.location.origin
+  {
+    event: 'av:checkVerification:open',
+    applicationId: applicationId,
+    customerId: customerId,
+    payerId: payerId,
+  },
+  window.location.origin
 );
 ```
 
-<img src="./check-validation.png" width="100%" alt="Figure 1: Check Validation Modal" />
+![check-validation](./check-validation.png)
 
 ## Securing the Back End
 

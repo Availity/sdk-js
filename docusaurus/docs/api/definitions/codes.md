@@ -10,16 +10,16 @@ Code Lookup Service.
 
 ### Parameters
 
--   **list** _(required)_ — The code list id.
--   **code** _(optional)_ — The Provider Id to filter by. It is the last set digits of the id.
--   **q** _(optional)_ - A list of search terms to filter by.
--   **activeOnly** _(optional)_ - Return only active codes. Defaults to true.
--   **consolidate** _(optional)_ - Collapse NDC codes based on EPA logic.
--   **sortBy** _(optional)_ - The field to sort the results by. Allowed: value, code
--   **sortDirection** _(optional)_ - The direction to sort the results. Allowed: asc, desc
--   **codeOnly** _(optional)_ - The code only.
--   **start** _(optional)_ - The first code in a range of codes
--   **end** _(optional)_ - The last code in a range of codes
+- **list** _(required)_ — The code list id.
+- **code** _(optional)_ — The Provider Id to filter by. It is the last set digits of the id.
+- **q** _(optional)_ - A list of search terms to filter by.
+- **activeOnly** _(optional)_ - Return only active codes. Defaults to true.
+- **consolidate** _(optional)_ - Collapse NDC codes based on EPA logic.
+- **sortBy** _(optional)_ - The field to sort the results by. Allowed: value, code
+- **sortDirection** _(optional)_ - The direction to sort the results. Allowed: asc, desc
+- **codeOnly** _(optional)_ - The code only.
+- **start** _(optional)_ - The first code in a range of codes
+- **end** _(optional)_ - The last code in a range of codes
 
 ### Example Request
 
@@ -29,7 +29,7 @@ GET https://apps.availity.com/api/v1/codes?list=PDMTAXONOMY
 
 ### Example Response
 
-```javascript
+```json
 {
   "totalCount": 862,
   "count": 50,

@@ -8,34 +8,34 @@ Endpoint converts JSON into a CSV for download.
 
 ### Headers
 
--   **X-Availity-Customer-ID** _(required)_ - Organization customer id is used by the system to identify the owner of the CSV document.
+- **X-Availity-Customer-ID** _(required)_ - Organization customer id is used by the system to identify the owner of the CSV document.
 
 ### Parameters
 
--   **applicationId** _(required)_ — Application name that created the CSV request. Examples: `credentialing-app`, `awesome-healthcare-app`
--   **rows** _(required)_ - This is the content of the CSV. Max of 5000 rows.
--   **columns** _(optional)_ - You can specify column names to appear on the first line of the CSV. We allow a max of 500 columns by default.
--   **fileName** _(optional)_ - If `fileName` is not assigned then the default CSV job id is used instead.
+- **applicationId** _(required)_ — Application name that created the CSV request. Examples: `credentialing-app`, `awesome-healthcare-app`
+- **rows** _(required)_ - This is the content of the CSV. Max of 5000 rows.
+- **columns** _(optional)_ - You can specify column names to appear on the first line of the CSV. We allow a max of 500 columns by default.
+- **fileName** _(optional)_ - If `fileName` is not assigned then the default CSV job id is used instead.
 
 ### Notes
 
--   Every row must have the same number of entries.
--   If you sent the columns property, every row must have the same number of entries as the columns.
--   We allow a max of 500 columns and 5000 rows.
--   Images can included using base64 encoded data URLs in image tags. Ex: `<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAb2Z0d2Fy..." />`
--   Make sure to use HTML entities in your templates. For example, if you want to render an apostrophe `'` then use entity `&apos;` instead. Please see [https://www.w3.org/wiki/Common_HTML_entities_used_for_typography](https://www.w3.org/wiki/Common_HTML_entities_used_for_typography) for references to other HTML entities.
+- Every row must have the same number of entries.
+- If you sent the columns property, every row must have the same number of entries as the columns.
+- We allow a max of 500 columns and 5000 rows.
+- Images can included using base64 encoded data URLs in image tags. Ex: `<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAb2Z0d2Fy..." />`
+- Make sure to use HTML entities in your templates. For example, if you want to render an apostrophe `'` then use entity `&apos;` instead. Please see [https://www.w3.org/wiki/Common_HTML_entities_used_for_typography](https://www.w3.org/wiki/Common_HTML_entities_used_for_typography) for references to other HTML entities.
 
 ### Response Codes
 
--   **200** - CSV created and can be downloaded
--   **202** - CSV is processing and is not ready for download
--   **400** - Client sent a bad request. This usually means the request was missing required fields or was malformed.
--   **500** - Internal server error. Let Availity know to help determine what went wrong.
+- **200** - CSV created and can be downloaded
+- **202** - CSV is processing and is not ready for download
+- **400** - Client sent a bad request. This usually means the request was missing required fields or was malformed.
+- **500** - Internal server error. Let Availity know to help determine what went wrong.
 
 ### Example Request
 
 ```bash
-$ curl -i -H "Content-Type: application/json" -H "X-Availity-Customer-ID: 1194" -X POST -d '{
+curl -i -H "Content-Type: application/json" -H "X-Availity-Customer-ID: 1194" -X POST -d '{
   "applicationId" : "example",
   "columns": ["Name","Age"],
   "rows": [["James","31"],["Mary","25"]]
@@ -74,7 +74,7 @@ Server: Jetty(7.4.5.v20110725)
 _Notice the Location header? GET that._
 
 ```bash
-$ curl -i -H "X-Availity-Customer-ID: 1194" -X GET https://apps.availity.com/api/utils/v1/csvs/-6746445849906334271
+curl -i -H "X-Availity-Customer-ID: 1194" -X GET https://apps.availity.com/api/utils/v1/csvs/-6746445849906334271
 ```
 
 ```bash

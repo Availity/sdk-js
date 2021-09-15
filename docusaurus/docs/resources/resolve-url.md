@@ -14,21 +14,21 @@ This library resolves relative IRIs to absolute IRIs given a base IRI, conformin
 ### NPM
 
 ```bash
-$ npm install @availity/resolve-url
+npm install @availity/resolve-url
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/resolve-url
+yarn add @availity/resolve-url
 ```
 
 ## `relative()`
 
 ### Params
 
--   **`relative`**: Relative url to be converted to full url
--   **`base`** (_optional_): Base url used to convert the relative url. If base URL is not provided it is calculated from `window.location.href`.
+- **`relative`**: Relative url to be converted to full url
+- **`base`** (_optional_): Base url used to convert the relative url. If base URL is not provided it is calculated from `window.location.href`.
 
 ## Usage
 
@@ -97,5 +97,5 @@ resolve('xyz', 'http://aa/././a'); // Outputs 'http://aa/xyz'
 
 ## Notes
 
--   `URI` - Uniform Resource Identifier allows ASCII characters
--   `IRI` - Internationalized Resource Identifier allows Unicode typeset
+- `URI` - Uniform Resource Identifier allows ASCII characters
+- `IRI` - Internationalized Resource Identifier allows Unicode typeset

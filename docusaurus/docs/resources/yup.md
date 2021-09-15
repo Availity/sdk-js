@@ -11,13 +11,13 @@ Method extensions for the [yup](https://github.com/jquense/yup)
 ### NPM
 
 ```bash
-$ npm install @availity/yup yup
+npm install @availity/yup yup
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/yup yup
+yarn add @availity/yup yup
 ```
 
 ## Usage
@@ -40,24 +40,24 @@ import { avDate, dateRange } from '@availity/yup';
 
 const dateSchema = avDate();
 const dateRangeSchema = dateRange({
-    startKey: 'helloDate',
-    endKey: 'worldDate',
+  startKey: 'helloDate',
+  endKey: 'worldDate',
 }).between('12/10/2012', '12/13/2012');
 
 dateSchema.isValid('12-12-2012');
 dateRangeSchema.isValid({
-    helloDate: '12/11/2012',
-    worldDate: '12/12/2012',
+  helloDate: '12/11/2012',
+  worldDate: '12/12/2012',
 });
 ```
 
 ## Table of Contents
 
--   [isRequired](#isrequired-stringarraynumberobject)
--   [npi](#npi-string)
--   [phone](#phone-stringnumber)
--   [dateRange](#daterange)
--   [avDate](#avdate)
+- [isRequired](#isrequired-stringarraynumberobject)
+- [npi](#npi-string)
+- [phone](#phone-stringnumber)
+- [dateRange](#daterange)
+- [avDate](#avdate)
 
 ## Methods
 
@@ -67,8 +67,8 @@ dateRangeSchema.isValid({
 
 #### Parameters
 
--   **required** - `boolean`. Optional. Whether or not the given string is required. Default: `true`
--   **message** - `string`. Optional. Custom error message when invalid. Default: `This Field is Required.`
+- **required** - `boolean`. Optional. Whether or not the given string is required. Default: `true`
+- **message** - `string`. Optional. Custom error message when invalid. Default: `This Field is Required.`
 
 #### Example
 
@@ -87,7 +87,7 @@ yup.object().isRequired();
 
 #### Parameters
 
--   **message** - `string`. Optional. Custom error message when invalid. Default: `This field is invalid.`
+- **message** - `string`. Optional. Custom error message when invalid. Default: `This field is invalid.`
 
 #### Example
 
@@ -104,7 +104,7 @@ Validates a phone number. Must be 10 digits without country code, can be formatt
 
 #### Parameters
 
--   **message** - `string`. Optional. Custom error message when invalid. Default: `This field is invalid.`
+- **message** - `string`. Optional. Custom error message when invalid. Default: `This field is invalid.`
 
 #### Example
 
@@ -139,11 +139,11 @@ Evaluates a date range object.
 
 ### Parameters
 
--   **options** - `object`. optional. Range Options.
-    -   **format** - `string`. optional. The format to parse the dates with.
-    -   **startKey** - `string`. optional. The key for the start date. Default: `startDate`
-    -   **endKey** - `string`. optional. The key for the end date. Default: `endDate`
--   **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range is invalid."
+- **options** - `object`. optional. Range Options.
+  - **format** - `string`. optional. The format to parse the dates with.
+  - **startKey** - `string`. optional. The key for the start date. Default: `startDate`
+  - **endKey** - `string`. optional. The key for the end date. Default: `endDate`
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range is invalid."
 
 ### Example
 
@@ -151,13 +151,13 @@ Evaluates a date range object.
 import { dateRange } from '@availity/yup';
 
 const dateRangeSchema = dateRange({
-    startKey: 'helloDate',
-    endKey: 'worldDate',
+  startKey: 'helloDate',
+  endKey: 'worldDate',
 }).between('12/10/2012', '12/13/2012');
 
 dateRangeSchema.isValid({
-    helloDate: '12/11/2012',
-    worldDate: '12/12/2012',
+  helloDate: '12/11/2012',
+  worldDate: '12/12/2012',
 });
 ```
 
@@ -169,9 +169,9 @@ Accepts range of dates the date range can fall between.
 
 #### parameters
 
--   **minDate** - `string`. **required**. The minimum date.
--   **maxDate** - `string`. **required**. The max date.
--   **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must be between XX/XX/XXXX and XX/XX/XXXX."
+- **minDate** - `string`. **required**. The minimum date.
+- **maxDate** - `string`. **required**. The max date.
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must be between XX/XX/XXXX and XX/XX/XXXX."
 
 #### example
 
@@ -181,8 +181,8 @@ import { dateRange } from '@availity/yup';
 const schema = dateRange().between('12/01/2012', '12/10/2012');
 
 schema.isValid({
-    startDate: '12/02/2012',
-    endDate: '12/03/2012',
+  startDate: '12/02/2012',
+  endDate: '12/03/2012',
 }); // valid
 ```
 
@@ -192,8 +192,8 @@ Accepts date the date range must start after.
 
 #### parameters
 
--   **minDate** - `string`. **required**. The minimum date.
--   **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must start after XX/XX/XXXX"
+- **minDate** - `string`. **required**. The minimum date.
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must start after XX/XX/XXXX"
 
 #### example
 
@@ -203,8 +203,8 @@ import { dateRange } from '@availity/yup';
 const schema = dateRange().min('12/01/2012');
 
 schema.isValid({
-    startDate: '12/02/2012',
-    endDate: '12/03/2012',
+  startDate: '12/02/2012',
+  endDate: '12/03/2012',
 }); // valid
 ```
 
@@ -214,8 +214,8 @@ Accepts date, the date range must start before.
 
 #### parameters
 
--   **maxDate** - `string`. **required**. The max date.
--   **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must start before XX/XX/XXXX"
+- **maxDate** - `string`. **required**. The max date.
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must start before XX/XX/XXXX"
 
 #### example
 
@@ -225,8 +225,8 @@ import { dateRange } from '@availity/yup';
 const schema = dateRange().max('12/10/2012');
 
 schema.isValid({
-    startDate: '12/02/2012',
-    endDate: '12/03/2012',
+  startDate: '12/02/2012',
+  endDate: '12/03/2012',
 }); // valid
 ```
 
@@ -236,14 +236,14 @@ Evaluates if date range is within a set distance
 
 #### parameters
 
--   **options** - `object`. **required**. distance options.
-    -   **min** - `object`. optional. The minimum distance between the date ranges
-        -   **value** - `number`. **required**. the value of the minimum distance
-        -   **units** - `string`. optional. the weight of the value. default `day`
-    -   **max** - `object`. optional. The maximum distance between the date ranges
-        -   **value** - `number`. **required**. the value of the max distance
-        -   **units** - `string`. optional. the weight of the value. default `day`
-    -   **format** - `string`. optional. custom parse format for date validation
+- **options** - `object`. **required**. distance options.
+  - **min** - `object`. optional. The minimum distance between the date ranges
+    - **value** - `number`. **required**. the value of the minimum distance
+    - **units** - `string`. optional. the weight of the value. default `day`
+  - **max** - `object`. optional. The maximum distance between the date ranges
+    - **value** - `number`. **required**. the value of the max distance
+    - **units** - `string`. optional. the weight of the value. default `day`
+  - **format** - `string`. optional. custom parse format for date validation
 
 #### example
 
@@ -251,15 +251,15 @@ Evaluates if date range is within a set distance
 import { dateRange } from '@availity/yup';
 
 const schema = dateRange().distance({
-    min: {
-        value: 3,
-        units: 'day',
-    },
+  min: {
+    value: 3,
+    units: 'day',
+  },
 });
 
 schema.isValid({
-    startDate: '12/02/2012',
-    endDate: '12/03/2012',
+  startDate: '12/02/2012',
+  endDate: '12/03/2012',
 }); // valid
 ```
 
@@ -275,9 +275,9 @@ Takes an object of dates the given date must fall between
 
 #### parameters
 
--   **minDate** - `string`. **required**. The minimum date.
--   **maxDate** - `string`. **required**. The max date.
--   **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be between XX/XX/XXXX and XX/XX/XXXX."
+- **minDate** - `string`. **required**. The minimum date.
+- **maxDate** - `string`. **required**. The max date.
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be between XX/XX/XXXX and XX/XX/XXXX."
 
 #### example
 

@@ -11,7 +11,7 @@ A package providing a base authorizations class to help check which permissions 
 ### NPM
 
 ```bash
-$ npm install @availity/authorizations-core @availity/api-axios @availity/api-core
+npm install @availity/authorizations-core @availity/api-axios @availity/api-core
 ```
 
 ### Yarn
