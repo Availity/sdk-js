@@ -8,18 +8,18 @@ A package providing a base authorizations class to help check which permissions 
 
 ## Table of Contents
 
--   [AvUser](#avuser)
--   [AvRegions](#avregions)
--   [AvPermissions](#avpermissions)
--   [AvUserPermissions](#avuserpermissions)
--   [AvSpaces](#avspaces)
--   [AvOrganizations](#avorganizations)
--   [AvProviders](#avproviders)
--   [AvLogMessage](#avlogmessage)
--   [AvProxy](#avproxy)
--   [AvFiles](#avfiles)
--   [AvFilesDelivery](#avfilesdelivery)
--   [AvSettings](#avsettings)
+- [AvUser](#avuser)
+- [AvRegions](#avregions)
+- [AvPermissions](#avpermissions)
+- [AvUserPermissions](#avuserpermissions)
+- [AvSpaces](#avspaces)
+- [AvOrganizations](#avorganizations)
+- [AvProviders](#avproviders)
+- [AvLogMessage](#avlogmessage)
+- [AvProxy](#avproxy)
+- [AvFiles](#avfiles)
+- [AvFilesDelivery](#avfilesdelivery)
+- [AvSettings](#avsettings)
 
 All axios resources will have the same basic exported class structure as below. For each resource, replace the `class` with the resource name as well as `name` in `options`
 
@@ -51,9 +51,9 @@ Get information about current logged in user.
 #### Methods
 
 ```javascript
-    me(config) {
-    return this.get('me', config).then(response => response.data);
-    }
+function me(config) {
+  return this.get('me', config).then((response) => response.data);
+}
 ```
 
 Helper function that returns information about logged in user.
@@ -71,10 +71,10 @@ Add `avUsers` to the `constructor`. Add `sessionBust: false` and `pagebust: true
 ##### `afterUpdate(response)`
 
 ```javascript
-   afterUpdate(response) {
-    this.setPageBust();
-    return response;
-  }
+function afterUpdate(response) {
+  this.setPageBust();
+  return response;
+}
 ```
 
 ##### `getRegions(config)`
@@ -82,15 +82,15 @@ Add `avUsers` to the `constructor`. Add `sessionBust: false` and `pagebust: true
 Get regions for logged in user.
 
 ```javascript
-   getRegions(config) {
-    if (!this.avUsers || !this.avUsers.me) {
-      throw new Error('avUsers must be defined');
-    }
-    return this.avUsers.me().then(user => {
-      const queryConfig = this.addParams({ userId: user.id }, config);
-      return this.query(queryConfig);
-    });
+function getRegions(config) {
+  if (!this.avUsers || !this.avUsers.me) {
+    throw new Error('avUsers must be defined');
   }
+  return this.avUsers.me().then((user) => {
+    const queryConfig = this.addParams({ userId: user.id }, config);
+    return this.query(queryConfig);
+  });
+}
 ```
 
 ##### `getCurrentRegion()`
@@ -98,13 +98,13 @@ Get regions for logged in user.
 Returns just the current region for the logged in user.
 
 ```javascript
-   getCurrentRegion() {
-    return this.query({
-      params: {
-        currentlySelected: true,
-      },
-    });
-  }
+function getCurrentRegion() {
+  return this.query({
+    params: {
+      currentlySelected: true,
+    },
+  });
+}
 ```
 
 ### `AvPermissions`
@@ -118,11 +118,11 @@ Get permissions belonging to the logged in user.
 #### Methods
 
 ```javascript
-   getPermissions(id, region) {
-    return this.query({
-      params: { id, region },
-    });
-  }
+function getPermissions(id, region) {
+  return this.query({
+    params: { id, region },
+  });
+}
 ```
 
 ### `AvUserPermissions`
@@ -156,19 +156,19 @@ export default class AvUserPermissions extends AvApi {
 #### Methods
 
 ```javascript
-   afterQuery(response) {
-    return response && response.data && response.data.axiUserPermissions
-      ? response.data.axiUserPermissions
-      : [];
-  }
+function afterQuery(response) {
+  return response && response.data && response.data.axiUserPermissions
+    ? response.data.axiUserPermissions
+    : [];
+}
 ```
 
 ```javascript
-   getPermissions(permissionId, region) {
-    return this.query({
-      params: { permissionId, region },
-    });
-  }
+function getPermissions(permissionId, region) {
+  return this.query({
+    params: { permissionId, region },
+  });
+}
 ```
 
 ### `AvSpaces`
@@ -182,31 +182,31 @@ Get metadata for the various content types for the Spaces platform.
 #### Methods
 
 ```javascript
-   parseSpaceId(query) {
-    const pairs = query.substr(1).split('&');
+function parseSpaceId(query) {
+  const pairs = query.substr(1).split('&');
 
-    let spaceId = '';
+  let spaceId = '';
 
-    if (Array.isArray(pairs)) {
-      pairs.forEach(item => {
-        const pair = item.split('=');
-        const key = pair[0];
-        if (key === 'spaceId') {
-          spaceId = pair[1] && decodeURIComponent(pair[1]);
-        }
-      });
-    }
-    return spaceId;
+  if (Array.isArray(pairs)) {
+    pairs.forEach((item) => {
+      const pair = item.split('=');
+      const key = pair[0];
+      if (key === 'spaceId') {
+        spaceId = pair[1] && decodeURIComponent(pair[1]);
+      }
+    });
   }
+  return spaceId;
+}
 ```
 
 ```javascript
-   getSpaceName(spaceId) {
-    if (!spaceId) {
-      throw new Error('[spaceId] must be defined');
-    }
-    return this.get(spaceId).then(response => response.data.name);
+function getSpaceName(spaceId) {
+  if (!spaceId) {
+    throw new Error('[spaceId] must be defined');
   }
+  return this.get(spaceId).then((response) => response.data.name);
+}
 ```
 
 ### `AvOrganizations`
@@ -224,10 +224,10 @@ Add `avUsers` into constructor. Add `this.avUsers = avUsers` before `constructor
 Returns organizations belonging to the `user`.
 
 ```javascript
-   queryOrganizations(user, config) {
-       const queryConfig = this.addParams({ userId: user.id }, config);
-    return this.query(queryConfig);
-  }
+function queryOrganizations(user, config) {
+  const queryConfig = this.addParams({ userId: user.id }, config);
+  return this.query(queryConfig);
+}
 ```
 
 ##### `getOrganizations(config)`
@@ -235,40 +235,37 @@ Returns organizations belonging to the `user`.
 Returns organizations belonging to the logged in user.
 
 ```javascript
-   getOrganizations(config) {
-       if (config && config.params && config.params.userId) {
-           return this.query(config);
-    }
-
-    if (!this.avUsers || !this.avUsers.me) {
-        throw new Error('avUsers must be defined');
-    }
-
-    return this.avUsers
-      .me()
-      .then(user => this.queryOrganizations(user, config));
+function getOrganizations(config) {
+  if (config && config.params && config.params.userId) {
+    return this.query(config);
   }
+
+  if (!this.avUsers || !this.avUsers.me) {
+    throw new Error('avUsers must be defined');
+  }
+
+  return this.avUsers
+    .me()
+    .then((user) => this.queryOrganizations(user, config));
+}
 ```
 
 ##### `postGet(data, config, additionalPostGetArgs)`
 
 ```javascript
-async postGet(data, config) {
-    if (additionalPostGetArgs) {
-      const { data: organizationsData } = await super.postGet(
-        data,
-        config
-      );
+async function postGet(data, config) {
+  if (additionalPostGetArgs) {
+    const { data: organizationsData } = await super.postGet(data, config);
 
-      return this.getFilteredOrganizations(
-        organizationsData,
-        additionalPostGetArgs,
-        data
-      );
-    }
-
-    return super.postGet(data, config);
+    return this.getFilteredOrganizations(
+      organizationsData,
+      additionalPostGetArgs,
+      data
+    );
   }
+
+  return super.postGet(data, config);
+}
 ```
 
 ##### `getFilteredOrganizations(organizationsData, additionalPostGetArgs, restQueryParams)`
@@ -296,125 +293,124 @@ data: {
 ```
 
 ```javascript
-  async getFilteredOrganizations(
-    organizationsData,
-    additionalPostGetArgs,
-    data
+async function getFilteredOrganizations(
+  organizationsData,
+  additionalPostGetArgs,
+  data
+) {
+  const { resourceIds } = additionalPostGetArgs;
+  const { permissionId, region } = data;
+  const {
+    organizations,
+    limit: orgLimit,
+    offset: orgOffset,
+    totalCount: totalOrgCount,
+  } = organizationsData;
+
+  if (typeof permissionId !== 'string' && !Array.isArray(permissionId)) {
+    throw new TypeError(
+      'permissionId must be either an array of ids or a string'
+    );
+  }
+  if (typeof resourceIds !== 'string' && !Array.isArray(resourceIds)) {
+    throw new TypeError(
+      'resourceIds must be either an array of ids or a string'
+    );
+  }
+
+  // resourceIds is passed as readOnly, convert so that we can use Array methods on it
+  const resourceIdsArray =
+    typeof resourceIds === 'string' ? [resourceIds] : resourceIds;
+
+  if (
+    region !== this.previousRegionId ||
+    !this.arePermissionsEqual(permissionId)
   ) {
-    const { resourceIds } = additionalPostGetArgs;
-    const { permissionId, region } = data;
+    // avUserPermissions will return a list of user organizations that match given permission and region
+    // This call does not need to be paginated and
+    // we should not need to call it every time we paginate orgs if region and permissions are the same
+    // Limit is set to permissionId.length because that represents maximum results we can get back
     const {
-      organizations,
-      limit: orgLimit,
-      offset: orgOffset,
-      totalCount: totalOrgCount,
-    } = organizationsData;
+      data: { axiUserPermissions: userPermissions },
+    } = await this.avUserPermissions.postGet({
+      permissionId,
+      region,
+      limit: permissionId.length,
+    });
 
-    if (typeof permissionId !== 'string' && !Array.isArray(permissionId)) {
-      throw new TypeError(
-        'permissionId must be either an array of ids or a string'
-      );
+    if (userPermissions) {
+      this.userPermissions = userPermissions;
+      this.previousPermissionIds = permissionId;
+      this.previousRegionId = region;
+    } else {
+      throw new Error('avUserPermissions call failed');
     }
-    if (typeof resourceIds !== 'string' && !Array.isArray(resourceIds)) {
-      throw new TypeError(
-        'resourceIds must be either an array of ids or a string'
-      );
-    }
+  }
 
-    // resourceIds is passed as readOnly, convert so that we can use Array methods on it
-    const resourceIdsArray =
-      typeof resourceIds === 'string' ? [resourceIds] : resourceIds;
-
-    if (
-      region !== this.previousRegionId ||
-      !this.arePermissionsEqual(permissionId)
-    ) {
-      // avUserPermissions will return a list of user organizations that match given permission and region
-      // This call does not need to be paginated and
-      // we should not need to call it every time we paginate orgs if region and permissions are the same
-      // Limit is set to permissionId.length because that represents maximum results we can get back
-      const {
-        data: { axiUserPermissions: userPermissions },
-      } = await this.avUserPermissions.postGet({
-        permissionId,
-        region,
-        limit: permissionId.length,
+  // Reduce the userPermissions result into a collection of orgs that contain a valid resource
+  const authorizedOrgs = this.userPermissions.reduce(
+    (accum, userPermission) => {
+      userPermission.organizations.forEach((userOrg) => {
+        const isDuplicate = accum.some((item) => item.id === userOrg.id);
+        if (!isDuplicate) {
+          // If this org contains one of the passed in resourceIds, it is an authorized org
+          const match = userOrg.resources.some((userResource) => {
+            return resourceIdsArray.some(
+              (resource) => Number(resource) === Number(userResource.id)
+            );
+          });
+          if (match) {
+            accum.push({ id: userOrg.id });
+          }
+        }
       });
 
-      if (userPermissions) {
-        this.userPermissions = userPermissions;
-        this.previousPermissionIds = permissionId;
-        this.previousRegionId = region;
-      } else {
-        throw new Error('avUserPermissions call failed');
-      }
-    }
+      return accum;
+    },
+    []
+  );
 
-    // Reduce the userPermissions result into a collection of orgs that contain a valid resource
-    const authorizedOrgs = this.userPermissions.reduce(
-      (accum, userPermission) => {
-        userPermission.organizations.forEach(userOrg => {
-          const isDuplicate = accum.some(item => item.id === userOrg.id);
-          if (!isDuplicate) {
-            // If this org contains one of the passed in resourceIds, it is an authorized org
-            const match = userOrg.resources.some(userResource => {
-              return resourceIdsArray.some(
-                resource => Number(resource) === Number(userResource.id)
-              );
-            });
-            if (match) {
-              accum.push({ id: userOrg.id });
-            }
-          }
-        });
+  // avUserPermissions call doesn't return much useful organization data
+  // but we can match valid ids to useful data returned from avOrganizations
+  const authorizedFilteredOrgs = organizations.filter((org) =>
+    authorizedOrgs.some((authorizedOrg) => authorizedOrg.id === org.id)
+  );
 
-        return accum;
-      },
-      []
-    );
+  // Transform back into data object that ResourceSelect can use and paginate
+  return {
+    data: {
+      authorizedFilteredOrgs,
+      totalCount: totalOrgCount,
+      limit: orgLimit,
+      offset: orgOffset,
+    },
+  };
+}
 
-    // avUserPermissions call doesn't return much useful organization data
-    // but we can match valid ids to useful data returned from avOrganizations
-    const authorizedFilteredOrgs = organizations.filter(org =>
-      authorizedOrgs.some(authorizedOrg => authorizedOrg.id === org.id)
-    );
+function arePermissionsEqual(permissionId) {
+  if (typeof permissionId !== typeof this.previousPermissionIds) return false;
 
-    // Transform back into data object that ResourceSelect can use and paginate
-    return {
-      data: {
-        authorizedFilteredOrgs,
-        totalCount: totalOrgCount,
-        limit: orgLimit,
-        offset: orgOffset,
-      },
-    };
+  if (typeof permissionId === 'string')
+    return permissionId === this.previousPermissionIds;
+
+  if (
+    Array.isArray(permissionId) &&
+    Array.isArray(this.previousPermissionIds)
+  ) {
+    if (permissionId.length !== this.previousPermissionIds.length) return false;
+
+    // if lengths are equal, need a way to check if values are the same or not
+    // Sets won't allow duplicate values
+    // if size of Set is greater than length of original arrays
+    // then a different value was inserted and they are not equal
+    const idSet = new Set([...permissionId], [...this.previousPermissionIds]);
+    if (idSet.size !== permissionId.length) return false;
+
+    return true;
   }
 
-  arePermissionsEqual(permissionId) {
-    if (typeof permissionId !== typeof this.previousPermissionIds) return false;
-
-    if (typeof permissionId === 'string')
-      return permissionId === this.previousPermissionIds;
-
-    if (
-      Array.isArray(permissionId) &&
-      Array.isArray(this.previousPermissionIds)
-    ) {
-      if (permissionId.length !== this.previousPermissionIds.length)
-        return false;
-
-      // if lengths are equal, need a way to check if values are the same or not
-      // Sets won't allow duplicate values
-      // if size of Set is greater than length of original arrays
-      // then a different value was inserted and they are not equal
-      const idSet = new Set([...permissionId], [...this.previousPermissionIds]);
-      if (idSet.size !== permissionId.length) return false;
-
-      return true;
-    }
-
-    return false;
-  }
+  return false;
+}
 ```
 
 ### `AvProviders`
@@ -432,10 +428,10 @@ Get providers associated to the logged in user's organization.
 Helper method that gets the providers for the `customerId`.
 
 ```javascript
-   getProviders(customerId, config) {
-    const queryConfig = this.addParams({ customerId }, config);
-    return this.query(queryConfig);
-  }
+function getProviders(customerId, config) {
+  const queryConfig = this.addParams({ customerId }, config);
+  return this.query(queryConfig);
+}
 ```
 
 ##### `normalize(providers)`
@@ -443,17 +439,17 @@ Helper method that gets the providers for the `customerId`.
 Helper method that adds `name` field to the `providers` collection. The name field is computed from other properies of the provider object.
 
 ```javascript
-   normalize(providers) {
-    const cloned = providers.slice();
+function normalize(providers) {
+  const cloned = providers.slice();
 
-    cloned.forEach(provider => {
-      provider.name = provider.businessName
-        ? provider.businessName
-        : `${provider.lastName}, ${provider.firstName}`;
-    });
+  cloned.forEach((provider) => {
+    provider.name = provider.businessName
+      ? provider.businessName
+      : `${provider.lastName}, ${provider.firstName}`;
+  });
 
-    return cloned;
-  }
+  return cloned;
+}
 ```
 
 ### `AvLogMessage`
@@ -473,47 +469,47 @@ All methods take a key value object. A key named 'level` determines the log leve
 ##### `send(level,entires)`
 
 ```javascript
-   send(level, entries) {
-    delete entries.level;
-    const payload = { level, entries };
-    const flattened = flattenObject(payload);
-    return Object.keys(flattened).reduce((accum, key) => {
-      accum.append(key, flattened[key]);
-      return accum;
-    }, new FormData());
-  }
+function send(level, entries) {
+  delete entries.level;
+  const payload = { level, entries };
+  const flattened = flattenObject(payload);
+  return Object.keys(flattened).reduce((accum, key) => {
+    accum.append(key, flattened[key]);
+    return accum;
+  }, new FormData());
+}
 ```
 
 ##### `debug(keyValue)`
 
 ```javascript
-   debug(entries) {
-    return this.sendBeacon(this.send('debug', entries));
-  }
+function debug(entries) {
+  return this.sendBeacon(this.send('debug', entries));
+}
 ```
 
 ##### `info(keyValue)`
 
 ```javascript
-   info(entries) {
-    return this.sendBeacon(this.send('info', entries));
-  }
+function info(entries) {
+  return this.sendBeacon(this.send('info', entries));
+}
 ```
 
 ##### `warn(keyValue)`
 
 ```javascript
-   warn(entries) {
-    return this.sendBeacon(this.send('warn', entries));
-  }
+function warn(entries) {
+  return this.sendBeacon(this.send('warn', entries));
+}
 ```
 
 ##### `error(keyValue)`
 
 ```javascript
-   error(entries) {
-    return this.sendBeacon(this.send('error', entries));
-  }
+function error(entries) {
+  return this.sendBeacon(this.send('error', entries));
+}
 ```
 
 ### `AvPdfs`
@@ -525,19 +521,19 @@ All methods take a key value object. A key named 'level` determines the log leve
 #### Methods
 
 ```javascript
-   onPdf(response) {
-    window.location = response.data.links.pdf.href;
-  }
+function onPdf(response) {
+  window.location = response.data.links.pdf.href;
+}
 ```
 
 ```javascript
-   getPdf(data, config) {
-    if (!data.applicationId || !data.fileName || !data.html) {
-      throw new Error('[applicationId], [fileName] and [html] must be defined');
-    }
-
-    return this.post(data, config).then(this.onPdf);
+function getPdf(data, config) {
+  if (!data.applicationId || !data.fileName || !data.html) {
+    throw new Error('[applicationId], [fileName] and [html] must be defined');
   }
+
+  return this.post(data, config).then(this.onPdf);
+}
 ```
 
 ### `AvProxy`
@@ -550,22 +546,22 @@ Create API definitions for services that are proxied to a tenant's API gateway.
 import AvApi from '../api';
 
 export default class AvProxy extends AvApi {
-    constructor({ http, promise, merge, config }) {
-        if (!config || !config.tenant) {
-            throw new Error('Must specify tenant name for Proxy');
-        }
-        const options = {
-            path: `api/v1/proxy/${config.tenant}`,
-            version: '',
-            ...config,
-        };
-        super({
-            http,
-            promise,
-            merge,
-            config: options,
-        });
+  constructor({ http, promise, merge, config }) {
+    if (!config || !config.tenant) {
+      throw new Error('Must specify tenant name for Proxy');
     }
+    const options = {
+      path: `api/v1/proxy/${config.tenant}`,
+      version: '',
+      ...config,
+    };
+    super({
+      http,
+      promise,
+      merge,
+      config: options,
+    });
+  }
 }
 ```
 
@@ -591,18 +587,18 @@ Method to upload a file. `data` contains FormData elements with a key of either 
 `config` should contain `customerId`, `id` (the bucketId), and `clientId`
 
 ```javascript
-   uploadFile(data, config) {
-    if (!config.customerId || !config.clientId) {
-      throw new Error(
-        '[config.customerId] and [config.clientId] must be defined'
-      );
-    }
-    config = this.config(config);
-    config.headers['X-Availity-Customer-ID'] = config.customerId;
-    config.headers['X-Client-ID'] = config.clientId;
-
-    return this.create(data, config);
+function uploadFile(data, config) {
+  if (!config.customerId || !config.clientId) {
+    throw new Error(
+      '[config.customerId] and [config.clientId] must be defined'
+    );
   }
+  config = this.config(config);
+  config.headers['X-Availity-Customer-ID'] = config.customerId;
+  config.headers['X-Client-ID'] = config.clientId;
+
+  return this.create(data, config);
+}
 ```
 
 ### `AvFilesDelivery`
@@ -642,52 +638,71 @@ export default class AvFilesDelivery extends AvMicroservice {
 Method to upload a batch of file deliveries. `data` contains an array of `deliveries`. Provide the `fileUri` (reference field from AvFiles), `deliveryChannel`, and the required `metadata` for that channel.
 
 ```javascript
-   uploadFilesDelivery(data, config) {
-    if (!config.customerId || !config.clientId) {
-      throw new Error(
-        '[config.customerId] and [config.clientId] must be defined'
-      );
-    }
-    config = this.config(config);
-    config.headers['X-Availity-Customer-ID'] = config.customerId;
-    config.headers['X-Client-ID'] = config.clientId;
-
-    return this.create(data || {}, config);
+function uploadFilesDelivery(data, config) {
+  if (!config.customerId || !config.clientId) {
+    throw new Error(
+      '[config.customerId] and [config.clientId] must be defined'
+    );
   }
+  config = this.config(config);
+  config.headers['X-Availity-Customer-ID'] = config.customerId;
+  config.headers['X-Client-ID'] = config.clientId;
+
+  return this.create(data || {}, config);
+}
 ```
 
 Example `data`:
 
-```html
-data = { deliveries: [ { fileURI: upload.references[0], deliveryChannel: 'DEMO',
-metadata: { payerId: "PAYERID", requestId: "123", patientLastName: "lastName",
-patientFirstName: "firstName" }, } ] };
+```js
+data = {
+  deliveries: [
+    {
+      fileURI: upload.references[0],
+      deliveryChannel: 'DEMO',
+      metadata: {
+        payerId: 'PAYERID',
+        requestId: '123',
+        patientLastName: 'lastName',
+        patientFirstName: 'firstName',
+      },
+    },
+  ],
+};
 ```
 
 `config` should contain `customerId` and `clientId`
 
 #### Example Response
 
-```html
-{ "id": "123456", // batchId "status": "COMPLETE", // COMPLETE/INPROGRESS
-"deliveries": [ { "id": "56789", // deliveryId "deliveryBatchId": "123456",
-"fileURI":
-<fileUri
-    >, "deliveryChannel": "DEMO", "deliveryStatus": "ERRORED", //
-    INPROGRESS/REJECTED/ERRORED/DELIVERED "errors": [ { "message": "error
-    message", "subject": "subject of error" } ], "metadata": { payerId:
-    "PAYERID", requestId: "123", patientLastName: "lastName", patientFirstName:
-    "firstName" } } ] }</fileUri
->
+```json
+{
+  "id": "123456", // batchId "status": "COMPLETE", // COMPLETE/INPROGRESS
+  "deliveries": [
+    {
+      "id": "56789", // deliveryId "deliveryBatchId": "123456",
+      "fileURI": "<fileUri>",
+      "deliveryChannel": "DEMO",
+      "deliveryStatus": "ERRORED", // INPROGRESS/REJECTED/ERRORED/DELIVERED
+      "errors": [{ "message": "error message", "subject": "subject of error" }],
+      "metadata": {
+        "payerId": "PAYERID",
+        "requestId": "123",
+        "patientLastName": "lastName",
+        "patientFirstName": "firstName"
+      }
+    }
+  ]
+}
 ```
 
 #### `getLocation(response)`
 
 ```javascript
-   getLocation(response) {
-    const baseUrl = super.getLocation(response.config);
-    return `${baseUrl}/${response.data.id}`;
-  }
+function getLocation(response) {
+  const baseUrl = super.getLocation(response.config);
+  return `${baseUrl}/${response.data.id}`;
+}
 ```
 
 ### `AvSettings`
@@ -703,61 +718,58 @@ Use `update(data)` with at least an `applicationId` in the `scope` object, and k
 #### Methods
 
 ```javascript
-   getApplication(applicationId, config) {
-    if (!applicationId) {
-      throw new Error('applicationId must be defined');
-    }
-    if (!this.avUsers || !this.avUsers.me) {
-      throw new Error('avUsers must be defined');
-    }
-
-    if (config && config.params && config.params.userId) {
-      const queryConfig = this.addParams({ applicationId }, config);
-      return this.query(queryConfig);
-    }
-
-    return this.avUsers.me().then(user => {
-      const queryConfig = this.addParams(
-        { applicationId, userId: user.id },
-        config
-      );
-      return this.query(queryConfig);
-    });
+function getApplication(applicationId, config) {
+  if (!applicationId) {
+    throw new Error('applicationId must be defined');
   }
+  if (!this.avUsers || !this.avUsers.me) {
+    throw new Error('avUsers must be defined');
+  }
+
+  if (config && config.params && config.params.userId) {
+    const queryConfig = this.addParams({ applicationId }, config);
+    return this.query(queryConfig);
+  }
+
+  return this.avUsers.me().then((user) => {
+    const queryConfig = this.addParams(
+      { applicationId, userId: user.id },
+      config
+    );
+    return this.query(queryConfig);
+  });
+}
 ```
 
 ```javascript
-   setApplication(applicationId, data, config) {
-    if (!this.avUsers || !this.avUsers.me) {
-      throw new Error('avUsers must be defined');
-    }
-
-    if (
-      typeof applicationId !== 'string' &&
-      typeof applicationId !== 'number'
-    ) {
-      config = data;
-      data = applicationId;
-      applicationId = '';
-    }
-
-    if (!applicationId && (!data || !data.scope || !data.scope.applicationId)) {
-      throw new Error('applicationId must be defined');
-    }
-
-    if (data && data.scope && data.scope.userId) {
-      data.scope.applicationId = applicationId;
-      return this.update(data, config);
-    }
-
-    return this.avUsers.me().then(user => {
-      data = data || {};
-      data.scope = data.scope || {};
-      data.scope.applicationId = applicationId;
-      data.scope.userId = user.id;
-      return this.update(data, config);
-    });
+function setApplication(applicationId, data, config) {
+  if (!this.avUsers || !this.avUsers.me) {
+    throw new Error('avUsers must be defined');
   }
+
+  if (typeof applicationId !== 'string' && typeof applicationId !== 'number') {
+    config = data;
+    data = applicationId;
+    applicationId = '';
+  }
+
+  if (!applicationId && (!data || !data.scope || !data.scope.applicationId)) {
+    throw new Error('applicationId must be defined');
+  }
+
+  if (data && data.scope && data.scope.userId) {
+    data.scope.applicationId = applicationId;
+    return this.update(data, config);
+  }
+
+  return this.avUsers.me().then((user) => {
+    data = data || {};
+    data.scope = data.scope || {};
+    data.scope.applicationId = applicationId;
+    data.scope.userId = user.id;
+    return this.update(data, config);
+  });
+}
 ```
 
 ### `AvDisclaimers`
@@ -771,10 +783,10 @@ Get disclaimers for payer space
 #### Methods
 
 ```javascript
-   getDisclaimers(id, config) {
-    const queryConfig = this.addParams({ id }, config);
-    return this.query(queryConfig);
-  }
+function getDisclaimers(id, config) {
+  const queryConfig = this.addParams({ id }, config);
+  return this.query(queryConfig);
+}
 ```
 
 ### `AvSlotMachine`
@@ -790,7 +802,7 @@ GraphQL Server containing different queries and mutation
 #### `query(data: string)`
 
 ```javascript
-   query(data, variables) {
-    return this.create({ query: data, variables });
-  }
+function query(data, variables) {
+  return this.create({ query: data, variables });
+}
 ```

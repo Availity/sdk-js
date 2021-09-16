@@ -8,15 +8,15 @@ A permission represents a relationship between an organization and a user, possi
 
 Find a user's permissions with a set of parameters. The request parameters act as filters on the collection.
 
--   **id** _(optional)_ — Allows the client to retrieve multiple permissions by their ids. Accepts multiple `id` parameters. Other parameters will be ignored if the `id` parameter is used.
--   **roleId** _(optional)_ — Allows the client to retrieve multiple permissions associated with the specified role. Accepts multiple `roleId` parameters.
--   **userId** _(optional)_ - Allows the client to retrieve permissions for the specified user. Accepts a single userId parameter.
--   **organizationId** _(optional)_ - Allows the client to retrieve permissions or the specified organizationId. Accepts a single userId parameter. Ignored unless `userId` is sent.
--   **includeResources** _(optional)_ - Allows the client to retrieve the resources assigned to the permission. Defaults to `false`.
--   **sortBy** _(optional)_ - Allows the client to sort the collection. Supports `id` and `description`. Defaults to description. Accepts a single `sortBy`parameter.
--   **sortDirection** _(optional)_ - Allows the client to specify a sort direction. Clients can sort by `asc` or `desc`. Defaults to asc.
--   **offset** _(optional)_ - Paging offset. Defaults to `0`.
--   **limit** _(optional)_ - Paging limit. Defaults to `50`.
+- **id** _(optional)_ — Allows the client to retrieve multiple permissions by their ids. Accepts multiple `id` parameters. Other parameters will be ignored if the `id` parameter is used.
+- **roleId** _(optional)_ — Allows the client to retrieve multiple permissions associated with the specified role. Accepts multiple `roleId` parameters.
+- **userId** _(optional)_ - Allows the client to retrieve permissions for the specified user. Accepts a single userId parameter.
+- **organizationId** _(optional)_ - Allows the client to retrieve permissions or the specified organizationId. Accepts a single userId parameter. Ignored unless `userId` is sent.
+- **includeResources** _(optional)_ - Allows the client to retrieve the resources assigned to the permission. Defaults to `false`.
+- **sortBy** _(optional)_ - Allows the client to sort the collection. Supports `id` and `description`. Defaults to description. Accepts a single `sortBy`parameter.
+- **sortDirection** _(optional)_ - Allows the client to specify a sort direction. Clients can sort by `asc` or `desc`. Defaults to asc.
+- **offset** _(optional)_ - Paging offset. Defaults to `0`.
+- **limit** _(optional)_ - Paging limit. Defaults to `50`.
 
 ### Example Request
 
@@ -26,7 +26,7 @@ GET https://apps.availity.com/api/sdk/platform/v1/permissions?userId=aka98765432
 
 ### Example Response
 
-```javascript
+```json
 {
   "totalCount": 264,
   "count": 50,
@@ -66,11 +66,13 @@ Retrieves a permission by its id.
 
 ### Example Request
 
-    https:/apps.availity.com/api/sdk/platform/v1/permissions/7153
+```
+GET https:/apps.availity.com/api/sdk/platform/v1/permissions/7153
+```
 
 ### Example Response
 
-```javascript
+```json
 {
   "links": {
     "self": {

@@ -8,16 +8,15 @@ Explanation on how to make an HTTP Request
 
 Explanation on how to make an HTTP Request
 
-
 ## Example
 
-Example Example 
+Example Example
 
 ### Adding API Code Snippet
 
-```jsx 
+```jsx
 
-Example code 
+Example code
 
 
 ```

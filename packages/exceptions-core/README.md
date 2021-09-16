@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/exceptions-core
+npm install @availity/exceptions-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/exceptions-core
+yarn add @availity/exceptions-core
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/resources/exceptions)

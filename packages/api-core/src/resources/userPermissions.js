@@ -6,7 +6,7 @@ export default class AvUserPermissions extends AvApi {
     const options = {
       path: 'api/internal',
       name: 'axi-user-permissions',
-      paramsSerializer: params =>
+      paramsSerializer: (params) =>
         qs.stringify(params, { arrayFormat: 'repeat' }),
       ...config,
     };

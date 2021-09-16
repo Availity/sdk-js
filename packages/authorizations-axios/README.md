@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/authorizations-axios
+npm install @availity/authorizations-axios
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/authorizations-axios
+yarn add @availity/authorizations-axios
 ```
 
 ## Configuration
@@ -59,7 +59,7 @@ For all methods, if no region is passed in, defaults to current region.
 
 **Kasey Powers**
 
--   [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
+- [kaseyepowers@gmail.com](kaseyepowers@gmail.com)
 
 ## License
 

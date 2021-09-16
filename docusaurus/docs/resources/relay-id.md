@@ -10,13 +10,13 @@ Small package containing helpers for encoding/decoding ids according to the rela
 ### NPM
 
 ```bash
-$ npm install @availity/relay-id
+npm install @availity/relay-id
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/relay-id
+yarn add @availity/relay-id
 ```
 
 ## Usage

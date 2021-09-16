@@ -7,13 +7,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/analytics-core
+npm install @availity/analytics-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/analytics-core
+yarn add @availity/analytics-core
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/resources/analytics)

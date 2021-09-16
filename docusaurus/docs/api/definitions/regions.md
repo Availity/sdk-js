@@ -10,12 +10,12 @@ Find a user's regions collection.
 
 ### Parameters
 
--   **userId** _(optional)_ — Allows the client to view regions for a specific user. If sent, currentlySelected region will be indicated.
--   **currentlySelected** _(optional)_ — Allows the client to request to get only the region that is marked as `currentlySelected`. Accepts a single boolean value of `true` or `false`. If `true` and sent without a userId, currently logged in user with be used.
--   **sortBy** _(optional)_ - Allows the client to sort the result set. Supports `id` and `value`. Defaults to `value`.
--   **sortDirection** _(optional)_ - Allows the client to specify a sort direction. Clients can sort by `asc` or `desc`. Defaults to `asc`.
--   **offset** _(optional)_ - Paging offset. Defaults to `0`. This is the zero-based index of the first item to return.
--   **limit** _(optional)_ - Paging limit. Defaults to `50`. The maximum is `50`. This is the maximum number of items to return.
+- **userId** _(optional)_ — Allows the client to view regions for a specific user. If sent, currentlySelected region will be indicated.
+- **currentlySelected** _(optional)_ — Allows the client to request to get only the region that is marked as `currentlySelected`. Accepts a single boolean value of `true` or `false`. If `true` and sent without a userId, currently logged in user with be used.
+- **sortBy** _(optional)_ - Allows the client to sort the result set. Supports `id` and `value`. Defaults to `value`.
+- **sortDirection** _(optional)_ - Allows the client to specify a sort direction. Clients can sort by `asc` or `desc`. Defaults to `asc`.
+- **offset** _(optional)_ - Paging offset. Defaults to `0`. This is the zero-based index of the first item to return.
+- **limit** _(optional)_ - Paging limit. Defaults to `50`. The maximum is `50`. This is the maximum number of items to return.
 
 ### Example Request
 
@@ -25,37 +25,43 @@ Find a user's regions collection.
 
 ### Example Response
 
-```javascript
+```json
 {
-  "totalCount" : 1,
-  "count" : 1,
-  "offset" : 0,
-   "limit" : 50,
-  "regionAggregations" : [ {
-   "type" : "hits",
-    "hits" : [ {
-      "key" : "userRegionCount",
-      "count" : 56
-    } ]
-  } ],
-  "links" : {
-    "self" : {
-      "href" : "https://apps.availity.com/api/sdk/platform/v1/regions?currentlySelected=true"
+  "totalCount": 1,
+  "count": 1,
+  "offset": 0,
+  "limit": 50,
+  "regionAggregations": [
+    {
+      "type": "hits",
+      "hits": [
+        {
+          "key": "userRegionCount",
+          "count": 56
+        }
+      ]
+    }
+  ],
+  "links": {
+    "self": {
+      "href": "https://apps.availity.com/api/sdk/platform/v1/regions?currentlySelected=true"
     },
-    "user" : {
-      "href" : "https://apps.availity.com/api/sdk/platform/v1/users/aka01565563207"
+    "user": {
+      "href": "https://apps.availity.com/api/sdk/platform/v1/users/aka01565563207"
     }
   },
-  "regions" : [ {
-    "links" : {
-    "self" : {
-      "href" : "https://apps.availity.com/api/sdk/platform/v1/regions/FL"
+  "regions": [
+    {
+      "links": {
+        "self": {
+          "href": "https://apps.availity.com/api/sdk/platform/v1/regions/FL"
+        }
+      },
+      "id": "FL",
+      "value": "Florida",
+      "currentlySelected": true
     }
-  },
-  "id" : "FL",
-  "value" : "Florida",
-  "currentlySelected" : true
-  } ]
+  ]
 }
 ```
 
@@ -66,19 +72,19 @@ Allows the client to retrieve a region by id.
 ### Example Request
 
 ```
-    GET https://apps.availity.com/api/sdk/platform/v1/regions/NM
+GET https://apps.availity.com/api/sdk/platform/v1/regions/NM
 ```
 
 ### Example Response
 
-```javascript
+```json
 {
-  "links" : {
-    "self" : {
-      "href" : "https://apps.availity.com/api/sdk/platform/v1/regions/NM"
+  "links": {
+    "self": {
+      "href": "https://apps.availity.com/api/sdk/platform/v1/regions/NM"
     }
   },
-  "id" : "NM",
-  "value" : "New Mexico"
+  "id": "NM",
+  "value": "New Mexico"
 }
 ```

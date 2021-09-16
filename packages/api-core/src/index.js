@@ -1,48 +1,48 @@
 import AvApi from './api';
 import AvMicroservice from './ms';
-import AvWebQL from './resources/webQL';
+import AvProxy from './resources/proxy';
+import AvCodes from './resources/codes';
+import AvDisclaimers from './resources/disclaimers';
+import AvFiles from './resources/files';
+import AvFilesDelivery from './resources/filesDelivery';
 import AvLogMessages from './resources/logs';
 import AvLogMessagesV2 from './resources/dma';
 import AvNavigation from './resources/navigation';
 import AvNotification from './resources/notifications';
 import AvOrganizations from './resources/organizations';
-import AvPermissions from './resources/permissions';
 import AvPdf from './resources/pdfs';
+import AvPermissions from './resources/permissions';
 import AvProviders from './resources/providers';
-import AvProxy from './resources/proxy';
 import AvRegions from './resources/regions';
-import AvSpaces from './resources/spaces';
-import AvUsers from './resources/user';
-import AvUserPermissions from './resources/userPermissions';
-import AvFiles from './resources/files';
-import AvFilesDelivery from './resources/filesDelivery';
 import AvSettings from './resources/settings';
 import AvSlotMachine from './resources/slotmachine';
-import AvDisclaimers from './resources/disclaimers';
-import AvCodes from './resources/codes';
+import AvSpaces from './resources/spaces';
+import AvUserPermissions from './resources/userPermissions';
+import AvUsers from './resources/user';
+import AvWebQL from './resources/webQL';
 
 export default AvApi;
 
 export {
-  AvWebQL,
   AvMicroservice,
+  AvProxy,
+  AvCodes,
+  AvDisclaimers,
+  AvFiles,
+  AvFilesDelivery,
   AvLogMessages,
   AvLogMessagesV2,
   AvNavigation,
   AvNotification,
   AvOrganizations,
+  AvPdf,
   AvPermissions,
   AvProviders,
-  AvPdf,
-  AvProxy,
   AvRegions,
-  AvSpaces,
-  AvUsers,
-  AvUserPermissions,
-  AvFiles,
-  AvFilesDelivery,
   AvSettings,
   AvSlotMachine,
-  AvDisclaimers,
-  AvCodes,
+  AvSpaces,
+  AvUserPermissions,
+  AvUsers,
+  AvWebQL,
 };

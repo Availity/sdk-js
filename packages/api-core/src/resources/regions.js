@@ -32,7 +32,7 @@ export default class AvRegions extends AvApi {
       throw new Error('avUsers must be defined');
     }
 
-    return this.avUsers.me().then(user => {
+    return this.avUsers.me().then((user) => {
       const queryConfig = this.addParams({ userId: user.id }, config);
       return this.query(queryConfig);
     });

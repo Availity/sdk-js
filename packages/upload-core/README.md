@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/upload-core tus-js-client
+npm install @availity/upload-core tus-js-client
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/upload-core tus-js-client
+yarn add @availity/upload-core tus-js-client
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/api/uploads)
