@@ -1,6 +1,6 @@
 {
   "name": "@availity/native-form",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -24,8 +24,8 @@
     "core-js": "^3.12.1"
   },
   "devDependencies": {
-    "@availity/api-axios": "^5.5.14",
-    "@availity/api-core": "^7.0.2"
+    "@availity/api-axios": "^5.6.0",
+    "@availity/api-core": "^7.0.3"
   },
   "peerDependencies": {
     "@availity/api-axios": "^5.5.14",

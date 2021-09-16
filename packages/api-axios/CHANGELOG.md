@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 5.6.0 (2021-09-16)
+
+
+### Features
+
+* **api-axios:** add typescript support ([6d2d9ee](https://github.com/Availity/sdk-js/commit/6d2d9eee72a3aaa1cf2619179eddfb1da86dd82c))
+
+
+
+
+
 ## [5.5.14](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.5.13...@availity/api-axios@5.5.14) (2021-05-25)
 
 **Note:** Version bump only for package @availity/api-axios
