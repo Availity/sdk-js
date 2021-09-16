@@ -11,13 +11,13 @@ More details about configuration can be found in [Exceptions-Core](../exceptions
 ### NPM
 
 ```bash
-$ npm install @availity/exceptions-axios
+npm install @availity/exceptions-axios
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/exceptions-axios
+yarn add @availity/exceptions-axios
 ```
 
 add module to your app.

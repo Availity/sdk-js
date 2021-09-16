@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/message-core
+npm install @availity/message-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/message-core
+yarn add @availity/message-core
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/resources/messaging)

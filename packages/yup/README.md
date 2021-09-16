@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/yup yup
+npm install @availity/yup yup
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/yup yup
+yarn add @availity/yup yup
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/resources/yup)

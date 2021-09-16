@@ -24,7 +24,9 @@ yarn add @availity/native-form
 ```js
 import nativeForm from '@availity/native-form';
 
-nativeForm(spaceId[, params[, formAttributes][, type]]);
+async function onClick() {
+  await nativeForm(spaceId, params, formAttributes, type);
+}
 ```
 
 ### Required params
@@ -34,19 +36,30 @@ nativeForm(spaceId[, params[, formAttributes][, type]]);
 ### Optional params
 
 - params: Object. Additional parameters you want sent in the post.
-- formAttributes: Object. Set/override the form attributes like `target`, `method`, and `action`. `method` defaults to "post", `action` will default to "\`/ms/api/availity/internal/spc/magneto/sso/v1/saml/\${spaceId}\`", and `target` will default to "\_blank". Additional attributes can be defined and should be valid on an HTML form element.
-- type: String. Override the magneto integration type. Defaults to "saml"
+- formAttributes: Object. Set/override the form attributes like `target`, `method`, and `action`.
+  - `method` defaults to `"post"`
+  - `action` will default to `/ms/api/availity/internal/spc/magneto/sso/v1/${typeLower}/${spaceId}` where `typeLower` is equal to `"saml"` or `"openid"`
+  - `target` will default to `"\_blank"`
+  - Additional attributes can be defined and should be valid on an HTML form element
+- type: String. Override the magneto integration type
+- clientId: String. Set the `clientId` required for API Connect. Defaults to `"clientId"`
 
 ###
 
 ```js
 import nativeForm from '@availity/native-form';
 
-nativeForm(
-  '12312312312',
-  { myExtraParam: 'myExtraParamValue' },
-  { target: '_top' }
-);
+async function onEvent() {
+  try {
+    await nativeForm(
+      '12312312312',
+      { myExtraParam: 'myExtraParamValue' },
+      { target: '_top' }
+    );
+  } catch (error) {
+    log(error);
+  }
+}
 ```
 
 When `nativeForm` is called it wil create a native HTML form and submit it.

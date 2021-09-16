@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular
+npm install @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular
+yarn add @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/api/downloads)

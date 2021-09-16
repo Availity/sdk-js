@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/api-core
+npm install @availity/api-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/api-core
+yarn add @availity/api-core
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/api/getting-started)
