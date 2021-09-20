@@ -1,1 +1,4 @@
 * text=auto
+
+# Mark binary files to avoid Git showing huge diffs
+/.yarn/releases/** binary

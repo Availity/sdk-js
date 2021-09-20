@@ -18,17 +18,17 @@
   "license": "MIT",
   "peerDependencies": {
     "moment": "^2.24.0",
-    "yup": "^0.28.1"
+    "yup": "^0.32.9"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "moment": "^2.24.0",
-    "yup": "^0.28.1"
+    "yup": "^0.32.9"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
+    "@babel/runtime": "^7.15.4",
     "core-js": "^3.12.1",
     "lodash": "^4.17.21",
     "merge-options-es5": "^1.0.0"
