@@ -11,17 +11,13 @@
     "format": "prettier --write '**/*.js'"
   },
   "dependencies": {
+    "@availity/env-var": "^1.11.1",
+    "@availity/resolve-url": "^1.1.21",
     "@babel/runtime": "^7.14.0",
+    "axios": "^0.21.4",
     "core-js": "^3.12.1",
-    "merge-options-es5": "^1.0.0"
-  },
-  "peerDependencies": {
-    "@availity/api-core": "^7.0.0 || ^6.0.0 || ^5.0.1 || ^4.0.1",
-    "axios": "^0.21.0 || ^0.20.0 || ^0.19.0 || ^0.18.0 || ^0.17.0 || ^0.16.0"
-  },
-  "devDependencies": {
-    "@availity/api-core": "^7.0.3",
-    "axios": "^0.21.1"
+    "lodash": "^4.17.21",
+    "qs": "^6.10.1"
   },
   "publishConfig": {
     "access": "public"

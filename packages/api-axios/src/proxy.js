@@ -1,14 +1,16 @@
-import axios from 'axios';
-import merge from 'merge-options-es5';
-import { AvProxy } from '@availity/api-core';
+import AvApi from './api';
 
-export default class AvProxyApi extends AvProxy {
-  constructor(options) {
+export default class AvProxyApi extends AvApi {
+  constructor(config) {
+    if (!config?.tenant) {
+      throw new Error('[config.tenant] must be defined');
+    }
+
     super({
-      http: axios,
-      promise: Promise,
-      merge,
-      config: options,
+      name: config.tenant,
+      path: `api/v1/proxy`,
+      version: '',
+      ...config,
     });
   }
 }

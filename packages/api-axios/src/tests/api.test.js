@@ -1,56 +1,141 @@
-import Api, {
-  AvMicroserviceApi,
-  AvProxyApi,
-  avWebQLApi,
+import AvApi, {
+  avCodesApi,
+  avDisclaimersApi,
+  avFilesApi,
+  avFilesDeliveryApi,
   avLogMessagesApi,
   avLogMessagesApiV2,
   avNavigationApi,
-  avNotificationApi,
+  avNotificationsApi,
   avOrganizationsApi,
+  avPdfApi,
   avPermissionsApi,
   avProvidersApi,
   avRegionsApi,
-  avSpacesApi,
-  avUserApi,
-  avUserPermissionsApi,
-  avFilesApi,
-  avFilesDeliveryApi,
   avSettingsApi,
   avSlotMachineApi,
-  avDisclaimersApi,
-  avCodesApi,
+  avSpacesApi,
+  avUsersApi,
+  avUserPermissionsApi,
+  avWebQLApi,
 } from '..';
+import API_OPTIONS from '../options';
 
 describe('AvAPi', () => {
   test('should be defined', () => {
-    const api = new Api({});
+    const api = new AvApi({});
     expect(api).toBeDefined();
-    const proxy = new AvProxyApi({ tenant: 'healthplan' });
-    expect(proxy).toBeDefined();
-    const ms = new AvMicroserviceApi({ path: 'urlPath' });
-    expect(ms).toBeDefined();
+  });
+
+  test('should throw if no config', () => {
+    expect(() => new AvApi()).toThrow('[config] must be defined');
+  });
+
+  test('get default config', () => {
+    const api = new AvApi({});
+    expect(api.config()).toEqual(API_OPTIONS.API);
+  });
+
+  test('get merged config', () => {
+    const api = new AvApi({ name: 'test' });
+    expect(api.config()).toEqual({ ...API_OPTIONS.API, name: 'test' });
+  });
+
+  test('addParams to config', () => {
+    const api = new AvApi({ name: 'test' });
+    const config = api.addParams({ foo: 'bar' });
+    expect(config.params.foo).toEqual('bar');
+  });
+
+  test('cacheParams adds params to config', () => {
+    const api = new AvApi({ name: 'test' });
+    const config = { cacheBust: '1', pageBust: '2', sessionBust: '3' };
+    api.cacheParams(config);
+
+    expect(config.params.cacheBust).toEqual('1');
+    expect(config.params.pageBust).toEqual('2');
+    expect(config.params.sessionBust).toEqual('3');
+  });
+
+  test('getCacheBustValue', () => {
+    const api = new AvApi({});
+
+    expect(api.getCacheBustVal()).toBeUndefined();
+    expect(api.getCacheBustVal(true, () => '1')).toEqual('1');
+    expect(api.getCacheBustVal(() => '1')).toEqual('1');
+    expect(api.getCacheBustVal('1')).toEqual('1');
+  });
+
+  test('getPageBust', () => {
+    const api = new AvApi({});
+    api.setPageBust('1');
+    expect(api.getPageBust()).toEqual('1');
+  });
+
+  test('getUrl from config', () => {
+    const api = new AvApi({});
+
+    expect(api.getUrl({ url: '/test' })).toEqual('/test');
+    expect(api.getUrl({ api: true, url: '/test' }, '123')).toEqual('/test/123');
+    expect(api.getUrl({ api: true, path: '/path', version: '/v1', name: '/name' }, '123')).toEqual('/path/v1/name/123');
+  });
+
+  test('getRequestUrl from config', () => {
+    let api = new AvApi({ url: '/test' });
+    expect(api.getRequestUrl()).toEqual('/test');
+
+    api = new AvApi({ name: 'test' });
+    expect(api.getRequestUrl()).toEqual('/api/v1/test');
+  });
+
+  test('getLocation from response', () => {
+    const api = new AvApi({});
+    expect(api.getLocation({ config: {}, headers: { location: 'location' } })).toEqual(
+      'http://localhost:8080/location'
+    );
+  });
+
+  test('shouldPoll on response', () => {
+    const api = new AvApi({});
+
+    expect(api.shouldPoll()).toBeFalsy();
+    expect(api.shouldPoll({ config: { polling: false } })).toBeFalsy();
+    expect(api.shouldPoll({ config: { polling: true }, status: 200 })).toBeFalsy();
+    expect(api.shouldPoll({ config: { polling: true, pollingIntervals: [] }, status: 202 })).toBeFalsy();
+    expect(api.shouldPoll({ config: { polling: true, pollingIntervals: [1] }, status: 202 })).toBeTruthy();
+  });
+
+  test('getQueryResultKey from data', () => {
+    const api = new AvApi({});
+    expect(api.getQueryResultKey({ data: [], test: 1, example: '1', foo: false })).toEqual('data');
+  });
+
+  test('getResult from data', () => {
+    const api = new AvApi({});
+    expect(api.getResult({ data: ['1', '2', '3'] })).toEqual(['1', '2', '3']);
   });
 });
 
 describe('API Definitions', () => {
   test('should be defined', () => {
-    expect(avWebQLApi).toBeDefined();
+    expect(avCodesApi).toBeDefined();
+    expect(avDisclaimersApi).toBeDefined();
+    expect(avFilesApi).toBeDefined();
+    expect(avFilesDeliveryApi).toBeDefined();
     expect(avLogMessagesApi).toBeDefined();
     expect(avLogMessagesApiV2).toBeDefined();
     expect(avNavigationApi).toBeDefined();
-    expect(avNotificationApi).toBeDefined();
+    expect(avNotificationsApi).toBeDefined();
     expect(avOrganizationsApi).toBeDefined();
+    expect(avPdfApi).toBeDefined();
     expect(avPermissionsApi).toBeDefined();
     expect(avProvidersApi).toBeDefined();
     expect(avRegionsApi).toBeDefined();
-    expect(avSpacesApi).toBeDefined();
-    expect(avUserApi).toBeDefined();
-    expect(avUserPermissionsApi).toBeDefined();
-    expect(avFilesApi).toBeDefined();
-    expect(avFilesDeliveryApi).toBeDefined();
     expect(avSettingsApi).toBeDefined();
     expect(avSlotMachineApi).toBeDefined();
-    expect(avDisclaimersApi).toBeDefined();
-    expect(avCodesApi).toBeDefined();
+    expect(avSpacesApi).toBeDefined();
+    expect(avUsersApi).toBeDefined();
+    expect(avUserPermissionsApi).toBeDefined();
+    expect(avWebQLApi).toBeDefined();
   });
 });
