@@ -1,4 +1,4 @@
-import { mixed } from 'yup';
+import { MixedSchema } from 'yup';
 import moment from 'moment';
 
 const defaultOpts = {
@@ -7,7 +7,7 @@ const defaultOpts = {
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
-export default class AvDateSchema extends mixed {
+export default class AvDateSchema extends MixedSchema {
   constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
     super({
       type: 'avDate',
@@ -16,12 +16,12 @@ export default class AvDateSchema extends mixed {
     this.format = format;
     this.getValidDate = this.getValidDate.bind(this);
 
-    this.withMutation(() => {
-      if (!this.tests.some((test) => test?.OPTIONS?.name === 'typeError')) {
+    this.withMutation((schema) => {
+      if (!schema.tests.some((test) => test?.OPTIONS?.name === 'typeError')) {
         super.typeError('Date is invalid.');
       }
-      this.transform(function mutate(value) {
-        return this.getValidDate(value);
+      schema.transform(function mutate(value) {
+        return schema.getValidDate(value);
       });
     });
   }

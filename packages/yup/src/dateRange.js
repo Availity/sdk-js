@@ -1,7 +1,7 @@
+import { MixedSchema, ValidationError } from 'yup';
 import moment from 'moment';
 import get from 'lodash/get';
-import { mixed, ValidationError } from 'yup';
-import merge from 'merge-options-es5';
+import merge from 'lodash/merge';
 
 const defaultOptions = {
   startKey: 'startDate',
@@ -13,7 +13,7 @@ const defaultValue = {};
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
 
-export default class DateRangeSchema extends mixed {
+export default class DateRangeSchema extends MixedSchema {
   constructor(options) {
     super({
       type: 'dateRange',
@@ -26,25 +26,32 @@ export default class DateRangeSchema extends mixed {
     this.format = format;
     this.getValidDate = this.getValidDate.bind(this);
 
-    this.withMutation(() => {
-      this.transform(function mutate(value) {
+    this.withMutation((schema) => {
+      schema.transform(function mutate(value) {
         const start = get(value, startKey);
         const end = get(value, endKey);
 
         let startDate;
         let endDate;
         if (start) {
-          startDate = this.getValidDate(start);
+          startDate = schema.getValidDate(start);
         }
 
         if (end) {
-          endDate = this.getValidDate(end);
+          endDate = schema.getValidDate(end);
         }
 
         return { startDate, endDate };
       });
     });
+  }
 
+  getValidDate(value) {
+    return moment(value, [this.format, ...formats], true);
+  }
+
+  // FIXME: get working again in constructor or elsewhere
+  startDateBeforeEndDate() {
     return this.test({
       message: 'Start date must come before end date.',
       name: 'startBeforeEnd',
@@ -57,10 +64,6 @@ export default class DateRangeSchema extends mixed {
         return startDate.isSameOrBefore(endDate);
       },
     });
-  }
-
-  getValidDate(value) {
-    return moment(value, [this.format, ...formats], true);
   }
 
   distance({
@@ -81,29 +84,35 @@ export default class DateRangeSchema extends mixed {
       test({ endDate, startDate } = defaultValue) {
         if ((!minValue && !maxValue) || !startDate || !endDate) return true;
 
-        if (maxValue && endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
-            return new ValidationError(
-              maxErrorMessage ||
-                `The end date must be within ${maxValue} ${maxUnits}${
-                  maxValue > 1 ? 's' : ''
-                } of the start date`,
-              {
-                startDate,
-                endDate,
-              },
-              this.path
-            );
-          }
-        if (minValue && endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
-            return new ValidationError(
-              minErrorMessage ||
-                `The end date must be greater than ${minValue} ${minUnits}${
-                  minValue > 1 ? 's' : ''
-                } of the start date`,
-              { startDate, endDate },
-              this.path
-            );
-          }
+        if (
+          maxValue &&
+          endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')
+        ) {
+          return new ValidationError(
+            maxErrorMessage ||
+              `The end date must be within ${maxValue} ${maxUnits}${
+                maxValue > 1 ? 's' : ''
+              } of the start date`,
+            {
+              startDate,
+              endDate,
+            },
+            this.path
+          );
+        }
+        if (
+          minValue &&
+          endDate.isBefore(startDate.add(minValue, minUnits), 'day')
+        ) {
+          return new ValidationError(
+            minErrorMessage ||
+              `The end date must be greater than ${minValue} ${minUnits}${
+                minValue > 1 ? 's' : ''
+              } of the start date`,
+            { startDate, endDate },
+            this.path
+          );
+        }
 
         return true;
       },
@@ -192,6 +201,10 @@ export default class DateRangeSchema extends mixed {
       exclusive: true,
       test({ startDate, endDate } = defaultValue) {
         const errors = [];
+
+        // if (startDate?.isSameOrBefore(endDate)) {
+        //   errors.push('Start date must come before end date.');
+        // }
 
         if ((!startDate || !endDate) && (startDate || endDate)) {
           errors.push('Start and End Date are required.');
