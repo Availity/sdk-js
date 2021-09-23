@@ -11,7 +11,7 @@ If you are looking for the old docs you can find them [here](./READMEv5)
 - `@availity/api-core` is no longer required. It has been added to this package
 - Switch to `lodash/merge` for merging config
 - Change how args are passed to `AvApi` constructor
-- `axios` is now a dependency instead of `peerDependency`
+- Require a single version of `axios` instead of a range
 - Update to use `async/await` where applicable
 
 ## Install
@@ -32,7 +32,7 @@ yarn add @availity/api-axios
 
 This library exports several resources other than the `AvApi` class. There are several available classes which extend `AvApi` or `AvMicroserviceApi`. They offer the benefit of having pre-defined urls, and some even have methods available for easier data fetching.
 
-The class for each resource is exported with a capital `A` while the instance is exported with a lowercase `a`. For example, `AvUsersApi` vs `avUsersApi`. If you need to extend the functionality of the resource then we recommend using the class. Otherwise, we recommend using the instance.
+The class for each resource is exported with a capital `A` while the instance is exported with a lowercase `a`. For example, `AvUserApi` vs `avUserApi`. If you need to extend the functionality of the resource then we recommend using the class. Otherwise, we recommend using the instance.
 
 Details about each api can be found [here](../api-axios/src/resources/README.md)
 
@@ -54,7 +54,7 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvSettingsApi`
 - `AvSlotMachineApi`
 - `AvSpacesApi`
-- `AvUsersApi`
+- `AvUserApi`
 - `AvUserPermissionsApi`
 - `AvWebQLApi`
 
@@ -102,13 +102,13 @@ async function getClaim(id) {
 
 ### Using a pre-defined resource
 
-Some of the pre-defined classes already have functions available to help make fetching data easier. One example is `avUsersApi`. It has a method `me` which will fetch the currently logged in user
+Some of the pre-defined classes already have functions available to help make fetching data easier. One example is `avUserApi`. It has a method `me` which will fetch the currently logged in user
 
 ```js
-import { avUsersApi } from '@availity/api-axios';
+import { avUserApi } from '@availity/api-axios';
 
 async function getUser() {
-  const user = await avUsersApi.me();
+  const user = await avUserApi.me();
   return user;
 }
 ```

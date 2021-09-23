@@ -1,8 +1,7 @@
-/* eslint-disable unicorn/consistent-destructuring */
 import qs from 'qs';
 
 import AvApi from '../api';
-import { avUsersApi } from './user';
+import { avUserApi } from './user';
 import { avUserPermissionsApi } from './userPermissions';
 
 export default class AvOrganizationsApi extends AvApi {
@@ -31,7 +30,7 @@ export default class AvOrganizationsApi extends AvApi {
       return this.query(config);
     }
 
-    const user = await avUsersApi.me();
+    const user = await avUserApi.me();
 
     return this.queryOrganizations(user, config);
   }
@@ -95,7 +94,6 @@ export default class AvOrganizationsApi extends AvApi {
       data = qs.parse(data);
     }
     const { permissionId } = data;
-    const { region } = this;
 
     let permissionIdsToUse = permissionIds || permissionId;
     permissionIdsToUse = this.sanitizeIds(permissionIdsToUse);
@@ -106,7 +104,7 @@ export default class AvOrganizationsApi extends AvApi {
 
     const permissionIdsOR = Array.isArray(permissionIdsToUse) ? permissionIdsToUse : [permissionIdsToUse];
 
-    if (region !== this.previousRegionId || !this.arePermissionsEqual(permissionIdsOR)) {
+    if (this.region !== this.previousRegionId || !this.arePermissionsEqual(permissionIdsOR)) {
       // avUserPermissions will return a list of user organizations that match given permission and region
       // This call does not need to be paginated and
       // we should not need to call it every time we paginate orgs if region and permissions are the same
@@ -114,7 +112,7 @@ export default class AvOrganizationsApi extends AvApi {
         data: { axiUserPermissions: userPermissions },
       } = await avUserPermissionsApi.postGet({
         permissionId: permissionIdsOR,
-        region,
+        region: this.region,
       });
 
       if (userPermissions) {
@@ -123,7 +121,7 @@ export default class AvOrganizationsApi extends AvApi {
           return accum;
         }, {});
         this.previousPermissionIds = permissionIdsOR;
-        this.previousRegionId = region;
+        this.previousRegionId = this.region;
       } else {
         throw new Error('avUserPermissions call failed');
       }

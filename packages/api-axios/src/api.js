@@ -4,7 +4,6 @@ import axios from 'axios';
 import merge from 'lodash/merge';
 
 import API_OPTIONS from './options';
-import resolveHost from './resolve-host';
 
 export default class AvApi {
   constructor(config) {
@@ -96,16 +95,13 @@ export default class AvApi {
       return config.url;
     }
 
-    const { path, version, name, url, host } = config;
+    const { path, version, name, url } = config;
 
     let parts = [];
     parts = name ? ['', path, version, name, id] : [url, id];
 
     // join parts, remove multiple /'s and trailing /
-    const uri = parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
-    const hostname = url ? null : resolveHost(host, config.window || window);
-
-    return hostname ? `https://${hostname}${uri}` : uri;
+    return parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
   }
 
   getRequestUrl() {

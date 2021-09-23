@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Intro](#intro)
-- [AvUsersApi](#avusersapi)
+- [AvUserApi](#avuserapi)
 - [AvRegionsApi](#avregionsapi)
 - [AvPermissionsApi](#avpermissionsapi)
 - [AvUserPermissionsApi](#avuserpermissionsapi)
@@ -22,7 +22,7 @@
 
 View [AvApi](../../README.md) to see the details for configuring API definitions.
 
-### `AvUsersApi`
+### `AvUserApi`
 
 Get information about current logged in user.
 

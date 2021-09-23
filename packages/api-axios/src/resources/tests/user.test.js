@@ -1,9 +1,9 @@
-import AvUsersApi from '../user';
+import AvUserApi from '../user';
 
-describe('AvUsersApi', () => {
+describe('AvUserApi', () => {
   let api;
   beforeEach(() => {
-    api = new AvUsersApi();
+    api = new AvUserApi();
   });
 
   test('should be defined', () => {

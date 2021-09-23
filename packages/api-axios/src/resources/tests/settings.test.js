@@ -1,5 +1,5 @@
 import AvSettingsApi from '../settings';
-import { avUsersApi } from '../user';
+import { avUserApi } from '../user';
 
 const testAppId = 'testApplicationId';
 
@@ -9,7 +9,7 @@ const mockUser = {
 
 jest.mock('../user');
 
-avUsersApi.me = jest.fn(() => Promise.resolve(mockUser));
+avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
 
 describe('AvSettingsApi', () => {
   let api;
@@ -34,7 +34,7 @@ describe('AvSettingsApi', () => {
       api.query = jest.fn();
     });
 
-    test('should call avUsersApi.me and use in query', async () => {
+    test('should call avUserApi.me and use in query', async () => {
       const expectedQuery = {
         params: {
           applicationId: testAppId,
@@ -42,7 +42,7 @@ describe('AvSettingsApi', () => {
         },
       };
       await api.getApplication(testAppId);
-      expect(avUsersApi.me).toHaveBeenCalled();
+      expect(avUserApi.me).toHaveBeenCalled();
       expect(api.query).toHaveBeenCalledWith(expectedQuery);
     });
 
@@ -59,7 +59,7 @@ describe('AvSettingsApi', () => {
       };
       const testConfig = { params: { userId: 'bmoolenaar' } };
       await api.getApplication(testAppId, testConfig);
-      expect(avUsersApi.me).not.toHaveBeenCalled();
+      expect(avUserApi.me).not.toHaveBeenCalled();
       expect(api.query).toHaveBeenCalledWith(expectedQuery);
     });
   });
@@ -81,7 +81,7 @@ describe('AvSettingsApi', () => {
       };
 
       await api.setApplication(testAppId, testData, testConfig);
-      expect(avUsersApi.me).toHaveBeenCalled();
+      expect(avUserApi.me).toHaveBeenCalled();
       expect(api.update).toHaveBeenCalledWith(expectedUpdate, testConfig);
     });
 
@@ -109,7 +109,7 @@ describe('AvSettingsApi', () => {
       };
 
       await api.setApplication(testAppId, testData, testConfig);
-      expect(avUsersApi.me).not.toHaveBeenCalled();
+      expect(avUserApi.me).not.toHaveBeenCalled();
       expect(api.update).toHaveBeenCalledWith(expectedUpdate, testConfig);
     });
   });

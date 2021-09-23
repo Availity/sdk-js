@@ -1,5 +1,5 @@
 import AvOrganizationsApi from '../organizations';
-import { avUsersApi } from '../user';
+import { avUserApi } from '../user';
 import { avUserPermissionsApi } from '../userPermissions';
 
 const mockUser = {
@@ -8,7 +8,7 @@ const mockUser = {
 
 jest.mock('../user');
 
-avUsersApi.me = jest.fn(() => Promise.resolve(mockUser));
+avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
 
 const mockOrg = {
   limit: 50,
@@ -180,7 +180,7 @@ describe('AvOrganizations', () => {
       await api.getOrganizations(testConfig);
 
       expect(api.queryOrganizations).not.toHaveBeenCalled();
-      expect(avUsersApi.me).not.toHaveBeenCalled();
+      expect(avUserApi.me).not.toHaveBeenCalled();
       expect(api.query).toHaveBeenLastCalledWith(testConfig);
     });
   });

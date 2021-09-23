@@ -15,7 +15,7 @@ import AvApi, {
   avSettingsApi,
   avSlotMachineApi,
   avSpacesApi,
-  avUsersApi,
+  avUserApi,
   avUserPermissionsApi,
   avWebQLApi,
 } from '..';
@@ -134,7 +134,7 @@ describe('API Definitions', () => {
     expect(avSettingsApi).toBeDefined();
     expect(avSlotMachineApi).toBeDefined();
     expect(avSpacesApi).toBeDefined();
-    expect(avUsersApi).toBeDefined();
+    expect(avUserApi).toBeDefined();
     expect(avUserPermissionsApi).toBeDefined();
     expect(avWebQLApi).toBeDefined();
   });

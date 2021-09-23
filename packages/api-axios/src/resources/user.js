@@ -1,6 +1,6 @@
 import AvApi from '../api';
 
-export default class AvUsersApi extends AvApi {
+export default class AvUserApi extends AvApi {
   constructor(config) {
     super({
       path: 'api/sdk/platform',
@@ -15,4 +15,4 @@ export default class AvUsersApi extends AvApi {
   }
 }
 
-export const avUsersApi = new AvUsersApi();
+export const avUserApi = new AvUserApi();

@@ -1,5 +1,5 @@
 import AvRegionsApi from '../regions';
-import { avUsersApi } from '../user';
+import { avUserApi } from '../user';
 
 jest.mock('../user');
 
@@ -7,7 +7,7 @@ const mockUser = {
   id: 'mockUserId',
 };
 
-avUsersApi.me = jest.fn(() => Promise.resolve(mockUser));
+avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
 
 describe('AvRegionsApi', () => {
   let api;

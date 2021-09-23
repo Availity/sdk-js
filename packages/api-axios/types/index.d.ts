@@ -191,11 +191,11 @@ interface AvSpacesApi extends AvApi {
 
 declare const avSpacesApi: AvSpacesApi;
 
-interface AvUsersApi extends AvApi {
+interface AvUserApi extends AvApi {
   me(config?: ApiConfig): Promise<any>;
 }
 
-declare const avUserApi: AvUsersApi;
+declare const avUserApi: AvUserApi;
 
 type Resource = {
   id: string;

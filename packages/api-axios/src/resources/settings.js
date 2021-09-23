@@ -1,5 +1,5 @@
 import AvApi from '../api';
-import { avUsersApi } from './user';
+import { avUserApi } from './user';
 
 export default class AvSettingsApi extends AvApi {
   constructor(config) {
@@ -22,7 +22,7 @@ export default class AvSettingsApi extends AvApi {
       return this.query(queryConfig);
     }
 
-    const user = await avUsersApi.me();
+    const user = await avUserApi.me();
     const queryConfig = this.addParams({ applicationId, userId: user.id }, config);
 
     return this.query(queryConfig);
@@ -44,7 +44,7 @@ export default class AvSettingsApi extends AvApi {
       return this.update(data, config);
     }
 
-    const user = await avUsersApi.me();
+    const user = await avUserApi.me();
 
     data = data || {};
     data.scope = data.scope || {};

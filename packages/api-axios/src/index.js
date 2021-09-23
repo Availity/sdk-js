@@ -19,7 +19,7 @@ import AvSettingsApi, { avSettingsApi } from './resources/settings';
 import AvSlotMachineApi, { avSlotMachineApi } from './resources/slotmachine';
 import AvSpacesApi, { avSpacesApi } from './resources/spaces';
 import AvUserPermissionsApi, { avUserPermissionsApi } from './resources/userPermissions';
-import AvUsersApi, { avUsersApi } from './resources/user';
+import AvUserApi, { avUserApi } from './resources/user';
 import AvWebQLApi, { avWebQLApi } from './resources/webQL';
 
 export default AvApi;
@@ -61,8 +61,8 @@ export {
   avSpacesApi,
   AvUserPermissionsApi,
   avUserPermissionsApi,
-  AvUsersApi,
-  avUsersApi,
+  AvUserApi,
+  avUserApi,
   AvWebQLApi,
   avWebQLApi,
 };
