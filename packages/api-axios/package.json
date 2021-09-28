@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "5.6.0",
+  "version": "6.0.0",
   "description": "Wraps @availity/api-core with Axios",
   "main": "lib/index.js",
   "module": "src/index.js",
