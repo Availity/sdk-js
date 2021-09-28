@@ -1,14 +1,29 @@
-import axios from 'axios';
-import merge from 'merge-options-es5';
-import { AvMicroservice } from '@availity/api-core';
+import merge from 'lodash/merge';
 
-export default class AvMicroserviceApi extends AvMicroservice {
-  constructor(options) {
-    super({
-      http: axios,
-      promise: Promise,
-      merge,
-      config: options,
-    });
+import AvApi from './api';
+import API_OPTIONS from './options';
+
+export default class AvMicroserviceApi extends AvApi {
+  constructor(config) {
+    super(config);
+    const { http, ...options } = config;
+    this.defaultConfig = merge({}, API_OPTIONS.MS, options);
+  }
+
+  // Override aries 1 url concatenation
+  getUrl(config, id = '') {
+    const { path, version, name, id: configId } = this.config(config);
+    let parts = [path, version || '', name];
+
+    if (id || configId) {
+      parts = [path, version || '', name, id || configId];
+    }
+
+    return parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
+  }
+
+  // Polling location is the same url
+  getLocation(response) {
+    return this.getUrl(response.config);
   }
 }
