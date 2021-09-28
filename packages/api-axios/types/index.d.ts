@@ -113,6 +113,8 @@ interface AvLogMessagesApi extends AvApi {
   error(entries: Record<string, any>): Promise<AxiosResponse>;
 }
 
+interface AvLogMessagesApiV2 extends AvLogMessagesApi {}
+
 declare const avLogMessagesApi: AvLogMessagesApi;
 declare const avLogMessagesApiV2: AvLogMessagesApi;
 
@@ -124,7 +126,7 @@ interface AvNotificationsApi extends AvApi {
   deleteByTopic(topic: string, config?: ApiConfig): Promise<AxiosResponse>;
 }
 
-declare const avNotificationApi: AvNotificationsApi;
+declare const avNotificationsApi: AvNotificationsApi;
 
 interface AvOrganizationsApi extends AvApi {
   queryOrganizations(user: { id: string }, config?: ApiConfig): Promise<AxiosResponse>;
@@ -248,8 +250,8 @@ export {
   AvLogMessagesApiV2,
   avNavigationApi,
   AvNavigationApi,
-  avNotificationApi,
-  AvNotificationApi,
+  avNotificationsApi,
+  AvNotificationsApi,
   avOrganizationsApi,
   AvOrganizationsApi,
   avPdfApi,
