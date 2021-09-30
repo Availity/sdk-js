@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@6.0.0...@availity/api-axios@6.0.1) (2021-09-30)
+
+
+### Bug Fixes
+
+* **api-axios:** fix organizations resources check in axios ([36a1b9b](https://github.com/Availity/sdk-js/commit/36a1b9b91f26773f2e9ef096886276c9f3e47de7))
+
+
+
+
+
 # [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.6.0...@availity/api-axios@6.0.0) (2021-09-28)
 
 
