@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.0.4 (2021-09-30)
+
+
+### Bug Fixes
+
+* **api-core:** fix organizations resources check ([28644b6](https://github.com/Availity/sdk-js/commit/28644b6431ba22df265225386e09aaec53f5a9e1))
+
+
+
+
+
 ## 7.0.3 (2021-09-16)
 
 **Note:** Version bump only for package @availity/api-core

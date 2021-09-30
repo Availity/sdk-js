@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.60 (2021-09-30)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
 ## 3.0.59 (2021-09-16)
 
 **Note:** Version bump only for package @availity/dl-axios
