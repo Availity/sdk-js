@@ -4,6 +4,7 @@
   "description": "Wrapper for tus-js-client",
   "main": "lib/upload.js",
   "module": "src/upload.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "test"
   },
@@ -15,14 +16,15 @@
   ],
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
-  "peerDependencies": {
-    "tus-js-client": "1.7.1"
-  },
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "tus-js-client": "1.7.1"
+  },
+  "devDependencies": {
+    "tus-js-client": "1.7.1",
+    "@types/tus-js-client": "^1.7.0"
   },
   "dependencies": {
     "@availity/resolve-url": "^1.1.21",

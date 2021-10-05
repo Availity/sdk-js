@@ -65,7 +65,7 @@ describe('upload-core', () => {
       expect(() => {
         // eslint-disable-next-line no-new
         new Upload();
-      }).toThrow('[options.file] must be defined and of type File');
+      }).toThrow('[file] must be defined and of type File');
     });
 
     it('should throw error with missing bucket id', () => {
@@ -79,9 +79,7 @@ describe('upload-core', () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'fileName.png';
       const upload = new Upload(file, optionsWithRetry);
-      expect(upload.options.retryDelays[0]).toBe(
-        optionsWithRetry.retryDelays[0]
-      );
+      expect(upload.options.retryDelays[0]).toBe(optionsWithRetry.retryDelays[0]);
     });
 
     it('should not start upload if any one of the functions in onPreStart returns false', () => {
@@ -120,9 +118,7 @@ describe('upload-core', () => {
       file.name = 'optionsFile.png';
       const upload = new Upload(file, options);
 
-      expect(upload.options.endpoint).toBe(
-        'https://dev.local/ms/api/availity/internal/core/vault/upload/v1/resumable'
-      );
+      expect(upload.options.endpoint).toBe('https://dev.local/ms/api/availity/internal/core/vault/upload/v1/resumable');
     });
 
     it('should not allow files over maxSize', () => {
@@ -159,10 +155,7 @@ describe('upload-core', () => {
     it('should check filePath for slashes', () => {
       const file1 = Buffer.from('hello world!'.split(''));
       file1.name = '\\bad\\file\\path\\file.pdf';
-      const upload1 = new Upload(
-        file1,
-        Object.assign(options, { stripFileNamePathSegments: false })
-      );
+      const upload1 = new Upload(file1, Object.assign(options, { stripFileNamePathSegments: false }));
       expect(upload1.trimFileName(file1.name)).toBe(file1.name);
 
       const file2 = Buffer.from('hello world!'.split(''));
@@ -193,34 +186,22 @@ describe('upload-core', () => {
     it('should validate file name', () => {
       const file = Buffer.from('hello world'.split(''));
       file.name = 'good file name.pdf';
-      const upload = new Upload(
-        file,
-        Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9_ ' })
-      );
+      const upload = new Upload(file, Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9_ ' }));
       expect(upload.isValidFile()).toBeTruthy();
 
       const file2 = Buffer.from('hello world'.split(''));
       file2.name = 'Bad-file-name.pdf';
-      const upload2 = new Upload(
-        file2,
-        Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9 _' })
-      );
+      const upload2 = new Upload(file2, Object.assign(options, { allowedFileNameCharacters: 'a-zA-Z0-9 _' }));
       expect(upload2.isValidFile()).toBeFalsy();
 
       const file3 = Buffer.from('hello world'.split(''));
       file3.name = '123File(1).xlsx';
-      const upload3 = new Upload(
-        file3,
-        Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' })
-      );
+      const upload3 = new Upload(file3, Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' }));
       expect(upload3.isValidFile()).toBeFalsy();
 
       const file4 = Buffer.from('hello world'.split(''));
       file4.name = 'fileName';
-      const upload4 = new Upload(
-        file4,
-        Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' })
-      );
+      const upload4 = new Upload(file4, Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' }));
       expect(upload4.isValidFile()).toBeTruthy();
     });
 
@@ -232,25 +213,22 @@ describe('upload-core', () => {
       afterEach(() => {
         xhrMock.teardown();
       });
+
       it('should upload a file', () =>
         new Promise((resolve) => {
-          nock('https://dev.local')
-            .post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/')
-            .reply(
-              201,
-              {},
-              {
-                'tus-resumable': '1.0.0',
-                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-                'transfer-encoding': 'chunked',
-                location: '4611142db7c049bbbe37376583a3f46b',
-              }
-            );
+          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
+            201,
+            {},
+            {
+              'tus-resumable': '1.0.0',
+              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+              'transfer-encoding': 'chunked',
+              location: '4611142db7c049bbbe37376583a3f46b',
+            }
+          );
 
           nock('https://dev.local')
-            .patch(
-              '/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b'
-            )
+            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
             .reply(
               204,
               {},
@@ -259,8 +237,7 @@ describe('upload-core', () => {
                 'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
                 'transfer-encoding': 'chunked',
                 'Upload-Offset': 12,
-                references:
-                  '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
               }
             );
 
@@ -284,36 +261,37 @@ describe('upload-core', () => {
 
           upload.start();
         }));
-        it('should pickup upload object on each array of functions in onPreStart', () => {
-          const file = Buffer.from('hello world!');
-          file.name = 'a';
+
+      it('should pickup upload object on each array of functions in onPreStart', () => {
+        const file = Buffer.from('hello world!');
+        file.name = 'a';
         const upload = new Upload(file, {
-          ...optionsWithOnPreStartFail, onPreStart: [(upload) => {
-            expect(upload).toBeDefined()
-            return false;
-          }]
+          ...optionsWithOnPreStartFail,
+          onPreStart: [
+            (upload) => {
+              expect(upload).toBeDefined();
+              return false;
+            },
+          ],
         });
-          upload.start();
-        });
+        upload.start();
+      });
+
       it('should start upload if all the functions in onPreStart returns true', () =>
         new Promise((resolve) => {
-          nock('https://dev.local')
-            .post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/')
-            .reply(
-              201,
-              {},
-              {
-                'tus-resumable': '1.0.0',
-                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-                'transfer-encoding': 'chunked',
-                location: '4611142db7c049bbbe37376583a3f46b',
-              }
-            );
+          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
+            201,
+            {},
+            {
+              'tus-resumable': '1.0.0',
+              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+              'transfer-encoding': 'chunked',
+              location: '4611142db7c049bbbe37376583a3f46b',
+            }
+          );
 
           nock('https://dev.local')
-            .patch(
-              '/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b'
-            )
+            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
             .reply(
               204,
               {},
@@ -322,8 +300,7 @@ describe('upload-core', () => {
                 'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
                 'transfer-encoding': 'chunked',
                 'Upload-Offset': 12,
-                references:
-                  '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
               }
             );
 

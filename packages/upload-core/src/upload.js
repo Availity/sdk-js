@@ -31,14 +31,8 @@ const defaultOptions = {
       }
     }
 
-    const keys = Object.keys(options.metadata || {}).map(
-      (key) => options.metadata[key]
-    );
-    const signature = [
-      attributes.toString().replace(/,/g, ''),
-      options.endpoint,
-      keys,
-    ].join('');
+    const keys = Object.keys(options.metadata || {}).map((key) => options.metadata[key]);
+    const signature = [attributes.toString().replace(/,/g, ''), options.endpoint, keys].join('');
 
     const print = Math.abs(hashCode(signature));
 
@@ -53,7 +47,7 @@ const defaultOptions = {
 class Upload {
   constructor(file, options) {
     if (!file) {
-      throw new Error('[options.file] must be defined and of type File(s)');
+      throw new Error('[file] must be defined and of type File(s)');
     }
 
     if (!options || !options.bucketId) {
@@ -121,8 +115,7 @@ class Upload {
       },
       onSuccess: () => {
         const xhr = this.upload._xhr;
-        this.bytesScanned =
-          Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
+        this.bytesScanned = Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
         this.percentage = this.getPercentage();
 
         const result = this.getResult(xhr);
@@ -172,18 +165,11 @@ class Upload {
     // eslint-disable-next-line unicorn/prefer-add-event-listener
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
-        this.setError(
-          'rejected',
-          `Invalid status returned: ${xhr.status}`,
-          xhr
-        );
+        this.setError('rejected', `Invalid status returned: ${xhr.status}`, xhr);
         return;
       }
 
-      this.bytesScanned = Number.parseInt(
-        xhr.getResponseHeader('AV-Scan-Bytes'),
-        10
-      );
+      this.bytesScanned = Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10);
       this.percentage = this.getPercentage();
 
       const result = this.getResult(xhr);
@@ -238,10 +224,7 @@ class Upload {
   }
 
   getToken() {
-    return document.cookie.replace(
-      /(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    );
+    return document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, '$1');
   }
 
   start() {
@@ -280,14 +263,8 @@ class Upload {
       }
     }
 
-    const keys = Object.keys(options.metadata || {}).map(
-      (key) => options.metadata[key]
-    );
-    const signature = [
-      attributes.toString().replace(/,/g, ''),
-      options.endpoint,
-      keys,
-    ].join('');
+    const keys = Object.keys(options.metadata || {}).map((key) => options.metadata[key]);
+    const signature = [attributes.toString().replace(/,/g, ''), options.endpoint, keys].join('');
 
     const print = Math.abs(hashCode(signature));
 
@@ -318,9 +295,7 @@ class Upload {
         return false;
       }
       const fileName = this.file.name;
-      const fileExt = fileName
-        .substring(fileName.lastIndexOf('.'))
-        .toLowerCase();
+      const fileExt = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
 
       for (let i = 0; i < this.options.fileTypes.length; i++) {
         this.options.fileTypes[i] = this.options.fileTypes[i].toLowerCase();
@@ -337,14 +312,8 @@ class Upload {
 
   isAllowedFileNameCharacters() {
     if (this.options.allowedFileNameCharacters) {
-      const fileName = this.file.name.substring(
-        0,
-        this.file.name.lastIndexOf('.')
-      );
-      const regExp = new RegExp(
-        `([^${this.options.allowedFileNameCharacters}])`,
-        'g'
-      );
+      const fileName = this.file.name.substring(0, this.file.name.lastIndexOf('.'));
+      const regExp = new RegExp(`([^${this.options.allowedFileNameCharacters}])`, 'g');
       if (fileName && fileName.match(regExp) !== null) {
         this.setError('rejected', 'File name contains characters not allowed');
         return false;
@@ -355,11 +324,7 @@ class Upload {
   }
 
   isValidFile() {
-    return (
-      this.isAllowedFileNameCharacters() &&
-      this.isAllowedFileTypes() &&
-      this.isValidSize()
-    );
+    return this.isAllowedFileNameCharacters() && this.isAllowedFileTypes() && this.isValidSize();
   }
 
   trimFileName(fileName) {
@@ -392,10 +357,7 @@ class Upload {
 
     if (uploadResult === 'encrypted') {
       // needs pw, isDecrypting, isScanning
-      if (
-        !this.waitForPassword &&
-        (decryptResult === null || decryptResult === 'pending')
-      ) {
+      if (!this.waitForPassword && (decryptResult === null || decryptResult === 'pending')) {
         return { status: 'decrypting', message: msg || 'Decrypting file' };
       }
       if (decryptResult === 'rejected') {
