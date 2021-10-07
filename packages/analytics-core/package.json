@@ -4,6 +4,7 @@
   "description": "Analytics base configuration for sdk-js",
   "main": "lib/index.js",
   "module": "src/index.js",
+  "types": "types/index.d.ts",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "license": "MIT",
   "publishConfig": {
@@ -14,5 +15,8 @@
     "@babel/runtime": "^7.10.2",
     "core-js": "^3.12.1",
     "yup": "^0.28.4"
+  },
+  "devDependencies": {
+    "@availity/api-axios": "^6.0.0"
   }
 }
