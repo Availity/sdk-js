@@ -161,6 +161,8 @@ export default class AvOrganizationsApi extends AvApi {
           if (!accum[orgId]) {
             accum[orgId] = matchedOrgs[orgId];
             accum[orgId].match = false;
+          } else {
+            accum[orgId].resources = [...accum[orgId].resources, ...matchedOrgs[orgId].resources];
           }
         }
       } else if (this.userPermissions[permissionIdOR]) {
