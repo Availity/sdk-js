@@ -1,10 +1,6 @@
 import { avWebQLApi } from '@availity/api-axios';
 import flattenObject from './flattenObject';
 
-const required = (field) => {
-  throw new Error(`${field} is required and was not provided`);
-};
-
 const ssoTypeQuery = `
 query ssoTypeFindById($id: ID!){
   configurationFindOne(id: $id){
@@ -18,13 +14,9 @@ query ssoTypeFindById($id: ID!){
 }
 `;
 
-const nativeForm = async (
-  spaceId = required('spaceId'),
-  params = {},
-  formAttributes = {},
-  type,
-  clientId = 'clientId'
-) => {
+const nativeForm = async (spaceId, params = {}, formAttributes = {}, type, clientId = 'clientId') => {
+  if (!spaceId) throw new Error('spaceId is required and was not provided');
+
   let typeLower = type?.toLowerCase();
   if (typeLower !== 'saml' && typeLower !== 'openid') {
     try {
@@ -49,9 +41,7 @@ const nativeForm = async (
         throw new Error('No response received');
       } else {
         // Something happened in setting up the request that triggered an Error
-        throw new Error(
-          'An error occurred while setting up request, check your configurations'
-        );
+        throw new Error('An error occurred while setting up request, check your configurations');
       }
     }
   }

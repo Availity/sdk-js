@@ -11,9 +11,7 @@ describe('nativeForm', () => {
 
   describe('flattenObject', () => {
     test('should return an object', () => {
-      expect(
-        Object.prototype.toString.call(flattenObject({ a: { b: 'c' } }))
-      ).toBe('[object Object]');
+      expect(Object.prototype.toString.call(flattenObject({ a: { b: 'c' } }))).toBe('[object Object]');
     });
     describe('returned object', () => {
       let result;
@@ -22,9 +20,7 @@ describe('nativeForm', () => {
       });
       test('should be 1 level deep', () => {
         for (const key of Object.keys(result)) {
-          expect(Object.prototype.toString.call(result[key])).toBe(
-            '[object String]'
-          );
+          expect(Object.prototype.toString.call(result[key])).toBe('[object String]');
         }
       });
       test('should correctly represent the keys as dot notation', () => {
@@ -55,9 +51,7 @@ describe('nativeForm', () => {
     });
 
     test('spaceId is required', async () => {
-      await expect(() => nativeForm()).rejects.toThrow(
-        'spaceId is required and was not provided'
-      );
+      await expect(() => nativeForm()).rejects.toThrow('spaceId is required and was not provided');
     });
 
     test('create a form', async () => {
@@ -80,9 +74,7 @@ describe('nativeForm', () => {
 
       test('action should be overridable', async () => {
         await nativeForm('spaceId123', {}, { action: '/my/url/here' }, 'saml');
-        expect(document.querySelector('form').getAttribute('action')).toBe(
-          '/my/url/here'
-        );
+        expect(document.querySelector('form').getAttribute('action')).toBe('/my/url/here');
       });
 
       test('action magneto integration type should be overridable', async () => {
@@ -94,47 +86,30 @@ describe('nativeForm', () => {
 
       test('method should be post by default', async () => {
         await nativeForm('spaceId', {}, {}, 'saml');
-        expect(document.querySelector('form').getAttribute('method')).toBe(
-          'post'
-        );
+        expect(document.querySelector('form').getAttribute('method')).toBe('post');
       });
 
       test('method should be overridable', async () => {
         await nativeForm('spaceId123', {}, { method: 'get' }, 'saml');
-        expect(document.querySelector('form').getAttribute('method')).toBe(
-          'get'
-        );
+        expect(document.querySelector('form').getAttribute('method')).toBe('get');
       });
 
       test('target should be _blank by default', async () => {
         await nativeForm('spaceId', {}, {}, 'saml');
-        expect(document.querySelector('form').getAttribute('target')).toBe(
-          '_blank'
-        );
+        expect(document.querySelector('form').getAttribute('target')).toBe('_blank');
       });
 
       test('target should be overridable', async () => {
         await nativeForm('spaceId123', {}, { target: '_top' }, 'saml');
-        expect(document.querySelector('form').getAttribute('target')).toBe(
-          '_top'
-        );
+        expect(document.querySelector('form').getAttribute('target')).toBe('_top');
       });
 
       test('addtional attributes can be defined', async () => {
-        await nativeForm(
-          'spaceId123',
-          {},
-          { id: 'myForm', class: 'my-form' },
-          'saml'
-        );
+        await nativeForm('spaceId123', {}, { id: 'myForm', class: 'my-form' }, 'saml');
 
-        expect(document.querySelector('form').getAttribute('id')).toBe(
-          'myForm'
-        );
+        expect(document.querySelector('form').getAttribute('id')).toBe('myForm');
 
-        expect(document.querySelector('form').getAttribute('class')).toBe(
-          'my-form'
-        );
+        expect(document.querySelector('form').getAttribute('class')).toBe('my-form');
       });
 
       test('should have no field if no data was provided', async () => {
@@ -150,9 +125,7 @@ describe('nativeForm', () => {
       describe('the fields', () => {
         test('should have a field for each piece of data (no more, no less)', async () => {
           await nativeForm('spaceId123', complexObject, {}, 'saml');
-          expect(document.querySelectorAll('input').length).toBe(
-            Object.keys(flattenObject(complexObject)).length
-          );
+          expect(document.querySelectorAll('input').length).toBe(Object.keys(flattenObject(complexObject)).length);
         });
 
         test('the names will match the flat object, but have the array index value removed (the way the back-end likes it)', async () => {
@@ -163,9 +136,7 @@ describe('nativeForm', () => {
           for (const key of Object.keys(flat)) {
             const name = key.replace(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
-            expect(
-              document.querySelectorAll(`[name="${name}"`)[count[name]]
-            ).not.toBeNull();
+            expect(document.querySelectorAll(`[name="${name}"`)[count[name]]).not.toBeNull();
             count[name] += 1;
           }
         });
@@ -179,9 +150,7 @@ describe('nativeForm', () => {
             const name = key.replace(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
             const value = flat[key];
-            expect(
-              document.querySelectorAll(`[name="${name}"`)[count[name]].value
-            ).toBe(value);
+            expect(document.querySelectorAll(`[name="${name}"`)[count[name]].value).toBe(value);
             count[name] += 1;
           }
         });
