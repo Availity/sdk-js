@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.4...@availity/native-form@4.0.5) (2021-10-08)
+
+
+### Bug Fixes
+
+* **native-form:** update types and use api-axiosv6 ([02b0cd6](https://github.com/Availity/sdk-js/commit/02b0cd6a6c1f401c71b4ddc8482297604531983a))
+
+
+
+
+
 ## [4.0.4](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.3...@availity/native-form@4.0.4) (2021-09-30)
 
 **Note:** Version bump only for package @availity/native-form
