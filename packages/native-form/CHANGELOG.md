@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.6](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.5...@availity/native-form@4.0.6) (2021-10-19)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
 ## [4.0.5](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.4...@availity/native-form@4.0.5) (2021-10-08)
 
 
