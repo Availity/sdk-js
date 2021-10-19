@@ -1,57 +1,14 @@
-const isLeftClickEvent = (event) => event.button === 0;
-
-const isModifiedEvent = (event) =>
-  !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
-
-const trackMap = {
-  select: ['focus', 'blur'],
-  textarea: ['focus', 'blur'],
-  input: ['focus', 'blur'],
-  default: ['click'],
-};
-
-const isValidEventTypeOnTarget = (event) =>
-  (trackMap[event.target.nodeName.toLowerCase()] || trackMap.default).indexOf(
-    event.type
-  ) > -1;
-
-const isPluginEnabled = (plugin) =>
-  typeof plugin.isEnabled === 'function'
-    ? plugin.isEnabled()
-    : plugin.isEnabled;
-
-const camelCase = (str) =>
-  str.replace(/-([\da-z])/gi, (match, char) => char.toUpperCase());
-
-/**
- * Polyfill for [`Event.composedPath()`][1].
- * https://gist.github.com/kleinfreund/e9787d73776c0e3750dcfcdc89f100ec
- */
-const getComposedPath = (node) => {
-  let parent;
-  if (node.parentNode) {
-    parent = node.parentNode;
-  } else if (node.host) {
-    parent = node.host;
-  } else if (node.defaultView) {
-    parent = node.defaultView;
-  }
-
-  if (parent !== undefined) {
-    return [node, getComposedPath(parent)];
-  }
-
-  return [node];
-};
+import {
+  camelCase,
+  getComposedPath,
+  isLeftClickEvent,
+  isModifiedEvent,
+  isPluginEnabled,
+  isValidEventTypeOnTarget,
+} from './util';
 
 export default class AvAnalytics {
-  constructor(
-    plugins,
-    promise = Promise,
-    pageTracking,
-    autoTrack = true,
-    options = {}
-  ) {
+  constructor(plugins, promise = Promise, pageTracking, autoTrack = true, options = {}) {
     // if plugins or promise are undefined,
     // or if either is skipped and pageTracking boolean is used in their place
     if (!plugins || !promise) {
@@ -62,9 +19,7 @@ export default class AvAnalytics {
     this.pageTracking = !!pageTracking;
 
     if (options.eventModifiers) {
-      this.eventModifiers = Array.isArray(options.eventModifiers)
-        ? options.eventModifiers
-        : [options.eventModifiers];
+      this.eventModifiers = Array.isArray(options.eventModifiers) ? options.eventModifiers : [options.eventModifiers];
     } else {
       this.eventModifiers = ['action'];
     }
@@ -111,33 +66,23 @@ export default class AvAnalytics {
 
         // To consider using the element it has to have analytics attrs
         if (Object.keys(attrs).length > 0) {
-          analyticAttrs.elemId =
-            pth.getAttribute('id') || pth.getAttribute('name') || undefined;
+          analyticAttrs.elemId = pth.getAttribute('id') || pth.getAttribute('name') || undefined;
         }
       }
     } else {
       analyticAttrs = this.getAnalyticAttrs(target);
     }
 
-    const actions = analyticAttrs
-      ? this.eventModifiers.filter((mod) => analyticAttrs[mod] === event.type)
-      : [];
+    const actions = analyticAttrs ? this.eventModifiers.filter((mod) => analyticAttrs[mod] === event.type) : [];
 
-    if (
-      Object.keys(analyticAttrs).length === 0 ||
-      (this.recursive && actions.length === 0) ||
-      actions.length === 0
-    ) {
+    if (Object.keys(analyticAttrs).length === 0 || (this.recursive && actions.length === 0) || actions.length === 0) {
       return;
     }
 
     analyticAttrs.action = analyticAttrs.action || event.type;
     analyticAttrs.event = event.type;
     analyticAttrs.elemId =
-      analyticAttrs.elemId ||
-      target.getAttribute('id') ||
-      target.getAttribute('name') ||
-      undefined;
+      analyticAttrs.elemId || target.getAttribute('id') || target.getAttribute('name') || undefined;
 
     if (analyticAttrs.elemId === undefined) {
       delete analyticAttrs.elemId;
@@ -154,9 +99,7 @@ export default class AvAnalytics {
   };
 
   invalidEvent = (event) =>
-    isModifiedEvent(event) ||
-    (event.type === 'click' && !isLeftClickEvent(event)) ||
-    !isValidEventTypeOnTarget(event);
+    isModifiedEvent(event) || (event.type === 'click' && !isLeftClickEvent(event)) || !isValidEventTypeOnTarget(event);
 
   getAnalyticAttrs = (elem) => {
     if (!elem.attributes) {
@@ -170,9 +113,7 @@ export default class AvAnalytics {
       for (let i = attrs.length - 1; i >= 0; i--) {
         const { name } = attrs[i];
         if (name.indexOf(`${this.attributePrefix}-`) === 0) {
-          const camelName = camelCase(
-            name.slice(this.attributePrefix.length + 1)
-          );
+          const camelName = camelCase(name.slice(this.attributePrefix.length + 1));
           analyticAttrs[camelName] = elem.getAttribute(name);
         }
       }
@@ -210,9 +151,7 @@ export default class AvAnalytics {
       this.pageTracking = !!value;
     }
 
-    const canPageTrack =
-      typeof this.startPageTracking === 'function' &&
-      typeof this.stopPageTracking === 'function';
+    const canPageTrack = typeof this.startPageTracking === 'function' && typeof this.stopPageTracking === 'function';
 
     if (canPageTrack && this.pageTracking !== this.isPageTracking) {
       if (this.pageTracking) {
@@ -249,10 +188,7 @@ export default class AvAnalytics {
     url = url || window.location.href;
     const promises = [];
     for (const plugin of this.plugins) {
-      if (
-        isPluginEnabled(plugin) &&
-        typeof plugin.trackPageView === 'function'
-      ) {
+      if (isPluginEnabled(plugin) && typeof plugin.trackPageView === 'function') {
         promises.push(plugin.trackPageView(url));
       }
     }
