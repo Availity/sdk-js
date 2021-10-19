@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.2.0 (2021-10-19)
+
+
+### Features
+
+* **upload-core:** add types and run formatter ([5c530da](https://github.com/Availity/sdk-js/commit/5c530da87470dd9ab139a272099cdba8f4926012))
+
+
+
+
+
 ## [4.1.1](https://github.com/Availity/sdk-js/compare/@availity/upload-core@4.1.0...@availity/upload-core@4.1.1) (2021-07-13)
 
 

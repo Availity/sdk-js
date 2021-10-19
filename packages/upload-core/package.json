@@ -1,6 +1,6 @@
 {
   "name": "@availity/upload-core",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "Wrapper for tus-js-client",
   "main": "lib/upload.js",
   "module": "src/upload.js",
@@ -23,8 +23,8 @@
     "tus-js-client": "1.7.1"
   },
   "devDependencies": {
-    "tus-js-client": "1.7.1",
-    "@types/tus-js-client": "^1.7.0"
+    "@types/tus-js-client": "^1.7.0",
+    "tus-js-client": "1.7.1"
   },
   "dependencies": {
     "@availity/resolve-url": "^1.1.21",
