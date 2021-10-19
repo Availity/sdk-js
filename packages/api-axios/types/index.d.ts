@@ -16,14 +16,15 @@ export interface ApiConfig extends AxiosRequestConfig {
 
 type Request = any;
 
-declare class AvApi {
-  constructor(options: ApiConfig);
+declare class AvApi<ConfigProps = ApiConfig> {
 
-  config(config?: ApiConfig): ApiConfig;
+  constructor(options: ConfigProps);
 
-  addParams(params: object, config?: ApiConfig, newObj?: boolean): ApiConfig;
+  config(config?: ConfigProps): ConfigProps;
 
-  cacheParams(config: ApiConfig): ApiConfig;
+  addParams(params: object, config?: ConfigProps, newObj?: boolean): ConfigProps;
+
+  cacheParams(config: ConfigProps): ConfigProps;
 
   getSessionBust(): any;
 
@@ -33,7 +34,7 @@ declare class AvApi {
 
   setPageBust(value: any): void;
 
-  getUrl(config: ApiConfig, id?: string): string;
+  getUrl(config: ConfigProps, id?: string): string;
 
   getRequestUrl(): string;
 
@@ -45,43 +46,47 @@ declare class AvApi {
 
   getResult(data: any): any;
 
-  request<TData = any>(config: ApiConfig, afterResponse?: (resp: any) => any): Promise<AxiosResponse<TData>>;
+  request<TData = any>(config: ConfigProps, afterResponse?: (resp: any) => any): Promise<AxiosResponse<TData>>;
 
   onResponse(response: any, afterResponse?: (resp: any) => any): Promise<any>;
 
-  sendBeacon(data: any, config?: ApiConfig): Promise<any>;
+  sendBeacon(data: any, config?: ConfigProps): Promise<any>;
 
   // Create
-  create<TData = any>(data: Request, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  create<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  post<TData = any>(data: Request, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  post<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  postGet<TData = any>(data: Request, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  postGet<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
   // Read
-  get<TData = any>(id: string, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  get<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  query<TData = any>(config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  query<TData = any>(config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  getPage<TData = any>(page: number, config?: ApiConfig, limit?: number): Promise<AxiosResponse<TData>>;
+  getPage<TData = any>(page: number, config?: ConfigProps, limit?: number): Promise<AxiosResponse<TData>>;
 
-  all<TData = any>(config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  all<TData = any>(config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
   // Update
-  update<TData = any>(id: string, data: Request, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  update<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  put<TData = any>(id: string, data: Request, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  put<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  patch<TData = any>(id: string, data: Request, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  patch<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
   // Delete
-  remove<TData = any>(id: string, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  remove<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
-  delete<TData = any>(id: string, config?: ApiConfig): Promise<AxiosResponse<TData>>;
+  delete<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 }
 
-declare class AvMicroserviceApi extends AvApi {}
-declare class AvProxyApi extends AvApi {}
+declare class AvMicroserviceApi extends AvApi { }
+
+export interface ProxyApiConfig extends ApiConfig {
+  tenant: string;
+}
+declare class AvProxyApi extends AvApi<ProxyApiConfig> {}
 
 declare class AvCodesApi extends AvApi {}
 declare const avCodesApi: AvCodesApi;
