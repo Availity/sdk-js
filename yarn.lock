@@ -3427,6 +3427,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/tus-js-client@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@types/tus-js-client/-/tus-js-client-1.7.0.tgz#7340a161117bfa05cf751e1fc88a0a6b55a2b2c0"
+  integrity sha512-bUOPV+dpva01rRVMhZEja0zhWUT0kKGh04IguWT8+volSi5QCGn1i3l8D9XtejHOMlfwbQIExUvXqqpXhfSSpg==
+
 "@types/uglify-js@*":
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.13.0.tgz#1cad8df1fb0b143c5aba08de5712ea9d1ff71124"
