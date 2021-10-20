@@ -17,7 +17,6 @@ export interface ApiConfig extends AxiosRequestConfig {
 type Request = any;
 
 declare class AvApi<ConfigProps = ApiConfig> {
-
   constructor(options: ConfigProps);
 
   config(config?: ConfigProps): ConfigProps;
@@ -81,7 +80,7 @@ declare class AvApi<ConfigProps = ApiConfig> {
   delete<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 }
 
-declare class AvMicroserviceApi extends AvApi { }
+declare class AvMicroserviceApi extends AvApi {}
 
 export interface ProxyApiConfig extends ApiConfig {
   tenant: string;
@@ -224,11 +223,8 @@ type AxiUserPermission = {
 };
 
 interface AvUserPermissionsApi extends AvApi {
-  afterQuery(response: any): AxiUserPermission[];
-  getPermissions(
-    permissionId: string | string[],
-    region?: string
-  ): Promise<AxiosResponse<{ axiUserPermissions: AxiUserPermission[] }>>;
+  afterQuery(response: AxiosResponse<{ axiUserPermissions: AxiUserPermission[] }>): AxiUserPermission[];
+  getPermissions(permissionId: string | string[], region?: string): Promise<AxiUserPermission[]>;
 }
 
 declare const avUserPermissionsApi: AvUserPermissionsApi;
