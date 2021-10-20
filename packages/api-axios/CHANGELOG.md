@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.3 (2021-10-20)
+
+
+### Bug Fixes
+
+* **api-axios:** update permissions response type ([a6ef800](https://github.com/Availity/sdk-js/commit/a6ef8005eccb1278b9a1a826b5881c77ee585a91))
+
+
+
+
+
 ## 6.0.2 (2021-10-19)
 
 **Note:** Version bump only for package @availity/api-axios

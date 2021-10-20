@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.0.50 (2021-10-20)
+
+**Note:** Version bump only for package @availity/authorizations-axios
+
+
+
+
+
 ## 5.0.49 (2021-10-19)
 
 **Note:** Version bump only for package @availity/authorizations-axios
