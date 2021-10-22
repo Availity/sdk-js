@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/Availity/sdk-js/compare/@availity/api-axios@6.0.3...@availity/api-axios@6.0.4) (2021-10-22)
+
+
+### Bug Fixes
+
+* **api-axios:** resolve lint error ([62efcaf](https://github.com/Availity/sdk-js/commit/62efcaf010c65d3d2bf8b0004953608628c15465))
+
+
+
+
+
 ## 6.0.3 (2021-10-20)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.0.5 (2021-10-22)
+
+
+### Bug Fixes
+
+* **api-core:** disable lint rule ([b506cdc](https://github.com/Availity/sdk-js/commit/b506cdc47dd90d8dd9941eeb1a4d7efcae2d03ec))
+
+
+
+
+
 ## 7.0.4 (2021-09-30)
 
 

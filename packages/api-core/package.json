@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
@@ -21,8 +21,8 @@
     "format": "prettier --write '**/*.js'"
   },
   "dependencies": {
-    "@availity/env-var": "^1.11.1",
-    "@availity/resolve-url": "^1.1.21",
+    "@availity/env-var": "^1.11.2",
+    "@availity/resolve-url": "^1.1.22",
     "@babel/runtime": "^7.10.2",
     "core-js": "^3.12.1",
     "qs": "^6.5.2"
