@@ -5,9 +5,6 @@
   "main": "lib/upload.js",
   "module": "src/upload.js",
   "types": "types/index.d.ts",
-  "scripts": {
-    "test": "test"
-  },
   "keywords": [
     "tus",
     "resumable",
@@ -19,12 +16,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "tus-js-client": "1.7.1"
-  },
   "devDependencies": {
-    "@types/tus-js-client": "^1.7.0",
-    "tus-js-client": "1.7.1"
+    "@types/tus-js-client": "^1.7.0"
   },
   "dependencies": {
     "@availity/resolve-url": "^1.1.21",
