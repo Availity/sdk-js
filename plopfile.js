@@ -3,16 +3,12 @@ const { execSync } = require('child_process');
 
 module.exports = (plop) => {
   plop.setHelper('userFullName', () => {
-    const name = execSync(
-      'git config --global --includes user.name'
-    ).toString();
+    const name = execSync('git config --global --includes user.name').toString();
     return name.replace(/\n$/, '').trim();
   });
 
   plop.setHelper('userEmail', () => {
-    const email = execSync(
-      'git config --global --includes user.email'
-    ).toString();
+    const email = execSync('git config --global --includes user.email').toString();
     return email.replace(/\n$/, '').trim();
   });
 
@@ -73,58 +69,31 @@ module.exports = (plop) => {
       const actions = [
         {
           type: 'add',
-          path: 'packages/api-angular/src/{{camelCase resourceName}}.js',
-          templateFile: 'plop-templates/resource/api-angular-resource.js.hbs',
-        },
-        {
-          type: 'add',
           path: 'packages/api-axios/src/{{camelCase resourceName}}.js',
           templateFile: 'plop-templates/resource/api-axios-resource.js.hbs',
         },
         {
           type: 'add',
-          path: 'packages/api-core/src/resources/tests/{{camelCase resourceName}}.test.js',
-          templateFile: 'plop-templates/resource/api-core-test.js.hbs',
+          path: 'packages/api-axios/src/resources/tests/{{camelCase resourceName}}.test.js',
+          templateFile: 'plop-templates/resource/api-axios-test.js.hbs',
         },
         {
           type: 'append',
-          path: 'packages/api-core/src/index.js',
-          pattern: "import AvMicroservice from './ms';",
-          template:
-            "import Av{{pascalCase resourceName}} from './resources/{{camelCase resourceName}}';",
-        },
-        {
-          type: 'append',
-          path: 'packages/api-core/src/index.js',
-          pattern: 'export {',
-          template: '  Av{{pascalCase resourceName}},',
+          path: 'packages/api-axios/src/index.js',
+          pattern: "import AvMicroserviceApi from './ms';",
+          template: "import Av{{pascalCase resourceName}} from './resources/{{camelCase resourceName}}';",
         },
         {
           type: 'append',
           path: 'packages/api-axios/src/index.js',
           pattern: "import AvProxyApi from './proxy';",
-          template:
-            "import av{{pascalCase resourceName}}Api from './{{camelCase resourceName}}';",
+          template: "import av{{pascalCase resourceName}}Api from './{{camelCase resourceName}}';",
         },
         {
           type: 'append',
           path: 'packages/api-axios/src/index.js',
           pattern: 'AvProxyApi,',
           template: '  av{{pascalCase resourceName}}Api,',
-        },
-        {
-          type: 'append',
-          path: 'packages/api-angular/src/index.js',
-          pattern: "import AvProxyApiFactory from './proxy';",
-          template:
-            "import av{{pascalCase resourceName}}ApiFactory from './{{camelCase resourceName}}';",
-        },
-        {
-          type: 'append',
-          path: 'packages/api-angular/src/index.js',
-          pattern: ".factory('AvProxyApi', AvProxyApiFactory)",
-          template:
-            "  .factory('av{{pascalCase resourceName}}Api', av{{pascalCase resourceName}}ApiFactory)",
         },
         {
           type: 'append',
@@ -140,12 +109,6 @@ module.exports = (plop) => {
         },
         {
           type: 'append',
-          path: 'packages/api-angular/README.md',
-          pattern: '-   `AvProxyApi`',
-          template: '-   `av{{pascalCase resourceName}}Api`',
-        },
-        {
-          type: 'append',
           path: 'packages/api-axios/src/tests/api.test.js',
           pattern: 'AvProxyApi,',
           template: '  av{{pascalCase resourceName}}Api,',
@@ -153,32 +116,22 @@ module.exports = (plop) => {
         {
           type: 'append',
           path: 'packages/api-axios/src/tests/api.test.js',
-          pattern:
-            /describe\('API Definitions', \(\) => \{\n.*test\('should be defined', \(\) => \{/,
-          template:
-            '    expect(av{{pascalCase resourceName}}Api).toBeDefined();',
-        },
-        {
-          type: 'append',
-          path: 'packages/api-angular/src/tests/api.test.js',
-          pattern:
-            /beforeEach\(\(\) => \{\n.*angular\.mock\.module\(avModule\);\n.*\}\);/,
-          templateFile: 'plop-templates/resource/test-api-angular.hbs',
-          separator: '\n\n',
+          pattern: /describe\('API Definitions', \(\) => \{\n.*test\('should be defined', \(\) => \{/,
+          template: '    expect(av{{pascalCase resourceName}}Api).toBeDefined();',
         },
       ];
 
       if (data.isMicroservice) {
         actions.push({
           type: 'add',
-          path: 'packages/api-core/src/resources/{{camelCase resourceName}}.js',
-          templateFile: 'plop-templates/resource/api-core-ms-resource.js.hbs',
+          path: 'packages/api-axios/src/resources/{{camelCase resourceName}}.js',
+          templateFile: 'plop-templates/resource/api-axios-ms-resource.js.hbs',
         });
       } else {
         actions.push({
           type: 'add',
-          path: 'packages/api-core/src/resources/{{camelCase resourceName}}.js',
-          templateFile: 'plop-templates/resource/api-core-resource.js.hbs',
+          path: 'packages/api-axios/src/resources/{{camelCase resourceName}}.js',
+          templateFile: 'plop-templates/resource/api-axios-resource.js.hbs',
         });
       }
 

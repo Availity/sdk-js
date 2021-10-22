@@ -42,8 +42,7 @@ export default class AvDateSchema extends mixed {
     const minDate = this.getValidDate(min);
 
     return this.test({
-      message:
-        message || `Date must be ${minDate.format(this.format)} or later.`,
+      message: message || `Date must be ${minDate.format(this.format)} or later.`,
       name: 'min',
       exclusive: true,
       params: { min },
@@ -60,8 +59,7 @@ export default class AvDateSchema extends mixed {
     const maxDate = this.getValidDate(max);
 
     return this.test({
-      message:
-        message || `Date must be ${maxDate.format(this.format)} or earlier.`,
+      message: message || `Date must be ${maxDate.format(this.format)} or earlier.`,
       name: 'max',
       exclusive: true,
       params: { max },
@@ -99,19 +97,9 @@ export default class AvDateSchema extends mixed {
       name: 'between',
       exclusive: true, // Validation errors don't stack
       // NOTE: Intentional use of single quotes - yup will handle the string interpolation
-      message:
-        msg ||
-        `Date must be between ${minDate.format(
-          this.format
-        )} and ${maxDate.format(this.format)}.`,
+      message: msg || `Date must be between ${minDate.format(this.format)} and ${maxDate.format(this.format)}.`,
       test(value) {
-        if (
-          !value ||
-          !min ||
-          !max ||
-          !minDate.isValid() ||
-          !maxDate.isValid()
-        ) {
+        if (!value || !min || !max || !minDate.isValid() || !maxDate.isValid()) {
           return true;
         }
 

@@ -29,15 +29,8 @@ const getCloudEnv = (options) => {
 
 let environments = {
   local: ['127.0.0.1', 'localhost'],
-  test: [
-    /^t(?:(?:\d\d)|(?:est))-apps$/,
-    (options) => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options)),
-  ],
-  qa: [
-    /^q(?:(?:\d\d)|(?:ap?))-apps$/,
-    (options) =>
-      /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options)),
-  ],
+  test: [/^t(?:(?:\d\d)|(?:est))-apps$/, (options) => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options))],
+  qa: [/^q(?:(?:\d\d)|(?:ap?))-apps$/, (options) => /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options))],
   prod: [/^apps$/, (options) => getCloudEnv(options) === 'prd'],
 };
 

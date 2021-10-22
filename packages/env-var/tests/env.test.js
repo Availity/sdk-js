@@ -1,6 +1,6 @@
 import envVar, { setEnvironments, getSpecificEnv } from '../src';
 
-const setHostname = hostname => {
+const setHostname = (hostname) => {
   // eslint-disable-next-line no-undef
   jsdom.reconfigure({
     url: `https://${hostname}/`,
@@ -22,9 +22,7 @@ const generateTest = (hostname, env, overrideWindow) => {
 
 describe('Environment Variables', () => {
   test('should default to local when it cannot determine the environment', () => {
-    expect(envVar({ prod: false, local: true, qa: false, test: false })).toBe(
-      true
-    );
+    expect(envVar({ prod: false, local: true, qa: false, test: false })).toBe(true);
   });
   describe('Default environments', () => {
     for (const args of [
@@ -75,73 +73,21 @@ describe('Environment Variables', () => {
 
     describe('Override window', () => {
       for (const args of [
-        [
-          'fallback-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
+        ['fallback-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
         ['localhost', 'prod', getFakeWindowLocation('apps.availity.com')],
         ['127.0.0.1', 'prod', getFakeWindowLocation('apps.availity.com')],
-        [
-          'test-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
-        [
-          't01-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
-        [
-          't14-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
-        [
-          'qa-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
-        [
-          'qap-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
-        [
-          'q01-apps.availity.com',
-          'prod',
-          getFakeWindowLocation('apps.availity.com'),
-        ],
-        [
-          'apps.availity.com',
-          'qa',
-          getFakeWindowLocation('q01-apps.availity.com'),
-        ],
-        [
-          'apps.availity.com',
-          'prod',
-          getFakeWindowLocation('bar.awp.availity.com', '/cdn/prd/index.html'),
-        ],
-        [
-          'apps.availity.com',
-          'qa',
-          getFakeWindowLocation('bar.awn.availity.com', '/cdn/q01/index.html'),
-        ],
-        [
-          'apps.availity.com',
-          'test',
-          getFakeWindowLocation('bar.awn.availity.com', '/cdn/tst/index.html'),
-        ],
-        [
-          'apps.availity.com',
-          'qa',
-          getFakeWindowLocation('bar.aws.availity.com', '/cdn/q01/index.html'),
-        ],
-        [
-          'apps.availity.com',
-          'test',
-          getFakeWindowLocation('bar.aws.availity.com', '/cdn/tst/index.html'),
-        ],
+        ['test-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
+        ['t01-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
+        ['t14-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
+        ['qa-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
+        ['qap-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
+        ['q01-apps.availity.com', 'prod', getFakeWindowLocation('apps.availity.com')],
+        ['apps.availity.com', 'qa', getFakeWindowLocation('q01-apps.availity.com')],
+        ['apps.availity.com', 'prod', getFakeWindowLocation('bar.awp.availity.com', '/cdn/prd/index.html')],
+        ['apps.availity.com', 'qa', getFakeWindowLocation('bar.awn.availity.com', '/cdn/q01/index.html')],
+        ['apps.availity.com', 'test', getFakeWindowLocation('bar.awn.availity.com', '/cdn/tst/index.html')],
+        ['apps.availity.com', 'qa', getFakeWindowLocation('bar.aws.availity.com', '/cdn/q01/index.html')],
+        ['apps.availity.com', 'test', getFakeWindowLocation('bar.aws.availity.com', '/cdn/tst/index.html')],
       ]) {
         generateTest(...args);
       }

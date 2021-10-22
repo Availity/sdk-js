@@ -15,7 +15,7 @@ class AvMessage {
     return this.isEnabled;
   }
 
-  getEventData = event => {
+  getEventData = (event) => {
     if (
       !this.isEnabled || // do nothing if not enabled
       !event ||
@@ -55,9 +55,7 @@ class AvMessage {
     }
     this.subscribers[event].push(fn);
     return () => {
-      this.subscribers[event] = this.subscribers[event].filter(
-        val => val !== fn
-      );
+      this.subscribers[event] = this.subscribers[event].filter((val) => val !== fn);
     };
   }
 
@@ -103,8 +101,7 @@ class AvMessage {
       return;
     }
     try {
-      const message =
-        typeof payload === 'string' ? payload : JSON.stringify(payload);
+      const message = typeof payload === 'string' ? payload : JSON.stringify(payload);
       target.postMessage(message, this.domain());
     } catch (error) {
       // eslint-disable-next-line no-console

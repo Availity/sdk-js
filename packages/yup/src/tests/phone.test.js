@@ -1,5 +1,5 @@
 import { number, string } from 'yup';
-import '../src';
+import '..';
 
 describe('phone', () => {
   test('should accept empty string', async () => {
@@ -15,9 +15,7 @@ describe('phone', () => {
   });
 
   test('should accept null input', async () => {
-    const schema = string()
-      .phone()
-      .nullable();
+    const schema = string().phone().nullable();
     const valid = await schema.isValid();
     expect(valid).toBe(true);
   });
@@ -55,8 +53,6 @@ describe('phone', () => {
 
   test('should display custom error message', async () => {
     const schema = number().phone('Custom Error Message');
-    await expect(schema.validate('123321')).rejects.toThrow(
-      'Custom Error Message'
-    );
+    await expect(schema.validate('123321')).rejects.toThrow('Custom Error Message');
   });
 });

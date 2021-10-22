@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/consistent-destructuring */
+/* eslint-disable unicorn/no-array-method-this-argument */
 import qs from 'qs';
 import AvApi from '../api';
 

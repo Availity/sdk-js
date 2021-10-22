@@ -1,5 +1,5 @@
 import { array, number, string } from 'yup';
-import '../src';
+import '..';
 
 describe('isRequired', () => {
   test('should return error on empty input', async () => {
@@ -27,9 +27,7 @@ describe('isRequired', () => {
   });
 
   test('should accept null input', async () => {
-    const schema = string()
-      .isRequired(true)
-      .nullable();
+    const schema = string().isRequired(true).nullable();
 
     const valid = await schema.isValid(null);
 

@@ -4,15 +4,10 @@
   "description": "Simple package to decode/encode relay ids for graphql microservices that leverage the relay spec.",
   "main": "lib/index.js",
   "module": "src/index.js",
-  "types": "index.d.ts",
-  "scripts": {
-    "test": "test"
-  },
+  "types": "types/index.d.ts",
   "keywords": [
     "availity",
-    "form",
-    "native",
-    "submission"
+    "relay"
   ],
   "author": "Kyle Gray <kyle.gray@availity.com>",
   "license": "MIT",
