@@ -5,8 +5,8 @@ import phone from './phone';
 import AvDate from './date';
 import DateRange from './dateRange';
 
-export const avDate = opts => new AvDate(opts);
-export const dateRange = opts => new DateRange(opts);
+export const avDate = (opts) => new AvDate(opts);
+export const dateRange = (opts) => new DateRange(opts);
 
 addMethod(string, 'isRequired', isRequired);
 addMethod(number, 'isRequired', isRequired);

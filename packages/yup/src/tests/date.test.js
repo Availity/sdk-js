@@ -1,13 +1,10 @@
-import { avDate } from '../src';
+import { avDate } from '..';
 
 const INVALID = 'Date is invalid.';
 
 const defaults = {};
 
-const validate = async (
-  date,
-  { format, min, max, message, inclusivity, customErrorMessage } = defaults
-) => {
+const validate = async (date, { format, min, max, message, inclusivity, customErrorMessage } = defaults) => {
   let schema = avDate({
     format,
   });
@@ -21,9 +18,7 @@ const validate = async (
   }
 
   if (min && max) {
-    schema = inclusivity
-      ? schema.between(min, max, message, inclusivity)
-      : schema.between(min, max, message);
+    schema = inclusivity ? schema.between(min, max, message, inclusivity) : schema.between(min, max, message);
   }
 
   if (customErrorMessage) {
@@ -37,12 +32,8 @@ describe('Date', () => {
   test('valid', async () => {
     await expect(validate('12/12/2012')).resolves.toBeTruthy();
     await expect(validate('12-12-2012')).resolves.toBeTruthy();
-    await expect(
-      validate('2012/12/12', { format: 'YYYY/MM/DD' })
-    ).resolves.toBeTruthy();
-    await expect(
-      validate('20121212', { format: 'YYYYMMDD' })
-    ).resolves.toBeTruthy();
+    await expect(validate('2012/12/12', { format: 'YYYY/MM/DD' })).resolves.toBeTruthy();
+    await expect(validate('20121212', { format: 'YYYYMMDD' })).resolves.toBeTruthy();
   });
 
   test('invalid', async () => {
@@ -56,9 +47,9 @@ describe('Date', () => {
     await expect(validate('')).resolves.toBeTruthy();
 
     // With custom message
-    await expect(
-      validate('invalid-date', { customErrorMessage: 'custom error message' })
-    ).rejects.toThrow('custom error message');
+    await expect(validate('invalid-date', { customErrorMessage: 'custom error message' })).rejects.toThrow(
+      'custom error message'
+    );
   });
 
   test('min date', async () => {

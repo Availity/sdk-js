@@ -4,34 +4,28 @@
   "description": "Additional Methods for Yup validation library",
   "main": "lib/index.js",
   "module": "src/index.js",
-  "typings": "typings/index.d.ts",
-  "scripts": {
-    "test": "test"
-  },
+  "types": "types/index.d.ts",
   "keywords": [
-    "tus",
-    "resumable",
-    "upload",
+    "yup",
     "availity"
   ],
   "author": "Kyle Gray <kyle.gray@availity.com>",
   "license": "MIT",
-  "peerDependencies": {
-    "moment": "^2.24.0",
-    "yup": "^0.28.1"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.2",
+    "core-js": "^3.12.1",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "moment": "^2.24.0",
     "yup": "^0.28.1"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.10.2",
-    "core-js": "^3.12.1",
-    "lodash": "^4.17.21",
-    "merge-options-es5": "^1.0.0"
+  "peerDependencies": {
+    "moment": "^2.24.0",
+    "yup": "^0.28.1"
   },
   "gitHead": "7290d74ff71d4ceef68da9ec3cb3f3b036eee8c2"
 }

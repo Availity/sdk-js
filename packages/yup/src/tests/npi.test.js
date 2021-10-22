@@ -1,5 +1,5 @@
 import { number, string } from 'yup';
-import '../src';
+import '..';
 
 describe('npi', () => {
   test('should be valid for empty input', async () => {
@@ -19,9 +19,7 @@ describe('npi', () => {
   });
 
   test('should accept null input', async () => {
-    const schema = string()
-      .npi()
-      .nullable();
+    const schema = string().npi().nullable();
 
     const valid = await schema.isValid(null);
 

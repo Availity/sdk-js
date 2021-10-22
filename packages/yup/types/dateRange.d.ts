@@ -23,18 +23,12 @@ declare module 'yup' {
     max?: DistanceValue;
   };
 
-  interface DateRangeSchema<
-    T extends DateRangeObject | null | undefined = DateRangeObject
-  > extends MixedSchema<T> {
+  interface DateRangeSchema<T extends DateRangeObject | null | undefined = DateRangeObject> extends MixedSchema<T> {
     min(date: string, errorMessage?: string): DateRangeSchema<T>;
     max(date: string, errorMessage?: string): DateRangeSchema<T>;
-    between(
-      minDate: string,
-      maxDate: string,
-      errorMessage?: string
-    ): DateRangeSchema<T>;
+    between(minDate: string, maxDate: string, errorMessage?: string): DateRangeSchema<T>;
     isRequired(required?: boolean, errorMessage?: string): DateRangeSchema<T>;
-    distance(distanceOpts: DistanceOpts);
+    distance(distanceOpts: DistanceOpts): DateRangeSchema<T>;
   }
 
   export interface DateRangeSchemaConstructor {

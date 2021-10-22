@@ -1,4 +1,4 @@
-import { dateRange } from '../src';
+import { dateRange } from '..';
 
 describe('DateRange', () => {
   test('start comes before end', async () => {
