@@ -1,8 +1,6 @@
 // Borrowed from  https://github.com/rubensworks/relative-to-absolute-iri.js but refactored to work with IE11.
 function isCharacterAllowedAfterRelativePathSegment(character) {
-  return (
-    !character || character === '#' || character === '?' || character === '/'
-  );
+  return !character || character === '#' || character === '?' || character === '/';
 }
 
 /**
@@ -165,9 +163,7 @@ export function resolve(relativeIRI, baseIRI = '') {
   // At this point, the baseIRI MUST be absolute, otherwise we error
   const baseColonPos = baseIRI.indexOf(':');
   if (baseColonPos < 0) {
-    throw new Error(
-      `Found invalid baseIRI '${baseIRI}' for value '${relativeIRI}'`
-    );
+    throw new Error(`Found invalid baseIRI '${baseIRI}' for value '${relativeIRI}'`);
   }
 
   const baseIRIScheme = baseIRI.substr(0, baseColonPos + 1);
@@ -185,15 +181,10 @@ export function resolve(relativeIRI, baseIRI = '') {
       // If something other than a '/' follows the '://', append the value after a '/',
       // otherwise, prefix the value with only the baseIRI scheme.
       if (baseIRI.length > baseColonPos + 3) {
-        return `${baseIRI}/${removeDotSegmentsOfPath(
-          relativeIRI,
-          valueColonPos
-        )}`;
+        return `${baseIRI}/${removeDotSegmentsOfPath(relativeIRI, valueColonPos)}`;
       }
 
-      return (
-        baseIRIScheme + removeDotSegmentsOfPath(relativeIRI, valueColonPos)
-      );
+      return baseIRIScheme + removeDotSegmentsOfPath(relativeIRI, valueColonPos);
     }
   } else {
     // If there is not even a single '/' after the ':'
@@ -202,10 +193,7 @@ export function resolve(relativeIRI, baseIRI = '') {
     // If something other than a '/' follows the ':', append the value after a '/',
     // otherwise, prefix the value with only the baseIRI scheme.
     if (baseIRI.length > baseColonPos + 1) {
-      return `${baseIRI}/${removeDotSegmentsOfPath(
-        relativeIRI,
-        valueColonPos
-      )}`;
+      return `${baseIRI}/${removeDotSegmentsOfPath(relativeIRI, valueColonPos)}`;
     }
 
     return baseIRIScheme + removeDotSegmentsOfPath(relativeIRI, valueColonPos);
@@ -213,28 +201,18 @@ export function resolve(relativeIRI, baseIRI = '') {
 
   // If the value starts with a '/', then prefix it with everything before the first effective slash of the base IRI.
   if (relativeIRI.indexOf('/') === 0) {
-    return (
-      baseIRI.substr(0, baseSlashAfterColonPos) + removeDotSegments(relativeIRI)
-    );
+    return baseIRI.substr(0, baseSlashAfterColonPos) + removeDotSegments(relativeIRI);
   }
 
   let baseIRIPath = baseIRI.substr(baseSlashAfterColonPos);
   const baseIRILastSlashPos = baseIRIPath.lastIndexOf('/');
 
   // Ignore everything after the last '/' in the baseIRI path
-  if (
-    baseIRILastSlashPos >= 0 &&
-    baseIRILastSlashPos < baseIRIPath.length - 1
-  ) {
+  if (baseIRILastSlashPos >= 0 && baseIRILastSlashPos < baseIRIPath.length - 1) {
     baseIRIPath = baseIRIPath.substr(0, baseIRILastSlashPos + 1);
     // Also remove the first character of the relative path if it starts with '.' (and not '..' or './')
     // This change is only allowed if there is something else following the path
-    if (
-      relativeIRI[0] === '.' &&
-      relativeIRI[1] !== '.' &&
-      relativeIRI[1] !== '/' &&
-      relativeIRI[2]
-    ) {
+    if (relativeIRI[0] === '.' && relativeIRI[1] !== '.' && relativeIRI[1] !== '/' && relativeIRI[2]) {
       relativeIRI = relativeIRI.substr(1);
     }
   }
