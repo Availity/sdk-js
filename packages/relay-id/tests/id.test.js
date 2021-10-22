@@ -8,9 +8,7 @@ describe('globalId', () => {
 
   it('should have correct method unbase64()', () => {
     expect(unbase64('MTIz')).toBe('123');
-    expect(unbase64('bGtzZG5ma2tzZGtuc2RjOjEyMw==')).toBe(
-      'lksdnfkksdknsdc:123'
-    );
+    expect(unbase64('bGtzZG5ma2tzZGtuc2RjOjEyMw==')).toBe('lksdnfkksdknsdc:123');
   });
 
   it('should have correct method toGlobalId()', () => {
