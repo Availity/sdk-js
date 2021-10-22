@@ -29,11 +29,11 @@ describe('AvMessage', () => {
         [testEvent]: fns,
       };
       avMessage.onMessage(`${testEvent}Other`);
-      for (const fn of fns)  expect(fn).not.toHaveBeenCalled();
+      for (const fn of fns) expect(fn).not.toHaveBeenCalled();
 
       const data = { testData: 'hello world' };
       avMessage.onMessage(testEvent, data);
-      for (const fn of fns)  expect(fn).toHaveBeenCalledWith(data);
+      for (const fn of fns) expect(fn).toHaveBeenCalledWith(data);
     });
 
     test('subscribe should add function to subscribers', () => {
@@ -180,10 +180,7 @@ describe('AvMessage', () => {
       spyParse.mockRestore();
       avMessage.getEventData(mockEvent);
       expect(avMessage.isDomain).toHaveBeenCalled();
-      expect(avMessage.onMessage).toHaveBeenCalledWith(
-        mockEvent.data,
-        undefined
-      );
+      expect(avMessage.onMessage).toHaveBeenCalledWith(mockEvent.data, undefined);
     });
 
     test('should call onMessage with default event if data is object without event param', () => {
@@ -191,10 +188,7 @@ describe('AvMessage', () => {
       const testData = { value: 'hello' };
       avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
-      expect(avMessage.onMessage).toHaveBeenCalledWith(
-        avMessage.DEFAULT_EVENT,
-        testData
-      );
+      expect(avMessage.onMessage).toHaveBeenCalledWith(avMessage.DEFAULT_EVENT, testData);
     });
 
     test('should call onMessage with event from data object param', () => {
@@ -203,10 +197,7 @@ describe('AvMessage', () => {
       const testData = { value: 'hello', event: testEvent };
       avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
-      expect(avMessage.onMessage).toHaveBeenCalledWith(
-        testData.event,
-        testData
-      );
+      expect(avMessage.onMessage).toHaveBeenCalledWith(testData.event, testData);
     });
   });
 
@@ -264,35 +255,23 @@ describe('AvMessage', () => {
     test('should call postMessage on target', () => {
       const testMessage = 'test';
       avMessage.send(testMessage, mockTarget);
-      expect(mockTarget.postMessage).toHaveBeenCalledWith(
-        testMessage,
-        testDomain
-      );
+      expect(mockTarget.postMessage).toHaveBeenCalledWith(testMessage, testDomain);
     });
 
     test('should stringify message if not string', () => {
       let testMessage = 1234;
       avMessage.send(testMessage, mockTarget);
-      expect(mockTarget.postMessage).toHaveBeenCalledWith(
-        JSON.stringify(testMessage),
-        testDomain
-      );
+      expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
       testMessage = { message: 'hello' };
       avMessage.send(testMessage, mockTarget);
-      expect(mockTarget.postMessage).toHaveBeenCalledWith(
-        JSON.stringify(testMessage),
-        testDomain
-      );
+      expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
     });
 
     test('should call postMessage on window.parent if no target', () => {
       const testMessage = 'test';
       window.parent.postMessage = jest.fn();
       avMessage.send(testMessage);
-      expect(window.parent.postMessage).toHaveBeenCalledWith(
-        testMessage,
-        testDomain
-      );
+      expect(window.parent.postMessage).toHaveBeenCalledWith(testMessage, testDomain);
     });
   });
 });
