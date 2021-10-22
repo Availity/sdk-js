@@ -208,7 +208,7 @@ export default class AvOrganizationsApi extends AvApi {
             }
           }
         }
-      }, {});
+      });
     }
 
     return Object.keys(authorizedOrgs).reduce((accum, orgId) => {
