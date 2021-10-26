@@ -43,7 +43,11 @@ const transformRules = (schemaFieldDocs, options) => {
 
 const buildRules = (fields, head = '', options) =>
   Object.entries(fields).reduce((obj, [key, value]) => {
-    const path = addDelimiter(head, key, { underscore: true });
+    const pathOptions = {};
+    if (value.fields || (value.innerType && value.innerType.fields)) {
+      pathOptions.underscore = true;
+    }
+    const path = addDelimiter(head, key, pathOptions);
 
     const rules = transformRules(value, options);
 
@@ -66,23 +70,27 @@ const buildRules = (fields, head = '', options) =>
       const subRules = buildRules(value.fields, subFieldHead, options);
       const subRulesFields = get(subRules, subFieldHead);
       set(obj, subFieldHead, { ...obj[key], ...subRulesFields });
-      set(
-        obj,
-        'requiredFields',
-        obj.requiredFields ? [...obj.requiredFields, ...subRules.requiredFields] : [...subRules.requiredFields]
-      );
+      if (options.compileRequiredFields) {
+        set(
+          obj,
+          'requiredFields',
+          obj.requiredFields ? [...obj.requiredFields, ...subRules.requiredFields] : [...subRules.requiredFields]
+        );
+      }
     }
 
     if (value.innerType && value.innerType.fields) {
       const innerFieldHead = addDelimiter(head, key);
       const innerRules = buildRules(value.innerType.fields, innerFieldHead, options);
       const innerRulesFields = get(innerRules, innerFieldHead);
-      set(obj, key, { ...obj[key], ...innerRulesFields });
-      set(
-        obj,
-        'requiredFields',
-        obj.requiredFields ? [...obj.requiredFields, ...innerRules.requiredFields] : [...innerRules.requiredFields]
-      );
+      set(obj, innerFieldHead, { ...obj[key], ...innerRulesFields });
+      if (options.compileRequiredFields) {
+        set(
+          obj,
+          'requiredFields',
+          obj.requiredFields ? [...obj.requiredFields, ...innerRules.requiredFields] : [...innerRules.requiredFields]
+        );
+      }
     }
 
     return obj;
