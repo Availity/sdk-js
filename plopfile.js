@@ -29,12 +29,12 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: 'packages/{{kebabCase packageName}}/{{kebabCase packageName}}.js',
+        path: 'packages/{{kebabCase packageName}}/src/{{kebabCase packageName}}.js',
         templateFile: 'plop-templates/library/main.js.hbs',
       },
       {
         type: 'add',
-        path: 'packages/{{kebabCase packageName}}/{{kebabCase packageName}}.test.js',
+        path: 'packages/{{kebabCase packageName}}/tests/{{kebabCase packageName}}.test.js',
         templateFile: 'plop-templates/library/main.test.js.hbs',
       },
       {
