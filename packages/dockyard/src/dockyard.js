@@ -2,7 +2,7 @@ const get = require('lodash/get');
 const set = require('lodash/set');
 
 const addDelimiter = (a, b, { underscore = false } = {}) =>
-  underscore ? (a ? `${a}.${b}` : `${b}._${b}`) : a ? `${a}.${b}` : `${b}`;
+  underscore ? (a ? `${a}.${b}._${b}` : `${b}._${b}`) : a ? `${a}.${b}` : `${b}`;
 
 const transformRules = (schemaFieldDocs, options) => {
   const fieldDocs = [];
@@ -68,8 +68,7 @@ const buildRules = (fields, head = '', options) =>
     if (value?.fields) {
       const subFieldHead = addDelimiter(head, key);
       const subRules = buildRules(value.fields, subFieldHead, options);
-      const subRulesFields = get(subRules, subFieldHead);
-      set(obj, subFieldHead, { ...obj[key], ...subRulesFields });
+      set(obj, subFieldHead, { ...get(obj, subFieldHead), ...get(subRules, subFieldHead) });
       if (options.compileRequiredFields) {
         set(
           obj,
@@ -82,8 +81,7 @@ const buildRules = (fields, head = '', options) =>
     if (value.innerType && value.innerType.fields) {
       const innerFieldHead = addDelimiter(head, key);
       const innerRules = buildRules(value.innerType.fields, innerFieldHead, options);
-      const innerRulesFields = get(innerRules, innerFieldHead);
-      set(obj, innerFieldHead, { ...obj[key], ...innerRulesFields });
+      set(obj, innerFieldHead, { ...get(obj, innerFieldHead), ...get(innerRules, innerFieldHead) });
       if (options.compileRequiredFields) {
         set(
           obj,
