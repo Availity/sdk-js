@@ -1,4 +1,8 @@
-const addDelimiter = (a, b) => (a ? `${a}.${b}` : b);
+const get = require('lodash/get');
+const set = require('lodash/set');
+
+const addDelimiter = (a, b, { underscore = false } = {}) =>
+  underscore ? (a ? `${a}.${b}` : `${b}._${b}`) : a ? `${a}.${b}` : `${b}`;
 
 const transformRules = (schemaFieldDocs, options) => {
   const fieldDocs = [];
@@ -34,33 +38,51 @@ const transformRules = (schemaFieldDocs, options) => {
   }
 
   const friendlyFieldDocs = fieldDocs.length > 0 ? `Rules: ${fieldDocs.join(', ')}.` : '';
-  return options.compileRequiredFields ? { fieldDocs: friendlyFieldDocs, isRequired } : friendlyFieldDocs;
+  return options.compileRequiredFields ? { description: friendlyFieldDocs, isRequired } : friendlyFieldDocs;
 };
-
-const getRequiredFields = (rules) =>
-  Object.entries(rules).reduce((obj, [key, value]) => {
-    Object.assign(obj, { [key]: value.fieldDocs });
-    if (value.isRequired) {
-      (obj.requiredFields = obj.requiredFields || []).push(key);
-    }
-
-    return obj;
-  }, {});
 
 const buildRules = (fields, head = '', options) =>
   Object.entries(fields).reduce((obj, [key, value]) => {
-    const path = addDelimiter(head, key);
+    const path = addDelimiter(head, key, { underscore: true });
 
     const rules = transformRules(value, options);
 
-    Object.assign(obj, { [path]: rules });
+    if (options.compileRequiredFields) {
+      set(obj, path, rules.description);
+      if (rules.isRequired) {
+        const requiredFieldName = head ? `${head}.${key}` : key;
+        set(
+          obj,
+          'requiredFields',
+          obj.requiredFields ? [...obj.requiredFields, requiredFieldName] : [requiredFieldName]
+        );
+      }
+    } else {
+      set(obj, path, rules);
+    }
 
     if (value?.fields) {
-      Object.assign(obj, buildRules(value.fields, key, options));
+      const subFieldHead = addDelimiter(head, key);
+      const subRules = buildRules(value.fields, subFieldHead, options);
+      const subRulesFields = get(subRules, subFieldHead);
+      set(obj, subFieldHead, { ...obj[key], ...subRulesFields });
+      set(
+        obj,
+        'requiredFields',
+        obj.requiredFields ? [...obj.requiredFields, ...subRules.requiredFields] : [...subRules.requiredFields]
+      );
     }
 
     if (value.innerType && value.innerType.fields) {
-      Object.assign(obj, buildRules(value.innerType.fields, key, options));
+      const innerFieldHead = addDelimiter(head, key);
+      const innerRules = buildRules(value.innerType.fields, innerFieldHead, options);
+      const innerRulesFields = get(innerRules, innerFieldHead);
+      set(obj, key, { ...obj[key], ...innerRulesFields });
+      set(
+        obj,
+        'requiredFields',
+        obj.requiredFields ? [...obj.requiredFields, ...innerRules.requiredFields] : [...innerRules.requiredFields]
+      );
     }
 
     return obj;
@@ -76,13 +98,7 @@ const buildRules = (fields, head = '', options) =>
 const getRules = (validation, { compileRequiredFields = false, includeOneOf = false } = {}) => {
   const description = validation.describe();
 
-  const rules = buildRules(description.fields, '', { compileRequiredFields, includeOneOf });
-
-  if (compileRequiredFields) {
-    return getRequiredFields(rules);
-  }
-
-  return rules;
+  return buildRules(description.fields, '', { compileRequiredFields, includeOneOf });
 };
 
 module.exports = { getRules, buildRules };

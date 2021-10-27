@@ -8,5 +8,11 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "yup": "^0.32.11"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
