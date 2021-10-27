@@ -13,7 +13,7 @@ const transformRules = (schemaFieldDocs, options) => {
   if (schemaFieldDocs.notOneOf?.length > 0) {
     fieldDocs.push(`not one of: ${schemaFieldDocs.notOneOf.join(', ')}`);
   }
-  if (options.includeOneOf && schemaFieldDocs.oneOf?.length > 0) {
+  if (!options.excludeOneOf && schemaFieldDocs.oneOf?.length > 0) {
     fieldDocs.push(`one of: [${schemaFieldDocs.oneOf.join(', ')}]`);
   }
   if (schemaFieldDocs.tests?.length > 0) {
@@ -103,14 +103,14 @@ const buildRules = (fields, head = '', options) =>
  * @param {*} validation
  * @param {*} options
  * @param {*} options.compileRequiredFields
- * @param {*} options.includeOneOf
+ * @param {*} options.excludeOneOf
  * @param {*} options.includeTypes
  * @returns
  */
-const getRules = (validation, { compileRequiredFields = false, includeOneOf = false, includeTypes = false } = {}) => {
+const getRules = (validation, { compileRequiredFields = false, excludeOneOf = false, includeTypes = false } = {}) => {
   const description = validation.describe();
 
-  return buildRules(description.fields, '', { compileRequiredFields, includeOneOf, includeTypes });
+  return buildRules(description.fields, '', { compileRequiredFields, excludeOneOf, includeTypes });
 };
 
-module.exports = { getRules, buildRules };
+module.exports = getRules;

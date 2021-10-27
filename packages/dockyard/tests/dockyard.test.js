@@ -1,4 +1,4 @@
-const { getRules } = require('../src/dockyard');
+const getRules = require('../src/dockyard');
 const { movieSchema } = require('./schemas');
 
 describe('dockyard', () => {
@@ -9,7 +9,7 @@ describe('dockyard', () => {
     expect(docs.job).toStrictEqual('Rules: not one of: critic, blogger, influencer, max 250 chars.');
     expect(docs.friends._friends).toStrictEqual('Rules: noUnknown, required.');
     expect(docs.friends.name).toStrictEqual('Rules: matches regex /^[w-]*$/, required.');
-    expect(docs.friends.job).toStrictEqual('Rules: max 250 chars.');
+    expect(docs.friends.job).toStrictEqual('Rules: one of: [critic, blogger, influencer], max 250 chars.');
     expect(docs.friends.favoriteMovie._favoriteMovie).toStrictEqual('Rules: required.');
     expect(docs.friends.favoriteMovie.name).toStrictEqual('Rules: min 1 chars, required.');
     expect(docs.friends.favoriteMovie.rating).toStrictEqual('Rules: min 1, max 5.');
@@ -26,7 +26,7 @@ describe('dockyard', () => {
     expect(docs.job).toStrictEqual('Rules: not one of: critic, blogger, influencer, max 250 chars.');
     expect(docs.friends._friends).toStrictEqual('Rules: noUnknown.');
     expect(docs.friends.name).toStrictEqual('Rules: matches regex /^[w-]*$/.');
-    expect(docs.friends.job).toStrictEqual('Rules: max 250 chars.');
+    expect(docs.friends.job).toStrictEqual('Rules: one of: [critic, blogger, influencer], max 250 chars.');
     expect(docs.friends.favoriteMovie._favoriteMovie).toStrictEqual('');
     expect(docs.friends.favoriteMovie.name).toStrictEqual('Rules: min 1 chars.');
     expect(docs.friends.favoriteMovie.rating).toStrictEqual('Rules: min 1, max 5.');
@@ -47,13 +47,13 @@ describe('dockyard', () => {
   });
 
   test('getRules w/ includeOneOf', () => {
-    const docs = getRules(movieSchema, { includeOneOf: true });
+    const docs = getRules(movieSchema, { excludeOneOf: true });
 
     expect(docs.name).toStrictEqual('Rules: matches regex /^[w-]*$/, required.');
     expect(docs.job).toStrictEqual('Rules: not one of: critic, blogger, influencer, max 250 chars.');
     expect(docs.friends._friends).toStrictEqual('Rules: noUnknown, required.');
     expect(docs.friends.name).toStrictEqual('Rules: matches regex /^[w-]*$/, required.');
-    expect(docs.friends.job).toStrictEqual('Rules: one of: [critic, blogger, influencer], max 250 chars.');
+    expect(docs.friends.job).toStrictEqual('Rules: max 250 chars.');
     expect(docs.friends.favoriteMovie._favoriteMovie).toStrictEqual('Rules: required.');
     expect(docs.friends.favoriteMovie.name).toStrictEqual('Rules: min 1 chars, required.');
     expect(docs.friends.favoriteMovie.rating).toStrictEqual('Rules: min 1, max 5.');
@@ -70,7 +70,7 @@ describe('dockyard', () => {
     expect(docs.job).toStrictEqual('Rules: string, not one of: critic, blogger, influencer, max 250 chars.');
     expect(docs.friends._friends).toStrictEqual('Rules: object, noUnknown, required.');
     expect(docs.friends.name).toStrictEqual('Rules: string, matches regex /^[w-]*$/, required.');
-    expect(docs.friends.job).toStrictEqual('Rules: string, max 250 chars.');
+    expect(docs.friends.job).toStrictEqual('Rules: string, one of: [critic, blogger, influencer], max 250 chars.');
     expect(docs.friends.favoriteMovie._favoriteMovie).toStrictEqual('Rules: object, required.');
     expect(docs.friends.favoriteMovie.name).toStrictEqual('Rules: string, min 1 chars, required.');
     expect(docs.friends.favoriteMovie.rating).toStrictEqual('Rules: number, min 1, max 5.');
