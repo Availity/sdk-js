@@ -1,9 +1,26 @@
 const get = require('lodash/get');
 const set = require('lodash/set');
 
+/**
+ * Builds the object path of the description
+ * @param {string} a
+ * @param {string} b
+ * @param {Object} options
+ * @param {boolean} [options.underscore = false] - Set object path for an object ex. object._object
+ * @returns
+ */
 const addDelimiter = (a, b, { underscore = false } = {}) =>
   underscore ? (a ? `${a}.${b}._${b}` : `${b}._${b}`) : a ? `${a}.${b}` : `${b}`;
 
+/**
+ * Transforms a field's SchemaDescriptin object to friendly docs
+ * @param {*} schemaFieldDocs yup schema field
+ * @param {Object} options
+ * @param {boolean} options.compileRequiredFields - removes the word 'required' from the description and adds an array of required fields to the object
+ * @param {boolean} options.excludeOneOf - if oneOf is specified on an item, exclude it from the description
+ * @param {boolean} options.excludeTypes - exclude types from the description
+ * @returns
+ */
 const transformRules = (schemaFieldDocs, options) => {
   const fieldDocs = [];
   let isRequired = false;
@@ -46,6 +63,16 @@ const transformRules = (schemaFieldDocs, options) => {
   return options.compileRequiredFields ? { description: friendlyFieldDocs, isRequired } : friendlyFieldDocs;
 };
 
+/**
+ * Loops through the SchemaDescription and assigns descriptions
+ * @param {*} fields - yup schema fields
+ * @param {string} head - string
+ * @param {Object} options
+ * @param {boolean} options.compileRequiredFields - removes the word 'required' from the description and adds an array of required fields to the object
+ * @param {boolean} options.excludeOneOf - if oneOf is specified on an item, exclude it from the description
+ * @param {boolean} options.excludeTypes - exclude types from the description
+ * @returns
+ */
 const buildRules = (fields, head = '', options) =>
   Object.entries(fields).reduce((obj, [key, value]) => {
     const pathOptions = {};
@@ -100,11 +127,12 @@ const buildRules = (fields, head = '', options) =>
   }, {});
 
 /**
- * @param {*} validation
- * @param {*} options
- * @param {*} options.compileRequiredFields
- * @param {*} options.excludeOneOf
- * @param {*} options.excludeTypes
+ * Convert yup schema to a friendly docs object
+ * @param {*} validation - yup validation schema
+ * @param {Object} options
+ * @param {boolean} options.compileRequiredFields - removes the word 'required' from the description and adds an array of required fields to the object
+ * @param {boolean} options.excludeOneOf - if oneOf is specified on an item, exclude it from the description
+ * @param {boolean} options.excludeTypes - exclude types from the description
  * @returns
  */
 const getRules = (validation, { compileRequiredFields = false, excludeOneOf = false, excludeTypes = false } = {}) => {
