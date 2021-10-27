@@ -7,11 +7,11 @@ const addDelimiter = (a, b, { underscore = false } = {}) =>
 const transformRules = (schemaFieldDocs, options) => {
   const fieldDocs = [];
   let isRequired = false;
-  if (options.includeTypes && schemaFieldDocs.type) {
+  if (!options.excludeTypes && schemaFieldDocs.type) {
     fieldDocs.push(schemaFieldDocs.type);
   }
   if (schemaFieldDocs.notOneOf?.length > 0) {
-    fieldDocs.push(`not one of: ${schemaFieldDocs.notOneOf.join(', ')}`);
+    fieldDocs.push(`not one of: [${schemaFieldDocs.notOneOf.join(', ')}]`);
   }
   if (!options.excludeOneOf && schemaFieldDocs.oneOf?.length > 0) {
     fieldDocs.push(`one of: [${schemaFieldDocs.oneOf.join(', ')}]`);
@@ -104,13 +104,13 @@ const buildRules = (fields, head = '', options) =>
  * @param {*} options
  * @param {*} options.compileRequiredFields
  * @param {*} options.excludeOneOf
- * @param {*} options.includeTypes
+ * @param {*} options.excludeTypes
  * @returns
  */
-const getRules = (validation, { compileRequiredFields = false, excludeOneOf = false, includeTypes = false } = {}) => {
+const getRules = (validation, { compileRequiredFields = false, excludeOneOf = false, excludeTypes = false } = {}) => {
   const description = validation.describe();
 
-  return buildRules(description.fields, '', { compileRequiredFields, excludeOneOf, includeTypes });
+  return buildRules(description.fields, '', { compileRequiredFields, excludeOneOf, excludeTypes });
 };
 
 module.exports = getRules;
