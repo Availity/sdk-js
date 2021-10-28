@@ -13,7 +13,7 @@ const addDelimiter = (a, b, { underscore = false } = {}) =>
   underscore ? (a ? `${a}.${b}._${b}` : `${b}._${b}`) : a ? `${a}.${b}` : `${b}`;
 
 /**
- * Transforms a field's SchemaDescriptin object to friendly docs
+ * Transforms a field's SchemaDescription object to friendly docs
  * @param {*} schemaFieldDocs yup schema field
  * @param {Object} options
  * @param {boolean} options.compileRequiredFields - removes the word 'required' from the description and adds an array of required fields to the object
