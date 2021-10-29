@@ -1,5 +1,5 @@
+import { MixedSchema, ValidationError } from 'yup';
 import moment from 'moment';
-import { mixed, ValidationError } from 'yup';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 
@@ -13,7 +13,7 @@ const defaultValue = {};
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
 
-export default class DateRangeSchema extends mixed {
+export default class DateRangeSchema extends MixedSchema {
   constructor(options) {
     super({
       type: 'dateRange',
@@ -26,36 +26,22 @@ export default class DateRangeSchema extends mixed {
     this.format = format;
     this.getValidDate = this.getValidDate.bind(this);
 
-    this.withMutation(() => {
-      this.transform(function mutate(value) {
+    this.withMutation((schema) => {
+      schema.transform(function mutate(value) {
         const start = get(value, startKey);
         const end = get(value, endKey);
 
         let startDate;
         let endDate;
         if (start) {
-          startDate = this.getValidDate(start);
+          startDate = schema.getValidDate(start);
         }
 
         if (end) {
-          endDate = this.getValidDate(end);
+          endDate = schema.getValidDate(end);
         }
-
         return { startDate, endDate };
       });
-    });
-
-    return this.test({
-      message: 'Start date must come before end date.',
-      name: 'startBeforeEnd',
-      exclusive: true,
-      test({ startDate, endDate } = defaultValue) {
-        if (!startDate || !endDate) {
-          return true;
-        }
-
-        return startDate.isSameOrBefore(endDate);
-      },
     });
   }
 
@@ -173,6 +159,10 @@ export default class DateRangeSchema extends mixed {
 
         if ((!startDate || !endDate) && (startDate || endDate)) {
           errors.push('Start and End Date are required.');
+        }
+
+        if (startDate && endDate && !startDate.isSameOrBefore(endDate)) {
+          errors.push('Start date must come before end date.');
         }
 
         if (startDate && !startDate.isValid()) {

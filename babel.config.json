@@ -3,10 +3,9 @@
     [
       "@babel/preset-env",
       {
-        "targets": "defaults, ie 11",
+        "targets": "defaults",
         "useBuiltIns": "usage",
-        "corejs": { "version": "3.12.1", "proposals": true },
-        "loose": true
+        "corejs": { "version": "3.12.1", "proposals": true }
       }
     ],
     [
@@ -17,5 +16,10 @@
       }
     ]
   ],
-  "ignore": ["node_modules", "**/lib/*.test.js"]
+  "ignore": ["node_modules", "**/lib/*.test.js"],
+  "plugins": [
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
+    ["@babel/plugin-proposal-private-methods", { "loose": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ]
 }

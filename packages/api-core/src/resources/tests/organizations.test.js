@@ -210,10 +210,7 @@ describe('AvOrganizations', () => {
       const testConfig = { name: 'testName' };
 
       await api.getOrganizations(testConfig);
-      expect(api.queryOrganizations).toHaveBeenLastCalledWith(
-        mockUser,
-        testConfig
-      );
+      expect(api.queryOrganizations).toHaveBeenLastCalledWith(mockUser, testConfig);
     });
 
     test('getOrganizations() should skip call to avUsers.me() when userId provided and then query()', async () => {
@@ -258,10 +255,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10111', '11000'],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(2);
       expect(authorizedFilteredOrgs[0].id).toBe('1435');
@@ -288,10 +282,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -316,10 +307,7 @@ describe('AvOrganizations', () => {
         resourceIds: [10111],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(2);
     });
@@ -344,10 +332,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -372,10 +357,7 @@ describe('AvOrganizations', () => {
         resourceIds: '10222',
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -400,10 +382,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -427,10 +406,7 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -455,17 +431,12 @@ describe('AvOrganizations', () => {
         resourceIds: ['10222'],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
       expect(authorizedFilteredOrgs[0].resources).toBeDefined();
 
-      const orgs = mockOrg.organizations.find((org) =>
-        authorizedFilteredOrgs.some((authOrg) => authOrg.id === org.id)
-      );
+      const orgs = mockOrg.organizations.find((org) => authorizedFilteredOrgs.some((authOrg) => authOrg.id === org.id));
       expect(orgs.address).toBeDefined();
     });
 
@@ -489,10 +460,7 @@ describe('AvOrganizations', () => {
         resourceIds: [['10111', '11000']],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(2);
       expect(authorizedFilteredOrgs[0].id).toBe('1435');
@@ -518,10 +486,7 @@ describe('AvOrganizations', () => {
         permissionIds: [[7777, 9999]],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
       expect(authorizedFilteredOrgs[0].id).toBe('1435');
@@ -548,10 +513,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[10111, 10222, 11000]],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
       expect(authorizedFilteredOrgs[0].id).toBe('1435');
@@ -583,10 +545,7 @@ describe('AvOrganizations', () => {
         ],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(2);
       expect(authorizedFilteredOrgs[0].id).toBe('1435');
@@ -613,10 +572,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[10111, 10222, 99999]],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(0);
     });
@@ -641,10 +597,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[10111, 10222]],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -669,10 +622,7 @@ describe('AvOrganizations', () => {
         resourceIds: [99999, 90000], // OR for perm 9999, no resources on 8888 means none are valid
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(2);
     });
@@ -696,10 +646,7 @@ describe('AvOrganizations', () => {
         permissionIds: [9999, 1234],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(2);
     });
@@ -723,10 +670,7 @@ describe('AvOrganizations', () => {
         permissionIds: [[9999, 1234]],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(0);
     });
@@ -751,10 +695,7 @@ describe('AvOrganizations', () => {
         resourceIds: [99999, 11223],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(1);
     });
@@ -779,10 +720,7 @@ describe('AvOrganizations', () => {
         resourceIds: [[99999, 11223]],
       };
 
-      const authorizedFilteredOrgs = await api.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedFilteredOrgs = await api.getFilteredOrganizations(additionalPostGetArgs, data);
 
       expect(authorizedFilteredOrgs.length).toBe(0);
     });
@@ -795,10 +733,7 @@ describe('AvOrganizations', () => {
       expect(api.sanitizeIds([7777, '8888'])).toEqual(['7777', '8888']);
       expect(api.sanitizeIds('7777')).toEqual('7777');
       expect(api.sanitizeIds([[7777]])).toEqual([['7777']]);
-      expect(api.sanitizeIds([[7777, 8888], 9999])).toEqual([
-        ['7777', '8888'],
-        '9999',
-      ]);
+      expect(api.sanitizeIds([[7777, 8888], 9999])).toEqual([['7777', '8888'], '9999']);
       expect(api.sanitizeIds([9999, ''])).toEqual(['9999', '']);
       expect(
         api.sanitizeIds([
@@ -837,17 +772,11 @@ describe('AvOrganizations', () => {
         avUserPermissions: mockAvUserPermissions,
       });
       api.previousPermissionIds = api.sanitizeIds(['7777', '8888']);
-      expect(api.arePermissionsEqual(api.sanitizeIds(['8888', '7777']))).toBe(
-        true
-      );
-      expect(api.arePermissionsEqual(api.sanitizeIds(['7777', '9999']))).toBe(
-        false
-      );
+      expect(api.arePermissionsEqual(api.sanitizeIds(['8888', '7777']))).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds(['7777', '9999']))).toBe(false);
       expect(api.arePermissionsEqual(api.sanitizeIds(['7777']))).toBe(false);
       expect(api.arePermissionsEqual(api.sanitizeIds(['8888']))).toBe(false);
-      expect(
-        api.arePermissionsEqual(api.sanitizeIds(['7777', '8888', '9999']))
-      ).toBe(false);
+      expect(api.arePermissionsEqual(api.sanitizeIds(['7777', '8888', '9999']))).toBe(false);
     });
 
     test('works for nested array', async () => {
@@ -859,18 +788,10 @@ describe('AvOrganizations', () => {
         avUserPermissions: mockAvUserPermissions,
       });
       api.previousPermissionIds = api.sanitizeIds([[7777, 8888], [9999]]);
-      expect(
-        api.arePermissionsEqual(api.sanitizeIds(['8888', '7777', '9999']))
-      ).toBe(true);
-      expect(
-        api.arePermissionsEqual(api.sanitizeIds([['8888', '7777'], ['9999']]))
-      ).toBe(true);
-      expect(api.arePermissionsEqual(api.sanitizeIds([['7777', '8888']]))).toBe(
-        false
-      );
-      expect(
-        api.arePermissionsEqual(api.sanitizeIds([['7777', '8888'], ['5555']]))
-      ).toBe(false);
+      expect(api.arePermissionsEqual(api.sanitizeIds(['8888', '7777', '9999']))).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds([['8888', '7777'], ['9999']]))).toBe(true);
+      expect(api.arePermissionsEqual(api.sanitizeIds([['7777', '8888']]))).toBe(false);
+      expect(api.arePermissionsEqual(api.sanitizeIds([['7777', '8888'], ['5555']]))).toBe(false);
     });
   });
 });
