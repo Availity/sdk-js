@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/Availity/sdk-js/compare/@availity/yup@3.2.0...@availity/yup@3.2.1) (2021-10-29)
+
+
+### Bug Fixes
+
+* **yup:** fixes start date before end date logic ([6cc0ff7](https://github.com/Availity/sdk-js/commit/6cc0ff736358bc5aaf738a84d8abb258e85f57f4))
+
+
+
+
+
 # 3.2.0 (2021-10-22)
 
 
