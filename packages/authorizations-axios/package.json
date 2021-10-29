@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-axios",
-  "version": "5.0.51",
+  "version": "5.0.52",
   "description": "Availity authorizations react logic",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -13,9 +13,9 @@
     "axios": "^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0"
   },
   "devDependencies": {
-    "@availity/api-axios": "^6.0.4",
-    "@availity/api-core": "^7.0.5",
-    "@availity/authorizations-core": "^2.0.0",
+    "@availity/api-axios": "^6.0.5",
+    "@availity/api-core": "^7.0.6",
+    "@availity/authorizations-core": "^2.0.1",
     "axios": "^0.21.1"
   },
   "publishConfig": {
@@ -23,7 +23,7 @@
   },
   "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56",
   "dependencies": {
-    "@babel/runtime": "^7.14.0",
+    "@babel/runtime": "^7.15.4",
     "core-js": "^3.12.1"
   }
 }

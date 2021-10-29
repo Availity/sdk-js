@@ -2,6 +2,7 @@ extends: availity/browser
 rules:
   unicorn/no-useless-undefined: 0
   unicorn/prefer-string-slice: 0
+  prefer-arrow-callback: ['error', { allowNamedFunctions: true }]
 globals:
   Buffer: false
   global: false

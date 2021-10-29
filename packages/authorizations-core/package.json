@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Base configurations for Availity Authorizations",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -11,7 +11,7 @@
   },
   "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56",
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
+    "@babel/runtime": "^7.15.4",
     "core-js": "^3.12.1"
   }
 }

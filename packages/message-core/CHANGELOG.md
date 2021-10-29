@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/Availity/sdk-js/compare/@availity/message-core@5.0.1...@availity/message-core@5.0.2) (2021-10-29)
+
+**Note:** Version bump only for package @availity/message-core
+
+
+
+
+
 ## 5.0.1 (2021-10-22)
 
 **Note:** Version bump only for package @availity/message-core

@@ -1,6 +1,6 @@
 {
   "name": "@availity/yup",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Additional Methods for Yup validation library",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -21,11 +21,11 @@
   },
   "devDependencies": {
     "moment": "^2.24.0",
-    "yup": "^0.28.1"
+    "yup": "^0.32.9"
   },
   "peerDependencies": {
     "moment": "^2.24.0",
-    "yup": "^0.28.1"
+    "yup": "^0.32.9"
   },
   "gitHead": "7290d74ff71d4ceef68da9ec3cb3f3b036eee8c2"
 }

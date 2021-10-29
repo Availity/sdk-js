@@ -1,6 +1,6 @@
 {
   "name": "@availity/resolve-url",
-  "version": "1.1.22",
+  "version": "1.1.23",
   "description": "Resolve absolute url from relative urls",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
+    "@babel/runtime": "^7.15.4",
     "core-js": "^3.12.1"
   }
 }

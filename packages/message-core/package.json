@@ -1,6 +1,6 @@
 {
   "name": "@availity/message-core",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "availity wrapper for postMessage logic",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
+    "@babel/runtime": "^7.15.4",
     "core-js": "^3.12.1"
   }
 }
