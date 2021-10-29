@@ -1,0 +1,25 @@
+{
+  "name": "@availity/dockyard",
+  "version": "1.0.0-alpha.0",
+  "description": "Convert yup schema to a friendly docs object",
+  "main": "lib/dockyard.js",
+  "module": "src/dockyard.js",
+  "keywords": [
+    "yup",
+    "schema",
+    "docs"
+  ],
+  "author": "Greg Martin <greg.martin@availity.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "yup": "^0.32.11"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.15.4",
+    "core-js": "^3.19.0",
+    "lodash": "^4.17.21"
+  }
+}
