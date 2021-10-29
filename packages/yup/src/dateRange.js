@@ -40,7 +40,6 @@ export default class DateRangeSchema extends MixedSchema {
         if (end) {
           endDate = schema.getValidDate(end);
         }
-
         return { startDate, endDate };
       });
     });
@@ -48,22 +47,6 @@ export default class DateRangeSchema extends MixedSchema {
 
   getValidDate(value) {
     return moment(value, [this.format, ...formats], true);
-  }
-
-  // FIXME: get working again in constructor or elsewhere
-  startDateBeforeEndDate() {
-    return this.test({
-      message: 'Start date must come before end date.',
-      name: 'startBeforeEnd',
-      exclusive: true,
-      test({ startDate, endDate } = defaultValue) {
-        if (!startDate || !endDate) {
-          return true;
-        }
-
-        return startDate.isSameOrBefore(endDate);
-      },
-    });
   }
 
   distance({
@@ -174,12 +157,12 @@ export default class DateRangeSchema extends MixedSchema {
       test({ startDate, endDate } = defaultValue) {
         const errors = [];
 
-        // if (startDate?.isSameOrBefore(endDate)) {
-        //   errors.push('Start date must come before end date.');
-        // }
-
         if ((!startDate || !endDate) && (startDate || endDate)) {
           errors.push('Start and End Date are required.');
+        }
+
+        if (startDate && endDate && !startDate.isSameOrBefore(endDate)) {
+          errors.push('Start date must come before end date.');
         }
 
         if (startDate && !startDate.isValid()) {
