@@ -1,6 +1,6 @@
 {
   "name": "@availity/dockyard",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "Convert yup schema to a friendly docs object",
   "main": "lib/dockyard.js",
   "module": "src/dockyard.js",
