@@ -12,22 +12,22 @@ Learn how to use this package for communicating with our APIs
 
 ### Features
 
--   Automatic polling of restful endpoints with timeouts
--   Simple URI builder for API resources
--   Life-cycle hooks into HTTP calls for GET, PUT, POST, and DELETE
+- Automatic polling of restful endpoints with timeouts
+- Simple URI builder for API resources
+- Life-cycle hooks into HTTP calls for GET, PUT, POST, and DELETE
 
 ## Install
 
 ### NPM
 
 ```bash
-$ npm install @availity/api-axios @availity/api-core
+npm install @availity/api-axios @availity/api-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/api-axios @availity/api-core
+yarn add @availity/api-axios @availity/api-core
 ```
 
 ## Usage
@@ -80,9 +80,9 @@ Disable caching for every request by adding a `cacheBust` parameter to the call.
 
 Accepts a boolean, function, or some value:
 
--   If `true`, a timestamp is generated and used
--   If a function, it is called and return value is used
--   If a value is passed then the cache bust param is set to this value.
+- If `true`, a timestamp is generated and used
+- If a function, it is called and return value is used
+- If a value is passed then the cache bust param is set to this value.
 
 ##### `config.pageBust`
 

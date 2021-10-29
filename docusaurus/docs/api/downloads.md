@@ -11,25 +11,25 @@ Utility to download files from services
 ### NPM
 
 ```bash
-$ npm install @availity/dl-core
+npm install @availity/dl-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/dl-core
+yarn add @availity/dl-core
 ```
 
 ## Usage
 
 ```js
 const downloadApi = new AvDownloadApi({
-    clientId: '1234',
+  clientId: '1234',
 });
 
 dowloadApi.getAttachment().then((response) => {
-    const { data } = response;
-    downloadApi.downloadAttachment(data, 'filename.csv');
+  const { data } = response;
+  downloadApi.downloadAttachment(data, 'filename.csv');
 });
 ```
 

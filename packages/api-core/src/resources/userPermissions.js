@@ -6,8 +6,7 @@ export default class AvUserPermissions extends AvApi {
     const options = {
       path: 'api/internal',
       name: 'axi-user-permissions',
-      paramsSerializer: params =>
-        qs.stringify(params, { arrayFormat: 'repeat' }),
+      paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
       ...config,
     };
     super({
@@ -19,9 +18,7 @@ export default class AvUserPermissions extends AvApi {
   }
 
   afterQuery(response) {
-    return response && response.data && response.data.axiUserPermissions
-      ? response.data.axiUserPermissions
-      : [];
+    return response && response.data && response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
   }
 
   getPermissions(permissionId, region) {

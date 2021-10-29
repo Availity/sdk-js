@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/consistent-destructuring */
+/* eslint-disable unicorn/no-array-method-this-argument */
 import qs from 'qs';
 import AvApi from '../api';
 
@@ -41,9 +42,7 @@ export default class AvOrganizations extends AvApi {
       throw new Error('avUsers must be defined');
     }
 
-    return this.avUsers
-      .me()
-      .then((user) => this.queryOrganizations(user, config));
+    return this.avUsers.me().then((user) => this.queryOrganizations(user, config));
   }
 
   async postGet(data, config, additionalPostGetArgs) {
@@ -75,10 +74,7 @@ export default class AvOrganizations extends AvApi {
       const { data: organizationsData } = await super.postGet(data, config);
       const { organizations, limit, offset, totalCount } = organizationsData;
 
-      const authorizedOrgs = await this.getFilteredOrganizations(
-        additionalPostGetArgs,
-        data
-      );
+      const authorizedOrgs = await this.getFilteredOrganizations(additionalPostGetArgs, data);
 
       // avUserPermissions call doesn't return much useful organization data
       // but we can match valid ids to useful data returned from avOrganizations
@@ -115,18 +111,11 @@ export default class AvOrganizations extends AvApi {
     const resourceIdsToUse = this.sanitizeIds(resourceIds);
 
     // resourceIds is passed as readOnly, convert so that we can use Array methods on it
-    const resourceIdsArray = Array.isArray(resourceIdsToUse)
-      ? resourceIdsToUse
-      : [resourceIdsToUse];
+    const resourceIdsArray = Array.isArray(resourceIdsToUse) ? resourceIdsToUse : [resourceIdsToUse];
 
-    const permissionIdsOR = Array.isArray(permissionIdsToUse)
-      ? permissionIdsToUse
-      : [permissionIdsToUse];
+    const permissionIdsOR = Array.isArray(permissionIdsToUse) ? permissionIdsToUse : [permissionIdsToUse];
 
-    if (
-      region !== this.previousRegionId ||
-      !this.arePermissionsEqual(permissionIdsOR)
-    ) {
+    if (region !== this.previousRegionId || !this.arePermissionsEqual(permissionIdsOR)) {
       // avUserPermissions will return a list of user organizations that match given permission and region
       // This call does not need to be paginated and
       // we should not need to call it every time we paginate orgs if region and permissions are the same
@@ -152,46 +141,39 @@ export default class AvOrganizations extends AvApi {
     // loop thru the permissionId list of ORs, finding and adding matching orgs in the userPermissions. ANDs are beneath/within the ORs
     const authorizedOrgs = permissionIdsOR.reduce((accum, permissionIdOR) => {
       if (Array.isArray(permissionIdOR)) {
-        const matchedOrgs = permissionIdOR.reduce(
-          (matchedANDOrgsByPerm, permissionIdAND, index) => {
-            if (this.userPermissions[permissionIdAND]) {
-              for (const org of this.userPermissions[permissionIdAND]
-                .organizations) {
-                if (index === 0) {
-                  // add the orgs for the first permission
-                  matchedANDOrgsByPerm[org.id] = org;
-                } else if (matchedANDOrgsByPerm[org.id]) {
-                  // if duplicate, add resources
-                  matchedANDOrgsByPerm[org.id].resources = [
-                    ...matchedANDOrgsByPerm[org.id].resources,
-                    ...org.resources,
-                  ];
-                }
+        const matchedOrgs = permissionIdOR.reduce((matchedANDOrgsByPerm, permissionIdAND, index) => {
+          if (this.userPermissions[permissionIdAND]) {
+            for (const org of this.userPermissions[permissionIdAND].organizations) {
+              if (index === 0) {
+                // add the orgs for the first permission
+                matchedANDOrgsByPerm[org.id] = org;
+              } else if (matchedANDOrgsByPerm[org.id]) {
+                // if duplicate, add resources
+                matchedANDOrgsByPerm[org.id].resources = [...matchedANDOrgsByPerm[org.id].resources, ...org.resources];
               }
             }
-            // filter unmatched orgs out
-            matchedANDOrgsByPerm = Object.keys(matchedANDOrgsByPerm)
-              .filter((orgId) => {
-                if (this.userPermissions[permissionIdAND]) {
-                  return this.userPermissions[
-                    permissionIdAND
-                  ].organizations.some((org) => org.id === orgId);
-                }
-                return false;
-              })
-              .reduce((obj, orgId) => {
-                obj[orgId] = matchedANDOrgsByPerm[orgId];
-                return obj;
-              }, {});
+          }
+          // filter unmatched orgs out
+          matchedANDOrgsByPerm = Object.keys(matchedANDOrgsByPerm)
+            .filter((orgId) => {
+              if (this.userPermissions[permissionIdAND]) {
+                return this.userPermissions[permissionIdAND].organizations.some((org) => org.id === orgId);
+              }
+              return false;
+            })
+            .reduce((obj, orgId) => {
+              obj[orgId] = matchedANDOrgsByPerm[orgId];
+              return obj;
+            }, {});
 
-            return matchedANDOrgsByPerm;
-          },
-          {}
-        );
+          return matchedANDOrgsByPerm;
+        }, {});
         for (const orgId of Object.keys(matchedOrgs)) {
           if (!accum[orgId]) {
             accum[orgId] = matchedOrgs[orgId];
             accum[orgId].match = false;
+          } else {
+            accum[orgId].resources = [...accum[orgId].resources, ...matchedOrgs[orgId].resources];
           }
         }
       } else if (this.userPermissions[permissionIdOR]) {
@@ -201,10 +183,7 @@ export default class AvOrganizations extends AvApi {
             accum[org.id].match = false;
           } else {
             // add the resources
-            accum[org.id].resources = [
-              ...accum[org.id].resources,
-              ...org.resources,
-            ];
+            accum[org.id].resources = [...accum[org.id].resources, ...org.resources];
           }
         }
       }
@@ -234,9 +213,7 @@ export default class AvOrganizations extends AvApi {
           }
         } else {
           for (const orgId of Object.keys(authorizedOrgs)) {
-            const isMatch = authorizedOrgs[orgId].resources.some(
-              (res) => res.id === resourceIdOR
-            );
+            const isMatch = authorizedOrgs[orgId].resources.some((res) => res.id === resourceIdOR);
             if (isMatch || !resourceIdOR) {
               authorizedOrgs[orgId].match = true;
             }
@@ -271,10 +248,7 @@ export default class AvOrganizations extends AvApi {
     }
 
     const prevPermissionArray = [];
-    if (
-      typeof this.previousPermissionIds === 'string' ||
-      typeof this.previousPermissionIds === 'number'
-    ) {
+    if (typeof this.previousPermissionIds === 'string' || typeof this.previousPermissionIds === 'number') {
       prevPermissionArray.push(this.previousPermissionIds);
     } else if (Array.isArray(this.previousPermissionIds)) {
       for (const permissionOR of this.previousPermissionIds) {
@@ -305,8 +279,6 @@ export default class AvOrganizations extends AvApi {
     if (Array.isArray(unsanitized)) {
       return unsanitized.map((dirty) => this.sanitizeIds(dirty));
     }
-    throw new TypeError(
-      'permission/resourcesId(s) must be either an array of ids, a string, or a number'
-    );
+    throw new TypeError('permission/resourcesId(s) must be either an array of ids, a string, or a number');
   }
 }

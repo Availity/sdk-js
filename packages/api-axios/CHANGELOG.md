@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/Availity/sdk-js/compare/@availity/api-axios@6.0.3...@availity/api-axios@6.0.4) (2021-10-22)
+
+
+### Bug Fixes
+
+* **api-axios:** resolve lint error ([62efcaf](https://github.com/Availity/sdk-js/commit/62efcaf010c65d3d2bf8b0004953608628c15465))
+
+
+
+
+
+## 6.0.3 (2021-10-20)
+
+
+### Bug Fixes
+
+* **api-axios:** update permissions response type ([a6ef800](https://github.com/Availity/sdk-js/commit/a6ef8005eccb1278b9a1a826b5881c77ee585a91))
+
+
+
+
+
+## 6.0.2 (2021-10-19)
+
+**Note:** Version bump only for package @availity/api-axios
+
+
+
+
+
+## [6.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@6.0.0...@availity/api-axios@6.0.1) (2021-09-30)
+
+
+### Bug Fixes
+
+* **api-axios:** fix organizations resources check in axios ([36a1b9b](https://github.com/Availity/sdk-js/commit/36a1b9b91f26773f2e9ef096886276c9f3e47de7))
+
+
+
+
+
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.6.0...@availity/api-axios@6.0.0) (2021-09-28)
+
+
+### Bug Fixes
+
+* **api-axios:** change axios to peerDep ([9e0a9cd](https://github.com/Availity/sdk-js/commit/9e0a9cdb24e3764707a844a9a36a38a34bd162e8))
+* **api-axios:** remove resolveHost and change AvUsersApi back to AvUserApi ([1263cac](https://github.com/Availity/sdk-js/commit/1263cac6182cc70cdcda6a5cf3818cecb3c7bc95))
+* **api-axios:** update name of types ([c9bee17](https://github.com/Availity/sdk-js/commit/c9bee17647b5be953788c33d3770c7dc994784f1))
+
+
+### Features
+
+* **api-axios:** move api-core code into api-axios ([aaa6b90](https://github.com/Availity/sdk-js/commit/aaa6b901838b216bcd1e0169594e5474cc7f57e7))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** api-core no longer required, naming, args for constructor
+
+
+
+
+
+# 5.6.0 (2021-09-16)
+
+
+### Features
+
+* **api-axios:** add typescript support ([6d2d9ee](https://github.com/Availity/sdk-js/commit/6d2d9eee72a3aaa1cf2619179eddfb1da86dd82c))
+
+
+
+
+
 ## [5.5.14](https://github.com/Availity/sdk-js/compare/@availity/api-axios@5.5.13...@availity/api-axios@5.5.14) (2021-05-25)
 
 **Note:** Version bump only for package @availity/api-axios

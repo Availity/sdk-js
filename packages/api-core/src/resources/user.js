@@ -16,6 +16,6 @@ export default class AvUsers extends AvApi {
   }
 
   me(config) {
-    return this.get('me', config).then(response => response.data);
+    return this.get('me', config).then((response) => response.data);
   }
 }

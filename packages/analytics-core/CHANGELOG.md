@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@3.1.1...@availity/analytics-core@3.1.2) (2021-10-22)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+## [3.1.1](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@3.1.0...@availity/analytics-core@3.1.1) (2021-10-20)
+
+**Note:** Version bump only for package @availity/analytics-core
+
+
+
+
+
+# 3.1.0 (2021-10-19)
+
+
+### Features
+
+* **analytics-core:** add types and tests for util ([62cd19b](https://github.com/Availity/sdk-js/commit/62cd19b5c09cfc74830cae236bb48e18acf9fd42))
+
+
+
+
+
 # 3.0.0 (2021-05-17)
 
 

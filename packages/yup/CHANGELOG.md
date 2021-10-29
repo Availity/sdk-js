@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.2.0 (2021-10-22)
+
+
+### Features
+
+* **yup:** switch to lodash from merge-options-es5 ([06456c9](https://github.com/Availity/sdk-js/commit/06456c90ac6ef7523c4ed0d2e4dc9af8c4a6dee5))
+
+
+
+
+
 ## [3.1.1](https://github.com/Availity/sdk-js/compare/@availity/yup@3.1.0...@availity/yup@3.1.1) (2021-06-16)
 
 

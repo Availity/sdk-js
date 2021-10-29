@@ -12,13 +12,13 @@ This library resolves relative IRIs to absolute IRIs given a base IRI, conformin
 ### NPM
 
 ```bash
-$ npm install @availity/resolve-url
+npm install @availity/resolve-url
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/resolve-url
+yarn add @availity/resolve-url
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/resources/resolve-url)

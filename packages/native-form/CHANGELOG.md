@@ -3,6 +3,93 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.8](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.7...@availity/native-form@4.0.8) (2021-10-22)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## 4.0.7 (2021-10-20)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [4.0.6](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.5...@availity/native-form@4.0.6) (2021-10-19)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [4.0.5](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.4...@availity/native-form@4.0.5) (2021-10-08)
+
+
+### Bug Fixes
+
+* **native-form:** update types and use api-axiosv6 ([02b0cd6](https://github.com/Availity/sdk-js/commit/02b0cd6a6c1f401c71b4ddc8482297604531983a))
+
+
+
+
+
+## [4.0.4](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.3...@availity/native-form@4.0.4) (2021-09-30)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [4.0.3](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.2...@availity/native-form@4.0.3) (2021-09-30)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [4.0.2](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.1...@availity/native-form@4.0.2) (2021-09-28)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+## [4.0.1](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.0...@availity/native-form@4.0.1) (2021-09-16)
+
+**Note:** Version bump only for package @availity/native-form
+
+
+
+
+
+# 4.0.0 (2021-09-01)
+
+
+### Features
+
+* **native-form:** add operationName to graphql request for query tracking ([5772f57](https://github.com/Availity/sdk-js/commit/5772f57f30278ede6d85daefe2ab7341e8b78b92))
+* **native-form:** call avWebQLApi to obtain sso type ([23a1bd9](https://github.com/Availity/sdk-js/commit/23a1bd98cc71334454d137be822a5a5a23a32447))
+
+
+### BREAKING CHANGES
+
+* **native-form:** native-form now exports an async function, no longer defaults type
+MIGRATION:
+ Before: nativeForm(...args);
+ After: await nativeForm(...args);
+
+
+
+
+
 # 3.0.0 (2021-05-17)
 
 

@@ -9,11 +9,11 @@
 ### NPM
 
 ```bash
-$ npm install @availity/dl-axios
+npm install @availity/dl-axios
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/dl-axios
+yarn add @availity/dl-axios
 ```

@@ -21,13 +21,10 @@ export default class AvLogMessages extends AvApi {
     const flattened = flattenObject(payload);
 
     flattened.X_Client_ID = this.clientId;
-    flattened.X_XSRF_TOKEN = document.cookie.replace(
-      /(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    );
+    flattened.X_XSRF_TOKEN = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     const fields = Object.keys(flattened)
-      .map(key => {
+      .map((key) => {
         const name = key.replace(/\[\d+]/g, '[]');
         const value = flattened[key];
         return `${name}=${encodeURIComponent(value)}`;

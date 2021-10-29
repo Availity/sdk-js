@@ -11,13 +11,13 @@ A package providing a base Analytics class to track events and page views
 ### NPM
 
 ```bash
-$ npm install @availity/analytics-core
+npm install @availity/analytics-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/analytics-core
+yarn add @availity/analytics-core
 ```
 
 ## Configuration
@@ -40,7 +40,7 @@ new AvAnalytics(plugins, promise, pageTracking, autoTrack, options);
 ### Options
 
 - **attributePrefix** string. Overrides the default prefix for getting attributes.
-- **recursive** boolean. If `true`, will add on all attributes from the clicke/focused node up to the root element. It requires one attribute to have contain `action`.
+- **recursive** boolean. If `true`, will add on all attributes from the clicked/focused node up to the root element. It requires one attribute to have contain `action`.
 
 Example using the `recursive` option ( Will add all 3 attributes when the `anchor` tag is clicked. If the container is clicked nothing will happen ):
 

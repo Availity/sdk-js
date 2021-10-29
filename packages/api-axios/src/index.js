@@ -1,48 +1,68 @@
 import AvApi from './api';
 import AvMicroserviceApi from './ms';
 import AvProxyApi from './proxy';
-import avWebQLApi from './webQL';
-import avLogMessagesApi from './logs';
-import avLogMessagesApiV2 from './dma';
-import avNavigationApi from './navigation';
-import avNotificationApi from './notification';
-import avOrganizationsApi from './organizations';
-import avPermissionsApi from './permissions';
-import avProvidersApi from './providers';
-import avRegionsApi from './regions';
-import avSpacesApi from './spaces';
-import avUserApi from './user';
-import avPdfApi from './pdf';
-import avUserPermissionsApi from './userPermissions';
-import avFilesApi from './files';
-import avFilesDeliveryApi from './filesDelivery';
-import avSettingsApi from './settings';
-import avSlotMachineApi from './slotmachine';
-import avDisclaimersApi from './disclaimers';
-import avCodesApi from './codes';
+
+import AvCodesApi, { avCodesApi } from './resources/codes';
+import AvDisclaimersApi, { avDisclaimersApi } from './resources/disclaimers';
+import AvFilesApi, { avFilesApi } from './resources/files';
+import AvFilesDeliveryApi, { avFilesDeliveryApi } from './resources/filesDelivery';
+import AvLogMessagesApi, { avLogMessagesApi } from './resources/logs';
+import AvLogMessagesApiV2, { avLogMessagesApiV2 } from './resources/dma';
+import AvNavigationApi, { avNavigationApi } from './resources/navigation';
+import AvNotificationsApi, { avNotificationsApi } from './resources/notifications';
+import AvOrganizationsApi, { avOrganizationsApi } from './resources/organizations';
+import AvPdfApi, { avPdfApi } from './resources/pdf';
+import AvPermissionsApi, { avPermissionsApi } from './resources/permissions';
+import AvProvidersApi, { avProvidersApi } from './resources/providers';
+import AvRegionsApi, { avRegionsApi } from './resources/regions';
+import AvSettingsApi, { avSettingsApi } from './resources/settings';
+import AvSlotMachineApi, { avSlotMachineApi } from './resources/slotmachine';
+import AvSpacesApi, { avSpacesApi } from './resources/spaces';
+import AvUserPermissionsApi, { avUserPermissionsApi } from './resources/userPermissions';
+import AvUserApi, { avUserApi } from './resources/user';
+import AvWebQLApi, { avWebQLApi } from './resources/webQL';
 
 export default AvApi;
 
 export {
   AvMicroserviceApi,
   AvProxyApi,
-  avWebQLApi,
-  avLogMessagesApi,
-  avLogMessagesApiV2,
-  avNavigationApi,
-  avNotificationApi,
-  avOrganizationsApi,
-  avPermissionsApi,
-  avProvidersApi,
-  avRegionsApi,
-  avPdfApi,
-  avSpacesApi,
-  avUserApi,
-  avUserPermissionsApi,
-  avFilesApi,
-  avFilesDeliveryApi,
-  avSettingsApi,
-  avSlotMachineApi,
-  avDisclaimersApi,
+  AvCodesApi,
   avCodesApi,
+  AvDisclaimersApi,
+  avDisclaimersApi,
+  AvFilesApi,
+  avFilesApi,
+  AvFilesDeliveryApi,
+  avFilesDeliveryApi,
+  AvLogMessagesApi,
+  avLogMessagesApi,
+  AvLogMessagesApiV2,
+  avLogMessagesApiV2,
+  AvNavigationApi,
+  avNavigationApi,
+  AvNotificationsApi,
+  avNotificationsApi,
+  AvOrganizationsApi,
+  avOrganizationsApi,
+  AvPdfApi,
+  avPdfApi,
+  AvPermissionsApi,
+  avPermissionsApi,
+  AvProvidersApi,
+  avProvidersApi,
+  AvRegionsApi,
+  avRegionsApi,
+  AvSettingsApi,
+  avSettingsApi,
+  AvSlotMachineApi,
+  avSlotMachineApi,
+  AvSpacesApi,
+  avSpacesApi,
+  AvUserPermissionsApi,
+  avUserPermissionsApi,
+  AvUserApi,
+  avUserApi,
+  AvWebQLApi,
+  avWebQLApi,
 };

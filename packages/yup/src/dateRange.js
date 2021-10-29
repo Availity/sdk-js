@@ -67,16 +67,8 @@ export default class DateRangeSchema extends MixedSchema {
   }
 
   distance({
-    min: {
-      value: minValue,
-      units: minUnits = 'day',
-      errorMessage: minErrorMessage,
-    } = {},
-    max: {
-      value: maxValue,
-      units: maxUnits = 'day',
-      errorMessage: maxErrorMessage,
-    } = {},
+    min: { value: minValue, units: minUnits = 'day', errorMessage: minErrorMessage } = {},
+    max: { value: maxValue, units: maxUnits = 'day', errorMessage: maxErrorMessage } = {},
   } = defaultValue) {
     return this.test({
       name: 'distance',
@@ -84,15 +76,10 @@ export default class DateRangeSchema extends MixedSchema {
       test({ endDate, startDate } = defaultValue) {
         if ((!minValue && !maxValue) || !startDate || !endDate) return true;
 
-        if (
-          maxValue &&
-          endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')
-        ) {
+        if (maxValue && endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
           return new ValidationError(
             maxErrorMessage ||
-              `The end date must be within ${maxValue} ${maxUnits}${
-                maxValue > 1 ? 's' : ''
-              } of the start date`,
+              `The end date must be within ${maxValue} ${maxUnits}${maxValue > 1 ? 's' : ''} of the start date`,
             {
               startDate,
               endDate,
@@ -100,15 +87,10 @@ export default class DateRangeSchema extends MixedSchema {
             this.path
           );
         }
-        if (
-          minValue &&
-          endDate.isBefore(startDate.add(minValue, minUnits), 'day')
-        ) {
+        if (minValue && endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
           return new ValidationError(
             minErrorMessage ||
-              `The end date must be greater than ${minValue} ${minUnits}${
-                minValue > 1 ? 's' : ''
-              } of the start date`,
+              `The end date must be greater than ${minValue} ${minUnits}${minValue > 1 ? 's' : ''} of the start date`,
             { startDate, endDate },
             this.path
           );
@@ -124,9 +106,7 @@ export default class DateRangeSchema extends MixedSchema {
 
     const minDate = this.getValidDate(min);
     return this.test({
-      message:
-        message ||
-        `Date Range must start on or after ${minDate.format(format)}`,
+      message: message || `Date Range must start on or after ${minDate.format(format)}`,
       name: 'min',
       exclusive: true,
       params: { min },
@@ -145,8 +125,7 @@ export default class DateRangeSchema extends MixedSchema {
     const maxDate = this.getValidDate(max);
 
     return this.test({
-      message:
-        message || `Date Range must end on or before ${maxDate.format(format)}`,
+      message: message || `Date Range must end on or before ${maxDate.format(format)}`,
       name: 'max',
       exclusive: true,
       params: { max },
@@ -164,21 +143,14 @@ export default class DateRangeSchema extends MixedSchema {
     const maxDate = this.getValidDate(max);
 
     return this.test({
-      message:
-        message ||
-        `Date Range must be between ${minDate.format(
-          format
-        )} and ${maxDate.format(format)}`,
+      message: message || `Date Range must be between ${minDate.format(format)} and ${maxDate.format(format)}`,
       name: 'between',
       exclusive: true,
       params: { min, max },
       test({ startDate, endDate } = defaultValue) {
         if (!startDate || !endDate || !min || !max) return true;
         return (
-          maxDate.isValid() &&
-          minDate.isValid() &&
-          maxDate.isSameOrAfter(endDate) &&
-          minDate.isSameOrBefore(startDate)
+          maxDate.isValid() && minDate.isValid() && maxDate.isSameOrAfter(endDate) && minDate.isSameOrBefore(startDate)
         );
       },
     });
@@ -218,9 +190,7 @@ export default class DateRangeSchema extends MixedSchema {
           errors.push('End Date is invalid.');
         }
 
-        return errors.length > 0
-          ? new ValidationError(errors, { startDate, endDate }, this.path)
-          : true;
+        return errors.length > 0 ? new ValidationError(errors, { startDate, endDate }, this.path) : true;
       },
     });
   }

@@ -13,13 +13,13 @@ Can grab some information from global error events, or more data if using the Av
 ### NPM
 
 ```bash
-$ npm install @availity/exceptions-core
+npm install @availity/exceptions-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/exceptions-core
+yarn add @availity/exceptions-core
 ```
 
 ## Configure
@@ -30,7 +30,7 @@ $ yarn add @availity/exceptions-core
 import AvExceptions from '@availity/exceptions-core';
 
 function exampleLogging(logMessage) {
-    // send to api
+  // send to api
 }
 
 const ExampleExceptions = new AvExceptions(exampleLogging);
@@ -40,20 +40,20 @@ const ExampleExceptions = new AvExceptions(exampleLogging);
 
 The log function will receive a message object with these keys:
 
--   errorDate - a formatted date string
--   errorName - the name from the error object.
--   errorMessage - the message from the error object.
--   errorStack - a formatted stack trace string
--   appId - the defined appId or 'N/A'
--   totalHits: how many times this error message has occurred since page load
--   currentHits: how many times this error message has occurred since last log
--   userAgent - browsers userAgent
--   userLanguage - language value from browser
--   referrer - document referrer
--   host - current domain
--   url
--   appVersion
--   sdkVersion
+- errorDate - a formatted date string
+- errorName - the name from the error object.
+- errorMessage - the message from the error object.
+- errorStack - a formatted stack trace string
+- appId - the defined appId or 'N/A'
+- totalHits: how many times this error message has occurred since page load
+- currentHits: how many times this error message has occurred since last log
+- userAgent - browsers userAgent
+- userLanguage - language value from browser
+- referrer - document referrer
+- host - current domain
+- url
+- appVersion
+- sdkVersion
 
 ## Methods
 

@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "7.0.2",
+  "version": "7.0.5",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
@@ -16,6 +16,9 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "format": "prettier --write '**/*.js'"
   },
   "dependencies": {
     "@availity/env-var": "^1.11.1",

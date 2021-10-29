@@ -9,13 +9,13 @@
 ### NPM
 
 ```bash
-$ npm install @availity/authorizations-core
+npm install @availity/authorizations-core
 ```
 
 ### Yarn
 
 ```bash
-$ yarn add @availity/authorizations-core
+yarn add @availity/authorizations-core
 ```
 
 ## [Documentation](https://availity.github.io/sdk-js/api/authorizations)

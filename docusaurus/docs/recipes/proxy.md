@@ -21,24 +21,24 @@ import { AvProxyApi } from '@availity/api-axios';
 const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
 
 const App = () => {
-    const [climbingHolds, setClimbingHolds] = useState([]); // initialize state
+  const [climbingHolds, setClimbingHolds] = useState([]); // initialize state
 
-    const fetchData = async () => {
-        const response = await proxyApi.query({ sessionBust: false });
-        setClimbingHolds(response.data.climbingHolds);
-    };
+  const fetchData = async () => {
+    const response = await proxyApi.query({ sessionBust: false });
+    setClimbingHolds(response.data.climbingHolds);
+  };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    return (
-        <div>
-            {climbingHolds.map(hold => {
-                return <li key={hold.name}>{hold.name}</li>;
-            })}
-        </div>
-    );
+  return (
+    <div>
+      {climbingHolds.map((hold) => {
+        return <li key={hold.name}>{hold.name}</li>;
+      })}
+    </div>
+  );
 };
 
 export default App;
@@ -52,12 +52,12 @@ Since we know the route is going go to `api/sdk/platform/v1/users/me` we need to
 
 ```json header=routes.json
 {
-    "ms/api/availity/internal/spc/slotmachine/graphql": {
-        "file": "slotmachine.json"
-    },
-    "v1/proxy/availity/my/proxy": {
-        "file": "climbingholds.json"
-    }
+  "ms/api/availity/internal/spc/slotmachine/graphql": {
+    "file": "slotmachine.json"
+  },
+  "v1/proxy/availity/my/proxy": {
+    "file": "climbingholds.json"
+  }
 }
 ```
 
@@ -69,20 +69,20 @@ Now that we have the route we need to test out our `climbingholds.json` response
 
 ```json header=climbingholds.json
 {
-    "totalCount": 1,
-    "page": 1,
-    "perPage": 50,
-    "climbingHolds": [
-        {
-            "name": "Jug"
-        },
-        {
-            "name": "Pinch"
-        },
-        {
-            "name": "Crimp"
-        }
-    ]
+  "totalCount": 1,
+  "page": 1,
+  "perPage": 50,
+  "climbingHolds": [
+    {
+      "name": "Jug"
+    },
+    {
+      "name": "Pinch"
+    },
+    {
+      "name": "Crimp"
+    }
+  ]
 }
 ```
 
