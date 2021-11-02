@@ -101,7 +101,7 @@ const buildRules = (fields, head = '', options) =>
       const subFieldHead = addDelimiter(head, key);
       const subRules = buildRules(value.fields, subFieldHead, options);
       set(obj, subFieldHead, { ...get(obj, subFieldHead), ...get(subRules, subFieldHead) });
-      if (options.compileRequiredFields) {
+      if (options.compileRequiredFields && subRules.requiredFields) {
         set(
           obj,
           'requiredFields',
@@ -114,7 +114,7 @@ const buildRules = (fields, head = '', options) =>
       const innerFieldHead = addDelimiter(head, key);
       const innerRules = buildRules(value.innerType.fields, innerFieldHead, options);
       set(obj, innerFieldHead, { ...get(obj, innerFieldHead), ...get(innerRules, innerFieldHead) });
-      if (options.compileRequiredFields) {
+      if (options.compileRequiredFields && innerRules.requiredFields) {
         set(
           obj,
           'requiredFields',
