@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-11-02)
+
+
+### Bug Fixes
+
+* **yup:** package change for major version update ([9ad040f](https://github.com/Availity/sdk-js/commit/9ad040ff7a4f7cbe7d5fdd37932d953287db805c)), closes [/github.com/jquense/yup/blob/375f1b9ed41f5043e123ea87a01a2dfe333c3927/CHANGELOG.md#0320-2020-12-03](https://github.com//github.com/jquense/yup/blob/375f1b9ed41f5043e123ea87a01a2dfe333c3927/CHANGELOG.md/issues/0320-2020-12-03)
+
+
+### BREAKING CHANGES
+
+* **yup:** the version of yup this package requires contains breaking changes from 0.32.0 onward
+
+
+
+
+
 ## [3.2.1](https://github.com/Availity/sdk-js/compare/@availity/yup@3.2.0...@availity/yup@3.2.1) (2021-10-29)
 
 
