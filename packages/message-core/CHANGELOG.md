@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.0.3 (2021-11-09)
+
+
+### Bug Fixes
+
+* **message-core:** export instance over class ([0841d09](https://github.com/Availity/sdk-js/commit/0841d09a96abca731e69b62dfdff1e19635851c1))
+
+
+
+
+
 ## [5.0.2](https://github.com/Availity/sdk-js/compare/@availity/message-core@5.0.1...@availity/message-core@5.0.2) (2021-10-29)
 
 **Note:** Version bump only for package @availity/message-core
