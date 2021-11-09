@@ -1,3 +1,5 @@
 import AvMessage from './AvMessage';
 
-export default new AvMessage();
+declare const AvMessageApi: AvMessage;
+
+export default AvMessageApi;
