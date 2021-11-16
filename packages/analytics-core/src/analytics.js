@@ -12,7 +12,7 @@ export default class AvAnalytics {
     // if plugins or promise are undefined,
     // or if either is skipped and pageTracking boolean is used in their place
     if (!plugins || !promise) {
-      throw new Error('[plugins], and [promise] must be defined');
+      throw new Error('[plugins] and [promise] must be defined');
     }
 
     this.plugins = Array.isArray(plugins) ? plugins : [plugins];

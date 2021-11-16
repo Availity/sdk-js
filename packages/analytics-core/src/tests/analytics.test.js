@@ -23,7 +23,7 @@ describe('AvAnalytics', () => {
   test('AvAnalytics should throw error without plugins or Promise', () => {
     expect(() => {
       mockAvAnalytics = new AvAnalytics();
-    }).toThrow('[plugins], and [promise] must be defined');
+    }).toThrow('[plugins] and [promise] must be defined');
   });
 
   test('AvAnalytics should cast plugins to an array', () => {

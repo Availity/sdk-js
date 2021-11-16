@@ -27,7 +27,7 @@ declare class AvAnalytics {
 
   trackEvent(properties: any): Promise<any[]>;
 
-  trackPageView(url: string): Promise<any[]>;
+  trackPageView(url?: string): Promise<any[]>;
 }
 
 export default AvAnalytics;
