@@ -7,21 +7,12 @@
   "command": {
     "publish": {
       "conventionalCommits": true,
-      "allowBranch": ["master", "feature/*"]
+      "allowBranch": ["master", "feature/*"],
+      "verifyAccess": false
     },
     "diff": {
-      "ignoreChanges": [
-        "**/*.test.js",
-        "**/*.md",
-        "**/package-lock.json",
-        "**/yarn.lock"
-      ]
+      "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json", "**/yarn.lock"]
     }
   },
-  "ignoreChanges": [
-    "**/*.test.js",
-    "**/*.md",
-    "**/package-lock.json",
-    "**/yarn.lock"
-  ]
+  "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json", "**/yarn.lock"]
 }
