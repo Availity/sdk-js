@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.1.4 (2021-11-16)
+
+
+### Bug Fixes
+
+* **analytics-core:** update types and error msg ([8c03422](https://github.com/Availity/sdk-js/commit/8c03422b8ced4c60738616905ce98b1523663f83))
+
+
+
+
+
 ## [3.1.3](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@3.1.2...@availity/analytics-core@3.1.3) (2021-10-29)
 
 **Note:** Version bump only for package @availity/analytics-core
