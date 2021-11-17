@@ -150,7 +150,7 @@ export default class DateRangeSchema extends MixedSchema {
     });
   }
 
-  typeError() {
+  typeError({ message }) {
     return this.test({
       name: 'typeError',
       exclusive: true,
@@ -158,7 +158,7 @@ export default class DateRangeSchema extends MixedSchema {
         const errors = [];
 
         if ((!startDate || !endDate) && (startDate || endDate)) {
-          errors.push('Start and End Date are required.');
+          errors.push(message || 'Start and End Date are required.');
         }
 
         if (startDate && endDate && !startDate.isSameOrBefore(endDate)) {
