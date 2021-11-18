@@ -269,7 +269,7 @@ Sets a custom error message for invalid date ranges to override the 'Start and E
 
 #### parameters
 - **options** - `object`. typeError options.
-  - **message** - `object`. optional. The custom error message to display 
+  - **message** - `string`. optional. The custom error message to display 
 
 #### example
 
