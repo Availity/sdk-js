@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.1.0 (2021-11-18)
+
+
+### Features
+
+* **yup:** allow custom type error message for dateRange ([cc36cde](https://github.com/Availity/sdk-js/commit/cc36cde7d403f9787343fcecbf1d0fd9d8ac6bf7))
+
+
+
+
+
 # 4.0.0 (2021-11-02)
 
 
