@@ -23,6 +23,17 @@ describe('DateRange', () => {
     ).rejects.toThrow('Start and End Date are required.');
   });
 
+  test('Custom type error message', async () => {
+    const schema = dateRange().typeError({ message: 'Custom Error Message' });
+
+    await expect(
+      schema.validate({
+        startDate: '',
+        endDate: '12/14/2012',
+      })
+    ).rejects.toThrow('Custom Error Message');
+  });
+
   test('defines min', async () => {
     const schema = dateRange().min('12/12/2012');
 

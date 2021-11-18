@@ -263,6 +263,35 @@ schema.isValid({
 }); // valid
 ```
 
+### typeError
+
+Sets a custom error message for invalid date ranges to override the 'Start and End Date are required.' default when only one of the start or end date is falsy. Useful when combined with @availity/date Date Range react component that rejects invalid dates.
+
+#### parameters
+- **options** - `object`. typeError options.
+  - **message** - `string`. optional. The custom error message to display 
+
+#### example
+
+```js
+import { dateRange } from '@availity/yup';
+
+const schema = dateRange()
+});
+
+schema.isValid({
+  startDate: '',
+  endDate: '12/03/2012',
+}); // throws 'Start and End Date are required.'
+
+const customErrSchema = dateRange().typeError({message: 'Custom error message'})
+
+customErrSchema.isValid({
+  startDate: '',
+  endDate: '12/03/2012'
+}); // throws 'Custom error message'
+```
+
 ## **avDate**
 
 Similar to the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
