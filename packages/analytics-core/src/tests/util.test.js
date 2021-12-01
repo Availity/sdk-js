@@ -45,8 +45,7 @@ describe('analytics-core utils', () => {
     expect(getComposedPath({ host: {} }).length).toBe(2);
     expect(getComposedPath({ defaultView: {} }).length).toBe(2);
 
-    const result =
-      '[{"parentNode":{"host":{"defaultView":{}}}},[{"host":{"defaultView":{}}},[{"defaultView":{}},[{}]]]]';
+    const result = '[{"parentNode":{"host":{"defaultView":{}}}},{"host":{"defaultView":{}}},{"defaultView":{}},{}]';
     const nested = getComposedPath({ parentNode: { host: { defaultView: {} } } });
     expect(JSON.stringify(nested)).toEqual(result);
   });

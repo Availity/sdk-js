@@ -32,7 +32,7 @@ export const getComposedPath = (node) => {
   }
 
   if (parent !== undefined) {
-    return [node, getComposedPath(parent)];
+    return [node, ...getComposedPath(parent)];
   }
 
   return [node];
