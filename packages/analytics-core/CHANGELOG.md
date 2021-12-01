@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.1.5 (2021-12-01)
+
+
+### Bug Fixes
+
+* **analytics-core:** recursive getComposedPath calls should be spread ([e39d180](https://github.com/Availity/sdk-js/commit/e39d180d7a0a348b52367bea8a87e6e9b0a98252))
+
+
+
+
+
 ## 3.1.4 (2021-11-16)
 
 
