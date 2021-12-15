@@ -1,3 +1,5 @@
+import { object } from 'yup';
+
 import { avDate } from '..';
 
 const INVALID = 'Date is invalid.';
@@ -159,5 +161,16 @@ describe('Date', () => {
         inclusivity: '(]',
       })
     ).resolves.toBeTruthy();
+  });
+
+  test('validates conditionally', async () => {
+    const schema = object({
+      other: avDate(),
+      date: avDate().when('other', (other, schema) => (other ? schema.min(other) : schema)),
+    });
+
+    expect(await schema.isValid({ other: '12/01/2020', date: '12/31/2020' })).toBe(true);
+    expect(await schema.isValid({ other: '12/01/2020', date: '12/31/2019' })).toBe(false);
+    expect(await schema.isValid({ date: '12/31/2019' })).toBe(true);
   });
 });

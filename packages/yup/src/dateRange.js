@@ -6,12 +6,13 @@ import merge from 'lodash/merge';
 const defaultOptions = {
   startKey: 'startDate',
   endKey: 'endDate',
-  format: 'MM/DD/YYYY',
 };
 
 const defaultValue = {};
 
-const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
+const displayFormat = 'MM/DD/YYYY';
+
+const formats = [displayFormat, 'YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
 
 export default class DateRangeSchema extends MixedSchema {
   constructor(options) {
@@ -19,12 +20,11 @@ export default class DateRangeSchema extends MixedSchema {
       type: 'dateRange',
     });
 
-    const { startKey, endKey, format } = merge({}, defaultOptions, options);
+    const { startKey, endKey } = merge({}, defaultOptions, options);
 
     this.startKey = startKey;
     this.endKey = endKey;
-    this.format = format;
-    this.getValidDate = this.getValidDate.bind(this);
+    // this.format = format;
 
     this.withMutation((schema) => {
       schema.transform(function mutate(value) {
@@ -46,7 +46,7 @@ export default class DateRangeSchema extends MixedSchema {
   }
 
   getValidDate(value) {
-    return moment(value, [this.format, ...formats], true);
+    return moment(value, formats, true);
   }
 
   distance({
@@ -85,48 +85,43 @@ export default class DateRangeSchema extends MixedSchema {
   }
 
   min(min, message) {
-    const { format } = this;
-
+    // it works for date, but not daterange. maybe that can tell us more about what is going on
     const minDate = this.getValidDate(min);
+
     return this.test({
-      message: message || `Date Range must start on or after ${minDate.format(format)}`,
+      message: message || `Date Range must start on or after ${minDate.format(displayFormat)}`,
       name: 'min',
       exclusive: true,
       params: { min },
       test({ startDate } = defaultValue) {
-        if (!startDate || !min) {
-          return true;
-        }
-        return minDate.isValid() && minDate.isSameOrBefore(startDate);
+        // is minDate valid and is it before the given date
+        return !startDate || !min ? true : minDate.isValid() && minDate.isSameOrBefore(startDate);
       },
     });
   }
 
   max(max, message) {
-    const { format } = this;
-
     const maxDate = this.getValidDate(max);
 
     return this.test({
-      message: message || `Date Range must end on or before ${maxDate.format(format)}`,
+      message: message || `Date Range must end on or before ${maxDate.format(displayFormat)}`,
       name: 'max',
       exclusive: true,
       params: { max },
       test({ endDate } = defaultValue) {
-        if (!endDate || !max) return true;
-        return maxDate.isValid() && maxDate.isSameOrAfter(endDate);
+        // is maxDate valid and is it after the given date
+        return !endDate || !max ? true : maxDate.isValid() && maxDate.isSameOrAfter(endDate);
       },
     });
   }
 
   between(min, max, message) {
-    const { format } = this;
-
     const minDate = this.getValidDate(min);
     const maxDate = this.getValidDate(max);
 
     return this.test({
-      message: message || `Date Range must be between ${minDate.format(format)} and ${maxDate.format(format)}`,
+      message:
+        message || `Date Range must be between ${minDate.format(displayFormat)} and ${maxDate.format(displayFormat)}`,
       name: 'between',
       exclusive: true,
       params: { min, max },
