@@ -2,24 +2,37 @@
   "name": "@availity/dockyard",
   "version": "1.0.0-alpha.2",
   "description": "Convert yup schema to a friendly docs object",
-  "main": "lib/dockyard.js",
-  "module": "src/dockyard.js",
   "keywords": [
     "yup",
     "schema",
     "docs"
   ],
-  "author": "Greg Martin <greg.martin@availity.com>",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/dockyard"
+  },
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "author": "Greg Martin <greg.martin@availity.com>",
+  "main": "lib/dockyard.js",
+  "module": "src/dockyard.js",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.5",
+    "core-js": "^3.19.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "yup": "^0.32.11"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.15.4",
-    "core-js": "^3.19.0",
-    "lodash": "^4.17.21"
+  "publishConfig": {
+    "access": "public"
   }
 }

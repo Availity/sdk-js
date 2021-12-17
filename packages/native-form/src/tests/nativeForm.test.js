@@ -1,6 +1,7 @@
 import { avWebQLApi } from '@availity/api-axios';
-import nativeForm from '../src';
-import flattenObject from '../src/flattenObject';
+
+import nativeForm from '..';
+import flattenObject from '../flattenObject';
 
 jest.mock('@availity/api-axios');
 

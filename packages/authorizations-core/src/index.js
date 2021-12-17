@@ -16,9 +16,7 @@ class AvAuthorizations {
 
   // return true/false if this permissionId is authorized in this region
   isAuthorized(permissionId, region) {
-    return this.getPermission(permissionId, region).then(
-      (permission) => permission.isAuthorized
-    );
+    return this.getPermission(permissionId, region).then((permission) => permission.isAuthorized);
   }
 
   // return true/false if any of ther permissions in array are authorized in this region
@@ -47,11 +45,7 @@ class AvAuthorizations {
       .getCurrentRegion()
       .then(
         (response) =>
-          response &&
-          response.data &&
-          response.data.regions &&
-          response.data.regions[0] &&
-          response.data.regions[0].id
+          response && response.data && response.data.regions && response.data.regions[0] && response.data.regions[0].id
       );
   }
   // get all permissions in this region
@@ -129,16 +123,12 @@ class AvAuthorizations {
   }
 
   getOrganizations(permissionId, region) {
-    return this.getPermission(permissionId, region).then(
-      (permission) => permission.organizations
-    );
+    return this.getPermission(permissionId, region).then((permission) => permission.organizations);
   }
 
   getPayers(permissionId, organizationId, region) {
     return this.getPermission(permissionId, region).then((permission) => {
-      const organization = permission.organizations.find(
-        (org) => org.id === organizationId
-      );
+      const organization = permission.organizations.find((org) => org.id === organizationId);
       return (organization && organization.resources) || [];
     });
   }

@@ -1,6 +1,7 @@
 import nock from 'nock'; // nock is needed because tus will run as in node
 import xhrMock from 'xhr-mock'; // xhr-mock is needed because upload-core only works in browser
-import Upload from '../upload';
+
+import Upload from './upload';
 
 const options = {
   bucketId: 'a',

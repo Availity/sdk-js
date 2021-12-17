@@ -2,27 +2,41 @@
   "name": "@availity/upload-core",
   "version": "4.2.2",
   "description": "Wrapper for tus-js-client",
-  "main": "lib/upload.js",
-  "module": "src/upload.js",
-  "types": "types/index.d.ts",
   "keywords": [
     "tus",
     "resumable",
     "upload",
     "availity"
   ],
-  "author": "Robert McGuinness <rob.mcguinness@availity.com>",
+  "homepage": "https://availity.github.io/sdk-js/api/uploads",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/upload-core"
+  },
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "author": "Robert McGuinness <rob.mcguinness@availity.com>",
+  "main": "lib/upload.js",
+  "module": "src/upload.js",
+  "types": "src/upload.d.ts",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
+  },
+  "dependencies": {
+    "@availity/resolve-url": "^1.1.23",
+    "@babel/runtime": "^7.16.5",
+    "core-js": "^3.12.1",
+    "tus-js-client": "1.7.1"
   },
   "devDependencies": {
     "@types/tus-js-client": "^1.7.0"
   },
-  "dependencies": {
-    "@availity/resolve-url": "^1.1.23",
-    "@babel/runtime": "^7.15.4",
-    "core-js": "^3.12.1",
-    "tus-js-client": "1.7.1"
+  "publishConfig": {
+    "access": "public"
   }
 }

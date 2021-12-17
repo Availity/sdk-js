@@ -5,13 +5,8 @@
 
 coverage
 
-
 /**/.docusaurus
 /**/build
 /**/dist
 /**/lib
 /**/node_modules
-
-# temporary to pass builds until TS errors fixed
-*.d.ts
-

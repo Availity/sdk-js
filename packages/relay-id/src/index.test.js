@@ -1,4 +1,4 @@
-import { base64, unbase64, toGlobalId, fromGlobalId } from '../src';
+import { base64, unbase64, toGlobalId, fromGlobalId } from '.';
 
 describe('globalId', () => {
   it('should have correct method base64()', () => {

@@ -2,57 +2,70 @@
   "name": "@availity/sdk-js",
   "private": true,
   "description": "Javascript SDK for Availity",
-  "workspaces": [
-    "packages/*",
-    "docusaurus"
-  ],
+  "homepage": "https://availity.github.io/sdk-js/",
+  "bugs": {
+    "url": "https://github.com/Availity/sdk-js/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Availity/sdk-js.git"
   },
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "docusaurus"
+  ],
   "scripts": {
-    "codecov:ci": "codecov",
-    "lint": "eslint .",
-    "start": "yarn workspace @availity/dinosaurdocs start",
-    "deploy:docs": "yarn workspace @availity/dinosaurdocs build && gh-pages -d docusaurus/build --message 'deployed docs [skip ci]'",
-    "build:docs": "yarn workspace @availity/dinosaurdocs build",
-    "build": "NODE_ENV=production lerna exec --parallel -- babel --root-mode upward src -d lib --ignore /docusaurus/**,**/*.test.js",
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "link": "lerna link",
+    "build": "NODE_ENV=production yarn lerna run build --ignore @availity/dinosaurdocs",
+    "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "bundlesize": "bundlesize",
-    "updated": "lerna updated",
+    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
+    "check:dependencies": "node scripts/check-missing-deps.js",
+    "check:packages": "sh ./scripts/artifactory-check.sh",
     "clean": "lerna clean --yes",
-    "prepublish": "yarn build",
+    "clean:builds": "yarn lerna run clean --ignore @availity/dinosaurdocs",
+    "clean:docs": "yarn workspace @availity/dinosaurdocs clean",
+    "clean:locks": "rimraf yarn.lock",
+    "clean:coverage": "rimraf coverage/",
+    "nuke": "yarn clean:locks && yarn clean:builds && yarn clean:docs && yarn clean:coverage && yarn clean",
+    "codecov:ci": "codecov",
+    "deploy:docs": "yarn workspace @availity/dinosaurdocs build && gh-pages -d docusaurus/build --message 'deployed docs [skip ci]'",
+    "format": "prettier --write '**/*.{js,ts}' --ignore-unknown",
+    "format:check": "prettier --check '**/*.{js,ts}' --ignore-unknown",
+    "postinstall": "yarn bootstrap",
+    "link": "lerna link",
+    "lint": "eslint .",
+    "new": "plop",
+    "prepare": "is-ci || husky install",
+    "prepublishOnly": "yarn build",
     "publish": "lerna publish",
     "publish:canary": "lerna publish -c",
-    "prettier": "prettier --write '**/*.{js,ts}'",
+    "release": "yarn check:packages && yarn publish --yes",
+    "release:canary": "yarn check:packages && lerna publish -c",
+    "release:ci": "yarn publish --yes",
+    "start": "yarn workspace @availity/dinosaurdocs start",
     "test": "jest",
     "test:ci": "yarn jest --runInBand --collectCoverage",
-    "postinstall": "npm run bootstrap",
-    "release": "npm run check:packages && yarn run publish --yes",
-    "release:ci": "yarn run publish --yes",
-    "release:canary": "npm run check:packages && lerna publish -c",
-    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
-    "add": "sh ./scripts/add.sh",
-    "nuke": "yarn remove-locks && yarn clean",
-    "remove-locks": "find . -type f -name 'yarn.lock' -delete",
-    "check:packages": "sh ./scripts/artifactory-check.sh",
-    "check:dependencies": "node scripts/check-missing-deps.js",
-    "pub": "lerna exec --bail false --concurrency 1 -- npm publish",
-    "new": "plop",
-    "prepare": "is-ci || husky install"
+    "updated": "lerna updated"
+  },
+  "resolutions": {
+    "ua-parser-js": "0.7.28"
   },
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/preset-env": "^7.15.8",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.5",
+    "@babel/plugin-proposal-private-methods": "^7.16.5",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
     "@commitlint/cli": "^12.1.3",
     "@commitlint/config-conventional": "^12.1.3",
     "@commitlint/config-lerna-scopes": "^12.1.3",
+    "@types/jest": "^26.0.0",
+    "@types/node": "^14.0.0",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
-    "@types/node": "^14.0.0",
     "babel-jest": "^26.6.3",
     "babel-preset-react-app": "^10.0.0",
     "bundlesize": "^0.18.1",
@@ -61,7 +74,7 @@
     "conventional-recommended-bump": "^6.1.0",
     "core-js": "^3.12.1",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^8.0.2",
+    "eslint-config-availity": "^8.0.6",
     "gh-pages": "^3.2.3",
     "husky": "^6.0.0",
     "is-ci": "^3.0.0",
@@ -72,44 +85,9 @@
     "lint-staged": "^11.2.3",
     "nock": "^13.1.4",
     "plop": "^2.7.6",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.4.4",
     "xhr-mock": "^2.4.1"
-  },
-  "resolutions": {
-    "ua-parser-js": "0.7.28"
-  },
-  "license": "MIT",
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "jest --bail --findRelatedTests"
-    ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional",
-      "@commitlint/config-lerna-scopes"
-    ],
-    "rules": {
-      "header-max-length": [
-        0,
-        "always",
-        85
-      ]
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "printWidth": 120
-  },
-  "bundlesize": [
-    {
-      "path": "./packages/**/lib/index.js",
-      "maxSize": "1.5 kB"
-    }
-  ]
+  }
 }

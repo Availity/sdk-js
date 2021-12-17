@@ -28,6 +28,8 @@ npm install @availity/api-axios
 yarn add @availity/api-axios
 ```
 
+## [Documentation](https://availity.github.io/sdk-js/api/getting-started)
+
 ## Available Resources
 
 This library exports several resources other than the `AvApi` class. There are several available classes which extend `AvApi` or `AvMicroserviceApi`. They offer the benefit of having pre-defined urls, and some even have methods available for easier data fetching.

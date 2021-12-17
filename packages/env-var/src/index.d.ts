@@ -9,6 +9,7 @@ interface EnvOpts<T> {
 
 declare function envVar<T>(envOpts: EnvOpts<T>, windowOverride?: Window, defaultVar?: T): T;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare function setEnvironments(envs: EnvOpts<any>, override?: boolean): void;
 
 export { setEnvironments };

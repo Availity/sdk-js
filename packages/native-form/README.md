@@ -18,4 +18,4 @@ npm install @availity/native-form
 yarn add @availity/native-form
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/native-form)
+## [Documentation](https://availity.github.io/sdk-js/resources/native-form)

@@ -2,16 +2,34 @@
   "name": "@availity/message-core",
   "version": "5.0.3",
   "description": "availity wrapper for postMessage logic",
+  "keywords": [
+    "availity",
+    "message"
+  ],
+  "homepage": "https://availity.github.io/sdk-js/resources/messaging",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/message-core"
+  },
+  "license": "MIT",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
   "main": "lib/index.js",
   "module": "src/index.js",
-  "types": "types/index.d.ts",
-  "author": "Kasey Powers <kasey.powers@availity.com>",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "types": "src/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,4 +1,4 @@
-import flattenObject from '../src/flattenObject';
+import flattenObject from '../flattenObject';
 
 describe('flattenObject', () => {
   test('should flatten', () => {

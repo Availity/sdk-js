@@ -18,4 +18,4 @@ npm install @availity/env-var
 yarn add @availity/env-var
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/env-var)
+## [Documentation](https://availity.github.io/sdk-js/resources/env-var)

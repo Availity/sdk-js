@@ -1,4 +1,4 @@
-import resolveUrl from '../src';
+import resolveUrl from '..';
 
 describe('resolve-url', () => {
   beforeEach(() => {

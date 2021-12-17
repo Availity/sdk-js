@@ -20,11 +20,11 @@ yarn add @availity/dockyard
 
 ```javascript
 import yup from 'yup';
-import getRules from '@availity/dockyard`;
+import getRules from '@availity/dockyard';
 
 const schema = yup.object({
-    name: yup.string(),
-    dateOfBirth: yup.date()
+  name: yup.string(),
+  dateOfBirth: yup.date(),
 });
 
 const rules = getRules(schema, options);
@@ -32,12 +32,12 @@ const rules = getRules(schema, options);
 
 ### `options`
 
-```javascript
-options = {
-    compileRequiredFields = false
-    excludeOneOf = false
-    excludeTypes = false
-}
+```js
+const options = {
+  compileRequiredFields: false,
+  excludeOneOf: false,
+  excludeTypes: false,
+};
 ```
 
 - `compileRequiredFields`: removes the word 'required' from the description and adds an array of required fields to the object.

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 type SsoType = 'saml' | 'openid';
 
 declare function nativeForm(

@@ -1,6 +1,7 @@
 import AvExceptionsCore from '@availity/exceptions-core';
 import { avLogMessagesApi } from '@availity/api-axios';
-import avExceptionsAxios from '../src/index';
+
+import avExceptionsAxios from '.';
 
 describe('AvExceptionsAxios', () => {
   test('avExceptionsAxios be an instance of AvExceptionsCore', () => {

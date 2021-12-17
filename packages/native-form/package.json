@@ -2,22 +2,33 @@
   "name": "@availity/native-form",
   "version": "4.0.9",
   "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
-  "main": "lib/index.js",
-  "module": "src/index.js",
-  "types": "types/index.d.ts",
   "keywords": [
     "availity",
     "form",
     "native",
     "submission"
   ],
-  "author": "Evan Sharp <evan.sharp@availity.com>",
+  "homepage": "https://availity.github.io/sdk-js/resources/native-form",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/native-form"
+  },
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "author": "Evan Sharp <evan.sharp@availity.com>",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1"
   },
   "devDependencies": {
@@ -25,5 +36,8 @@
   },
   "peerDependencies": {
     "@availity/api-axios": "^6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

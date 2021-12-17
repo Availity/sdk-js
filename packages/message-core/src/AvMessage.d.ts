@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare class AvMessage {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   public subscribers: object;
 
   public enabled: (value?: boolean) => boolean;

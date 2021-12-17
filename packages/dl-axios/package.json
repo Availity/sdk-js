@@ -2,32 +2,43 @@
   "name": "@availity/dl-axios",
   "version": "3.0.62",
   "description": "Utility to download files from services",
-  "main": "lib/index.js",
-  "module": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "download",
     "file",
     "availity"
   ],
-  "author": "Robert McGuinness",
+  "homepage": "https://availity.github.io/sdk-js/api/downloads",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/dl-axios"
+  },
   "license": "MIT",
-  "peerDependencies": {
-    "@availity/dl-core": "^2.3.3",
-    "axios": "^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0"
+  "author": "Robert McGuinness",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.5",
+    "core-js": "^3.12.1"
   },
   "devDependencies": {
     "@availity/dl-core": "^3.0.62",
     "axios": "^0.21.1"
   },
+  "peerDependencies": {
+    "@availity/dl-core": "^2.3.3",
+    "axios": "^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0"
+  },
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56",
-  "dependencies": {
-    "@babel/runtime": "^7.15.4",
-    "core-js": "^3.12.1"
-  }
+  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
 }

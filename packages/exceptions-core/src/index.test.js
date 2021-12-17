@@ -2,7 +2,7 @@
 import MockDate from 'mockdate';
 import { fromError } from 'stacktrace-js';
 
-import AvExceptions from '..';
+import AvExceptions from '.';
 
 jest.mock('stacktrace-js');
 jest.useFakeTimers();
@@ -118,9 +118,7 @@ describe('AvExceptions', () => {
       expect(setTimeout).toHaveBeenCalledTimes(1);
       expect(setTimeout.mock.calls[0][1]).toBe(mockExceptions.REPEAT_LIMIT);
       jest.runOnlyPendingTimers();
-      expect(mockExceptions.errorMessageHistory[testMessage].isRepeating).toBe(
-        false
-      );
+      expect(mockExceptions.errorMessageHistory[testMessage].isRepeating).toBe(false);
       expect(mockExceptions.onError).not.toHaveBeenCalled();
     });
 
@@ -213,8 +211,7 @@ describe('AvExceptions', () => {
           host: window.document && window.document.domain,
           sdkVersion: process.env.VERSION,
           totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-          currentHits:
-            mockExceptions.errorMessageHistory[errorMessage].currentHits,
+          currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits,
         };
 
         mockExceptions
@@ -222,9 +219,7 @@ describe('AvExceptions', () => {
           .then(() => {
             expect(mockExceptions.isRepeatError).toHaveBeenCalled();
             expect(mockLog).toHaveBeenCalledWith(message);
-            expect(
-              mockExceptions.errorMessageHistory[errorMessage].currentHits
-            ).toBe(0);
+            expect(mockExceptions.errorMessageHistory[errorMessage].currentHits).toBe(0);
             return resolve();
           })
           .catch((error) => error);
@@ -253,8 +248,7 @@ describe('AvExceptions', () => {
           host: window.document && window.document.domain,
           sdkVersion: process.env.VERSION,
           totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-          currentHits:
-            mockExceptions.errorMessageHistory[errorMessage].currentHits,
+          currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits,
         };
 
         let mockErrorMessage = {
