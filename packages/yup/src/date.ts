@@ -1,20 +1,18 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { MixedSchema } from 'yup';
-import moment from 'moment';
-
-const defaultOpts = {
-  format: 'MM/DD/YYYY',
-};
+import moment, { Moment } from 'moment';
 
 const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
 
-export default class AvDateSchema extends MixedSchema {
-  constructor({ format = 'MM/DD/YYYY' } = defaultOpts) {
+export default class AvDateSchema extends MixedSchema<Moment> {
+  format: string;
+
+  constructor({ format = 'MM/DD/YYYY' }: Options = {}) {
     super({
       type: 'avDate',
     });
 
     this.format = format;
-    this.getValidDate = this.getValidDate.bind(this);
 
     this.withMutation((schema) => {
       if (!schema.tests.some((test) => test?.OPTIONS?.name === 'typeError')) {
@@ -26,7 +24,7 @@ export default class AvDateSchema extends MixedSchema {
     });
   }
 
-  _typeCheck(value) {
+  _typeCheck(value: Moment & { _i: string }): value is Moment & { _i: string } {
     // So as long as the passed in value is defined, moment._i will contain a string value to validate.
     // If user enters a date and then removes it, should not show a typeError
     // Note: this does not prevent other tests, like isRequired, from showing messages
@@ -34,11 +32,11 @@ export default class AvDateSchema extends MixedSchema {
     return value.isValid() || value._i === '';
   }
 
-  getValidDate(value) {
+  getValidDate(value: string | Date | Moment) {
     return moment(value, [this.format, ...formats], true);
   }
 
-  min(min, message) {
+  min(min: string, message?: string) {
     const minDate = this.getValidDate(min);
 
     return this.test({
@@ -50,12 +48,12 @@ export default class AvDateSchema extends MixedSchema {
         if (!min || !minDate.isValid()) {
           return true;
         }
-        return value === null || minDate.isSameOrBefore(value, 'MM/DD/YYYY');
+        return value === null || minDate.isSameOrBefore(value);
       },
     });
   }
 
-  max(max, message) {
+  max(max: string, message?: string) {
     const maxDate = this.getValidDate(max);
 
     return this.test({
@@ -72,7 +70,7 @@ export default class AvDateSchema extends MixedSchema {
     });
   }
 
-  isRequired(isRequired = true, msg) {
+  isRequired(isRequired = true, msg?: string) {
     return this.test({
       name: 'isRequired',
       exclusive: true,
@@ -87,9 +85,8 @@ export default class AvDateSchema extends MixedSchema {
     });
   }
 
-  between(min, max, msg, inclusivity = '()') {
+  between(min: string, max: string, msg?: string, inclusivity: Inclusivity = '()') {
     const minDate = this.getValidDate(min);
-
     const maxDate = this.getValidDate(max);
 
     // Can't use arrow function because we rely on 'this' referencing yup's internals
@@ -108,3 +105,8 @@ export default class AvDateSchema extends MixedSchema {
     });
   }
 }
+
+export type Inclusivity = '()' | '[)' | '(]' | '[]';
+type Options = { format?: string };
+
+export const avDate = (opts?: Options): AvDateSchema => new AvDateSchema(opts);

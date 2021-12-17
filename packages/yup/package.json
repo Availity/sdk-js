@@ -1,21 +1,35 @@
 {
   "name": "@availity/yup",
-  "version": "4.1.0",
-  "description": "Additional Methods for Yup validation library",
-  "main": "lib/index.js",
-  "module": "src/index.js",
-  "types": "types/index.d.ts",
+  "version": "4.1.1",
+  "description": "Additional methods for yup validation library",
   "keywords": [
     "yup",
-    "availity"
+    "availity",
+    "validation"
   ],
-  "author": "Kyle Gray <kyle.gray@availity.com>",
+  "homepage": "https://availity.github.io/sdk-js/resources/yup",
+  "bugs": {
+    "url": "https://github.com/Availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Availity/sdk-js.git",
+    "directory": "packages/yup"
+  },
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "author": "Kyle Gray <kyle.gray@availity.com>",
+  "main": "lib/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && yarn transpile && yarn compile",
+    "clean": "rimraf ./lib ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "compile:types": "tsc -p tsconfig.build.json --emitDeclarationOnly",
+    "transpile": "babel --root-mode upward src -d lib --extensions .ts --ignore **/*.test.ts"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
+    "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1",
     "lodash": "^4.17.21"
   },
@@ -26,5 +40,9 @@
   "peerDependencies": {
     "moment": "^2.24.0",
     "yup": "^0.32.9"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "36799574f86674e1a41228c10bfba8d303958e02"
 }

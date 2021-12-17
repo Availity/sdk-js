@@ -1,6 +1,8 @@
+import { BaseSchema } from 'yup';
+
 const INTEGER_REGEX = /^\d*$/;
 
-function npi(msg) {
+function npi<Schema extends BaseSchema>(this: Schema, msg?: string): Schema {
   return this.test({
     name: 'npi',
     exclusive: true,
@@ -10,10 +12,12 @@ function npi(msg) {
 
       value += '';
 
+      // is it a number and 10 digits long
       if (!INTEGER_REGEX.test(value) || value.length !== 10) {
         return false;
       }
 
+      // is the first digit 1-4
       const firstDigit = value.charAt(0);
       if (['1', '2', '3', '4'].indexOf(firstDigit) < 0) {
         return false;

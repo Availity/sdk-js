@@ -1,6 +1,6 @@
-import { object } from 'yup';
+import { object, string } from 'yup';
 
-import { avDate, dateRange } from '..';
+import { dateRange } from '..';
 import DateRangeSchema from '../dateRange';
 
 describe('DateRange', () => {
@@ -110,28 +110,57 @@ describe('DateRange', () => {
 
   test('validates conditionally', async () => {
     const schema = object().shape({
-      otherDate: avDate(),
-      range: dateRange().when('otherDate', (otherDate, schema) => (otherDate !== '' ? schema.min(otherDate) : schema)),
+      min: string(),
+      max: string(),
+      // yup types are not correct and complain about this being invalid syntax
+      range: dateRange().when(['min', 'max'], (min: string, max: string, schema: DateRangeSchema) =>
+        min !== '' ? schema.min(min) : schema.max(max)
+      ),
     });
 
-    const valid = await schema.isValid({
-      range: {
-        startDate: '12/13/2012',
-        endDate: '12/14/2012',
-      },
-      otherDate: '12/12/2012',
-    });
+    // Valid
+    // min present and startDate is after
+    expect(
+      await schema.isValid({
+        range: {
+          startDate: '12/13/2012',
+          endDate: '12/14/2012',
+        },
+        min: '12/12/2012',
+      })
+    ).toBe(true);
+    // max is present and endDate is before
+    expect(
+      await schema.isValid({
+        range: {
+          startDate: '12/13/2012',
+          endDate: '12/14/2012',
+        },
+        max: '12/15/2012',
+      })
+    ).toBe(true);
 
-    const invalid = await schema.isValid({
-      range: {
-        startDate: '12/13/2012',
-        endDate: '12/14/2012',
-      },
-      otherDate: '12/12/2013',
-    });
-
-    expect(valid).toBe(true);
-    expect(invalid).toBe(false);
+    // Invalid
+    // min is present and startDate is before
+    expect(
+      await schema.isValid({
+        range: {
+          startDate: '12/11/2012',
+          endDate: '12/14/2012',
+        },
+        min: '12/12/2012',
+      })
+    ).toBe(false);
+    // max is present and endDate is afterwards
+    expect(
+      await schema.isValid({
+        range: {
+          startDate: '12/13/2012',
+          endDate: '12/14/2012',
+        },
+        max: '12/13/2012',
+      })
+    ).toBe(true);
   });
 
   test('should validate distance', async () => {

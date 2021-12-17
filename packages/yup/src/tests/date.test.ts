@@ -1,12 +1,20 @@
 import { object } from 'yup';
 
 import { avDate } from '..';
+import AvDateSchema, { Inclusivity } from '../date';
 
 const INVALID = 'Date is invalid.';
 
-const defaults = {};
+type Options = {
+  format?: string;
+  min?: string;
+  max?: string;
+  message?: string;
+  inclusivity?: Inclusivity;
+  customErrorMessage?: string;
+};
 
-const validate = async (date, { format, min, max, message, inclusivity, customErrorMessage } = defaults) => {
+const validate = async (date: string, { format, min, max, message, inclusivity, customErrorMessage }: Options = {}) => {
   let schema = avDate({
     format,
   });
@@ -166,7 +174,7 @@ describe('Date', () => {
   test('validates conditionally', async () => {
     const schema = object({
       other: avDate(),
-      date: avDate().when('other', (other, schema) => (other ? schema.min(other) : schema)),
+      date: avDate().when('other', (other: string, schema: AvDateSchema) => (other ? schema.min(other) : schema)),
     });
 
     expect(await schema.isValid({ other: '12/01/2020', date: '12/31/2020' })).toBe(true);
