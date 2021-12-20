@@ -1,8 +1,10 @@
-# api-axios
+# @availity/api-axios
 
 > A package wrapping [axios](https://github.com/axios/axios) to help fetch data inside the Availity Portal
 
 [![Version](https://img.shields.io/npm/v/@availity/api-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-axios)
+[![NPM Downloads](https://img.shields.io/npm/dt/@availity/api-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-axios)
+[![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/api-axios?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/api-axios/package.json)
 
 ### What's new in version 6?
 
@@ -19,16 +21,18 @@ If you are looking for the old docs you can find them [here](./READMEv5)
 ### NPM
 
 ```bash
-npm install @availity/api-axios
+npm install @availity/api-axios axios
 ```
 
 ### Yarn
 
 ```bash
-yarn add @availity/api-axios
+yarn add @availity/api-axios axios
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/api/getting-started)
+## Documentation
+
+Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/api/getting-started)
 
 ## Available Resources
 

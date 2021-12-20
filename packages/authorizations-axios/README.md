@@ -1,8 +1,10 @@
-# authorizations-axios
+# @availity/authorizations-axios
 
 > A package providing a base authorizations class to help check which permissions a user has.
 
 [![Version](https://img.shields.io/npm/v/@availity/authorizations-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/authorizations-axios)
+[![NPM Downloads](https://img.shields.io/npm/dt/@availity/authorizations-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/authorizations-axios)
+[![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/authorizations-axios?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/authorizations-axios/package.json)
 
 ## Install
 

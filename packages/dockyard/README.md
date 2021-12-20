@@ -2,6 +2,10 @@
 
 > Convert yup schema to a friendly docs object
 
+[![Version](https://img.shields.io/npm/v/@availity/dockyard.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/dockyard)
+[![NPM Downloads](https://img.shields.io/npm/dt/@availity/dockyard.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/dockyard)
+[![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/dockyard?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/dockyard/package.json)
+
 ## Installation
 
 ### NPM
