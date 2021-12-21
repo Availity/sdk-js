@@ -59,3 +59,5 @@ Once your changes are committed then you can run this command to have a canary v
 ```bash
 yarn publish:canary
 ```
+
+> This will only work if you are a member of the Availity organization in NPM
