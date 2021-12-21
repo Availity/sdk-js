@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-axios",
-  "version": "3.0.66",
+  "version": "3.0.67",
   "description": "Availity class to log exceptions via axios",
   "license": "MIT",
   "author": "Evan Sharp <evan.sharp@availity.com>",
@@ -16,8 +16,8 @@
     "core-js": "^3.12.1"
   },
   "devDependencies": {
-    "@availity/api-axios": "^6.0.5",
-    "@availity/exceptions-core": "^3.0.22"
+    "@availity/api-axios": "^6.0.6",
+    "@availity/exceptions-core": "^3.0.23"
   },
   "peerDependencies": {
     "@availity/api-axios": "^4.0.0",

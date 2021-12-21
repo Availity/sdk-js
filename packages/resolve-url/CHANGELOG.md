@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.24 (2021-12-21)
+
+**Note:** Version bump only for package @availity/resolve-url
+
+
+
+
+
 ## [1.1.23](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.22...@availity/resolve-url@1.1.23) (2021-10-29)
 
 **Note:** Version bump only for package @availity/resolve-url

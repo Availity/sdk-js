@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.0.7 (2021-12-21)
+
+**Note:** Version bump only for package @availity/api-core
+
+
+
+
+
 ## [7.0.6](https://github.com/Availity/sdk-js/compare/@availity/api-core@7.0.5...@availity/api-core@7.0.6) (2021-10-29)
 
 **Note:** Version bump only for package @availity/api-core

@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-core",
-  "version": "3.0.62",
+  "version": "3.0.63",
   "description": "Utility to download files from services",
   "keywords": [
     "download",
@@ -31,7 +31,7 @@
     "js-file-download": "^0.4.7"
   },
   "devDependencies": {
-    "@availity/api-core": "^7.0.6"
+    "@availity/api-core": "^7.0.7"
   },
   "peerDependencies": {
     "@availity/api-core": "^4.0.1"

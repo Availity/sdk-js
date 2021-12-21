@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "6.0.5",
+  "version": "6.0.6",
   "description": "Wrappers for axios designed to work with the Availity portal",
   "keywords": [
     "availity",
@@ -27,8 +27,8 @@
     "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
-    "@availity/env-var": "^1.11.2",
-    "@availity/resolve-url": "^1.1.23",
+    "@availity/env-var": "^1.11.3",
+    "@availity/resolve-url": "^1.1.24",
     "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1",
     "lodash": "^4.17.21",

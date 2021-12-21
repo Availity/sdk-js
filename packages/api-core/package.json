@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "7.0.6",
+  "version": "7.0.7",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
@@ -20,8 +20,8 @@
     "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
-    "@availity/env-var": "^1.11.1",
-    "@availity/resolve-url": "^1.1.23",
+    "@availity/env-var": "^1.11.3",
+    "@availity/resolve-url": "^1.1.24",
     "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1",
     "qs": "^6.5.2"

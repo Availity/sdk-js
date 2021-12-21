@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.2.0 (2021-12-21)
+
+
+### Bug Fixes
+
+* **yup:** conditional logic fix ([3679957](https://github.com/Availity/sdk-js/commit/36799574f86674e1a41228c10bfba8d303958e02))
+
+
+### Features
+
+* **yup:** convert to ts and fix undefined class property ([f5a3a4f](https://github.com/Availity/sdk-js/commit/f5a3a4f944a0ae281e0eaabf3b6a38659a2acc71))
+
+
+
+
+
 # 4.1.0 (2021-11-18)
 
 
