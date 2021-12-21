@@ -2,25 +2,39 @@
   "name": "@availity/dl-core",
   "version": "3.0.62",
   "description": "Utility to download files from services",
-  "main": "lib/download.js",
-  "module": "src/download.js",
   "keywords": [
     "download",
     "file",
     "availity"
   ],
-  "author": "Robert McGuinness",
+  "homepage": "https://availity.github.io/sdk-js/api/downloads",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/dl-core"
+  },
   "license": "MIT",
-  "peerDependencies": {
-    "@availity/api-core": "^4.0.1"
+  "author": "Robert McGuinness",
+  "main": "lib/download.js",
+  "module": "src/download.js",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.5",
+    "core-js": "^3.12.1",
+    "js-file-download": "^0.4.7"
   },
   "devDependencies": {
     "@availity/api-core": "^7.0.6"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.15.4",
-    "core-js": "^3.12.1",
-    "js-file-download": "^0.4.7"
+  "peerDependencies": {
+    "@availity/api-core": "^4.0.1"
   },
   "publishConfig": {
     "access": "public"

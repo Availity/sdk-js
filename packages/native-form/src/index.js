@@ -1,4 +1,5 @@
 import { avWebQLApi } from '@availity/api-axios';
+
 import flattenObject from './flattenObject';
 
 const ssoTypeQuery = `

@@ -2,6 +2,10 @@
 
 > Convert yup schema to a friendly docs object
 
+[![Version](https://img.shields.io/npm/v/@availity/dockyard.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/dockyard)
+[![NPM Downloads](https://img.shields.io/npm/dt/@availity/dockyard.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/dockyard)
+[![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/dockyard?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/dockyard/package.json)
+
 ## Installation
 
 ### NPM
@@ -20,11 +24,11 @@ yarn add @availity/dockyard
 
 ```javascript
 import yup from 'yup';
-import getRules from '@availity/dockyard`;
+import getRules from '@availity/dockyard';
 
 const schema = yup.object({
-    name: yup.string(),
-    dateOfBirth: yup.date()
+  name: yup.string(),
+  dateOfBirth: yup.date(),
 });
 
 const rules = getRules(schema, options);
@@ -32,12 +36,12 @@ const rules = getRules(schema, options);
 
 ### `options`
 
-```javascript
-options = {
-    compileRequiredFields = false
-    excludeOneOf = false
-    excludeTypes = false
-}
+```js
+const options = {
+  compileRequiredFields: false,
+  excludeOneOf: false,
+  excludeTypes: false,
+};
 ```
 
 - `compileRequiredFields`: removes the word 'required' from the description and adds an array of required fields to the object.

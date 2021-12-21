@@ -1,0 +1,12 @@
+# root
+.yarn
+.husky
+.docusaurus/
+coverage/
+plop-templates/
+
+# packages
+/**/dist
+/**/lib
+/**/build
+**/CHANGELOG.md

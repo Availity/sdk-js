@@ -2,19 +2,33 @@
   "name": "@availity/relay-id",
   "version": "1.1.16",
   "description": "Simple package to decode/encode relay ids for graphql microservices that leverage the relay spec.",
-  "main": "lib/index.js",
-  "module": "src/index.js",
-  "types": "types/index.d.ts",
   "keywords": [
     "availity",
     "relay"
   ],
-  "author": "Kyle Gray <kyle.gray@availity.com>",
+  "homepage": "https://availity.github.io/sdk-js/resources/relay-id",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/relay-id"
+  },
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "author": "Kyle Gray <kyle.gray@availity.com>",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
     "core-js": "^3.12.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

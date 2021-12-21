@@ -1,8 +1,9 @@
-# api-core
+# @availity/api-core
 
 > Base API definitions for the Availity REST API.
 
 [![Version](https://img.shields.io/npm/v/@availity/api-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-core)
+[![NPM Downloads](https://img.shields.io/npm/dt/@availity/api-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-core)
 
 ## Important Note
 
@@ -22,4 +23,6 @@ npm install @availity/api-core
 yarn add @availity/api-core
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/api/getting-started)
+## Documentation
+
+Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/api/getting-started)

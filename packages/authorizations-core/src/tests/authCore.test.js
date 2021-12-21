@@ -40,9 +40,7 @@ expect.extend({
       message: () =>
         `expected ids (${this.utils.printExpected(ids)}) to ${
           this.isNot ? ' not ' : ''
-        } have isAuthorized in permissions (${this.utils.printReceived(
-          permissions
-        )})`,
+        } have isAuthorized in permissions (${this.utils.printReceived(permissions)})`,
     };
   },
 });
@@ -96,11 +94,7 @@ describe('AvAuthorizations', () => {
   let testAuthorizations;
 
   beforeEach(() => {
-    testAuthorizations = new AvAuthorizations(
-      mockPermissions,
-      mockRegions,
-      Promise
-    );
+    testAuthorizations = new AvAuthorizations(mockPermissions, mockRegions, Promise);
   });
 
   test('AvAuthorizations is defined', () => {
@@ -119,9 +113,7 @@ describe('AvAuthorizations', () => {
         id: 'testId',
       };
       testAuthorizations.addPermission(testPermission);
-      expect(
-        testAuthorizations.authorizedMap[testPermission.id].default.id
-      ).toBe(testPermission.id);
+      expect(testAuthorizations.authorizedMap[testPermission.id].default.id).toBe(testPermission.id);
     });
 
     test('permission should be given default geographies and organizations values', () => {
@@ -129,8 +121,7 @@ describe('AvAuthorizations', () => {
         id: 'testId',
       };
       testAuthorizations.addPermission(testPermission);
-      const authorizedMapVal =
-        testAuthorizations.authorizedMap[testPermission.id];
+      const authorizedMapVal = testAuthorizations.authorizedMap[testPermission.id];
       expect(authorizedMapVal.default.id).toBe(testPermission.id);
       expect(authorizedMapVal.default.geographies).toEqual([]);
       expect(authorizedMapVal.default.organizations).toEqual([]);
@@ -141,8 +132,7 @@ describe('AvAuthorizations', () => {
         id: 'testId',
       };
       testAuthorizations.addPermission(testPermission);
-      const authorizedMapVal =
-        testAuthorizations.authorizedMap[testPermission.id];
+      const authorizedMapVal = testAuthorizations.authorizedMap[testPermission.id];
       expect(authorizedMapVal.default.id).toBe(testPermission.id);
       expect(authorizedMapVal.default.isAuthorized).toBeFalsy();
     });
@@ -153,8 +143,7 @@ describe('AvAuthorizations', () => {
         organizations: ['someOrganization'],
       };
       testAuthorizations.addPermission(testPermission);
-      const authorizedMapVal =
-        testAuthorizations.authorizedMap[testPermission.id];
+      const authorizedMapVal = testAuthorizations.authorizedMap[testPermission.id];
       expect(authorizedMapVal.default.id).toBe(testPermission.id);
       expect(authorizedMapVal.default.isAuthorized).toBeTruthy();
     });
@@ -172,13 +161,9 @@ describe('AvAuthorizations', () => {
       testAuthorizations.addPermission(testPermissionFl, 'FL');
       testAuthorizations.addPermission(testPermissionGa, 'GA');
       expect(testAuthorizations.authorizedMap[testId].FL.id).toBe(testId);
-      expect(testAuthorizations.authorizedMap[testId].FL.geographies).toEqual(
-        testPermissionFl.geographies
-      );
+      expect(testAuthorizations.authorizedMap[testId].FL.geographies).toEqual(testPermissionFl.geographies);
       expect(testAuthorizations.authorizedMap[testId].GA.id).toBe(testId);
-      expect(testAuthorizations.authorizedMap[testId].GA.geographies).toEqual(
-        testPermissionGa.geographies
-      );
+      expect(testAuthorizations.authorizedMap[testId].GA.geographies).toEqual(testPermissionGa.geographies);
     });
 
     test('should do nothing when permission has no id', () => {
@@ -211,9 +196,7 @@ describe('AvAuthorizations', () => {
     const ids = ['testId'];
     const permissions = [{ id: 'testId', testKey: 'testValue' }];
     testAuthorizations.addPermissions(ids, permissions);
-    expect(testAuthorizations.authorizedMap[ids[0]].default).toEqual(
-      permissions[0]
-    );
+    expect(testAuthorizations.authorizedMap[ids[0]].default).toEqual(permissions[0]);
   });
 
   test('getMissingIds should return ids of permissions not in map', () => {
@@ -239,9 +222,7 @@ describe('AvAuthorizations', () => {
     const allIds = ['123', '456', '789'];
     const addedIds = ['789'];
     testAuthorizations.addPermissions(addedIds, []);
-    expect(testAuthorizations.getFromMap(allIds)).toEqual(
-      getMockPermissionValues(addedIds, false)
-    );
+    expect(testAuthorizations.getFromMap(allIds)).toEqual(getMockPermissionValues(addedIds, false));
   });
 
   test('getFromMap should return permissions with ids in map based on region', () => {
@@ -251,9 +232,7 @@ describe('AvAuthorizations', () => {
     const region2 = 'GA';
     testAuthorizations.addPermissions(allIds, [], region1);
     testAuthorizations.addPermissions(addedIds, [], region2);
-    expect(testAuthorizations.getFromMap(allIds, region2)).toEqual(
-      getMockPermissionValues(addedIds, false)
-    );
+    expect(testAuthorizations.getFromMap(allIds, region2)).toEqual(getMockPermissionValues(addedIds, false));
   });
 
   describe('Get Permissions', () => {
@@ -292,14 +271,8 @@ describe('AvAuthorizations', () => {
   test('getPermission should return single requested permission', async () => {
     const testId = '123';
     const testRegion = 'GA';
-    const permission = await testAuthorizations.getPermission(
-      testId,
-      testRegion
-    );
-    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-      [testId],
-      testRegion
-    );
+    const permission = await testAuthorizations.getPermission(testId, testRegion);
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId], testRegion);
     expect(permission).toEqual(getMockPermissionValues([testId], true)[0]);
   });
 
@@ -314,47 +287,27 @@ describe('AvAuthorizations', () => {
     test('should return true for authorized permission', async () => {
       const testId = '123';
       const testRegion = 'GA';
-      const isAuthorized = await testAuthorizations.isAuthorized(
-        testId,
-        testRegion
-      );
-      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-        [testId],
-        testRegion
-      );
+      const isAuthorized = await testAuthorizations.isAuthorized(testId, testRegion);
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId], testRegion);
       expect(isAuthorized).toBeTruthy();
     });
 
     test('should return false for unauthorized permission', async () => {
       const testId = '123';
       const testRegion = 'GA';
-      mockPermissions.getPermissions.mockImplementationOnce(
-        unauthorizedMockPermissions
-      );
-      const isAuthorized = await testAuthorizations.isAuthorized(
-        testId,
-        testRegion
-      );
+      mockPermissions.getPermissions.mockImplementationOnce(unauthorizedMockPermissions);
+      const isAuthorized = await testAuthorizations.isAuthorized(testId, testRegion);
 
-      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-        [testId],
-        testRegion
-      );
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId], testRegion);
       expect(isAuthorized).toBeFalsy();
     });
 
     test('isAnyAuthorized should return true when all permissions are authorized', async () => {
       const testIds = ['123', '456'];
       const testRegion = 'GA';
-      const isAuthorized = await testAuthorizations.isAnyAuthorized(
-        testIds,
-        testRegion
-      );
+      const isAuthorized = await testAuthorizations.isAnyAuthorized(testIds, testRegion);
 
-      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-        testIds,
-        testRegion
-      );
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(testIds, testRegion);
       expect(isAuthorized).toBeTruthy();
     });
 
@@ -363,42 +316,23 @@ describe('AvAuthorizations', () => {
       const testIdsTrue = ['789'];
       const testIdsTotal = ['123', '456', '789'];
       const testRegion = 'GA';
-      mockPermissions.getPermissions.mockImplementationOnce(
-        unauthorizedMockPermissions
-      );
+      mockPermissions.getPermissions.mockImplementationOnce(unauthorizedMockPermissions);
       await testAuthorizations.getPermissions(testIdsFalse, testRegion);
-      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-        testIdsFalse,
-        testRegion
-      );
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(testIdsFalse, testRegion);
 
       await testAuthorizations.getPermissions(testIdsTrue, testRegion);
-      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-        testIdsTrue,
-        testRegion
-      );
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(testIdsTrue, testRegion);
 
-      const isAuthorized = await testAuthorizations.isAnyAuthorized(
-        testIdsTotal,
-        testRegion
-      );
+      const isAuthorized = await testAuthorizations.isAnyAuthorized(testIdsTotal, testRegion);
       expect(isAuthorized).toBeTruthy();
     });
 
     test('isAnyAuthorized should return false when none permissions are authorized', async () => {
       const testIds = ['123', '456'];
       const testRegion = 'GA';
-      mockPermissions.getPermissions.mockImplementationOnce(
-        unauthorizedMockPermissions
-      );
-      const isAuthorized = await testAuthorizations.isAnyAuthorized(
-        testIds,
-        testRegion
-      );
-      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-        testIds,
-        testRegion
-      );
+      mockPermissions.getPermissions.mockImplementationOnce(unauthorizedMockPermissions);
+      const isAuthorized = await testAuthorizations.isAnyAuthorized(testIds, testRegion);
+      expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(testIds, testRegion);
       expect(isAuthorized).toBeFalsy();
     });
   });
@@ -408,24 +342,12 @@ describe('AvAuthorizations', () => {
     const testId2 = '456';
     const testRegion = 'GA';
     let orgs = await testAuthorizations.getOrganizations(testId, testRegion);
-    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-      [testId],
-      testRegion
-    );
-    expect(orgs).toEqual(
-      getMockPermissionValues([testId], true)[0].organizations
-    );
-    mockPermissions.getPermissions.mockImplementationOnce(
-      unauthorizedMockPermissions
-    );
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId], testRegion);
+    expect(orgs).toEqual(getMockPermissionValues([testId], true)[0].organizations);
+    mockPermissions.getPermissions.mockImplementationOnce(unauthorizedMockPermissions);
     orgs = await testAuthorizations.getOrganizations(testId2, testRegion);
-    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-      [testId2],
-      testRegion
-    );
-    expect(orgs).toEqual(
-      getMockPermissionValues([testId], false)[0].organizations
-    );
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId2], testRegion);
+    expect(orgs).toEqual(getMockPermissionValues([testId], false)[0].organizations);
   });
 
   test('getPayers should return payers from permission with orgId', async () => {
@@ -435,20 +357,12 @@ describe('AvAuthorizations', () => {
     const testResource = 'testResources';
     const testRegion = 'GA';
     let payers = await testAuthorizations.getPayers(testId, orgId, testRegion);
-    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-      [testId],
-      testRegion
-    );
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId], testRegion);
     expect(payers).toEqual(testResource);
-    mockPermissions.getPermissions.mockImplementationOnce(
-      unauthorizedMockPermissions
-    );
+    mockPermissions.getPermissions.mockImplementationOnce(unauthorizedMockPermissions);
 
     payers = await testAuthorizations.getPayers(testId2, orgId, testRegion);
-    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith(
-      [testId2],
-      testRegion
-    );
+    expect(mockPermissions.getPermissions).toHaveBeenLastCalledWith([testId2], testRegion);
     expect(payers).toEqual([]);
   });
 });

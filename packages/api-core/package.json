@@ -8,24 +8,26 @@
     "http",
     "rest"
   ],
+  "bugs": "https://github.com/Availity/sdk-js/issues",
+  "repository": "https://github.com/Availity/sdk-js",
+  "license": "MIT",
+  "author": "Kasey Powers <kasey.powers@availity.com>",
   "main": "lib/index.js",
   "module": "src/index.js",
-  "author": "Kasey Powers <kasey.powers@availity.com>",
-  "repository": "https://github.com/Availity/sdk-js",
-  "bugs": "https://github.com/Availity/sdk-js/issues",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "format": "prettier --write '**/*.js'"
+    "build": "yarn clean && yarn transpile",
+    "clean": "rimraf ./lib",
+    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
     "@availity/env-var": "^1.11.1",
     "@availity/resolve-url": "^1.1.23",
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1",
     "qs": "^6.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
 }

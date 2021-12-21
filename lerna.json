@@ -11,8 +11,8 @@
       "verifyAccess": false
     },
     "diff": {
-      "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json", "**/yarn.lock"]
+      "ignoreChanges": ["**/*.test.js", "**/*.test.ts", "**/*.md", "**/package-lock.json", "**/yarn.lock"]
     }
   },
-  "ignoreChanges": ["**/*.test.js", "**/*.md", "**/package-lock.json", "**/yarn.lock"]
+  "ignoreChanges": ["**/*.test.js", "**/*.test.ts", "**/*.md", "**/package-lock.json", "**/yarn.lock"]
 }

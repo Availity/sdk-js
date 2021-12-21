@@ -12,11 +12,12 @@
       "babel-preset-react-app",
       {
         "absoluteRuntime": false,
-        "useESModules": false
+        "useESModules": false,
+        "typescript": true
       }
     ]
   ],
-  "ignore": ["node_modules", "**/lib/*.test.js"],
+  "ignore": ["node_modules", "lib/"],
   "plugins": [
     ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
     ["@babel/plugin-proposal-private-methods", { "loose": true }],

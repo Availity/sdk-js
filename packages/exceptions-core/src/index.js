@@ -49,7 +49,7 @@ export default class AvExceptions {
   }
 
   prettyPrint(stackFrames) {
-    return stackFrames.map(sf => sf.toString()).join('\n');
+    return stackFrames.map((sf) => sf.toString()).join('\n');
   }
 
   isRepeatError(exception) {
@@ -84,19 +84,14 @@ export default class AvExceptions {
   }
 
   onError(exception, skipRepeat = false) {
-    if (
-      !this.isEnabled ||
-      !exception ||
-      (!skipRepeat && this.isRepeatError(exception))
-    ) {
+    if (!this.isEnabled || !exception || (!skipRepeat && this.isRepeatError(exception))) {
       return undefined;
     }
 
     const errorMessage = exception.message;
-    this.errorMessageHistory[errorMessage] =
-      this.errorMessageHistory[errorMessage] || {};
+    this.errorMessageHistory[errorMessage] = this.errorMessageHistory[errorMessage] || {};
 
-    return StackTrace.fromError(exception).then(stack => {
+    return StackTrace.fromError(exception).then((stack) => {
       const message = {
         errorDate: new Date().toJSON(),
         errorName: exception.name,
@@ -116,10 +111,7 @@ export default class AvExceptions {
       this.errorMessageHistory[errorMessage].currentHits = 0;
 
       if (this.errorMessage) {
-        const toAssign =
-          typeof this.errorMessage === 'function'
-            ? this.errorMessage(exception)
-            : this.errorMessage;
+        const toAssign = typeof this.errorMessage === 'function' ? this.errorMessage(exception) : this.errorMessage;
         Object.assign(message, toAssign);
       }
 

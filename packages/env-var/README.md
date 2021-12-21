@@ -1,8 +1,10 @@
-# env-var
+# @availity/env-var
 
 > Get run-time environment variables for immutable builds
 
 [![Version](https://img.shields.io/npm/v/@availity/env-var.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/env-var)
+[![NPM Downloads](https://img.shields.io/npm/dt/@availity/env-var.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/env-var)
+[![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/env-var?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/env-var/package.json)
 
 ## Install
 
@@ -18,4 +20,6 @@ npm install @availity/env-var
 yarn add @availity/env-var
 ```
 
-## [Documentation](https://availity.github.io/sdk-js/features/env-var)
+## Documentation
+
+Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/resources/env-var)
