@@ -1,26 +1,35 @@
 ## Contributing
 
-This is a monorepo managed using [lerna](https://github.com/lerna/lerna) and [yarn](https://yarnpkg.com/lang/en/) workspaces. Lerna is set to use independent mode, which allows for each package to have its own version.
+This monorepo is managed using [lerna](https://github.com/lerna/lerna) and [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces#search). Lerna is set to use independent mode, which allows for each package to have its own version.
 
 ## Installing
 
-We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you don't have [yarn](https://yarnpkg.com/lang/en/) you can install it by running
+This repository requires `node@^12.0.0`.
+
+Ensure [yarn](https://yarnpkg.com/lang/en/) is installed
 
 ```bash
 npm install -g yarn
 ```
 
-Once `yarn` is setup, then install the dependencies for the repo.
+Clone the repository
+
+```bash
+git https://github.com/Availity/sdk-js.git
+cd sdk-js
+```
+
+Install the dependencies
 
 ```bash
 yarn install
 ```
 
-> Your first install may seem slow, but all subsequent installs should be quick after the initial one.
+The first install might take a while. All subsequent installs should proceed more quickly.
 
 ## Running
 
-We develop a [documentation site](https://availity.github.io/sdk-js/) with [docusaurus](https://docusaurus.io/). You can run the docs server locally with the following command
+We develop a [documentation site](https://availity.github.io/sdk-js/) with [docusaurus](https://docusaurus.io/). You can run it locally with the following command
 
 ```bash
 yarn start
@@ -28,7 +37,7 @@ yarn start
 
 ## Adding a New Package
 
-If you need to add a new package, then you can leverage the `plop` scripts that have been setup. This will allow you to quickly scaffold a new package
+There is a script available to scaffold a new package with the required files.
 
 ```bash
 yarn new
@@ -36,9 +45,15 @@ yarn new
 
 ## Committing
 
-Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should be the un-prefixed name of the package under [./packages/](../packages/). If a commit applies to multiple packages, leave out the scope.
+Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). The scope should be the un-prefixed name of the package under [./packages/](../packages/). If a commit applies to multiple packages, leave out the scope.
 
-The commit format and messages are important because they help the deploy process determine what type of version bump is needed.
+For example, here is what the commit message would like when fixing a null-checking error in the `api-axios` package:
+
+```bash
+git commit -m "fix(api-axios): check for null before doing the action"
+```
+
+The commit messages in this repository are important for two main reasons. 1) The `type` (feat, fix, build, etc) is used to determine how to bump the version when publishing. 2) The commits with types `feat` and `fix` will show up in the `CHANGELOG.md` for the given package.
 
 ## Releasing
 
@@ -52,12 +67,12 @@ yarn publish
 
 ### Canary Relases
 
-You can alternatively run a canary release that will not impact the current `latest` tag version and can be used to test out changes.
+You can alternatively run a canary release that will not impact the current `latest` tag version in `npm`. This version can then be used to test your changes.
 
-Once your changes are committed then you can run this command to have a canary version released:
+After your changes are committed, run this command:
 
 ```bash
 yarn publish:canary
 ```
 
-> This will only work if you are a member of the Availity organization in NPM
+> This will only work if you are a member of the Availity organization in NPM. Otherwise, use [npm link](https://docs.npmjs.com/cli/v8/commands/npm-link) or [yarn link](https://classic.yarnpkg.com/en/docs/cli/link)
