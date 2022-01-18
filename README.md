@@ -4,7 +4,6 @@
 
 [![Build](https://img.shields.io/github/workflow/status/availity/sdk-js/Publish%20Release?style=for-the-badge)](https://github.com/Availity/sdk-js/actions/workflows/deploy.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/Availity/sdk-js?style=for-the-badge)](https://codecov.io/gh/Availity/sdk-js)
-[![Activity](https://img.shields.io/github/commit-activity/m/availity/sdk-js?style=for-the-badge)](https://availity.github.io/sdk-js/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&logo=MIT)](http://opensource.org/licenses/MIT)
 
 ## Documentation
