@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "6.0.6",
+  "version": "6.0.7",
   "description": "Wrappers for axios designed to work with the Availity portal",
   "keywords": [
     "availity",

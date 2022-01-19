@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.7](https://github.com/availity/sdk-js/compare/@availity/api-axios@6.0.6...@availity/api-axios@6.0.7) (2022-01-19)
+
+
+### Bug Fixes
+
+* **api-axios:** url creation was not working as expected ([630e4c7](https://github.com/availity/sdk-js/commit/630e4c7d7395547e75f9396e038cca54dd2f1124))
+
+
+
+
+
 ## 6.0.6 (2021-12-21)
 
 **Note:** Version bump only for package @availity/api-axios
