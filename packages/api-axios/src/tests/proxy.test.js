@@ -14,7 +14,13 @@ describe('AvProxyApi', () => {
     expect(() => new AvProxyApi()).toThrow('[config.tenant] must be defined');
   });
 
-  test('url should be correct', () => {
-    expect(proxy.getUrl(proxy.config())).toBe('/api/v1/proxy/tenant');
+  test('path is generated in constructor', () => {
+    expect(proxy.config().path).toBe('api/v1/proxy/tenant');
+  });
+
+  test('url is created properly', () => {
+    const api = new AvProxyApi({ tenant: 'foo', name: 'v1/test/bar/baz' });
+
+    expect(api.getRequestUrl()).toBe('/api/v1/proxy/foo/v1/test/bar/baz');
   });
 });

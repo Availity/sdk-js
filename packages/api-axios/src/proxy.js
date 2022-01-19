@@ -7,8 +7,7 @@ export default class AvProxyApi extends AvApi {
     }
 
     super({
-      name: config.tenant,
-      path: `api/v1/proxy`,
+      path: `api/v1/proxy/${config.tenant}`,
       version: '',
       ...config,
     });
