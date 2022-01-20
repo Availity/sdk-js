@@ -35,6 +35,7 @@ yarn add @availity/upload-core tus-js-client
 - metadata: object mapping metadata keys and values to add to the TUS upload
 - allowedFileNameCharacters: restrict the file name characters to a regex set
 - pollingTime: custom av scan polling time (default 5000ms)
+- maxAvScanRetries: amount of times to poll for av scan result before error is returned (default 10)
 
 ### Upload object variables that can be set before call to start().
 

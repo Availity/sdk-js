@@ -263,6 +263,60 @@ describe('upload-core', () => {
           upload.start();
         }));
 
+      it('should time out when av scan takes too long', () =>
+        new Promise((resolve) => {
+          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
+            201,
+            {},
+            {
+              'tus-resumable': '1.0.0',
+              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+              'transfer-encoding': 'chunked',
+              location: '4611142db7c049bbbe37376583a3f46b',
+            }
+          );
+
+          nock('https://dev.local')
+            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
+            .reply(
+              204,
+              {},
+              {
+                'tus-resumable': '1.0.0',
+                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+                'transfer-encoding': 'chunked',
+                'Upload-Offset': 12,
+                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+              }
+            );
+
+          const file = Buffer.from('hello world!');
+          file.name = 'a';
+          const upload = new Upload(file, {
+            ...options,
+            pollingTime: 50, // so that Jest does not time out our test while waiting for retires
+          });
+          const error = jest.fn();
+          const errorMessage = new Error('AV scan timed out, max retries exceeded');
+
+          upload.onError.push(error, () => {
+            expect(error).toHaveBeenCalled();
+            expect(error).toHaveBeenCalledWith(errorMessage);
+            resolve();
+          });
+
+          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
+            status: 200,
+            headers: {
+              'Content-Length': '0',
+              'AV-Scan-Result': 'pending',
+              'Upload-Result': 'pending',
+            },
+          });
+
+          upload.start();
+        }));
+
       it('should pickup upload object on each array of functions in onPreStart', () => {
         const file = Buffer.from('hello world!');
         file.name = 'a';

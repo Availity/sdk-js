@@ -22,6 +22,7 @@ const defaultOptions = {
   retryDelays: [0, 1000, 3000, 5000],
   stripFileNamePathSegments: true,
   onPreStart: [],
+  maxAvScanRetries: 10,
   fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
@@ -77,9 +78,10 @@ class Upload {
     this.bytesScanned = 0;
     this.errorMessage = null;
     this.status = 'pending';
-    this.timeoutID = undefined;
+    this.timeoutId = undefined;
     this.error = null;
     this.waitForPassword = true;
+    this.avScanRetries = 0;
 
     const fileName = this.trimFileName(file.name);
 
@@ -149,7 +151,7 @@ class Upload {
   }
 
   scan(data) {
-    clearTimeout(this.timeoutID);
+    clearTimeout(this.timeoutId);
 
     const xhr = new window.XMLHttpRequest();
 
@@ -176,7 +178,6 @@ class Upload {
 
       if (result.status === 'rejected') {
         this.setError(result.status, result.message);
-
         return;
       }
 
@@ -203,7 +204,14 @@ class Upload {
       }
 
       for (const cb of this.onProgress) cb();
+
+      if (this.avScanRetries > this.options.maxAvScanRetries) {
+        this.setError('rejected', 'AV scan timed out, max retries exceeded');
+        return;
+      }
+
       this.timeoutId = setTimeout(() => {
+        this.avScanRetries += 1;
         this.scan();
       }, this.options.pollingTime);
     };
