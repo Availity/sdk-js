@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.4](https://github.com/availity/sdk-js/compare/@availity/upload-core@4.2.3...@availity/upload-core@4.2.4) (2022-01-21)
+
+
+### Bug Fixes
+
+* **upload-core:** adds max amount of retries to av scan polling ([5175754](https://github.com/availity/sdk-js/commit/51757544e361bdad926d1ce0495e5766c56e1ba3))
+
+
+
+
+
 ## 4.2.3 (2021-12-21)
 
 **Note:** Version bump only for package @availity/upload-core
