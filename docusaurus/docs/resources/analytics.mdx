@@ -149,14 +149,39 @@ const Component = ({ orgId }) => (
 export default Component;
 ```
 
+## Logging User Ids
+
+Logs created with this component include user ids automatically, so no explicit logging is needed.
+
 ## Special Attributes
 
 Below are a list of special attributes that can be used to help correlate your application when querying for data in the specified service. Note the prefix may chnage if you have overwritten it in the options.
 
-### `data-av-analytics-application-id`
+### `data-analytics-space-id`
 
-This ID can be set at the root of your project and should correspond to the ID of your application.
+The ID of the Payer Space in which the application was navigated from. This generally will be in the query params at the time the user enters the application under `spaceId`.
+Required for Insights reporting
 
-### `data-av-analytics-payer-space-id`
+### `data-analytics-application-id`
 
-This is the ID of the Payer Space in which the application was navigated from. This generally will be in the query params at the time the user enters the application under `spaceId`
+Application ID. Can be set at the root of your project.
+
+### `data-analytics-action`
+
+Action the user performed on the page component (example: "click")
+
+###  `data-analytics-label`
+
+Label of the page element the user interacts with (example: "search")
+
+### `data-analytics-category`
+
+Category of the page (example: "spaces application").
+
+### `data-analytics-value`
+
+String value to be logged.
+
+## Tutorial
+
+See [Setting up logging](https://availity.github.io/availity-workflow/recipes/logging)
