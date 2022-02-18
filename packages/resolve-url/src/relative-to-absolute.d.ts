@@ -1,7 +1,5 @@
 declare function removeDotSegments(path: string): string;
 declare function removeDotSegmentsOfPath(iri: string, colonPosition: number): string;
-declare function resolve(relativeIRI: string, baseIRI: string): boolean;
+declare function resolve(relativeIRI: string, baseIRI?: string): string;
 
-export { removeDotSegments, removeDotSegmentsOfPath };
-
-export default resolve;
+export { removeDotSegments, removeDotSegmentsOfPath, resolve };
