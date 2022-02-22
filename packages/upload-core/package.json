@@ -1,6 +1,6 @@
 {
   "name": "@availity/upload-core",
-  "version": "4.2.4",
+  "version": "4.2.5",
   "description": "Wrapper for tus-js-client",
   "keywords": [
     "tus",
@@ -28,7 +28,7 @@
     "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
   },
   "dependencies": {
-    "@availity/resolve-url": "^1.1.24",
+    "@availity/resolve-url": "^1.1.25",
     "@babel/runtime": "^7.16.5",
     "core-js": "^3.12.1",
     "tus-js-client": "1.7.1"

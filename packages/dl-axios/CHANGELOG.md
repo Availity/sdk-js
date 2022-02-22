@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.64](https://github.com/availity/sdk-js/compare/@availity/dl-axios@3.0.63...@availity/dl-axios@3.0.64) (2022-02-22)
+
+**Note:** Version bump only for package @availity/dl-axios
+
+
+
+
+
 ## 3.0.63 (2021-12-21)
 
 **Note:** Version bump only for package @availity/dl-axios

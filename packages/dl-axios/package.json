@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-axios",
-  "version": "3.0.63",
+  "version": "3.0.64",
   "description": "Utility to download files from services",
   "keywords": [
     "download",
@@ -30,7 +30,7 @@
     "core-js": "^3.12.1"
   },
   "devDependencies": {
-    "@availity/dl-core": "^3.0.63",
+    "@availity/dl-core": "^3.0.64",
     "axios": "^0.21.1"
   },
   "peerDependencies": {
