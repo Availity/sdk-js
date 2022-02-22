@@ -1,8 +1,8 @@
 interface ResolveOptions {
-  relative?: string;
+  relative: string;
   base?: string;
 }
 
-declare function resolveUrl(opts: ResolveOptions): void;
+declare function resolveUrl(opts: ResolveOptions): string;
 
 export default resolveUrl;
