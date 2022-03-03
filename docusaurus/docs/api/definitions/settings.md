@@ -24,7 +24,7 @@ Query settings by parameters
 ### Example Request
 
 ```
-GET https://apps.availity.com/api/utils/v1/settings?application=myApp&userId=myUserAka
+GET https://apps.availity.com/api/utils/v1/settings?applicationId=myApp&userId=myUserAka
 ```
 
 ### Example Response
