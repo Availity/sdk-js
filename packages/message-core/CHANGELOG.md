@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.0.5 (2022-03-13)
+
+
+### Bug Fixes
+
+* **message-core:** fix return type for AvMessage.subscribe ([a3c3a62](https://github.com/availity/sdk-js/commit/a3c3a62a811706847561abe7d24ee4c6671ce392))
+
+
+
+
+
 ## 5.0.4 (2021-12-21)
 
 **Note:** Version bump only for package @availity/message-core
