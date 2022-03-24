@@ -135,7 +135,7 @@ Turn page tracking on or off.
 
 ### `trackEvent(properties: object)`
 
-Manually track an event. Given an object of string keys with primitive values, all properties will be logged. In contrast to using [data attributes for auto tracking](#auto-tracking-with-data-analytics-attributes), manual tracking does not require an `action` property, and can be fired by any event listeners you choose to add to any element, not just 'click', 'focus' and 'blur' as is the case when using data attributes.
+Manually track an event. Given an object of string keys with primitive values, all properties will be logged. In contrast to using [data attributes for auto tracking](#auto-tracking-with-data-analytics-attributes), manual tracking does not require an `action` property (although you may choose to include one), and can be fired by any event listeners you choose to add to any element, not just 'click', 'focus' and 'blur' as is the case when using data attributes.
 
 Example:
 
@@ -148,7 +148,7 @@ const analytics = new AvAnalytics([splunkPlugin]);
 analytics.init();
 
 const handleSubmit = () => {
-  analytics.trackEvent({ foo: 'bar' });
+  analytics.trackEvent({ level: 'info', foo: 'bar' });
 };
 
 // add to an event listener for a 'submit' event you want to track
@@ -182,7 +182,7 @@ Without plugins, the AvAnalytics class would not do anything useful. When AvAnal
 - `isEnabled` - Determines if this plugin is enabled. Disabled plugins will not respond to events. This can be a method that returns a boolean or it can be a static boolean property.
 - `init` - If defined, will be called when `AvAnalytics` is initialized.
 - `trackEvent` - If defined, this plugin method will be called every time [`analytics.trackEvent()`](#trackeventproperties-object) is called. It will be forwarded the same event data passed to that original call.
-- `trackPageView` - If defined, this plugin method will be called every time `analytics.trackPageView()` is called. It will be forwarded the same new page URL passed to that original call.
+- `trackPageView` - If defined, this plugin method will be called every time [`analytics.trackPageView()`](#trackeventproperties-object) is called. It will be forwarded the same new page URL passed to that original call.
 
 A default class with functions defined and enabled logic is provided by `AvAnalyticsPlugin` from [@availity/analytics-core](https://www.npmjs.com/package/@availity/analytics-core). Extend this class to define your own custom plugins
 
@@ -201,7 +201,7 @@ analytics.init();
 
 #### Note about Insights:
 
-In order to use Insights reporting, each log must include the Payer Space ID. If you are using manual tracking with the `analytics.trackEvents()` method, be sure to include a `spaceId` property.
+In order to use Insights reporting, each log must include the Payer Space ID. If you are using manual tracking with the [`analytics.trackEvent()`](#trackeventproperties-object) method, be sure to include a `spaceId` property.
 
 ```js
 analytics.trackEvents({
@@ -210,7 +210,7 @@ analytics.trackEvents({
 });
 ```
 
-If are using [auto tracking with data analytics attributes](#auto-tracking-with-data-analytics-attributes), you can include the Payer Space ID to your logs by adding a `data-analytics-space-id` attribute with the ID of the Payer Space as it's value.
+If you are using [auto tracking with data analytics attributes](#auto-tracking-with-data-analytics-attributes), you can include the Payer Space ID in your logs by adding a `data-analytics-space-id` attribute with the ID of the Payer Space as it's value.
 
 Plain HTML example:
 
@@ -256,11 +256,11 @@ const App = () => {
 export default App;
 ```
 
-Putting the `spaceId` on an element near the root of your app means it will be included with all [auto-tracked](#auto-tracking-with-data-analytics-attributes) user events as long as `recursive` is not set to `false`. `recursive` is `true` by default.
+Putting the `spaceId` on an element near the root of your app means it will be included with all [auto-tracked](#auto-tracking-with-data-analytics-attributes) user events as long as `recursive` has not been set to `false`. `recursive` is `true` by default.
 
 ## Auto Tracking with Data Analytics Attributes
 
-AvAnalyics provides two ways to track user interactions. You can manually call `analytics.trackEvent()`, passing it the data you want included in your logging, or you can use auto tracking. Auto tracking is enabled by default when your instance of AvAnalytics is initialized. You can disable auto tracking, pass `false` as the fourth parameter to the AvAnalytics constructor.
+AvAnalyics provides two ways to track user interactions. You can manually call [`analytics.trackEvent()`](#trackeventproperties-object), passing it the data you want to include in your logs, or you can use auto tracking. Auto tracking is enabled by default when your instance of AvAnalytics is initialized. You can disable auto tracking by passing `false` as the fourth argument to the AvAnalytics constructor.
 
 When auto tracking is enabled, AvAnalytics will automatically track events based on the presence of special `data-analytics-...` attributes on DOM elements throughout your app. The prefix for these attributes can be customized using the [`options` parameter](#optionsattributeprefix-string) of the AvAnalytics constructor. Data from these attributes will be added to the auto tracked event. The keys for this data will be the camel cased names of the attributes after the prefix is removed.
 
@@ -270,7 +270,7 @@ For example, auto tracking for this element...
 <button data-analytics-action="click" data-analytics-my-special-value="123">Click me!</button>
 ```
 
-...will will include this data:
+...will include this data:
 
 ```
 level: info
