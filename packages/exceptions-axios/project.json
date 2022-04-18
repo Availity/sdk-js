@@ -1,0 +1,22 @@
+{
+  "root": "packages/exceptions-axios",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/exceptions-axios"],
+      "options": {
+        "jestConfig": "packages/exceptions-axios/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}

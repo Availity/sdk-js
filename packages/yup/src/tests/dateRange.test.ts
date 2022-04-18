@@ -102,7 +102,9 @@ describe('DateRange', () => {
     expect(schema.getValidDate(new Date()).isValid()).toBe(true);
 
     // invalid formats
+    // @ts-expect-error: testing invalid input
     expect(schema.getValidDate(null).isValid()).toBe(false);
+    // @ts-expect-error: testing invalid input
     expect(schema.getValidDate(undefined).isValid()).toBe(false);
     expect(schema.getValidDate('').isValid()).toBe(false);
     expect(schema.getValidDate('foo').isValid()).toBe(false);
@@ -112,7 +114,7 @@ describe('DateRange', () => {
     const schema = object().shape({
       min: string(),
       max: string(),
-      // yup types are not correct and complain about this being invalid syntax
+      // @ts-expect-error: yup types are not correct and complain about this being invalid syntax
       range: dateRange().when(['min', 'max'], (min: string, max: string, schema: DateRangeSchema) =>
         min !== '' ? schema.min(min) : schema.max(max)
       ),

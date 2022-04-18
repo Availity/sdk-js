@@ -5,10 +5,6 @@ const URL = 'https://dev.local:9999';
 
 describe('AvMessage', () => {
   beforeEach(() => {
-    global.jsdom.reconfigure({
-      url: URL,
-    });
-
     avMessage = new AvMessage();
     avMessage.isEnabled = true;
     avMessage.DEFAULT_EVENT = 'avMessage';

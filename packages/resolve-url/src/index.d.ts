@@ -1,6 +1,6 @@
 import resolveUrl from './resolve-url';
 import isAbsoluteUrl from './is-absolute-url';
-import relativeToAbsolute from './relative-to-absolute';
+import { resolve as relativeToAbsolute } from './relative-to-absolute';
 
 export default resolveUrl;
 

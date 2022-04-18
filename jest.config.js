@@ -1,13 +1,30 @@
 module.exports = {
-  testPathIgnorePatterns: ['/node_modules', '<rootDir>/plopfile.js', '/lib/', '/dist/', '/docs/'],
-
-  collectCoverageFrom: ['packages/**/*.{js,ts}'],
-  coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/docs/', '/lib/', '.d.ts'],
-
-  testEnvironment: 'jest-environment-jsdom-global',
-  testURL: 'http://localhost:8080',
-
-  globals: {
-    jsdom: true,
+  testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
+  transform: {
+    '^.+\\.(ts|js|html)$': 'ts-jest',
   },
+  resolver: '@nrwl/builders/plugins/jest/resolver',
+  moduleFileExtensions: ['ts', 'js'],
+  collectCoverage: false,
+  coverageReporters: ['html'],
+  projects: [
+    '<rootDir>',
+    '<rootDir>/packages/*',
+    '<rootDir>/packages/analytics-core',
+    '<rootDir>/packages/api-axios',
+    '<rootDir>/packages/authorizations-axios',
+    '<rootDir>/packages/authorizations-core',
+    '<rootDir>/packages/dl-axios',
+    '<rootDir>/packages/dl-core',
+    '<rootDir>/packages/env-var',
+    '<rootDir>/packages/exceptions-core',
+    '<rootDir>/packages/native-form',
+    '<rootDir>/packages/message-core',
+    '<rootDir>/packages/resolve-url',
+    '<rootDir>/packages/relay-id',
+    '<rootDir>/packages/upload-core',
+    '<rootDir>/packages/yup',
+    '<rootDir>/packages/dockyard',
+    '<rootDir>/packages/exceptions-axios',
+  ],
 };

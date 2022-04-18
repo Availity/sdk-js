@@ -1,0 +1,22 @@
+{
+  "root": "packages/yup",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/yup"],
+      "options": {
+        "jestConfig": "packages/yup/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}

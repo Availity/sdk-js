@@ -1,0 +1,22 @@
+{
+  "root": "packages/upload-core",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/upload-core"],
+      "options": {
+        "jestConfig": "packages/upload-core/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}

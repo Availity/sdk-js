@@ -1,0 +1,22 @@
+{
+  "root": "packages/exceptions-core",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/exceptions-core"],
+      "options": {
+        "jestConfig": "packages/exceptions-core/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}

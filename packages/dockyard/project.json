@@ -1,0 +1,22 @@
+{
+  "root": "packages/dockyard",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/dockyard"],
+      "options": {
+        "jestConfig": "packages/dockyard/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}
