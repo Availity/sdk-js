@@ -18,7 +18,11 @@
     "lib": ["dom", "ES2015"],
     "module": "ESNext",
     "target": "ES6",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@availity/api-axios": ["packages/api-axios/src"]
+    }
   },
   "exclude": ["node_modules"]
 }
