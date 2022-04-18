@@ -24,7 +24,7 @@
     "build:docs": "nx build dinosaurdocs",
     "build:affected": "nx affected --target=build",
     "bundlesize": "nx run-many --target=bundlesize --all",
-    "check-deps": "adio",
+    "check:deps": "adio",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "clean": "nx run-many --target=clean --all && rm -rf node_modules",
     "codecov:ci": "codecov",
