@@ -2,4 +2,4 @@ import AvApi from './api';
 import AvMicroservice from './ms';
 
 export default AvApi;
-export { AvMicroservice, AvProxy };
+export { AvMicroservice };
