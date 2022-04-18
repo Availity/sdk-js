@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ENVIORNEMNT = 'local' | 'test' | 'qa' | 'prod';
 
 interface EnvOpts<T> {
@@ -8,10 +9,12 @@ interface EnvOpts<T> {
 }
 
 declare function envVar<T>(envOpts: EnvOpts<T>, windowOverride?: Window, defaultVar?: T): T;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare function getCurrentEnv(windowOverride?: Window & typeof globalThis): string;
+declare function getLocation(href: string): HTMLAnchorElement;
+declare function getSpecificEnv(windowOverride?: Window & typeof globalThis): any;
 declare function setEnvironments(envs: EnvOpts<any>, override?: boolean): void;
+declare function setSpecificEnvironments(envs: EnvOpts<any>, override?: boolean): void;
 
-export { setEnvironments };
+export { getCurrentEnv, getLocation, getSpecificEnv, setEnvironments, setSpecificEnvironments };
 
 export default envVar;
