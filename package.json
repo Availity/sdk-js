@@ -38,7 +38,7 @@
     "nx": "nx",
     "postinstall": "is-ci || husky install",
     "publish": "nx affected --target version",
-    "publish-dry-run": "nx affected --target version --dryRun",
+    "publish:dry-run": "nx affected --target version --dryRun",
     "start": "yarn workspace @availity/dinosaurdocs start",
     "test:affected": "nx affected --target=test",
     "test:ci": "nx run-many --target=test --parallel=3 --runInBand --coverage",
