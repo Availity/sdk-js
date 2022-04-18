@@ -21,7 +21,23 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@availity/api-axios": ["packages/api-axios/src"]
+      "@availity/analytics-core": ["packages/analytics-core/src"],
+      "@availity/api-axios": ["packages/api-axios/src"],
+      "@availity/api-core": ["packages/api-core/src"],
+      "@availity/authorizations-axios": ["packages/authorizations-axios/src"],
+      "@availity/authorizations-core": ["packages/authorizations-core/src"],
+      "@availity/dl-axios": ["packages/dl-axios/src"],
+      "@availity/dl-core": ["packages/dl-core/src"],
+      "@availity/dockyard": ["packages/dockyard/src"],
+      "@availity/env-var": ["packages/env-var/src"],
+      "@availity/exceptions-axios": ["packages/exceptions-axios/src"],
+      "@availity/exceptions-core": ["packages/exceptions-core/src"],
+      "@availity/message-core": ["packages/message-core/src"],
+      "@availity/native-form": ["packages/native-form/src"],
+      "@availity/relay-id": ["packages/relay-id/src"],
+      "@availity/resolve-url": ["packages/resolve-url/src"],
+      "@availity/upload-core": ["packages/upload-core/src"],
+      "@availity/yup": ["packages/yup/src"]
     }
   },
   "exclude": ["node_modules"]
