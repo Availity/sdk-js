@@ -1,3 +1,7 @@
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+
+const { compilerOptions } = require('../../tsconfig.json');
+
 module.exports = {
   displayName: 'dl-core',
   preset: '../../jest.preset.js',
@@ -7,4 +11,5 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/dl-core',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

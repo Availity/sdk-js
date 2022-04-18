@@ -1,3 +1,7 @@
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+
+const { compilerOptions } = require('../../tsconfig.json');
+
 module.exports = {
   displayName: 'api-core',
   preset: '../../jest.preset.js',
@@ -9,4 +13,5 @@ module.exports = {
     jsdom: true,
   },
   coverageDirectory: '../../coverage/api-core',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

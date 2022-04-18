@@ -1,3 +1,7 @@
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+
+const { compilerOptions } = require('../../tsconfig.json');
+
 module.exports = {
   displayName: 'upload-core',
   preset: '../../jest.preset.js',
@@ -9,4 +13,5 @@ module.exports = {
     jsdom: true,
   },
   coverageDirectory: '../../coverage/upload-core',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };
