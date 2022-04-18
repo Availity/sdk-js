@@ -2,14 +2,9 @@
   "name": "@availity/dinosaurdocs",
   "version": "1.1.5",
   "private": true,
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
-  },
   "scripts": {
     "build": "docusaurus build",
-    "clean": "rimraf .docusaurus/ build/ lib/",
+    "clean": "rm -rf .docusaurus/ build/ lib/ node_modules/",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
     "serve": "docusaurus serve",
