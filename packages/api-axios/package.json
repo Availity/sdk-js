@@ -31,7 +31,6 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
-    "@availity/env-var": "workspace:*",
     "@availity/resolve-url": "workspace:*",
     "lodash": "^4.17.21",
     "qs": "^6.10.1"

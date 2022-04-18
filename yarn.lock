@@ -179,7 +179,6 @@ __metadata:
   resolution: "@availity/analytics-core@workspace:packages/analytics-core"
   dependencies:
     "@availity/api-axios": "workspace:*"
-    "@nrwl/jest": ^13.10.2
     tsup: ^5.10.1
     typescript: ^4.5.3
     yup: ^0.32.9
@@ -190,7 +189,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/api-axios@workspace:packages/api-axios"
   dependencies:
-    "@availity/env-var": "workspace:*"
     "@availity/resolve-url": "workspace:*"
     axios: ^0.21.4
     lodash: ^4.17.21
@@ -208,7 +206,6 @@ __metadata:
   dependencies:
     "@availity/env-var": "workspace:*"
     "@availity/resolve-url": "workspace:*"
-    "@nrwl/jest": ^13.10.2
     qs: ^6.5.2
     tsup: ^5.10.1
     typescript: ^4.5.3
@@ -220,7 +217,6 @@ __metadata:
   resolution: "@availity/authorizations-axios@workspace:packages/authorizations-axios"
   dependencies:
     "@availity/api-axios": "workspace:*"
-    "@availity/api-core": "workspace:*"
     "@availity/authorizations-core": "workspace:*"
     axios: ^0.21.1
     tsup: ^5.10.1

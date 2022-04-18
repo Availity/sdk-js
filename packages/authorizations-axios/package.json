@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@availity/api-axios": "workspace:*",
-    "@availity/api-core": "workspace:*",
     "@availity/authorizations-core": "workspace:*"
   },
   "devDependencies": {

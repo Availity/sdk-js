@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "@availity/api-axios": "workspace:*",
-    "@nrwl/jest": "^13.10.2",
     "tsup": "^5.10.1",
     "typescript": "^4.5.3"
   },
