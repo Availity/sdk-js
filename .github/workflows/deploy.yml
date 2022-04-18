@@ -42,7 +42,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Artifactory Check
-        run: yarn check:packages
+        run: yarn check:registry
 
       - name: Install Dependencies
         run: yarn install --immutable
