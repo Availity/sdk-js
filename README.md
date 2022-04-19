@@ -22,9 +22,10 @@ Packages in this repository are designed to work with the following browsers
 
 Active support for Internet Explorer was dropped in August 2021. As of 04/2021 we no longer output CommonJS and instead output ESM. We also do not provide any polyfills. These will need to be configured in your own environment.
 
-You must use an older version of the package if you still need support for IE 11.
+There are 2 options available if you need support for IE 11:
 
-TODO: get list of ie supported versions
+- Use an older version of the package (you can check the CHANGELOG in the package to see when IE 11 support was dropped for that package)
+- You can use [@availity/workflow](https://github.com/Availity/availity-workflow#readme) which will polyfill major features for you.
 
 ## Contributing
 
