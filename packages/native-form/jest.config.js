@@ -11,5 +11,6 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/native-form',
+  coverageReporters: ['json'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

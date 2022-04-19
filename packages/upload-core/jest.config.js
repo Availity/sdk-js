@@ -13,5 +13,6 @@ module.exports = {
     jsdom: true,
   },
   coverageDirectory: '../../coverage/upload-core',
+  coverageReporters: ['json'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

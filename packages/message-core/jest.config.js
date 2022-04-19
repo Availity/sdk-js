@@ -10,4 +10,5 @@ module.exports = {
     jsdom: true,
   },
   coverageDirectory: '../../coverage/message-core',
+  coverageReporters: ['json'],
 };

@@ -11,5 +11,6 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/analytics-core',
+  coverageReporters: ['json'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

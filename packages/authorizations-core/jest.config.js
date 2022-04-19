@@ -7,4 +7,5 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/authorizations-core',
+  coverageReporters: ['json'],
 };

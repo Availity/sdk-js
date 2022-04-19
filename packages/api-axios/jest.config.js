@@ -12,5 +12,6 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/api-axios',
+  coverageReporters: ['json'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

@@ -7,4 +7,5 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/relay-id',
+  coverageReporters: ['json'],
 };

@@ -10,4 +10,5 @@ module.exports = {
     jsdom: true,
   },
   coverageDirectory: '../../coverage/resolve-url',
+  coverageReporters: ['json'],
 };

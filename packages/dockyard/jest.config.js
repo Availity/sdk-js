@@ -7,4 +7,5 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/dockyard',
+  coverageReporters: ['json'],
 };

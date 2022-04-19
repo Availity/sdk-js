@@ -7,4 +7,5 @@ module.exports = {
     },
   },
   coverageDirectory: '../../coverage/dl-axios',
+  coverageReporters: ['json'],
 };

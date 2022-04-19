@@ -41,7 +41,7 @@
     "publish:dry-run": "nx affected --target version --dryRun",
     "start": "yarn workspace @availity/dinosaurdocs start",
     "test:affected": "nx affected --target=test",
-    "test:ci": "nx affected --target=test --parallel=3 --runInBand --coverage",
+    "test:ci": "nx affected --target=test --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
     "test": "nx run-many --target=test --all"
   },
   "devDependencies": {

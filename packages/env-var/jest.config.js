@@ -9,4 +9,5 @@ module.exports = {
     jsdom: true,
   },
   coverageDirectory: '../../coverage/env-var',
+  coverageReporters: ['json'],
 };

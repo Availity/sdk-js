@@ -53,11 +53,11 @@ jobs:
       - name: Unit Test
         run: yarn test:ci
 
-      - name: Build
-        run: yarn build
-
-      - name: Code Coverage
+      - name: Upload coverage report
         uses: codecov/codecov-action@v1.0.6
         with:
-          file: ./coverage/coverage-final.json #FIXME: make sure this is the correct path
+          file: ./coverage/coverage-final.json
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Build
+        run: yarn build
