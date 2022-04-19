@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
@@ -24,7 +25,8 @@ jobs:
         with:
           main-branch-name: 'master'
 
-      - uses: actions/setup-node@v2
+      - name: Set Node Version
+        uses: actions/setup-node@v2
         with:
           node-version: 14
 
@@ -41,14 +43,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Artifactory Check
-        run: yarn check:registry
+      # - name: Artifactory Check
+      #   run: yarn check:registry
 
       - name: Install Dependencies
         run: yarn install --immutable
-
-      - name: Build Packages
-        run: yarn build
 
       - name: Lint Source Code
         run: yarn lint
@@ -59,6 +58,9 @@ jobs:
       #   with:
       #     file: ./coverage/coverage-final.json
       #     token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Build Packages
+        run: yarn build
 
   release:
     needs: [setup]
@@ -75,7 +77,8 @@ jobs:
         with:
           main-branch-name: 'master'
 
-      - uses: actions/setup-node@v2
+      - name: Set Node Version
+        uses: actions/setup-node@v2
         with:
           node-version: 14
 
@@ -107,7 +110,7 @@ jobs:
       # TODO: ngx-deploy-npm? Or continue to leverage nx + yarn npm publish command?
       - name: Publish
         run: |
-          yarn nx affected --target version --baseBranch master
+          yarn nx affected --target version
           yarn nx affected --target publish
           git push && git push --tags
 

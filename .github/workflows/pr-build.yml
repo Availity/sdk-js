@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
           token: ${{ secrets.BOT_TOKEN }}
@@ -23,7 +24,8 @@ jobs:
         with:
           main-branch-name: 'master'
 
-      - uses: actions/setup-node@v2
+      - name: Set Node Version
+        uses: actions/setup-node@v2
         with:
           node-version: 14
 
@@ -54,7 +56,8 @@ jobs:
       - name: Build
         run: yarn build
 
-      - uses: codecov/codecov-action@v1.0.6
+      - name: Code Coverage
+        uses: codecov/codecov-action@v1.0.6
         with:
           file: ./coverage/coverage-final.json #FIXME: make sure this is the correct path
           token: ${{ secrets.CODECOV_TOKEN }}
