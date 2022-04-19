@@ -1,7 +1,7 @@
 module.exports = {
   packages: ['packages/*'],
   ignore: {
-    src: ['form-data', 'nock', 'xhr-mock'],
+    src: ['form-data', 'nock', 'xhr-mock', 'ts-jest'],
     devDependencies: ['typescript', 'tsup', 'axios', '@types/tus-js-client'],
     peerDependencies: ['axios'],
   },
