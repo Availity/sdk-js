@@ -17,7 +17,7 @@
   ],
   "engines": {
     "yarn": "^3.0.0",
-    "node": "^12.0.0 || ^14.0.0 || ^16.0.0"
+    "node": "^14.0.0 || ^16.0.0"
   },
   "scripts": {
     "build": "nx run-many --target=build --all",
@@ -37,8 +37,8 @@
     "new": "plop",
     "nx": "nx",
     "postinstall": "is-ci || husky install",
-    "publish": "nx affected --target version",
-    "publish:dry-run": "nx affected --target version --dryRun",
+    "publish": "nx affected --target version --parallel=1",
+    "publish:dry-run": "nx affected --target version --dryRun --parallel=1",
     "start": "yarn workspace @availity/dinosaurdocs start",
     "test:affected": "nx affected --target=test",
     "test:ci": "nx affected --target=test --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
