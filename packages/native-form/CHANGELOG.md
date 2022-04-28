@@ -1,7 +1,18 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/native-form@4.0.12...@availity/native-form@5.0.0) (2022-04-28)
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+
+
 
 ## [4.0.12](https://github.com/availity/sdk-js/compare/@availity/native-form@4.0.10...@availity/native-form@4.0.12) (2022-02-22)
 
