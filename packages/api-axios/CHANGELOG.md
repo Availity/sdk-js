@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.0.0...@availity/api-axios@7.0.1) (2022-04-28)
+
+
+### Bug Fixes
+
+* **api-axios:** set the browser field ([9206790](https://github.com/Availity/sdk-js/commit/92067904e99d6d893db4d3b063da4bc47af22ad0))
+
+
+
 # [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@6.0.8...@availity/api-axios@7.0.0) (2022-04-28)
 
 
