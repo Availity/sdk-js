@@ -112,8 +112,8 @@ jobs:
       # TODO: ngx-deploy-npm? Or continue to leverage nx + yarn npm publish command?
       - name: Publish
         run: |
-          yarn nx affected --target version
-          yarn nx affected --target publish
+          yarn nx affected --target version --parallel=1
+          yarn nx affected --target publish --parallel=1
           git push && git push --tags
 
       - name: Build Docs
