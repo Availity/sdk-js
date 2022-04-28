@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.0.0](https://github.com/Availity/sdk-js/compare/@availity/env-var@1.11.3...@availity/env-var@2.0.0) (2022-04-28)
+
+
+* feat(env-var)!: update types ([d747314](https://github.com/Availity/sdk-js/commit/d747314b481c41a1c5da11613df9d0ad9ae6988d))
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### BREAKING CHANGES
+
+* Drop IE support
+* Drop Internet Explorer support
+
+
+
 ## [1.11.4-alpha.0](https://github.com/Availity/sdk-js/compare/@availity/env-var@1.11.3...@availity/env-var@1.11.4-alpha.0) (2022-04-18)
 
 
