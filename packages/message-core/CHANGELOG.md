@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.1](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.0.0...@availity/message-core@6.0.1) (2022-04-28)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+
+
+
 # [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/message-core@5.0.5...@availity/message-core@6.0.0) (2022-04-28)
 
 
