@@ -17,6 +17,7 @@
   },
   "license": "MIT",
   "author": "Kyle Gray <kyle.gray@availity.com>",
+  "browser": "./dist/index.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

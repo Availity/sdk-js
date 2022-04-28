@@ -17,6 +17,7 @@
   },
   "license": "MIT",
   "author": "Greg Martin <greg.martin@availity.com>",
+  "browser": "./dist/index.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

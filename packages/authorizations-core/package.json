@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
+  "browser": "./dist/index.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

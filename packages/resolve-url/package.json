@@ -18,6 +18,7 @@
   },
   "license": "MIT",
   "author": "Rob McGuinness <rob.mcguinness@availity.com>",
+  "browser": "./dist/index.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
