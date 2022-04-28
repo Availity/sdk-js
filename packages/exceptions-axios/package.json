@@ -4,6 +4,7 @@
   "description": "Availity class to log exceptions via axios",
   "license": "MIT",
   "author": "Evan Sharp <evan.sharp@availity.com>",
+  "browser": "./dist/index.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
