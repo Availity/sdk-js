@@ -3,18 +3,17 @@
 # Instructions:
 #
 #   - In package.json add:
-#       "scripts": { "check:packages": "sh ./scripts/artifactory-check.sh" }
+#       "scripts": { "check:registry": "sh ./scripts/artifactory-check.sh" }
 #
 #   - Run:
-#       npm run check:packages
-#       yarn check:packages
+#       npm run check:registry
+#       yarn check:registry
 #
 
 # error out if something fails
 set -e
 
-if grep -R --exclude='*.sh' --exclude-dir='node_modules'  --include='yarn.lock' -e 'artifactory.availity' -e 'packages.availity'  ./
-then
+if grep -R --exclude='*.sh' --exclude-dir='node_modules' --include='yarn.lock' -e 'artifactory.availity' -e 'packages.availity' ./; then
   printf "\n"
   printf "   (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c) \n"
   printf "    / ._. \      / ._. \      / ._. \      / ._. \      / ._. \ \n"

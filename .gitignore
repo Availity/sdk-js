@@ -9,6 +9,14 @@ lib
 coverage/
 
 /.history
-yarn-error.log
 /**/build
 /**/.docusaurus
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+yarn-error.log
+.pnp.*

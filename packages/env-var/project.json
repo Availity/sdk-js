@@ -1,0 +1,23 @@
+{
+  "root": "packages/env-var",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/env-var"],
+      "options": {
+        "jestConfig": "packages/env-var/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@",
+        "baseBranch": "master"
+      }
+    }
+  }
+}

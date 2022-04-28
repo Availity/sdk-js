@@ -18,17 +18,21 @@
   },
   "license": "MIT",
   "author": "Rob McGuinness <rob.mcguinness@availity.com>",
-  "main": "lib/index.js",
-  "module": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "yarn clean && yarn transpile",
-    "clean": "rimraf ./lib",
-    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
+    "build": "tsup src/index.js --format esm,cjs --dts",
+    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "bundlesize": "bundlesize",
+    "publish": "yarn npm publish --tolerate-republish --access public"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.16.5",
-    "core-js": "^3.12.1"
+  "devDependencies": {
+    "tsup": "^5.10.1",
+    "typescript": "^4.5.3"
   },
   "publishConfig": {
     "access": "public"

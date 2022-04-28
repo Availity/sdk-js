@@ -1,0 +1,23 @@
+{
+  "root": "packages/dl-axios",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/dl-axios"],
+      "options": {
+        "jestConfig": "packages/dl-axios/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@",
+        "baseBranch": "master"
+      }
+    }
+  }
+}

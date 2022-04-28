@@ -18,30 +18,32 @@
   },
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
-  "main": "lib/index.js",
-  "module": "src/index.js",
-  "types": "types/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "yarn clean && yarn transpile",
-    "clean": "rimraf ./lib",
-    "transpile": "babel --root-mode upward src -d lib --ignore **/*.test.js"
+    "build": "tsup src/index.js --format esm,cjs --dts",
+    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "bundlesize": "bundlesize",
+    "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
-    "@availity/env-var": "^1.11.3",
-    "@availity/resolve-url": "^1.1.25",
-    "@babel/runtime": "^7.16.5",
-    "core-js": "^3.12.1",
+    "@availity/resolve-url": "workspace:*",
     "lodash": "^4.17.21",
     "qs": "^6.10.1"
   },
   "devDependencies": {
-    "axios": "^0.21.4"
+    "axios": "^0.21.4",
+    "tsup": "^5.10.1",
+    "typescript": "^4.5.3"
   },
   "peerDependencies": {
     "axios": "^0.21.4"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "21b480acb7fc70e240d88451cee8adecb5ddde56"
+  }
 }

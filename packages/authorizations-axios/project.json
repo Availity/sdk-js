@@ -1,0 +1,23 @@
+{
+  "root": "packages/authorizations-axios",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/authorizations-axios"],
+      "options": {
+        "jestConfig": "packages/authorizations-axios/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+        "tagPrefix": "@availity/${projectName}@",
+        "baseBranch": "master"
+      }
+    }
+  }
+}
