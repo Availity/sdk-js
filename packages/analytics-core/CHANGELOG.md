@@ -1,7 +1,18 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@3.1.8...@availity/analytics-core@4.0.0) (2022-04-28)
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+
+
 
 ## [3.1.8](https://github.com/availity/sdk-js/compare/@availity/analytics-core@3.1.6...@availity/analytics-core@3.1.8) (2022-02-22)
 
