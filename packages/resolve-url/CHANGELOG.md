@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.0.1](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@2.0.0...@availity/resolve-url@2.0.1) (2022-04-28)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+
+
+
 # [2.0.0](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@1.1.25...@availity/resolve-url@2.0.0) (2022-04-28)
 
 
