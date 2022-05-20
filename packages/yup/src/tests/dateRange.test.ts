@@ -1,7 +1,6 @@
 import { object, string } from 'yup';
 
-import { dateRange } from '..';
-import DateRangeSchema from '../dateRange';
+import DateRangeSchema, { dateRange } from '../dateRange';
 
 describe('DateRange', () => {
   test('start comes before end', async () => {

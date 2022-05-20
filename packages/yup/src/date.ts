@@ -1,112 +1,120 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { MixedSchema } from 'yup';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
+import type { Moment } from 'moment';
 
-const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD', 'MM-DD-YYYY'];
+const defaultFormats = ['YYYY-MM-DD', 'YYYYMMDD', 'MMDDYYYY', 'MM-DD-YYYY', 'MM/DD/YYYY'];
 
-export default class AvDateSchema extends MixedSchema<Moment> {
-  format: string;
+export default class MomentDateSchema extends MixedSchema<Moment> {
+  _validFormats: string[];
 
-  constructor({ format = 'MM/DD/YYYY' }: Options = {}) {
-    super({
-      type: 'avDate',
-    });
+  constructor({ format = [], typeError = 'The date entered is in an invalid format.' }: Options = {}) {
+    super({ type: 'avDate' });
 
-    this.format = format;
+    const formats = Array.isArray(format) ? format : [format];
+    this._validFormats = [...defaultFormats, ...formats];
 
     this.withMutation((schema) => {
-      if (!schema.tests.some((test) => test?.OPTIONS?.name === 'typeError')) {
-        super.typeError('Date is invalid.');
-      }
-      schema.transform(function mutate(value) {
-        return schema.getValidDate(value);
+      // Set error message for when _typeCheck fails
+      schema.typeError(typeError);
+
+      // Transform value into a moment object
+      schema.transform(function transform(value, originalValue) {
+        if (value && this.isType(value)) {
+          return value;
+        }
+        return moment(originalValue, schema._validFormats, true);
       });
     });
   }
 
-  _typeCheck(value: Moment & { _i: string }): value is Moment & { _i: string } {
-    // So as long as the passed in value is defined, moment._i will contain a string value to validate.
-    // If user enters a date and then removes it, should not show a typeError
-    // Note: this does not prevent other tests, like isRequired, from showing messages
-    // If user has touched a required field, required error message should still show
-    return value.isValid() || value._i === '';
+  // Check if the date is a valid moment object or an empty string
+  _typeCheck(value: unknown): value is Moment {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return moment.isMoment(value) && (value.isValid() || value._i === '');
   }
 
-  getValidDate(value: string | Date | Moment) {
-    return moment(value, [this.format, ...formats], true);
-  }
-
+  /**
+   * Validate if the date is on or after a specified min
+   */
   min(min: string, message?: string) {
-    const minDate = this.getValidDate(min);
-
     return this.test({
-      message: message || `Date must be ${minDate.format(this.format)} or later.`,
+      message: ({ min: minDate }) => message || `Date must be ${minDate} or later.`,
       name: 'min',
       exclusive: true,
       params: { min },
       test(value) {
-        if (!min || !minDate.isValid()) {
+        // First check if min is defined and we have a valid date
+        if (!min || !value || !value.isValid()) {
           return true;
         }
-        return value === null || minDate.isSameOrBefore(value);
+        return value.isSameOrAfter(min);
       },
     });
   }
 
+  /**
+   * Validate if the date is on or before a specified max
+   */
   max(max: string, message?: string) {
-    const maxDate = this.getValidDate(max);
-
     return this.test({
-      message: message || `Date must be ${maxDate.format(this.format)} or earlier.`,
+      message: ({ max: maxDate }) => message || `Date must be ${maxDate} or earlier.`,
       name: 'max',
       exclusive: true,
       params: { max },
       test(value) {
-        if (!max || !maxDate.isValid()) {
+        // First check if max is defined and we have a valid date
+        if (!max || !value || !value.isValid()) {
           return true;
         }
-        return value === null || maxDate.isSameOrAfter(value);
+        return value.isSameOrBefore(max);
       },
     });
   }
 
-  isRequired(isRequired = true, msg?: string) {
+  /**
+   * Validate if the date is between a specified min or max
+   *
+   * For Inlcusivity: `[]` === include & `()` === exclude
+   */
+  between(min: string, max: string, message?: string, inclusivity: Inclusivity = '()') {
+    return this.test({
+      name: 'between',
+      exclusive: true,
+      message: ({ min: minDate, max: maxDate }) => message || `Date must be between ${minDate} and ${maxDate}.`,
+      params: { min, max },
+      test(value) {
+        // First check if min and max are defined and we have a valid date
+        if (!value || !value.isValid() || !min || !max) {
+          return true;
+        }
+
+        return value.isBetween(min, max, undefined, inclusivity);
+      },
+    });
+  }
+
+  /**
+   * Set if the field is required and add a custom message
+   */
+  isRequired(isRequired = true, message?: string) {
     return this.test({
       name: 'isRequired',
       exclusive: true,
-      message: msg || 'This field is required.',
+      message: message || 'This field is required.',
       test(value) {
         if (!isRequired) {
           return true;
         }
-
-        return value !== undefined;
-      },
-    });
-  }
-
-  between(min: string, max: string, msg?: string, inclusivity: Inclusivity = '()') {
-    const minDate = this.getValidDate(min);
-    const maxDate = this.getValidDate(max);
-
-    // Can't use arrow function because we rely on 'this' referencing yup's internals
-    return this.test({
-      name: 'between',
-      exclusive: true, // Validation errors don't stack
-      // NOTE: Intentional use of single quotes - yup will handle the string interpolation
-      message: msg || `Date must be between ${minDate.format(this.format)} and ${maxDate.format(this.format)}.`,
-      test(value) {
-        if (!value || !min || !max || !minDate.isValid() || !maxDate.isValid()) {
-          return true;
-        }
-
-        return value.isBetween(minDate, maxDate, undefined, inclusivity);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return value ? !!value._i : false;
       },
     });
   }
 }
 
 export type Inclusivity = '()' | '[)' | '(]' | '[]';
-type Options = { format?: string };
+type Options = { format?: string | string[]; typeError?: string };
 
-export const avDate = (opts?: Options): AvDateSchema => new AvDateSchema(opts);
+export const avDate = (options?: Options) => new MomentDateSchema(options);
