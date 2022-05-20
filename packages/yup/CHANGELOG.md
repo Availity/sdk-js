@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.1.0](https://github.com/Availity/sdk-js/compare/@availity/yup@5.0.1...@availity/yup@5.1.0) (2022-05-20)
+
+
+### Features
+
+* **yup:** update how accepted formats are handled for dates ([91006e5](https://github.com/Availity/sdk-js/commit/91006e564766e2bb66cdabc24dd2cdd69bc8b150))
+
+
+
 ## [5.0.1](https://github.com/Availity/sdk-js/compare/@availity/yup@5.0.0...@availity/yup@5.0.1) (2022-04-28)
 
 
