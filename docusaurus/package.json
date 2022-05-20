@@ -2,6 +2,9 @@
   "name": "@availity/dinosaurdocs",
   "version": "1.1.5",
   "private": true,
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
   "scripts": {
     "build": "docusaurus build",
     "clean": "rm -rf .docusaurus/ build/ lib/ node_modules/",

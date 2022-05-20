@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "nx run-many --target=build --all",
+    "build:packages": "nx run-many --target=build --all --exclude=dinosaurdocs",
     "build:docs": "nx build dinosaurdocs",
     "build:affected": "nx affected --target=build",
     "bundlesize": "nx run-many --target=bundlesize --all",

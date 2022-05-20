@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { MixedSchema, ValidationError } from 'yup';
-import moment, { Moment, unitOfTime } from 'moment';
+import moment, { unitOfTime } from 'moment';
+import type { Moment } from 'moment';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 
@@ -10,7 +10,7 @@ const defaultOptions = {
   format: 'MM/DD/YYYY',
 };
 
-const formats = ['YYYY-MM-DD', 'MMDDYYYY', 'YYYYMMDD'];
+const formats = ['YYYY-MM-DD', 'YYYYMMDD', 'MMDDYYYY', 'MM-DD-YYYY', 'MM/DD/YYYY'];
 
 export default class DateRangeSchema extends MixedSchema<DateRange> {
   startKey: string;
@@ -45,11 +45,16 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
     });
   }
 
-  // Convert the string to a moment object
+  /**
+   * Convert the string to a moment object
+   */
   getValidDate(value: string | Date | Moment) {
     return moment(value, [this.format, ...formats], true);
   }
 
+  /**
+   * Validate based on min and max distance between dates
+   */
   distance({
     min: { value: minValue, units: minUnits = 'day', errorMessage: minErrorMessage } = { value: 0 },
     max: { value: maxValue, units: maxUnits = 'day', errorMessage: maxErrorMessage } = { value: 0 },
@@ -89,20 +94,20 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
     });
   }
 
+  /**
+   * Validate start date is after given min
+   */
   min(min: string, message?: string) {
-    // it works for date, but not daterange. maybe that can tell us more about what is going on
-    // const minDate = this.getValidDate(min);
-
     return this.test({
       message: message || (({ min }: { min: string }) => `Date Range must start on or after ${min}`),
       name: 'min',
       exclusive: true,
       params: { min },
       test({ startDate, supportedFormats } = {}) {
-        // return true when no startDate or min set
+        // Only validate if startDate and min are defined
         if (!startDate || !min) return true;
 
-        // otherwise check if min is correct format and is after given startDate
+        // Otherwise check if min is correct format and is after given startDate
         const minDate = moment(min, supportedFormats, true);
 
         return minDate.isValid() && minDate.isSameOrBefore(startDate);
@@ -110,6 +115,9 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
     });
   }
 
+  /**
+   * Validate end date is before given max
+   */
   max(max: string, message?: string) {
     // const maxDate = this.getValidDate(max);
 
@@ -130,6 +138,9 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
     });
   }
 
+  /**
+   * Validate dates are between the set min and max
+   */
   between(min: string, max: string, message?: string) {
     // const minDate = this.getValidDate(min);
     // const maxDate = this.getValidDate(max);
@@ -153,6 +164,9 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
     });
   }
 
+  /**
+   * Set the field to be required or not
+   */
   isRequired(isRequired = true, msg?: string) {
     return this.test({
       name: 'isRequired',
@@ -206,7 +220,6 @@ type Options = { startKey?: string; endKey?: string; format?: string };
 type DateRange = { startDate?: Moment; endDate?: Moment; supportedFormats?: string[] };
 type DistanceValue = {
   value: number;
-  // unitOfTime namespace is provided by moment library
   units?: unitOfTime.DurationConstructor;
   errorMessage?: string;
 };

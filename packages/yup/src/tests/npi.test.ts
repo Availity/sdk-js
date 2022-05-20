@@ -41,7 +41,7 @@ describe('npi', () => {
     expect(await stringSchema.isValid('123456789')).toBe(false);
     expect(await stringSchema.isValid('12345678901')).toBe(false);
 
-    const numSchema = string().npi();
+    const numSchema = number().npi();
     expect(await numSchema.isValid(123456789)).toBe(false);
     expect(await numSchema.isValid(12345678901)).toBe(false);
   });
