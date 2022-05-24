@@ -1,7 +1,22 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# 0.1.0 (2022-05-24)
+
+
+### Bug Fixes
+
+* **dinosaurdocs:** fixes broken code block highlighting ([ca094ba](https://github.com/Availity/sdk-js/commit/ca094ba85defb5ccc572c43814bfe545a4b7af64))
+* **upload-core:** adds max amount of retries to av scan polling ([5175754](https://github.com/Availity/sdk-js/commit/51757544e361bdad926d1ce0495e5766c56e1ba3))
+
+
+### Features
+
+* **docs:** add docusaurus docs ([13a88c2](https://github.com/Availity/sdk-js/commit/13a88c215da1bbd1c8346f89d4842de88fa68df5))
+* **upload-core:** fixed prop to this.  Added a test and fixed another test.. ([207df80](https://github.com/Availity/sdk-js/commit/207df80faff7e61a2529b53e4f306baa5c08b551))
+
+
 
 ## 1.1.5 (2022-03-23)
 
