@@ -1,6 +1,6 @@
 {
   "name": "@availity/native-form",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
   "keywords": [
     "availity",
