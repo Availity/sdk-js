@@ -86,7 +86,7 @@ Retrieves an user by its id. Supports using `me` as a synonym for the current us
 ### Example Request
 
 ```
-GET https:/apps.availity.com/api/sdk/platform/v1/users/id
+GET https://apps.availity.com/api/sdk/platform/v1/users/id
 ```
 
 ### Example Response
