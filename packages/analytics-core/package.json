@@ -24,8 +24,6 @@
   "scripts": {
     "build": "tsup src/index.js --format esm,cjs --dts",
     "dev": "tsup src/index.js --format esm,cjs --watch --dts",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
     "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
@@ -35,8 +33,8 @@
   },
   "devDependencies": {
     "@availity/api-axios": "workspace:*",
-    "tsup": "^5.10.1",
-    "typescript": "^4.5.3"
+    "tsup": "^5.12.8",
+    "typescript": "^4.6.4"
   },
   "publishConfig": {
     "access": "public"

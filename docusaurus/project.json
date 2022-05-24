@@ -1,15 +1,7 @@
 {
-  "root": "packages/env-var",
-  "projectType": "library",
+  "root": "docusaurus",
+  "projectType": "application",
   "targets": {
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/env-var"],
-      "options": {
-        "jestConfig": "packages/env-var/jest.config.js",
-        "passWithNoTests": true
-      }
-    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
@@ -23,11 +15,11 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/env-var/**/*.{js,ts}"],
+        "lintFilePatterns": ["docusaurus/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,
-        "cacheLocation": "./node_modules/.cache/env-var/.eslintcache",
+        "cacheLocation": "./node_modules/.cache/docusaurus/.eslintcache",
         "maxWarnings": -1,
         "quiet": false,
         "noEslintrc": false,

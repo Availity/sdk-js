@@ -1,10 +1,7 @@
+const global = require('../../jest.config');
+
 module.exports = {
+  ...global,
   displayName: 'exceptions-core',
-  preset: '../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
   coverageDirectory: '../../coverage/exceptions-core',
 };

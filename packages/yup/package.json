@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "moment": "^2.24.0",
-    "tsup": "^5.10.1",
-    "typescript": "^4.5.3"
+    "tsup": "^5.12.8",
+    "typescript": "^4.6.4"
   },
   "peerDependencies": {
     "moment": "^2.24.0"
