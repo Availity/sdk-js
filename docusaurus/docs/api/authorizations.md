@@ -23,7 +23,7 @@ yarn add @availity/authorizations-core @availity/api-axios @availity/api-core
 ## Configuration
 
 `AvAuthorizations` requires `AvPermissions`, `AvRegions`, and a Promise lib.
-`AvPermissions` and `AvRegions` can be found in [Api-Core](/api/definitions/) but can be any objects that have `getPermissions()` and `getCurrentRegion()` promises respectively.
+`AvPermissions` and `AvRegions` can be found in [Api Axios](/api/axios-resources/), but can be any objects that have `getPermissions()` and `getCurrentRegion()` promises respectively.
 
 ```js
 new AvAuthorizations(AvPermissions, AvRegions, promise);

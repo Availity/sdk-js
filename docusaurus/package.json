@@ -7,12 +7,12 @@
   },
   "scripts": {
     "build": "docusaurus build",
-    "clean": "rm -rf .docusaurus/ build/ lib/ node_modules/",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
     "serve": "docusaurus serve",
     "start": "docusaurus start",
-    "swizzle": "docusaurus swizzle"
+    "swizzle": "docusaurus swizzle",
+    "format": "prettier '**/*' --write --ignore-unknown"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.70",
@@ -33,5 +33,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "tabWidth": 2
   }
 }

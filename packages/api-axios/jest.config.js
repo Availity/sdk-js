@@ -1,17 +1,8 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-
-const { compilerOptions } = require('../../tsconfig.json');
+const global = require('../../jest.config');
 
 module.exports = {
-  displayName: 'api-axios',
-  preset: '../../jest.preset.js',
+  ...global,
   testURL: 'http://localhost:8080',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
+  displayName: 'api-axios',
   coverageDirectory: '../../coverage/api-axios',
-  coverageReporters: ['json'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

@@ -18,6 +18,22 @@
         "tagPrefix": "@availity/${projectName}@",
         "baseBranch": "master"
       }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "eslintConfig": ".eslintrc.yaml",
+        "lintFilePatterns": ["packages/dl-axios/**/*.{js,ts}"],
+        "silent": false,
+        "fix": false,
+        "cache": true,
+        "cacheLocation": "./node_modules/.cache/dl-axios/.eslintcache",
+        "maxWarnings": -1,
+        "quiet": false,
+        "noEslintrc": false,
+        "hasTypeAwareRules": true,
+        "cacheStrategy": "metadata"
+      }
     }
   }
 }

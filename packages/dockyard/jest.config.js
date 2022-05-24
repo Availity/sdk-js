@@ -1,11 +1,7 @@
+const global = require('../../jest.config');
+
 module.exports = {
+  ...global,
   displayName: 'dockyard',
-  preset: '../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
   coverageDirectory: '../../coverage/dockyard',
-  coverageReporters: ['json'],
 };

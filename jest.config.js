@@ -1,29 +1,22 @@
+const { pathsToModuleNameMapper } = require('ts-jest');
+
+const { compilerOptions } = require('./tsconfig.json');
+
 module.exports = {
-  testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest',
+    '^.+\\.(ts|js)$': 'ts-jest',
   },
-  resolver: '@nrwl/builders/plugins/jest/resolver',
   moduleFileExtensions: ['ts', 'js'],
-  collectCoverage: false,
-  projects: [
-    '<rootDir>',
-    '<rootDir>/packages/*',
-    '<rootDir>/packages/analytics-core',
-    '<rootDir>/packages/api-axios',
-    '<rootDir>/packages/authorizations-axios',
-    '<rootDir>/packages/authorizations-core',
-    '<rootDir>/packages/dl-axios',
-    '<rootDir>/packages/dl-core',
-    '<rootDir>/packages/env-var',
-    '<rootDir>/packages/exceptions-core',
-    '<rootDir>/packages/native-form',
-    '<rootDir>/packages/message-core',
-    '<rootDir>/packages/resolve-url',
-    '<rootDir>/packages/relay-id',
-    '<rootDir>/packages/upload-core',
-    '<rootDir>/packages/yup',
-    '<rootDir>/packages/dockyard',
-    '<rootDir>/packages/exceptions-axios',
-  ],
+  preset: '../../jest.preset.js',
+  testEnvironment: 'jest-environment-jsdom-global',
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
+    jsdom: true,
+  },
+  coverageReporters: ['json'],
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
+  },
 };

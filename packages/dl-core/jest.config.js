@@ -1,16 +1,7 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-
-const { compilerOptions } = require('../../tsconfig.json');
+const global = require('../../jest.config');
 
 module.exports = {
+  ...global,
   displayName: 'dl-core',
-  preset: '../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
   coverageDirectory: '../../coverage/dl-core',
-  coverageReporters: ['json'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
 };

@@ -35,8 +35,8 @@
     "js-file-download": "^0.4.7"
   },
   "devDependencies": {
-    "tsup": "^5.10.1",
-    "typescript": "^4.5.3"
+    "tsup": "^5.12.8",
+    "typescript": "^4.6.4"
   },
   "publishConfig": {
     "access": "public"
