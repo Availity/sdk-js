@@ -11,6 +11,8 @@ export default class AvApi {
       throw new Error('[config] must be defined');
     }
 
+    console.log('test');
+
     // Allow for overriding axios client
     const { http, ...options } = config;
     this.http = http || axios;
