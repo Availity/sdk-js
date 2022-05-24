@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.2](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.0.1...@availity/api-axios@7.0.2) (2022-05-24)
+
+
+### Reverts
+
+* Revert "chore: testing build stuff" ([24cc807](https://github.com/Availity/sdk-js/commit/24cc807fa91236f38a82b17a006bbe88641af32a))
+
+
+
 ## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.0.0...@availity/api-axios@7.0.1) (2022-04-28)
 
 
