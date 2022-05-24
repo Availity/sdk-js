@@ -1,6 +1,6 @@
 {
   "name": "@availity/resolve-url",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Resolve absolute url from relative urls",
   "keywords": [
     "availity",
