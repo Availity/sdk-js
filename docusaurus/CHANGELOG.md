@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.1](https://github.com/Availity/sdk-js/compare/@availity/docusaurus@0.1.0...@availity/docusaurus@0.1.1) (2022-06-01)
+
+
+
 # 0.1.0 (2022-05-24)
 
 
