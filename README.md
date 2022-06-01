@@ -20,7 +20,7 @@ Packages in this repository are designed to work with the following browsers
 
 ### Internet Explorer Support
 
-Active support for Internet Explorer was dropped in August 2021. As of 04/2021 we no longer output CommonJS and instead output ESM. We also do not provide any polyfills. These will need to be configured in your own environment.
+Active support for Internet Explorer was dropped in August 2021. As of 04/2021 we no longer provide any polyfills. These will need to be configured in your own environment.
 
 There are 2 options available if you need support for IE 11:
 

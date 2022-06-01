@@ -5,7 +5,7 @@ title: Native Form
 Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.
 [![Version](https://img.shields.io/npm/v/@availity/native-form.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/native-form)
 
-## Install
+## Installation
 
 ### NPM
 
@@ -29,11 +29,11 @@ async function onClick() {
 }
 ```
 
-### Required params
+### Required args
 
 - spaceId: String
 
-### Optional params
+### Optional args
 
 - params: Object. Additional parameters you want sent in the post.
 - formAttributes: Object. Set/override the form attributes like `target`, `method`, and `action`.

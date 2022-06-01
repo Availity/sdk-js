@@ -2,7 +2,11 @@ module.exports = {
   someSidebar: {
     'SDK-JS Docs': [
       'intro',
-      'contributing',
+      {
+        type: 'link',
+        label: 'Contributing',
+        href: 'https://github.com/Availity/sdk-js/blob/master/.github/CONTRIBUTING.md#contributing',
+      },
       {
         type: 'category',
         label: 'SDK Resources',
@@ -53,7 +57,7 @@ module.exports = {
         type: 'category',
         label: 'Recipes',
 
-        items: ['recipes/proxy', 'recipes/httpRequest'],
+        items: ['recipes/proxy', 'recipes/http-request'],
       },
     ],
   },

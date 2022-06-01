@@ -34,7 +34,8 @@
     "format:check": "nx format:check --all",
     "format:write": "nx format:write --all",
     "lint": "nx run-many --target=lint --all",
-    "lint:fix": "yarn nx affected --target=lint --fix",
+    "lint:affected": "nx affected --target=lint",
+    "lint:fix": "nx affected --target=lint --fix",
     "new": "plop",
     "nx": "nx",
     "postinstall": "is-ci || husky install",
@@ -42,7 +43,7 @@
     "publish:dry-run": "nx affected --target version --dryRun --parallel=1",
     "start": "nx start docusaurus",
     "test:affected": "nx affected --target=test",
-    "test:ci": "nx affected --target=test --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
+    "test:ci": "nx run-many --target=test --all --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
     "test": "nx run-many --target=test --all"
   },
   "devDependencies": {

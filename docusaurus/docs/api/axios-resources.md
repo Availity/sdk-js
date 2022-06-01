@@ -2,239 +2,157 @@
 title: Axios Resources
 ---
 
-A package providing a base authorizations class to help check which permissions a user has.
-
-# Availity API's
+This page has information on pre-defined resources you will be able to import into your app.
 
 ## Table of Contents
 
-- [AvUser](#avuser)
-- [AvRegions](#avregions)
-- [AvPermissions](#avpermissions)
-- [AvUserPermissions](#avuserpermissions)
-- [AvSpaces](#avspaces)
-- [AvOrganizations](#avorganizations)
-- [AvProviders](#avproviders)
-- [AvLogMessage](#avlogmessage)
-- [AvProxy](#avproxy)
-- [AvFiles](#avfiles)
-- [AvFilesDelivery](#avfilesdelivery)
-- [AvSettings](#avsettings)
+- [AvUserApi](#avuserapi)
+- [AvRegionsApi](#avregionsapi)
+- [AvPermissionsApi](#avpermissionsapi)
+- [AvUserPermissionsApi](#avuserpermissionsapi)
+- [AvSpacesApi](#avspacesapi)
+- [AvOrganizationsApi](#avorganizationsapi)
+- [AvProvidersApi](#avprovidersapi)
+- [AvLogMessageApi](#avlogmessageapi)
+- [AvFilesApi](#avfilesapi)
+- [AvFilesDeliveryApi](#avfilesdeliveryapi)
+- [AvSettingsApi](#avsettingsapi)
 
-All axios resources will have the same basic exported class structure as below. For each resource, replace the `class` with the resource name as well as `name` in `options`
+Each pre-defined resource has two exports. The class and an instance. The class will follow the pattern `AvUserApi` and the instance will be `avUserApi`. In other words, the class is uppercase while the instance is lowercase.
 
-```javascript
-export default class AvPermissions extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: 'api/sdk/platform',
-      name: 'permissions',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
+Use the class if you need to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/httpRequest) for more information on creating your own endpoint.
+
+### AvUserApi
+
+Get information about the logged in user.
+
+#### `me(config)`
+
+Helper function that returns information about the logged in user.
+
+```js
+import { avUserApi } from '@availity/api-axios';
+
+const getUser = async (config) => {
+  const user = await avUserApi.me(config);
+  return user;
+};
 ```
 
-### `AvUser`
+### AvRegionsApi
 
-Get information about current logged in user.
+Get the logged in user's currently selected region. Can also get all of the regions the user is associated with.
 
-#### Exported Class
+#### `getRegions(config)`
 
-`name` in `options` as `users`
+Get all regions for the logged in user.
 
-#### Methods
+```js
+import { avRegionsApi } from '@availity/api-axios';
 
-```javascript
-function me(config) {
-  return this.get('me', config).then((response) => response.data);
-}
+const fetchRegions = async (userId) => {
+  // This method will fetch the userId if you do not provide it
+  const response = await avRegionsApi.getRegions({ params: { userId } });
+
+  return response.data;
+};
 ```
 
-Helper function that returns information about logged in user.
+#### `getCurrentRegion()`
 
-### `AvRegions`
+Returns the currently active region for the user.
 
-Gets the logged in user's current selected region as well as the regions the user is associated with.
+```js
+import { avRegionsApi } from '@availity/api-axios';
 
-#### Exported Class
+const getRegion = async () => {
+  const response = await avRegionsApi.getCurrentRegion();
 
-Add `avUsers` to the `constructor`. Add `sessionBust: false` and `pagebust: true` to `options`. Include `this.avUsers = avUsers` before `constructor` closes. `name` in `options` as `regions`.
-
-#### Methods
-
-##### `afterUpdate(response)`
-
-```javascript
-function afterUpdate(response) {
-  this.setPageBust();
-  return response;
-}
+  return response.data;
+};
 ```
 
-##### `getRegions(config)`
-
-Get regions for logged in user.
-
-```javascript
-function getRegions(config) {
-  if (!this.avUsers || !this.avUsers.me) {
-    throw new Error('avUsers must be defined');
-  }
-  return this.avUsers.me().then((user) => {
-    const queryConfig = this.addParams({ userId: user.id }, config);
-    return this.query(queryConfig);
-  });
-}
-```
-
-##### `getCurrentRegion()`
-
-Returns just the current region for the logged in user.
-
-```javascript
-function getCurrentRegion() {
-  return this.query({
-    params: {
-      currentlySelected: true,
-    },
-  });
-}
-```
-
-### `AvPermissions`
+### AvPermissionsApi
 
 Get permissions belonging to the logged in user.
 
-#### Exported Class
+#### `getPermissions(permissionId, region)`
 
-`name` in `options` as `permissions`
+```js
+import { avPermissionsApi } from '@availity/api-axios';
 
-#### Methods
+const fetchPermissions = async (id, region) => {
+  const response = await avPermissionsApi.getPermissions(id, region);
 
-```javascript
-function getPermissions(id, region) {
-  return this.query({
-    params: { id, region },
-  });
-}
+  return response.data;
+};
 ```
 
-### `AvUserPermissions`
+### AvUserPermissionsApi
 
 Get permissions as well as resources of the logged in user.
 
-#### Exported Class
+#### `getPermissions(permissionId, region)`
 
-```javascript
-import qs from 'qs';
-import AvApi from '../api';
+```js
+import { avUserPermissionsApi } from '@availity/api-axios';
 
-export default class AvUserPermissions extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      path: 'api/internal',
-      name: 'axi-user-permissions',
-      paramsSerializer: params =>
-        qs.stringify(params, { arrayFormat: 'repeat' }),
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
+const fetchPermissions = async (id, region) => {
+  const response = await avUserPermissionsApi.getPermissions(id, region);
+
+  return response.data;
+};
 ```
 
-#### Methods
-
-```javascript
-function afterQuery(response) {
-  return response && response.data && response.data.axiUserPermissions
-    ? response.data.axiUserPermissions
-    : [];
-}
-```
-
-```javascript
-function getPermissions(permissionId, region) {
-  return this.query({
-    params: { permissionId, region },
-  });
-}
-```
-
-### `AvSpaces`
+### AvSpacesApi
 
 Get metadata for the various content types for the Spaces platform.
 
-#### Exported Classes
+#### `parseSpaceId(query)`
 
-`name` in `options` as `spaces`
+Get the `spaceId` from a query string
 
-#### Methods
+```js
+import { avSpacesApi } from '@availity/api-axios';
 
-```javascript
-function parseSpaceId(query) {
-  const pairs = query.substr(1).split('&');
-
-  let spaceId = '';
-
-  if (Array.isArray(pairs)) {
-    pairs.forEach((item) => {
-      const pair = item.split('=');
-      const key = pair[0];
-      if (key === 'spaceId') {
-        spaceId = pair[1] && decodeURIComponent(pair[1]);
-      }
-    });
-  }
-  return spaceId;
-}
+// spaceId will be 123
+const spaceId = avSpacesApi.parseSpaceId('?foo=bar&spaceId=123');
 ```
 
-```javascript
-function getSpaceName(spaceId) {
-  if (!spaceId) {
-    throw new Error('[spaceId] must be defined');
-  }
-  return this.get(spaceId).then((response) => response.data.name);
-}
+#### `getSpaceName(spaceId)`
+
+Returns the `name` from the response
+
+```js
+import { avSpacesApi } from '@availity/api-axios';
+
+const getName = async () => {
+  // will return response.data.name
+  const name = await avSpacesApi.getSpaceName('123');
+  return name;
+};
 ```
 
-### `AvOrganizations`
+### AvOrganizationsApi
 
-Service that allows you to get logged=in user's active organizations.
+Service that allows you to get user's organizations.
 
-#### Exported Class
-
-Add `avUsers` into constructor. Add `this.avUsers = avUsers` before `constructor` closes.
-
-#### Methods
-
-##### `queryOrganizations(user, config)`
+#### `queryOrganizations(user, config)`
 
 Returns organizations belonging to the `user`.
 
-```javascript
+```js
 function queryOrganizations(user, config) {
   const queryConfig = this.addParams({ userId: user.id }, config);
   return this.query(queryConfig);
 }
 ```
 
-##### `getOrganizations(config)`
+#### `getOrganizations(config)`
 
 Returns organizations belonging to the logged in user.
 
-```javascript
+```js
 function getOrganizations(config) {
   if (config && config.params && config.params.userId) {
     return this.query(config);
@@ -250,9 +168,9 @@ function getOrganizations(config) {
 }
 ```
 
-##### `postGet(data, config, additionalPostGetArgs)`
+#### `postGet(data, config, additionalPostGetArgs)`
 
-```javascript
+```js
 async function postGet(data, config) {
   if (additionalPostGetArgs) {
     const { data: organizationsData } = await super.postGet(data, config);
@@ -268,31 +186,33 @@ async function postGet(data, config) {
 }
 ```
 
-##### `getFilteredOrganizations(organizationsData, additionalPostGetArgs, restQueryParams)`
+#### `getFilteredOrganizations(organizationsData, additionalPostGetArgs, restQueryParams)`
 
 Returns organizations belonging to the logged in user that also have specified `resources`. Meant to be called by `AvOrganizationSelect`, but can be called directly if you already have `organizations` data.
 
-##### Please note that pagination will not occur for `organizationsData` when `getFilteredOrganizations` is called directly. If pagination is needed, use `AvOrganizationSelect` with the `resourceIds` prop or `postGet(data, config, additionalPostGetArgs)`, where `additionalPostGetArgs` is an object containing the `resourceIds` prop.
+> Please note that pagination will not occur for `organizationsData` when `getFilteredOrganizations` is called directly. If pagination is needed, use [AvOrganizationSelect](https://availity.github.io/availity-react/storybook/?path=/docs/form-components-select-async-selects--organization-select) with the `resourceIds` prop or `postGet(data, config, additionalPostGetArgs)`, where `additionalPostGetArgs` is an object containing the `resourceIds` prop.
 
 Arguments should be structured as follows:
 
-```javascript
-organizationsData: {
-    organizations, // Array of organization objects
-    limit,
-    offset,
-    totalCount
-},
-additionalPostGetArgs: {
-    resourceIds // string or array of strings
-},
-data: {
-    permissionId,
-    region
-}
+```js
+const organizationsData = {
+  organizations, // Array of organization objects
+  limit,
+  offset,
+  totalCount,
+};
+
+const additionalPostGetArgs = {
+  resourceIds, // string or array of strings
+};
+
+const data = {
+  permissionId,
+  region,
+};
 ```
 
-```javascript
+```js
 async function getFilteredOrganizations(
   organizationsData,
   additionalPostGetArgs,
@@ -413,32 +333,26 @@ function arePermissionsEqual(permissionId) {
 }
 ```
 
-### `AvProviders`
+### AvProvidersApi
 
 Get providers associated to the logged in user's organization.
 
-#### Exported Classes
-
-`path` as `api/internal`. `name` as `providers`
-
-#### Methods
-
-##### `getProviders(customerId, config)`
+#### `getProviders(customerId, config)`
 
 Helper method that gets the providers for the `customerId`.
 
-```javascript
+```js
 function getProviders(customerId, config) {
   const queryConfig = this.addParams({ customerId }, config);
   return this.query(queryConfig);
 }
 ```
 
-##### `normalize(providers)`
+#### `normalize(providers)`
 
 Helper method that adds `name` field to the `providers` collection. The name field is computed from other properies of the provider object.
 
-```javascript
+```js
 function normalize(providers) {
   const cloned = providers.slice();
 
@@ -452,27 +366,20 @@ function normalize(providers) {
 }
 ```
 
-### `AvLogMessage`
+### AvLogMessagesApi
 
 Create a log message.
 
-#### Exported Class
-
-`import flattenObject from '../flattenObject'`
-
-No `path` in the constructor. `name` as `log-messages`
-
-#### Methods
+#### `send(level, entires)`
 
 All methods take a key value object. A key named 'level` determines the log level type in the logs.
 
-##### `send(level,entires)`
-
-```javascript
+```js
 function send(level, entries) {
   delete entries.level;
   const payload = { level, entries };
   const flattened = flattenObject(payload);
+
   return Object.keys(flattened).reduce((accum, key) => {
     accum.append(key, flattened[key]);
     return accum;
@@ -480,53 +387,49 @@ function send(level, entries) {
 }
 ```
 
-##### `debug(keyValue)`
+#### `debug(entries)`
 
-```javascript
+```js
 function debug(entries) {
   return this.sendBeacon(this.send('debug', entries));
 }
 ```
 
-##### `info(keyValue)`
+#### `info(entries)`
 
-```javascript
+```js
 function info(entries) {
   return this.sendBeacon(this.send('info', entries));
 }
 ```
 
-##### `warn(keyValue)`
+#### `warn(entries)`
 
-```javascript
+```js
 function warn(entries) {
   return this.sendBeacon(this.send('warn', entries));
 }
 ```
 
-##### `error(keyValue)`
+#### `error(entries)`
 
-```javascript
+```js
 function error(entries) {
   return this.sendBeacon(this.send('error', entries));
 }
 ```
 
-### `AvPdfs`
+### AvPdfApi
 
-#### Exported Class
+#### `onPdf(response)`
 
-`path` as `api/utils`. `name` as `pdfs`.
-
-#### Methods
-
-```javascript
+```js
 function onPdf(response) {
   window.location = response.data.links.pdf.href;
 }
 ```
 
-```javascript
+```js
 function getPdf(data, config) {
   if (!data.applicationId || !data.fileName || !data.html) {
     throw new Error('[applicationId], [fileName] and [html] must be defined');
@@ -536,57 +439,16 @@ function getPdf(data, config) {
 }
 ```
 
-### `AvProxy`
-
-Create API definitions for services that are proxied to a tenant's API gateway.
-
-#### Exported Class
-
-```javascript
-import AvApi from '../api';
-
-export default class AvProxy extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    if (!config || !config.tenant) {
-      throw new Error('Must specify tenant name for Proxy');
-    }
-    const options = {
-      path: `api/v1/proxy/${config.tenant}`,
-      version: '',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-}
-```
-
-#### Options
-
-##### `tenant`
-
-The Spaces platform customer name which is used as part of the url for API's proxied to 3rd party API gateway.
-
-### `AvFiles`
+### AvFilesApi
 
 Upload a file to a bucket in the vault
-
-#### Exported Class
-
-`name` as `core/vault/upload/v1`. No `path`. `headers` as `{'Content-Type': undefined}`
-
-#### Methods
 
 #### `uploadFile(data, config)`
 
 Method to upload a file. `data` contains FormData elements with a key of either `reference` (if pointed to an existing file) or `filedata` (if uploading a new file)
 `config` should contain `customerId`, `id` (the bucketId), and `clientId`
 
-```javascript
+```js
 function uploadFile(data, config) {
   if (!config.customerId || !config.clientId) {
     throw new Error(
@@ -601,43 +463,15 @@ function uploadFile(data, config) {
 }
 ```
 
-### `AvFilesDelivery`
+### AvFilesDelivery
 
 Upload a batch of files to a designated channel configured on the server.
-
-#### Exported Class
-
-```javascript
-
-import AvMicroservice from '../ms';
-
-export default class AvFilesDelivery extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
-    const options = {
-      name: 'platform/file-upload-delivery/v1/batch/deliveries',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      polling: true,
-      pollingMethod: 'GET',
-      ...config,
-    };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-  }
-```
-
-#### Methods
 
 #### `uploadFilesDelivery(data, config)`
 
 Method to upload a batch of file deliveries. `data` contains an array of `deliveries`. Provide the `fileUri` (reference field from AvFiles), `deliveryChannel`, and the required `metadata` for that channel.
 
-```javascript
+```js
 function uploadFilesDelivery(data, config) {
   if (!config.customerId || !config.clientId) {
     throw new Error(
@@ -652,10 +486,10 @@ function uploadFilesDelivery(data, config) {
 }
 ```
 
-Example `data`:
+Example `data`
 
 ```js
-data = {
+const data = {
   deliveries: [
     {
       fileURI: upload.references[0],
@@ -698,111 +532,73 @@ data = {
 
 #### `getLocation(response)`
 
-```javascript
-function getLocation(response) {
-  const baseUrl = super.getLocation(response.config);
-  return `${baseUrl}/${response.data.id}`;
-}
+Return the url based on the response
+
+```js
+import { avFilesDeliveryApi } from '@availity/api-axios';
+
+const getLocation = (response) => {
+  const url = avFilesDeliveryApi.getLocation(response);
+  return url;
+};
 ```
 
-### `AvSettings`
+### AvSettingsApi
 
 Store and retrieve settings to be reused.
-Use `query(params)` with at least an `applicationId` in the `params` object
-Use `update(data)` with at least an `applicationId` in the `scope` object, and key/value pairs of data
 
-#### Exported Class
+#### `getApplication(applicationdId, config)`
 
-`path` as `api/utils`. `name` as `settings` . Add `sessionBust: false` and `pageBust: false` to `options`. Add `avUsers` to `constructor`. Add `this.avUsers = avUsers` before `constructor` cloes.
+```js
+import { avSettingsApi } from '@availity/api-axios';
 
-#### Methods
+const appId = 'test-app';
 
-```javascript
-function getApplication(applicationId, config) {
-  if (!applicationId) {
-    throw new Error('applicationId must be defined');
-  }
-  if (!this.avUsers || !this.avUsers.me) {
-    throw new Error('avUsers must be defined');
-  }
-
-  if (config && config.params && config.params.userId) {
-    const queryConfig = this.addParams({ applicationId }, config);
-    return this.query(queryConfig);
-  }
-
-  return this.avUsers.me().then((user) => {
-    const queryConfig = this.addParams(
-      { applicationId, userId: user.id },
-      config
-    );
-    return this.query(queryConfig);
-  });
-}
+const getSettings = async () => {
+  const response = await avSettingsApi.getApplication(appId);
+  return response.data;
+};
 ```
 
-```javascript
-function setApplication(applicationId, data, config) {
-  if (!this.avUsers || !this.avUsers.me) {
-    throw new Error('avUsers must be defined');
-  }
+#### `setApplication(applicationId, data, config)`
 
-  if (typeof applicationId !== 'string' && typeof applicationId !== 'number') {
-    config = data;
-    data = applicationId;
-    applicationId = '';
-  }
+```js
+import { avSettingsApi } from '@availity/api-axios';
 
-  if (!applicationId && (!data || !data.scope || !data.scope.applicationId)) {
-    throw new Error('applicationId must be defined');
-  }
+const appId = 'test-app';
 
-  if (data && data.scope && data.scope.userId) {
-    data.scope.applicationId = applicationId;
-    return this.update(data, config);
-  }
-
-  return this.avUsers.me().then((user) => {
-    data = data || {};
-    data.scope = data.scope || {};
-    data.scope.applicationId = applicationId;
-    data.scope.userId = user.id;
-    return this.update(data, config);
-  });
-}
+const updateSettings = async (data) => {
+  const response = await avSettingsApi.setApplication(appId, data);
+  return response.data;
+};
 ```
 
-### `AvDisclaimers`
+### AvDisclaimersApi
 
 Get disclaimers for payer space
 
-#### Exported Class
+#### `getDisclaimers(id, config)`
 
-`name` as `/disclaimers`
+```js
+import { avDisclaimersApi } from '@availity/api-axios';
 
-#### Methods
-
-```javascript
-function getDisclaimers(id, config) {
-  const queryConfig = this.addParams({ id }, config);
-  return this.query(queryConfig);
-}
+const fetchDisclaimers = async (id) => {
+  const response = await avDisclaimersApi.getDisclaimers(id);
+  return response.data;
+};
 ```
 
-### `AvSlotMachine`
+### AvSlotMachineApi
 
 GraphQL Server containing different queries and mutation
 
-#### Exported Class
+#### `query(query, variables)`
 
-`name` as `spc/slotmachine/graphql`.
+```js
+import { avSlotMachineApi } from '@availity/api-axios';
 
-#### Methods
-
-#### `query(data: string)`
-
-```javascript
-function query(data, variables) {
-  return this.create({ query: data, variables });
-}
+const queryApi = async (query, variables) => {
+  const response = await avSlotMachineApi.query(query, variables);
+  return response.data;
+};
 ```

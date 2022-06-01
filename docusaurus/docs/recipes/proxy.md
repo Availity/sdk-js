@@ -2,40 +2,55 @@
 title: Creating a Proxy
 ---
 
-When calling out to external APIs, the portal doesn't allow traffic to come from anywhere by default. Our proxy service will map a route on our end to an external route configured by an administrator. Once that has been setup you can then begin to use the `avProxyApi` to fetch data from the external route.
+The Availity portal does not allow traffic to come from anywhere by default. Our proxy service will map a route on our end to an external route configured by an administrator. Once that has been setup you can begin to use the `AvProxyApi` to fetch data from the external route.
 
 ## Getting Started
 
-Most of this process is already documented [here](https://availity.github.io/availity-workflow/tutorial/mocks/), but we will do a light explanation. In the link provided you will find: how to set up your project, learn about routes for mock/proxy data, and what your terminal should look like when the server is running. Basically everything you need to know to get at least halfway out the door you will find there.
+On this page, we will show you how to use `AvProxyApi` class to easily call the desired endpoint. If you need help mocking the data for local development then check out our [guide](https://availity.github.io/availity-workflow/tutorial/mocks/).
 
 ## Example
 
-We are going to clear out the `App.js` file for tesing purposes and instead paste the below code snippet.
+Below is an example `App` component where we create a proxy, and then call it.
 
 ### Adding API Code Snippet
 
-```javascript
+```js
 import React, { useEffect, useState } from 'react';
 import { AvProxyApi } from '@availity/api-axios';
 
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
 const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
 
-const App = () => {
-  const [climbingHolds, setClimbingHolds] = useState([]); // initialize state
-
-  const fetchData = async () => {
+const fetchData = async () => {
+  try {
     const response = await proxyApi.query({ sessionBust: false });
-    setClimbingHolds(response.data.climbingHolds);
-  };
+    return response.data.climbingHolds || [];
+  } catch {
+    return [];
+  }
+};
+
+const App = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    const fetchData = async () => {
+      setLoading(true);
+      const response = await fetchData();
+      setClimbingHolds(response);
+      setLoading(false);
+    };
+
+    if (!loading) {
+      fetchData();
+    }
   }, []);
 
   return (
     <div>
-      {climbingHolds.map((hold) => {
-        return <li key={hold.name}>{hold.name}</li>;
+      {data.map((item) => {
+        return <li key={item.key}>{item.name}</li>;
       })}
     </div>
   );
@@ -44,17 +59,14 @@ const App = () => {
 export default App;
 ```
 
+### Adding a new route for mocks
+
 The above code snippet runs a method called `fetchData` on mount that will fetch the response from `AvProxyApi`.
 
-Since we know the route is going go to `api/sdk/platform/v1/users/me` we need to add our proxy route in the `routes.json` by adding the following to our file:
-
-### Adding a new Route
+Since we know the route is going go to `/api/v1/proxy/availity/my/proxy` we need to add our proxy route in the `routes.json` by adding the following to our file:
 
 ```json header=routes.json
 {
-  "ms/api/availity/internal/spc/slotmachine/graphql": {
-    "file": "slotmachine.json"
-  },
   "v1/proxy/availity/my/proxy": {
     "file": "climbingholds.json"
   }

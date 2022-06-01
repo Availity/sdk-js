@@ -6,9 +6,11 @@ Method extensions for the [yup](https://github.com/jquense/yup)
 
 [![Version](https://img.shields.io/npm/v/@availity/yup.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/yup)
 
-## Install
+## Installation
 
 This package includes `yup` as a dependency in version 4+. In version 3 and earlier you will need to provide `yup` version 0.29.3 or earlier.
+
+If you are upgrading `@availity/yup` to version 4 or 5, then we recommend checking out the breaking changes for `yup` that occur after version `0.29.0`. For example, the way arrays are required has been [changed](https://github.com/jquense/yup/blob/pre-v1/CHANGELOG.md#breaking-changes-1).
 
 If you need to use the `avDate` and `dateRange` schemas then you will have to add `moment` as a dependency.
 
@@ -320,7 +322,9 @@ schema.isValid({
   endDate: '12/03/2012',
 }); // throws 'Start and End Date are required.'
 
-const customErrSchema = dateRange().typeError({ message: 'Custom error message' });
+const customErrSchema = dateRange().typeError({
+  message: 'Custom error message',
+});
 
 customErrSchema.isValid({
   startDate: '',
@@ -336,6 +340,7 @@ Similar to the default date yup object and accepts a string or `moment` object i
 
 - **options** - `object`. optional. Range Options.
   - **format** - `string | string[]`. optional. Add to the list of accepted formats.
+  - **typeError** - `string`. optional. Specify the error message to show when the date is in an incorrect format
 
 #### Methods
 
@@ -402,7 +407,7 @@ schema.isValid('11/30/2012');
 
 ##### isRequired
 
-Mark the date as required.
+Mark the date as required. You must use this method instead of the built-in `required`.
 
 ###### Parameters
 
