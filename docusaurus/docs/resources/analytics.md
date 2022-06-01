@@ -8,11 +8,17 @@ This package provides the base AvAnalytics class as a part of Availity's toolset
 
 For logging analytics in a React application, our [@availity/analytics](https://www.npmjs.com/package/@availity/analytics) package exports the `Analytics` context provider that implements an instance of this AvAnalytics class under the hood. It also exports the `useAnalytics` hook for accessing that instance. See the [Analytics component docs](https://availity.github.io/availity-react/components/analytics/analytics/) for details and example code for React apps.
 
-## Install
+## Installation
+
+### NPM
 
 ```bash
 npm install @availity/analytics-core
-# or
+```
+
+### Yarn
+
+```bash
 yarn add @availity/analytics-core
 ```
 
@@ -25,7 +31,13 @@ const analytics = new AvAnalytics(plugins, promise);
 // or
 const analytics = new AvAnalytics(plugins, promise, pageTracking);
 // or
-const analytics = new AvAnalytics(plugins, promise, pageTracking, autoTrack, options);
+const analytics = new AvAnalytics(
+  plugins,
+  promise,
+  pageTracking,
+  autoTrack,
+  options
+);
 ```
 
 ### `plugins`: AvAnalyticsPlugin | AvAnalyticsPlugin[]
@@ -54,7 +66,6 @@ Overrides the default data attribute prefix for the special [data analytics attr
 
 Example of default `attributePrefix`:
 
-<!-- prettier-ignore -->
 ```jsx
 // in your JS file
 const splunkPlugin = new AvSplunkAnalytics(avLogMessagesApiV2, true);
@@ -63,9 +74,9 @@ analytics.init();
 analytics.trackPageView();
 
 // in your HTML
-<button 
-  type="button" 
-  data-analytics-my-special-value="abc123" 
+<button
+  type="button"
+  data-analytics-my-special-value="abc123"
   data-analytics-action="click"
 >
   Button
@@ -74,7 +85,6 @@ analytics.trackPageView();
 
 Example of a customized `attributePrefix`:
 
-<!-- prettier-ignore -->
 ```jsx
 // in your JS file
 const splunkPlugin = new AvSplunkAnalytics(avLogMessagesApiV2, true)
@@ -85,9 +95,9 @@ analytics.init()
 analytics.trackPageView()
 
 // in your HTML
-<button 
-  type="button" 
-  data-foo-bar-my-special-value="abc123" 
+<button
+  type="button"
+  data-foo-bar-my-special-value="abc123"
   data-foo-bar-action="click"
 >
   Button
@@ -100,12 +110,11 @@ If `true`, and you are using [auto tracking](#auto-tracking-with-data-analytics-
 
 For example, the code below will log all three attributes (`appName`, `action` and `eventName`) when the anchor tag is clicked. If the container is clicked nothing will happen.
 
-<!-- prettier-ignore -->
 ```html
 <div class="container" data-analytics-app-name="app">
   <a
-    href="/somewhere-nice" 
-    data-analytics-action="click" 
+    href="/somewhere-nice"
+    data-analytics-action="click"
     data-analytics-event-name="linking"
   >
     Click me!
@@ -214,10 +223,9 @@ If you are using [auto tracking with data analytics attributes](#auto-tracking-w
 
 Plain HTML example:
 
-<!-- prettier-ignore -->
 ```html
 <button
-  data-analytics-action="click" 
+  data-analytics-action="click"
   data-analytics-space-id="ABC123ABC123ABC123ABC123ABC123AB"
 >
   My Button
@@ -226,7 +234,6 @@ Plain HTML example:
 
 When using React, you can get the Payer Space ID from within a Payer Spaces app like this:
 
-<!-- prettier-ignore -->
 ```jsx
 import React, { useMemo } from 'react';
 import Analytics from '@availity/analytics';
@@ -267,7 +274,9 @@ When auto tracking is enabled, AvAnalytics will automatically track events based
 For example, auto tracking for this element...
 
 ```html
-<button data-analytics-action="click" data-analytics-my-special-value="123">Click me!</button>
+<button data-analytics-action="click" data-analytics-my-special-value="123">
+  Click me!
+</button>
 ```
 
 ...will include this data:

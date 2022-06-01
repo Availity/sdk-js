@@ -11,13 +11,13 @@ Utility to download files from services
 ### NPM
 
 ```bash
-npm install @availity/dl-core
+npm install @availity/dl-axios @availity/dl-core axios
 ```
 
 ### Yarn
 
 ```bash
-yarn add @availity/dl-core
+yarn add @availity/dl-axios @availity/dl-core axios
 ```
 
 ## Usage
@@ -35,8 +35,8 @@ dowloadApi.getAttachment().then((response) => {
 
 ## Methods
 
-Todo
+This class has the following methods to use.
 
-### `getAttachment`
+### `getAttachment(config)`
 
-### `downloadAttachment`
+### `downloadAttachment(data, filename, mime)`

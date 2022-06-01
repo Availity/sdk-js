@@ -11,13 +11,13 @@ Wrapper for tus-js-client
 ### NPM
 
 ```bash
-npm install @availity/upload-core tus-js-client
+npm install @availity/upload-core
 ```
 
 ### Yarn
 
 ```bash
-yarn add @availity/upload-core tus-js-client
+yarn add @availity/upload-core
 ```
 
 ## Usage

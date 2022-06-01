@@ -6,8 +6,7 @@ Resolve URLs to absolute URI/IRI.
 
 [![Version](https://img.shields.io/npm/v/@availity/resolve-url.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/resolve-url)
 
-This library resolves relative IRIs to absolute IRIs given a base IRI, conforming to [RFC3986](https://www.ietf.org/rfc/rfc3986.txt). The code was borrowed from [relative-to-absolute-iri
-](https://github.com/rubensorks/relative-to-absolute-iri.js). ~There is an open issue to make the library compatible with IE11: [Issue #5](https://github.com/rubensworks/relative-to-absolute-iri.js/issues/5)~
+This library resolves relative IRIs to absolute IRIs given a base IRI, conforming to [RFC3986](https://www.ietf.org/rfc/rfc3986.txt). The code was borrowed from [relative-to-absolute-iri](https://github.com/rubensorks/relative-to-absolute-iri.js).
 
 ## Installation
 
@@ -23,7 +22,7 @@ npm install @availity/resolve-url
 yarn add @availity/resolve-url
 ```
 
-## `relative()`
+## `resolveUrl(params: { relative:string; base?: string })`
 
 ### Params
 
@@ -35,8 +34,8 @@ yarn add @availity/resolve-url
 ```js
 import resolveUrl from '@availity/resolve-url';
 
-resolveUrl({ relative: '/a/b', base: 'https://example.com/' });
 // Outputs https://example.com/a/b
+resolveUrl({ relative: '/a/b', base: 'https://example.com/' });
 ```
 
 ### URLs
@@ -46,19 +45,21 @@ When `base` option is not provided, this package will calculate the base from `w
 ```js
 import resolveUrl from '@availity/resolve-url';
 
-resolveUrl({ relative: '/a/b' });
 // Outputs https://example.com/a/b
+resolveUrl({ relative: '/a/b' });
 ```
 
-> The following examples were adapted from [relative-to-absolute-iri
-> ](https://github.com/rubensworks/relative-to-absolute-iri.js)
+> The following examples were adapted from [relative-to-absolute-iri](https://github.com/rubensworks/relative-to-absolute-iri.js)
 
 ### Hashes
 
 Fragments/hashes in relative URIs are also taken into account.
 
 ```js
-resolve('#abc', 'http://base.org/'); // Outputs 'http://base.org/#abc'
+import resolveUrl from '@availity/resolve-url';
+
+// Outputs 'http://base.org/#abc'
+resolveUrl({ relative: '#abc', base: 'http://base.org/' });
 ```
 
 ### Invalid base URI
@@ -66,7 +67,10 @@ resolve('#abc', 'http://base.org/'); // Outputs 'http://base.org/#abc'
 Invalid base URIs cause an error to be thrown.
 
 ```js
-resolve('abc', 'def'); // Error
+import resolveUrl from '@availity/resolve-url';
+
+// Error
+resolveUrl({ relative: 'abc', base: 'def' });
 ```
 
 ### Protocol Relative
@@ -74,7 +78,10 @@ resolve('abc', 'def'); // Error
 When a relative IRI starts with a `//`, then the scheme of the base IRI will be used.
 
 ```js
-resolve('//abc', 'http://base.org/'); // Outputs 'http://abc'
+import resolveUrl from '@availity/resolve-url';
+
+// Outputs 'http://abc'
+resolveUrl({ relative: '//abc', base: 'http://base.org/' });
 ```
 
 ### Root-Relative
@@ -82,7 +89,10 @@ resolve('//abc', 'http://base.org/'); // Outputs 'http://abc'
 Relative URIs that starts with a `/` erase the path of the base IRI.
 
 ```js
-resolve('/abc/def/', 'http://base.org/123/456/'); // Outputs 'http://base.org/abc/def/'
+import resolveUrl from '@availity/resolve-url';
+
+// Outputs 'http://base.org/abc/def/'
+resolveUrl({ relative: '/abc/def/', base: 'http://base.org/123/456/' });
 ```
 
 ### Relative Directory Traversal
@@ -91,8 +101,13 @@ Relative URIs that point to the current directory (`.`)
 or parent directory (`..`) are collapsed.
 
 ```js
-resolve('xyz', 'http://aa/parent/parent/../../a'); // Outputs 'http://aa/xyz'
-resolve('xyz', 'http://aa/././a'); // Outputs 'http://aa/xyz'
+import resolveUrl from '@availity/resolve-url';
+
+// Outputs 'http://aa/xyz'
+resolveUrl({ relative: 'xyz', base: 'http://aa/parent/parent/../../a' });
+
+// Outputs 'http://aa/xyz'
+resolveUrl('xyz', 'http://aa/././a');
 ```
 
 ## Notes

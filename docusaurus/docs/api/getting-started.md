@@ -2,13 +2,29 @@
 title: Getting Started
 ---
 
-Learn how to use this package for communicating with our APIs
+Learn how to use the [@availity/api-axios](https://github.com/Availity/sdk-js/tree/master/packages/api-axios#readme) package for communicating with our APIs
 
-[![Version](https://img.shields.io/npm/v/@availity/api-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-core)
+[![Version](https://img.shields.io/npm/v/@availity/api-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-axios)
+
+## Installation
+
+Install the package through `npm`, `yarn`, or your favorite package manager. You must also install `axios` as well.
+
+### NPM
+
+```bash
+npm install @availity/api-axios axios
+```
+
+### Yarn
+
+```bash
+yarn add @availity/api-axios axios
+```
 
 ## AvApi
 
-`AvApi` is a class that wraps a provided http service with helper functions.
+`AvApi` is the default export from `@availity/api-axios`. It is a class that wraps [axios](https://axios-http.com/docs/intro).
 
 ### Features
 
@@ -16,43 +32,27 @@ Learn how to use this package for communicating with our APIs
 - Simple URI builder for API resources
 - Life-cycle hooks into HTTP calls for GET, PUT, POST, and DELETE
 
-## Install
-
-### NPM
-
-```bash
-npm install @availity/api-axios @availity/api-core
-```
-
-### Yarn
-
-```bash
-yarn add @availity/api-axios @availity/api-core
-```
-
-## Usage
+### Usage
 
 ```js
-import AvApi from '@availity/api-core';
+import AvApi from '@availity/api-axios';
 
-new AvApi(http, promise, options);
+const api = new AvApi({ name: 'test' });
 ```
 
 ### Options
 
 #### `http`
 
-Either Angular's `$http` service or Axios (or compatible lib).
-
-#### `promise`
-
-Either Angular `$q` or equivalent `Promise` object.
+The default http client used is `axios`. You can pass an object to this parameter in order to override `axios`.
 
 #### `config`
 
-Either Angular `$http` or `axios` config object
+[axios config object](https://axios-http.com/docs/req_config) that will be passed to each call.
 
-### Config
+### Request Config
+
+Listed below are the options we primarily use from the `axios config` or ones we have added.
 
 ##### `config.api`
 
@@ -117,9 +117,20 @@ All methods accept a config object, which is merged into the resources config fo
 Makes `HTTP POST` request.
 
 ```js
-create(data, config);
-// or
-post(data, config);
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const post = async (data, config) => {
+  const response = await api.post(data, config);
+  return response.data;
+};
+
+// OR
+const create = async (data, config) => {
+  const response = await api.create(data, config);
+  return response.data;
+};
 ```
 
 #### postGet
@@ -127,7 +138,14 @@ post(data, config);
 Makes `HTTP POST` using `X-HTTP-Method-Override = 'GET'`. There server must support override methods for the request to succeed.
 
 ```js
-postGet(data, config);
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const postGet = async (data, config) => {
+  const response = await api.postGet(data, config);
+  return response.data;
+};
 ```
 
 #### get
@@ -135,7 +153,14 @@ postGet(data, config);
 Retrieves an entity by ID. Makes `HTTP GET` call with `/id` in url.
 
 ```js
-get(id, config);
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const get = async (id, config) => {
+  const response = await api.get(id, config);
+  return response.data;
+};
 ```
 
 #### query
@@ -143,7 +168,14 @@ get(id, config);
 The query function is designed to fetch collections and search the API. Makes `HTTP GET` request with query params.
 
 ```js
-query(config);
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const query = async (config) => {
+  const response = await api.query(config);
+  return response.data;
+};
 ```
 
 #### update or put
@@ -151,13 +183,22 @@ query(config);
 Update an entity with a PUT call. When an id is passed in, `/id` is added to the url.
 
 ```js
-update(id, data, config);
-// or without id
-update(data, config);
-// or
-put(id, data, config);
-// or or without it
-put(data, config);
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const put = async (id, data, config) => {
+  const response = await api.put(id, data, config);
+  return response.data;
+};
+
+// OR
+
+const update = async (data, config) => {
+  // You can also omit the id. this works for `put` as well
+  const response = await api.update(data, config);
+  return response.data;
+};
 ```
 
 #### patch
@@ -165,9 +206,16 @@ put(data, config);
 Update an entity with a PATCH call. When an id is passed in, `/id` is added to the url.
 
 ```js
-patch(id, data, config);
-// or without id
-patch(data, config);
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const patch = async (id, data, config) => {
+  const response = await api.patch(id, data, config);
+  // You can also omit id, and only pass in data and config
+  // const response = await api.patch(data, config);
+  return response.data;
+};
 ```
 
 #### remove or delete
@@ -175,15 +223,24 @@ patch(data, config);
 Remove an entity with a DELETE call. When an id is passed in, `/id` is added to the url. If the first parameter is a string or number, it is treated as an ID, otherwise data.
 
 ```js
-remove(id, config);
-// or without id
-remove(data, config);
-// or
-delete (data, config);
-// or without id
-delete config;
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'test' });
+
+const remove = async (id, config) => {
+  const response = await api.remove(id, config);
+  return response.data;
+};
+
+// OR
+
+const delete = async (data, config) => {
+  const response = await api.delete(data, config);
+  return response.data;
+};
+
 ```
 
-## AvMicroservice
+## AvMicroserviceApi
 
-`AvMicroservice` extends `AvApi` and thus can call the same methods. It has slightly different `config` options used for some child apis.
+`AvMicroservice` extends `AvApi` and thus can call the same methods. It has slightly different default [config options](https://github.com/Availity/sdk-js/blob/master/packages/api-axios/src/options.js).

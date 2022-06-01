@@ -8,7 +8,7 @@ A package to catch errors in apps and logs a formatted stack trace.
 
 Can grab some information from global error events, or more data if using the AvExceptions.submitError function.
 
-## Install
+## Installation
 
 ### NPM
 
