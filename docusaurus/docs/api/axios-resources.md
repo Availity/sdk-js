@@ -2,7 +2,7 @@
 title: Axios Resources
 ---
 
-This page has information on pre-defined resources you will be able to import into your app.
+This page has information on pre-defined resources you can import into your app.
 
 ## Table of Contents
 
@@ -18,9 +18,9 @@ This page has information on pre-defined resources you will be able to import in
 - [AvFilesDeliveryApi](#avfilesdeliveryapi)
 - [AvSettingsApi](#avsettingsapi)
 
-Each pre-defined resource has two exports. The class and an instance. The class will follow the pattern `AvUserApi` and the instance will be `avUserApi`. In other words, the class is uppercase while the instance is lowercase.
+Each pre-defined resource has two exports: the class and an instance. The class follows the pattern `AvUserApi` and the instance is `avUserApi`. In other words, the class is uppercase and the instance is lowercase.
 
-Use the class if you need to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/httpRequest) for more information on creating your own endpoint.
+Use the class to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/httpRequest) for more information on creating your own endpoint.
 
 ### AvUserApi
 
@@ -41,7 +41,7 @@ const getUser = async (config) => {
 
 ### AvRegionsApi
 
-Get the logged in user's currently selected region. Can also get all of the regions the user is associated with.
+Get the logged in user's currently selected region. Can also get the user's associated regions.
 
 #### `getRegions(config)`
 
@@ -60,7 +60,7 @@ const fetchRegions = async (userId) => {
 
 #### `getCurrentRegion()`
 
-Returns the currently active region for the user.
+Returns the user's active region.
 
 ```js
 import { avRegionsApi } from '@availity/api-axios';
@@ -90,7 +90,7 @@ const fetchPermissions = async (id, region) => {
 
 ### AvUserPermissionsApi
 
-Get permissions as well as resources of the logged in user.
+Get permissions and resources of the logged in user.
 
 #### `getPermissions(permissionId, region)`
 
@@ -106,7 +106,7 @@ const fetchPermissions = async (id, region) => {
 
 ### AvSpacesApi
 
-Get metadata for the various content types for the Spaces platform.
+Get metadata for the content types for the Spaces platform.
 
 #### `parseSpaceId(query)`
 
@@ -190,9 +190,9 @@ async function postGet(data, config) {
 
 Returns organizations belonging to the logged in user that also have specified `resources`. Meant to be called by `AvOrganizationSelect`, but can be called directly if you already have `organizations` data.
 
-> Please note that pagination will not occur for `organizationsData` when `getFilteredOrganizations` is called directly. If pagination is needed, use [AvOrganizationSelect](https://availity.github.io/availity-react/storybook/?path=/docs/form-components-select-async-selects--organization-select) with the `resourceIds` prop or `postGet(data, config, additionalPostGetArgs)`, where `additionalPostGetArgs` is an object containing the `resourceIds` prop.
+> Please note that pagination does not occur for `organizationsData` when `getFilteredOrganizations` is called directly. For pagination, use [AvOrganizationSelect](https://availity.github.io/availity-react/storybook/?path=/docs/form-components-select-async-selects--organization-select) with the `resourceIds` prop or `postGet(data, config, additionalPostGetArgs)`, where `additionalPostGetArgs` is an object containing the `resourceIds` prop.
 
-Arguments should be structured as follows:
+Structure arguments like this:
 
 ```js
 const organizationsData = {
@@ -335,7 +335,7 @@ function arePermissionsEqual(permissionId) {
 
 ### AvProvidersApi
 
-Get providers associated to the logged in user's organization.
+Get providers associated with the logged in user's organization.
 
 #### `getProviders(customerId, config)`
 
@@ -545,7 +545,7 @@ const getLocation = (response) => {
 
 ### AvSettingsApi
 
-Store and retrieve settings to be reused.
+Store and retrieve settings for reuse.
 
 #### `getApplication(applicationdId, config)`
 
@@ -575,7 +575,7 @@ const updateSettings = async (data) => {
 
 ### AvDisclaimersApi
 
-Get disclaimers for payer space
+Get disclaimers for payer space.
 
 #### `getDisclaimers(id, config)`
 
@@ -590,7 +590,7 @@ const fetchDisclaimers = async (id) => {
 
 ### AvSlotMachineApi
 
-GraphQL Server containing different queries and mutation
+GraphQL Server containing different queries and mutation.
 
 #### `query(query, variables)`
 
