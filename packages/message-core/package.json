@@ -1,6 +1,6 @@
 {
   "name": "@availity/message-core",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "availity wrapper for postMessage logic",
   "keywords": [
     "availity",

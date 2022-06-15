@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.3](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.0.2...@availity/message-core@6.0.3) (2022-06-15)
+
+
+
 ## [6.0.2](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.0.1...@availity/message-core@6.0.2) (2022-05-24)
 
 
