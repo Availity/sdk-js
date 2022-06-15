@@ -50,7 +50,7 @@
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
     "@commitlint/config-nx-scopes": "^16.3.0",
-    "@jscutlery/semver": "^2.23.4",
+    "@jscutlery/semver": "^2.25.2",
     "@nrwl/cli": "13.10.5",
     "@nrwl/jest": "^13.10.5",
     "@nrwl/workspace": "13.10.5",
