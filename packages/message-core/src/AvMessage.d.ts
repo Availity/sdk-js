@@ -5,7 +5,11 @@ declare class AvMessage {
 
   public enabled: (value?: boolean) => boolean;
 
-  public subscribe: (eventName?: string, fn: (data?: any) => void) => () => void;
+  public subscribe: (
+    eventName?: string,
+    fn: (data?: any) => void,
+    options?: { ignoreSameWindow?: boolean }
+  ) => () => void;
 
   public unsubscribe: (eventName?: string) => void;
 
