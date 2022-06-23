@@ -1,6 +1,6 @@
 {
   "name": "@availity/dinosaurdocs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "installConfig": {
     "hoistingLimits": "workspaces"
