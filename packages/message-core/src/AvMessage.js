@@ -16,13 +16,14 @@ class AvMessage {
   }
 
   getEventData = (event) => {
+    const isSameWindow = event.source === window;
+
     if (
       !this.isEnabled || // do nothing if not enabled
       !event ||
       !event.data ||
       !event.origin ||
       !event.source || // check event exists and has necessary properties
-      event.source === window || // don't process messages emitted from the same window
       !this.isDomain(event.origin)
     ) {
       // check origin as trusted domain
@@ -46,16 +47,28 @@ class AvMessage {
       event = (data && data.event) || this.DEFAULT_EVENT;
     }
 
-    this.onMessage(event, data);
+    const metadata = { isSameWindow };
+
+    this.onMessage(event, data, metadata);
   };
 
-  subscribe(event, fn) {
+  #lastId = 0;
+
+  subscribe(event, callback, options) {
     if (!this.subscribers[event]) {
       this.subscribers[event] = [];
     }
-    this.subscribers[event].push(fn);
+
+    this.#lastId += 1;
+    const id = this.#lastId;
+
+    const ignoreSameWindow = options?.ignoreSameWindow ?? true;
+
+    const subscriber = { id, callback, options: { ignoreSameWindow } };
+    this.subscribers[event].push(subscriber);
+
     return () => {
-      this.subscribers[event] = this.subscribers[event].filter((val) => val !== fn);
+      this.subscribers[event] = this.subscribers[event].filter((subscriber) => subscriber.id !== id);
     };
   }
 
@@ -68,10 +81,17 @@ class AvMessage {
     this.subscribers = {};
   }
 
-  onMessage(event, data) {
+  onMessage(event, data, metadata) {
+    const { isSameWindow } = metadata;
+
     if (this.subscribers[event]) {
-      for (const fn of this.subscribers[event]) {
-        fn(data);
+      for (const subscriber of this.subscribers[event]) {
+        const { ignoreSameWindow } = subscriber.options;
+        const skip = isSameWindow && ignoreSameWindow;
+
+        if (!skip) {
+          subscriber.callback(data);
+        }
       }
     }
   }
@@ -97,7 +117,7 @@ class AvMessage {
 
   send(payload, target = window.top) {
     if (!this.isEnabled || !payload) {
-      // ingore send calls if not enabled
+      // ignore send calls if not enabled
       return;
     }
     try {

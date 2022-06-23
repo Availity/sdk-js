@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import AvMessage from './AvMessage';
 
 let avMessage;
@@ -20,58 +21,82 @@ describe('AvMessage', () => {
   describe('subscribers', () => {
     test('onMessage should call all subscribers for event', () => {
       const testEvent = 'testEvent';
-      const fns = [jest.fn(), jest.fn()];
+      const testEventSubscribers = [
+        { id: 1, callback: jest.fn(), options: { ignoreSameWindow: false } },
+        { id: 2, callback: jest.fn(), options: { ignoreSameWindow: true } },
+      ];
       avMessage.subscribers = {
-        [testEvent]: fns,
+        [testEvent]: testEventSubscribers,
       };
-      avMessage.onMessage(`${testEvent}Other`);
-      for (const fn of fns) expect(fn).not.toHaveBeenCalled();
+      avMessage.onMessage(`${testEvent}Other bloop`, undefined, { isSameWindow: false });
+      for (const testEventSubscriber of testEventSubscribers) {
+        expect(testEventSubscriber.callback).not.toHaveBeenCalled();
+      }
 
-      const data = { testData: 'hello world' };
-      avMessage.onMessage(testEvent, data);
-      for (const fn of fns) expect(fn).toHaveBeenCalledWith(data);
+      const data = { testData: 'hello world bloop' };
+      avMessage.onMessage(testEvent, data, { isSameWindow: false });
+      for (const testEventSubscriber of testEventSubscribers) {
+        expect(testEventSubscriber.callback).toHaveBeenCalledWith(data);
+      }
     });
 
-    test('subscribe should add function to subscribers', () => {
+    test('subscribe should add subscriber object to subscribers', () => {
       avMessage.subscribers = {};
       const testEvent = 'testEvent';
-      const fn = 'totally a function';
-      avMessage.subscribe(testEvent, fn);
+      const fn1 = () => 'totally a function';
+
+      avMessage.subscribe(testEvent, fn1);
+
+      const subscriber1 = { id: 1, callback: fn1, options: { ignoreSameWindow: true } };
+
       expect(avMessage.subscribers).toEqual({
-        [testEvent]: [fn],
+        [testEvent]: [subscriber1],
       });
 
-      const fn2 = 'totally another function';
+      const fn2 = () => 'totally another function';
+
       avMessage.subscribe(testEvent, fn2);
+
+      const subscriber2 = { id: 2, callback: fn2, options: { ignoreSameWindow: true } };
+
       expect(avMessage.subscribers).toEqual({
-        [testEvent]: [fn, fn2],
+        [testEvent]: [subscriber1, subscriber2],
       });
     });
 
     test('subscribe should return function to remove subscribers', () => {
       avMessage.subscribers = {};
       const testEvent = 'testEvent';
-      const fn = 'totally a function';
-      const unsubscribe = avMessage.subscribe(testEvent, fn);
+      const fn1 = () => 'totally a function';
+      const unsubscribe1 = avMessage.subscribe(testEvent, fn1);
 
-      const fn2 = 'totally another function';
-      avMessage.subscribe(testEvent, fn2);
+      const fn2 = () => 'totally another function';
+      const unsubscribe2 = avMessage.subscribe(testEvent, fn2);
+
+      const expectedSubscriber1 = { id: 1, callback: fn1, options: { ignoreSameWindow: true } };
+      const expectedSubscriber2 = { id: 2, callback: fn2, options: { ignoreSameWindow: true } };
+
       expect(avMessage.subscribers).toEqual({
-        [testEvent]: [fn, fn2],
+        [testEvent]: [expectedSubscriber1, expectedSubscriber2],
       });
 
-      unsubscribe();
+      unsubscribe1();
       expect(avMessage.subscribers).toEqual({
-        [testEvent]: [fn2],
+        [testEvent]: [expectedSubscriber2],
       });
 
-      unsubscribe();
+      unsubscribe1();
       expect(avMessage.subscribers).toEqual({
-        [testEvent]: [fn2],
+        [testEvent]: [expectedSubscriber2],
+      });
+
+      unsubscribe2();
+      expect(avMessage.subscribers).toEqual({
+        [testEvent]: [],
       });
     });
 
-    test('unsusbscribe should remove subscriptions for event', () => {
+    test('unsubscribe should remove all subscriptions for event', () => {
       const event1 = ['a', 'b', 'c'];
       const event2 = ['b', 'c', 'd'];
       avMessage.subscribers = {
@@ -106,8 +131,8 @@ describe('AvMessage', () => {
 
     beforeEach(() => {
       spyParse = jest.spyOn(JSON, 'parse');
-      avMessage.isEnabled = true;
-      avMessage.onMessage = jest.fn();
+      // avMessage.isEnabled = true;
+      // avMessage.onMessage = jest.fn();
       avMessage.isDomain = jest.fn().mockImplementation(() => true);
     });
 
@@ -118,6 +143,7 @@ describe('AvMessage', () => {
 
     test('should return early when AvMessages not enabled', () => {
       avMessage.isEnabled = false;
+      avMessage.onMessage = jest.fn();
       avMessage.getEventData(mockEvent);
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).not.toHaveBeenCalled();
@@ -125,6 +151,7 @@ describe('AvMessage', () => {
     });
 
     test('should return early when event does not have all fields', () => {
+      avMessage.onMessage = jest.fn();
       const mockEvent1 = { ...mockEvent, data: false };
       const mockEvent2 = { ...mockEvent, origin: false };
       const mockEvent3 = { ...mockEvent, source: false };
@@ -136,15 +163,24 @@ describe('AvMessage', () => {
       expect(avMessage.onMessage).not.toHaveBeenCalled();
     });
 
-    test('should return early when event source is window', () => {
-      const testEvent = { ...mockEvent, source: window };
+    test('should not call callbacks (by default) when event source is same window', () => {
+      const callback = jest.fn();
+      avMessage.subscribe('test event name', callback);
+      const testEvent = { ...mockEvent, data: { event: 'test event name', data: 'foo-bla' }, source: window };
       avMessage.getEventData(testEvent);
-      expect(spyParse).not.toHaveBeenCalled();
-      expect(avMessage.isDomain).not.toHaveBeenCalled();
-      expect(avMessage.onMessage).not.toHaveBeenCalled();
+      expect(callback).not.toHaveBeenCalled();
+    });
+
+    test('should call callbacks when event source is same window and `ignoreSameWindow` is false', () => {
+      const callback = jest.fn();
+      avMessage.subscribe('test event name', callback, { ignoreSameWindow: false });
+      const testEvent = { ...mockEvent, data: { event: 'test event name', data: 'foo-bla' }, source: window };
+      avMessage.getEventData(testEvent);
+      expect(callback).toHaveBeenCalled();
     });
 
     test('should return early when event origin is not in domain', () => {
+      avMessage.onMessage = jest.fn();
       avMessage.isDomain.mockImplementationOnce(() => false);
       avMessage.getEventData(mockEvent);
       expect(spyParse).not.toHaveBeenCalled();
@@ -153,12 +189,14 @@ describe('AvMessage', () => {
     });
 
     test('should call onMessage when there are no blockers', () => {
+      avMessage.onMessage = jest.fn();
       avMessage.getEventData(mockEvent);
       expect(avMessage.isDomain).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalled();
     });
 
     test('if data is string should attempt to parse it', () => {
+      avMessage.onMessage = jest.fn();
       avMessage.getEventData(mockEvent);
       expect(spyParse).toHaveBeenCalled();
       expect(avMessage.isDomain).toHaveBeenCalled();
@@ -166,6 +204,7 @@ describe('AvMessage', () => {
     });
 
     test('if data is not string should not attempt to parse it', () => {
+      avMessage.onMessage = jest.fn();
       avMessage.getEventData({ ...mockEvent, data: 10 });
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).toHaveBeenCalled();
@@ -173,27 +212,30 @@ describe('AvMessage', () => {
     });
 
     test('should call onMessage with event as data if its a string', () => {
+      avMessage.onMessage = jest.fn();
       spyParse.mockRestore();
       avMessage.getEventData(mockEvent);
       expect(avMessage.isDomain).toHaveBeenCalled();
-      expect(avMessage.onMessage).toHaveBeenCalledWith(mockEvent.data, undefined);
+      expect(avMessage.onMessage).toHaveBeenCalledWith(mockEvent.data, undefined, { isSameWindow: false });
     });
 
     test('should call onMessage with default event if data is object without event param', () => {
       spyParse.mockRestore();
+      avMessage.onMessage = jest.fn();
       const testData = { value: 'hello' };
       avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
-      expect(avMessage.onMessage).toHaveBeenCalledWith(avMessage.DEFAULT_EVENT, testData);
+      expect(avMessage.onMessage).toHaveBeenCalledWith(avMessage.DEFAULT_EVENT, testData, { isSameWindow: false });
     });
 
     test('should call onMessage with event from data object param', () => {
       spyParse.mockRestore();
+      avMessage.onMessage = jest.fn();
       const testEvent = 'testEvent';
       const testData = { value: 'hello', event: testEvent };
       avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
-      expect(avMessage.onMessage).toHaveBeenCalledWith(testData.event, testData);
+      expect(avMessage.onMessage).toHaveBeenCalledWith(testData.event, testData, { isSameWindow: false });
     });
   });
 
