@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.1.0](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.0.3...@availity/message-core@6.1.0) (2022-06-23)
+
+
+### Features
+
+* **message-core:** add ignoreSameWindow boolean option ([a4dc725](https://github.com/Availity/sdk-js/commit/a4dc725e6047a862317741842feb16904a7d4933))
+
+
+
 ## [6.0.3](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.0.2...@availity/message-core@6.0.3) (2022-06-15)
 
 
