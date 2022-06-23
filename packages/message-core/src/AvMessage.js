@@ -86,7 +86,7 @@ class AvMessage {
 
     if (this.subscribers[event]) {
       for (const subscriber of this.subscribers[event]) {
-        const ignoreSameWindow = !!subscriber.options?.ignoreSameWindow;
+        const { ignoreSameWindow } = subscriber.options;
         const skip = isSameWindow && ignoreSameWindow;
 
         if (!skip) {

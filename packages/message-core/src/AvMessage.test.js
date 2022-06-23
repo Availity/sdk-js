@@ -22,8 +22,8 @@ describe('AvMessage', () => {
     test('onMessage should call all subscribers for event', () => {
       const testEvent = 'testEvent';
       const testEventSubscribers = [
-        { id: 1, callback: jest.fn() },
-        { id: 2, callback: jest.fn() },
+        { id: 1, callback: jest.fn(), options: { ignoreSameWindow: false } },
+        { id: 2, callback: jest.fn(), options: { ignoreSameWindow: true } },
       ];
       avMessage.subscribers = {
         [testEvent]: testEventSubscribers,
