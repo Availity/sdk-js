@@ -62,7 +62,7 @@ class AvMessage {
     this.#lastId += 1;
     const id = this.#lastId;
 
-    const ignoreSameWindow = options?.ignoreSameWindow === undefined ? true : options.ignoreSameWindow;
+    const ignoreSameWindow = options?.ignoreSameWindow ?? true;
 
     const subscriber = { id, callback, options: { ignoreSameWindow } };
     this.subscribers[event].push(subscriber);
