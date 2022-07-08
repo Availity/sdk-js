@@ -36,12 +36,12 @@
     "yup": "^0.32.0"
   },
   "devDependencies": {
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "tsup": "^5.12.8",
     "typescript": "^4.6.4"
   },
   "peerDependencies": {
-    "moment": "^2.24.0"
+    "moment": "^2.29.4"
   },
   "publishConfig": {
     "access": "public"
