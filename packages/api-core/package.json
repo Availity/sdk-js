@@ -21,7 +21,8 @@
     "dev": "tsup src/index.js --format esm,cjs --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "clean": "rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
     "@availity/env-var": "workspace:*",
