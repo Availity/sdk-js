@@ -57,6 +57,7 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvPermissionsApi`
 - `AvProvidersApi`
 - `AvRegionsApi`
+- `AvRouteConfigurationsApi`
 - `AvSettingsApi`
 - `AvSlotMachineApi`
 - `AvSpacesApi`
