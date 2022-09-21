@@ -61,6 +61,7 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvSettingsApi`
 - `AvSlotMachineApi`
 - `AvSpacesApi`
+- `AvTelemetryApi`
 - `AvUserApi`
 - `AvUserPermissionsApi`
 - `AvWebQLApi`
