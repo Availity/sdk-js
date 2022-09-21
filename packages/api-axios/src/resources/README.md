@@ -17,6 +17,7 @@
 - [AvFilesDeliveryApi](#avfilesdeliveryapi)
 - [AvSettingsApi](#avsettingsapi)
 - [AvSlotMachineApi](#avslotmachineapi)
+- [AvRouteConfigurationsApi](#avrouteconfigurationsapi)
 
 ## Intro
 
@@ -201,3 +202,7 @@ GraphQL Server containing different queries and mutation
 #### methods
 
 `query(data: string)`
+
+### `AvRouteConfigurationsApi`
+
+Retrieve a payer's route configuration for a specific transaction and submission mode
