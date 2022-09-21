@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.0.3...@availity/api-axios@7.1.0) (2022-09-21)
+
+
+### Features
+
+* **api-axios:** add telemetry resource DP-2591 ([57977ec](https://github.com/Availity/sdk-js/commit/57977ec062ef3fa0e8143a66e6564ceeea45cbf8))
+
+
+
 ## [7.0.3](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.0.2...@availity/api-axios@7.0.3) (2022-06-15)
 
 

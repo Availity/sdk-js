@@ -19,6 +19,7 @@ import AvRouteConfigurationsApi, { avRouteConfigurationsApi } from './resources/
 import AvSettingsApi, { avSettingsApi } from './resources/settings';
 import AvSlotMachineApi, { avSlotMachineApi } from './resources/slotmachine';
 import AvSpacesApi, { avSpacesApi } from './resources/spaces';
+import AvTelemetryApi, { avTelemetryApi } from './resources/telemetry';
 import AvUserApi, { avUserApi } from './resources/user';
 import AvUserPermissionsApi, { avUserPermissionsApi } from './resources/userPermissions';
 import AvWebQLApi, { avWebQLApi } from './resources/webQL';
@@ -62,6 +63,8 @@ export {
   avSlotMachineApi,
   AvSpacesApi,
   avSpacesApi,
+  AvTelemetryApi,
+  avTelemetryApi,
   AvUserPermissionsApi,
   avUserPermissionsApi,
   AvUserApi,
