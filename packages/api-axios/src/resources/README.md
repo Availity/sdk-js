@@ -18,6 +18,7 @@
 - [AvSettingsApi](#avsettingsapi)
 - [AvSlotMachineApi](#avslotmachineapi)
 - [AvRouteConfigurationsApi](#avrouteconfigurationsapi)
+- [AvTelemetryApi](#avtelemetryapi)
 
 ## Intro
 
@@ -206,3 +207,7 @@ GraphQL Server containing different queries and mutation
 ### `AvRouteConfigurationsApi`
 
 Retrieve a payer's route configuration for a specific transaction and submission mode
+
+### `AvTelemetryApi`
+
+Send click data about your web application to be stored and reported on

@@ -64,6 +64,7 @@ async function getUser() {
 - `avSettingsApi`
 - `avSlotMachineApi`
 - `avSpacesApi`
+- `avTelemetryApi`
 - `avUserApi`
 - `avUserPermissionsApi`
 - `avWebQLApi`
@@ -92,6 +93,7 @@ import AvApi, {
   avSettingsApi,
   avSlotMachineApi,
   avSpacesApi,
+  avTelemetryApi,
   avUserApi,
   avUserPermissionsApi,
   avWebQLApi,
