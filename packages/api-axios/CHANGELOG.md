@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.2.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.1.0...@availity/api-axios@7.2.0) (2022-09-21)
+
+
+### Features
+
+* **api-axios:** add route configurations api ([f91c9aa](https://github.com/Availity/sdk-js/commit/f91c9aa13eba40af7af52f11393810b5daa49ad3))
+
+
+
 # [7.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.0.3...@availity/api-axios@7.1.0) (2022-09-21)
 
 
