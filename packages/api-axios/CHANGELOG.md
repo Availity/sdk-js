@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.3.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.2.1...@availity/api-axios@7.3.0) (2022-10-26)
+
+
+### Features
+
+* **api-axios:** add aries 2 pdf resource ([fbcfa65](https://github.com/Availity/sdk-js/commit/fbcfa65a6163a4775a9a9327b0a9c56fed5162ea))
+
+
+
 ## [7.2.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.2.0...@availity/api-axios@7.2.1) (2022-09-21)
 
 
