@@ -155,6 +155,10 @@ interface AvPdfApi extends AvApi {
 
 declare const avPdfApi: AvPdfApi;
 
+interface AvPdfMicroserviceApi extends AvMicroserviceApi {}
+
+declare const avPdfMicroserviceApi: AvPdfMicroserviceApi;
+
 interface AvPermissionsApi extends AvApi {
   getPermissions(id: string, region: string): Promise<AxiosResponse>;
 }
@@ -262,6 +266,8 @@ export {
   AvOrganizationsApi,
   avPdfApi,
   AvPdfApi,
+  avPdfMicroserviceApi,
+  AvPdfMicroserviceApi,
   avPermissionsApi,
   AvPermissionsApi,
   avProvidersApi,

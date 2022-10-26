@@ -54,6 +54,7 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvNotificationApi`
 - `AvOrganizationsApi`
 - `AvPdfApi`
+- `AvPdfMicroserviceApi`
 - `AvPermissionsApi`
 - `AvProvidersApi`
 - `AvRegionsApi`
