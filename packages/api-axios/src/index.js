@@ -12,6 +12,7 @@ import AvNavigationApi, { avNavigationApi } from './resources/navigation';
 import AvNotificationsApi, { avNotificationsApi } from './resources/notifications';
 import AvOrganizationsApi, { avOrganizationsApi } from './resources/organizations';
 import AvPdfApi, { avPdfApi } from './resources/pdf';
+import AvPdfMicroserviceApi, { avPdfMicroserviceApi } from './resources/pdfv2';
 import AvPermissionsApi, { avPermissionsApi } from './resources/permissions';
 import AvProvidersApi, { avProvidersApi } from './resources/providers';
 import AvRegionsApi, { avRegionsApi } from './resources/regions';
@@ -49,6 +50,8 @@ export {
   avOrganizationsApi,
   AvPdfApi,
   avPdfApi,
+  AvPdfMicroserviceApi,
+  avPdfMicroserviceApi,
   AvPermissionsApi,
   avPermissionsApi,
   AvProvidersApi,
