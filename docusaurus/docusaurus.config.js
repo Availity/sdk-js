@@ -1,19 +1,19 @@
 module.exports = {
   plugins: [],
-  themes: [['@docusaurus/theme-search-algolia', { id: '01' }]], // FIXME: duplicate search routes being created
+  // themes: [['@docusaurus/theme-search-algolia', { id: '01' }]], // FIXME: duplicate search routes being created
   onBrokenLinks: 'log',
   title: 'Availity SDK-JS Docs',
   tagline: 'Javascript SDK for Availity',
-  url: 'https://availity.github.io/sdk-js',
+  url: 'https://availity.github.io',
   baseUrl: '/sdk-js/',
   favicon: 'img/favicon.ico',
   organizationName: 'availity',
   projectName: 'sdk-js',
   themeConfig: {
-    algolia: {
-      apiKey: 'eec0154a008662c32d440b7de7982cd2',
-      indexName: 'availity',
-    },
+    // algolia: {
+    //   apiKey: 'eec0154a008662c32d440b7de7982cd2',
+    //   indexName: 'availity',
+    // },
     // announcementBar: {
     //   id: 'supportus',
     //   backgroundColor: '#e29f0d',
@@ -39,7 +39,7 @@ module.exports = {
       },
       items: [
         {
-          href: 'https://availity.github.io/availity-react',
+          to: 'https://availity.github.io/availity-react',
           target: '_self',
           label: 'React',
           position: 'right',
@@ -50,7 +50,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://availity.github.io/availity-workflow',
+          to: 'https://availity.github.io/availity-workflow',
           target: '_self',
           label: 'Workflow',
           position: 'right',
