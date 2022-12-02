@@ -66,5 +66,9 @@ jobs:
           file: ./coverage/coverage-final.json
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Build
-        run: yarn build
+      - name: Build Packages
+        run: yarn build:packages
+
+      - name: Build Docs
+        if: ${{matrix.node > 14}}
+        run: yarn build:docs

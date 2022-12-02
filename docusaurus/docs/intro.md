@@ -22,6 +22,6 @@ There are 2 options available if you need support for IE 11:
 - Use an older version of the package (you can check the CHANGELOG in the package to see when IE 11 support was dropped for that package)
 - You can use [@availity/workflow](https://github.com/Availity/availity-workflow#readme) which will polyfill major features for you.
 
----
+<!-- ---
 
-**_If you can't find what you are looking for on any of the left sub menus try out the `search bar` at the top of every page that leverages [Algolia](https://www.algolia.com/) to provide lightning fast searches across all of our docs._**
+**_If you can't find what you are looking for on any of the left sub menus try out the `search bar` at the top of every page that leverages [Algolia](https://www.algolia.com/) to provide lightning fast searches across all of our docs._** -->
