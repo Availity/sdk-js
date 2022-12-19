@@ -77,6 +77,8 @@ declare class AvApi<ConfigProps = ApiConfig> {
 
   put<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
+  put<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
+
   patch<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 
   // Delete

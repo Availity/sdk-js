@@ -12,10 +12,10 @@ export default class AvRegionsApi extends AvApi {
     });
   }
 
-  afterUpdate(response) {
+  afterUpdate = (response) => {
     this.setPageBust();
     return response;
-  }
+  };
 
   async getRegions(config) {
     if (config?.params?.userId) {

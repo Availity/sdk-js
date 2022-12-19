@@ -1,5 +1,6 @@
 import AvRegionsApi from '../regions';
 import { avUserApi } from '../user';
+import server from '../../../mocks/server';
 
 jest.mock('../user');
 
@@ -12,12 +13,15 @@ avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
 describe('AvRegionsApi', () => {
   let api;
 
+  beforeAll(() => server.listen());
   beforeEach(() => {
     api = new AvRegionsApi();
   });
   afterEach(() => {
     jest.clearAllMocks();
+    server.resetHandlers();
   });
+  afterAll(() => server.close());
 
   test('should be defined', () => {
     expect(api).toBeDefined();
@@ -27,18 +31,14 @@ describe('AvRegionsApi', () => {
     expect(api.getUrl(api.config())).toBe('/api/sdk/platform/v1/regions');
   });
 
-  test('afterUpdate should call setPageBust and return response', () => {
+  test('afterUpdate should call setPageBust and return response', async () => {
     api.setPageBust = jest.fn();
-    const testResponse1 = {};
-    const regions = ['testRegion'];
-    const testResponse2 = {
-      data: {
-        regions,
-      },
-    };
-    expect(api.afterUpdate(testResponse1)).toEqual(testResponse1);
-    expect(api.afterUpdate(testResponse2)).toEqual(testResponse2);
-    expect(api.setPageBust).toHaveBeenCalledTimes(2);
+
+    const region = 'FL';
+    const resp = await api.put(region);
+
+    expect(resp.data.id).toBe(region);
+    expect(api.setPageBust).toHaveBeenCalledTimes(1);
   });
 
   test('getRegions should call avUsers.me() and then query with result', async () => {
