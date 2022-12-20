@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.3.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.3.0...@availity/api-axios@7.3.1) (2022-12-20)
+
+
+### Bug Fixes
+
+* **api-axios:** make afterUpdate an arrow function ([9c8724c](https://github.com/Availity/sdk-js/commit/9c8724c1bd1efda2783fe97ac4b0482228e60807))
+
+
+
 # [7.3.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.2.1...@availity/api-axios@7.3.0) (2022-10-26)
 
 
