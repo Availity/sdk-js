@@ -19,6 +19,8 @@ declare class AvExceptions {
   repeatTimer(message: any): void;
 
   onError(exception: any, skipRepeat?: boolean): Promise<any>;
+
+  isBlacklisted(exceptoin: any): any;
 }
 
 export default AvExceptions;

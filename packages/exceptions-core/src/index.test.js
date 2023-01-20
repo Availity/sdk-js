@@ -147,6 +147,7 @@ describe('AvExceptions', () => {
     beforeEach(() => {
       mockExceptions = new AvExceptions(mockLog);
       mockExceptions.isRepeatError = jest.fn(() => true);
+      mockExceptions.isBlacklisted = jest.fn(() => false);
       mockExceptions.prettyPrint = jest.fn(() => 'prettyPrint');
       MockDate.set(new Date());
 
@@ -277,6 +278,36 @@ describe('AvExceptions', () => {
           })
           .catch((error) => error);
       }));
+
+    test('should return early if isBlacklisted is true', () => {
+      mockExceptions.isBlacklisted = jest.fn(() => true);
+      mockExceptions.isRepeatError = jest.fn(() => false);
+      expect(mockExceptions.onError(exception)).toBeUndefined();
+      expect(mockExceptions.isBlacklisted).toHaveBeenCalled();
+    });
+
+    test('should send exception if repeat and blacklist is false', () => {
+      mockExceptions.isBlacklisted = jest.fn(() => false);
+      mockExceptions.isRepeatError = jest.fn(() => false);
+      expect(mockExceptions.onError(exception)).toBeDefined();
+      expect(mockExceptions.isBlacklisted).toHaveBeenCalled();
+    });
+  });
+
+  test('should be blacklisted', () => {
+    mockExceptions = new AvExceptions(mockLog);
+    const blacklistedException = {
+      message: 'ResizeObserver loop limit exceeded',
+    };
+    expect(mockExceptions.isBlacklisted(blacklistedException)).toBe(true);
+  });
+
+  test('should not be blacklisted', () => {
+    mockExceptions = new AvExceptions(mockLog);
+    const blacklistedException = {
+      message: 'test',
+    };
+    expect(mockExceptions.isBlacklisted(blacklistedException)).toBe(false);
   });
 
   test('prettyPrint should return string for stacktrace', () => {
