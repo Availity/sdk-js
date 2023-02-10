@@ -9,6 +9,7 @@ export default class AvExceptions {
     this.log = log;
     this.isEnabled = true;
     this.thisAppId = undefined;
+    this.BLACKLISTED_MESSAGES = ['ResizeObserver loop limit exceeded'];
     this.REPEAT_LIMIT = 5 * 1000; // 5 seconds
     this.errorMessageHistory = {};
 
@@ -69,6 +70,15 @@ export default class AvExceptions {
     return output;
   }
 
+  isBlacklisted(exception) {
+    const { message } = exception;
+    let isBlacklisted = false;
+    if (this.BLACKLISTED_MESSAGES.includes(message)) {
+      isBlacklisted = true;
+    }
+    return isBlacklisted;
+  }
+
   repeatTimer(message) {
     this.errorMessageHistory[message] = this.errorMessageHistory[message] || {};
     setTimeout(() => {
@@ -84,7 +94,12 @@ export default class AvExceptions {
   }
 
   onError(exception, skipRepeat = false) {
-    if (!this.isEnabled || !exception || (!skipRepeat && this.isRepeatError(exception))) {
+    if (
+      !this.isEnabled ||
+      !exception ||
+      (!skipRepeat && this.isRepeatError(exception)) ||
+      this.isBlacklisted(exception)
+    ) {
       return undefined;
     }
 
