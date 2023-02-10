@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/exceptions-core@4.0.3...@availity/exceptions-core@4.1.0) (2023-02-10)
+
+
+### Features
+
+* **exceptions-core:** adding message blacklist for exception logging SHI-3127 ([d3ee2e6](https://github.com/Availity/sdk-js/commit/d3ee2e622641d1532914d5aaa32dc5c0803aa4e7))
+
+
+
 ## [4.0.3](https://github.com/Availity/sdk-js/compare/@availity/exceptions-core@4.0.2...@availity/exceptions-core@4.0.3) (2022-06-15)
 
 
