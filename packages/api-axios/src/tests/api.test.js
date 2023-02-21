@@ -114,6 +114,24 @@ describe('AvAPi', () => {
     const api = new AvApi({});
     expect(api.getResult({ data: ['1', '2', '3'] })).toEqual(['1', '2', '3']);
   });
+
+  test('should use allResultKey if defined', async () => {
+    const query = jest.fn(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          array1: ['1', '2'],
+          array2: ['3', '4'],
+        },
+      })
+    );
+
+    const api = new AvApi({ name: 'test', allResultKey: 'array2' });
+    api.query = query;
+
+    const result = await api.all({});
+    expect(result).toEqual(['3', '4']);
+  });
 });
 
 describe('API Definitions', () => {

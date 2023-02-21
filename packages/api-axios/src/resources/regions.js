@@ -8,6 +8,7 @@ export default class AvRegionsApi extends AvApi {
       name: 'regions',
       sessionBust: false,
       pageBust: true,
+      allResultKey: 'regions',
       ...config,
     });
   }
