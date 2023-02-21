@@ -12,6 +12,10 @@ export default class AvRegionsApi extends AvApi {
     });
   }
 
+  getQueryResultKey() {
+    return 'regions';
+  }
+
   afterUpdate = (response) => {
     this.setPageBust();
     return response;
