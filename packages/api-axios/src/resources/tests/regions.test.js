@@ -85,4 +85,18 @@ describe('AvRegionsApi', () => {
     api.getCurrentRegion();
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
+
+  test('should get correct result when all() is called', async () => {
+    api.query = jest.fn(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          regionAggregations: [],
+          regions: [{ id: 'FL', value: 'Florida' }],
+        },
+      })
+    );
+
+    expect(await api.all()).toEqual([{ id: 'FL', value: 'Florida' }]);
+  });
 });
