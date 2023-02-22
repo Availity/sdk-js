@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.3.2](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.3.1...@availity/api-axios@7.3.2) (2023-02-22)
+
+
+### Bug Fixes
+
+* **api-axios:** override getQueryResultKey for regions ([03f8b42](https://github.com/Availity/sdk-js/commit/03f8b42083e31ca3b75654f88bc1b324a4a29dbb))
+
+
+
 ## [7.3.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.3.0...@availity/api-axios@7.3.1) (2022-12-20)
 
 
