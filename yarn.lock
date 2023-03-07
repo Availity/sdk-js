@@ -447,7 +447,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/exceptions-core@workspace:packages/exceptions-core"
   dependencies:
-    mockdate: ^2.0.2
+    mockdate: ^3.0.5
     stacktrace-js: ^2.0.0
     tsup: ^5.12.8
     typescript: ^4.6.4
@@ -15420,10 +15420,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mockdate@npm:^2.0.2":
-  version: 2.0.5
-  resolution: "mockdate@npm:2.0.5"
-  checksum: bdeab51518974f5284d1c5c47e9e82d0a5ca7cdaea25df3b1aa969eee29756d58b0116ca9ebf9ab25a4c7df8b56514429b768fda62c20e476a2cad85ed22a64f
+"mockdate@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "mockdate@npm:3.0.5"
+  checksum: 72b66786d9e072379693f80bf9fb82eb5153c9741030a4294184e3ccaf952d0713fae8966f77780580cf902f8ec7ccc95577b0ad47980d255e2ffb71fc7ca49c
   languageName: node
   linkType: hard
 
