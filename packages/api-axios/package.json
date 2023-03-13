@@ -34,7 +34,7 @@
   "dependencies": {
     "@availity/resolve-url": "workspace:*",
     "lodash": "^4.17.21",
-    "qs": "^6.10.1"
+    "qs": "^6.11.1"
   },
   "devDependencies": {
     "axios": "^0.21.4",
