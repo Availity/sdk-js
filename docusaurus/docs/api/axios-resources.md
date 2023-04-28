@@ -17,6 +17,9 @@ This page has information on pre-defined resources you can import into your app.
 - [AvFilesApi](#avfilesapi)
 - [AvFilesDeliveryApi](#avfilesdeliveryapi)
 - [AvSettingsApi](#avsettingsapi)
+- [AvDisclaimersApi](#avdisclaimersapi)
+- [AvSlotmachineApi](#avslotmachineapi)
+- [AvTelemetryApi](#avtelemetryapi)
 
 Each pre-defined resource has two exports: the class and an instance. The class follows the pattern `AvUserApi` and the instance is `avUserApi`. In other words, the class is uppercase and the instance is lowercase.
 
@@ -600,5 +603,29 @@ import { avSlotMachineApi } from '@availity/api-axios';
 const queryApi = async (query, variables) => {
   const response = await avSlotMachineApi.query(query, variables);
   return response.data;
+};
+```
+
+### AvTelemetryApi
+
+Endpoint to send telemetry data by level and key/value pairs.
+
+#### `info(data)`
+
+#### `warn(data)`
+
+#### `error(data)`
+
+#### `debug(data)`
+
+```js
+import { avTelemetryApi } from '@availity/api-axios';
+
+const sendTelemetryMessages = async (data1, data2, data3, data4) => {
+  const res1 = await avTelemetryApi.info(data1);
+  const res2 = await avTelemetryApi.error(data2);
+  const res3 = await avTelemetryApi.warn(data3);
+  const res4 = await avTelemetryApi.debug(data4);
+  return { res1, res2, res3, res4 };
 };
 ```

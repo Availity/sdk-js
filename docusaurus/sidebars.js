@@ -44,6 +44,7 @@ module.exports = {
               'api/definitions/regions',
               'api/definitions/settings',
               'api/definitions/spaces',
+              'api/definitions/telemetry',
               'api/definitions/user-permissions',
               'api/definitions/users',
             ],
