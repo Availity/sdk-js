@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@6.0.3...@availity/authorizations-axios@7.0.0) (2023-06-14)
+
+
+### chore
+
+* **authorizations-axios:** bump axios to v1 ([7f994b1](https://github.com/Availity/sdk-js/commit/7f994b1d7b85a6f446b09e31fbcbe2d59e8747e6))
+
+
+### BREAKING CHANGES
+
+* **authorizations-axios:** axios version 1.4.0 or greater is required
+
+
+
 ## [6.0.3](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@6.0.2...@availity/authorizations-axios@6.0.3) (2022-06-15)
 
 
