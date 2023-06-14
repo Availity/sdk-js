@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@4.0.3...@availity/dl-axios@5.0.0) (2023-06-14)
+
+
+### chore
+
+* **dl-axios:** bump axios to v1 ([0ffdaa8](https://github.com/Availity/sdk-js/commit/0ffdaa88d82724de0a36e3639cec4358a724e72b))
+
+
+### BREAKING CHANGES
+
+* **dl-axios:** axios v1.4.0 or greater is now required
+
+
+
 ## [4.0.3](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@4.0.2...@availity/dl-axios@4.0.3) (2022-06-15)
 
 
