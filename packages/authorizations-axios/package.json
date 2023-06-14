@@ -31,7 +31,7 @@
     "@availity/authorizations-core": "workspace:*"
   },
   "devDependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.4.0",
     "tsup": "^5.12.8",
     "typescript": "^4.6.4"
   },

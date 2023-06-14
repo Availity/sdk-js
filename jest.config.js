@@ -6,6 +6,7 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js)$': 'ts-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!axios)'],
   moduleFileExtensions: ['ts', 'js'],
   preset: '../../jest.preset.js',
   testEnvironment: 'jest-environment-jsdom-global',
