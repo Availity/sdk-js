@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.3.2...@availity/api-axios@8.0.0) (2023-06-14)
+
+
+### chore
+
+* **api-axios:** bump axios to v1 ([c45f2e5](https://github.com/Availity/sdk-js/commit/c45f2e519291c2ecf4687653a3a4c55e6169eeac))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** axios version 1.4.0 or greater is now required
+
+
+
 ## [7.3.2](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.3.1...@availity/api-axios@7.3.2) (2023-02-22)
 
 
