@@ -124,10 +124,19 @@ interface AvLogMessagesApi extends AvApi {
   error(entries: Record<string, any>): Promise<AxiosResponse>;
 }
 
+interface AvTelemetryApi extends AvMicroserviceApi {
+  send(level: 'info' | 'debug' | 'warn' | 'error', entries: Record<string, any>): Promise<AxiosResponse>;
+  debug(entries: Record<string, any>): Promise<AxiosResponse>;
+  info(entries: Record<string, any>): Promise<AxiosResponse>;
+  warn(entries: Record<string, any>): Promise<AxiosResponse>;
+  error(entries: Record<string, any>): Promise<AxiosResponse>;
+}
+
 interface AvLogMessagesApiV2 extends AvLogMessagesApi {}
 
 declare const avLogMessagesApi: AvLogMessagesApi;
 declare const avLogMessagesApiV2: AvLogMessagesApi;
+declare const avTelemetryApi: AvTelemetryApi;
 
 interface AvNavigationApi extends AvApi {}
 
