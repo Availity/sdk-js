@@ -291,6 +291,8 @@ export {
   AvSlotMachineApi,
   avSpacesApi,
   AvSpacesApi,
+  avTelemetryApi,
+  AvTelemetryApi,
   avUserApi,
   AvUserApi,
   avUserPermissionsApi,
