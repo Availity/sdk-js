@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.0...@availity/api-axios@8.0.1) (2023-08-01)
+
+
+### Bug Fixes
+
+* **api-axios:** add avTelemetryApi types ([99f8ebf](https://github.com/Availity/sdk-js/commit/99f8ebf3e099b0a932bd13dd31c325c3beba2216))
+
+
+
 # [8.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@7.3.2...@availity/api-axios@8.0.0) (2023-06-14)
 
 
