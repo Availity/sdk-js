@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        node: [14, 16]
+        node: [16, 18]
 
     steps:
       - name: Checkout Code
@@ -33,8 +33,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run:
-          echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - name: Restore yarn cache
         uses: actions/cache@v3
@@ -71,5 +70,5 @@ jobs:
         run: yarn build:packages
 
       - name: Build Docs
-        if: ${{matrix.node > 14}}
+        if: ${{matrix.node > 16}}
         run: yarn build:docs
