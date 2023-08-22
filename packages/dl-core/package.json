@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@availity/api-core": "workspace:*",
-    "js-file-download": "^0.4.7"
+    "js-file-download": "^0.4.12"
   },
   "devDependencies": {
-    "tsup": "^5.12.8",
-    "typescript": "^4.6.4"
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
   },
   "publishConfig": {
     "access": "public"
