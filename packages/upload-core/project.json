@@ -3,7 +3,7 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["coverage/upload-core"],
       "options": {
         "jestConfig": "packages/upload-core/jest.config.js",
@@ -20,7 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
         "lintFilePatterns": ["packages/upload-core/**/*.{js,ts}"],

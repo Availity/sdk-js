@@ -2,6 +2,7 @@
 import AvApi from '../api';
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 const mockMerge = jest.fn((...args) => Object.assign(...args));
@@ -94,9 +95,7 @@ describe('AvApi', () => {
       merge: mockMerge,
       config: mockConfig,
     });
-    expect(
-      api.getQueryResultKey({ nope: {}, not: true, yup: [], sorry: 3 })
-    ).toEqual('yup');
+    expect(api.getQueryResultKey({ nope: {}, not: true, yup: [], sorry: 3 })).toEqual('yup');
   });
 
   test('getResult(data) should return list within data', () => {
@@ -110,9 +109,7 @@ describe('AvApi', () => {
       config: mockConfig,
     });
     const list = [{}, {}];
-    expect(api.getResult({ nope: {}, not: true, yup: list, sorry: 3 })).toEqual(
-      list
-    );
+    expect(api.getResult({ nope: {}, not: true, yup: list, sorry: 3 })).toEqual(list);
   });
 
   test('getPage(config, page, limit) make a request with the right offset', () => {
@@ -787,9 +784,7 @@ describe('AvApi', () => {
       };
       api.getLocation.mockImplementationOnce(() => false);
       const afterResponse = jest.fn(() => testResponse2);
-      expect(api.onResponse(testResponse, afterResponse)).toEqual(
-        testResponse2
-      );
+      expect(api.onResponse(testResponse, afterResponse)).toEqual(testResponse2);
       expect(api.request).not.toHaveBeenCalled();
       expect(afterResponse).toHaveBeenCalledWith(testResponse);
     });
@@ -805,18 +800,13 @@ describe('AvApi', () => {
         testVal: 'test',
       };
 
-      const output = api
-        .onResponse({ config: mockConfig }, afterResponse)
-        .then(() => {
-          expect(api.config).toHaveBeenCalledWith(mockConfig);
-          expect(setTimeout).toHaveBeenCalledTimes(1);
-          expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
-          expect(api.request).toHaveBeenCalledWith(
-            expectedNewConfig,
-            afterResponse
-          );
-          return true;
-        });
+      const output = api.onResponse({ config: mockConfig }, afterResponse).then(() => {
+        expect(api.config).toHaveBeenCalledWith(mockConfig);
+        expect(setTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeout.mock.calls[0][1]).toBe(testInterval);
+        expect(api.request).toHaveBeenCalledWith(expectedNewConfig, afterResponse);
+        return true;
+      });
 
       jest.runAllTimers();
       return output;

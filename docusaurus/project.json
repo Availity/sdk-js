@@ -12,7 +12,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
         "lintFilePatterns": ["docusaurus/**/*.{js,ts}"],

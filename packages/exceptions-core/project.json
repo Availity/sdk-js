@@ -3,7 +3,7 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["coverage/exceptions-core"],
       "options": {
         "jestConfig": "packages/exceptions-core/jest.config.js",
@@ -20,7 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
         "lintFilePatterns": ["packages/exceptions-core/**/*.{js,ts}"],

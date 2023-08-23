@@ -31,8 +31,8 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "devDependencies": {
-    "tsup": "^5.12.8",
-    "typescript": "^4.6.4"
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
   },
   "publishConfig": {
     "access": "public"

@@ -6,6 +6,7 @@ import AvExceptions from '.';
 
 jest.mock('stacktrace-js');
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 global.APP_VERSION = false;
 

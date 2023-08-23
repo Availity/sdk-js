@@ -3,7 +3,7 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["coverage/native-form"],
       "options": {
         "jestConfig": "packages/native-form/jest.config.js",
@@ -20,7 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
         "lintFilePatterns": ["packages/native-form/**/*.{js,ts}"],
