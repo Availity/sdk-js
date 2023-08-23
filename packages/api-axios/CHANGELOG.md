@@ -2,6 +2,84 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96c1ad7b3b9b752d9376b88d9b91daabca6))
+* api implementation peerDeps ([28c163d](https://github.com/Availity/sdk-js/commit/28c163dcd02ef8a4623c91c1231d4c6a8f07e7c3))
+* **api-axios:** add avTelemetryApi types ([99f8ebf](https://github.com/Availity/sdk-js/commit/99f8ebf3e099b0a932bd13dd31c325c3beba2216))
+* **api-axios:** change axios to peerDep ([9e0a9cd](https://github.com/Availity/sdk-js/commit/9e0a9cdb24e3764707a844a9a36a38a34bd162e8))
+* **api-axios:** export telemetry types ([c2f9d89](https://github.com/Availity/sdk-js/commit/c2f9d894511d645ade86a663fe9f05af029c3ddf))
+* **api-axios:** fix ms to extend core ms ([a2f65e5](https://github.com/Availity/sdk-js/commit/a2f65e563989f16690c1b65231245f88d0a7f4b3))
+* **api-axios:** fix organizations resources check in axios ([36a1b9b](https://github.com/Availity/sdk-js/commit/36a1b9b91f26773f2e9ef096886276c9f3e47de7))
+* **api-axios:** fixed dev dep getting removed ([365776a](https://github.com/Availity/sdk-js/commit/365776a8a7cd74982fc56f67f278d989c06431da))
+* **api-axios:** had to update packge to require v4.0 of api-core ([c5160de](https://github.com/Availity/sdk-js/commit/c5160dede5ab26553ecec383d7c3dfd72be8bc1c))
+* **api-axios:** make afterUpdate an arrow function ([9c8724c](https://github.com/Availity/sdk-js/commit/9c8724c1bd1efda2783fe97ac4b0482228e60807))
+* **api-axios:** override getQueryResultKey for regions ([03f8b42](https://github.com/Availity/sdk-js/commit/03f8b42083e31ca3b75654f88bc1b324a4a29dbb))
+* **api-axios:** remove resolveHost and change AvUsersApi back to AvUserApi ([1263cac](https://github.com/Availity/sdk-js/commit/1263cac6182cc70cdcda6a5cf3818cecb3c7bc95))
+* **api-axios:** replace axios merge with deep-assign ([a7183b1](https://github.com/Availity/sdk-js/commit/a7183b10e000102b51208b3f4297a6b4ba3ff897))
+* **api-axios:** resolve lint error ([62efcaf](https://github.com/Availity/sdk-js/commit/62efcaf010c65d3d2bf8b0004953608628c15465))
+* **api-axios:** set the browser field ([9206790](https://github.com/Availity/sdk-js/commit/92067904e99d6d893db4d3b063da4bc47af22ad0))
+* **api-axios:** update name of types ([c9bee17](https://github.com/Availity/sdk-js/commit/c9bee17647b5be953788c33d3770c7dc994784f1))
+* **api-axios:** update permissions response type ([a6ef800](https://github.com/Availity/sdk-js/commit/a6ef8005eccb1278b9a1a826b5881c77ee585a91))
+* **api-axios:** url creation was not working as expected ([630e4c7](https://github.com/Availity/sdk-js/commit/630e4c7d7395547e75f9396e038cca54dd2f1124))
+* **api-axios:** us merge-options for merge ([25b75b4](https://github.com/Availity/sdk-js/commit/25b75b4657a80544e9e803117612a30bf6551b98))
+* **api-axios:** use merge-options-es5 instead of merge-options ([993ccc6](https://github.com/Availity/sdk-js/commit/993ccc6ff8db97b6e1d66454c93e7a33dfe95aee))
+* **api-core:** filesDelivery merge ([eb75160](https://github.com/Availity/sdk-js/commit/eb75160e7b07a43e858066f38ff8cef969391362))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f486e49eb969320edfbfab422d47abe4ab1))
+* import axios properly ([1c616dd](https://github.com/Availity/sdk-js/commit/1c616dd63e00733249498cc94ff526772270a906))
+
+
+### chore
+
+* **api-axios:** bump axios to v1 ([c45f2e5](https://github.com/Availity/sdk-js/commit/c45f2e519291c2ecf4687653a3a4c55e6169eeac))
+* **api-core:** core, angular, axios api naming consistency ([f129fad](https://github.com/Availity/sdk-js/commit/f129fad36f4e4d8c81fd0b4989811846dd245ee3))
+
+
+### Code Refactoring
+
+* **api-core:** pass config object to core classes ([d7b859c](https://github.com/Availity/sdk-js/commit/d7b859c80837a8256bcf4538b30d042882db2640))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **analytics-core:** added dma logging service ([68aee41](https://github.com/Availity/sdk-js/commit/68aee41761e5a5960ee1e997e32e471aad455dc1))
+* **api-axios:** add aries 2 pdf resource ([fbcfa65](https://github.com/Availity/sdk-js/commit/fbcfa65a6163a4775a9a9327b0a9c56fed5162ea))
+* **api-axios:** add route configurations api ([f91c9aa](https://github.com/Availity/sdk-js/commit/f91c9aa13eba40af7af52f11393810b5daa49ad3))
+* **api-axios:** add support for filtering organizations by permission and resource ([69b2a3a](https://github.com/Availity/sdk-js/commit/69b2a3a9b965fa00fe41aa0651365c59800e323d))
+* **api-axios:** add telemetry resource DP-2591 ([57977ec](https://github.com/Availity/sdk-js/commit/57977ec062ef3fa0e8143a66e6564ceeea45cbf8))
+* **api-axios:** add typescript support ([6d2d9ee](https://github.com/Availity/sdk-js/commit/6d2d9eee72a3aaa1cf2619179eddfb1da86dd82c))
+* **api-axios:** move api-core code into api-axios ([aaa6b90](https://github.com/Availity/sdk-js/commit/aaa6b901838b216bcd1e0169594e5474cc7f57e7))
+* **api-core:** add codes resource ([4ea7ba4](https://github.com/Availity/sdk-js/commit/4ea7ba41fcef02b67b2e4928b17a04eff2d8b9fd))
+* **api-core:** add file upload delivery batch api ([eff0a3c](https://github.com/Availity/sdk-js/commit/eff0a3cff384d99d13d0fd0795e693eef5c51af2))
+* **api-core:** add webQL resource ([67b9797](https://github.com/Availity/sdk-js/commit/67b9797718ac55d0a2a08d7e5e7513791dc82a28))
+* **api-core:** added graphql resource for slotmachine ([356a686](https://github.com/Availity/sdk-js/commit/356a6868b24be6b5388000770d711bcce5e5fa00))
+* **api-core:** added new resource for disclaimers ([b7de72e](https://github.com/Availity/sdk-js/commit/b7de72ed6d6c910a2571e18753bfee6a038837d7))
+* **api-core:** helper function for settings api ([#64](https://github.com/Availity/sdk-js/issues/64)) ([f247235](https://github.com/Availity/sdk-js/commit/f2472358bfef0744ec31e7b764ae1586b314af6b))
+
+
+### Reverts
+
+* Revert "chore: testing build stuff" ([24cc807](https://github.com/Availity/sdk-js/commit/24cc807fa91236f38a82b17a006bbe88641af32a))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** axios version 1.4.0 or greater is now required
+* Drop Internet Explorer support
+* **api-axios:** api-core no longer required, naming, args for constructor
+* upgrades other packages that are using old package-locks
+* **api-axios:** api-axios requires v4.0.0 of api-core
+* **api-core:** export naming conventions have been refactored to match for each implementation (angular/axios). Constructors are prefixed with 'Av', implementations are prefixed with 'av', and Apis are postfixed with 'Api'.
+* **api-core:** Options to core classes are being passed in as config object instead of parameters. 
+
+
+
 ## [8.0.2](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.1...@availity/api-axios@8.0.2) (2023-08-01)
 
 
