@@ -2,6 +2,43 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96c1ad7b3b9b752d9376b88d9b91daabca6))
+* **api-axios:** use merge-options-es5 instead of merge-options ([993ccc6](https://github.com/Availity/sdk-js/commit/993ccc6ff8db97b6e1d66454c93e7a33dfe95aee))
+* **authorizations-axios:** swap avPermissionsApi for avUserPermissionsApi ([d6e86ad](https://github.com/Availity/sdk-js/commit/d6e86ad9c46c01e1a887a4f625d40f5fdff88584))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f486e49eb969320edfbfab422d47abe4ab1))
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+### chore
+
+* **api-core:** core, angular, axios api naming consistency ([f129fad](https://github.com/Availity/sdk-js/commit/f129fad36f4e4d8c81fd0b4989811846dd245ee3))
+* **authorizations-axios:** bump axios to v1 ([7f994b1](https://github.com/Availity/sdk-js/commit/7f994b1d7b85a6f446b09e31fbcbe2d59e8747e6))
+
+
+### Code Refactoring
+
+* **localstorage-core:** converted class to function ([9f1fdf0](https://github.com/Availity/sdk-js/commit/9f1fdf07e388cabbbc1da9ebd4016d6ba5dace8f))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### BREAKING CHANGES
+
+* **authorizations-axios:** axios version 1.4.0 or greater is required
+* Drop Internet Explorer support
+* **localstorage-core:** Class is now a Function and doesn't require to be instantiated.
+* upgrades other packages that are using old package-locks
+* **api-core:** export naming conventions have been refactored to match for each implementation (angular/axios). Constructors are prefixed with 'Av', implementations are prefixed with 'av', and Apis are postfixed with 'Api'.
+
+
+
 # [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@6.0.3...@availity/authorizations-axios@7.0.0) (2023-06-14)
 
 
