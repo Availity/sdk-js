@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **relay-id:** new small helper package to help deal with relay ids ([1336544](https://github.com/Availity/sdk-js/commit/13365441f1ddf9aa65e51cee2f8a90b0821e28ed))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+
+
+
 ## [2.0.3](https://github.com/Availity/sdk-js/compare/@availity/relay-id@2.0.2...@availity/relay-id@2.0.3) (2022-06-15)
 
 
