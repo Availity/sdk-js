@@ -2,6 +2,47 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* **analytics-core:** added dynamic length of attr key for slicing ([18df607](https://github.com/Availity/sdk-js/commit/18df6076fc38c2f5ab368e8415a5ee531bfde7e0))
+* **analytics-core:** fix non-click events ([fce9b26](https://github.com/Availity/sdk-js/commit/fce9b269534d490e29d3a06d4751b2ce27b0833f))
+* **analytics-core:** fixed function call not found ([2a7af7e](https://github.com/Availity/sdk-js/commit/2a7af7edc37b0e24adf2b2e2506414e3c7ea4cd4))
+* **analytics-core:** moved extra assignments out ([23130f1](https://github.com/Availity/sdk-js/commit/23130f186cdecee22595cb0abe31d293cbb03328))
+* **analytics-core:** recursive getComposedPath calls should be spread ([e39d180](https://github.com/Availity/sdk-js/commit/e39d180d7a0a348b52367bea8a87e6e9b0a98252))
+* **analytics-core:** remove camelcase dep ([fc1be33](https://github.com/Availity/sdk-js/commit/fc1be33682c1de4befc46fa9692816fa5782aa5f))
+* **analytics-core:** revert analytics invalid event method ([e823d2e](https://github.com/Availity/sdk-js/commit/e823d2e92b153bff64e73a45618f26cfe1385e8e))
+* **analytics-core:** update types and error msg ([8c03422](https://github.com/Availity/sdk-js/commit/8c03422b8ced4c60738616905ce98b1523663f83))
+
+
+### Code Refactoring
+
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** eslint fixes ([00e3395](https://github.com/Availity/sdk-js/commit/00e339595962501c96acf2895650f104d4c49809))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **analytics-core:** add autotrack ([849909e](https://github.com/Availity/sdk-js/commit/849909e60bc2b7dd521d072029f7d8a6f3653eae))
+* **analytics-core:** add types and tests for util ([62cd19b](https://github.com/Availity/sdk-js/commit/62cd19b5c09cfc74830cae236bb48e18acf9fd42))
+* **analytics-core:** added config object with attribute prefix and recursive ([4b5b9fa](https://github.com/Availity/sdk-js/commit/4b5b9fa0d76bdab1e55d2f18c788bcbbfc6338bc))
+* **analytics-core:** added dma logging service ([18ee923](https://github.com/Availity/sdk-js/commit/18ee923f022caebb81cf9db3c32f016c7420af2f))
+* **analytics-core:** adding dynamic event modifiers ([4d54f43](https://github.com/Availity/sdk-js/commit/4d54f4364ce37437b1ba9186c2e365e8b27e8cd5))
+* **docs:** init commit getting things setup ([f525ff4](https://github.com/Availity/sdk-js/commit/f525ff407f5c807c2aafa4c7dadca1d43034d408))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** .filter()[0] replaced with .find(), .forEach() replaced with for...of
+
+
+
 ## [4.0.3](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.0.2...@availity/analytics-core@4.0.3) (2022-06-15)
 
 
