@@ -2,6 +2,34 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96c1ad7b3b9b752d9376b88d9b91daabca6))
+* **dl-axios:** fix export class ([9d470e0](https://github.com/Availity/sdk-js/commit/9d470e07732ceba643bc59e19345bd70ddda8d53))
+* **dl-axios:** fix import ([d42db46](https://github.com/Availity/sdk-js/commit/d42db46f1daf3348125d6e6caac17a7f5c6179ed))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f486e49eb969320edfbfab422d47abe4ab1))
+
+
+### chore
+
+* **dl-axios:** bump axios to v1 ([0ffdaa8](https://github.com/Availity/sdk-js/commit/0ffdaa88d82724de0a36e3639cec4358a724e72b))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### BREAKING CHANGES
+
+* **dl-axios:** axios v1.4.0 or greater is now required
+* Drop Internet Explorer support
+* upgrades other packages that are using old package-locks
+
+
+
 # [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@4.0.3...@availity/dl-axios@5.0.0) (2023-06-14)
 
 
