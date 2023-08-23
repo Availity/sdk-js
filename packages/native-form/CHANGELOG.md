@@ -2,6 +2,46 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* append function is not defined for ie and edge mobile ([d995343](https://github.com/Availity/sdk-js/commit/d995343c63484b5df1b0660d5a44e52db5c2c6a9))
+* **native-form:** fixed error trying to call toString on undefined ([c009460](https://github.com/Availity/sdk-js/commit/c0094607e992ef7072eeb37dedfc908eb2911f3e))
+* **native-form:** update types and use api-axiosv6 ([02b0cd6](https://github.com/Availity/sdk-js/commit/02b0cd6a6c1f401c71b4ddc8482297604531983a))
+* **native-form:** updated handling of falsey values ([ab57615](https://github.com/Availity/sdk-js/commit/ab57615e2158b41a54132e92e05026a2cfd1e0ea))
+* **native-form:** updated test suite name ([fbf824c](https://github.com/Availity/sdk-js/commit/fbf824c7f2c5540193ab3d244a9598524f44d443))
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+### Code Refactoring
+
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** eslint fixes ([00e3395](https://github.com/Availity/sdk-js/commit/00e339595962501c96acf2895650f104d4c49809))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **native-form:** add native form ([#62](https://github.com/Availity/sdk-js/issues/62)) ([8aa0471](https://github.com/Availity/sdk-js/commit/8aa047123d240906c129466800102b9dff2139d5))
+* **native-form:** add operationName to graphql request for query tracking ([5772f57](https://github.com/Availity/sdk-js/commit/5772f57f30278ede6d85daefe2ab7341e8b78b92))
+* **native-form:** call avWebQLApi to obtain sso type ([23a1bd9](https://github.com/Availity/sdk-js/commit/23a1bd98cc71334454d137be822a5a5a23a32447))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+* **native-form:** native-form now exports an async function, no longer defaults type
+MIGRATION:
+ Before: nativeForm(...args);
+ After: await nativeForm(...args);
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** .filter()[0] replaced with .find(), .forEach() replaced with for...of
+
+
+
 ## [5.0.3](https://github.com/Availity/sdk-js/compare/@availity/native-form@5.0.2...@availity/native-form@5.0.3) (2022-06-15)
 
 
