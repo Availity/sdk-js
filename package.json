@@ -44,7 +44,8 @@
     "start": "nx start docusaurus",
     "test:affected": "nx affected --target=test",
     "test:ci": "nx run-many --target=test --all --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
-    "test": "nx run-many --target=test --all"
+    "test": "nx run-many --target=test --all",
+    "version:dry-run": "nx affected --target version --dryRun --parallel=1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
