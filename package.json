@@ -38,7 +38,7 @@
     "lint:fix": "nx affected --target=lint --fix",
     "new": "plop",
     "nx": "nx",
-    "prepare": "is-ci || husky install",
+    "postinstall": "is-ci || husky install",
     "publish": "nx affected --target version --parallel=1",
     "publish:dry-run": "nx affected --target version --dryRun --parallel=1",
     "start": "nx start docusaurus",
