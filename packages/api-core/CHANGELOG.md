@@ -2,6 +2,132 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96c1ad7b3b9b752d9376b88d9b91daabca6))
+* **analytics-core:** fix non-click events ([fce9b26](https://github.com/Availity/sdk-js/commit/fce9b269534d490e29d3a06d4751b2ce27b0833f))
+* **api-core:** adds @availity/env-var as dependency ([4160e21](https://github.com/Availity/sdk-js/commit/4160e21e68376f62749c8690ca4babbc8ac76a99))
+* **api-core:** all should append individual items ([1bf476e](https://github.com/Availity/sdk-js/commit/1bf476e4125355bc45fbbd8895c7affc48c13bdc))
+* **api-core:** Allow array for permissions ([#67](https://github.com/Availity/sdk-js/issues/67)) ([98adf76](https://github.com/Availity/sdk-js/commit/98adf76decab85ae76d6e8ef5825af18baf7e5e8))
+* **api-core:** allow id to be in the config ([55b55af](https://github.com/Availity/sdk-js/commit/55b55af9aa57e0e9f04227ab2e73aabc68e37068))
+* **api-core:** attempts count not increasing ([2e414a3](https://github.com/Availity/sdk-js/commit/2e414a3d6ea05d7004aa8d981c97f369eac4de4c))
+* **api-core:** avFiles error handling ([3dd5392](https://github.com/Availity/sdk-js/commit/3dd5392d0fb6657ce6202ca4c59da66ee23c54b1))
+* **api-core:** avSpaces - throw error when no spaceId given ([7c47280](https://github.com/Availity/sdk-js/commit/7c47280adb66d85473697893b8f14406fc81b101))
+* **api-core:** check for lowercase location as well ([4a4a9a0](https://github.com/Availity/sdk-js/commit/4a4a9a04aba39d5a0364c9517a4201f50f7c2520))
+* **api-core:** disable lint rule ([b506cdc](https://github.com/Availity/sdk-js/commit/b506cdc47dd90d8dd9941eeb1a4d7efcae2d03ec))
+* **api-core:** do not use config url when resolving location header ([199536f](https://github.com/Availity/sdk-js/commit/199536f7f9cd7f5b50af42ba23f4478211289dd5))
+* **api-core:** filesDelivery polling issue ([8e5f451](https://github.com/Availity/sdk-js/commit/8e5f4512e98537c5d8c530e97e51986b8debf16e))
+* **api-core:** filteredOrgs not sending region to axiUserPerms ([3706a72](https://github.com/Availity/sdk-js/commit/3706a7274ac4cd67271e9088d6fa8b8392c49c83))
+* **api-core:** fix clientId ([ed46ad4](https://github.com/Availity/sdk-js/commit/ed46ad490b3c026025c0b46a350507da2cc256cd))
+* **api-core:** fix filteredOrgs arePermissionsEqual check ([c934bcc](https://github.com/Availity/sdk-js/commit/c934bcce302f42c34e71f551504f4828b596c157))
+* **api-core:** fix flattenObject import ([8c4375e](https://github.com/Availity/sdk-js/commit/8c4375eae85ae3d70f5c16d5c5691a746bc1d38b))
+* **api-core:** fix namespace of slotmachine resource ([3c3af84](https://github.com/Availity/sdk-js/commit/3c3af84d9e9dad863e46b97102ab1cab7276fe41))
+* **api-core:** fix org filtering when permission/resource not returned ([7b08f09](https://github.com/Availity/sdk-js/commit/7b08f09fcb7545818a6d3aaacf9c6eabb3969ba7))
+* **api-core:** fix organizations resources check ([28644b6](https://github.com/Availity/sdk-js/commit/28644b6431ba22df265225386e09aaec53f5a9e1))
+* **api-core:** fix usage of Promise ([8fb3de8](https://github.com/Availity/sdk-js/commit/8fb3de8dcf1e242962b09afcb548848a406f00af))
+* **api-core:** fixed error trying to call toString on undefined ([0792f85](https://github.com/Availity/sdk-js/commit/0792f85b8be73e2eb3bef465c181c7810746e981))
+* **api-core:** format postGet payload to standard ([5b885cf](https://github.com/Availity/sdk-js/commit/5b885cf8148ebc2c8cd9c0bbd1314b88b24b9d40))
+* **api-core:** get id out of arguments ([3e525c2](https://github.com/Availity/sdk-js/commit/3e525c265ab5f9cbc8a89053d4ebf4a18cd9d321))
+* **api-core:** graceful exit when polling ([9708eff](https://github.com/Availity/sdk-js/commit/9708efff45bea08880b18e4b0f80aa6ff9409b49))
+* **api-core:** http should throw errors ([#83](https://github.com/Availity/sdk-js/issues/83)) ([868aa8f](https://github.com/Availity/sdk-js/commit/868aa8fc3bab42869c1ba7365d4b0f3d0bd08277))
+* **api-core:** organization filtering fix for resource OR ([cb16c6a](https://github.com/Availity/sdk-js/commit/cb16c6a36fbf7d653c9ff70a0555981001c21606))
+* **api-core:** organization permissions fix equal check, allow number ([6fc93c1](https://github.com/Availity/sdk-js/commit/6fc93c114523350cad0d37d8167b5047707c33a9))
+* **api-core:** pass region param to axi-user-permissions call if additionalPostGetArgs ([3a41740](https://github.com/Availity/sdk-js/commit/3a41740f0b241e112cef64643985c49908ed3578))
+* **api-core:** provides api param not properly merged with defaults ([5f53e3d](https://github.com/Availity/sdk-js/commit/5f53e3d67727899e36bb4ead3850d1eb49df7fb9))
+* **api-core:** relative location header ([2ac4c5f](https://github.com/Availity/sdk-js/commit/2ac4c5f8d618ad6c7eff0ef6a8b2fb2c20f339a8)), closes [#77](https://github.com/Availity/sdk-js/issues/77)
+* **api-core:** remove default after* response transformations ([6f17d3a](https://github.com/Availity/sdk-js/commit/6f17d3a7d4187dabb3ef15efd0f93ebda47f943d))
+* **api-core:** remove incorrect limit for axiUserPermissions in orgFilter ([edbddbf](https://github.com/Availity/sdk-js/commit/edbddbf2c7181d6ab634fc9fb5f0967d1d92d02b))
+* **api-core:** remove type export ([2711dec](https://github.com/Availity/sdk-js/commit/2711decfb40c151c21c0491226bac94cc590960c))
+* **api-core:** remove/delete should not assume data payloads ([e45a9f6](https://github.com/Availity/sdk-js/commit/e45a9f6b415cb01adcd5b672e39004ab7063dbf4))
+* **api-core:** rename error object ([460fc9d](https://github.com/Availity/sdk-js/commit/460fc9dd59e9fbb5b29e28a0b46764074ea95c01))
+* **api-core:** resolve relative url from request url ([8e6abbb](https://github.com/Availity/sdk-js/commit/8e6abbbc877a4cc9bffb41567cace96d7a5997c5)), closes [#77](https://github.com/Availity/sdk-js/issues/77)
+* **api-core:** resources incorrectly handling config ([9a5de1c](https://github.com/Availity/sdk-js/commit/9a5de1cb0e512a4db18484e88f957488dcd2a690))
+* **api-core:** return error from async/await ([06c35fe](https://github.com/Availity/sdk-js/commit/06c35fe4ac72adbee8bf4ab1ec4653521b8cf2bc))
+* **api-core:** reverted changelog/canary changes ([0f775ea](https://github.com/Availity/sdk-js/commit/0f775ea034df998a6bd74a0409cc1e56ee9f6d7b))
+* **api-core:** spread args for aliases ([5c7516b](https://github.com/Availity/sdk-js/commit/5c7516b25c8b0068cd11f120754eb126c573eec5))
+* **api-core:** typo fix ([f543296](https://github.com/Availity/sdk-js/commit/f5432960ffdb430a302d68790eba9b9cd71308d1))
+* **api-core:** updated handling of falsey values ([b810189](https://github.com/Availity/sdk-js/commit/b8101892bfc2ec50a58cceade051c23c59fd495d))
+* **api-core:** updated test suite name ([b0a75c6](https://github.com/Availity/sdk-js/commit/b0a75c6ffc916581ff06aaf8eccba66ee80015ad))
+* **api-core:** use correct region param for permissions call inside organizations ([724cc65](https://github.com/Availity/sdk-js/commit/724cc657bfc594ec10ed085003094a2dfac4b41d))
+* **api-core:** use flat for lint ([dcabbdf](https://github.com/Availity/sdk-js/commit/dcabbdf97e9fd9d8cba101af31a0a22e9e704f64))
+* **api-core:** use flat for lint with spread ([56b4cd9](https://github.com/Availity/sdk-js/commit/56b4cd979edc0af07b9a00682d999ae234bc9c95))
+* **api-core:** use get instead of query for space name ([84dd26a](https://github.com/Availity/sdk-js/commit/84dd26a66023b78a18c4654cba05d2d362cd1a5b))
+* **api-core:** user.me() should return user object ([715c616](https://github.com/Availity/sdk-js/commit/715c616585f20b7c757b90221954403f99da5cc4))
+* **api-core:** wrong url for notifcations api ([acafc97](https://github.com/Availity/sdk-js/commit/acafc975dc8b039a28f9accdb4ae8cd24414429b))
+* **api-core:** wrong url for pdf api ([9f4af1c](https://github.com/Availity/sdk-js/commit/9f4af1c6c5bcbbf19d6d404a09b89c37f37d1a20))
+* **dl-core:** fixed dev dep ([15d572a](https://github.com/Availity/sdk-js/commit/15d572a04e337bbecb60b414d5397ef2161f8042))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f486e49eb969320edfbfab422d47abe4ab1))
+
+
+### Code Refactoring
+
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** eslint fixes ([00e3395](https://github.com/Availity/sdk-js/commit/00e339595962501c96acf2895650f104d4c49809))
+* **api-core:** pass config object to core classes ([d7b859c](https://github.com/Availity/sdk-js/commit/d7b859c80837a8256bcf4538b30d042882db2640))
+* **localstorage-core:** converted class to function ([9f1fdf0](https://github.com/Availity/sdk-js/commit/9f1fdf07e388cabbbc1da9ebd4016d6ba5dace8f))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **analytics-core:** added dma logging service ([68aee41](https://github.com/Availity/sdk-js/commit/68aee41761e5a5960ee1e997e32e471aad455dc1))
+* **api-core, api-angular api-react:** add pdf api ([b84a16f](https://github.com/Availity/sdk-js/commit/b84a16f39548aa405748ecf2a9431d3a05ff4ea0))
+* **api-core:** add ability to send in variables in AvSlotMachine.query ([f83e00b](https://github.com/Availity/sdk-js/commit/f83e00b61680f882aeb7da906500d82065466ed3))
+* **api-core:** add all method to get all the data from all of the pages ([114519d](https://github.com/Availity/sdk-js/commit/114519d855e16da37e965e06d6064e6641d70fde))
+* **api-core:** add beacon support to log messages ([9350765](https://github.com/Availity/sdk-js/commit/93507657b78a68ff431e92f0bd3336b74e2199c4))
+* **api-core:** add codes resource ([4ea7ba4](https://github.com/Availity/sdk-js/commit/4ea7ba41fcef02b67b2e4928b17a04eff2d8b9fd))
+* **api-core:** add example response for file delivery ([edc4df5](https://github.com/Availity/sdk-js/commit/edc4df5763e58c1d94c88a4e6730e6a1ece651d8))
+* **api-core:** add file upload delivery batch api ([eff0a3c](https://github.com/Availity/sdk-js/commit/eff0a3cff384d99d13d0fd0795e693eef5c51af2))
+* **api-core:** add helper function adds name attribute to providers collection ([3b24341](https://github.com/Availity/sdk-js/commit/3b243412f3541fd8af6330c7f9986e86e0ddca59))
+* **api-core:** add permission AND/OR logic to organization filter ([90acf02](https://github.com/Availity/sdk-js/commit/90acf029028413c9fb98443d136abb795295eb5c))
+* **api-core:** add post and delete as synonyms for create and update ([0150680](https://github.com/Availity/sdk-js/commit/01506807b2917f4e5bc082ac16504ef88094fff6))
+* **api-core:** add spaces helper methods ([72de394](https://github.com/Availity/sdk-js/commit/72de394bd51b9fea08345f42efade8d45ac9888f))
+* **api-core:** add support for filtering organizations by permission and resource ([b607943](https://github.com/Availity/sdk-js/commit/b607943c9908d7d684013ec18678a1c05b9f1baf))
+* **api-core:** add webQL resource ([67b9797](https://github.com/Availity/sdk-js/commit/67b9797718ac55d0a2a08d7e5e7513791dc82a28))
+* **api-core:** added graphql resource for slotmachine ([356a686](https://github.com/Availity/sdk-js/commit/356a6868b24be6b5388000770d711bcce5e5fa00))
+* **api-core:** added new resource for disclaimers ([b7de72e](https://github.com/Availity/sdk-js/commit/b7de72ed6d6c910a2571e18753bfee6a038837d7))
+* **api-core:** added tests for new patch method, see issue [#225](https://github.com/Availity/sdk-js/issues/225) ([5498a78](https://github.com/Availity/sdk-js/commit/5498a78f3e63567e40eb1b6bb1e035c3f70c124b))
+* **api-core:** helper function for settings api ([4d405a7](https://github.com/Availity/sdk-js/commit/4d405a726c051b2602c4c19a2b8c02b0c4d87e6e))
+* **api-core:** helper function for settings api ([#64](https://github.com/Availity/sdk-js/issues/64)) ([f247235](https://github.com/Availity/sdk-js/commit/f2472358bfef0744ec31e7b764ae1586b314af6b))
+* **api-core:** proposed support for patch method, see issue [#225](https://github.com/Availity/sdk-js/issues/225) ([2ff4085](https://github.com/Availity/sdk-js/commit/2ff40857dd9d36b383278f4c4743e45de511ddee))
+* **api-core:** refactor polling for extending MS ([04c1474](https://github.com/Availity/sdk-js/commit/04c1474375d5d0c9ad387c23a453951b83d94425))
+* **api-core:** route api calls to on-prem when called from cloud apps ([94fa9df](https://github.com/Availity/sdk-js/commit/94fa9dff730e514fd21abe0910d460e7958e9a94))
+
+
+### Performance Improvements
+
+* **api-core:** use userId from params if it exists in getOrganizations ([5e5225f](https://github.com/Availity/sdk-js/commit/5e5225ff95b915d7a3145eee16281d25eb3760d6))
+* **api-core:** use userId if it exists in call to getRegions ([e94de9e](https://github.com/Availity/sdk-js/commit/e94de9eb3f4d04247ba6bc1f76ce3deb4341e609))
+* **api-core:** use userId if it exists in get,set application settings ([6cdd059](https://github.com/Availity/sdk-js/commit/6cdd05974ebcfabcabb150165b1accd03a64bf0e))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** .filter()[0] replaced with .find(), .forEach() replaced with for...of
+* **localstorage-core:** Class is now a Function and doesn't require to be instantiated.
+* upgrades other packages that are using old package-locks
+* **api-core:** The httpp error is no longer caught by api-core. Also, the error object is no longer manipulated. Developers must handle the http error by catching the error when using async/await or by leveraging the error callback in the promise chain. The callback `afterResponse` is not called when and error is thrown from http call.
+* **api-core:** The query to the API has been changed. To get the previous behavior, supply a custom paramSerializer.
+* **api-core:** Options to core classes are being passed in as config object instead of parameters. 
+* **api-core:** previously remove/delete would assume that data was being passed in the body of the request if the first param of the message signature was NOT a string or number. Now, the method assumes a config object is passed in instead of data. This allows the developers to pass in params or data as they see fit.
+* **api-core:** The core API classes no longer apply after* transformations on the response. Previously, only the collection data was being returned when making API calls which made it difficult to react to the metadata around the response (e.g. pagination). Developers will have to unwrap the response manually.
+
+Example response callback:
+
+```
+onResponse(response) {
+  response && response.data && response.data.user|| {};
+}
+```
+
+
+
 ## [8.0.4](https://github.com/Availity/sdk-js/compare/@availity/api-core@8.0.3...@availity/api-core@8.0.4) (2022-08-01)
 
 
