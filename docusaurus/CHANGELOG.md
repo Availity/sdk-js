@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 0.1.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* **dinosaurdocs:** fixes broken code block highlighting ([ca094ba](https://github.com/Availity/sdk-js/commit/ca094ba85defb5ccc572c43814bfe545a4b7af64))
+* **upload-core:** adds max amount of retries to av scan polling ([5175754](https://github.com/Availity/sdk-js/commit/51757544e361bdad926d1ce0495e5766c56e1ba3))
+
+
+### Features
+
+* **docs:** add docusaurus docs ([13a88c2](https://github.com/Availity/sdk-js/commit/13a88c215da1bbd1c8346f89d4842de88fa68df5))
+* **docusaurus:** upgrade docusaurus to v2 ([537a5c3](https://github.com/Availity/sdk-js/commit/537a5c3f50cc0566535344604fbac4cd59d4552c))
+* **upload-core:** fixed prop to this.  Added a test and fixed another test.. ([207df80](https://github.com/Availity/sdk-js/commit/207df80faff7e61a2529b53e4f306baa5c08b551))
+
+
+
 ## [0.2.1](https://github.com/Availity/sdk-js/compare/@availity/docusaurus@0.2.0...@availity/docusaurus@0.2.1) (2023-04-28)
 
 
