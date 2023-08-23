@@ -2,6 +2,41 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* **message-core:** export instance over class ([0841d09](https://github.com/Availity/sdk-js/commit/0841d09a96abca731e69b62dfdff1e19635851c1))
+* **message-core:** fix return type for AvMessage.subscribe ([a3c3a62](https://github.com/Availity/sdk-js/commit/a3c3a62a811706847561abe7d24ee4c6671ce392))
+
+
+### Code Refactoring
+
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** eslint fixes ([00e3395](https://github.com/Availity/sdk-js/commit/00e339595962501c96acf2895650f104d4c49809))
+* **message-core:** AvMessage ([4d2d0be](https://github.com/Availity/sdk-js/commit/4d2d0be517e249305a2ad3727415e70840ce42a1))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **message-core:** add ignoreSameWindow boolean option ([a4dc725](https://github.com/Availity/sdk-js/commit/a4dc725e6047a862317741842feb16904a7d4933))
+* **message-core:** add unsubscribe ([dd6b5eb](https://github.com/Availity/sdk-js/commit/dd6b5eb00d1abac40c8ddefdb56ffb25177c21a4))
+* **message-core:** subscriber functionality ([343b09d](https://github.com/Availity/sdk-js/commit/343b09dcc01c35981f8a823aca7b8fc645f006aa))
+* **message-core:** unsusbscribeAll fn ([3a66ff8](https://github.com/Availity/sdk-js/commit/3a66ff888aef590824494ad28766a8b3de4ec669))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+* **analytics-core,api-core,authorizations-core,message-core,native-form,upload-core:** .filter()[0] replaced with .find(), .forEach() replaced with for...of
+* **message-core:** Remove message-angular to use subscribers from core
+
+
+
 # [6.1.0](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.0.3...@availity/message-core@6.1.0) (2022-06-23)
 
 
