@@ -124,7 +124,7 @@ export function getSpecificEnv(windowOverride = window) {
 export default function (varObj, windowOverride, defaultVar) {
   const env = getCurrentEnv(windowOverride);
 
-  if (typeof varObj[env] !== 'undefined') {
+  if (`${env}` in varObj) {
     return varObj[env];
   }
 
