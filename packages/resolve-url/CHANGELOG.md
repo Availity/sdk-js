@@ -2,6 +2,36 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* **resolve-url:** fix exported types ([0f7780e](https://github.com/Availity/sdk-js/commit/0f7780eca4f8a09b40029a77a74aa0b815d899a6))
+* **resolve-url:** fixed import ([b5a8077](https://github.com/Availity/sdk-js/commit/b5a807736bde15744f399ea822797c541fef8880))
+* **resolve-url:** fixes incorrect regex results failing tests, assign default param to baseIRI ([2aebb4b](https://github.com/Availity/sdk-js/commit/2aebb4b5ac512b8be1818a97914b84e6b734b1da))
+* **resolve-url:** make ie11 compat ([c2e6e95](https://github.com/Availity/sdk-js/commit/c2e6e95c243c7ffbafb2ac2844bdf0733fc251c3))
+* **resolve-url:** startsWith not supported in IE ([1a3d0b7](https://github.com/Availity/sdk-js/commit/1a3d0b77410a3f04cdd4763e5b227b6473ee4b88))
+* **resolve-url:** use window.location.origin ([bcfe310](https://github.com/Availity/sdk-js/commit/bcfe310ece0ac23d4dde3cc68be927ac1f509438))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **resolve-url:** add isAbsoluteUrl to exports ([016cee6](https://github.com/Availity/sdk-js/commit/016cee64a805b01d674be3d79bb549e5905ca7c6))
+* **resolve-url:** options to resolve url using base url ([2cd0670](https://github.com/Availity/sdk-js/commit/2cd0670384291f6fbdc5d3db3f93ab66ea1568c4))
+* **resolve-url:** resolve relative urls to full location href ([f4ec953](https://github.com/Availity/sdk-js/commit/f4ec953c6e2f65f6a0790ec7ed073a4dbcd7e438))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+
+
+
 ## [2.0.3](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@2.0.2...@availity/resolve-url@2.0.3) (2022-06-15)
 
 
