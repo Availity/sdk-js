@@ -2,6 +2,35 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 1.0.0 (2023-08-23)
+
+
+### Bug Fixes
+
+* add browser field for output ([0ce7170](https://github.com/Availity/sdk-js/commit/0ce717075a82675b8707e4db0cc07cd4af370f3d))
+* add lerna ignore for package-locks ([3217d96](https://github.com/Availity/sdk-js/commit/3217d96c1ad7b3b9b752d9376b88d9b91daabca6))
+* allow exceptions-core to be published ([0c15350](https://github.com/Availity/sdk-js/commit/0c15350fa842360ae55df0a67d80b81aadbe5b9f))
+* fixed package-lock issues boiling down to this repo ([8c896f4](https://github.com/Availity/sdk-js/commit/8c896f486e49eb969320edfbfab422d47abe4ab1))
+* update babel and jest configs, rename tests ([c80e194](https://github.com/Availity/sdk-js/commit/c80e1947f0c3cb28c3c7db842c82f381622d72e7))
+
+
+* build!: switch from lerna to nx and compile to esm with tsup ([c586085](https://github.com/Availity/sdk-js/commit/c5860856ca96b743a0653d335ea00f0889132f7f))
+
+
+### Features
+
+* **exception-core:** use stacktrace-js for better stacktraces ([e59fd00](https://github.com/Availity/sdk-js/commit/e59fd004d7e70c829ca336c7eb4d20e95ff585bc))
+* **exceptions-core:** adding message blacklist for exception logging SHI-3127 ([d3ee2e6](https://github.com/Availity/sdk-js/commit/d3ee2e622641d1532914d5aaa32dc5c0803aa4e7))
+* **expections-axios:** add basic axios wrapper for execptions ([61803a9](https://github.com/Availity/sdk-js/commit/61803a910e5cf83db1a086af3d9c19656f7d75cb))
+
+
+### BREAKING CHANGES
+
+* Drop Internet Explorer support
+* upgrades other packages that are using old package-locks
+
+
+
 # [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/exceptions-core@4.0.3...@availity/exceptions-core@4.1.0) (2023-02-10)
 
 
