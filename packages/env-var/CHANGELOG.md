@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/env-var@2.0.4...@availity/env-var@3.0.0) (2023-09-01)
+
+
+### Features
+
+* **env-var:** allow users to return undefined ([947687a](https://github.com/Availity/sdk-js/commit/947687a5f1430569ca8b698435d5632d19431c05))
+
+
+### BREAKING CHANGES
+
+* **env-var:** returning undefined previously would default to the local value,
+now we expect you to define what you want to return
+
+
+
 ## [2.0.4](https://github.com/Availity/sdk-js/compare/@availity/env-var@2.0.3...@availity/env-var@2.0.4) (2023-08-23)
 
 
