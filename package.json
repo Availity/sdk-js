@@ -66,7 +66,7 @@
     "conventional-recommended-bump": "^7.0.1",
     "dependency-check": "^4.1.0",
     "eslint": "^7.32.0",
-    "eslint-config-availity": "^8.0.9",
+    "eslint-config-availity": "^9.0.0",
     "gh-pages": "^6.0.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
