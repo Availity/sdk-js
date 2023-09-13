@@ -1,16 +1,12 @@
-import axios from 'axios';
-import utils from 'axios/lib/utils';
 import DownloadMicroservice from '@availity/dl-core';
 
-const { merge } = utils;
-
 export default class AvDownloadApi extends DownloadMicroservice {
-  constructor(options) {
+  constructor({ http, promise, merge, config }) {
     super({
-      http: axios,
-      promise: Promise,
+      http,
+      promise,
       merge,
-      config: options,
+      config,
     });
   }
 }
