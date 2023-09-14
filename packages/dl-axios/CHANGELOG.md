@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.2](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.1...@availity/dl-axios@5.0.2) (2023-09-14)
+
+
+### Bug Fixes
+
+* **dl-axios:** v1.x of axios broke an import, update this class ([0890294](https://github.com/Availity/sdk-js/commit/08902949794961d0596fd5522da822933e244c64))
+
+
+
 ## [5.0.1](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.0...@availity/dl-axios@5.0.1) (2023-08-23)
 
 

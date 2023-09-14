@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-axios",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Utility to download files from services",
   "keywords": [
     "download",
