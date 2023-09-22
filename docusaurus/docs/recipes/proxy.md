@@ -10,7 +10,7 @@ On this page, we will show you how to use `AvProxyApi` class to easily call the 
 
 ## Example
 
-Below is an example `App` component where we create a proxy, and then call it.
+Below is an example `App` component where we create a proxy, and then call it. Note the `X-Availity-Customer-ID` header passed in the proxyApi.query config. This header is required for all outbound proxy calls.
 
 ### Adding API Code Snippet
 
@@ -21,9 +21,12 @@ import { AvProxyApi } from '@availity/api-axios';
 // This will now let us make calls to /api/v1/proxy/availity/my/proxy
 const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
 
-const fetchData = async () => {
+const fetchData = async (customerId) => {
   try {
-    const response = await proxyApi.query({ sessionBust: false });
+    const response = await proxyApi.query({
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
     return response.data.climbingHolds || [];
   } catch {
     return [];

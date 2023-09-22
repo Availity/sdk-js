@@ -106,6 +106,10 @@ Default is 1, 2, 5, then 10 seconds. After all the intervals have been used, `Av
 Used for polling, if the `http` service used has special logic to get a header value, then define this function to handle that logic. If defined, it is called with `(response, headerKey)`.
 If not defined, attempts to get `key` from `response.headers[key]`.
 
+##### `config.headers`
+
+Headers to be passed to the request.
+
 ### Methods
 
 Each method can use an after function, (ex. `afterGet` with `get`). These are available to modify the response before it is resolved. Each method that has data available has a before function in order to modify data before the call is made.

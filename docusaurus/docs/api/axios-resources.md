@@ -20,6 +20,7 @@ This page has information on pre-defined resources you can import into your app.
 - [AvDisclaimersApi](#avdisclaimersapi)
 - [AvSlotmachineApi](#avslotmachineapi)
 - [AvTelemetryApi](#avtelemetryapi)
+- [AvProxyApi](#avproxyapi)
 
 Each pre-defined resource has two exports: the class and an instance. The class follows the pattern `AvUserApi` and the instance is `avUserApi`. In other words, the class is uppercase and the instance is lowercase.
 
@@ -629,3 +630,315 @@ const sendTelemetryMessages = async (data1, data2, data3, data4) => {
   return { res1, res2, res3, res4 };
 };
 ```
+
+### AvProxyApi
+
+Endpoint for making outbound proxy calls. For a detailed example see [Creating a Proxy](../recipes/proxy.md)
+
+The "X-Availity-Customer-ID" header is required in the config for all methods. This can be done manually when the method is called as shown in the examples below. Alternatively, if the X-Availity-Customer-ID header needs to be added to all (or most) of your api calls, then it can be passed in axios.defaults.headers.common['X-Availity-Customer-ID'] when initializing axios. For more information, see [Config Defaults](https://axios-http.com/docs/config_defaults)
+
+#### `create(data, config)`
+
+#### Params
+
+`data`: Data to be sent in the body of the request
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.create(data, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response.data.climbingHolds || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `delete(id, config)`
+
+#### Params
+
+`id`: The id of the item to delete
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.delete(id, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `get(id, config)`
+
+#### Params
+
+`id`: The id of the item to get
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.get(id, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `patch(id, data, config)`
+
+#### Params
+
+`id`: The id of the item to patch
+
+`data`: Data to be sent in the body of the request
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.patch(id, data, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `post(data, config)`
+
+#### Params
+
+`data`: Data to be sent in the body of the request
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.post(data, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `postGet(id, config)`
+
+#### Params
+
+`id`: The id of the item to get
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.postGet(id, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `put(id, data, config)`
+
+#### Params
+
+`id`: The id of the item to put
+
+`data`: Data to be sent in the body of the request
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.put(id, data, {
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `onResponse(config, afterResponse)`
+
+#### Params
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+`afterResponse`: Function to handle response
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.onResponse(
+      {
+        sessionBust: false,
+        headers: { 'X-Availity-Customer-ID': 'customerId' },
+      },
+      afterResponse
+    );
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `query(config)`
+
+#### Params
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.config({
+      sessionBust: false,
+      headers: { 'X-Availity-Customer-ID': 'customerId' },
+    });
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `remove(id, config)`
+
+See [delete(id, config)](#deleteid-config)
+
+#### `request(config, afterResponse)`
+
+#### Params
+
+`config`: The request config. For options see [Options](./getting-started.md#options)
+
+`afterResponse`: Function to handle response
+
+#### Example
+
+```js
+import { AvProxyApi } from '@availity/api-axios';
+
+// This will now let us make calls to /api/v1/proxy/availity/my/proxy
+const proxyApi = new AvProxyApi({ tenant: 'availity', name: '/my/proxy' });
+
+const fetchData = async (customerId) => {
+  try {
+    const response = await proxyApi.request(
+      {
+        sessionBust: false,
+        headers: { 'X-Availity-Customer-ID': 'customerId' },
+      },
+      afterResponse
+    );
+    return response || [];
+  } catch {
+    return [];
+  }
+};
+```
+
+#### `update(id, data, config)`
+
+See [put(id, data, config)](#putid-data-config)
