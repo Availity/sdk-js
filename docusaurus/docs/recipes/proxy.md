@@ -10,7 +10,7 @@ On this page, we will show you how to use `AvProxyApi` class to easily call the 
 
 ## Example
 
-Below is an example `App` component where we create a proxy, and then call it. Note the `X-Availity-Customer-ID` header passed in the proxyApi.query config. This header is required for all outbound proxy calls.
+Below is an example `App` component where we create a proxy, and then call it. Note the `X-Availity-Customer-ID` header passed in the proxyApi.query config. This header is required for all outbound proxy calls. For more information see [`X-Availity-Customer-ID`](../api/axios-resources.md#x-availity-customer-id-header).
 
 ### Adding API Code Snippet
 

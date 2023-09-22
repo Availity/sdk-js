@@ -635,7 +635,11 @@ const sendTelemetryMessages = async (data1, data2, data3, data4) => {
 
 Endpoint for making outbound proxy calls. For a detailed example see [Creating a Proxy](../recipes/proxy.md)
 
-The "X-Availity-Customer-ID" header is required in the config for all methods. This can be done manually when the method is called as shown in the examples below. Alternatively, if the X-Availity-Customer-ID header needs to be added to all (or most) of your api calls, then it can be passed in axios.defaults.headers.common['X-Availity-Customer-ID'] when initializing axios. For more information, see [Config Defaults](https://axios-http.com/docs/config_defaults)
+#### `X-Availity-Customer-ID` Header
+
+The `X-Availity-Customer-ID` header is required in the config for all methods. This can be done manually when the method is called as shown in the examples below. Alternatively, if the `X-Availity-Customer-ID` header needs to be added to all (or most) of your api calls, then it can be passed in axios.defaults.headers.common['X-Availity-Customer-ID'] when initializing axios. For more information, see [Config Defaults](https://axios-http.com/docs/config_defaults).
+
+The `customerId` is a field in the response from the Organizations API. For more information on the API see the [AvOrganizationsApi](#avorganizationsapi) and the [Organizations API Definition](./definitions/organizations.md). For UIs, the [AvOrganizationSelect component](https://availity.github.io/availity-react/form/select/components/organization-select) provides a dropdown for the user to select an Organization they are associated with. By default the value returned from the AvOrganizationSelect component is the organization's `id`. Use the (valueKey)[https://availity.github.io/availity-react/form/select/components/select/#valuekey-string] prop to get the `customerId`.
 
 #### `create(data, config)`
 
