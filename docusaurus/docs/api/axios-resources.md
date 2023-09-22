@@ -639,13 +639,13 @@ The "X-Availity-Customer-ID" header is required in the config for all methods. T
 
 #### `create(data, config)`
 
-#### Params
+##### Params
 
 `data`: Data to be sent in the body of the request
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -668,13 +668,13 @@ const fetchData = async (customerId) => {
 
 #### `delete(id, config)`
 
-#### Params
+##### Params
 
 `id`: The id of the item to delete
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -697,13 +697,13 @@ const fetchData = async (customerId) => {
 
 #### `get(id, config)`
 
-#### Params
+##### Params
 
 `id`: The id of the item to get
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -726,7 +726,7 @@ const fetchData = async (customerId) => {
 
 #### `patch(id, data, config)`
 
-#### Params
+##### Params
 
 `id`: The id of the item to patch
 
@@ -734,7 +734,7 @@ const fetchData = async (customerId) => {
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -757,13 +757,13 @@ const fetchData = async (customerId) => {
 
 #### `post(data, config)`
 
-#### Params
+##### Params
 
 `data`: Data to be sent in the body of the request
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -786,13 +786,13 @@ const fetchData = async (customerId) => {
 
 #### `postGet(id, config)`
 
-#### Params
+##### Params
 
 `id`: The id of the item to get
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -815,7 +815,7 @@ const fetchData = async (customerId) => {
 
 #### `put(id, data, config)`
 
-#### Params
+##### Params
 
 `id`: The id of the item to put
 
@@ -823,7 +823,7 @@ const fetchData = async (customerId) => {
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -846,13 +846,13 @@ const fetchData = async (customerId) => {
 
 #### `onResponse(config, afterResponse)`
 
-#### Params
+##### Params
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
 `afterResponse`: Function to handle response
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -878,11 +878,11 @@ const fetchData = async (customerId) => {
 
 #### `query(config)`
 
-#### Params
+##### Params
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
@@ -909,13 +909,13 @@ See [delete(id, config)](#deleteid-config)
 
 #### `request(config, afterResponse)`
 
-#### Params
+##### Params
 
 `config`: The request config. For options see [Options](./getting-started.md#options)
 
 `afterResponse`: Function to handle response
 
-#### Example
+##### Example
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';
