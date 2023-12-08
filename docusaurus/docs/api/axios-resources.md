@@ -24,7 +24,7 @@ This page has information on pre-defined resources you can import into your app.
 
 Each pre-defined resource has two exports: the class and an instance. The class follows the pattern `AvUserApi` and the instance is `avUserApi`. In other words, the class is uppercase and the instance is lowercase.
 
-Use the class to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/httpRequest) for more information on creating your own endpoint.
+Use the class to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/http-Request) for more information on creating your own endpoint.
 
 ### AvUserApi
 
