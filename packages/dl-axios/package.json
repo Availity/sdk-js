@@ -32,7 +32,8 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
-    "@availity/dl-core": "workspace:*"
+    "@availity/dl-core": "workspace:*",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "axios": "^1.4.0",
@@ -40,7 +41,7 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "axios": "^0.21.1"
+    "axios": "^1.4.0"
   },
   "publishConfig": {
     "access": "public"
