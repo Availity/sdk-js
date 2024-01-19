@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.3](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.2...@availity/dl-axios@5.0.3) (2024-01-19)
+
+
+### Bug Fixes
+
+* **dl-axios:** update class to provide required arguments for AvApi ([3d9caf6](https://github.com/Availity/sdk-js/commit/3d9caf68f175f458e1bfaab94de6cb296db0c96a))
+
+
+
 ## [5.0.2](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.1...@availity/dl-axios@5.0.2) (2023-09-14)
 
 
