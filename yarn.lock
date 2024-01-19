@@ -411,10 +411,11 @@ __metadata:
   dependencies:
     "@availity/dl-core": "workspace:*"
     axios: ^1.4.0
+    lodash: ^4.17.21
     tsup: ^7.2.0
     typescript: ^5.1.6
   peerDependencies:
-    axios: ^0.21.1
+    axios: ^1.4.0
   languageName: unknown
   linkType: soft
 
