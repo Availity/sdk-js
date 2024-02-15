@@ -23673,12 +23673,12 @@ __metadata:
   linkType: hard
 
 "url-parse@npm:^1.4.3":
-  version: 1.5.7
-  resolution: "url-parse@npm:1.5.7"
+  version: 1.5.10
+  resolution: "url-parse@npm:1.5.10"
   dependencies:
     querystringify: ^2.1.1
     requires-port: ^1.0.0
-  checksum: 4ffb5239afbbaccd8d2a4c08fc64c5b9cd4931659bf913d56e9b93d4abc765771200d58bd201f501addb5cf6fa070ad443d16f8bbdb533a3775f6563dd1e6a9a
+  checksum: fbdba6b1d83336aca2216bbdc38ba658d9cfb8fc7f665eb8b17852de638ff7d1a162c198a8e4ed66001ddbf6c9888d41e4798912c62b4fd777a31657989f7bdf
   languageName: node
   linkType: hard
 
