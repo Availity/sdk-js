@@ -352,7 +352,7 @@ Set the min and max that the date must be inbetween
 
 - **min** - `string`. **required**. The minimum allowed date.
 - **max** - `string`. **required**. The maximum allowed date.
-- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be between ${min} and ${max}."
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be between `${min}` and `${max}`."
 - **inclusivity** - `string`. Optional. Set whether the min and max should be inclusive. Default: "()"
 
 [More information](https://momentjscom.readthedocs.io/en/latest/moment/05-query/06-is-between/) on inclusivity
@@ -374,7 +374,7 @@ Validate the date is on or after the given minimum
 ###### Parameters
 
 - **min** - `string`. **required**. The minimum date the given value must be on or after.
-- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be ${min} or later."
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be `${min}` or later."
 
 ###### Example
 
@@ -393,7 +393,7 @@ Validate the date is on or before the given maximum
 ###### Parameters
 
 - **max** - `string`. **required**. The maximum date the given value must be on or before.
-- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be ${max} or earlier."
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be `${max}` or earlier."
 
 ###### Example
 
