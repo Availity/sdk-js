@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.5](https://github.com/Availity/sdk-js/compare/@availity/native-form@5.0.4...@availity/native-form@5.0.5) (2024-02-19)
+
+
+
 ## [5.0.4](https://github.com/Availity/sdk-js/compare/@availity/native-form@5.0.3...@availity/native-form@5.0.4) (2023-08-23)
 
 
