@@ -191,7 +191,7 @@ Without plugins, the AvAnalytics class would not do anything useful. When AvAnal
 - `isEnabled` - Determines if this plugin is enabled. Disabled plugins will not respond to events. This can be a method that returns a boolean or it can be a static boolean property.
 - `init` - If defined, will be called when `AvAnalytics` is initialized.
 - `trackEvent` - If defined, this plugin method will be called every time [`analytics.trackEvent()`](#trackeventproperties-object) is called. It will be forwarded the same event data passed to that original call.
-- `trackPageView` - If defined, this plugin method will be called every time [`analytics.trackPageView()`](#trackeventproperties-object) is called. It will be forwarded the same new page URL passed to that original call.
+- `trackPageView` - If defined, this plugin method will be called every time [`analytics.trackPageView()`](#trackpageviewarg-string---url-string-) is called. It will be forwarded the same new page URL passed to that original call.
 
 A default class with functions defined and enabled logic is provided by `AvAnalyticsPlugin` from [@availity/analytics-core](https://www.npmjs.com/package/@availity/analytics-core). Extend this class to define your own custom plugins
 
