@@ -1,6 +1,6 @@
 {
   "name": "@availity/dockyard",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Convert yup schema to a friendly docs object",
   "keywords": [
     "yup",
