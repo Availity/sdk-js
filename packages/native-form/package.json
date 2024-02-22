@@ -1,6 +1,6 @@
 {
   "name": "@availity/native-form",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Submit JSON data via a native form, not AJAX. Useful when you need to open a new page with a POST action.",
   "keywords": [
     "availity",
@@ -29,7 +29,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {

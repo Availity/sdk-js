@@ -24,7 +24,6 @@
     "build:packages": "nx run-many --target=build --all --exclude=docusaurus",
     "build:docs": "nx build docusaurus",
     "build:affected": "nx affected --target=build",
-    "bundlesize": "nx run-many --target=bundlesize --all",
     "check:deps": "adio",
     "check:registry": "sh ./scripts/artifactory-check.sh",
     "clean": "nx run-many --target=clean --all && rm -rf node_modules",
@@ -48,11 +47,10 @@
     "version:dry-run": "nx affected --target version --dryRun --parallel=1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
-    "@commitlint/config-nx-scopes": "^17.6.4",
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
+    "@commitlint/config-nx-scopes": "^17.8.1",
     "@jscutlery/semver": "^3.1.0",
-    "@nrwl/cli": "^15.9.5",
     "@nx/jest": "^16.7.2",
     "@nx/js": "^16.7.2",
     "@nx/linter": "^16.7.2",
@@ -60,7 +58,6 @@
     "@types/jest": "^26.0.24",
     "@types/node": "^18.17.7",
     "adio": "^1.2.1",
-    "bundlesize": "^0.18.1",
     "codecov": "^3.8.3",
     "conventional-changelog-cli": "^3.0.0",
     "conventional-recommended-bump": "^7.0.1",
@@ -76,11 +73,14 @@
     "lint-staged": "^14.0.1",
     "nock": "^13.3.3",
     "nx": "16.7.2",
-    "plop": "^2.7.6",
+    "plop": "^4.0.1",
     "prettier": "^3.0.2",
     "ts-jest": "^27.0.0",
     "typescript": "^5.1.6",
     "xhr-mock": "^2.5.1"
+  },
+  "resolutions": {
+    "socks": "2.7.3"
   },
   "packageManager": "yarn@3.2.0"
 }

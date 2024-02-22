@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-core",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Utility to download files from services",
   "keywords": [
     "download",
@@ -27,7 +27,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {

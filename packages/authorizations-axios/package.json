@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-axios",
-  "version": "7.0.1",
+  "version": "7.0.3",
   "description": "Availity authorizations react logic",
   "homepage": "https://availity.github.io/sdk-js/api/authorizations",
   "bugs": {
@@ -23,7 +23,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
@@ -31,7 +30,7 @@
     "@availity/authorizations-core": "workspace:*"
   },
   "devDependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.6.7",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
   },

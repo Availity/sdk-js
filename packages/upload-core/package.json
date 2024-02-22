@@ -1,6 +1,6 @@
 {
   "name": "@availity/upload-core",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Wrapper for tus-js-client",
   "keywords": [
     "tus",
@@ -29,7 +29,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {

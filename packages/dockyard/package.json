@@ -1,6 +1,6 @@
 {
   "name": "@availity/dockyard",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Convert yup schema to a friendly docs object",
   "keywords": [
     "yup",
@@ -27,7 +27,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {

@@ -13,9 +13,9 @@ This page has information on pre-defined resources you can import into your app.
 - [AvSpacesApi](#avspacesapi)
 - [AvOrganizationsApi](#avorganizationsapi)
 - [AvProvidersApi](#avprovidersapi)
-- [AvLogMessageApi](#avlogmessageapi)
+- [AvLogMessagesApi](#avlogmessagesapi)
 - [AvFilesApi](#avfilesapi)
-- [AvFilesDeliveryApi](#avfilesdeliveryapi)
+- [AvFilesDeliveryApi](#avfilesdelivery)
 - [AvSettingsApi](#avsettingsapi)
 - [AvDisclaimersApi](#avdisclaimersapi)
 - [AvSlotmachineApi](#avslotmachineapi)
@@ -24,7 +24,7 @@ This page has information on pre-defined resources you can import into your app.
 
 Each pre-defined resource has two exports: the class and an instance. The class follows the pattern `AvUserApi` and the instance is `avUserApi`. In other words, the class is uppercase and the instance is lowercase.
 
-Use the class to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/httpRequest) for more information on creating your own endpoint.
+Use the class to extend functionality. Otherwise import the instance to hit the ground running. Follow [our guide](https://availity.github.io/sdk-js/recipes/http-request) for more information on creating your own endpoint.
 
 ### AvUserApi
 
@@ -639,7 +639,7 @@ Endpoint for making outbound proxy calls. For a detailed example see [Creating a
 
 The `X-Availity-Customer-ID` header is required in the config for all methods. This can be done manually when the method is called as shown in the examples below. Alternatively, if the `X-Availity-Customer-ID` header needs to be added to all (or most) of your api calls, then it can be passed in axios.defaults.headers.common['X-Availity-Customer-ID'] when initializing axios. For more information, see [Config Defaults](https://axios-http.com/docs/config_defaults).
 
-The `customerId` is a field in the response from the Organizations API. For more information on the API see the [AvOrganizationsApi](#avorganizationsapi) and the [Organizations API Definition](./definitions/organizations.md). For UIs, the [AvOrganizationSelect component](https://availity.github.io/availity-react/form/select/components/organization-select) provides a dropdown for the user to select an Organization they are associated with. By default the value returned from the AvOrganizationSelect component is the organization's `id`. Use the (valueKey)[https://availity.github.io/availity-react/form/select/components/select/#valuekey-string] prop to get the `customerId`.
+The `customerId` is a field in the response from the Organizations API. For more information on the API see the [AvOrganizationsApi](#avorganizationsapi) and the [Organizations API Definition](./definitions/organizations.md). For UIs, the [AvOrganizationSelect component](https://availity.github.io/availity-react/form/select/components/organization-select) provides a dropdown for the user to select an Organization they are associated with. By default the value returned from the AvOrganizationSelect component is the organization's `id`. Use the [valueKey](https://availity.github.io/availity-react/form/select/components/select/#valuekey-string) prop to get the `customerId`.
 
 #### `create(data, config)`
 

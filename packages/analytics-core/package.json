@@ -1,6 +1,6 @@
 {
   "name": "@availity/analytics-core",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Analytics base configuration for sdk-js",
   "keywords": [
     "availity",
@@ -25,7 +25,6 @@
     "build": "tsup src/index.js --format esm,cjs --dts",
     "dev": "tsup src/index.js --format esm,cjs --watch --dts",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {

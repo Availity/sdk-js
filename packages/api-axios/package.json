@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "8.0.3",
+  "version": "8.0.5",
   "description": "Wrappers for axios designed to work with the Availity portal",
   "keywords": [
     "availity",
@@ -28,7 +28,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "bundlesize": "bundlesize",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
@@ -37,7 +36,7 @@
     "qs": "^6.11.2"
   },
   "devDependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.6.7",
     "msw": "^0.49.3",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
