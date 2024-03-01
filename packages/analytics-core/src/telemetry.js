@@ -6,12 +6,25 @@ export default class AvTelemetryAnalytics extends AvAnalyticsPlugin {
     this.AvLogMessages = AvLogMessages;
   }
 
-  trackEvent(properties) {
-    properties.telemetryBody.level = properties.telemetryBody.level || 'info';
-    return this.AvLogMessages[properties.telemetryBody.level](properties);
+  trackEvent({ action, category, event, label, level, ...properties }) {
+    const payload = {
+      version: 'v1',
+      telemetryBody: {
+        level: level || 'info',
+        entries: {
+          ...properties,
+        },
+      },
+    };
+    if (action) payload.telemetryBody.entries.action = action;
+    if (label) payload.telemetryBody.entries.label = label;
+    if (event) payload.telemetryBody.entries.event = event;
+    if (category) payload.telemetryBody.entries.category = category;
+
+    return this.AvLogMessages[payload.telemetryBody.level](payload);
   }
 
   trackPageView(url) {
-    return this.trackEvent({ telemetryBody: { entries: { event: 'page', label: url } } });
+    return this.trackEvent({ event: 'page', label: url });
   }
 }
