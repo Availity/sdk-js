@@ -348,6 +348,26 @@ If manually tracking with `analytics.trackEvent()`, use the camelCased variation
 
 User IDs are automatically added to logging, so they do not need to be explicitly added.
 
+### Logging Telemetry
+
+In order to match the telemetry api structure, attributes should be structured as follows.
+
+- customerId - `data-analytics-customer-id`
+- contact - `data-analytics-contact`
+- source_system - `data-analytics-source_system`
+- version - Do not pass. This is handled by the plugin.
+- payerId - `data-analytics-payer-id`
+- sessionId - `data-analytics-session-id`
+- telemetryBody.level - Only necessary if the level is not `info`.
+- telemetryBody.entries.action - `data-analytics-action`
+- telemetryBody.entries.label - `data-analytics-label`
+- telemetryBody.entries.event - `data-analytics-event`
+- telemetryBody.entries.category - `data-analytics-category`
+
+You can find the definitions of these fields [here](../api/definitions/telemetry.md#body). All other `data-analytics-*` values will be passed in `telemetryBody.entries`.
+
+If manually tracking with `analytics.trackEvent()`, use the camelCased variation of these attributes as your object keys:
+
 ## Tutorial
 
 See [Setting up logging](https://availity.github.io/availity-workflow/recipes/logging)
