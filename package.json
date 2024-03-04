@@ -65,7 +65,7 @@
     "eslint": "^7.32.0",
     "eslint-config-availity": "^9.0.0",
     "gh-pages": "^6.1.1",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "jest": "^27.0.0",
     "jest-environment-jsdom": "^27.0.0",
