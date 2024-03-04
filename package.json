@@ -47,7 +47,7 @@
     "version:dry-run": "nx affected --target version --dryRun --parallel=1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.8.1",
+    "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^17.8.1",
     "@commitlint/config-nx-scopes": "^17.8.1",
     "@jscutlery/semver": "^3.1.0",
