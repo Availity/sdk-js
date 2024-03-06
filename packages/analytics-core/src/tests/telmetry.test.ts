@@ -10,7 +10,7 @@ describe('AvTelemetryAnalytics', () => {
       test: jest.fn(),
     };
 
-    mockAvTelemetryAnalytics = new AvTelemetryAnalytics(mockLog);
+    mockAvTelemetryAnalytics = new AvTelemetryAnalytics(mockLog, false, 'testApp', 'AVOSS@availity.com', '1234');
   });
 
   test('AvTelemetryAnalytics should be defined', () => {
@@ -35,14 +35,19 @@ describe('AvTelemetryAnalytics', () => {
   });
 
   test("trackEvent should default properties.url to location.href or 'N/A'", () => {
-    let startingObject: { message: string; url: string; level?: string } = {
+    let startingObject: { message: string; url: string; level?: string; customerId: string } = {
       message: 'hello world',
       url: window.location.href || 'N/A',
+      customerId: '0000',
     };
     let expectedCall = {
+      contact: 'AVOSS@availity.com',
+      customerId: '0000',
+      sessionId: '1234',
+      source_system: 'testApp',
       telemetryBody: {
         entries: {
-          ...startingObject,
+          message: startingObject.message,
           url: window.location.href || 'N/A',
         },
         level: 'info',
@@ -56,9 +61,14 @@ describe('AvTelemetryAnalytics', () => {
       message: 'hello world',
       url: 'testUrl',
       level: 'test',
+      customerId: '0000',
     };
 
     expectedCall = {
+      contact: 'AVOSS@availity.com',
+      customerId: '0000',
+      sessionId: '1234',
+      source_system: 'testApp',
       telemetryBody: {
         entries: {
           message: 'hello world',
@@ -77,8 +87,12 @@ describe('AvTelemetryAnalytics', () => {
     mockAvTelemetryAnalytics.trackEvent = jest.fn();
     mockAvTelemetryAnalytics.trackPageView(testUrl);
     expect(mockAvTelemetryAnalytics.trackEvent).toHaveBeenCalledWith({
+      action: 'load',
+      category: 'testApp',
+      customerId: '0000',
       event: 'page',
-      label: testUrl,
+      label: 'page-load',
+      url: testUrl,
     });
   });
 });

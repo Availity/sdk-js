@@ -350,14 +350,29 @@ User IDs are automatically added to logging, so they do not need to be explicitl
 
 ### Logging Telemetry
 
+The AvTelemetryAnalytics constructor syntax is as follows.
+
+```jsx
+// in your JS file
+const telemetryPlugin = new AvTelemetryAnalytics(
+  avTelemetryApi,
+  true,
+  source_system,
+  contact,
+  sessionId
+);
+```
+
+`source_system` and `contact` are required. `sessionId` will be generated if none is provided.
+
 In order to match the telemetry api structure, attributes should be structured as follows.
 
 - customerId - `data-analytics-customer-id`
-- contact - `data-analytics-contact`
-- source_system - `data-analytics-source_system`
+- contact - This is passed in the plugin constructor.
+- source_system - This is passed in the plugin constructor.
 - version - Do not pass. This is handled by the plugin.
 - payerId - `data-analytics-payer-id`
-- sessionId - `data-analytics-session-id`
+- sessionId - The is passed in the plugin constructor.
 - telemetryBody.level - Only necessary if the level is not `info`.
 - telemetryBody.entries.action - `data-analytics-action`
 - telemetryBody.entries.label - `data-analytics-label`
