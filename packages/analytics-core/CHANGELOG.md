@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.0.5...@availity/analytics-core@4.1.0) (2024-03-07)
+
+
+### Features
+
+* **analytics-core:** add telemetry plugin ([5c5dfa1](https://github.com/Availity/sdk-js/commit/5c5dfa13e47813a6b5cfaa37caa70ebe744591bb))
+
+
+
 ## [4.0.5](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.0.4...@availity/analytics-core@4.0.5) (2024-02-19)
 
 
