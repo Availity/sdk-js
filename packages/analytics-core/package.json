@@ -28,6 +28,7 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
+    "uuid": "^9.0.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
