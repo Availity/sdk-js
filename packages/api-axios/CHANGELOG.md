@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.0.6](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.5...@availity/api-axios@8.0.6) (2024-03-21)
+
+
+### Bug Fixes
+
+* **api-axios:** use AvApi getLocation method in AvMicroserviceApi ([c3618bc](https://github.com/Availity/sdk-js/commit/c3618bcea650fde98a76c9ce30f453a60715f7bb))
+
+
+
 ## [8.0.5](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.4...@availity/api-axios@8.0.5) (2024-02-20)
 
 
