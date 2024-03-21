@@ -21,9 +21,4 @@ export default class AvMicroserviceApi extends AvApi {
 
     return parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
   }
-
-  // Polling location is the same url
-  getLocation(response) {
-    return this.getUrl(response.config);
-  }
 }
