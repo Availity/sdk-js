@@ -153,7 +153,7 @@ export default class AvApi {
       const pollingUrl = this.getLocation(response);
 
       if (pollingUrl) {
-        newConfig.method = this.defaultConfig.pollingMethod;
+        newConfig.method = newConfig.pollingMethod;
         newConfig.url = pollingUrl;
         newConfig.cache = false;
 
