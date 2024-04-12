@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.0.7](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.6...@availity/api-axios@8.0.7) (2024-04-12)
+
+
+### Bug Fixes
+
+* **api-axios:** use newConfig.pollingMethod as polling method ([0a16d8c](https://github.com/Availity/sdk-js/commit/0a16d8c8583321beac58d3acc5fc8ac74b4d9990))
+
+
+
 ## [8.0.6](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.5...@availity/api-axios@8.0.6) (2024-03-21)
 
 
