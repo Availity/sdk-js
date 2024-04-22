@@ -16,7 +16,7 @@ const hashCode = (str) => {
 
 const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
-  chunkSize: 3e6, // 3MB
+  chunkSize: 5e6, // 5MB
   removeFingerprintOnSuccess: true,
   pollingTime: 5000,
   retryDelays: [0, 1000, 3000, 5000],
