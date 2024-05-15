@@ -10,6 +10,7 @@ Endpoint to send telemetry data by level and key/value pairs.
 
 - `customerId` (_required_) The Availity Customer ID
 - `contact` (_required_) The associated email address for the telemetry message
+- `owner` (_required_) The owner of the data. Used for determining cost
 - `source_system` (_required_) The ID of the application the telemetry message is coming from
 - `version` (_required_) The version of the Telemetry API the telemetry message should be validated against
 - `payerId` The selected payer in the workflow if there is one
@@ -27,6 +28,7 @@ Endpoint to send telemetry data by level and key/value pairs.
 curl -i -X POST -H "Content-Type: application/json" -d '{
     "customerId": "1194",
     "contact": "myteamdistributionlist@availity.com",
+    "owner": "YourTeam",
     "source_system": "eligibility_and_benefits",
     "version": "1",
     "payerId": "A123",
