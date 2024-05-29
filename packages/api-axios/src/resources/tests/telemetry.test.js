@@ -14,7 +14,7 @@ describe('AvTelemetryApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/ms/api/availity/internal/pui/key-delivery/v1/telemetry');
+    expect(api.getUrl(api.config())).toBe('/ms/api/availity/internal/spc/analytics/telemetry');
   });
 
   test('send() should return {level, entries}', () => {
