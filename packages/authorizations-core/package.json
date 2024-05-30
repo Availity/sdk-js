@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-core",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Base configurations for Availity Authorizations",
   "homepage": "https://availity.github.io/sdk-js/api/authorizations",
   "bugs": {
