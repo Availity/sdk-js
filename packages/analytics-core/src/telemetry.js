@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AvAnalyticsPlugin from './plugin';
 
 export default class AvTelemetryAnalytics extends AvAnalyticsPlugin {
-  constructor(AvLogMessages, enabled, source_system, contact, sessionId, owner) {
+  constructor(AvLogMessages, enabled, source_system, contact, owner, sessionId) {
     super(enabled);
     this.AvLogMessages = AvLogMessages;
 

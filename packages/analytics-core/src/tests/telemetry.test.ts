@@ -10,7 +10,7 @@ describe('AvTelemetryAnalytics', () => {
       test: jest.fn(),
     };
 
-    mockAvTelemetryAnalytics = new AvTelemetryAnalytics(mockLog, false, 'testApp', 'AVOSS@availity.com', '1234');
+    mockAvTelemetryAnalytics = new AvTelemetryAnalytics(mockLog, false, 'testApp', 'AVOSS@availity.com', '555', '1234');
   });
 
   test('AvTelemetryAnalytics should be defined', () => {
@@ -43,6 +43,7 @@ describe('AvTelemetryAnalytics', () => {
     let expectedCall = {
       contact: 'AVOSS@availity.com',
       customerId: '0000',
+      owner: '555',
       sessionId: '1234',
       source_system: 'testApp',
       telemetryBody: {
@@ -67,6 +68,7 @@ describe('AvTelemetryAnalytics', () => {
     expectedCall = {
       contact: 'AVOSS@availity.com',
       customerId: '0000',
+      owner: '555',
       sessionId: '1234',
       source_system: 'testApp',
       telemetryBody: {

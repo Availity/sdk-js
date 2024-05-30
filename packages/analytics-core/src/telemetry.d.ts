@@ -3,7 +3,14 @@
 import AvAnalyticsPlugin from './plugin';
 
 declare class AvTelemetryAnalytics extends AvAnalyticsPlugin {
-  constructor(AvLogMessages: any, enabled?: boolean, source_system: string, contact: string, sessionId?: string);
+  constructor(
+    AvLogMessages: any,
+    enabled?: boolean,
+    source_system: string,
+    contact: string,
+    owner: string,
+    sessionId?: string
+  );
 
   trackEvent(properties: any): any;
 
