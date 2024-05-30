@@ -2,14 +2,17 @@ import { v4 as uuidv4 } from 'uuid';
 import AvAnalyticsPlugin from './plugin';
 
 export default class AvTelemetryAnalytics extends AvAnalyticsPlugin {
-  constructor(AvLogMessages, enabled, source_system, contact, sessionId) {
+  constructor(AvLogMessages, enabled, source_system, contact, sessionId, owner) {
     super(enabled);
     this.AvLogMessages = AvLogMessages;
 
     if (!source_system) throw new Error('source_system is required');
     if (!contact) throw new Error('contact is required');
+    if (!owner) throw new Error('owner is required');
+
     this.source_system = source_system;
     this.contact = contact;
+    this.owner = owner;
     this.sessionId = sessionId || uuidv4();
   }
 
@@ -20,6 +23,7 @@ export default class AvTelemetryAnalytics extends AvAnalyticsPlugin {
       source_system: this.source_system,
       version: 'v1',
       sessionId: this.sessionId,
+      owner: this.owner,
       telemetryBody: {
         level: level || 'info',
         entries: {
