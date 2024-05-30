@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [4.1.1](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.1.0...@availity/analytics-core@4.1.1) (2024-05-30)
+
+
+### Bug Fixes
+
+* **analytics-core:** add owner to request ([833aecc](https://github.com/Availity/sdk-js/commit/833aecc3096a69f24f17e207964209f6a103586e))
+* **analytics-core:** update tests and types ([16e8f74](https://github.com/Availity/sdk-js/commit/16e8f74a32d497f466f88d9457114d939529c3d5))
+
+
+
 # [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.0.5...@availity/analytics-core@4.1.0) (2024-03-07)
 
 
