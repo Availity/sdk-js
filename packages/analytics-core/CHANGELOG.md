@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [4.1.2](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.1.1...@availity/analytics-core@4.1.2) (2024-05-30)
+
+
+
 ## [4.1.1](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.1.0...@availity/analytics-core@4.1.1) (2024-05-30)
 
 
