@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.0.8](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.7...@availity/api-axios@8.0.8) (2024-05-30)
+
+
+### Bug Fixes
+
+* add http option to types and convert interface to class ([e7b74c4](https://github.com/Availity/sdk-js/commit/e7b74c4b78a4367a6cdeae6c86ad5df585ab65f0))
+* **api-axios:** update url for telemetry ([a5fabec](https://github.com/Availity/sdk-js/commit/a5fabec2e38dfdf7661ed47f4806dc56a6c2be1b))
+
+
+
 ## [8.0.7](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.6...@availity/api-axios@8.0.7) (2024-04-12)
 
 
