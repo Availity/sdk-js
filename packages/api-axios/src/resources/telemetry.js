@@ -5,7 +5,7 @@ import flattenObject from '../flatten-object';
 export default class AvTelemetryApi extends AvMicroserviceApi {
   constructor(config) {
     super({
-      name: 'pui/key-delivery/v1/telemetry',
+      name: 'spc/analytics/telemetry',
       ...config,
     });
   }
