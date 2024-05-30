@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.7](https://github.com/Availity/sdk-js/compare/@availity/upload-core@5.0.6...@availity/upload-core@5.0.7) (2024-05-30)
+
+### Dependency Updates
+
+* `resolve-url` updated to version `5.0.6`
+
+
 ## [5.0.6](https://github.com/Availity/sdk-js/compare/@availity/upload-core@5.0.5...@availity/upload-core@5.0.6) (2024-04-22)
 
 
