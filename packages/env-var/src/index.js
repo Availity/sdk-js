@@ -29,14 +29,17 @@ const getCloudEnv = (options) => {
 
 let environments = {
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-apps$/, (options) => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options))],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-apps$/, (options) => /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options))],
-  prod: [/^apps$/, (options) => getCloudEnv(options) === 'prd'],
+  test: [/^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/, (options) => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options))],
+  qa: [
+    /^q(?:(?:\d\d)|(?:ap?))-(apps|essentials)$/,
+    (options) => /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options)),
+  ],
+  prod: [/^(apps|essentials)$/, (options) => getCloudEnv(options) === 'prd'],
 };
 
 let specificEnvironments = [
   {
-    regex: /^(?:(.*)-)?apps$/,
+    regex: /^(?:(.*)-)?(apps|essentials)$/,
     fn: (options) => options.match[1] || 'prod',
   },
   {
