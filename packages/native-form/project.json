@@ -1,13 +1,13 @@
 {
-  "root": "packages/native-form",
+  "name": "@availity/native-form",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/native-form"],
+      "outputs": ["{workspaceRoot}/coverage/native-form"],
       "options": {
-        "jestConfig": "packages/native-form/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/native-form/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/native-form/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

@@ -17,13 +17,16 @@ const getCloudEnv = (options) => {
   // ??p domains must be prod, ??n and ??s domains can't be prod
   const isProdPath = pathMatch[1] === 'prd';
   switch (subMatch[1]) {
-    case 'p':
+    case 'p': {
       return isProdPath ? pathMatch[1] : null;
+    }
     case 'n':
-    case 's':
+    case 's': {
       return isProdPath ? null : pathMatch[1];
-    default:
+    }
+    default: {
       return null;
+    }
   }
 };
 
@@ -95,14 +98,18 @@ export function getCurrentEnv(windowOverride = window) {
     return (
       envTests.some((testObj) => {
         switch (Object.prototype.toString.call(testObj)) {
-          case '[object String]':
+          case '[object String]': {
             return testObj === subdomain;
-          case '[object RegExp]':
+          }
+          case '[object RegExp]': {
             return testObj.test(subdomain);
-          case '[object Function]':
+          }
+          case '[object Function]': {
             return testObj({ subdomain, pathname });
-          default:
+          }
+          default: {
             return false;
+          }
         }
       }) && env
     );

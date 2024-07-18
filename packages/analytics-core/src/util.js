@@ -15,7 +15,7 @@ export const isValidEventTypeOnTarget = (event) =>
 export const isPluginEnabled = (plugin) =>
   typeof plugin.isEnabled === 'function' ? plugin.isEnabled() : plugin.isEnabled;
 
-export const camelCase = (str) => str.replace(/-([\da-z])/gi, (match, char) => char.toUpperCase());
+export const camelCase = (str) => str.replaceAll(/-([\da-z])/gi, (match, char) => char.toUpperCase());
 
 /**
  * Polyfill for [`Event.composedPath()`][1].

@@ -1,13 +1,13 @@
 {
-  "root": "packages/authorizations-axios",
+  "name": "@availity/authorizations-axios",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/authorizations-axios"],
+      "outputs": ["{workspaceRoot}/coverage/authorizations-axios"],
       "options": {
-        "jestConfig": "packages/authorizations-axios/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/authorizations-axios/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/authorizations-axios/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

@@ -28,7 +28,7 @@ class DmaLogMessages extends AvMicroservice {
 
     const fields = Object.keys(flattened)
       .map((key) => {
-        const name = key.replace(/\[\d+]/g, '[]');
+        const name = key.replaceAll(/\[\d+]/g, '[]');
         const value = flattened[key];
         return `${name}=${encodeURIComponent(value)}`;
       })

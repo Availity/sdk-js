@@ -20,3 +20,6 @@ coverage/
 !.yarn/versions
 yarn-error.log
 .pnp.*
+
+.nx/cache
+.nx/workspace-data

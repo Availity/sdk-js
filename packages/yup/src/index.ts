@@ -5,13 +5,12 @@ import { Asserts, TypeOf } from 'yup/lib/util/types';
 import { AssertsShape, ObjectShape, TypeOfShape } from 'yup/lib/object';
 import Lazy from 'yup/lib/Lazy';
 
-import { avDate } from './date';
-import { dateRange } from './dateRange';
 import isRequired from './isRequired';
 import npi from './npi';
 import phone from './phone';
 
-export { avDate, dateRange };
+export { avDate } from './date';
+export { dateRange } from './dateRange';
 
 addMethod(array, 'isRequired', isRequired);
 addMethod(number, 'isRequired', isRequired);

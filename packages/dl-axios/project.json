@@ -1,13 +1,13 @@
 {
-  "root": "packages/dl-axios",
+  "name": "@availity/dl-axios",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/dl-axios"],
+      "outputs": ["{workspaceRoot}/coverage/dl-axios"],
       "options": {
-        "jestConfig": "packages/dl-axios/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/dl-axios/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/dl-axios/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

@@ -1,13 +1,13 @@
 {
-  "root": "packages/resolve-url",
+  "name": "@availity/resolve-url",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/resolve-url"],
+      "outputs": ["{workspaceRoot}/coverage/resolve-url"],
       "options": {
-        "jestConfig": "packages/resolve-url/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/resolve-url/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/resolve-url/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

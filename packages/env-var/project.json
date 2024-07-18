@@ -1,13 +1,13 @@
 {
-  "root": "packages/env-var",
+  "name": "@availity/env-var",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/env-var"],
+      "outputs": ["{workspaceRoot}/coverage/env-var"],
       "options": {
-        "jestConfig": "packages/env-var/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/env-var/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/env-var/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

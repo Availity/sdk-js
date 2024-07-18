@@ -18,12 +18,12 @@ export function removeDotSegments(path) {
   while (i < path.length) {
     // Remove '/.' or '/..'
     switch (path[i]) {
-      case '/':
+      case '/': {
         if (path[i + 1] === '.') {
           if (path[i + 2] === '.') {
             // Append the remaining path as-is if we find an invalid character after the '.'
             if (!isCharacterAllowedAfterRelativePathSegment(path[i + 3])) {
-              segmentBuffers[segmentBuffers.length - 1].push(path.substr(i));
+              segmentBuffers.at(-1).push(path.substr(i));
               i = path.length;
               break;
             }
@@ -41,7 +41,7 @@ export function removeDotSegments(path) {
           } else {
             // Append the remaining path as-is if we find an invalid character after the '.'
             if (!isCharacterAllowedAfterRelativePathSegment(path[i + 2])) {
-              segmentBuffers[segmentBuffers.length - 1].push(path.substr(i));
+              segmentBuffers.at(-1).push(path.substr(i));
               i = path.length;
               break;
             }
@@ -61,24 +61,27 @@ export function removeDotSegments(path) {
           i += 1;
         }
         break;
+      }
       case '#':
-      case '?':
+      case '?': {
         // Query and fragment string should be appended unchanged
         if (segmentBuffers.length === 0) {
           segmentBuffers.push([]);
         }
-        segmentBuffers[segmentBuffers.length - 1].push(path.substr(i));
+        segmentBuffers.at(-1).push(path.substr(i));
         // Break the while loop
         i = path.length;
         break;
-      default:
+      }
+      default: {
         // Not a special character, just append it to our buffer
         if (segmentBuffers.length === 0) {
           segmentBuffers.push([]);
         }
-        segmentBuffers[segmentBuffers.length - 1].push(path[i]);
+        segmentBuffers.at(-1).push(path[i]);
         i += 1;
         break;
+      }
     }
   }
 

@@ -1,13 +1,13 @@
 {
-  "root": "packages/relay-id",
+  "name": "@availity/relay-id",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/relay-id"],
+      "outputs": ["{workspaceRoot}/coverage/relay-id"],
       "options": {
-        "jestConfig": "packages/relay-id/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/relay-id/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/relay-id/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

@@ -1,13 +1,13 @@
 {
-  "root": "packages/api-axios",
+  "name": "@availity/api-axios",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/api-axios"],
+      "outputs": ["{workspaceRoot}/coverage/api-axios"],
       "options": {
-        "jestConfig": "packages/api-axios/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/api-axios/jest.config.js"
       }
     },
     "version": {
@@ -20,10 +20,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/api-axios/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

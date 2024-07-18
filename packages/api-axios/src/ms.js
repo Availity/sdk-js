@@ -19,6 +19,6 @@ export default class AvMicroserviceApi extends AvApi {
       parts = [path, version || '', name, id || configId];
     }
 
-    return parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
+    return parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
   }
 }

@@ -1,13 +1,13 @@
 {
-  "root": "packages/upload-core",
+  "name": "@availity/upload-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/upload-core"],
+      "outputs": ["{workspaceRoot}/coverage/upload-core"],
       "options": {
-        "jestConfig": "packages/upload-core/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/upload-core/jest.config.js"
       }
     },
     "version": {
@@ -21,10 +21,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/upload-core/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

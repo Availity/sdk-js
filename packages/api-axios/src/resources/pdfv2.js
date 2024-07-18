@@ -16,7 +16,7 @@ export default class AvPdfMicroserviceApi extends AvMicroserviceApi {
       parts = [path, version || '', name, id || configId];
     }
 
-    return parts.join('/').replace(/\/+/g, '/');
+    return parts.join('/').replaceAll(/\/+/g, '/');
   }
 }
 
