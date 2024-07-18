@@ -4,7 +4,7 @@ This monorepo is managed using [yarn](https://yarnpkg.com/getting-started) and [
 
 ## Installation
 
-Ensure you are running version 14 or 16 of `node` and [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) is installed. We recommend using [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your installation of `node`.
+Ensure you are running version 18 or 20 of `node` and [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) is installed. We recommend using [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your installation of `node`.
 
 ```bash
 node --version
