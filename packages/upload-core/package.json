@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/tus-js-client": "^1.7.0",
     "tsup": "^7.2.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.5.4"
   },
   "publishConfig": {
     "access": "public"
