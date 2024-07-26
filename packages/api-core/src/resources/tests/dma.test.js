@@ -13,5 +13,8 @@ describe('AvLogMessages', () => {
       config: {},
     });
     expect(api).toBeDefined();
+
+    const fields = api.send('info', { testField1: 'test1', testField2: 'test2'});
+    expect(fields).toContain('level=info&entries.testField1=test1&entries.testField2=test2');
   });
 });
