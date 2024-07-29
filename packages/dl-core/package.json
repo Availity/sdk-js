@@ -1,6 +1,6 @@
 {
   "name": "@availity/dl-core",
-  "version": "4.0.7",
+  "version": "5.0.0",
   "description": "Utility to download files from services",
   "keywords": [
     "download",
