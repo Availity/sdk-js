@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [3.1.1](https://github.com/Availity/sdk-js/compare/@availity/env-var@3.1.0...@availity/env-var@3.1.1) (2024-07-29)
+
+
+
 # [3.1.0](https://github.com/Availity/sdk-js/compare/@availity/env-var@3.0.2...@availity/env-var@3.1.0) (2024-06-27)
 
 
