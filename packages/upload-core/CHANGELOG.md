@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@5.0.8...@availity/upload-core@6.0.0) (2024-07-29)
+
+### Dependency Updates
+
+* `@availity/resolve-url` updated to version `5.0.8`
+
+### chore
+
+* **upload-core:** upgrade to node 18 and 20 ([85c9cf6](https://github.com/Availity/sdk-js/commit/85c9cf62093fbf692665b027fea0e2b230578370))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** drop support for node 14 and 16
+
+
+
 ## [5.0.8](https://github.com/Availity/sdk-js/compare/@availity/upload-core@5.0.7...@availity/upload-core@5.0.8) (2024-07-29)
 
 ### Dependency Updates
