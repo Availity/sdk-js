@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/yup@5.1.7...@availity/yup@6.0.0) (2024-07-29)
+
+
+### chore
+
+* **yup:** upgrade to node 18 and 20 ([007868b](https://github.com/Availity/sdk-js/commit/007868b84070a36ea6295904825816dfb82cdf60))
+
+
+### BREAKING CHANGES
+
+* **yup:** drop support for node 14 and 16
+
+
+
 ## [5.1.7](https://github.com/Availity/sdk-js/compare/@availity/yup@5.1.6...@availity/yup@5.1.7) (2024-07-29)
 
 
