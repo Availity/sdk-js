@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/relay-id@2.0.7...@availity/relay-id@3.0.0) (2024-07-29)
+
+
+### chore
+
+* **relay-id:** upgrade to node 18 and 20 ([430b30e](https://github.com/Availity/sdk-js/commit/430b30e20f7a5efa09a03315bcc1cf8426e23fc1))
+
+
+### BREAKING CHANGES
+
+* **relay-id:** drop support for node 14 and 16
+
+
+
 ## [2.0.7](https://github.com/Availity/sdk-js/compare/@availity/relay-id@2.0.6...@availity/relay-id@2.0.7) (2024-07-29)
 
 
