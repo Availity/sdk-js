@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.0.7](https://github.com/Availity/sdk-js/compare/@availity/relay-id@2.0.6...@availity/relay-id@2.0.7) (2024-07-29)
+
+
+
 ## [2.0.6](https://github.com/Availity/sdk-js/compare/@availity/relay-id@2.0.5...@availity/relay-id@2.0.6) (2024-05-30)
 
 
