@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.9...@availity/api-axios@9.0.0) (2024-07-29)
+
+
+### chore
+
+* **api-axios:** upgrade to node 18 and 20 ([9d8e02f](https://github.com/Availity/sdk-js/commit/9d8e02f89a6f4b563df24406220674d26c94b909))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** drop support for node 14 and 16
+
+
+
 ## [8.0.9](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.8...@availity/api-axios@8.0.9) (2024-07-29)
 
 
