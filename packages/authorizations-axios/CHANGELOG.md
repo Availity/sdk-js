@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.0.0](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@7.0.5...@availity/authorizations-axios@8.0.0) (2024-07-29)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `7.0.5`
+* `@availity/authorizations-core` updated to version `7.0.5`
+
+### chore
+
+* **authorizations-axios:** upgrade to node 18 and 20 ([94bc681](https://github.com/Availity/sdk-js/commit/94bc68125441e50e7794a7d22ca6d8d8829b04aa))
+
+
+### BREAKING CHANGES
+
+* **authorizations-axios:** drop support for node 14 and 16
+
+
+
 ## [7.0.5](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@7.0.4...@availity/authorizations-axios@7.0.5) (2024-07-29)
 
 ### Dependency Updates

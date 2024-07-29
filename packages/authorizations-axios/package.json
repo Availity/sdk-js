@@ -1,6 +1,6 @@
 {
   "name": "@availity/authorizations-axios",
-  "version": "7.0.5",
+  "version": "8.0.0",
   "description": "Availity authorizations react logic",
   "homepage": "https://availity.github.io/sdk-js/api/authorizations",
   "bugs": {
