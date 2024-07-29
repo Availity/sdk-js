@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.0.0](https://github.com/Availity/sdk-js/compare/@availity/dockyard@1.0.7...@availity/dockyard@2.0.0) (2024-07-29)
+
+
+### chore
+
+* **dockyard:** upgrade to node 18 and 20 ([7a0d4da](https://github.com/Availity/sdk-js/commit/7a0d4daa7a1e1880049e2076893e4ff7b13571ba))
+
+
+### BREAKING CHANGES
+
+* **dockyard:** drop support for node 14 and 16
+
+
+
 ## [1.0.7](https://github.com/Availity/sdk-js/compare/@availity/dockyard@1.0.6...@availity/dockyard@1.0.7) (2024-07-29)
 
 
