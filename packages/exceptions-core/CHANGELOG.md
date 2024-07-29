@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/exceptions-core@4.1.4...@availity/exceptions-core@5.0.0) (2024-07-29)
+
+
+### chore
+
+* **exceptions-core:** upgrade to node 18 and 20 ([f3a3a69](https://github.com/Availity/sdk-js/commit/f3a3a69b0e3653a98c284f6c1906f9a180d3aad7))
+
+
+### BREAKING CHANGES
+
+* **exceptions-core:** drop support for node 14 and 16
+
+
+
 ## [4.1.4](https://github.com/Availity/sdk-js/compare/@availity/exceptions-core@4.1.3...@availity/exceptions-core@4.1.4) (2024-07-29)
 
 
