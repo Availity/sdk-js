@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/authorizations-core@3.0.7...@availity/authorizations-core@4.0.0) (2024-07-29)
+
+
+### chore
+
+* **authorizations-core:** upgrade to node 18 and 20 ([0db6c1a](https://github.com/Availity/sdk-js/commit/0db6c1a79cdd3c4e5670aa413414d7f343770eed))
+
+
+### BREAKING CHANGES
+
+* **authorizations-core:** drop support for node 14 and 16
+
+
+
 ## [3.0.7](https://github.com/Availity/sdk-js/compare/@availity/authorizations-core@3.0.6...@availity/authorizations-core@3.0.7) (2024-07-29)
 
 
