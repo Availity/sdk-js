@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/native-form@5.0.7...@availity/native-form@6.0.0) (2024-07-29)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `5.0.7`
+
+### chore
+
+* **native-form:** upgrade to node 18 and 20 ([4a88392](https://github.com/Availity/sdk-js/commit/4a88392f1643fc7cb847933823f821a80c7dfa92))
+
+
+### BREAKING CHANGES
+
+* **native-form:** drop support for node 14 and 16
+
+
+
 ## [5.0.7](https://github.com/Availity/sdk-js/compare/@availity/native-form@5.0.6...@availity/native-form@5.0.7) (2024-07-29)
 
 ### Dependency Updates
