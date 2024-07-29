@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.7...@availity/dl-axios@6.0.0) (2024-07-29)
+
+### Dependency Updates
+
+* `@availity/dl-core` updated to version `5.0.7`
+
+### chore
+
+* **dl-axios:** upgrade to node 18 and 20 ([2132628](https://github.com/Availity/sdk-js/commit/213262839ca341eb7b9396277f12a55b04d859ea))
+
+
+### BREAKING CHANGES
+
+* **dl-axios:** drop support for node 14 and 16
+
+
+
 ## [5.0.7](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.6...@availity/dl-axios@5.0.7) (2024-07-29)
 
 ### Dependency Updates
