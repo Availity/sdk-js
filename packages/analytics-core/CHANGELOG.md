@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.1.3...@availity/analytics-core@5.0.0) (2024-07-29)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `4.1.3`
+
+### chore
+
+* **analytics-core:** upgrade to node 18 and 20 ([41125bf](https://github.com/Availity/sdk-js/commit/41125bf7f01156c06992af65b3841eceafc40a24))
+
+
+### BREAKING CHANGES
+
+* **analytics-core:** drop support for node 14 and 16
+
+
+
 ## [4.1.3](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@4.1.2...@availity/analytics-core@4.1.3) (2024-07-29)
 
 ### Dependency Updates
