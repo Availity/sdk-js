@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.2.0](https://github.com/Availity/sdk-js/compare/@availity/dinosaurdocs@1.1.5...@availity/dinosaurdocs@1.2.0) (2024-07-29)
+
+
+### Features
+
+* **docusaurus:** upgrade docusaurus to v2 ([537a5c3](https://github.com/Availity/sdk-js/commit/537a5c3f50cc0566535344604fbac4cd59d4552c))
+
+
+
 ## [0.2.8](https://github.com/Availity/sdk-js/compare/@availity/docusaurus@0.2.7...@availity/docusaurus@0.2.8) (2024-05-15)
 
 
