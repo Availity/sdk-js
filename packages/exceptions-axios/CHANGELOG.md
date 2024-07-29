@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.0.0](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@4.0.7...@availity/exceptions-axios@5.0.0) (2024-07-29)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `4.0.7`
+* `@availity/exceptions-core` updated to version `4.0.7`
+
+### chore
+
+* **exceptions-axios:** upgrade to node 18 and 20 ([8fc337a](https://github.com/Availity/sdk-js/commit/8fc337a066ddeca2b07a15926aff0b4270227d79))
+
+
+### BREAKING CHANGES
+
+* **exceptions-axios:** drop support for node 14 and 16
+
+
+
 ## [4.0.7](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@4.0.6...@availity/exceptions-axios@4.0.7) (2024-07-29)
 
 ### Dependency Updates
