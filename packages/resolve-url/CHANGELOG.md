@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@2.0.7...@availity/resolve-url@3.0.0) (2024-07-29)
+
+
+### chore
+
+* **resolve-url:** upgrade to node 18 and 20 ([f5a6976](https://github.com/Availity/sdk-js/commit/f5a6976a2c44c0bbf01c7ed1b26d4f3140df56e7))
+
+
+### BREAKING CHANGES
+
+* **resolve-url:** drop support for node 14 and 16
+
+
+
 ## [2.0.7](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@2.0.6...@availity/resolve-url@2.0.7) (2024-07-29)
 
 
