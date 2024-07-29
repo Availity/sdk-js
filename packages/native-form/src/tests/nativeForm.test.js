@@ -135,7 +135,7 @@ describe('nativeForm', () => {
           const flat = flattenObject(complexObject);
           const count = {};
           for (const key of Object.keys(flat)) {
-            const name = key.replace(/\[\d+]/g, '[]');
+            const name = key.replaceAll(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
             expect(document.querySelectorAll(`[name="${name}"`)[count[name]]).not.toBeNull();
             count[name] += 1;
@@ -148,7 +148,7 @@ describe('nativeForm', () => {
           const flat = flattenObject(complexObject);
           const count = {};
           for (const key of Object.keys(flat)) {
-            const name = key.replace(/\[\d+]/g, '[]');
+            const name = key.replaceAll(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
             const value = flat[key];
             expect(document.querySelectorAll(`[name="${name}"`)[count[name]].value).toBe(value);

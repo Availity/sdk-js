@@ -1,3 +1,1 @@
-import AvDownloadApi from './download';
-
-export default AvDownloadApi;
+export {default as AvDownloadApi} from './download';

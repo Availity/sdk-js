@@ -6,7 +6,7 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js)$': 'ts-jest',
   },
-  transformIgnorePatterns: ['node_modules/(?!axios)'],
+  transformIgnorePatterns: ['node_modules/(?!axios|@bundled-es-modules/*)'],
   moduleFileExtensions: ['ts', 'js'],
   preset: '../../jest.preset.js',
   testEnvironment: 'jest-environment-jsdom-global',
@@ -20,4 +20,5 @@ module.exports = {
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
+  setupFiles: ['../../jest.polyfills.js']
 };

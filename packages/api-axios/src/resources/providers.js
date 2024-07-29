@@ -18,7 +18,7 @@ export default class AvProvidersApi extends AvApi {
     const cloned = [...providers];
 
     for (const provider of cloned) {
-      provider.name = provider.businessName ? provider.businessName : `${provider.lastName}, ${provider.firstName}`;
+      provider.name = provider.businessName || `${provider.lastName}, ${provider.firstName}`;
     }
 
     return cloned;

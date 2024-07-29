@@ -60,7 +60,7 @@ const nativeForm = async (spaceId, params = {}, formAttributes = {}, type, clien
   const flat = flattenObject(params);
   const fields = Object.keys(flat)
     .map((key) => {
-      const name = key.replace(/\[\d+]/g, '[]');
+      const name = key.replaceAll(/\[\d+]/g, '[]');
       const value = flat[key];
       return `<input type="hidden" name="${name}" value="${value}" />`;
     })

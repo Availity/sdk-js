@@ -32,9 +32,11 @@ describe('AvRegionsApi', () => {
   });
 
   test('afterUpdate should call setPageBust and return response', async () => {
-    api.setPageBust = jest.fn();
-
     const region = 'FL';
+
+    api.setPageBust = jest.fn();
+    api.http = jest.fn().mockResolvedValue({data: {id: region}});
+
     const resp = await api.put(region);
 
     expect(resp.data.id).toBe(region);

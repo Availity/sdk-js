@@ -6,6 +6,7 @@ const hashCode = (str) => {
   let hash = 0;
   if (str.length === 0) return hash;
   for (let i = 0; i < str.length; i++) {
+    // eslint-disable-next-line unicorn/prefer-code-point
     const char = str.charCodeAt(i);
     hash = (hash << 5) - hash + char; // eslint-disable-line no-bitwise
     // eslint-disable-next-line operator-assignment
@@ -26,14 +27,14 @@ const defaultOptions = {
   fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
-    for (let i = 0; i < attributes.length; i++) {
-      if (attributes[i]) {
-        attributesKey += `${attributes[i]}-`;
+    for (const attribute of attributes) {
+      if (attribute) {
+        attributesKey += `${attribute}-`;
       }
     }
 
     const keys = Object.keys(options.metadata || {}).map((key) => options.metadata[key]);
-    const signature = [attributes.toString().replace(/,/g, ''), options.endpoint, keys].join('');
+    const signature = [attributes.toString().replaceAll(',', ''), options.endpoint, keys].join('');
 
     const print = Math.abs(hashCode(signature));
 
@@ -259,20 +260,20 @@ class Upload {
 
   generateId() {
     const { fingerprint } = this.options;
-    return fingerprint(this.file, this.options).replace(/[^\dA-Za-z-]/g, '');
+    return fingerprint(this.file, this.options).replaceAll(/[^\dA-Za-z-]/g, '');
   }
 
   fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
-    for (let i = 0; i < attributes.length; i++) {
-      if (attributes[i]) {
-        attributesKey += `${attributes[i]}-`;
+    for (const attribute of attributes) {
+      if (attribute) {
+        attributesKey += `${attribute}-`;
       }
     }
 
     const keys = Object.keys(options.metadata || {}).map((key) => options.metadata[key]);
-    const signature = [attributes.toString().replace(/,/g, ''), options.endpoint, keys].join('');
+    const signature = [attributes.toString().replaceAll(',', ''), options.endpoint, keys].join('');
 
     const print = Math.abs(hashCode(signature));
 

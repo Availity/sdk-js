@@ -1,13 +1,13 @@
 {
-  "root": "packages/message-core",
+  "name": "@availity/message-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/message-core"],
+      "outputs": ["{workspaceRoot}/coverage/message-core"],
       "options": {
-        "jestConfig": "packages/message-core/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/message-core/jest.config.js"
       }
     },
     "version": {
@@ -15,16 +15,15 @@
       "options": {
         "preset": "angular",
         "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
-        "tagPrefix": "@availity/{projectName}@",
+        "tagPrefix": "{projectName}@",
         "baseBranch": "master",
         "trackDeps": true
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/message-core/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

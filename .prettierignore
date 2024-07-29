@@ -10,3 +10,6 @@ plop-templates/
 /**/lib
 /**/build
 **/CHANGELOG.md
+
+/.nx/cache
+/.nx/workspace-data

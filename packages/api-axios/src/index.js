@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-export-from */
 import AvApi from './api';
 import AvMicroserviceApi from './ms';
 import AvProxyApi from './proxy';

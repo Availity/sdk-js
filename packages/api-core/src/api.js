@@ -83,7 +83,7 @@ export default class AvApi {
 
   // get pagebust value, make sure it is instantiated first
   getPageBust() {
-    if (typeof this.pageBustValue === 'undefined') {
+    if (this.pageBustValue === undefined) {
       this.setPageBust();
     }
 
@@ -92,7 +92,7 @@ export default class AvApi {
 
   // set the page bust value to given value or timestamp
   setPageBust(value) {
-    this.pageBustValue = typeof value === 'undefined' ? Date.now() : value;
+    this.pageBustValue = value === undefined ? Date.now() : value;
   }
 
   // get final url from config
@@ -107,7 +107,7 @@ export default class AvApi {
     parts = name ? ['', path, version, name, id] : [url, id];
 
     // join parts, remove multiple /'s and trailing /
-    const uri = parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
+    const uri = parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
 
     const hostname = url ? null : resolveHost(host, config.window || window);
     return (hostname ? `https://${hostname}` : '') + uri;

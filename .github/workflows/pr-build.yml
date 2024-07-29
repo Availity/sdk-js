@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        node: [16, 18]
+        node: [18, 20]
 
     steps:
       - name: Checkout Code
@@ -70,5 +70,5 @@ jobs:
         run: yarn build:packages
 
       - name: Build Docs
-        if: ${{matrix.node > 16}}
+        if: ${{matrix.node > 18}}
         run: yarn build:docs

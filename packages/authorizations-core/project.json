@@ -1,13 +1,13 @@
 {
-  "root": "packages/authorizations-core",
+  "name": "@availity/authorizations-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/authorizations-core"],
+      "outputs": ["{workspaceRoot}/coverage/authorizations-core"],
       "options": {
-        "jestConfig": "packages/authorizations-core/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/authorizations-core/jest.config.js"
       }
     },
     "version": {
@@ -15,16 +15,15 @@
       "options": {
         "preset": "angular",
         "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
-        "tagPrefix": "@availity/{projectName}@",
+        "tagPrefix": "{projectName}@",
         "baseBranch": "master",
         "trackDeps": true
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/authorizations-core/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

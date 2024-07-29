@@ -1,13 +1,13 @@
 {
-  "root": "packages/yup",
+  "name": "@availity/yup",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/yup"],
+      "outputs": ["{workspaceRoot}/coverage/yup"],
       "options": {
-        "jestConfig": "packages/yup/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/yup/jest.config.js"
       }
     },
     "version": {
@@ -15,16 +15,15 @@
       "options": {
         "preset": "angular",
         "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
-        "tagPrefix": "@availity/{projectName}@",
+        "tagPrefix": "{projectName}@",
         "baseBranch": "master",
         "trackDeps": true
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/yup/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

@@ -38,7 +38,7 @@ describe('AvFilesApi', () => {
 
   test('uploadFile() should call create for file passed', async () => {
     const data = new FormData();
-    const file = Buffer.from('hello world'.split(''));
+    const file = Buffer.from([...'hello world']);
     data.append('filedata', file);
 
     api.create = jest.fn();

@@ -77,7 +77,7 @@ export default class AvApi {
 
   // Get pagebust value, make sure it is instantiated first
   getPageBust() {
-    if (typeof this.pageBustValue === 'undefined') {
+    if (this.pageBustValue === undefined) {
       this.setPageBust();
     }
 
@@ -86,7 +86,7 @@ export default class AvApi {
 
   // Set the page bust value to given value or timestamp
   setPageBust(value) {
-    this.pageBustValue = typeof value === 'undefined' ? Date.now() : value;
+    this.pageBustValue = value === undefined ? Date.now() : value;
   }
 
   // Get final url from config
@@ -101,7 +101,7 @@ export default class AvApi {
     parts = name ? ['', path, version, name, id] : [url, id];
 
     // join parts, remove multiple /'s and trailing /
-    return parts.join('/').replace(/\/+/g, '/').replace(/\/$/, '');
+    return parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
   }
 
   getRequestUrl() {
@@ -192,6 +192,7 @@ export default class AvApi {
         })
       );
       // A truthy return value from navigator.sendBeacon means the browser successfully queued the request
+      // eslint-disable-next-line unicorn/no-useless-promise-resolve-reject
       if (result) return Promise.resolve();
     }
 

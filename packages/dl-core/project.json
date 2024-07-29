@@ -1,13 +1,13 @@
 {
-  "root": "packages/dl-core",
+  "name": "@availity/dl-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/dl-core"],
+      "outputs": ["{workspaceRoot}/coverage/dl-core"],
       "options": {
-        "jestConfig": "packages/dl-core/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/dl-core/jest.config.js"
       }
     },
     "version": {
@@ -15,16 +15,15 @@
       "options": {
         "preset": "angular",
         "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
-        "tagPrefix": "@availity/{projectName}@",
+        "tagPrefix": "{projectName}@",
         "baseBranch": "master",
         "trackDeps": true
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/dl-core/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,

@@ -1,13 +1,13 @@
 {
-  "root": "packages/exceptions-core",
+  "name": "@availity/exceptions-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/exceptions-core"],
+      "outputs": ["{workspaceRoot}/coverage/exceptions-core"],
       "options": {
-        "jestConfig": "packages/exceptions-core/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "packages/exceptions-core/jest.config.js"
       }
     },
     "version": {
@@ -15,16 +15,15 @@
       "options": {
         "preset": "angular",
         "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
-        "tagPrefix": "@availity/{projectName}@",
+        "tagPrefix": "{projectName}@",
         "baseBranch": "master",
         "trackDeps": true
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "eslintConfig": ".eslintrc.yaml",
-        "lintFilePatterns": ["packages/exceptions-core/**/*.{js,ts}"],
         "silent": false,
         "fix": false,
         "cache": true,
