@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/env-var@3.1.1...@availity/env-var@4.0.0) (2024-07-29)
+
+
+### chore
+
+* **env-var:** upgrade to node 18 and 20 ([28cb33d](https://github.com/Availity/sdk-js/commit/28cb33da8f0c15922472bbfcf6a1629ee332cfb9))
+
+
+### BREAKING CHANGES
+
+* **env-var:** drop support for node 14 and 16
+
+
+
 ## [3.1.1](https://github.com/Availity/sdk-js/compare/@availity/env-var@3.1.0...@availity/env-var@3.1.1) (2024-07-29)
 
 
