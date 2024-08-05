@@ -405,7 +405,7 @@ __metadata:
     "@commitlint/cli": ^18.6.1
     "@commitlint/config-conventional": ^18.6.3
     "@commitlint/config-nx-scopes": ^18.6.1
-    "@jscutlery/semver": ^5.2.2
+    "@jscutlery/semver": ^5.3.1
     "@nx/eslint": 19.5.3
     "@nx/jest": 19.5.3
     "@nx/js": 19.5.3
@@ -3628,9 +3628,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jscutlery/semver@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "@jscutlery/semver@npm:5.2.2"
+"@jscutlery/semver@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@jscutlery/semver@npm:5.3.1"
   dependencies:
     chalk: 4.1.2
     conventional-changelog: ^5.1.0
@@ -3650,8 +3650,8 @@ __metadata:
     inquirer: 8.2.6
     rxjs: 7.8.1
   peerDependencies:
-    "@nx/devkit": ^18.0.0
-  checksum: 074a6ecd58ea52e432be13718f7bf3749a30be0feb3e8467d1b9d1c2be7331279cc7f9332191d8472c6e354fcde66d7df05fe3cfac45478a43220a3603453e85
+    "@nx/devkit": ^18.0.0 || ^19.0.0
+  checksum: b145ba2fff501827f8ab0460d72a340843fe375eea4cc57e1ed323dc2882b1ee41940d2691b75e942e6dbb3a5c7e46e991da75e59744fcf6f37957067958492a
   languageName: node
   linkType: hard
 
