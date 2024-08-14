@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/message-core@7.0.0...@availity/message-core@7.0.1) (2024-08-14)
+
+
+### Bug Fixes
+
+* **message-core:** add essentials rewrite ([a27f843](https://github.com/Availity/sdk-js/commit/a27f843d7594cac19b5b529b85051b81783c727b))
+
+
+
 # [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/message-core@6.1.4...@availity/message-core@7.0.0) (2024-07-29)
 
 
