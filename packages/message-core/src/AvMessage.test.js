@@ -2,7 +2,7 @@
 import AvMessage from './AvMessage';
 
 let avMessage;
-const URL = 'https://dev.local:9999';
+const TEST_URL = 'https://dev.local:9999';
 
 describe('AvMessage', () => {
   beforeEach(() => {
@@ -241,7 +241,7 @@ describe('AvMessage', () => {
 
   describe('domain()', () => {
     test('should return location.origin if exists', () => {
-      expect(avMessage.domain()).toBe(URL);
+      expect(avMessage.domain()).toBe(TEST_URL);
     });
   });
 
@@ -261,6 +261,22 @@ describe('AvMessage', () => {
     expect(avMessage.DOMAIN.test(avMessage.domain())).toBeTruthy();
     expect(avMessage.isDomain('world')).toBeFalsy();
     expect(avMessage.isDomain('hello world')).toBeTruthy();
+  });
+
+  test('domain should return apps.availity.com when window.location.hostname is essentials.availity.com', () => {
+    const OLD_LOCATION = window.location;
+
+    Object.defineProperty(window, 'location', {
+      value: new URL('https://qa-essentials.availity.com'),
+      writable: true,
+    });
+
+    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+
+    Object.defineProperty(window, 'location', {
+      value: OLD_LOCATION,
+      writable: true,
+    });
   });
 
   describe('send', () => {

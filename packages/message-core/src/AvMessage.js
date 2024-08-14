@@ -103,13 +103,15 @@ class AvMessage {
 
   domain() {
     if (window.location.origin) {
-      return window.location.origin;
+      const url = window.location.origin;
+      return url.replace('essentials', 'apps');
     }
 
     if (window.location.hostname) {
-      return `${window.location.protocol}//${window.location.hostname}${
+      const url = `${window.location.protocol}//${window.location.hostname}${
         window.location.port ? `:${window.location.port}` : ''
       }`;
+      return url.replace('essentials', 'apps');
     }
 
     return '*';
