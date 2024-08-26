@@ -418,7 +418,7 @@ __metadata:
     eslint: 8.57.0
     eslint-config-availity: ^10.0.2
     gh-pages: ^6.1.1
-    husky: ^9.1.2
+    husky: ^9.1.5
     is-ci: ^3.0.1
     jest: ^27.5.1
     jest-environment-jsdom: ^27.5.1
@@ -11339,12 +11339,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^9.1.2":
-  version: 9.1.2
-  resolution: "husky@npm:9.1.2"
+"husky@npm:^9.1.5":
+  version: 9.1.5
+  resolution: "husky@npm:9.1.5"
   bin:
     husky: bin.js
-  checksum: 850662c21b425edf17f81175b109b946a065e2f5509462afce2be466d82a15f5694efcecd41ad2bdfcc304530b3e0e7504392c0e2173a6de72f01c250b4dca57
+  checksum: c240018e852666dc12a93ca84751f1440bdf436468ba872c7b7b3cee54f5f1d7b4222a117988b27ca437093efdeb128778897ab0e409361336676a2c3012c8a7
   languageName: node
   linkType: hard
 
