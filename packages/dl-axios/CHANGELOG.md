@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.1](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@6.0.0...@availity/dl-axios@6.0.1) (2024-09-05)
+
+
+### Bug Fixes
+
+* **dl-axios:** revert back to default export to avoid a breaking change ([89a7564](https://github.com/Availity/sdk-js/commit/89a75644cfc5f5369cf972235722f19b1bff3962))
+
+
+
 # [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@5.0.7...@availity/dl-axios@6.0.0) (2024-07-29)
 
 ### Dependency Updates
