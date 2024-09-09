@@ -411,7 +411,7 @@ __metadata:
     "@nx/js": 19.5.3
     "@nx/workspace": 19.5.3
     "@types/jest": ^26.0.24
-    "@types/node": 18.19.40
+    "@types/node": 22.5.4
     adio: ^1.2.1
     codecov: ^3.8.3
     dependency-check: ^4.1.0
@@ -4807,12 +4807,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.19.40":
-  version: 18.19.40
-  resolution: "@types/node@npm:18.19.40"
+"@types/node@npm:22.5.4":
+  version: 22.5.4
+  resolution: "@types/node@npm:22.5.4"
   dependencies:
-    undici-types: ~5.26.4
-  checksum: 1308501c9c1f1c189786d3500bb90497e6ad9d6eb30b33a705806c32169bfb85e50da1d7f13536551c79b597fdb207f302778d0e84e93db59a08a575ed304956
+    undici-types: ~6.19.2
+  checksum: 77ac225c38c428200036780036da0bc6764e2721cfa8f528c7e7da7cfefe01a32a5791e28a54efbeedbc977949058d7db902b2e00139298225d4686cee4ae6db
   languageName: node
   linkType: hard
 
@@ -20079,6 +20079,13 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.19.2":
+  version: 6.19.8
+  resolution: "undici-types@npm:6.19.8"
+  checksum: de51f1b447d22571cf155dfe14ff6d12c5bdaec237c765085b439c38ca8518fc360e88c70f99469162bf2e14188a7b0bcb06e1ed2dc031042b984b0bb9544017
   languageName: node
   linkType: hard
 
