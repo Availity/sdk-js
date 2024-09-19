@@ -34,7 +34,7 @@ export default class AvFilesDelivery extends AvMicroservice {
 
   getLocation(response) {
     const baseUrl = super.getLocation(response);
-    const id = response.data.id;
+    const { id } = response.data;
     return !id || baseUrl.endsWith(id) ? `${baseUrl}` : `${baseUrl}/${id}`;
   }
 }
