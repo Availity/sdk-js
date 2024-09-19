@@ -26,7 +26,8 @@ export default class AvFilesDeliveryApi extends AvMicroserviceApi {
 
   getLocation(response) {
     const baseUrl = super.getLocation(response);
-    return `${baseUrl}/${response.data.id}`;
+    const id = response.data.id;
+    return !id || baseUrl.endsWith(id) ? `${baseUrl}` : `${baseUrl}/${id}`;
   }
 }
 
