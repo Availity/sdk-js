@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.0...@availity/api-axios@9.0.1) (2024-09-19)
+
+
+### Bug Fixes
+
+* add axios filesDelivery location test ([c306e2a](https://github.com/Availity/sdk-js/commit/c306e2add2a79ada23c6daaa7400356175d41355))
+* don't append FUD id twice ([d81520f](https://github.com/Availity/sdk-js/commit/d81520f4de32defbe7e466f61c6378f8014bcf0d))
+* linting ([8339deb](https://github.com/Availity/sdk-js/commit/8339deb654059d9678296e4c6ae2596b5df0740e))
+
+
+
 # [9.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@8.0.9...@availity/api-axios@9.0.0) (2024-07-29)
 
 
