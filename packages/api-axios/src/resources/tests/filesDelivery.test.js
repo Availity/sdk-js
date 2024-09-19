@@ -21,6 +21,15 @@ describe('AvFileDelivery', () => {
     );
   });
 
+  test('polling url should be correct', () => {
+    expect(api.getLocation({ headers: { Location: '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'}, data: { id: 'id123'}, config: {}})).toBe(
+      'http://localhost:8080/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'
+    );
+    expect(api.getLocation({ headers: { Location: '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'}, data: {}, config: {}})).toBe(
+      'http://localhost:8080/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'
+    );
+  });
+
   test('uploadFile() should call create for reference passed', async () => {
     const data = {
       deliveries: [
