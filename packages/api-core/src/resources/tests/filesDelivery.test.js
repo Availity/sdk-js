@@ -10,29 +10,45 @@ const mockConfig = {
 
 describe('AvFileDelivery', () => {
   let api;
-  beforeEach(() => {
+
+  test('should be defined', () => {
+    api = new AvFilesDelivery({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+    expect(api).toBeDefined();
+  });
+
+  test('should handle no config passed in', () => {
     api = new AvFilesDelivery({
       http: mockHttp,
       promise: Promise,
       merge: mockMerge,
     });
-  });
-
-  test('should be defined', () => {
-    expect(api).toBeDefined();
-  });
-
-  test('should handle no config passed in', () => {
     expect(api).toBeDefined();
   });
 
   test('post url should be correct', () => {
+    api = new AvFilesDelivery({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+    });
     expect(api.getUrl(mockConfig)).toBe(
       '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries'
     );
   });
 
   test('uploadFile() should call create for reference passed', () => {
+    api = new AvFilesDelivery({
+      http: mockHttp,
+      promise: Promise,
+      merge: mockMerge,
+      config: {},
+    });
+
     const data = {
       deliveries: [
         {
