@@ -332,6 +332,56 @@ describe('upload-core', () => {
         upload.start();
       });
 
+      it('should parse s3-references on upload accepted', () =>
+        new Promise((resolve) => {
+          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
+            201,
+            {},
+            {
+              'tus-resumable': '1.0.0',
+              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+              'transfer-encoding': 'chunked',
+              location: '4611142db7c049bbbe37376583a3f46b',
+            }
+          );
+
+          nock('https://dev.local')
+            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
+            .reply(
+              204,
+              {},
+              {
+                'tus-resumable': '1.0.0',
+                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+                'transfer-encoding': 'chunked',
+                'Upload-Offset': 12,
+                'AV-Scan-Result': 'accepted',
+                'Upload-Result': 'accepted',
+                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+                's3-references': '["s3://files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+              }
+            );
+
+          const file = Buffer.from('hello world!');
+          file.name = 'a';
+          const upload = new Upload(file, optionsWithOnPreStartPass);
+          upload.onSuccess.push(() => {
+            expect(upload.s3References).toBeDefined();
+            resolve();
+          });
+
+          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
+            status: 200,
+            headers: {
+              'Content-Length': '0',
+              'AV-Scan-Result': 'accepted',
+              'Upload-Result': 'accepted',
+            },
+          });
+
+          upload.start();
+        }));
+
       it('should start upload if all the functions in onPreStart returns true', () =>
         new Promise((resolve) => {
           nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
