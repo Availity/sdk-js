@@ -131,6 +131,10 @@ class Upload {
           if (references) {
             this.references = JSON.parse(references);
           }
+          const s3References = xhr.getResponseHeader('s3-references');
+          if (s3References) {
+            this.s3References = JSON.parse(s3References);
+          }
           for (const cb of this.onSuccess) cb();
           return;
         }
