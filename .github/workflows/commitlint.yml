@@ -1,6 +1,6 @@
 name: Lint Commit Messages
 
-on: [workflow_dispatch]
+on: [pull_request]
 
 jobs:
   commitlint:
