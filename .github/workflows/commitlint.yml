@@ -1,0 +1,30 @@
+name: Lint Commit Messages
+# Set to pull_request when ready to turn on
+on: [never]
+
+jobs:
+  commitlint:
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Lint Commit Message
+        uses: wagoid/commitlint-github-action@v5
+        env:
+          NODE_PATH: ${{ github.workspace }}/node_modules
+        with:
+          configFile: ${{ github.workspace }}/commitlint.config.js
