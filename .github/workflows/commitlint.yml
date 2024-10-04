@@ -23,6 +23,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Lint Commit Message
-        uses: wagoid/commitlint-github-action@v6
+        uses: wagoid/commitlint-github-action@v5
         env:
           NODE_PATH: ${{ github.workspace }}/node_modules
+        with:
+          configFile: ${{ github.workspace }}/commitlint.config.js
