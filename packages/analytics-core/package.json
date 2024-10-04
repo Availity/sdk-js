@@ -1,6 +1,6 @@
 {
   "name": "@availity/analytics-core",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Analytics base configuration for sdk-js",
   "keywords": [
     "availity",
