@@ -1,6 +1,6 @@
 name: Lint Commit Messages
-
-on: [pull_request]
+# Set to pull_request when ready to turn on
+on: [never]
 
 jobs:
   commitlint:
