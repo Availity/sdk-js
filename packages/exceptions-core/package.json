@@ -26,7 +26,7 @@
     "typescript": "^5.5.4"
   },
   "peerDependencies": {
-    "stacktrace-js": "^2.0.0"
+    "stacktrace-js": "^2.0.2"
   },
   "publishConfig": {
     "access": "public"
