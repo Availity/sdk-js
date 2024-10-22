@@ -1,6 +1,6 @@
 {
   "name": "@availity/user-activity-broadcaster",
-  "version": "1.0.0-alpha.0",
+  "version": "0.1.0-alpha.0",
   "description": "This package broacasts user activity to the navigation.",
   "main": "src/user-activity-broadcaster.js",
   "keywords": [],

@@ -1,0 +1,23 @@
+# Changelog
+
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# 0.1.0-alpha.0 (2024-10-22)
+
+
+### Features
+
+* **user-activity-broadcaster:** adding changelog file EB-719 ([1607004](https://github.com/Availity/sdk-js/commit/16070049522d8db8401d71f7d5d074dc0bc213c4))
+* **user-activity-broadcaster:** adding ignore because we're not using typescript EB-719 ([b66e9b8](https://github.com/Availity/sdk-js/commit/b66e9b87c2dcd305cd1ccbba5980e7550cc1bd70))
+* **user-activity-broadcaster:** adding package EB-719 ([1213b58](https://github.com/Availity/sdk-js/commit/1213b58c37fcec8f5f6298e6e66103150a9db61e))
+
+
+
+# 0.1.0-alpha.0 (2024-10-22)
+
+
+### Features
+
+* **user-activity-broadcaster:** adding changelog file EB-719 ([1607004](https://github.com/Availity/sdk-js/commit/16070049522d8db8401d71f7d5d074dc0bc213c4))
+* **user-activity-broadcaster:** adding ignore because we're not using typescript EB-719 ([b66e9b8](https://github.com/Availity/sdk-js/commit/b66e9b87c2dcd305cd1ccbba5980e7550cc1bd70))
+* **user-activity-broadcaster:** adding package EB-719 ([1213b58](https://github.com/Availity/sdk-js/commit/1213b58c37fcec8f5f6298e6e66103150a9db61e))
