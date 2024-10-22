@@ -446,6 +446,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@availity/user-activity-broadcaster@workspace:packages/user-activity-broadcaster":
+  version: 0.0.0-use.local
+  resolution: "@availity/user-activity-broadcaster@workspace:packages/user-activity-broadcaster"
+  dependencies:
+    tsup: ^7.2.0
+  languageName: unknown
+  linkType: soft
+
 "@availity/yup@workspace:packages/yup":
   version: 0.0.0-use.local
   resolution: "@availity/yup@workspace:packages/yup"

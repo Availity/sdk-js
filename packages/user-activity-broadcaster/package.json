@@ -1,0 +1,26 @@
+{
+  "name": "@availity/user-activity-broadcaster",
+  "version": "1.0.0-alpha.0",
+  "description": "This package broacasts user activity to the navigation.",
+  "main": "src/user-activity-broadcaster.js",
+  "keywords": [],
+  "author": "Joe Spanbauer <joseph.spanbauer@availity.com>",
+  "engines": {
+    "node": "^18.0.0 || ^20.0.0"
+  },
+  "scripts": {
+    "build": "tsup src/index.js --format esm,cjs --dts",
+    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "publish": "yarn npm publish --tolerate-republish --access public"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
