@@ -63,32 +63,30 @@ describe('upload-core', () => {
 
   describe('options', () => {
     it('should throw error for missing files', () => {
-      expect(() => {
-        // eslint-disable-next-line no-new
-        new Upload();
-      }).toThrow('[file] must be defined and of type File');
+      expect(() => new Upload()).toThrow('[file] must be defined and of type File');
     });
 
     it('should throw error with missing bucket id', () => {
-      expect(() => {
-        // eslint-disable-next-line no-new
-        new Upload([]);
-      }).toThrow('[options.bucketId] must be defined');
+      expect(() => new Upload([])).toThrow('[options.bucketId] must be defined');
     });
 
     it('should allow override to defaults', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'fileName.png';
+
       const upload = new Upload(file, optionsWithRetry);
+
       expect(upload.options.retryDelays[0]).toBe(optionsWithRetry.retryDelays[0]);
     });
 
     it('should not start upload if any one of the functions in onPreStart returns false', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'somefile.png';
+
       const upload = new Upload(file, optionsWithOnPreStartFail);
 
       upload.start();
+
       expect(upload.status).toEqual('rejected');
       expect(upload.errorMessage).toEqual('preStart validation failed');
     });
@@ -96,27 +94,34 @@ describe('upload-core', () => {
     it('should allow single file as constructor argument', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'fileName.png';
+
       const upload = new Upload(file, options);
+
       expect(upload.isValidFile()).toBeTruthy();
     });
 
     it('should throw error for invalid file type', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'notCoolFile.docx';
+
       const upload = new Upload(file, optionsWithFileTypes);
+
       expect(upload.isValidFile()).toBeFalsy();
     });
 
     it('should allow the correct file type', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'coolFile.png';
+
       const upload = new Upload(file, optionsWithFileTypes);
+
       expect(upload.isValidFile()).toBeTruthy();
     });
 
     it('should use default options', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'optionsFile.png';
+
       const upload = new Upload(file, options);
 
       expect(upload.options.endpoint).toBe('https://dev.local/ms/api/availity/internal/core/vault/upload/v1/resumable');
@@ -126,7 +131,9 @@ describe('upload-core', () => {
       const file = Buffer.from([...'hello world!']);
       file.name = 'sizeFile.pdf';
       file.size = 1e7;
+
       const upload = new Upload(file, optionsWithFileSize);
+
       expect(upload.isValidFile()).toBeFalsy();
     });
 
@@ -178,9 +185,12 @@ describe('upload-core', () => {
     it('should pass status of decrypting', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'decryptThisFile.png';
+
       const upload = new Upload(file, options);
+
       upload.setError('encrypted', 'Encrypted files require a password');
       upload.setError('decrypting', 'Decrypting file');
+
       expect(upload.status).toBe('decrypting');
     });
 
@@ -244,7 +254,9 @@ describe('upload-core', () => {
 
           const file = Buffer.from('hello world!');
           file.name = 'a';
+
           const upload = new Upload(file, options);
+
           const success = jest.fn();
           upload.onSuccess.push(success, () => {
             expect(success).toHaveBeenCalled();
@@ -292,10 +304,12 @@ describe('upload-core', () => {
 
           const file = Buffer.from('hello world!');
           file.name = 'a';
+
           const upload = new Upload(file, {
             ...options,
             pollingTime: 50, // so that Jest does not time out our test while waiting for retires
           });
+
           const error = jest.fn();
           const errorMessage = new Error('AV scan timed out, max retries exceeded');
 
@@ -320,6 +334,7 @@ describe('upload-core', () => {
       it('should pickup upload object on each array of functions in onPreStart', () => {
         const file = Buffer.from('hello world!');
         file.name = 'a';
+
         const upload = new Upload(file, {
           ...optionsWithOnPreStartFail,
           onPreStart: [
@@ -329,6 +344,7 @@ describe('upload-core', () => {
             },
           ],
         });
+
         upload.start();
       });
 
@@ -364,7 +380,9 @@ describe('upload-core', () => {
 
           const file = Buffer.from('hello world!');
           file.name = 'a';
+
           const upload = new Upload(file, optionsWithOnPreStartPass);
+
           upload.onSuccess.push(() => {
             expect(upload.s3References).toBeDefined();
             resolve();
@@ -411,7 +429,9 @@ describe('upload-core', () => {
 
           const file = Buffer.from('hello world!');
           file.name = 'a';
+
           const upload = new Upload(file, optionsWithOnPreStartPass);
+
           const success = jest.fn();
           upload.onSuccess.push(success, () => {
             expect(success).toHaveBeenCalled();

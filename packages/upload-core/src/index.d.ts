@@ -4,6 +4,7 @@ export interface Options extends UploadOptions {
   bucketId: string;
   customerId: string;
   clientId: string;
+  endpoint?: string;
   maxAvScanRetries?: number;
   onPreStart?: (() => boolean)[];
   pollingTime?: number;
@@ -11,58 +12,82 @@ export interface Options extends UploadOptions {
   stripFileNamePathSegments?: boolean;
 }
 
-export type FileUpload = File | Blob | Pick<ReadableStreamDefaultReader, 'read'>;
-
 declare class Upload {
-  private upload: TusUpload;
+  upload: TusUpload;
 
-  private options: Options;
+  options: Options;
 
-  private status: 'accepted' | 'pending' | 'rejected' | 'decrypting';
+  file: File;
 
-  private errorMessage: string;
+  id: string;
 
-  private onSuccess: (() => void)[];
+  avScanRetries: number;
 
-  private onError: ((error: Error) => void)[];
+  bytesScanned: number;
+
+  bytesSent: number;
+
+  bytesTotal: number;
+
+  error: Error | null;
+
+  errorMessage: string | null;
+
+  onError: ((error: Error) => void)[];
+
+  onPreStart: (() => boolean)[];
+
+  onProgress: (() => void)[];
+
+  onSuccess: (() => void)[];
+
+  percentage: number;
+
+  preStartValidationResults: boolean[];
+
+  status: 'accepted' | 'pending' | 'rejected' | 'encrypted' | 'decrypting';
+
+  timeoutId: NodeJS.Timeout | undefined;
+
+  waitForPassword: boolean;
 
   constructor(file: FileUpload, options: Options);
 
+  abort(): void;
+
+  fingerprint(file: FileUpload, options?: Options, callback?: (arg: null, key: string) => string): string;
+
+  generateId(): string;
+
+  getPercentage(): number;
+
+  getResult(xhr: XMLHttpRequest): { status: string; message: string };
+
+  getToken(): string;
+
   inStatusCategory(status: number, category: number): boolean;
+
+  isAllowedFileNameCharacters(): boolean;
+
+  isAllowedFileTypes(): boolean;
+
+  isValidFile(): boolean;
+
+  isValidSize(): boolean;
+
+  parseErrorMessage(message: string, error?: Error): void;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   scan(data: any): void;
 
-  getPercentage(): number;
-
-  getToken(): string;
-
-  start(): void;
-
-  generateId(): string;
-
-  fingerprint(file: FileUpload, options?: Options, callback?: (arg: null, key: string) => string): string;
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendPassword(pw: any): void;
 
-  isValidSize(): boolean;
-
-  isAllowedFileTypes(): boolean;
-
-  isAllowedFileNameCharacters(): boolean;
-
-  isValidFile(): boolean;
-
-  trimFileName(fileName: string): string;
-
-  getResult(xhr: XMLHttpRequest): { status: string; message: string };
-
   setError(status: string, message: string, error?: Error): void;
 
-  parseErrorMessage(message: string, error?: Error): void;
+  start(): void;
 
-  abort(): void;
+  trimFileName(fileName: string): string;
 }
 
 export default Upload;
