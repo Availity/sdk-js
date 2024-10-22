@@ -1,1 +1,1 @@
-/* eslint-disable unicorn/prefer-export-from */
+/* eslint-disable unicorn/no-empty-file */
