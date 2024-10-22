@@ -14,7 +14,7 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
+        "commitMessageFormat": "chore(user-activity-broadcaster): release version ${version} [skip ci]",
         "tagPrefix": "{projectName}@",
         "baseBranch": "master",
         "trackDeps": true
