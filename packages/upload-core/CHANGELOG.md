@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.0.3...@availity/upload-core@6.0.4) (2024-10-23)
+
+
+### Bug Fixes
+
+* **upload-core:** update types ([a4b3fc8](https://github.com/Availity/sdk-js/commit/a4b3fc86e74054f7ded2987d3e4bbeda8336cf8e))
+
+
+
 ## [6.0.3](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.0.2...@availity/upload-core@6.0.3) (2024-10-22)
 
 
