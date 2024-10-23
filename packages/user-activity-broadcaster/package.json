@@ -2,7 +2,7 @@
   "name": "@availity/user-activity-broadcaster",
   "version": "0.1.0",
   "description": "This package broacasts user activity to the navigation.",
-  "main": "src/user-activity-broadcaster.js",
+  "main": "src/index.js",
   "keywords": [],
   "author": "Joe Spanbauer <joseph.spanbauer@availity.com>",
   "engines": {
