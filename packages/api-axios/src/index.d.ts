@@ -111,7 +111,7 @@ declare class AvFilesApi extends AvApi {
 declare const avFilesApi: AvFilesApi;
 
 declare class AvFilesDeliveryApi extends AvApi {
-  uploadFilesDelivery(data: any, config?: ApiConfig): Promise<AxiosResponse>;
+  uploadFilesDelivery(data: any, config?: ApiConfig & { customerId: string; clientId: string }): Promise<AxiosResponse>;
 
   getLocation(response: any): string;
 }
