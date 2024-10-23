@@ -4,11 +4,14 @@ export interface Options extends UploadOptions {
   bucketId: string;
   customerId: string;
   clientId: string;
+  allowedFileNameCharacters?: string;
   endpoint?: string;
+  fileTypes?: `.${string}`[];
   maxAvScanRetries?: number;
-  onPreStart?: (() => boolean)[];
+  maxSize?: number;
+  metadata?: Record<string, unknown>;
+  onPreStart?: ((upload: Upload) => boolean)[];
   pollingTime?: number;
-  retryDelays?: number[];
   stripFileNamePathSegments?: boolean;
 }
 
@@ -45,17 +48,21 @@ declare class Upload {
 
   preStartValidationResults: boolean[];
 
+  references: string[];
+
+  s3References: string[];
+
   status: 'accepted' | 'pending' | 'rejected' | 'encrypted' | 'decrypting';
 
   timeoutId: NodeJS.Timeout | undefined;
 
   waitForPassword: boolean;
 
-  constructor(file: FileUpload, options: Options);
+  constructor(file: File, options: Options);
 
   abort(): void;
 
-  fingerprint(file: FileUpload, options?: Options, callback?: (arg: null, key: string) => string): string;
+  fingerprint(file: File, options?: Options, callback?: (arg: null, key: string) => string): string;
 
   generateId(): string;
 

@@ -83,6 +83,8 @@ class Upload {
     this.error = null;
     this.waitForPassword = true;
     this.avScanRetries = 0;
+    this.references = [];
+    this.s3References = [];
 
     const fileName = this.trimFileName(file.name);
 
