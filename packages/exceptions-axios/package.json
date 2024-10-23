@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-axios",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Availity class to log exceptions via axios",
   "license": "MIT",
   "author": "Evan Sharp <evan.sharp@availity.com>",
