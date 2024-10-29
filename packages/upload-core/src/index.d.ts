@@ -84,11 +84,9 @@ declare class Upload {
 
   parseErrorMessage(message: string, error?: Error): void;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  scan(data: any): void;
+  scan(data?: { header: string; value: string }): void;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendPassword(pw: any): void;
+  sendPassword(pw: string): void;
 
   setError(status: string, message: string, error?: Error): void;
 
