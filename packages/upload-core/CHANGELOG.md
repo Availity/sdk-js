@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.1.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.0.4...@availity/upload-core@6.1.0) (2024-10-29)
+
+
+### Features
+
+* **upload-core:** bundle tus-js-client with dist ([7cc061b](https://github.com/Availity/sdk-js/commit/7cc061b7dfce00aa0f98f68bdd4a4283ae5b4693))
+
+
+
 ## [6.0.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.0.3...@availity/upload-core@6.0.4) (2024-10-23)
 
 
