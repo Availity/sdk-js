@@ -10,6 +10,8 @@ export interface Options extends UploadOptions {
   maxAvScanRetries?: number;
   maxSize?: number;
   metadata?: Record<string, unknown>;
+  onError?: ((error: Error) => void)[];
+  onSuccess?: (() => void)[];
   onPreStart?: ((upload: Upload) => boolean)[];
   pollingTime?: number;
   stripFileNamePathSegments?: boolean;
