@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.1.3](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.2...@availity/upload-core@6.1.3) (2024-11-12)
+
+
+### Bug Fixes
+
+* **upload-core:** don't bundle tus ([f0e026d](https://github.com/Availity/sdk-js/commit/f0e026dd5b2afa87dd63b2158548a299d611767f))
+
+
+
 ## [6.1.2](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.1...@availity/upload-core@6.1.2) (2024-11-12)
 
 
