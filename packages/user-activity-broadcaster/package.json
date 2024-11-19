@@ -16,6 +16,9 @@
     "clean": "rm -rf node_modules && rm -rf dist",
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
+  "dependencies": {
+    "@availity/env-var": "workspace:*"
+  },
   "license": "MIT",
   "devDependencies": {
     "tsup": "^7.2.0"

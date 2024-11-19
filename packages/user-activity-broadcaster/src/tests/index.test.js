@@ -1,3 +1,4 @@
+const envVar = require('@availity/env-var')
 const userActivityBroadcaster = require('../index')
 
 const {
@@ -8,7 +9,13 @@ const {
   lastActivity
 } = userActivityBroadcaster
 
+jest.mock('@availity/env-var/src', () => jest.fn())
+
 describe('user-activity-broadcaster', () => {
+  beforeEach(() => {
+    document.head.innerHTML = '';
+  });
+
   describe('targetOrigin', () => {
     test('essentials.availity.com origin should have targetOrigion of apps', () => {
       const testOrigin = 'essentials.availity.com'
@@ -72,5 +79,28 @@ describe('user-activity-broadcaster', () => {
   test('handleActivity should update handleActivity', () => {
     handleActivity()
     expect(lastActivity.time).toBeDefined()
+  })
+
+  test('load event should add glance script', () => {
+    addEventListeners()
+    window.dispatchEvent(new Event('load'))
+    const scriptTag = document.getElementById('glance-cobrowse')
+    expect(scriptTag).not.toBeNull()
+  })
+
+  test('glance script should have production site in production', () => {
+    envVar.mockReturnValue(true)
+    addEventListeners()
+    window.dispatchEvent(new Event('load'))
+    const scriptTag = document.getElementById('glance-cobrowse')
+    expect(scriptTag.src).toBe('https://www.glancecdn.net/cobrowse/CobrowseJS.ashx?group=21510&site=production')
+  })
+
+  test('glance script should have staging site when not in production', () => {
+    envVar.mockReturnValue(undefined)
+    addEventListeners()
+    window.dispatchEvent(new Event('load'))
+    const scriptTag = document.getElementById('glance-cobrowse')
+    expect(scriptTag.src).toBe('https://www.glancecdn.net/cobrowse/CobrowseJS.ashx?group=21510&site=staging')
   })
 })

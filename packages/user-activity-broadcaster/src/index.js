@@ -1,3 +1,5 @@
+import addGlanceScript from './glance-cobrowse-spript';
+
 const MINUTE = 60 * 1000
 const interval = MINUTE * 5
 export const eventName = 'user_activity'
@@ -47,5 +49,6 @@ export const handleActivity = () => {
 export const addEventListeners = () => {
   document.addEventListener('mousedown', handleActivity)
   document.addEventListener('keydown', handleActivity)
+  window.addEventListener('load', addGlanceScript)
 }
 addEventListeners()
