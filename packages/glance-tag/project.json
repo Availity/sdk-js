@@ -1,0 +1,39 @@
+{
+  "name": "@availity/glance-tag",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/resolve-url"],
+      "options": {
+        "jestConfig": "packages/glance-tag/jest.config.js"
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(glance-tag): release version ${version} [skip ci]",
+        "tagPrefix": "{projectName}@",
+        "baseBranch": "master",
+        "trackDeps": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "eslintConfig": ".eslintrc.yaml",
+        "silent": false,
+        "fix": false,
+        "cache": true,
+        "cacheLocation": "./node_modules/.cache/glance-tag/.eslintcache",
+        "maxWarnings": -1,
+        "quiet": false,
+        "noEslintrc": false,
+        "hasTypeAwareRules": true,
+        "cacheStrategy": "metadata"
+      }
+    }
+  }
+}
