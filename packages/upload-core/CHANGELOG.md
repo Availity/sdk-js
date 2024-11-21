@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.1.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.3...@availity/upload-core@6.1.4) (2024-11-21)
+
+
+### Bug Fixes
+
+* **upload-core:** default chunk size to 6MB ([1a3e718](https://github.com/Availity/sdk-js/commit/1a3e718ac6914b1f18a7d4547328f48d9fc9129c))
+
+
+
 ## [6.1.3](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.2...@availity/upload-core@6.1.3) (2024-11-12)
 
 
