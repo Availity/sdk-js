@@ -17,7 +17,7 @@ const hashCode = (str) => {
 
 const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
-  chunkSize: 5e6, // 5MB
+  chunkSize: 6e6, // 6MB (Max size from backend is 5MiB. Setting to 6MB to be safe)
   removeFingerprintOnSuccess: true,
   pollingTime: 5000,
   retryDelays: [0, 1000, 3000, 5000],
