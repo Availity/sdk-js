@@ -2,6 +2,63 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0-alpha.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.3...@availity/upload-core@7.0.0-alpha.0) (2024-12-02)
+
+
+### Bug Fixes
+
+* **upload-core:** default chunk size to 6MB ([1a3e718](https://github.com/Availity/sdk-js/commit/1a3e718ac6914b1f18a7d4547328f48d9fc9129c))
+
+
+### Features
+
+* **upload-core:** upgrade to tus-js-client v4 ([c1babe8](https://github.com/Availity/sdk-js/commit/c1babe8e7848df5a0413cb1bc4b35074f12d8064))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** update to the latest version of tus-js-client
+
+
+
+# [7.0.0-alpha.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.3...@availity/upload-core@7.0.0-alpha.0) (2024-12-02)
+
+
+### Bug Fixes
+
+* **upload-core:** default chunk size to 6MB ([1a3e718](https://github.com/Availity/sdk-js/commit/1a3e718ac6914b1f18a7d4547328f48d9fc9129c))
+
+
+### Features
+
+* **upload-core:** upgrade to tus-js-client v4 ([c1babe8](https://github.com/Availity/sdk-js/commit/c1babe8e7848df5a0413cb1bc4b35074f12d8064))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** update to the latest version of tus-js-client
+
+
+
+# [7.0.0-alpha.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.3...@availity/upload-core@7.0.0-alpha.0) (2024-12-02)
+
+
+### Bug Fixes
+
+* **upload-core:** default chunk size to 6MB ([1a3e718](https://github.com/Availity/sdk-js/commit/1a3e718ac6914b1f18a7d4547328f48d9fc9129c))
+
+
+### Features
+
+* **upload-core:** upgrade to tus-js-client v4 ([c1babe8](https://github.com/Availity/sdk-js/commit/c1babe8e7848df5a0413cb1bc4b35074f12d8064))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** update to the latest version of tus-js-client
+
+
+
 ## [6.1.3](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.2...@availity/upload-core@6.1.3) (2024-11-12)
 
 
