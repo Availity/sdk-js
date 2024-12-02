@@ -3,50 +3,36 @@ import xhrMock from 'xhr-mock'; // xhr-mock is needed because upload-core only w
 
 import Upload from '.';
 
+const BUCKET_ID = 'bucket';
+const CUSTOMER_ID = '123';
+const CLIENT_ID = 'test123';
+const BASE_URL = 'https://dev.local';
+const VAULT_URL = '/ms/api/availity/internal/core/vault/upload/v1/resumable';
+const LOCATION = '123abc789xyz';
+
 const options = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
-};
-
-const optionsWithFileTypes = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
-  fileTypes: ['.png', '.pdf'],
-};
-
-const optionsWithFileSize = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
-  maxSize: 2e6,
+  bucketId: BUCKET_ID,
+  customerId: CUSTOMER_ID,
+  clientId: CLIENT_ID,
 };
 
 const optionsWithMeta = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
-};
-
-const optionsWithRetry = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
-  retryDelays: [1000, 2000],
+  bucketId: BUCKET_ID,
+  customerId: CUSTOMER_ID,
+  clientId: CLIENT_ID,
 };
 
 const optionsWithOnPreStartFail = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
+  bucketId: BUCKET_ID,
+  customerId: CUSTOMER_ID,
+  clientId: CLIENT_ID,
   onPreStart: [() => true, () => false, () => true],
 };
 
 const optionsWithOnPreStartPass = {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
+  bucketId: BUCKET_ID,
+  customerId: CUSTOMER_ID,
+  clientId: CLIENT_ID,
   onPreStart: [() => true, () => true, () => true],
 };
 
@@ -73,19 +59,31 @@ describe('upload-core', () => {
     it('should allow override to defaults', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'fileName.png';
+      const retryDelays = [1000, 2000];
 
-      const upload = new Upload(file, optionsWithRetry);
+      const upload = new Upload(file, { ...options, retryDelays });
 
-      expect(upload.options.retryDelays[0]).toBe(optionsWithRetry.retryDelays[0]);
+      expect(upload.options.retryDelays[0]).toBe(retryDelays[0]);
     });
 
-    it('should not start upload if any one of the functions in onPreStart returns false', () => {
+    it('should not start upload if any onPreStart function returns false', async () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'somefile.png';
 
-      const upload = new Upload(file, optionsWithOnPreStartFail);
+      const startUpload = () =>
+        new Promise((resolve) => {
+          const upload = new Upload(file, {
+            ...options,
+            onPreStart: [() => true, () => false, () => true],
+          });
 
-      upload.start();
+          upload.start();
+
+          resolve(upload);
+        });
+
+      // Wait until upload finishes
+      const upload = await startUpload();
 
       expect(upload.status).toEqual('rejected');
       expect(upload.errorMessage).toEqual('preStart validation failed');
@@ -104,7 +102,7 @@ describe('upload-core', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'notCoolFile.docx';
 
-      const upload = new Upload(file, optionsWithFileTypes);
+      const upload = new Upload(file, { ...options, fileTypes: ['.png', '.pdf'] });
 
       expect(upload.isValidFile()).toBeFalsy();
     });
@@ -113,7 +111,7 @@ describe('upload-core', () => {
       const file = Buffer.from([...'hello world']);
       file.name = 'coolFile.png';
 
-      const upload = new Upload(file, optionsWithFileTypes);
+      const upload = new Upload(file, { ...options, fileTypes: ['.png', '.pdf'] });
 
       expect(upload.isValidFile()).toBeTruthy();
     });
@@ -124,7 +122,7 @@ describe('upload-core', () => {
 
       const upload = new Upload(file, options);
 
-      expect(upload.options.endpoint).toBe('https://dev.local/ms/api/availity/internal/core/vault/upload/v1/resumable');
+      expect(upload.options.endpoint).toBe(`${BASE_URL}${VAULT_URL}`);
     });
 
     it('should not allow files over maxSize', () => {
@@ -132,12 +130,13 @@ describe('upload-core', () => {
       file.name = 'sizeFile.pdf';
       file.size = 1e7;
 
-      const upload = new Upload(file, optionsWithFileSize);
+      const upload = new Upload(file, { ...options, maxSize: 2e6 });
 
       expect(upload.isValidFile()).toBeFalsy();
+      expect(upload.errorMessage).toBe('Document is too large');
     });
 
-    it('should use metadata values for fingerprint', () => {
+    it('should use metadata values for fingerprint', async () => {
       const file = Buffer.from([...'hello world!']);
       file.name = 'a';
       file.type = 'b';
@@ -148,14 +147,14 @@ describe('upload-core', () => {
       });
 
       let upload = new Upload(file, options);
-      expect(upload.generateId()).toBe('tus-a-b-100-1016975905');
+      expect(await upload.generateId()).toBe('tus-a-b-100-1016975905');
 
       options = Object.assign(optionsWithMeta, {
         metadata: { documentTypeId: 'e' },
       });
 
       upload = new Upload(file, options);
-      expect(upload.generateId()).toBe('tus-a-b-100-1016975906');
+      expect(await upload.generateId()).toBe('tus-a-b-100-1016975906');
     });
   });
 
@@ -215,240 +214,329 @@ describe('upload-core', () => {
       const upload4 = new Upload(file4, Object.assign(options, { allowedFileNameCharacters: '_a-zA-Z0-9 ' }));
       expect(upload4.isValidFile()).toBeTruthy();
     });
+  });
 
-    describe('upload', () => {
-      beforeEach(() => {
-        xhrMock.setup();
+  describe('upload', () => {
+    // beforeAll(() => server.listen());
+
+    beforeEach(() => {
+      xhrMock.setup();
+    });
+
+    afterEach(() => {
+      xhrMock.teardown();
+      // server.resetHandlers();
+    });
+
+    // afterAll(() => server.close());
+
+    it('should upload a file', async () => {
+      nock(BASE_URL).post(`${VAULT_URL}/${BUCKET_ID}/`).reply(
+        201,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          location: LOCATION,
+        }
+      );
+
+      nock(BASE_URL).patch(`${VAULT_URL}/${BUCKET_ID}/${LOCATION}`).reply(
+        204,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          'Upload-Offset': 12,
+          references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+        }
+      );
+
+      xhrMock.use('HEAD', new RegExp(LOCATION), {
+        status: 200,
+        headers: {
+          'Content-Length': '0',
+          'AV-Scan-Result': 'accepted',
+          'Upload-Result': 'accepted',
+        },
       });
 
-      afterEach(() => {
-        xhrMock.teardown();
-      });
+      const file = Buffer.from('hello world!');
+      file.name = 'a';
 
-      it('should upload a file', () =>
+      const upload = new Upload(file, options);
+
+      const mockOnSuccess = jest.fn();
+
+      const startUpload = () =>
         new Promise((resolve) => {
-          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
-            201,
-            {},
-            {
-              'tus-resumable': '1.0.0',
-              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-              'transfer-encoding': 'chunked',
-              location: '4611142db7c049bbbe37376583a3f46b',
-            }
-          );
-
-          nock('https://dev.local')
-            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
-            .reply(
-              204,
-              {},
-              {
-                'tus-resumable': '1.0.0',
-                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-                'transfer-encoding': 'chunked',
-                'Upload-Offset': 12,
-                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
-              }
-            );
-
-          const file = Buffer.from('hello world!');
-          file.name = 'a';
-
-          const upload = new Upload(file, options);
-
-          const success = jest.fn();
-          upload.onSuccess.push(success, () => {
-            expect(success).toHaveBeenCalled();
+          upload.onSuccess.push(mockOnSuccess, () => {
             resolve();
           });
-
-          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
-            status: 200,
-            headers: {
-              'Content-Length': '0',
-              'AV-Scan-Result': 'accepted',
-              'Upload-Result': 'accepted',
-            },
-          });
-
           upload.start();
-        }));
-
-      it('should time out when av scan takes too long', () =>
-        new Promise((resolve) => {
-          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
-            201,
-            {},
-            {
-              'tus-resumable': '1.0.0',
-              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-              'transfer-encoding': 'chunked',
-              location: '4611142db7c049bbbe37376583a3f46b',
-            }
-          );
-
-          nock('https://dev.local')
-            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
-            .reply(
-              204,
-              {},
-              {
-                'tus-resumable': '1.0.0',
-                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-                'transfer-encoding': 'chunked',
-                'Upload-Offset': 12,
-                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
-              }
-            );
-
-          const file = Buffer.from('hello world!');
-          file.name = 'a';
-
-          const upload = new Upload(file, {
-            ...options,
-            pollingTime: 50, // so that Jest does not time out our test while waiting for retires
-          });
-
-          const error = jest.fn();
-          const errorMessage = new Error('AV scan timed out, max retries exceeded');
-
-          upload.onError.push(error, () => {
-            expect(error).toHaveBeenCalled();
-            expect(error).toHaveBeenCalledWith(errorMessage);
-            resolve();
-          });
-
-          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
-            status: 200,
-            headers: {
-              'Content-Length': '0',
-              'AV-Scan-Result': 'pending',
-              'Upload-Result': 'pending',
-            },
-          });
-
-          upload.start();
-        }));
-
-      it('should pickup upload object on each array of functions in onPreStart', () => {
-        const file = Buffer.from('hello world!');
-        file.name = 'a';
-
-        const upload = new Upload(file, {
-          ...optionsWithOnPreStartFail,
-          onPreStart: [
-            (upload) => {
-              expect(upload).toBeDefined();
-              return false;
-            },
-          ],
         });
 
-        upload.start();
+      // Wait until upload finishes
+      await startUpload();
+
+      expect(mockOnSuccess).toHaveBeenCalled();
+    });
+
+    it('should time out when av scan takes too long', async () => {
+      nock(BASE_URL).post(`${VAULT_URL}/${BUCKET_ID}/`).reply(
+        201,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          location: LOCATION,
+        }
+      );
+
+      nock(BASE_URL).patch(`${VAULT_URL}/${BUCKET_ID}/${LOCATION}`).reply(
+        204,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          'Upload-Offset': 12,
+          references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+        }
+      );
+
+      const file = Buffer.from('hello world!');
+      file.name = 'a';
+
+      const upload = new Upload(file, {
+        ...options,
+        pollingTime: 50, // so that Jest does not time out our test while waiting for retires
       });
 
-      it('should parse s3-references on upload accepted', () =>
+      const onErrorMock = jest.fn();
+      const errorMessage = new Error('AV scan timed out, max retries exceeded');
+
+      xhrMock.use('HEAD', new RegExp(LOCATION), {
+        status: 200,
+        headers: {
+          'Content-Length': '0',
+          'AV-Scan-Result': 'pending',
+          'Upload-Result': 'pending',
+        },
+      });
+
+      const startUpload = () =>
         new Promise((resolve) => {
-          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
-            201,
-            {},
-            {
-              'tus-resumable': '1.0.0',
-              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-              'transfer-encoding': 'chunked',
-              location: '4611142db7c049bbbe37376583a3f46b',
-            }
-          );
-
-          nock('https://dev.local')
-            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
-            .reply(
-              204,
-              {},
-              {
-                'tus-resumable': '1.0.0',
-                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-                'transfer-encoding': 'chunked',
-                'Upload-Offset': 12,
-                'AV-Scan-Result': 'accepted',
-                'Upload-Result': 'accepted',
-                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
-                's3-references': '["s3://files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
-              }
-            );
-
-          const file = Buffer.from('hello world!');
-          file.name = 'a';
-
-          const upload = new Upload(file, optionsWithOnPreStartPass);
-
-          upload.onSuccess.push(() => {
-            expect(upload.s3References).toBeDefined();
+          upload.onError.push(onErrorMock, () => {
             resolve();
           });
 
-          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
-            status: 200,
-            headers: {
-              'Content-Length': '0',
-              'AV-Scan-Result': 'accepted',
-              'Upload-Result': 'accepted',
-            },
-          });
-
           upload.start();
-        }));
+        });
 
-      it('should start upload if all the functions in onPreStart returns true', () =>
+      // Wait until upload finishes
+      await startUpload();
+
+      expect(onErrorMock).toHaveBeenCalledWith(errorMessage);
+    });
+
+    it('should pickup upload object on each array of functions in onPreStart', async () => {
+      const file = Buffer.from('hello world!');
+      const fileName = 'test';
+      file.name = fileName;
+
+      const mockFn = jest.fn();
+
+      const startUpload = () =>
         new Promise((resolve) => {
-          nock('https://dev.local').post('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/').reply(
-            201,
-            {},
-            {
-              'tus-resumable': '1.0.0',
-              'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-              'transfer-encoding': 'chunked',
-              location: '4611142db7c049bbbe37376583a3f46b',
-            }
-          );
+          const upload = new Upload(file, {
+            ...optionsWithOnPreStartFail,
+            onPreStart: [
+              (upload) => {
+                mockFn(upload.file.name);
+                return false;
+              },
+            ],
+          });
+          upload.start();
 
-          nock('https://dev.local')
-            .patch('/ms/api/availity/internal/core/vault/upload/v1/resumable/a/4611142db7c049bbbe37376583a3f46b')
-            .reply(
-              204,
-              {},
-              {
-                'tus-resumable': '1.0.0',
-                'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
-                'transfer-encoding': 'chunked',
-                'Upload-Offset': 12,
-                references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
-              }
-            );
+          resolve();
+        });
 
-          const file = Buffer.from('hello world!');
-          file.name = 'a';
+      await startUpload();
 
-          const upload = new Upload(file, optionsWithOnPreStartPass);
+      expect(mockFn).toHaveBeenCalledWith(fileName);
+    });
 
-          const success = jest.fn();
-          upload.onSuccess.push(success, () => {
-            expect(success).toHaveBeenCalled();
+    it('should parse references on upload accepted', async () => {
+      nock(BASE_URL).post(`${VAULT_URL}/${BUCKET_ID}/`).reply(
+        201,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          location: LOCATION,
+        }
+      );
+
+      nock(BASE_URL).patch(`${VAULT_URL}/${BUCKET_ID}/${LOCATION}`).reply(
+        204,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          'Upload-Offset': 12,
+          'AV-Scan-Result': 'accepted',
+          'Upload-Result': 'accepted',
+          references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+          's3-references': '["s3://files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+        }
+      );
+
+      const file = Buffer.from('hello world!');
+      file.name = 'a';
+
+      const onSuccessMock = jest.fn();
+
+      const upload = new Upload(file, options);
+
+      xhrMock.use('HEAD', new RegExp(LOCATION), {
+        status: 200,
+        headers: {
+          'Content-Length': '0',
+          'AV-Scan-Result': 'accepted',
+          'Upload-Result': 'accepted',
+        },
+      });
+
+      const startUpload = () =>
+        new Promise((resolve) => {
+          upload.onSuccess.push(onSuccessMock, () => {
             resolve();
           });
-
-          xhrMock.use('HEAD', /.*4611142db7c049bbbe37376583a3f46b.*/, {
-            status: 200,
-            headers: {
-              'Content-Length': '0',
-              'AV-Scan-Result': 'accepted',
-              'Upload-Result': 'accepted',
-            },
-          });
-
           upload.start();
-        }));
+        });
+
+      // Wait until upload finishes
+      await startUpload();
+
+      expect(upload.references[0]).toBe('/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504');
+    });
+
+    it('should parse s3-references on upload accepted', async () => {
+      nock(BASE_URL).post(`${VAULT_URL}/${BUCKET_ID}/`).reply(
+        201,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          location: LOCATION,
+        }
+      );
+
+      nock(BASE_URL).patch(`${VAULT_URL}/${BUCKET_ID}/${LOCATION}`).reply(
+        204,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          'Upload-Offset': 12,
+          'AV-Scan-Result': 'accepted',
+          'Upload-Result': 'accepted',
+          references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+          's3-references': '["s3://files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+        }
+      );
+
+      const file = Buffer.from('hello world!');
+      file.name = 'a';
+
+      const onSuccessMock = jest.fn();
+
+      const upload = new Upload(file, optionsWithOnPreStartPass);
+
+      xhrMock.use('HEAD', new RegExp(LOCATION), {
+        status: 200,
+        headers: {
+          'Content-Length': '0',
+          'AV-Scan-Result': 'accepted',
+          'Upload-Result': 'accepted',
+        },
+      });
+
+      const startUpload = () =>
+        new Promise((resolve) => {
+          upload.onSuccess.push(onSuccessMock, () => {
+            resolve();
+          });
+          upload.start();
+        });
+
+      // Wait until upload finishes
+      await startUpload();
+
+      expect(upload.s3References[0]).toBe('s3://files/105265/9ee77f6d-9779-4b96-a995-0df47657e504');
+    });
+
+    it('should start upload if all the functions in onPreStart returns true', async () => {
+      nock(BASE_URL).post(`${VAULT_URL}/${BUCKET_ID}/`).reply(
+        201,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          location: LOCATION,
+        }
+      );
+
+      nock(BASE_URL).patch(`${VAULT_URL}/${BUCKET_ID}/${LOCATION}`).reply(
+        204,
+        {},
+        {
+          'tus-resumable': '1.0.0',
+          'upload-expires': 'Fri, 12 Jan 2030 15:54:39 GMT',
+          'transfer-encoding': 'chunked',
+          'Upload-Offset': 12,
+          references: '["/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504"]',
+        }
+      );
+
+      const file = Buffer.from('hello world!');
+      file.name = 'a';
+
+      const upload = new Upload(file, optionsWithOnPreStartPass);
+
+      xhrMock.use('HEAD', new RegExp(LOCATION), {
+        status: 200,
+        headers: {
+          'Content-Length': '0',
+          'AV-Scan-Result': 'accepted',
+          'Upload-Result': 'accepted',
+        },
+      });
+
+      const mockOnSuccess = jest.fn();
+
+      const startUpload = () =>
+        new Promise((resolve) => {
+          upload.onSuccess.push(mockOnSuccess, () => {
+            resolve();
+          });
+          upload.start();
+        });
+
+      // Wait until upload finishes
+      await startUpload();
+
+      expect(mockOnSuccess).toHaveBeenCalled();
     });
   });
 });

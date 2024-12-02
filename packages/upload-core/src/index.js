@@ -1,4 +1,4 @@
-import tus from 'tus-js-client';
+import { Upload as TusUpload } from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
 
 // https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript/8831937#8831937
@@ -15,6 +15,10 @@ const hashCode = (str) => {
   return hash;
 };
 
+function isXhr(data) {
+  return !!data?.getResponseHeader;
+}
+
 const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
   chunkSize: 6e6, // 6MB (Max size from backend is 5MiB. Setting to 6MB to be safe)
@@ -24,7 +28,7 @@ const defaultOptions = {
   stripFileNamePathSegments: true,
   onPreStart: [],
   maxAvScanRetries: 10,
-  fingerprint(file, options = {}, callback) {
+  async fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
     for (const attribute of attributes) {
@@ -95,8 +99,8 @@ class Upload {
     };
     Object.assign(metadata, this.options.metadata);
 
-    const upload = new tus.Upload(this.file, {
-      resume: true,
+    const upload = new TusUpload(this.file, {
+      // resume: true,
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
       chunkSize: this.options.chunkSize,
       retryDelays: this.options.retryDelays,
@@ -116,28 +120,36 @@ class Upload {
         this.bytesSent = bytesSent;
         this.bytesTotal = bytesTotal;
         this.percentage = this.getPercentage();
-        for (const cb of this.onProgress) cb();
+
+        for (const handleOnProgress of this.onProgress) {
+          handleOnProgress();
+        }
       },
-      onSuccess: () => {
-        const xhr = this.upload._xhr;
-        this.bytesScanned = Number.parseInt(xhr.getResponseHeader('AV-Scan-Bytes'), 10) || 0;
+      onSuccess: (response) => {
+        const { headers } = response.lastResponse._response;
+
+        this.bytesScanned = Number.parseInt(headers['AV-Scan-Bytes'], 10) || 0;
         this.percentage = this.getPercentage();
 
-        const result = this.getResult(xhr);
+        const result = this.getResult(response.lastResponse._response);
 
         if (result.status === 'accepted') {
           this.percentage = 100;
           this.status = result.status;
           this.errorMessage = null;
-          const references = xhr.getResponseHeader('references');
-          if (references) {
-            this.references = JSON.parse(references);
+
+          if (headers.references) {
+            this.references = JSON.parse(headers.references);
           }
-          const s3References = xhr.getResponseHeader('s3-references');
-          if (s3References) {
-            this.s3References = JSON.parse(s3References);
+
+          if (headers['s3-references']) {
+            this.s3References = JSON.parse(headers['s3-references']);
           }
-          for (const cb of this.onSuccess) cb();
+
+          for (const handleOnSuccess of this.onSuccess) {
+            handleOnSuccess();
+          }
+
           return;
         }
 
@@ -149,8 +161,10 @@ class Upload {
         this.scan();
       },
     });
+
     this.upload = upload;
-    this.id = this.generateId();
+
+    this.generateId();
   }
 
   inStatusCategory(status, category) {
@@ -167,6 +181,7 @@ class Upload {
     xhr.setRequestHeader('X-Client-ID', this.options.clientId);
     xhr.setRequestHeader('X-Availity-Customer-ID', this.options.customerId);
     xhr.setRequestHeader('X-XSRF-TOKEN', this.getToken());
+
     if (data) {
       xhr.setRequestHeader(data.header, data.value);
     }
@@ -175,6 +190,7 @@ class Upload {
     xhr.onload = () => {
       if (!this.inStatusCategory(xhr.status, 200)) {
         this.setError('rejected', `Invalid status returned: ${xhr.status}`, xhr);
+
         return;
       }
 
@@ -185,12 +201,14 @@ class Upload {
 
       if (result.status === 'rejected') {
         this.setError(result.status, result.message);
+
         return;
       }
 
       if (result.status === 'encrypted' && this.waitForPassword) {
         this.setError(result.status, result.message);
         clearTimeout(this.timeoutId);
+
         return;
       }
 
@@ -198,11 +216,22 @@ class Upload {
         this.percentage = 100;
         this.status = result.status;
         this.errorMessage = null;
+
         const references = xhr.getResponseHeader('references');
+        const s3References = xhr.getResponseHeader('s3-references');
+
         if (references) {
           this.references = JSON.parse(references);
         }
-        for (const cb of this.onSuccess) cb();
+
+        if (s3References) {
+          this.s3References = JSON.parse(s3References);
+        }
+
+        for (const handleOnSuccess of this.onSuccess) {
+          handleOnSuccess();
+        }
+
         return;
       }
 
@@ -210,7 +239,9 @@ class Upload {
         this.setError(result.status, result.message);
       }
 
-      for (const cb of this.onProgress) cb();
+      for (const handleOnProgress of this.onProgress) {
+        handleOnProgress();
+      }
 
       if (this.avScanRetries > this.options.maxAvScanRetries) {
         this.setError('rejected', 'AV scan timed out, max retries exceeded');
@@ -235,6 +266,7 @@ class Upload {
   getPercentage() {
     const processedBytes = this.bytesSent + this.bytesScanned;
     const combinedTotalBytes = this.bytesTotal * 2;
+
     return (processedBytes / combinedTotalBytes) * 100;
   }
 
@@ -247,9 +279,9 @@ class Upload {
       return;
     }
 
-    // if cb condition fails, push failure onto array
-    for (const cb of this.onPreStart) {
-      const validationResult = cb(this);
+    // if callback condition fails, push failure onto array
+    for (const handleOnPreStart of this.onPreStart) {
+      const validationResult = handleOnPreStart(this);
       this.preStartValidationResults.push(validationResult); // some T/F value
     }
 
@@ -264,14 +296,19 @@ class Upload {
     this.upload.start();
   }
 
-  generateId() {
+  async generateId() {
     const { fingerprint } = this.options;
-    return fingerprint(this.file, this.options).replaceAll(/[^\dA-Za-z-]/g, '');
+    const id = await fingerprint(this.file, this.options);
+
+    this.id = id.replaceAll(/[^\dA-Za-z-]/g, '');
+
+    return this.id;
   }
 
-  fingerprint(file, options = {}, callback) {
+  async fingerprint(file, options = {}, callback) {
     const attributes = [file.name, file.type, file.size, file.lastModified];
     let attributesKey = 'tus-';
+
     for (const attribute of attributes) {
       if (attribute) {
         attributesKey += `${attribute}-`;
@@ -309,6 +346,7 @@ class Upload {
       if (!this.file.name) {
         return false;
       }
+
       const fileName = this.file.name;
       const fileExt = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
 
@@ -329,6 +367,7 @@ class Upload {
     if (this.options.allowedFileNameCharacters) {
       const fileName = this.file.name.substring(0, this.file.name.lastIndexOf('.'));
       const regExp = new RegExp(`([^${this.options.allowedFileNameCharacters}])`, 'g');
+
       if (fileName && fileName.match(regExp) !== null) {
         this.setError('rejected', 'File name contains characters not allowed');
         return false;
@@ -350,23 +389,21 @@ class Upload {
     return fileName;
   }
 
-  getResult(xhr) {
-    const scanResult = xhr.getResponseHeader('AV-Scan-Result');
-    const uploadResult = xhr.getResponseHeader('Upload-Result');
-    const decryptResult = xhr.getResponseHeader('Decryption-Result');
-    const msg = xhr.getResponseHeader('Upload-Message');
+  getScanResult(scanResult, uploadResult, decryptResult, msg) {
     if (scanResult === 'rejected') {
       return { status: scanResult, message: msg || 'Failed AV scan' };
     }
 
     if (uploadResult === 'rejected') {
       this.waitForPassword = true;
+
       if (decryptResult === 'rejected') {
         return {
           status: uploadResult,
           message: msg || 'Maximum password attempts reached',
         };
       }
+
       return { status: uploadResult, message: msg || 'File upload rejected' };
     }
 
@@ -375,10 +412,12 @@ class Upload {
       if (!this.waitForPassword && (decryptResult === null || decryptResult === 'pending')) {
         return { status: 'decrypting', message: msg || 'Decrypting file' };
       }
+
       if (decryptResult === 'rejected') {
         this.waitForPassword = true;
         return { status: uploadResult, message: msg || 'Incorrect password' };
       }
+
       return {
         status: uploadResult,
         message: msg || 'Encrypted files require a password',
@@ -392,29 +431,52 @@ class Upload {
     return { status: 'pending', message: msg || '' };
   }
 
-  setError(status, message, err) {
+  getResult(response) {
+    if (isXhr(response)) {
+      const scanResult = response.getResponseHeader('AV-Scan-Result');
+      const uploadResult = response.getResponseHeader('Upload-Result');
+      const decryptResult = response.getResponseHeader('Decryption-Result');
+      const msg = response.getResponseHeader('Upload-Message');
+
+      return this.getScanResult(scanResult, uploadResult, decryptResult, msg);
+    }
+
+    const scanResult = response.headers['av-scan-result'];
+    const uploadResult = response.headers['upload-result'];
+    const decryptResult = response.headers['decryption-result'];
+    const msg = response.headers['upload-message'];
+
+    return this.getScanResult(scanResult, uploadResult, decryptResult, msg);
+  }
+
+  setError(status, message, error) {
     this.status = status;
     try {
-      this.parseErrorMessage(message, err);
+      this.parseErrorMessage(message, error);
     } catch {
       /* the error callback should always be called */
     }
 
-    for (const cb of this.onError) cb(err || new Error(this.errorMessage));
+    for (const handleOnError of this.onError) {
+      handleOnError(error || new Error(this.errorMessage));
+    }
   }
 
-  parseErrorMessage(message, err) {
-    if (err) {
-      let msg = err.originalRequest.getResponseHeader('Upload-Message');
+  parseErrorMessage(message, error) {
+    if (error) {
+      let msg = error.originalRequest.getResponseHeader('Upload-Message');
+
       if (!msg) {
-        const temp = err.message.match(/response\Wtext:\W(.*)\)/);
+        const temp = error.message.match(/response\Wtext:\W(.*)\)/);
         if (temp && temp.length === 2) {
           [, msg] = temp;
         }
       }
+
       if (!msg) {
         msg = message;
       }
+
       this.errorMessage = msg;
     } else {
       this.errorMessage = message;

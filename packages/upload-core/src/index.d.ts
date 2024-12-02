@@ -1,4 +1,4 @@
-import type { Upload as TusUpload, UploadOptions } from '@types/tus-js-client';
+import type { Upload as TusUpload, UploadOptions } from 'tus-js-client';
 
 export interface Options extends UploadOptions {
   bucketId: string;
@@ -66,7 +66,7 @@ declare class Upload {
 
   fingerprint(file: File, options?: Options, callback?: (arg: null, key: string) => string): string;
 
-  generateId(): string;
+  generateId(): Promise<string>;
 
   getPercentage(): number;
 

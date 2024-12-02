@@ -21,13 +21,14 @@
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "browser": "./dist/index.js",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "engines": {
     "node": "^18.0.0 || ^20.0.0"
   },
   "scripts": {
-    "build": "tsup src/index.js --format cjs --dts",
-    "dev": "tsup src/index.js --format cjs --watch --dts",
+    "build": "tsup src/index.js --format esm,cjs --dts",
+    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
@@ -35,10 +36,9 @@
   },
   "dependencies": {
     "@availity/resolve-url": "workspace:*",
-    "tus-js-client": "1.7.1"
+    "tus-js-client": "4.2.3"
   },
   "devDependencies": {
-    "@types/tus-js-client": "^1.7.0",
     "tsup": "^7.2.0",
     "typescript": "^5.5.4"
   },
