@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0-alpha.1](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.0...@availity/upload-core@7.0.0-alpha.1) (2024-12-09)
+
+
+### Features
+
+* **upload-core:** convert to ts ([e8f2b6c](https://github.com/Availity/sdk-js/commit/e8f2b6c3b30aeec8c26d306035a876ddcc0202fc))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** update to the latest version of tus-js-client
+
+
+
 # [7.0.0-alpha.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.3...@availity/upload-core@7.0.0-alpha.0) (2024-12-02)
 
 
