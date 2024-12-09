@@ -35,7 +35,7 @@ describe('AvRegionsApi', () => {
     const region = 'FL';
 
     api.setPageBust = jest.fn();
-    api.http = jest.fn().mockResolvedValue({data: {id: region}});
+    api.http = jest.fn().mockResolvedValue({ data: { id: region } });
 
     const resp = await api.put(region);
 

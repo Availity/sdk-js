@@ -17,7 +17,7 @@
     "strict": true,
     "strictNullChecks": true,
     "strictFunctionTypes": false,
-    "lib": ["dom", "ES2015"],
+    "lib": ["dom", "ESNext"],
     "module": "ESNext",
     "target": "ES6",
     "jsx": "react-jsx",

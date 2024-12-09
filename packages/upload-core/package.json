@@ -27,18 +27,20 @@
     "node": "^18.0.0 || ^20.0.0"
   },
   "scripts": {
-    "build": "tsup src/index.js --format esm,cjs --dts",
-    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "publish": "yarn npm publish --tolerate-republish --access public"
+    "publish": "yarn npm publish --tolerate-republish --access public",
+    "publish:canary": "yarn npm publish --access public --tag canary"
   },
   "dependencies": {
     "@availity/resolve-url": "workspace:*",
     "tus-js-client": "4.2.3"
   },
   "devDependencies": {
+    "msw": "2.3.5",
     "tsup": "^7.2.0",
     "typescript": "^5.5.4"
   },

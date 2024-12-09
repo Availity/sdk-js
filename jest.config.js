@@ -20,5 +20,5 @@ module.exports = {
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
-  setupFiles: ['../../jest.polyfills.js']
+  setupFiles: ['../../jest.polyfills.js'],
 };
