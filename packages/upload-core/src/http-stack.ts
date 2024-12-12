@@ -105,7 +105,6 @@ class Request implements HttpRequest {
 
       return _response;
     } catch (error) {
-      console.log('error:', error);
       if ((error as Error).name === 'AbortError') {
         // Handle abort case
         throw new Error('Request aborted');

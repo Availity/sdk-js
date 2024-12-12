@@ -201,10 +201,13 @@ describe('upload-core', () => {
       const upload = new Upload(file, { ...options, retryDelays: [] });
 
       const mockOnSuccess = jest.fn();
+      const mockOnProgress = jest.fn();
 
       const startUpload = () =>
         new Promise<void>((resolve, reject) => {
           upload.onError.push(reject);
+
+          upload.onProgress.push(mockOnProgress);
 
           upload.onSuccess.push(mockOnSuccess, resolve);
 
@@ -214,6 +217,7 @@ describe('upload-core', () => {
       // Wait until upload finishes
       await startUpload();
 
+      expect(mockOnProgress).toHaveBeenCalled();
       expect(mockOnSuccess).toHaveBeenCalled();
     });
 

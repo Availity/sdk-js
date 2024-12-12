@@ -170,6 +170,7 @@ class Upload {
         this.percentage = this.getPercentage();
 
         const result = this.getResult(response.lastResponse);
+        console.log('onSuccess result:', result);
 
         if (result.status === 'accepted') {
           this.percentage = 100;
@@ -179,13 +180,16 @@ class Upload {
 
           const references = response.lastResponse.getHeader('references');
           const s3References = response.lastResponse.getHeader('s3-references');
+          console.log('onSuccess s3References getHeader:', s3References);
 
           if (references) {
             this.references = JSON.parse(references);
           }
 
           if (s3References) {
+            console.log('onSuccess this.s3References pre:', this.s3References);
             this.s3References = JSON.parse(s3References);
+            console.log('onSuccess this.s3References post:', this.s3References);
           }
 
           for (const handleOnSuccess of this.onSuccess) {
@@ -237,8 +241,6 @@ class Upload {
 
       const response = await request.send();
 
-      console.log(response.getStatus());
-
       // Check response code
       if (!this.inStatusCategory(response.getStatus(), 200)) {
         this.setError('rejected', `Invalid status returned: ${response.getStatus()}`);
@@ -273,13 +275,16 @@ class Upload {
 
         const references = response.getHeader('references');
         const s3References = response.getHeader('s3-references');
+        console.log('scan s3References getHeader:', s3References);
 
         if (references) {
           this.references = JSON.parse(references);
         }
 
         if (s3References) {
+          console.log('scan this.s3References pre:', this.s3References);
           this.s3References = JSON.parse(s3References);
+          console.log('scan this.s3References pre:', this.s3References);
         }
 
         for (const handleOnSuccess of this.onSuccess) {
@@ -297,7 +302,6 @@ class Upload {
         handleOnProgress();
       }
     } catch (error: unknown) {
-      console.log('catch error:', { ...(error as Error) });
       this.setError('rejected', 'Network Error', error as Error);
       this.error = error as Error;
     }
@@ -432,6 +436,9 @@ class Upload {
     const uploadResult = response.getHeader('upload-result');
     const decryptResult = response.getHeader('decryption-result');
     const msg = response.getHeader('upload-message');
+
+    console.log('getResult response', response);
+    console.log('getResult', { scanResult, uploadResult, decryptResult });
 
     if (scanResult === 'rejected') {
       return { status: scanResult, message: msg || 'Failed AV scan' };

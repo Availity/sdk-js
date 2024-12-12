@@ -16,7 +16,7 @@ module.exports = {
     },
     jsdom: true,
   },
-  coverageReporters: ['json'],
+  coverageReporters: ['json', 'html'],
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
