@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0-alpha.3](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.2...@availity/upload-core@7.0.0-alpha.3) (2024-12-12)
+
+
+### Features
+
+* **upload-core:** add logging ([faafb19](https://github.com/Availity/sdk-js/commit/faafb191bb1fe008e8ef28295f93ef4f5434061f))
+
+
+
 # [7.0.0-alpha.2](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.1...@availity/upload-core@7.0.0-alpha.2) (2024-12-12)
 
 
