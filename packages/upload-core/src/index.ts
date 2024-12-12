@@ -253,6 +253,7 @@ class Upload {
       this.percentage = this.getPercentage();
 
       const result = this.getResult(response);
+      console.log('scan result:', result);
 
       if (result.status === 'rejected') {
         this.setError(result.status, result.message);
