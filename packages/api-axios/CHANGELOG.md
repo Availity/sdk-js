@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.5](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.4...@availity/api-axios@9.0.5) (2024-12-13)
+
+
+### Bug Fixes
+
+* **api-axios:** all logic math.min ([a722c65](https://github.com/Availity/sdk-js/commit/a722c65b36b405382a0a1d1273b5e358f9f3d5e9))
+* **api-axios:** default 1 if response.limit not present on all ([0f2ca5d](https://github.com/Availity/sdk-js/commit/0f2ca5d4c53eceb7d184b6c62a1295ece9436acf))
+* **api-axios:** use request.length if response.limit not present on all ([bd7812d](https://github.com/Availity/sdk-js/commit/bd7812d9f30a561f15c5803b9a0b87b52326d51d))
+* **api-axios:** use request.limit if response.limit not present on all ([0994453](https://github.com/Availity/sdk-js/commit/0994453ffdf54f4d3036d40fa5ceab1873a565b1))
+* use request limit if response limit is not present for all ([2cef9cb](https://github.com/Availity/sdk-js/commit/2cef9cb64b0cc360cf146da7277e67b79f96cef5))
+
+
+
 ## [9.0.4](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.3...@availity/api-axios@9.0.4) (2024-10-23)
 
 
