@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0-alpha.5](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.4...@availity/upload-core@7.0.0-alpha.5) (2024-12-13)
+
+
+### Features
+
+* **upload-core:** do not auto generate id ([f6f2b26](https://github.com/Availity/sdk-js/commit/f6f2b26979609f552861aca629589089ae540edb))
+
+
+
 # [7.0.0-alpha.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.3...@availity/upload-core@7.0.0-alpha.4) (2024-12-12)
 
 
