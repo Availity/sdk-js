@@ -287,7 +287,7 @@ export default class AvApi {
     const response = await this.query(config);
 
     const key = this.getQueryResultKey(response.data);
-    const limit = response.data.limit || config.limit;
+    const limit = response.data.limit || config?.limit;
     const totalPages = Math.ceil(response.data.totalCount / limit);
     const result = response.data[key] || [];
 
