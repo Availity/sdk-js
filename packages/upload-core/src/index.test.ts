@@ -199,6 +199,7 @@ describe('upload-core', () => {
 
       // @ts-expect-error allow error for testing
       const upload = new Upload(file, { ...options, retryDelays: [] });
+      await upload.generateId();
 
       const mockOnSuccess = jest.fn();
       const mockOnProgress = jest.fn();
@@ -226,14 +227,13 @@ describe('upload-core', () => {
 
       const mockOnError = jest.fn();
 
-      const startUpload = () =>
-        new Promise<Upload>((resolve, reject) => {
-          // @ts-expect-error allow error for testing
-          const upload = new Upload(file, { ...options, bucketId: 'err', retryDelays: [] });
+      // @ts-expect-error allow error for testing
+      const upload = new Upload(file, { ...options, bucketId: 'err', retryDelays: [] });
+      await upload.generateId();
 
-          upload.onError.push(mockOnError, () => {
-            resolve(upload);
-          });
+      const startUpload = () =>
+        new Promise<void>((resolve, reject) => {
+          upload.onError.push(mockOnError, () => resolve());
 
           upload.onSuccess.push(reject);
 
@@ -241,7 +241,7 @@ describe('upload-core', () => {
         });
 
       // Wait until upload finishes
-      const upload = await startUpload();
+      await startUpload();
 
       expect(mockOnError).toHaveBeenCalled();
       expect(upload.errorMessage).toContain('response code: 400');
@@ -257,6 +257,7 @@ describe('upload-core', () => {
         pollingTime: 10, // so that Jest does not time out our test while waiting for retires
         retryDelays: [],
       });
+      await upload.generateId();
 
       const onErrorMock = jest.fn();
       const errorMessage = new Error('AV scan timed out, max retries exceeded');
@@ -293,7 +294,9 @@ describe('upload-core', () => {
         ],
       });
 
-      await upload.start();
+      await upload.generateId();
+
+      upload.start();
 
       expect(mockFn).toHaveBeenCalledWith(fileName);
     });
@@ -305,6 +308,7 @@ describe('upload-core', () => {
 
       // @ts-expect-error allow error for mock file
       const upload = new Upload(file, options);
+      await upload.generateId();
 
       const startUpload = () =>
         new Promise<void>((resolve, reject) => {
@@ -322,20 +326,19 @@ describe('upload-core', () => {
     it('should parse s3-references on upload accepted', async () => {
       const file = readTestFile('testFile.txt');
 
-      const startUpload = () =>
-        new Promise<Upload>((resolve, reject) => {
-          // @ts-expect-error allow error for mock file
-          const upload = new Upload(file, options);
+      // @ts-expect-error allow error for mock file
+      const upload = new Upload(file, options);
+      await upload.generateId();
 
+      const startUpload = () =>
+        new Promise<void>((resolve, reject) => {
           upload.onError.push(reject);
-          upload.onSuccess.push(() => {
-            resolve(upload);
-          });
+          upload.onSuccess.push(() => resolve());
           upload.start();
         });
 
       // Wait until upload finishes
-      const upload = await startUpload();
+      await startUpload();
 
       expect(upload.s3References[0]).toMatch(/^s3:\/\/([^/]+)\/(.+)$/);
     });
@@ -345,13 +348,14 @@ describe('upload-core', () => {
 
       const mockOnSuccess = jest.fn();
 
-      const startUpload = () =>
-        new Promise<void>((resolve, reject) => {
-          // @ts-expect-error allow error for mock file
-          const upload = new Upload(file, { ...options, onPreStart: [() => true, () => true] });
+      // @ts-expect-error allow error for mock file
+      const upload = new Upload(file, { ...options, onPreStart: [() => true, () => true] });
+      await upload.generateId();
 
+      const startUpload = () =>
+        new Promise<Upload>((resolve, reject) => {
           upload.onError.push(reject);
-          upload.onSuccess.push(mockOnSuccess, resolve);
+          upload.onSuccess.push(mockOnSuccess, () => resolve(upload));
           upload.start();
         });
 
@@ -369,8 +373,16 @@ describe('upload-core', () => {
         ...options,
         onPreStart: [() => true, () => false, () => true],
       });
+      await upload.generateId();
 
-      await upload.start();
+      const startUpload = () =>
+        new Promise((resolve, reject) => {
+          upload.onError.push(() => resolve(upload));
+          upload.onSuccess.push(reject);
+          upload.start();
+        });
+
+      await startUpload();
 
       expect(upload.status).toEqual('rejected');
       expect(upload.errorMessage).toEqual('preStart validation failed');

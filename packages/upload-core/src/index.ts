@@ -205,8 +205,6 @@ class Upload {
     });
 
     this.upload = upload;
-
-    this.generateId();
   }
 
   inStatusCategory(status: number, category: number) {
@@ -324,14 +322,18 @@ class Upload {
     return document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, '$1');
   }
 
-  async start() {
+  start() {
     // Abort on invalid file
     if (!this.isValidFile()) {
       return;
     }
 
     if (!this.id) {
-      this.id = await this.generateId();
+      this.setError(
+        'rejected',
+        'No id set. Call `generateId` or set one manually with `setId` before calling `start`.'
+      );
+      return;
     }
 
     // Run validation. Save results in an array
@@ -350,11 +352,15 @@ class Upload {
     this.upload.start();
   }
 
+  setId(id: string) {
+    this.id = id;
+  }
+
   async generateId() {
     const { fingerprint } = this.options;
     const id = await fingerprint(this.file, this.options);
 
-    this.id = id.replaceAll(/[^\dA-Za-z-]/g, '');
+    this.setId(id.replaceAll(/[^\dA-Za-z-]/g, ''));
 
     return this.id;
   }
