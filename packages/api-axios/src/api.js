@@ -287,10 +287,9 @@ export default class AvApi {
     const response = await this.query(config);
 
     const key = this.getQueryResultKey(response.data);
-    const length = response.data?.length;
-    const limit = response.data.limit || length <= response.data.totalCount ? Math.min(length, response.data.totalCount) || 1 : 1;
-    const totalPages = Math.ceil(response.data.totalCount / limit);
     const result = response.data[key] || [];
+    const limit = response.data.limit || result.length <= response.data.totalCount ? Math.min(result.length, response.data.totalCount) || 1 : 1;
+    const totalPages = Math.ceil(response.data.totalCount / limit);
 
     if (totalPages > 1) {
       const otherPages = [];
