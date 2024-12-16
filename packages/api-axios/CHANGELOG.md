@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.6](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.5...@availity/api-axios@9.0.6) (2024-12-16)
+
+
+### Bug Fixes
+
+* **api-axios:** all logic for limit ([e7e83fb](https://github.com/Availity/sdk-js/commit/e7e83fbf699fed973b3d04ef77d8775a5565fc21))
+
+
+
 ## [9.0.5](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.4...@availity/api-axios@9.0.5) (2024-12-13)
 
 
