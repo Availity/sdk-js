@@ -76,6 +76,7 @@ class Request implements HttpRequest {
         headers: this._headers,
         body,
         signal: this._abortController.signal,
+        credentials: 'include',
         // Add duplex: 'half' if you need to stream request body
       });
 
