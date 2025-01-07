@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0-alpha.6](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.5...@availity/upload-core@7.0.0-alpha.6) (2025-01-07)
+
+
+### Bug Fixes
+
+* add credentials to fetch ([5d24cba](https://github.com/Availity/sdk-js/commit/5d24cba12ee96e0c73c86046dc8a9e69b4a5a846))
+
+
+
 # [7.0.0-alpha.5](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.0-alpha.4...@availity/upload-core@7.0.0-alpha.5) (2024-12-13)
 
 
