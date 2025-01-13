@@ -429,7 +429,7 @@ __metadata:
     prettier: ^3.3.3
     ts-jest: ^27.1.5
     typescript: 5.5.4
-    undici: ^6.19.8
+    undici: ^7.2.1
     xhr-mock: ^2.5.1
   languageName: unknown
   linkType: soft
@@ -20163,10 +20163,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^6.19.8":
-  version: 6.19.8
-  resolution: "undici@npm:6.19.8"
-  checksum: 2f812769992a187d9c55809b6943059c0bb1340687a0891f769de02101342dded0b9c8874cd5af4a49daaeba8284101d74a1fbda4de04c604ba7a5f6190b9ea2
+"undici@npm:^7.2.1":
+  version: 7.2.1
+  resolution: "undici@npm:7.2.1"
+  checksum: 794af34a40ef1a27dca44070e5bb9e69ce1221fb5f1690b4a21d91654e616064a96f7d7867b4df6e32e78c5e90cd63ebd5850a6a90321c2e60efb77aa3fc5e80
   languageName: node
   linkType: hard
 
