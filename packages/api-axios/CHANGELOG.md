@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.7](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.6...@availity/api-axios@9.0.7) (2025-02-04)
+
+
+### Bug Fixes
+
+* **api-axios:** allow absolute urls ([b85c82f](https://github.com/Availity/sdk-js/commit/b85c82f5e1d4fb3e70d49a3ed66d0bb5016df28b))
+
+
+
 ## [9.0.6](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.5...@availity/api-axios@9.0.6) (2024-12-16)
 
 
