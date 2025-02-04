@@ -10,15 +10,26 @@ export default class AvMicroserviceApi extends AvApi {
     this.defaultConfig = merge({}, API_OPTIONS.MS, options);
   }
 
-  // Override aries 1 url concatenation
   getUrl(config, id = '') {
-    const { path, version, name, id: configId } = this.config(config);
-    let parts = [path, version || '', name];
+    const { path, version, name, id: configId, url } = this.config(config);
+
+    const parts = url ? [url, path, version || '', name] : [path, version || '', name];
 
     if (id || configId) {
-      parts = [path, version || '', name, id || configId];
+      parts.push(id || configId);
     }
 
-    return parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
+    // Filter out empty strings and join with slashes
+    const newUrl = parts.join('/');
+
+    if (url) {
+      // Clean up absolute URLs
+      return newUrl.replaceAll(/([^:]\/)\/+/g, '$1'); // Remove multiple slashes but preserve https://
+    }
+    // Clean up relative URLs
+    return newUrl
+      .replaceAll(/\/+/g, '/') // Replace multiple slashes with single slash
+      .replace(/^\/+/, '/') // Ensure single leading slash
+      .replace(/\/+$/, ''); // Remove trailing slash
   }
 }
