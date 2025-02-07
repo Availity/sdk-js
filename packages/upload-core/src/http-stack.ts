@@ -90,6 +90,7 @@ class Request implements HttpRequest {
           let value;
 
           while (!done) {
+            // eslint-disable-next-line no-await-in-loop
             ({ value, done } = await reader.read());
             if (done) {
               break;
