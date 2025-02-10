@@ -2,6 +2,32 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.4...@availity/upload-core@7.0.0) (2025-02-10)
+
+
+### Bug Fixes
+
+* add credentials to fetch ([5d24cba](https://github.com/Availity/sdk-js/commit/5d24cba12ee96e0c73c86046dc8a9e69b4a5a846))
+
+
+### Features
+
+* **upload-core:** add logging ([faafb19](https://github.com/Availity/sdk-js/commit/faafb191bb1fe008e8ef28295f93ef4f5434061f))
+* **upload-core:** add logging ([00b4aad](https://github.com/Availity/sdk-js/commit/00b4aadb2134638ec2300953b44991f597493c73))
+* **upload-core:** convert to ts ([e8f2b6c](https://github.com/Availity/sdk-js/commit/e8f2b6c3b30aeec8c26d306035a876ddcc0202fc))
+* **upload-core:** do not auto generate id ([f6f2b26](https://github.com/Availity/sdk-js/commit/f6f2b26979609f552861aca629589089ae540edb))
+* **upload-core:** remove logging ([5749a93](https://github.com/Availity/sdk-js/commit/5749a9355f17993878ddb08262dc268d0ea2f015))
+* **upload-core:** upgrade to tus-js-client v4 ([6a19dfd](https://github.com/Availity/sdk-js/commit/6a19dfdc9cfed596647bd44d0bcdc2bbe6242ebb))
+* **upload-core:** upgrade to tus-js-client v4 ([c1babe8](https://github.com/Availity/sdk-js/commit/c1babe8e7848df5a0413cb1bc4b35074f12d8064))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** update to the latest version of tus-js-client
+* **upload-core:** update to the latest version of tus-js-client
+* **upload-core:** update to the latest version of tus-js-client
+
+
 
 ## [6.1.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@6.1.3...@availity/upload-core@6.1.4) (2024-11-21)
 
