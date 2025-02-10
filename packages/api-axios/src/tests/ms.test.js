@@ -11,6 +11,13 @@ describe('AvMicroserviceAPi', () => {
   });
 
   test('url should be correct', () => {
-    expect(ms.getUrl(ms.config())).toBe('/ms/api/availity/internal/urlPath');
+    expect(ms.getRequestUrl()).toBe('/ms/api/availity/internal/urlPath');
+  });
+
+  test('should use an absolute url', () => {
+    const api = new AvMicroserviceApi({ url: 'http://test-apps.com' });
+
+    expect(api.getRequestUrl()).toBe('http://test-apps.com/ms/api/availity/internal/');
+    expect(api.getUrl({ id: 'serviceName' })).toBe('http://test-apps.com/ms/api/availity/internal/serviceName');
   });
 });

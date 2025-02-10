@@ -2,6 +2,27 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.7](https://github.com/Availity/sdk-js/compare/@availity/native-form@6.0.6...@availity/native-form@6.0.7) (2025-02-04)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `6.0.6`
+
+
+## [6.0.6](https://github.com/Availity/sdk-js/compare/@availity/native-form@6.0.5...@availity/native-form@6.0.6) (2024-12-16)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `6.0.5`
+
+
+## [6.0.5](https://github.com/Availity/sdk-js/compare/@availity/native-form@6.0.4...@availity/native-form@6.0.5) (2024-12-13)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `6.0.4`
+
+
 ## [6.0.4](https://github.com/Availity/sdk-js/compare/@availity/native-form@6.0.3...@availity/native-form@6.0.4) (2024-10-23)
 
 ### Dependency Updates
