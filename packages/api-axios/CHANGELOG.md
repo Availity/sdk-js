@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [10.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.7...@availity/api-axios@10.0.0) (2025-02-10)
+
+
+### Features
+
+* **upload-core:** convert to ts ([e8f2b6c](https://github.com/Availity/sdk-js/commit/e8f2b6c3b30aeec8c26d306035a876ddcc0202fc))
+
+
+### BREAKING CHANGES
+
+* **upload-core:** update to the latest version of tus-js-client
+
+
+
 ## [9.0.7](https://github.com/Availity/sdk-js/compare/@availity/api-axios@9.0.6...@availity/api-axios@9.0.7) (2025-02-04)
 
 
