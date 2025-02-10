@@ -6,6 +6,15 @@ Wrapper for tus-js-client
 
 [![Version](https://img.shields.io/npm/v/@availity/upload-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/upload-core)
 
+`@availity/upload-core` is a powerful wrapper for the `tus-js-client` library, providing a high-level API for managing file uploads using the tus protocol. This package simplifies the process of initiating, monitoring, and handling file uploads in JavaScript applications. Key features include:
+
+- Easy-to-use Upload class for managing file uploads
+- Progress tracking and real-time status updates
+- Robust error handling and retry mechanisms
+- File validation (size, type, name)
+- Support for encrypted file uploads
+- Customizable upload options and callbacks
+
 ## Install
 
 ### NPM
@@ -22,22 +31,62 @@ yarn add @availity/upload-core
 
 ## Usage
 
-### Required params
+### Basic Usage
 
-- bucketId
-- customerId
-- clientId
+```js
+import Upload from '@availity/upload-core';
 
-### Optional params
+const file = new File(['file content'], 'example.pdf', {
+  type: 'application/pdf',
+});
 
-- fileTypes: string array of file extensions to allow (error thrown if file.name does not contain one of the types)
-- maxSize: maximum size allowed per file
-- metadata: object mapping metadata keys and values to add to the TUS upload
-- allowedFileNameCharacters: restrict the file name characters to a regex set
-- pollingTime: custom av scan polling time (default 5000ms)
-- maxAvScanRetries: amount of times to poll for av scan result before error is returned (default 10)
+const upload = new Upload(file, {
+  bucketId: 'YOUR_BUCKET_ID',
+  customerId: 'YOUR_CUSTOMER_ID',
+  clientId: 'YOUR_CLIENT_ID',
+});
 
-### Upload object variables that can be set before call to start().
+// Add event listeners
+upload.onProgress.push(() => {
+  console.log(`Upload progress: ${upload.percentage}%`);
+});
+
+upload.onSuccess.push(() => {
+  console.log('Upload completed successfully!');
+  console.log('File references:', upload.references);
+  console.log('S3 references:', upload.s3References);
+});
+
+upload.onError.push((error) => {
+  console.error('Upload failed:', error.message);
+});
+
+// Generate unique ID and start upload
+await upload.generateId();
+upload.start();
+```
+
+#### Required params
+
+| Parameter  | Type   | Description                         |
+| ---------- | ------ | ----------------------------------- |
+| bucketId   | string | The target bucket                   |
+| customerId | string | The customer id of the organization |
+| clientId   | string | The client id for api calls         |
+
+#### Optional params
+
+| Parameter                 | Type    | Default | Description                                    |
+| ------------------------- | ------- | ------- | ---------------------------------------------- |
+| fileTypes                 | string  |         | Allowed file extensions (e.g., '.pdf', '.png') |
+| maxSize                   | number  |         | Maximum file size in bytes                     |
+| metadata                  | object  | {}      | Additional metadata for the upload             |
+| allowedFileNameCharacters | string  |         | Regex pattern for allowed filename characters  |
+| pollingTime               | number  | 5000    | Interval for virus scan polling (ms)           |
+| maxAvScanRetries          | number  | 10      | Maximum retries for virus scan check           |
+| stripFileNamePathSegments | boolean | true    | Remove path segments from filename             |
+
+#### Upload event handlers
 
 **Each one of these should be an array of functions**
 
@@ -46,19 +95,131 @@ yarn add @availity/upload-core
 - **onSuccess**: each function is called once if there is a success.
 - **onError**: each function is called once if there is an error.
 
-```js
-import Upload from '@availity/upload-core';
+### Advanced Usage Examples
 
+#### File Type Restrictions
+
+```js
 const upload = new Upload(file, {
-  bucketId: 'a',
-  customerId: 'b',
-  clientId: 'c',
-  fileTypes: ['.png', '.pdf'],
-  maxSize: 3e8,
-  metadata: { key: 'value' },
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
+  fileTypes: ['.pdf', '.doc', '.docx'],
+  maxSize: 10 * 1024 * 1024, // 10MB
   allowedFileNameCharacters: '_a-zA-Z0-9 ', // alphanumeric, spaces, underscore
-  pollingTime: 1000,
+});
+```
+
+#### Custom Metadata
+
+```js
+const upload = new Upload(file, {
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
+  metadata: {
+    'document-type': 'medical-record',
+    'patient-id': '12345',
+    department: 'cardiology',
+  },
+});
+```
+
+#### Handling Encrypted Files
+
+```js
+const upload = new Upload(file, {
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
 });
 
-upload.start();
+upload.onError.push((error) => {
+  if (upload.status === 'encrypted') {
+    // Prompt user for password
+    const password = promptUserForPassword();
+    upload.sendPassword(password);
+  } else {
+    console.error('Upload failed:', error.message);
+  }
+});
+```
+
+#### Progress Tracking
+
+```js
+const upload = new Upload(file, {
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
+});
+
+upload.onProgress.push(() => {
+  const uploadedSize = upload.bytesSent;
+  const totalSize = upload.bytesTotal;
+  const scannedBytes = upload.bytesScanned;
+  const percentage = upload.percentage;
+
+  console.log(`Uploaded: ${uploadedSize}/${totalSize} bytes`);
+  console.log(`Scanned: ${scannedBytes} bytes`);
+  console.log(`Overall progress: ${percentage}%`);
+});
+```
+
+#### Pre-start Validation
+
+```js
+const upload = new Upload(file, {
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
+});
+
+// Add custom validation before upload starts
+upload.onPreStart.push((upload) => {
+  if (upload.file.size === 0) {
+    console.error('Cannot upload empty file');
+    return false;
+  }
+  return true;
+});
+```
+
+### Upload Status Values
+
+The `upload.status` can be one of the following:
+
+- `pending`: Initial state
+- `accepted`: Upload completed successfully
+- `rejected`: Upload failed
+- `encrypted`: File is encrypted and requires a password
+- `decrypting`: File is being decrypted
+
+### Error Handling
+
+```js
+const upload = new Upload(file, {
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
+});
+
+upload.onError.push((error) => {
+  console.error('Status:', upload.status);
+  console.error('Error Message:', upload.errorMessage);
+  console.error('Error Details:', error);
+});
+```
+
+### Aborting an Upload
+
+```js
+const upload = new Upload(file, {
+  bucketId: 'bucket123',
+  customerId: 'customer123',
+  clientId: 'client123',
+});
+
+// Later in your code
+upload.abort();
 ```

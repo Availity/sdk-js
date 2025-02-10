@@ -4,4 +4,5 @@ module.exports = {
   ...global,
   displayName: 'upload-core',
   coverageDirectory: '../../coverage/upload-core',
+  coveragePathIgnorePatterns: ['/mocks/*'],
 };

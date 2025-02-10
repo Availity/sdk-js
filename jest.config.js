@@ -16,9 +16,9 @@ module.exports = {
     },
     jsdom: true,
   },
-  coverageReporters: ['json'],
+  coverageReporters: ['json', 'html'],
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
-  setupFiles: ['../../jest.polyfills.js']
+  setupFiles: ['../../jest.polyfills.js'],
 };

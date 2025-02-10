@@ -1,12 +1,12 @@
-// src/mocks/handlers.js
 import { http, HttpResponse } from 'msw';
 
 const handlers = [
   // Handles a POST /login request
-  http.put('/api/sdk/platform/v1/regions/:region', ({params}) => {
+  http.put('/api/sdk/platform/v1/regions/:region', ({ params }) => {
     const { region } = params;
 
-    return HttpResponse.json({
+    return HttpResponse.json(
+      {
         links: {
           self: {
             href: `https://localhost:3000/api/sdk/platform/v1/regions/${region}`,
@@ -15,7 +15,8 @@ const handlers = [
         id: region,
         value: region,
         currentlySelected: true,
-      }, { status: 200 }
+      },
+      { status: 200 }
     );
   }),
 
