@@ -1,4 +1,10 @@
-import { DetailedError, HttpResponse, Upload as TusUpload, UploadOptions as TusUploadOptions } from 'tus-js-client';
+import {
+  DetailedError,
+  HttpResponse,
+  Upload as TusUpload,
+  UploadOptions as TusUploadOptions,
+  OnSuccessPayload,
+} from 'tus-js-client';
 import resolveUrl from '@availity/resolve-url';
 
 import HttpStack from './http-stack';
@@ -18,12 +24,11 @@ export type UploadOptions = {
   ) => Promise<string>;
   maxAvScanRetries?: number;
   maxSize?: number;
-  onError?: ((error: Error | DetailedError) => void)[];
   onPreStart?: ((upload: Upload) => boolean)[];
   pollingTime?: number;
   retryDelays?: number[];
   stripFileNamePathSegments?: boolean;
-} & Omit<TusUploadOptions, 'onProgress' | 'fingerprint'>;
+} & Omit<TusUploadOptions, 'onProgress' | 'onSuccess' | 'onError' | 'fingerprint'>;
 
 const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
@@ -73,7 +78,7 @@ class Upload {
 
   onProgress: (() => void)[];
 
-  onSuccess: (() => void)[];
+  onSuccess: ((response: OnSuccessPayload) => void)[];
 
   percentage: number;
 
@@ -189,7 +194,7 @@ class Upload {
           }
 
           for (const handleOnSuccess of this.onSuccess) {
-            handleOnSuccess();
+            handleOnSuccess(response);
           }
 
           return;
@@ -279,7 +284,7 @@ class Upload {
         }
 
         for (const handleOnSuccess of this.onSuccess) {
-          handleOnSuccess();
+          handleOnSuccess({ lastResponse: response });
         }
 
         return;
