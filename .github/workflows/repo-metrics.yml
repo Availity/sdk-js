@@ -1,9 +1,5 @@
 name: Get Repo Metrics
-# on: workflow_dispatch
-on:
-  push:
-    branches:
-      - build/repo-metrics
+on: workflow_dispatch
 jobs:
   Repo-Metrics-Report:
     runs-on: ubuntu-latest
