@@ -210,7 +210,7 @@ describe('upload-core', () => {
 
           upload.onProgress.push(mockOnProgress);
 
-          upload.onSuccess.push(mockOnSuccess, resolve);
+          upload.onSuccess.push(mockOnSuccess, () => resolve());
 
           upload.start();
         });
@@ -313,7 +313,7 @@ describe('upload-core', () => {
       const startUpload = () =>
         new Promise<void>((resolve, reject) => {
           upload.onError.push(reject);
-          upload.onSuccess.push(onSuccessMock, resolve);
+          upload.onSuccess.push(onSuccessMock, () => resolve());
           upload.start();
         });
 
