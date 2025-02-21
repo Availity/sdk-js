@@ -43,6 +43,7 @@
     "start": "nx start @availity/dinosaurdocs",
     "test:affected": "nx affected --target=test",
     "test:ci": "nx run-many --target=test --all --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
+    "test:coverage": "nx run-many --all --target=test --parallel=3 --runInBand --coverage && node ./scripts/merge-coverage.js",
     "test": "nx run-many --target=test --all",
     "version:dry-run": "nx affected --target version --dryRun --parallel=1"
   },
