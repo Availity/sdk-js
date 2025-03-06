@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [3.0.1](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@3.0.0...@availity/resolve-url@3.0.1) (2025-03-06)
+
+
+### Bug Fixes
+
+* **resolve-url:** add exports field ([ca4cb88](https://github.com/Availity/sdk-js/commit/ca4cb881b9e7f7773bb7295a67352f4c5efa7f42))
+
+
+
 # [3.0.0](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@2.0.7...@availity/resolve-url@3.0.0) (2024-07-29)
 
 
