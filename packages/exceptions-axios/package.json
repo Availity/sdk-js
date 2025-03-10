@@ -24,7 +24,7 @@
     "@availity/exceptions-core": "workspace:*"
   },
   "devDependencies": {
-    "tsup": "^7.2.0",
+    "tsup": "^8.4.0",
     "typescript": "^5.5.4"
   },
   "publishConfig": {

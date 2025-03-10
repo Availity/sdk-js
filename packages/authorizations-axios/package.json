@@ -33,8 +33,8 @@
     "@availity/authorizations-core": "workspace:*"
   },
   "devDependencies": {
-    "axios": "^1.7.7",
-    "tsup": "^7.2.0",
+    "axios": "^1.8.2",
+    "tsup": "^8.4.0",
     "typescript": "^5.5.4"
   },
   "peerDependencies": {
