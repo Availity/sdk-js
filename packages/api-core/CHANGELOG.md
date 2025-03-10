@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [10.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@10.0.0...@availity/api-core@10.0.1) (2025-03-10)
+
+
+
 # [10.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@9.0.1...@availity/api-core@10.0.0) (2025-02-10)
 
 
