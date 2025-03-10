@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.9](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@5.0.8...@availity/analytics-core@5.0.9) (2025-03-10)
+
+### Dependency Updates
+
+* `@availity/api-axios` updated to version `5.0.8`
+
+
 ## [5.0.8](https://github.com/Availity/sdk-js/compare/@availity/analytics-core@5.0.7...@availity/analytics-core@5.0.8) (2025-02-10)
 
 ### Dependency Updates
