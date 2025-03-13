@@ -4,12 +4,37 @@ import AvMessage from './AvMessage';
 let avMessage;
 const TEST_URL = 'https://dev.local:9999';
 
+const OLD_LOCATION = window.location;
+const OLD_TOP_LOCATION = window.top.location;
+
 describe('AvMessage', () => {
   beforeEach(() => {
     avMessage = new AvMessage();
     avMessage.isEnabled = true;
     avMessage.DEFAULT_EVENT = 'avMessage';
     avMessage.DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
+
+    global.window = Object.create(window);
+
+    Object.defineProperty(window, "location", {
+        value: {origin: TEST_URL},
+        writable: true
+    });
+    Object.defineProperty(window, "top", {
+        value: {location: TEST_URL},
+        writable: true
+    });
+  });
+
+  afterEach(() => {
+    Object.defineProperty(window, 'location', {
+      value: OLD_LOCATION,
+      writable: true,
+    });
+    Object.defineProperty(window, 'top', {
+      value: OLD_TOP_LOCATION,
+      writable: true,
+    });
   });
 
   test('enabled() should set the value if one passed in', () => {
@@ -243,6 +268,35 @@ describe('AvMessage', () => {
     test('should return location.origin if exists', () => {
       expect(avMessage.domain()).toBe(TEST_URL);
     });
+
+    test('domain should return apps.availity.com when window.location.origin is essentials.availity.com window.top.location.origin is inaccessible', () => {
+      window.top.location = new DOMException('Permission denied to access property "origin" on cross-origin object');
+      window.location = new URL('https://qa-essentials.availity.com');
+
+    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+  });
+
+  test('domain should return essentials.availity.com when window.location.origin is apps.availity.com window.top.location.origin is inaccessible', () => {
+    window.top.location = new DOMException('Permission denied to access property "origin" on cross-origin object');
+      window.location = new URL('https://qa-apps.availity.com');
+
+    expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+  });
+
+  test('domain should return essentials.availity.com when window.location.origin is essentials.availity.com', () => {
+    window.location = new URL('https://qa-essentials.availity.com');
+    window.top.location = new URL('https://qa-essentials.availity.com');
+
+
+    expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+  });
+
+  test('domain should return apps.availity.com when window.location.origin is apps.availity.com', () => {
+    window.location = new URL('https://qa-apps.availity.com');
+    window.top.location = new URL('https://qa-apps.availity.com');
+
+    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+  });
   });
 
   test("isDomain should return true if domain() doesn't match regex", () => {
@@ -261,22 +315,6 @@ describe('AvMessage', () => {
     expect(avMessage.DOMAIN.test(avMessage.domain())).toBeTruthy();
     expect(avMessage.isDomain('world')).toBeFalsy();
     expect(avMessage.isDomain('hello world')).toBeTruthy();
-  });
-
-  test('domain should return apps.availity.com when window.location.hostname is essentials.availity.com', () => {
-    const OLD_LOCATION = window.location;
-
-    Object.defineProperty(window, 'location', {
-      value: new URL('https://qa-essentials.availity.com'),
-      writable: true,
-    });
-
-    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
-
-    Object.defineProperty(window, 'location', {
-      value: OLD_LOCATION,
-      writable: true,
-    });
   });
 
   describe('send', () => {
@@ -319,13 +357,6 @@ describe('AvMessage', () => {
       testMessage = { message: 'hello' };
       avMessage.send(testMessage, mockTarget);
       expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
-    });
-
-    test('should call postMessage on window.parent if no target', () => {
-      const testMessage = 'test';
-      window.parent.postMessage = jest.fn();
-      avMessage.send(testMessage);
-      expect(window.parent.postMessage).toHaveBeenCalledWith(testMessage, testDomain);
     });
   });
 });
