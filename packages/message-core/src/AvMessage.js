@@ -101,17 +101,56 @@ class AvMessage {
     return !this.DOMAIN.test(this.domain()) || this.DOMAIN.test(url);
   }
 
+  /**
+   * Attempts to get origin from top window
+   * @private
+   * @returns {string|null}
+   */
+  getOriginFromTop() {
+    try {
+      return window.top.location.origin;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Swaps between 'apps' and 'essentials' in the domain
+   * @private
+   * @param {string} url
+   * @returns {string}
+   */
+  swapDomain(url) {
+    if (url.includes('essentials')) {
+      return url.replace('essentials', 'apps');
+    }
+    return url.replace('apps', 'essentials');
+  }
+
+  /**
+   * Gets the domain
+   * @private
+   * @returns {string}
+   */
   domain() {
+    const topOrigin = this.getOriginFromTop();
+
+    if (topOrigin) {
+      return window.location.origin;
+    }
+
     if (window.location.origin) {
       const url = window.location.origin;
-      return url.replace('essentials', 'apps');
+
+      return this.swapDomain(url);
     }
 
     if (window.location.hostname) {
       const url = `${window.location.protocol}//${window.location.hostname}${
         window.location.port ? `:${window.location.port}` : ''
-      }`;
-      return url.replace('essentials', 'apps');
+        }`;
+
+      return this.swapDomain(url);
     }
 
     return '*';
