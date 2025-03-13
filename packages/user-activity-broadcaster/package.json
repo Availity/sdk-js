@@ -5,6 +5,14 @@
   "main": "src/index.js",
   "keywords": [],
   "author": "Joe Spanbauer <joseph.spanbauer@availity.com>",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": "^18.0.0 || ^20.0.0"
   },
