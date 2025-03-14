@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.2](https://github.com/Availity/sdk-js/compare/@availity/user-activity-broadcaster@0.2.1...@availity/user-activity-broadcaster@0.2.2) (2025-03-14)
+
+
+
 ## [0.2.1](https://github.com/Availity/sdk-js/compare/@availity/user-activity-broadcaster@0.2.0...@availity/user-activity-broadcaster@0.2.1) (2025-03-10)
 
 
