@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.0.10](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@8.0.9...@availity/authorizations-axios@8.0.10) (2025-03-14)
+
+### Dependency Updates
+
+* `api-axios` updated to version `8.0.9`
+* `authorizations-core` updated to version `8.0.9`
+
+
 ## [8.0.9](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@8.0.8...@availity/authorizations-axios@8.0.9) (2025-03-10)
 
 ### Dependency Updates
