@@ -47,7 +47,7 @@
     "qs": "^6.13.1"
   },
   "devDependencies": {
-    "axios": "^1.8.2",
+    "axios": "^1.8.4",
     "msw": "2.3.5",
     "tsup": "^8.4.0",
     "typescript": "^5.5.4"
