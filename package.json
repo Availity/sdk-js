@@ -55,7 +55,7 @@
     "@nx/eslint": "19.5.3",
     "@nx/jest": "19.5.3",
     "@nx/js": "19.5.3",
-    "@nx/workspace": "19.5.3",
+    "@nx/workspace": "20.6.2",
     "@types/jest": "^26.0.24",
     "@types/node": "18.19.54",
     "adio": "^1.2.1",
