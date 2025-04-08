@@ -60,11 +60,15 @@ class Upload {
 
   avScanRetries: number;
 
+  bytesAccepted: number;
+
   bytesScanned: number;
 
   bytesSent: number;
 
   bytesTotal: number;
+
+  chunkSize: number;
 
   error: Error | null;
 
@@ -79,6 +83,8 @@ class Upload {
   onProgress: (() => void)[];
 
   onSuccess: ((response: OnSuccessPayload) => void)[];
+
+  onChunkComplete: ((chunkSize: number, bytesAccepted: number, bytesTotal: number | null) => void)[];
 
   percentage: number;
 
@@ -117,9 +123,11 @@ class Upload {
     this.options.endpoint = resolveUrl({ relative: this.options.endpoint });
 
     this.avScanRetries = 0;
+    this.bytesAccepted = 0;
     this.bytesScanned = 0;
     this.bytesSent = 0;
     this.bytesTotal = 0;
+    this.chunkSize = 0;
     this.error = null;
     this.errorMessage = '';
     this.id = '';
@@ -127,6 +135,7 @@ class Upload {
     this.onPreStart = this.options.onPreStart || [];
     this.onProgress = [];
     this.onSuccess = [];
+    this.onChunkComplete = [];
     this.percentage = 0;
     this.preStartValidationResults = [];
     this.references = [];
@@ -168,6 +177,15 @@ class Upload {
 
         for (const handleOnProgress of this.onProgress) {
           handleOnProgress();
+        }
+      },
+      onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
+        this.chunkSize = chunkSize;
+        this.bytesAccepted = bytesAccepted;
+        this.bytesTotal = bytesTotal;
+
+        for (const handleOnChunkComplete of this.onChunkComplete) {
+          handleOnChunkComplete(chunkSize, bytesAccepted, bytesTotal)
         }
       },
       onSuccess: (response) => {
