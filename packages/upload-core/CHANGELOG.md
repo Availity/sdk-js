@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.4...@availity/upload-core@7.1.0) (2025-04-09)
+
+
+### Features
+
+* **upload-core:** add onChunkComplete ([a865c8e](https://github.com/Availity/sdk-js/commit/a865c8e03fe14825c016d3bb2115db8200916295))
+
+
+
 ## [7.0.4](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.0.3...@availity/upload-core@7.0.4) (2025-03-14)
 
 ### Dependency Updates
