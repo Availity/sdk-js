@@ -28,7 +28,7 @@ export type UploadOptions = {
   pollingTime?: number;
   retryDelays?: number[];
   stripFileNamePathSegments?: boolean;
-} & Omit<TusUploadOptions, 'onProgress' | 'onSuccess' | 'onError' | 'fingerprint'>;
+} & Omit<TusUploadOptions, 'onProgress' | 'onSuccess' | 'onError' | 'onChunkComplete' | 'fingerprint'>;
 
 const defaultOptions = {
   endpoint: '/ms/api/availity/internal/core/vault/upload/v1/resumable',
