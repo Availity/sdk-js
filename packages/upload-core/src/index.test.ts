@@ -203,6 +203,7 @@ describe('upload-core', () => {
 
       const mockOnSuccess = jest.fn();
       const mockOnProgress = jest.fn();
+      const mockOnChunkComplete = jest.fn();
 
       const startUpload = () =>
         new Promise<void>((resolve, reject) => {
@@ -212,6 +213,8 @@ describe('upload-core', () => {
 
           upload.onSuccess.push(mockOnSuccess, () => resolve());
 
+          upload.onChunkComplete.push(mockOnChunkComplete)
+
           upload.start();
         });
 
@@ -220,6 +223,7 @@ describe('upload-core', () => {
 
       expect(mockOnProgress).toHaveBeenCalled();
       expect(mockOnSuccess).toHaveBeenCalled();
+      expect(mockOnChunkComplete).toHaveBeenCalled();
     });
 
     it('should handle errors', async () => {
