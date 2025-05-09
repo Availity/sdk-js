@@ -1,16 +1,12 @@
 import { server } from '../mocks/server';
-import Upload from '.';
+import Upload, { FileBuffer } from '.';
 
 const BUCKET_ID = 'abc';
 const CUSTOMER_ID = '123';
 const CLIENT_ID = 'test123';
 const VAULT_URL = '/ms/api/availity/internal/core/vault/upload/v1/resumable';
 
-const options = {
-  bucketId: BUCKET_ID,
-  customerId: CUSTOMER_ID,
-  clientId: CLIENT_ID,
-};
+const options = { bucketId: BUCKET_ID, customerId: CUSTOMER_ID, clientId: CLIENT_ID };
 
 type MockFile = Buffer & {
   name?: string;
@@ -21,14 +17,15 @@ type MockFile = Buffer & {
 };
 
 const readTestFile = (fileName: string, type?: string) => {
-  const file: MockFile = Buffer.from('hello world');
+  const file: MockFile | FileBuffer = Buffer.from('hello world');
 
   file.name = fileName;
   file.type = type;
+  file.size = file.byteLength;
   file.lastModified = Date.now();
   file.webkitRelativePath = 'foo';
 
-  return file;
+  return file as FileBuffer;
 };
 
 describe('upload-core', () => {
@@ -116,9 +113,7 @@ describe('upload-core', () => {
       const fileName = 'a';
       const fileType = 'b';
 
-      const file = new File(['hello world'], fileName, {
-        type: fileType,
-      });
+      const file = new File(['hello world'], fileName, { type: fileType });
 
       const fileSize = file.size;
 
@@ -197,7 +192,6 @@ describe('upload-core', () => {
     it('should upload a file', async () => {
       const file = readTestFile('testFile.txt');
 
-      // @ts-expect-error allow error for testing
       const upload = new Upload(file, { ...options, retryDelays: [] });
       await upload.generateId();
 
@@ -213,7 +207,7 @@ describe('upload-core', () => {
 
           upload.onSuccess.push(mockOnSuccess, () => resolve());
 
-          upload.onChunkComplete.push(mockOnChunkComplete)
+          upload.onChunkComplete.push(mockOnChunkComplete);
 
           upload.start();
         });
@@ -231,7 +225,6 @@ describe('upload-core', () => {
 
       const mockOnError = jest.fn();
 
-      // @ts-expect-error allow error for testing
       const upload = new Upload(file, { ...options, bucketId: 'err', retryDelays: [] });
       await upload.generateId();
 
@@ -254,7 +247,6 @@ describe('upload-core', () => {
     it('should time out when av scan takes too long', async () => {
       const file = readTestFile('testFile.txt');
 
-      // @ts-expect-error allow error for mock file
       const upload = new Upload(file, {
         ...options,
         bucketId: 'mno',
@@ -287,7 +279,6 @@ describe('upload-core', () => {
 
       const mockFn = jest.fn();
 
-      // @ts-expect-error allow error for mock file
       const upload = new Upload(file, {
         ...options,
         onPreStart: [
@@ -310,7 +301,6 @@ describe('upload-core', () => {
 
       const onSuccessMock = jest.fn();
 
-      // @ts-expect-error allow error for mock file
       const upload = new Upload(file, options);
       await upload.generateId();
 
@@ -330,7 +320,6 @@ describe('upload-core', () => {
     it('should parse s3-references on upload accepted', async () => {
       const file = readTestFile('testFile.txt');
 
-      // @ts-expect-error allow error for mock file
       const upload = new Upload(file, options);
       await upload.generateId();
 
@@ -352,7 +341,6 @@ describe('upload-core', () => {
 
       const mockOnSuccess = jest.fn();
 
-      // @ts-expect-error allow error for mock file
       const upload = new Upload(file, { ...options, onPreStart: [() => true, () => true] });
       await upload.generateId();
 
@@ -372,11 +360,7 @@ describe('upload-core', () => {
     it('should not start upload if any onPreStart function returns false', async () => {
       const file = readTestFile('testFile.txt');
 
-      // @ts-expect-error allow error for mock file
-      const upload = new Upload(file, {
-        ...options,
-        onPreStart: [() => true, () => false, () => true],
-      });
+      const upload = new Upload(file, { ...options, onPreStart: [() => true, () => false, () => true] });
       await upload.generateId();
 
       const startUpload = () =>
