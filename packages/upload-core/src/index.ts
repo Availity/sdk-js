@@ -10,6 +10,8 @@ import resolveUrl from '@availity/resolve-url';
 import HttpStack from './http-stack';
 import { createFingerprint, isDetailedError } from './util';
 
+export type FileBuffer = Buffer & { name: string; type: string; size: number };
+
 export type UploadOptions = {
   bucketId: string;
   customerId: string;
@@ -18,7 +20,7 @@ export type UploadOptions = {
   endpoint?: string;
   fileTypes?: string[];
   fingerprint?: (
-    file: File,
+    file: File | FileBuffer,
     options: TusUploadOptions,
     callback?: (data: null, key: string) => string
   ) => Promise<string>;
@@ -43,14 +45,14 @@ const defaultOptions = {
 };
 
 class Upload {
-  file: File;
+  file: File | FileBuffer;
 
   options: UploadOptions & {
     endpoint: string;
     maxAvScanRetries: number;
     retryDelays: number[];
     fingerprint: (
-      file: File,
+      file: File | FileBuffer,
       options: TusUploadOptions,
       callback?: (data: null, key: string) => string
     ) => Promise<string>;
@@ -100,7 +102,7 @@ class Upload {
 
   waitForPassword: boolean;
 
-  constructor(file: File, options: UploadOptions) {
+  constructor(file: File | FileBuffer, options: UploadOptions) {
     if (!file) {
       throw new Error('[file] must be defined and of type File');
     }
@@ -185,7 +187,7 @@ class Upload {
         this.bytesTotal = bytesTotal;
 
         for (const handleOnChunkComplete of this.onChunkComplete) {
-          handleOnChunkComplete(chunkSize, bytesAccepted, bytesTotal)
+          handleOnChunkComplete(chunkSize, bytesAccepted, bytesTotal);
         }
       },
       onSuccess: (response) => {
