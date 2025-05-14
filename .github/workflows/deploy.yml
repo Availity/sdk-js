@@ -18,19 +18,19 @@ jobs:
         with:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
-          ref: 'master'
+          ref: "master"
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: 'master'
+          main-branch-name: "master"
 
       - name: Set Node Version
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
+          node-version: 22
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
 
       # - name: Get yarn cache directory path
       #   id: yarn-cache-dir-path
@@ -75,19 +75,19 @@ jobs:
         with:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
-          ref: 'master'
+          ref: "master"
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: 'master'
+          main-branch-name: "master"
 
       - name: Set Node Version
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
+          node-version: 22
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
 
       # - name: Get yarn cache directory path
       #   id: yarn-cache-dir-path
