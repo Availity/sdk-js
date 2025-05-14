@@ -1,6 +1,6 @@
 {
   "name": "@availity/env-var",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "Availity-specific way to determine variables based on the current environment the code is running in",
   "keywords": [
     "availity",
