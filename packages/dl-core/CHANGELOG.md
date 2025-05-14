@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/Availity/sdk-js/compare/@availity/dl-core@5.0.5...@availity/dl-core@6.0.0) (2025-05-14)
+
+### Dependency Updates
+
+* `api-core` updated to version `5.0.5`
+
+### chore
+
+* drop support for node 18 and add support for node 22 ([1e3dcc3](https://github.com/Availity/sdk-js/commit/1e3dcc3311021edc5691b1383aa393ebebe1d9db))
+
+
+### BREAKING CHANGES
+
+* drop support for node 18
+
+
+
 ## [5.0.5](https://github.com/Availity/sdk-js/compare/@availity/dl-core@5.0.4...@availity/dl-core@5.0.5) (2025-04-09)
 
 ### Dependency Updates
