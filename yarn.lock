@@ -402,7 +402,7 @@ __metadata:
     "@nx/js": 19.8.14
     "@nx/workspace": 19.8.14
     "@types/jest": ^26.0.24
-    "@types/node": ^22.0.0
+    "@types/node": ^22.15.17
     adio: ^1.2.1
     codecov: ^3.8.3
     dependency-check: ^4.1.0
@@ -5423,7 +5423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.0.0":
+"@types/node@npm:^22.15.17":
   version: 22.15.18
   resolution: "@types/node@npm:22.15.18"
   dependencies:
