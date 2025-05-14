@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        node: [18, 20]
+        node: [20, 22]
 
     steps:
       - name: Checkout Code
@@ -24,14 +24,14 @@ jobs:
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: 'master'
+          main-branch-name: "master"
 
       - name: Set Node Version
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
 
       # - name: Get yarn cache directory path
       #   id: yarn-cache-dir-path
@@ -72,5 +72,5 @@ jobs:
         run: yarn build:packages
 
       - name: Build Docs
-        if: ${{matrix.node > 18}}
+        if: ${{matrix.node > 20}}
         run: yarn build:docs
