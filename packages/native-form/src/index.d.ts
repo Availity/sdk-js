@@ -6,7 +6,7 @@ declare function nativeForm(
   spaceId: string,
   params?: Record<string, any>,
   formAttributes?: Record<string, any>,
-  type?: SsoType,
+  type?: SsoType | string,
   clientId?: string
 ): Promise<void>;
 
