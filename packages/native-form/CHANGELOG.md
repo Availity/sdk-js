@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/native-form@7.0.0...@availity/native-form@7.0.1) (2025-06-10)
+
+
+### Bug Fixes
+
+* **native-form:** allow any sso type ([0106b8f](https://github.com/Availity/sdk-js/commit/0106b8f85f35e09114e5ebf414dd686e6275eda2))
+
+
+
 # [7.0.0](https://github.com/Availity/sdk-js/compare/@availity/native-form@6.0.12...@availity/native-form@7.0.0) (2025-05-14)
 
 ### Dependency Updates
