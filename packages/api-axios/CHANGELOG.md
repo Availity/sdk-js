@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@11.0.0...@availity/api-axios@11.1.0) (2025-06-13)
+
+
+### Features
+
+* add dma-cloud url api ([5f5a389](https://github.com/Availity/sdk-js/commit/5f5a389fd8a440cafb9479c8edec8bb7969b4181))
+
+
+
 # [11.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@10.0.4...@availity/api-axios@11.0.0) (2025-05-14)
 
 
