@@ -6,6 +6,7 @@ import AvProxyApi from './proxy';
 import AvCodesApi, { avCodesApi } from './resources/codes';
 import AvDisclaimersApi, { avDisclaimersApi } from './resources/disclaimers';
 import AvLogMessagesApiV2, { avLogMessagesApiV2 } from './resources/dma';
+import AvLogMessagesApiV3, { avLogMessagesApiV3 } from './resources/dma-cloud';
 import AvFilesApi, { avFilesApi } from './resources/files';
 import AvFilesDeliveryApi, { avFilesDeliveryApi } from './resources/filesDelivery';
 import AvLogMessagesApi, { avLogMessagesApi } from './resources/logs';
@@ -43,6 +44,8 @@ export {
   avLogMessagesApi,
   AvLogMessagesApiV2,
   avLogMessagesApiV2,
+  AvLogMessagesApiV3,
+  avLogMessagesApiV3,
   AvNavigationApi,
   avNavigationApi,
   AvNotificationsApi,

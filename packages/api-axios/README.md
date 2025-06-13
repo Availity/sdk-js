@@ -50,6 +50,7 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvFilesDeliveryApi`
 - `AvLogMessagesApi`
 - `AvLogMessagesApiV2`
+- `AvLogMessagesApiV3`
 - `AvNavigationApi`
 - `AvNotificationApi`
 - `AvOrganizationsApi`
