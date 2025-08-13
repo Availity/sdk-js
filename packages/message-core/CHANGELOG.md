@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.0.1](https://github.com/Availity/sdk-js/compare/@availity/message-core@8.0.0...@availity/message-core@8.0.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* **messge-core:** use origin over referrer ([9d78cce](https://github.com/Availity/sdk-js/commit/9d78cceb2faa14fa2eb0c9fdea3c0efbd99d1d87))
+
+
+
 # [8.0.0](https://github.com/Availity/sdk-js/compare/@availity/message-core@7.0.5...@availity/message-core@8.0.0) (2025-05-14)
 
 
