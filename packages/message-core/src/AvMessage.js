@@ -102,16 +102,19 @@ class AvMessage {
   }
 
   /**
-   * Attempts to get origin from top window
+   * Gets the parent origin from referrer
    * @private
    * @returns {string|null}
    */
-  getOriginFromTop() {
-    try {
-      return window.top.location.origin;
-    } catch {
-      return null;
+  getParentOrigin() {
+    if (document.referrer) {
+      try {
+        return new URL(document.referrer).origin;
+      } catch {
+        return null;
+      }
     }
+    return null;
   }
 
   /**
@@ -133,10 +136,11 @@ class AvMessage {
    * @returns {string}
    */
   domain() {
-    const topOrigin = this.getOriginFromTop();
+    const parentOrigin = this.getParentOrigin();
 
-    if (topOrigin) {
-      return window.location.origin;
+    if (parentOrigin) {
+      // Use parent origin if available
+      return parentOrigin;
     }
 
     if (window.location.origin) {

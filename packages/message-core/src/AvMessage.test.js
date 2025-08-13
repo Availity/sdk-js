@@ -265,37 +265,177 @@ describe('AvMessage', () => {
   });
 
   describe('domain()', () => {
+    const originalReferrer = document.referrer;
+
+    afterEach(() => {
+      Object.defineProperty(document, 'referrer', {
+        value: originalReferrer,
+        writable: true,
+      });
+    });
+
     test('should return location.origin if exists', () => {
       expect(avMessage.domain()).toBe(TEST_URL);
     });
 
-    test('domain should return apps.availity.com when window.location.origin is essentials.availity.com window.top.location.origin is inaccessible', () => {
-      window.top.location = new DOMException('Permission denied to access property "origin" on cross-origin object');
-      window.location = new URL('https://qa-essentials.availity.com');
+    describe('NEW BEHAVIOR: Uses document.referrer when available', () => {
+      test('should return parent origin from document.referrer when iframe is on essentials and parent is on essentials', () => {
+        // Simulate iframe scenario with referrer
+        Object.defineProperty(document, 'referrer', {
+          value: 'https://qa-essentials.availity.com/parent-page',
+          writable: true,
+        });
+        window.location = new URL('https://qa-essentials.availity.com/iframe');
 
-    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+        expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+      });
+
+      test('should return parent origin from document.referrer when iframe is on apps and parent is on apps', () => {
+        Object.defineProperty(document, 'referrer', {
+          value: 'https://qa-apps.availity.com/parent-page',
+          writable: true,
+        });
+        window.location = new URL('https://qa-apps.availity.com/iframe');
+
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+
+      test('should return parent origin from document.referrer when iframe is on apps but parent is on essentials', () => {
+        Object.defineProperty(document, 'referrer', {
+          value: 'https://qa-essentials.availity.com/parent-page',
+          writable: true,
+        });
+        window.location = new URL('https://qa-apps.availity.com/iframe');
+
+        expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+      });
+
+      test('should return parent origin from document.referrer when iframe is on essentials but parent is on apps', () => {
+        Object.defineProperty(document, 'referrer', {
+          value: 'https://qa-apps.availity.com/parent-page',
+          writable: true,
+        });
+        window.location = new URL('https://qa-essentials.availity.com/iframe');
+
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+    });
+
+    describe('FALLBACK BEHAVIOR: Domain swapping when no referrer', () => {
+      beforeEach(() => {
+        Object.defineProperty(document, 'referrer', {
+          value: '',
+          writable: true,
+        });
+      });
+
+      test('should swap essentials to apps when no referrer available', () => {
+        window.location = new URL('https://qa-essentials.availity.com');
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+
+      test('should swap apps to essentials when no referrer available', () => {
+        window.location = new URL('https://qa-apps.availity.com');
+        expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+      });
+    });
+
+    describe('EDGE CASES', () => {
+      test('should handle invalid referrer URL gracefully', () => {
+        Object.defineProperty(document, 'referrer', {
+          value: 'invalid-url',
+          writable: true,
+        });
+        window.location = new URL('https://qa-essentials.availity.com');
+
+        // Should fall back to domain swapping
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+
+      test('should return * when no location info available', () => {
+        Object.defineProperty(document, 'referrer', {
+          value: '',
+          writable: true,
+        });
+        Object.defineProperty(window, 'location', {
+          value: {},
+          writable: true,
+        });
+
+        expect(avMessage.domain()).toEqual('*');
+      });
+    });
+
+      describe('PROBLEM SCENARIO: Before fix would cause postMessage errors', () => {
+      test('OLD BEHAVIOR would have caused postMessage error: essentials iframe -> essentials parent', () => {
+        // This scenario would have failed before the fix:
+        // - Iframe on essentials domain
+        // - Parent also on essentials domain
+        // - Old code would swap essentials -> apps
+        // - postMessage would fail with origin mismatch
+
+        Object.defineProperty(document, 'referrer', {
+          value: 'https://qa-essentials.availity.com/parent',
+          writable: true,
+        });
+        window.location = new URL('https://qa-essentials.availity.com/iframe');
+
+        const domain = avMessage.domain();
+
+        // NEW: Returns correct parent origin (essentials)
+        expect(domain).toEqual('https://qa-essentials.availity.com');
+
+        // OLD: Would have returned swapped domain (apps) causing postMessage to fail
+        // expect(domain).toEqual('https://qa-apps.availity.com'); // This would fail postMessage
+      });
+    });
   });
 
-  test('domain should return essentials.availity.com when window.location.origin is apps.availity.com window.top.location.origin is inaccessible', () => {
-    window.top.location = new DOMException('Permission denied to access property "origin" on cross-origin object');
-      window.location = new URL('https://qa-apps.availity.com');
+  describe('getParentOrigin()', () => {
+    const originalReferrer = document.referrer;
 
-    expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
-  });
+    afterEach(() => {
+      Object.defineProperty(document, 'referrer', {
+        value: originalReferrer,
+        writable: true,
+      });
+    });
 
-  test('domain should return essentials.availity.com when window.location.origin is essentials.availity.com', () => {
-    window.location = new URL('https://qa-essentials.availity.com');
-    window.top.location = new URL('https://qa-essentials.availity.com');
+    test('should return origin from document.referrer when available', () => {
+      Object.defineProperty(document, 'referrer', {
+        value: 'https://qa-essentials.availity.com/some/path?param=value',
+        writable: true,
+      });
 
+      expect(avMessage.getParentOrigin()).toEqual('https://qa-essentials.availity.com');
+    });
 
-    expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
-  });
+    test('should return null when document.referrer is empty', () => {
+      Object.defineProperty(document, 'referrer', {
+        value: '',
+        writable: true,
+      });
 
-  test('domain should return apps.availity.com when window.location.origin is apps.availity.com', () => {
-    window.location = new URL('https://qa-apps.availity.com');
-    window.top.location = new URL('https://qa-apps.availity.com');
+      expect(avMessage.getParentOrigin()).toBeNull();
+    });
 
-    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+    test('should return null when document.referrer is invalid URL', () => {
+      Object.defineProperty(document, 'referrer', {
+        value: 'not-a-valid-url',
+        writable: true,
+      });
+
+      expect(avMessage.getParentOrigin()).toBeNull();
+    });
+
+    test('should handle different protocols correctly', () => {
+      Object.defineProperty(document, 'referrer', {
+        value: 'http://qa-apps.availity.com/path',
+        writable: true,
+      });
+
+      expect(avMessage.getParentOrigin()).toEqual('http://qa-apps.availity.com');
+    });
   });
   });
 
@@ -325,6 +465,8 @@ describe('AvMessage', () => {
 
     beforeEach(() => {
       avMessage.domain = jest.fn(() => testDomain);
+      avMessage.isEnabled = true;
+      mockTarget.postMessage.mockClear();
     });
 
     test('should return when not enabled', () => {
@@ -359,4 +501,4 @@ describe('AvMessage', () => {
       expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
     });
   });
-});
+
