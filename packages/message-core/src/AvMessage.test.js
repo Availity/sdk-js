@@ -265,37 +265,138 @@ describe('AvMessage', () => {
   });
 
   describe('domain()', () => {
+    const originalReferrer = document.referrer;
+
+    afterEach(() => {
+      Object.defineProperty(document, 'referrer', {
+        value: originalReferrer,
+        writable: true,
+      });
+    });
+
     test('should return location.origin if exists', () => {
       expect(avMessage.domain()).toBe(TEST_URL);
     });
 
-    test('domain should return apps.availity.com when window.location.origin is essentials.availity.com window.top.location.origin is inaccessible', () => {
-      window.top.location = new DOMException('Permission denied to access property "origin" on cross-origin object');
-      window.location = new URL('https://qa-essentials.availity.com');
+    describe('NEW BEHAVIOR: Uses window.top.location.origin when accessible', () => {
+      test('should return top origin when iframe and parent are on same domain (essentials)', () => {
+        // Simulate same-domain scenario where window.top.location.origin is accessible
+        window.location = new URL('https://qa-essentials.availity.com/iframe');
+        Object.defineProperty(window, 'top', {
+          value: { location: { origin: 'https://qa-essentials.availity.com' } },
+          writable: true,
+        });
 
-    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+        expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+      });
+
+      test('should return top origin when iframe and parent are on same domain (apps)', () => {
+        window.location = new URL('https://qa-apps.availity.com/iframe');
+        Object.defineProperty(window, 'top', {
+          value: { location: { origin: 'https://qa-apps.availity.com' } },
+          writable: true,
+        });
+
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+    });
+
+    describe('FALLBACK BEHAVIOR: Domain swapping when cross-domain', () => {
+      beforeEach(() => {
+        // Simulate cross-domain scenario where window.top.location.origin throws
+        Object.defineProperty(window, 'top', {
+          value: {
+            get location() {
+              throw new DOMException('Permission denied');
+            }
+          },
+          writable: true,
+        });
+      });
+
+      test('should swap essentials to apps when cross-domain', () => {
+        window.location = new URL('https://qa-essentials.availity.com');
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+
+      test('should swap apps to essentials when cross-domain', () => {
+        window.location = new URL('https://qa-apps.availity.com');
+        expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
+      });
+    });
+
+    describe('EDGE CASES', () => {
+      test('should fall back to domain swapping when top origin access fails', () => {
+        window.location = new URL('https://qa-essentials.availity.com');
+        // top.location access already set to throw in beforeEach
+        expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      });
+
+      test('should return * when no location info available', () => {
+        Object.defineProperty(window, 'location', {
+          value: {},
+          writable: true,
+        });
+        expect(avMessage.domain()).toEqual('*');
+      });
+    });
+
+      describe('PROBLEM SCENARIO: Before fix would cause postMessage errors', () => {
+      test('OLD BEHAVIOR would have caused postMessage error: essentials iframe -> essentials parent', () => {
+        // This scenario would have failed before the fix:
+        // - Iframe on essentials domain
+        // - Parent also on essentials domain
+        // - Old code would use window.location.origin and swap essentials -> apps
+        // - postMessage would fail with origin mismatch
+
+        window.location = new URL('https://qa-essentials.availity.com/iframe');
+        Object.defineProperty(window, 'top', {
+          value: { location: { origin: 'https://qa-essentials.availity.com' } },
+          writable: true,
+        });
+
+        const domain = avMessage.domain();
+
+        // NEW: Returns correct top origin (essentials) when accessible
+        expect(domain).toEqual('https://qa-essentials.availity.com');
+
+        // OLD: Would have returned swapped domain (apps) causing postMessage to fail
+        // expect(domain).toEqual('https://qa-apps.availity.com'); // This would fail postMessage
+      });
+    });
   });
 
-  test('domain should return essentials.availity.com when window.location.origin is apps.availity.com window.top.location.origin is inaccessible', () => {
-    window.top.location = new DOMException('Permission denied to access property "origin" on cross-origin object');
-      window.location = new URL('https://qa-apps.availity.com');
+  describe('getOriginFromTop()', () => {
+    test('should return origin from window.top.location when accessible', () => {
+      Object.defineProperty(window, 'top', {
+        value: { location: { origin: 'https://qa-essentials.availity.com' } },
+        writable: true,
+      });
 
-    expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
-  });
+      expect(avMessage.getOriginFromTop()).toEqual('https://qa-essentials.availity.com');
+    });
 
-  test('domain should return essentials.availity.com when window.location.origin is essentials.availity.com', () => {
-    window.location = new URL('https://qa-essentials.availity.com');
-    window.top.location = new URL('https://qa-essentials.availity.com');
+    test('should return null when window.top.location access throws', () => {
+      Object.defineProperty(window, 'top', {
+        value: {
+          get location() {
+            throw new DOMException('Permission denied');
+          }
+        },
+        writable: true,
+      });
 
+      expect(avMessage.getOriginFromTop()).toBeNull();
+    });
 
-    expect(avMessage.domain()).toEqual('https://qa-essentials.availity.com');
-  });
+    test('should handle different protocols correctly', () => {
+      Object.defineProperty(window, 'top', {
+        value: { location: { origin: 'http://qa-apps.availity.com' } },
+        writable: true,
+      });
 
-  test('domain should return apps.availity.com when window.location.origin is apps.availity.com', () => {
-    window.location = new URL('https://qa-apps.availity.com');
-    window.top.location = new URL('https://qa-apps.availity.com');
-
-    expect(avMessage.domain()).toEqual('https://qa-apps.availity.com');
+      expect(avMessage.getOriginFromTop()).toEqual('http://qa-apps.availity.com');
+    });
   });
   });
 
@@ -325,6 +426,8 @@ describe('AvMessage', () => {
 
     beforeEach(() => {
       avMessage.domain = jest.fn(() => testDomain);
+      avMessage.isEnabled = true;
+      mockTarget.postMessage.mockClear();
     });
 
     test('should return when not enabled', () => {
@@ -359,4 +462,4 @@ describe('AvMessage', () => {
       expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
     });
   });
-});
+

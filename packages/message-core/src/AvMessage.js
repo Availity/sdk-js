@@ -136,12 +136,13 @@ class AvMessage {
     const topOrigin = this.getOriginFromTop();
 
     if (topOrigin) {
-      return window.location.origin;
+      // If we can access top origin, use it directly (same domain scenario)
+      return topOrigin;
     }
 
+    // Cross-domain scenario - fall back to domain swapping
     if (window.location.origin) {
       const url = window.location.origin;
-
       return this.swapDomain(url);
     }
 
@@ -149,7 +150,6 @@ class AvMessage {
       const url = `${window.location.protocol}//${window.location.hostname}${
         window.location.port ? `:${window.location.port}` : ''
         }`;
-
       return this.swapDomain(url);
     }
 
