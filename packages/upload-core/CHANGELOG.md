@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.1.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@8.0.0...@availity/upload-core@8.1.0) (2025-08-15)
+
+
+### Features
+
+* **upload-core:** allow custom headers ([0670d19](https://github.com/Availity/sdk-js/commit/0670d1960e022df1507768ccaa09992b8620ad9e))
+
+
+
 # [8.0.0](https://github.com/Availity/sdk-js/compare/@availity/upload-core@7.1.2...@availity/upload-core@8.0.0) (2025-05-14)
 
 ### Dependency Updates
