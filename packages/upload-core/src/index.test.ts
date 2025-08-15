@@ -6,7 +6,7 @@ const CUSTOMER_ID = '123';
 const CLIENT_ID = 'test123';
 const VAULT_URL = '/ms/api/availity/internal/core/vault/upload/v1/resumable';
 
-const options = { bucketId: BUCKET_ID, customerId: CUSTOMER_ID, clientId: CLIENT_ID };
+const options = { bucketId: BUCKET_ID, customerId: CUSTOMER_ID, clientId: CLIENT_ID, headers: { 'x-test-header': 'test'} };
 
 type MockFile = Buffer & {
   name?: string;
@@ -66,6 +66,7 @@ describe('upload-core', () => {
       const upload = new Upload(file, options);
 
       expect(upload.options.endpoint).toBe(`http://localhost${VAULT_URL}`);
+      expect(upload.options.headers).toHaveProperty('x-test-header')
     });
 
     it('should allow override to defaults', () => {

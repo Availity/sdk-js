@@ -163,6 +163,7 @@ class Upload {
       fingerprint: this.options.fingerprint,
       metadata,
       headers: {
+        ...this.options.headers,
         'X-XSRF-TOKEN': this.getToken(),
         'X-Availity-Customer-ID': this.options.customerId,
         'X-Client-ID': this.options.clientId,
