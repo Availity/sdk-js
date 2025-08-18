@@ -75,7 +75,7 @@
     "prettier": "^3.5.3",
     "ts-jest": "^27.1.5",
     "typescript": "5.5.4",
-    "undici": "^6.21.2",
+    "undici": "^7.14.0",
     "xhr-mock": "^2.5.1"
   },
   "resolutions": {
