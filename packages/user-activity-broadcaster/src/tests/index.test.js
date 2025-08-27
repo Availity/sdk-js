@@ -10,22 +10,28 @@ const {
 
 describe('user-activity-broadcaster', () => {
   describe('targetOrigin', () => {
-    test('essentials.availity.com origin should have targetOrigion of apps', () => {
-      const testOrigin = 'essentials.availity.com'
-      const expected = 'apps.availity.com'
+    test('should return the provided origin if it ends with .availity.com', () => {
+      const testOrigin = 'https://essentials.availity.com'
 
       const targetOrigin = getTargetOrigin(testOrigin)
 
-      expect(targetOrigin).toBe(expected)
+      expect(targetOrigin).toBe(testOrigin)
     })
 
-    test('apps.availity.com origin should have targetOrigion of essentials', () => {
-      const testOrigin = 'apps.availity.com'
-      const expected = 'essentials.availity.com'
+    test('should return undefined if the provider origin does not end in .availity.com', () => {
+      const testOrigin = 'https://essentials.availity.com.malicious.com'
 
       const targetOrigin = getTargetOrigin(testOrigin)
 
-      expect(targetOrigin).toBe(expected)
+      expect(targetOrigin).toBe(undefined)
+    })
+
+    test('should return undefined if the provider origin is not a valid URL', () => {
+      const testOrigin = 'essentials.availity.com'
+
+      const targetOrigin = getTargetOrigin(testOrigin)
+
+      expect(targetOrigin).toBe(undefined)
     })
   })
 
