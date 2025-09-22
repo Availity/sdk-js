@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.2.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@11.1.1...@availity/api-axios@11.2.0) (2025-09-22)
+
+
+### Features
+
+* have avfilesapi use upload-core ([0a6bdcb](https://github.com/Availity/sdk-js/commit/0a6bdcb24157405eaf8654e35d831af4ba2d6b2d))
+* have avfilesapi use upload-core ([c7e370d](https://github.com/Availity/sdk-js/commit/c7e370da32ed89df419cef98d1217682830d9521))
+
+
+
 ## [11.1.1](https://github.com/Availity/sdk-js/compare/@availity/api-axios@11.1.0...@availity/api-axios@11.1.1) (2025-07-24)
 
 
