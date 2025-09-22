@@ -224,6 +224,7 @@ __metadata:
   resolution: "@availity/api-axios@workspace:packages/api-axios"
   dependencies:
     "@availity/resolve-url": "workspace:*"
+    "@availity/upload-core": "workspace:*"
     axios: ^1.11.0
     lodash: ^4.17.21
     msw: 2.3.5
@@ -231,6 +232,7 @@ __metadata:
     tsup: ^8.4.0
     typescript: ^5.5.4
   peerDependencies:
+    "@availity/upload-core": ^8.1.0
     axios: ^1.7.7
   languageName: unknown
   linkType: soft
@@ -425,7 +427,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@availity/upload-core@workspace:packages/upload-core":
+"@availity/upload-core@workspace:*, @availity/upload-core@workspace:packages/upload-core":
   version: 0.0.0-use.local
   resolution: "@availity/upload-core@workspace:packages/upload-core"
   dependencies:

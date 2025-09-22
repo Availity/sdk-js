@@ -1,6 +1,13 @@
-import FormData from 'form-data';
-
 import AvFilesApi from '../files';
+
+jest.mock('@availity/upload-core', () =>
+  jest.fn().mockImplementation(() => ({
+    generateId: jest.fn().mockResolvedValue('test-id'),
+    start: jest.fn(),
+    onSuccess: [],
+    onError: [],
+  }))
+);
 
 const mockConfig = {
   id: '123',
@@ -8,46 +15,88 @@ const mockConfig = {
   customerId: '1194',
 };
 
+const endpoint = '/cloud/web/appl/vault/upload/v1/resumable';
+
 describe('AvFilesApi', () => {
   let api;
   beforeEach(() => {
     api = new AvFilesApi();
+    jest.clearAllMocks();
   });
 
   test('should be defined', () => {
     expect(api).toBeDefined();
   });
 
-  test('post url should be correct', () => {
-    expect(api.getUrl(mockConfig)).toBe('/ms/api/availity/internal/core/vault/upload/v1/123');
-  });
+  test('uploadFile() should create Upload with correct buffer and config', async () => {
+    const Upload = require('@availity/upload-core');
+    const data = { foo: 'bar' };
 
-  test('uploadFile() should call create for reference passed', async () => {
-    const data = new FormData();
-    data.append('reference', 'fileReference');
+    const mockUpload = {
+      generateId: jest.fn().mockResolvedValue('test-id'),
+      start: jest.fn(),
+      onSuccess: [],
+      onError: [],
+    };
+    Upload.mockReturnValue(mockUpload);
 
-    api.create = jest.fn();
+    setTimeout(() => mockUpload.onSuccess[0](), 0);
+
     await api.uploadFile(data, mockConfig);
 
-    const conf = api.config(mockConfig);
-    conf.headers['X-Availity-Customer-ID'] = mockConfig.customerId;
-    conf.headers['X-Client-ID'] = mockConfig.clientId;
-
-    expect(api.create).toHaveBeenLastCalledWith(data, conf);
+    expect(Upload).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: expect.any(String),
+        type: 'application/json',
+        size: expect.any(Number),
+      }),
+      {
+        bucketId: '123',
+        customerId: '1194',
+        clientId: '123-456',
+        endpoint,
+      }
+    );
   });
 
-  test('uploadFile() should call create for file passed', async () => {
-    const data = new FormData();
-    const file = Buffer.from([...'hello world']);
-    data.append('filedata', file);
+  test('uploadFile() should use fileName when provided', async () => {
+    const Upload = require('@availity/upload-core');
+    const data = { foo: 'bar' };
 
-    api.create = jest.fn();
+    const mockUpload = {
+      generateId: jest.fn().mockResolvedValue('test-id'),
+      start: jest.fn(),
+      onSuccess: [],
+      onError: [],
+    };
+    Upload.mockReturnValue(mockUpload);
+
+    setTimeout(() => mockUpload.onSuccess[0](), 0);
+
+    await api.uploadFile(data, { fileName: 'test.json', ...mockConfig });
+
+    const [buffer] = Upload.mock.calls[0];
+    expect(buffer.name).toBe('test.json');
+  });
+
+  test('uploadFile() should generate hash filename when fileName not provided', async () => {
+    const Upload = require('@availity/upload-core');
+    const data = { foo: 'bar' };
+
+    const mockUpload = {
+      generateId: jest.fn().mockResolvedValue('test-id'),
+      start: jest.fn(),
+      onSuccess: [],
+      onError: [],
+    };
+    Upload.mockReturnValue(mockUpload);
+
+    setTimeout(() => mockUpload.onSuccess[0](), 0);
+
     await api.uploadFile(data, mockConfig);
 
-    const conf = api.config(mockConfig);
-    conf.headers['X-Availity-Customer-ID'] = mockConfig.customerId;
-    conf.headers['X-Client-ID'] = mockConfig.clientId;
-
-    expect(api.create).toHaveBeenLastCalledWith(data, conf);
+    const [buffer] = Upload.mock.calls[0];
+    // Name should be in format `<alpha-numeric>.json`
+    expect(buffer.name).toMatch(/^[\dA-Za-z]+\.json$/);
   });
 });
