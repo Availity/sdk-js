@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.4](https://github.com/Availity/sdk-js/compare/@availity/native-form@7.0.3...@availity/native-form@7.0.4) (2025-09-22)
+
+### Dependency Updates
+
+* `api-axios` updated to version `7.0.3`
+
+
 ## [7.0.3](https://github.com/Availity/sdk-js/compare/@availity/native-form@7.0.2...@availity/native-form@7.0.3) (2025-07-24)
 
 ### Dependency Updates
