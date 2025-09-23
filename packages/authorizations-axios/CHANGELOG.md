@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.4](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@9.0.3...@availity/authorizations-axios@9.0.4) (2025-09-23)
+
+### Dependency Updates
+
+* `api-axios` updated to version `9.0.3`
+
+### Bug Fixes
+
+* update axios ([c804ee0](https://github.com/Availity/sdk-js/commit/c804ee01b456310820db2dc9f29e5876febbe9ea))
+
+
+
 ## [9.0.3](https://github.com/Availity/sdk-js/compare/@availity/authorizations-axios@9.0.2...@availity/authorizations-axios@9.0.3) (2025-09-22)
 
 ### Dependency Updates
