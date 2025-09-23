@@ -225,7 +225,7 @@ __metadata:
   dependencies:
     "@availity/resolve-url": "workspace:*"
     "@availity/upload-core": "workspace:*"
-    axios: ^1.11.0
+    axios: ^1.12.2
     lodash: ^4.17.21
     msw: 2.3.5
     qs: ^6.14.0
@@ -255,7 +255,7 @@ __metadata:
   dependencies:
     "@availity/api-axios": "workspace:*"
     "@availity/authorizations-core": "workspace:*"
-    axios: ^1.11.0
+    axios: ^1.12.2
     tsup: ^8.4.0
     typescript: ^5.5.4
   peerDependencies:
@@ -290,7 +290,7 @@ __metadata:
   resolution: "@availity/dl-axios@workspace:packages/dl-axios"
   dependencies:
     "@availity/dl-core": "workspace:*"
-    axios: ^1.11.0
+    axios: ^1.12.2
     lodash: ^4.17.21
     tsup: ^8.4.0
     typescript: ^5.5.4
@@ -6719,7 +6719,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.11.0, axios@npm:^1.7.4":
+"axios@npm:^1.12.2":
+  version: 1.12.2
+  resolution: "axios@npm:1.12.2"
+  dependencies:
+    follow-redirects: ^1.15.6
+    form-data: ^4.0.4
+    proxy-from-env: ^1.1.0
+  checksum: f0331594fe053a4bbff04104edb073973a3aabfad2e56b0aa18de82428aa63f6f0839ca3d837258ec739cb4528014121793b1649a21e5115ffb2bf8237eadca3
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.7.4":
   version: 1.11.0
   resolution: "axios@npm:1.11.0"
   dependencies:
