@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.2](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@7.0.1...@availity/dl-axios@7.0.2) (2025-09-23)
+
+
+### Bug Fixes
+
+* update axios ([c804ee0](https://github.com/Availity/sdk-js/commit/c804ee01b456310820db2dc9f29e5876febbe9ea))
+
+
+
 ## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@7.0.0...@availity/dl-axios@7.0.1) (2025-07-24)
 
 
