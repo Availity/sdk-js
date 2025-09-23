@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@availity/upload-core": "workspace:*",
-    "axios": "^1.11.0",
+    "axios": "^1.12.2",
     "msw": "2.3.5",
     "tsup": "^8.4.0",
     "typescript": "^5.5.4"
