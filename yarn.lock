@@ -398,7 +398,7 @@ __metadata:
     "@commitlint/cli": ^18.6.1
     "@commitlint/config-conventional": ^18.6.3
     "@commitlint/config-nx-scopes": ^18.6.1
-    "@jscutlery/semver": ^5.2.2
+    "@jscutlery/semver": ^5.7.1
     "@nx/eslint": 19.8.14
     "@nx/jest": 19.8.14
     "@nx/js": 19.8.14
@@ -4113,9 +4113,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jscutlery/semver@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "@jscutlery/semver@npm:5.2.2"
+"@jscutlery/semver@npm:^5.7.1":
+  version: 5.7.1
+  resolution: "@jscutlery/semver@npm:5.7.1"
   dependencies:
     chalk: 4.1.2
     conventional-changelog: ^5.1.0
@@ -4133,10 +4133,10 @@ __metadata:
     detect-indent: 6.1.0
     git-semver-tags: ^7.0.1
     inquirer: 8.2.6
-    rxjs: 7.8.1
+    rxjs: 7.8.2
   peerDependencies:
-    "@nx/devkit": ^18.0.0
-  checksum: 074a6ecd58ea52e432be13718f7bf3749a30be0feb3e8467d1b9d1c2be7331279cc7f9332191d8472c6e354fcde66d7df05fe3cfac45478a43220a3603453e85
+    "@nx/devkit": ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+  checksum: a91c07e794282630591149f31a6d124f415089df595fecf340ed94bf81ac27ac3abb5905a207fe5c31c5df582fda23e189f847d542fd9e07544bd26dc901c88a
   languageName: node
   linkType: hard
 
@@ -19283,7 +19283,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.1, rxjs@npm:^7.2.0, rxjs@npm:^7.5.5, rxjs@npm:^7.8.1":
+"rxjs@npm:7.8.2":
+  version: 7.8.2
+  resolution: "rxjs@npm:7.8.2"
+  dependencies:
+    tslib: ^2.1.0
+  checksum: 2f233d7c832a6c255dabe0759014d7d9b1c9f1cb2f2f0d59690fd11c883c9826ea35a51740c06ab45b6ade0d9087bde9192f165cba20b6730d344b831ef80744
+  languageName: node
+  linkType: hard
+
+"rxjs@npm:^7.2.0, rxjs@npm:^7.5.5, rxjs@npm:^7.8.1":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
