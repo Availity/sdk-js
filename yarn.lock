@@ -354,6 +354,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@availity/glance-tag@workspace:packages/glance-tag":
+  version: 0.0.0-use.local
+  resolution: "@availity/glance-tag@workspace:packages/glance-tag"
+  dependencies:
+    "@availity/env-var": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@availity/message-core@workspace:packages/message-core":
   version: 0.0.0-use.local
   resolution: "@availity/message-core@workspace:packages/message-core"
