@@ -21,7 +21,7 @@ describe('AvMicroservice', () => {
   test('should throw errors when missing paramaters', () => {
     // expect(() => {
     //   ms = new AvMicroservice();
-    // }).toThrowError('[http], [promise], [config], and [merge] must be defined');
+    // }).toThrow('[http], [promise], [config], and [merge] must be defined');
 
     expect(() => {
       ms = new AvMicroservice({

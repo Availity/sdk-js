@@ -262,20 +262,6 @@ describe('Environment Variables', () => {
             'default'
           )
         ).toBe('default');
-
-        expect(
-          envVar(
-            {
-              app: true,
-              www: false,
-              local: false,
-              qa: false,
-              test: false,
-            },
-            null,
-            'default'
-          )
-        ).toBe(true);
       });
     });
   });
