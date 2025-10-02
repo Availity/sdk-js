@@ -1,16 +1,11 @@
 /* eslint-disable unicorn/prefer-ternary */
 // credit: https://yonatankra.com/how-to-create-a-workspace-coverage-report-in-nrwl-nx-monorepo/
-const glob = require('glob');
+const { glob } = require('glob');
 const fs = require('fs');
 const path = require('path');
 
-function getReport() {
-  return new Promise((resolve, reject) => {
-    glob('coverage/**/coverage-summary.json', (error, result) => {
-      if (error) return reject(error);
-      return resolve(result);
-    });
-  });
+async function getReport() {
+  return glob('coverage/**/coverage-summary.json');
 }
 
 (async function compileReports() {
