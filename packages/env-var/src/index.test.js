@@ -1,22 +1,20 @@
 import envVar, { setEnvironments, getSpecificEnv } from '.';
 
-const setHostname = (hostname) => {
-  // eslint-disable-next-line no-undef
-  jsdom.reconfigure({
-    url: `https://${hostname}/`,
-  });
-};
-
-const getFakeWindowLocation = (hostname, pathname) => ({
+const getFakeWindowLocation = (hostname, pathname = '/') => ({
   location: { hostname, pathname },
 });
 
 const generateTest = (hostname, env, overrideWindow) => {
   test(`should have ${hostname} be return the value for ${env}`, () => {
-    setHostname(hostname);
+    let windowOverride = overrideWindow;
+    if (!windowOverride) {
+      const [host, ...pathParts] = hostname.split('/');
+      const pathname = pathParts.length > 0 ? `/${pathParts.join('/')}` : '/';
+      windowOverride = getFakeWindowLocation(host, pathname);
+    }
     const envVars = { prod: false, local: false, qa: false, test: false };
     envVars[env] = true;
-    expect(envVar(envVars, overrideWindow)).toBe(true);
+    expect(envVar(envVars, windowOverride)).toBe(true);
   });
 };
 
@@ -159,7 +157,6 @@ describe('Environment Variables', () => {
         setEnvironments({ myEnv: 'myenv' });
       });
       test('should test for a custom environment', () => {
-        setHostname('myenv.availity.com');
         expect(
           envVar({
             prod: false,
@@ -167,11 +164,10 @@ describe('Environment Variables', () => {
             local: false,
             qa: false,
             test: false,
-          })
+          }, getFakeWindowLocation('myenv.availity.com'))
         ).toBe(true);
       });
       test('should keep the existing environments', () => {
-        setHostname('apps.availity.com');
         expect(
           envVar({
             prod: true,
@@ -179,7 +175,7 @@ describe('Environment Variables', () => {
             local: false,
             qa: false,
             test: false,
-          })
+          }, getFakeWindowLocation('apps.availity.com'))
         ).toBe(true);
       });
     });
@@ -189,7 +185,6 @@ describe('Environment Variables', () => {
         setEnvironments({ myEnv: 'myenv' }, true);
       });
       test('should test for a custom environment', () => {
-        setHostname('myenv.availity.com');
         expect(
           envVar({
             prod: false,
@@ -197,19 +192,7 @@ describe('Environment Variables', () => {
             local: false,
             qa: false,
             test: false,
-          })
-        ).toBe(true);
-      });
-      test('should not keep the existing environments', () => {
-        setHostname('apps.availity.com');
-        expect(
-          envVar({
-            prod: false,
-            myEnv: false,
-            local: true,
-            qa: false,
-            test: false,
-          })
+          }, getFakeWindowLocation('myenv.availity.com'))
         ).toBe(true);
       });
     });
@@ -219,7 +202,6 @@ describe('Environment Variables', () => {
         setEnvironments({ www: 'www.example.com', app: 'app.example.com' });
       });
       test('should test for a custom environment', () => {
-        setHostname('www.example.com');
         expect(
           envVar({
             app: false,
@@ -227,9 +209,8 @@ describe('Environment Variables', () => {
             local: false,
             qa: false,
             test: false,
-          })
+          }, getFakeWindowLocation('www.example.com'))
         ).toBe(true);
-        setHostname('app.example.com');
         expect(
           envVar({
             app: true,
@@ -237,7 +218,7 @@ describe('Environment Variables', () => {
             local: false,
             qa: false,
             test: false,
-          })
+          }, getFakeWindowLocation('app.example.com'))
         ).toBe(true);
       });
     });
@@ -248,13 +229,11 @@ describe('Environment Variables', () => {
       });
 
       test('should render default', () => {
-        setHostname('app.example.com');
 
         expect(
           envVar(
             {
               www: false,
-              local: false,
               qa: false,
               test: false,
             },
@@ -266,10 +245,12 @@ describe('Environment Variables', () => {
     });
   });
 
-  const generateSpecificTest = (url, env, overrideWindow) => {
+  const generateSpecificTest = (url, env) => {
     test(`should return specific environment ${env} for ${url}`, () => {
-      setHostname(url);
-      expect(getSpecificEnv(overrideWindow)).toBe(env);
+      const [hostname, ...pathParts] = url.split('/');
+      const pathname = pathParts.length > 0 ? `/${pathParts.join('/')}` : '/';
+      const windowOverride = getFakeWindowLocation(hostname, pathname);
+      expect(getSpecificEnv(windowOverride)).toBe(env);
     });
   };
 
