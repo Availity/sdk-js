@@ -17,21 +17,21 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           fetch-depth: 0
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v3
+        uses: nrwl/nx-set-shas@826660b82addbef3abff5fa871492ebad618c9e1 # v4.3.3
         with:
-          main-branch-name: "master"
+          main-branch-name: 'master'
 
       - name: Set Node Version
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: ${{ matrix.node }}
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
 
       # - name: Get yarn cache directory path
       #   id: yarn-cache-dir-path
@@ -61,16 +61,9 @@ jobs:
       - name: Publish Dry Run
         run: yarn publish:dry-run
 
-      - name: Upload coverage report
-        if: ${{ github.actor != 'dependabot[bot]' }}
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage/coverage-final.json
-          token: ${{ secrets.CODECOV_TOKEN }}
-
       - name: Build Packages
         run: yarn build:packages
 
       - name: Build Docs
-        if: ${{matrix.node > 20}}
+        if: ${{ matrix.node == 22 }}
         run: yarn build:docs
