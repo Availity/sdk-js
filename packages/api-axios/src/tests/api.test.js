@@ -91,7 +91,7 @@ describe('AvAPi', () => {
   test('getLocation from response', () => {
     const api = new AvApi({});
     expect(api.getLocation({ config: {}, headers: { location: 'location' } })).toEqual(
-      'http://localhost:8080/location'
+      'http://localhost/location'
     );
   });
 

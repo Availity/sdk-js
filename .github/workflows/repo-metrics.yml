@@ -3,9 +3,14 @@ on: workflow_dispatch
 jobs:
   Repo-Metrics-Report:
     runs-on: ubuntu-latest
+    environment: metrics
+    if: github.actor != 'dependabot[bot]'
+    env:
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
     steps:
       - name: Check out the repository to the runner
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           fetch-depth: 0
       - name: Install Dependencies
@@ -13,10 +18,6 @@ jobs:
       - name: Run Code Coverage Report
         run: yarn test:coverage
       - name: Get Merged PRs from the last two weeks
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
         run: |
           gh api graphql -f query='
             query($owner: String!, $repo: String!) {
@@ -33,8 +34,8 @@ jobs:
                 }
               }
             }' \
-            -f owner=$OWNER \
-            -f repo=$REPO > prs.json
+            -f owner="$OWNER" \
+            -f repo="$REPO" > prs.json
       - name: Calculate Mean Time To Merge
         run: |
           jq -r '
@@ -48,7 +49,8 @@ jobs:
             ) |
             {
               total_prs: .total_prs,
-              average_hours: (.total_hours / .total_prs)
+              average_hours: (if .total_prs > 0 then (.total_hours / .total_prs) else "N/A - No PRs found")
+
             } |
             "PR Metrics Summary:
             Total PRs: \(.total_prs)
@@ -62,5 +64,5 @@ jobs:
           ' coverage/coverage-final.json >> metrics.txt
       - name: Print Repo Metrics Report
         run: |
-          echo "${{ github.repository_owner }} ${{ github.event.repository.name }} Repo Metrics"
+          echo "$OWNER $REPO Repo Metrics"
           cat metrics.txt

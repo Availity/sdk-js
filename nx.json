@@ -5,11 +5,7 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/jest.preset.js"
-      ],
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"],
       "options": {
         "passWithNoTests": true
       },
@@ -22,11 +18,7 @@
     },
     "@nx/eslint:lint": {
       "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.yaml",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.yaml", "{workspaceRoot}/tools/eslint-rules/**/*"]
     }
   },
   "extends": "@nx/workspace/presets/npm.json",

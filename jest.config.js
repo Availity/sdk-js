@@ -9,7 +9,7 @@ module.exports = {
   transformIgnorePatterns: ['node_modules/(?!axios|@bundled-es-modules/*)'],
   moduleFileExtensions: ['ts', 'js'],
   preset: '../../jest.preset.js',
-  testEnvironment: 'jest-environment-jsdom-global',
+  testEnvironment: 'jest-environment-jsdom',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',

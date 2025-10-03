@@ -631,10 +631,6 @@ describe('AvApi', () => {
         merge: mockMerge,
         config: {},
       });
-
-      global.jsdom.reconfigure({
-        url: 'https://dev.local/other',
-      });
     });
 
     test('should return false when polling is turned off', () => {
@@ -669,7 +665,7 @@ describe('AvApi', () => {
     });
 
     test('should call config.getHeader() when polling is available', () => {
-      const testLocation = 'https://dev.local/test';
+      const testLocation = 'http://localhost/test';
       const getHeader = jest.fn(() => testLocation);
       const testResponse = {
         config: {
@@ -680,7 +676,7 @@ describe('AvApi', () => {
         },
         status: 202,
       };
-      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
+      expect(api.getLocation(testResponse)).toBe('http://localhost/test');
       expect(getHeader).toHaveBeenCalledTimes(1);
       expect(getHeader).toHaveBeenCalledWith(testResponse, 'Location');
     });
@@ -698,7 +694,7 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
+      expect(api.getLocation(testResponse)).toBe('http://localhost/test');
     });
 
     test('should use config.base for to relative url', () => {
@@ -732,7 +728,7 @@ describe('AvApi', () => {
           Location: testLocation,
         },
       };
-      expect(api.getLocation(testResponse)).toBe('https://dev.local/test');
+      expect(api.getLocation(testResponse)).toBe('http://localhost/test');
     });
   });
 
