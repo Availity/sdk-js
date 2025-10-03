@@ -72,6 +72,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: 'master'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@826660b82addbef3abff5fa871492ebad618c9e1 # v4.3.3
@@ -108,13 +109,7 @@ jobs:
           yarn nx affected --target publish --parallel=1
 
       - name: Push Changes
-        run: |
-          set -e
-          echo "Pushing changes to master..."
-          git push origin master || { echo "Failed to push to master"; exit 1; }
-          echo "Pushing tags..."
-          git push origin --tags || { echo "Failed to push tags"; exit 1; }
-          echo "Successfully pushed all changes"
+        run: git push && git push --tags
 
   deploy-docs:
     needs: [publish]
