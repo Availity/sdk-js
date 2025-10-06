@@ -53,7 +53,7 @@
     "@nx/eslint": "21.5.3",
     "@nx/jest": "21.5.3",
     "@nx/js": "21.5.3",
-    "@nx/workspace": "21.5.3",
+    "@nx/workspace": "21.6.3",
     "@types/jest": "30.0.0",
     "@types/node": "^22.15.17",
     "dependency-check": "^4.1.0",
