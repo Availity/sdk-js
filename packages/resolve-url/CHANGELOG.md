@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [4.0.1](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@4.0.0...@availity/resolve-url@4.0.1) (2025-10-06)
+
+
+
 # [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/resolve-url@3.0.3...@availity/resolve-url@4.0.0) (2025-05-14)
 
 
