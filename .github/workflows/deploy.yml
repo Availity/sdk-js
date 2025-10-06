@@ -63,6 +63,7 @@ jobs:
         run: yarn build
 
   publish:
+    if: ${{!contains(github.event.head_commit.message, 'skip ci')}}
     needs: [setup]
     runs-on: ubuntu-latest
     permissions:
@@ -120,11 +121,15 @@ jobs:
           gh pr create --title "Release: Version Updates" --body "Automated release PR with version updates and package publications." --base master --head release/version-updates
 
   deploy-docs:
+    if: ${{!contains(github.event.head_commit.message, 'skip ci')}}
     needs: [publish]
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
@@ -144,10 +149,11 @@ jobs:
       - name: Build Docs
         run: yarn build:docs
 
-      - name: Deploy Docs
-        uses: crazy-max/ghaction-github-pages@df5cc2bfa78282ded844b354faee141f06b41865 # v4.2.0
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          target_branch: gh-pages
-          build_dir: docusaurus/build
-          commit_message: deployed docs [skip ci]
-          committer: ${{ secrets.GH_USER }} ${{ secrets.GH_EMAIL }}
+          path: docusaurus/build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
