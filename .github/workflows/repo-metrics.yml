@@ -53,8 +53,7 @@ jobs:
             ) |
             {
               total_prs: .total_prs,
-              average_hours: (if .total_prs > 0 then (.total_hours / .total_prs) else "N/A - No PRs found")
-
+              average_hours: (if .total_prs > 0 then (.total_hours / .total_prs) else "N/A - No PRs found" end)
             } |
             "PR Metrics Summary:
             Total PRs: \(.total_prs)
