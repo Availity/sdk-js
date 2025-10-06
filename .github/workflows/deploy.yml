@@ -9,7 +9,7 @@ on:
 
 jobs:
   setup:
-    if: ${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}
+    if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -63,7 +63,7 @@ jobs:
         run: yarn build
 
   publish:
-    if: ${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}
+    if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
     needs: [setup]
     runs-on: ubuntu-latest
     permissions:
@@ -121,7 +121,7 @@ jobs:
           gh pr create --title "Release: Version Updates" --body "Automated release PR with version updates and package publications." --base master --head release/version-updates
 
   deploy-docs:
-    if: ${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}
+    if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
     needs: [publish]
     runs-on: ubuntu-latest
     permissions:
