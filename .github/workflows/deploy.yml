@@ -101,16 +101,24 @@ jobs:
           git config user.name ${{ secrets.GH_USER }}
 
       - name: Verify Changes
+        id: changes
         run: |
           git status
           git diff --name-only
+          if git diff --quiet HEAD; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Publish
+        if: steps.changes.outputs.has_changes == 'true'
         run: |
           yarn nx affected --target version --parallel=1
           yarn nx affected --target publish --parallel=1
 
       - name: Create Release PR
+        if: steps.changes.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
