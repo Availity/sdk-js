@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: metrics
     if: github.actor != 'dependabot[bot]'
+    permissions:
+      pull-requests: read
     env:
       OWNER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
@@ -18,6 +20,8 @@ jobs:
       - name: Run Code Coverage Report
         run: yarn test:coverage
       - name: Get Merged PRs from the last two weeks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh api graphql -f query='
             query($owner: String!, $repo: String!) {
