@@ -113,6 +113,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git push origin --delete release/version-updates || true
           git checkout -b release/version-updates
           git push origin release/version-updates
           git push origin --tags
