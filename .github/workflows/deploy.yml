@@ -100,21 +100,26 @@ jobs:
           git config user.email ${{ secrets.GH_EMAIL }}
           git config user.name ${{ secrets.GH_USER }}
 
-      - name: Verify Changes
+      - name: Version Packages
+        run: |
+          yarn nx affected --target version --parallel=1
+
+      - name: Check for Version Changes
         id: changes
         run: |
           git status
           git diff --name-only
           if git diff --quiet HEAD; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No version changes detected"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Version changes detected"
           fi
 
       - name: Publish
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          yarn nx affected --target version --parallel=1
           yarn nx affected --target publish --parallel=1
 
       - name: Create Release PR
