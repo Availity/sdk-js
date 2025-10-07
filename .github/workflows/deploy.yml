@@ -99,6 +99,8 @@ jobs:
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config user.email ${{ secrets.GH_EMAIL }}
           git config user.name ${{ secrets.GH_USER }}
+          # Reset .yarnrc.yml to prevent committing
+          git checkout -- .yarnrc.yml
 
       - name: Version Packages
         run: |
@@ -109,13 +111,15 @@ jobs:
         run: |
           git status
           git diff --name-only
-          if git diff --quiet HEAD; then
+          # Check for changes excluding .yarnrc.yml
+          if git diff --quiet HEAD -- ':!.yarnrc.yml'; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No version changes detected"
+            echo "No version changes detected (excluding .yarnrc.yml)"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Version changes detected"
+            echo "Version changes detected (excluding .yarnrc.yml)"
           fi
+          echo "Output set to: $(cat $GITHUB_OUTPUT | grep has_changes)"
 
       - name: Publish
         if: steps.changes.outputs.has_changes == 'true'
@@ -127,6 +131,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "Creating PR because changes detected: ${{ steps.changes.outputs.has_changes }}"
           git push origin --delete release/version-updates || true
           git checkout -b release/version-updates
           git push origin release/version-updates
