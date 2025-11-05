@@ -88,14 +88,14 @@ declare class AvApi<ConfigProps = ApiConfig> {
   delete<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
 }
 
-declare class AvMicroserviceApi extends AvApi {}
+declare class AvMicroserviceApi extends AvApi { }
 
 export interface ProxyApiConfig extends ApiConfig {
   tenant: string;
 }
-declare class AvProxyApi extends AvApi<ProxyApiConfig> {}
+declare class AvProxyApi extends AvApi<ProxyApiConfig> { }
 
-declare class AvCodesApi extends AvApi {}
+declare class AvCodesApi extends AvApi { }
 declare const avCodesApi: AvCodesApi;
 
 declare class AvDisclaimersApi extends AvApi {
@@ -142,13 +142,13 @@ declare class AvTelemetryApi extends AvMicroserviceApi {
   error(entries: Record<string, any>): Promise<AxiosResponse>;
 }
 
-declare class AvLogMessagesApiV2 extends AvLogMessagesApi {}
+declare class AvLogMessagesApiV2 extends AvLogMessagesApi { }
 
 declare const avLogMessagesApi: AvLogMessagesApi;
 declare const avLogMessagesApiV2: AvLogMessagesApiV2;
 declare const avTelemetryApi: AvTelemetryApi;
 
-declare class AvNavigationApi extends AvApi {}
+declare class AvNavigationApi extends AvApi { }
 
 declare const avNavigationApi: AvNavigationApi;
 
@@ -182,7 +182,7 @@ declare class AvPdfApi extends AvApi {
 
 declare const avPdfApi: AvPdfApi;
 
-declare class AvPdfMicroserviceApi extends AvMicroserviceApi {}
+declare class AvPdfMicroserviceApi extends AvMicroserviceApi { }
 
 declare const avPdfMicroserviceApi: AvPdfMicroserviceApi;
 
@@ -227,12 +227,6 @@ declare class AvSettingsApi extends AvApi {
 
 declare const avSettingsApi: AvSettingsApi;
 
-declare class AvSlotMachineApi extends Omit<AvApi, 'query'> {
-  query<TData = any>(data: any, variables: any): Promise<AxiosResponse<TData>>;
-}
-
-declare const avSlotMachineApi: AvSlotMachineApi;
-
 declare class AvSpacesApi extends AvApi {
   parseSpaceId(query: string): string;
 
@@ -274,7 +268,7 @@ declare class AvUserPermissionsApi extends AvApi {
 
 declare const avUserPermissionsApi: AvUserPermissionsApi;
 
-declare class AvWebQLApi extends AvApi {}
+declare class AvWebQLApi extends AvApi { }
 declare const avWebQLApi: AvWebQLApi;
 
 export default AvApi;
@@ -312,8 +306,6 @@ export {
   AvRegionsApi,
   avSettingsApi,
   AvSettingsApi,
-  avSlotMachineApi,
-  AvSlotMachineApi,
   avSpacesApi,
   AvSpacesApi,
   avTelemetryApi,

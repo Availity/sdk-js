@@ -193,9 +193,6 @@ Store and retrieve settings to be reused.
 Use `query(params)` with at least an `applicationId` in the `params` object
 Use `update(data)` with at least an `applicationId` in the `scope` object, and key/value pairs of data
 
-### `AvSlotMachine`
-
-GraphQL Server containing different queries and mutation
 
 #### methods
 
