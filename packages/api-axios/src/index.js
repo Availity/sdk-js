@@ -20,7 +20,6 @@ import AvProvidersApi, { avProvidersApi } from './resources/providers';
 import AvRegionsApi, { avRegionsApi } from './resources/regions';
 import AvRouteConfigurationsApi, { avRouteConfigurationsApi } from './resources/routeConfigurations';
 import AvSettingsApi, { avSettingsApi } from './resources/settings';
-import AvSlotMachineApi, { avSlotMachineApi } from './resources/slotmachine';
 import AvSpacesApi, { avSpacesApi } from './resources/spaces';
 import AvTelemetryApi, { avTelemetryApi } from './resources/telemetry';
 import AvUserApi, { avUserApi } from './resources/user';
@@ -66,8 +65,6 @@ export {
   avRouteConfigurationsApi,
   AvSettingsApi,
   avSettingsApi,
-  AvSlotMachineApi,
-  avSlotMachineApi,
   AvSpacesApi,
   avSpacesApi,
   AvTelemetryApi,
