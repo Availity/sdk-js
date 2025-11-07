@@ -62,7 +62,6 @@ async function getUser() {
 - `avRegionsApi`
 - `AvRouteConfigurationsApi`
 - `avSettingsApi`
-- `avSlotMachineApi`
 - `avSpacesApi`
 - `avTelemetryApi`
 - `avUserApi`
@@ -91,7 +90,6 @@ import AvApi, {
   avRegionsApi,
   avRouteConfigurationsApi,
   avSettingsApi,
-  avSlotMachineApi,
   avSpacesApi,
   avTelemetryApi,
   avUserApi,

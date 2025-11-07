@@ -18,7 +18,6 @@ This page has information on pre-defined resources you can import into your app.
 - [AvFilesDeliveryApi](#avfilesdelivery)
 - [AvSettingsApi](#avsettingsapi)
 - [AvDisclaimersApi](#avdisclaimersapi)
-- [AvSlotmachineApi](#avslotmachineapi)
 - [AvTelemetryApi](#avtelemetryapi)
 - [AvProxyApi](#avproxyapi)
 
@@ -588,21 +587,6 @@ import { avDisclaimersApi } from '@availity/api-axios';
 
 const fetchDisclaimers = async (id) => {
   const response = await avDisclaimersApi.getDisclaimers(id);
-  return response.data;
-};
-```
-
-### AvSlotMachineApi
-
-GraphQL Server containing different queries and mutation.
-
-#### `query(query, variables)`
-
-```js
-import { avSlotMachineApi } from '@availity/api-axios';
-
-const queryApi = async (query, variables) => {
-  const response = await avSlotMachineApi.query(query, variables);
   return response.data;
 };
 ```
