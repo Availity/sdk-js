@@ -16,7 +16,6 @@ import AvPermissions from './resources/permissions';
 import AvProviders from './resources/providers';
 import AvRegions from './resources/regions';
 import AvSettings from './resources/settings';
-import AvSlotMachine from './resources/slotmachine';
 import AvSpaces from './resources/spaces';
 import AvUserPermissions from './resources/userPermissions';
 import AvUsers from './resources/user';
@@ -41,7 +40,6 @@ export {
   AvProviders,
   AvRegions,
   AvSettings,
-  AvSlotMachine,
   AvSpaces,
   AvUserPermissions,
   AvUsers,

@@ -13,7 +13,6 @@ import AvApi, {
   avProvidersApi,
   avRegionsApi,
   avSettingsApi,
-  avSlotMachineApi,
   avSpacesApi,
   avUserApi,
   avUserPermissionsApi,
@@ -132,7 +131,6 @@ describe('API Definitions', () => {
     expect(avProvidersApi).toBeDefined();
     expect(avRegionsApi).toBeDefined();
     expect(avSettingsApi).toBeDefined();
-    expect(avSlotMachineApi).toBeDefined();
     expect(avSpacesApi).toBeDefined();
     expect(avUserApi).toBeDefined();
     expect(avUserPermissionsApi).toBeDefined();
