@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [12.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-axios@11.2.2...@availity/api-axios@12.0.0) (2025-11-10)
+
+
+### Code Refactoring
+
+* **api-axios, api-core:** remove slotmachine ([1fa331b](https://github.com/Availity/sdk-js/commit/1fa331bbf415daf60d61e9bfa057eb0295d0d52e))
+
+
+### BREAKING CHANGES
+
+* **api-axios, api-core:** avSlotmachineApi was removed
+
+
+
 ## [11.2.2](https://github.com/Availity/sdk-js/compare/@availity/api-axios@11.2.1...@availity/api-axios@11.2.2) (2025-10-06)
 
 
