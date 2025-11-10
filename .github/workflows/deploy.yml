@@ -66,6 +66,8 @@ jobs:
     if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
     needs: [setup]
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.changes.outputs.has_changes }}
     permissions:
       contents: write # Required for git push and creating tags
       pull-requests: write # Required for creating pull requests
@@ -99,8 +101,10 @@ jobs:
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config user.email ${{ secrets.GH_EMAIL }}
           git config user.name ${{ secrets.GH_USER }}
-          # Reset .yarnrc.yml to prevent committing
-          git checkout -- .yarnrc.yml
+
+      - name: Store initial commit SHA
+        id: initial-sha
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Version Packages
         run: |
@@ -109,10 +113,14 @@ jobs:
       - name: Check for Version Changes
         id: changes
         run: |
-          if [ "$(git rev-list --count HEAD^..HEAD)" -eq 0 ]; then
+          INITIAL_SHA="${{ steps.initial-sha.outputs.sha }}"
+          CURRENT_SHA=$(git rev-parse HEAD)
+          if [ "$INITIAL_SHA" = "$CURRENT_SHA" ]; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No new commits created by version step"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "New commits created by version step"
           fi
 
       - name: Publish
@@ -134,19 +142,15 @@ jobs:
 
   deploy-docs:
     if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
-    needs: [publish]
+    needs: [setup]
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      contents: write
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           fetch-depth: 0
-          ref: 'master'
+          ref: ${{ github.sha }}
 
       - name: Set Node Version
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -158,14 +162,16 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      - name: Build Docs
-        run: yarn build:docs
+      - name: Build Packages
+        run: yarn build
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
-        with:
-          path: docusaurus/build
+      - name: Build Docs
+        run: yarn build:storybook:ci
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist/storybook
+          keep_files: true
+          enable_jekyll: false
