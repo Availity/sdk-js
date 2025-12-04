@@ -57,7 +57,7 @@
     "@types/jest": "30.0.0",
     "@types/node": "^22.15.17",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^10.0.7",
+    "eslint-config-availity": "^10.0.9",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
@@ -76,5 +76,5 @@
   "resolutions": {
     "socks": "2.7.3"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@4.12.0"
 }
