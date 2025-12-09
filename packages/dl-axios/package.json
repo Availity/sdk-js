@@ -46,7 +46,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "axios": "^1.12.2",
+    "axios": "^1.13.2",
     "tsup": "^8.4.0",
     "typescript": "^5.5.4"
   },
