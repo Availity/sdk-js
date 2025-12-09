@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.5](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@7.0.4...@availity/dl-axios@7.0.5) (2025-12-09)
+
+
+
 ## [7.0.4](https://github.com/Availity/sdk-js/compare/@availity/dl-axios@7.0.3...@availity/dl-axios@7.0.4) (2025-11-10)
 
 ### Dependency Updates
