@@ -453,7 +453,7 @@ __metadata:
     "@commitlint/cli": "npm:^18.6.1"
     "@commitlint/config-conventional": "npm:^18.6.3"
     "@commitlint/config-nx-scopes": "npm:^18.6.1"
-    "@jscutlery/semver": "npm:^5.2.2"
+    "@jscutlery/semver": "npm:^5.7.1"
     "@nx/eslint": "npm:21.5.3"
     "@nx/jest": "npm:21.5.3"
     "@nx/js": "npm:21.5.3"
@@ -3676,6 +3676,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/external-editor@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "@inquirer/external-editor@npm:1.0.3"
+  dependencies:
+    chardet: "npm:^2.1.1"
+    iconv-lite: "npm:^0.7.0"
+  peerDependencies:
+    "@types/node": ">=18"
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+  checksum: 10/c95d7237a885b32031715089f92820525731d4d3c2bd7afdb826307dc296cc2b39e7a644b0bb265441963348cca42e7785feb29c3aaf18fd2b63131769bf6587
+  languageName: node
+  linkType: hard
+
 "@inquirer/figures@npm:^1.0.3, @inquirer/figures@npm:^1.0.6":
   version: 1.0.11
   resolution: "@inquirer/figures@npm:1.0.11"
@@ -4272,9 +4287,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jscutlery/semver@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "@jscutlery/semver@npm:5.2.2"
+"@jscutlery/semver@npm:^5.7.1":
+  version: 5.7.1
+  resolution: "@jscutlery/semver@npm:5.7.1"
   dependencies:
     chalk: "npm:4.1.2"
     conventional-changelog: "npm:^5.1.0"
@@ -4292,10 +4307,10 @@ __metadata:
     detect-indent: "npm:6.1.0"
     git-semver-tags: "npm:^7.0.1"
     inquirer: "npm:8.2.6"
-    rxjs: "npm:7.8.1"
+    rxjs: "npm:7.8.2"
   peerDependencies:
-    "@nx/devkit": ^18.0.0
-  checksum: 10/9da5c19c446299f8cad4fc8a81550e8dabbf67e12e7acdcdb947ccbd51800b1e6e185583ff16b3d0b8d688610c8750a35477c46d52ab42b5ee3177a9f136cadf
+    "@nx/devkit": ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+  checksum: 10/ca6f008e8a12c3847a1386d3d92dbab27a615c416acfb7b5db5c3d68eaf0a06e38656a1e9f8153cab59eccda9417a2b939822af5f95da3347668a7eef2e04ca1
   languageName: node
   linkType: hard
 
@@ -7691,6 +7706,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chardet@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "chardet@npm:2.1.1"
+  checksum: 10/d56913b65e45c5c86f331988e2ef6264c131bfeadaae098ee719bf6610546c77740e37221ffec802dde56b5e4466613a4c754786f4da6b5f6c5477243454d324
+  languageName: node
+  linkType: hard
+
 "cheerio-select@npm:^2.1.0":
   version: 2.1.0
   resolution: "cheerio-select@npm:2.1.0"
@@ -10506,7 +10528,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"external-editor@npm:^3.0.3, external-editor@npm:^3.1.0":
+"external-editor@npm:^3.0.3":
   version: 3.1.0
   resolution: "external-editor@npm:3.1.0"
   dependencies:
@@ -12022,6 +12044,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iconv-lite@npm:^0.7.0":
+  version: 0.7.1
+  resolution: "iconv-lite@npm:0.7.1"
+  dependencies:
+    safer-buffer: "npm:>= 2.1.2 < 3.0.0"
+  checksum: 10/bf9bfa10132b591d7b43cc2cc6700cd72d848b7943c3f38db05527d04c224eb44d1d92101f76d25eac7fabc67cb918320b93808b0be47e45cf7257df0a5ec54c
+  languageName: node
+  linkType: hard
+
 "icss-utils@npm:^5.0.0, icss-utils@npm:^5.1.0":
   version: 5.1.0
   resolution: "icss-utils@npm:5.1.0"
@@ -12196,13 +12227,13 @@ __metadata:
   linkType: hard
 
 "inquirer@npm:^9.2.10":
-  version: 9.3.5
-  resolution: "inquirer@npm:9.3.5"
+  version: 9.3.8
+  resolution: "inquirer@npm:9.3.8"
   dependencies:
+    "@inquirer/external-editor": "npm:^1.0.2"
     "@inquirer/figures": "npm:^1.0.3"
     ansi-escapes: "npm:^4.3.2"
     cli-width: "npm:^4.1.0"
-    external-editor: "npm:^3.1.0"
     mute-stream: "npm:1.0.0"
     ora: "npm:^5.4.1"
     run-async: "npm:^3.0.0"
@@ -12211,7 +12242,7 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     wrap-ansi: "npm:^6.2.0"
     yoctocolors-cjs: "npm:^2.1.2"
-  checksum: 10/77084423a2ff54f200b5b25900a212a92f496b7206df49c0031f17360f9a51ecfd7993e9e155b609631e636fa0fccfefcc03d01016e55ed32d5ec18f5644f288
+  checksum: 10/5bfded0ccb84630ef0534cd9c579c7453cc68f5f88c1bb4bfdd91f81c760f1d3e9f0019cfd6053e47053b3b9fa03de4f7c4bf9295b5365fb3b8539ae3799ff18
   languageName: node
   linkType: hard
 
@@ -19118,12 +19149,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.1, rxjs@npm:^7.2.0, rxjs@npm:^7.5.5, rxjs@npm:^7.8.1":
-  version: 7.8.1
-  resolution: "rxjs@npm:7.8.1"
+"rxjs@npm:7.8.2, rxjs@npm:^7.2.0, rxjs@npm:^7.5.5, rxjs@npm:^7.8.1":
+  version: 7.8.2
+  resolution: "rxjs@npm:7.8.2"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/b10cac1a5258f885e9dd1b70d23c34daeb21b61222ee735d2ec40a8685bdca40429000703a44f0e638c27a684ac139e1c37e835d2a0dc16f6fc061a138ae3abb
+  checksum: 10/03dff09191356b2b87d94fbc1e97c4e9eb3c09d4452399dddd451b09c2f1ba8d56925a40af114282d7bc0c6fe7514a2236ca09f903cf70e4bbf156650dddb49d
   languageName: node
   linkType: hard
 
