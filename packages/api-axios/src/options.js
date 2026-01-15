@@ -35,6 +35,42 @@ const API_OPTIONS = {
     // send credentials on CORS requests
     withCredentials: true,
   },
+  CLOUD: {
+    // default base segment for Availity API endpoints
+    path: '/cloud/web',
+
+    // full url to api resource
+    url: null,
+
+    // name of resource
+    name: null,
+
+    // defaults version for api
+    version: null,
+
+    // cache all request by default
+    cache: false,
+
+    // flag used to enable behaviors around the Availity Rest API
+    api: true,
+
+    polling: false, //  1s,  2s,  5s,  10s
+
+    pollingIntervals: [1e3, 2e3, 5e3, 1e4], // in ms
+
+    pollingMethod: 'POST',
+
+    // default headers
+    headers: {
+      // Turn off content encoding for angular apis
+      'X-Response-Encoding-Context': 'NONE',
+    },
+
+    sessionBust: false,
+
+    // send credentials on CORS requests
+    withCredentials: true,
+  },
   MS: {
     // default base segment for Availity API endpoints
     path: '/ms/api/availity/internal',
