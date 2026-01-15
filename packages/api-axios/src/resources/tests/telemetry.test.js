@@ -14,7 +14,7 @@ describe('AvTelemetryApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/ms/api/availity/internal/spc/analytics/telemetry');
+    expect(api.getUrl(api.config())).toBe('/cloud/web/appl/analytics/telemetry');
   });
 
   test('send() should return {level, entries}', () => {
