@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "12.0.2",
+  "version": "13.0.0-alpha.0",
   "description": "Wrappers for axios designed to work with the Availity portal",
   "keywords": [
     "availity",
@@ -39,7 +39,8 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "publish": "yarn npm publish --tolerate-republish --access public"
+    "publish": "yarn npm publish --tolerate-republish --access public",
+    "publish:canary": "yarn npm publish --verbose --dry-run --access public --tag canary"
   },
   "dependencies": {
     "@availity/resolve-url": "workspace:*",

@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-export-from */
 import AvApi from './api';
+import AvCloudApi from './cloud';
 import AvMicroserviceApi from './ms';
 import AvProxyApi from './proxy';
 
@@ -29,6 +30,7 @@ import AvWebQLApi, { avWebQLApi } from './resources/webQL';
 export default AvApi;
 
 export {
+  AvCloudApi,
   AvMicroserviceApi,
   AvProxyApi,
   AvCodesApi,

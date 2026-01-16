@@ -1,11 +1,11 @@
 import set from 'lodash/set';
-import AvMicroserviceApi from '../ms';
+import AvCloudApi from '../cloud';
 import flattenObject from '../flatten-object';
 
-export default class AvTelemetryApi extends AvMicroserviceApi {
+export default class AvTelemetryApi extends AvCloudApi {
   constructor(config) {
     super({
-      name: 'spc/analytics/telemetry',
+      name: '/appl/analytics/telemetry',
       ...config,
     });
   }
