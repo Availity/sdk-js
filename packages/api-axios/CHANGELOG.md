@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [13.0.0-alpha.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.0.0-alpha.0...@availity/api-axios@13.0.0-alpha.1) (2026-01-21)
+
+
+### Code Refactoring
+
+* **api-axios:** migrate AvOrganizationsApi to cloud URL ([d839e45](https://github.com/availity/sdk-js/commit/d839e45813e7b3edd7dbdaa6a9817ac6998de8f5))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** Orgs URL changed - update logic/tests/reporting that rely on orgs URL
+
+
+
 # [13.0.0-alpha.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.0.2...@availity/api-axios@13.0.0-alpha.0) (2026-01-15)
 
 
