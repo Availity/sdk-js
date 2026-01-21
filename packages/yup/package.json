@@ -42,7 +42,7 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "yup": "^0.32.11"
   },
   "devDependencies": {
