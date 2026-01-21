@@ -278,7 +278,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/api-axios@workspace:packages/api-axios"
   dependencies:
-    "@availity/resolve-url": "workspace:*"
+    "@availity/resolve-url": "npm:4.0.1"
     "@availity/upload-core": "workspace:*"
     axios: "npm:^1.13.2"
     lodash: "npm:^4.17.21"
@@ -437,7 +437,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@availity/resolve-url@workspace:*, @availity/resolve-url@workspace:packages/resolve-url":
+"@availity/resolve-url@npm:4.0.1, @availity/resolve-url@workspace:*, @availity/resolve-url@workspace:packages/resolve-url":
   version: 0.0.0-use.local
   resolution: "@availity/resolve-url@workspace:packages/resolve-url"
   dependencies:

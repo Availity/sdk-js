@@ -43,7 +43,7 @@
     "publish:canary": "yarn npm publish --verbose --dry-run --access public --tag canary"
   },
   "dependencies": {
-    "@availity/resolve-url": "workspace:*",
+    "@availity/resolve-url": "4.0.1",
     "lodash": "^4.17.21",
     "qs": "^6.14.1"
   },
