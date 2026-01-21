@@ -7,7 +7,7 @@ import { avUserPermissionsApi } from './userPermissions';
 export default class AvOrganizationsApi extends AvApi {
   constructor(config) {
     super({
-      path: 'api/sdk/platform',
+      path: '/cloud/web/appl/customer-management/legacy/sdk/platform',
       name: 'organizations',
       ...config,
     });
