@@ -25,13 +25,13 @@ yarn add @availity/native-form
 import nativeForm from '@availity/native-form';
 
 async function onClick() {
-  await nativeForm(spaceId, params, formAttributes, type);
+  await nativeForm(ssoId, params, formAttributes, type);
 }
 ```
 
 ### Required args
 
-- spaceId: String
+- ssoId: String. This is the id of the SSO that needs to be initiated. In the past this was sometimes referred to as `spaceId` but do not confuse this id with the payer space id.
 
 ### Optional args
 
@@ -41,7 +41,7 @@ async function onClick() {
   - `action` will default to `/ms/api/availity/internal/spc/magneto/sso/v1/${typeLower}/${spaceId}` where `typeLower` is equal to `"saml"` or `"openid"`
   - `target` will default to `"\_blank"`
   - Additional attributes can be defined and should be valid on an HTML form element
-- type: String. Override the magneto integration type
+- type: String. Override the SSO integration type
 - clientId: String. Set the `clientId` required for API Connect. Defaults to `"clientId"`
 
 ###
