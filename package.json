@@ -57,7 +57,7 @@
     "@types/jest": "30.0.0",
     "@types/node": "^22.15.17",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^10.0.9",
+    "eslint-config-availity": "^10.0.10",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
