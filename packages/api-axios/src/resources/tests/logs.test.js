@@ -14,7 +14,7 @@ describe('AvLogMessagesApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/api/v1/log-messages');
+    expect(api.getUrl(api.config())).toBe('/cloud/web/appl/analytics/log');
   });
 
   test('send() should return {level, entries}', () => {

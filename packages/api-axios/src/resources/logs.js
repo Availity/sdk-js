@@ -1,10 +1,10 @@
-import AvApi from '../api';
+import AvCloudApi from '../cloud';
 import flattenObject from '../flatten-object';
 
-export default class AvLogMessagesApi extends AvApi {
+export default class AvLogMessagesApi extends AvCloudApi {
   constructor(config) {
     super({
-      name: 'log-messages',
+      name: '/appl/analytics/log',
       ...config,
     });
   }
