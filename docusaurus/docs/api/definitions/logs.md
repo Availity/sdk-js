@@ -14,7 +14,7 @@ Endpoint to log data by level and key/value pairs.
 ### Example Request
 
 ```bash
-curl -i -X POST -H "Content-Type: application/json" -d '{"level": "INFO", "entries": {"user": "userName", "key": "value"}}' 'https://essentials.availity.com/cloud/web/appl/aries-misc-service/api/utils/v1/log-messages'
+curl -i -X POST -H "Content-Type: application/json" -d '{"level": "INFO", "entries": {"user": "userName", "key": "value"}}' 'https://essentials.availity.com/cloud/web/appl/aries-misc-service/api/v1/log-messages'
 ```
 
 ### Response Code
