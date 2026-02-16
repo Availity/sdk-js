@@ -4,7 +4,7 @@ import flattenObject from '../flatten-object';
 export default class AvLogMessagesApi extends AvCloudApi {
   constructor(config) {
     super({
-      name: '/appl/analytics/log',
+      name: '/appl/aries-misc-service/api/v1/log-messages',
       ...config,
     });
   }
