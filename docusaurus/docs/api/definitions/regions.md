@@ -72,7 +72,7 @@ Allows the client to retrieve a region by id.
 ### Example Request
 
 ```
-GET https://essentials.availity.com/web/cloud/appl/customer-management/sdk/platform/v1/regions/NM
+GET https://essentials.availity.com/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions/NM
 ```
 
 ### Example Response
