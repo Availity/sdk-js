@@ -2,11 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
-## [12.0.4](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.0.3...@availity/api-axios@12.0.4) (2026-02-27)
+# [13.0.0-alpha.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.0.2...@availity/api-axios@13.0.0-alpha.0) (2026-01-15)
 
 
+### Code Refactoring
 
-## [12.0.3](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.0.2...@availity/api-axios@12.0.3) (2026-02-09)
+* **api-axios:** migrate AvTelemetryApi to cloud URL ([b34b909](https://github.com/availity/sdk-js/commit/b34b909a2c31f914240e76a221dcabd9a568f000))
+
+
+### Features
+
+* **api-axios:** add AvCloudApi class ([4299f38](https://github.com/availity/sdk-js/commit/4299f384791499b9176f1d515aa84d5e82f66c5e))
+
+
+### BREAKING CHANGES
+
+* **api-axios:** Telemetry URL changed - update logic/tests/reporting that rely on telemetry URL
 
 
 

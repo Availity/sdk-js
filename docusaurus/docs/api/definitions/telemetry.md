@@ -4,7 +4,7 @@ title: Telemetry
 
 Endpoint to send telemetry data by level and key/value pairs.
 
-## POST /ms/api/availity/internal/pui/key-delivery/v1/telemetry
+## POST /cloud/web/appl/analytics/telemetry
 
 ### Body
 
@@ -44,7 +44,7 @@ curl -i -X POST -H "Content-Type: application/json" -d '{
             "userId": "aka123"
         }
     }
-}}' 'https://apps.availity.com/ms/api/availity/internal/pui/key-delivery/v1/telemetry'
+}}' 'https://essentials.availity.com/cloud/web/appl/analytics/telemetry'
 ```
 
 ### Response Code
