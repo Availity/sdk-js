@@ -28,7 +28,7 @@ describe('AvRegionsApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/api/sdk/platform/v1/regions');
+    expect(api.getUrl(api.config())).toBe('/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions');
   });
 
   test('afterUpdate should call setPageBust and return response', async () => {
