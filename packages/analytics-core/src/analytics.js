@@ -31,6 +31,11 @@ export default class AvAnalytics {
     this.isPageTracking = false;
     this.hasInit = false;
 
+    this.hasLogPlugin = this.plugins.some((plugin) => {
+      const apiName = plugin.AvLogMessages?.defaultConfig?.name;
+      return apiName === 'appl/analytics/log' || apiName === 'spc/analytics/log';
+    });
+
     if (autoTrack) {
       this.startAutoTrack();
     }
@@ -102,9 +107,7 @@ export default class AvAnalytics {
     isModifiedEvent(event) || (event.type === 'click' && !isLeftClickEvent(event)) || !isValidEventTypeOnTarget(event);
 
   getAnalyticAttrs = (elem) => {
-    if (!elem.attributes) {
-      return {};
-    }
+    if (!elem.attributes) return {};
 
     const attrs = elem.attributes;
     const analyticAttrs = {};
@@ -115,6 +118,19 @@ export default class AvAnalytics {
         if (name.indexOf(`${this.attributePrefix}-`) === 0) {
           const camelName = camelCase(name.slice(this.attributePrefix.length + 1));
           analyticAttrs[camelName] = elem.getAttribute(name);
+        }
+      }
+
+      if (this.hasLogPlugin) {
+        const overridesKeys = Object.keys(analyticAttrs).filter(key => key.startsWith('overrides'));
+        if (overridesKeys.length > 0) {
+          analyticAttrs.overrides = {};
+          for (const key of overridesKeys) {
+            const nestedKey = key.slice(9); // Remove 'overrides'
+            const finalKey = nestedKey.charAt(0).toLowerCase() + nestedKey.slice(1);
+            analyticAttrs.overrides[finalKey] = analyticAttrs[key];
+            delete analyticAttrs[key];
+          }
         }
       }
     }
