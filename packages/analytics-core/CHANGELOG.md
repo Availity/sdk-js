@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.1.0](https://github.com/availity/sdk-js/compare/@availity/analytics-core@6.0.10...@availity/analytics-core@6.1.0) (2026-03-13)
+
+### Dependency Updates
+
+* `api-axios` updated to version `6.0.10`
+
+### Features
+
+* **analytics-core, api-axios:** add overrides support to /log endpoint ([043e2ae](https://github.com/availity/sdk-js/commit/043e2ae8c04175aeab2740147cf05150468708c8))
+
+
+
 ## [6.0.10](https://github.com/availity/sdk-js/compare/@availity/analytics-core@6.0.9...@availity/analytics-core@6.0.10) (2026-02-27)
 
 ### Dependency Updates
