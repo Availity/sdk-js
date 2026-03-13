@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-dom-node-dataset */
 import { AvAnalytics } from '..';
 
 type MockPlugin = {
@@ -182,6 +183,137 @@ describe('AvAnalytics', () => {
 
       expect(plugins[0].trackPageView).not.toHaveBeenCalled();
       expect(plugins[1].trackPageView).toHaveBeenCalledWith(mockUrl);
+    });
+  });
+
+  describe('getAnalyticAttrs with nested overrides', () => {
+    let logPlugin: MockPlugin & { AvLogMessages?: { defaultConfig: { name: string } } };
+    let mockApiV2: { defaultConfig: { name: string } };
+    let mockApiV3: { defaultConfig: { name: string } };
+
+    beforeEach(() => {
+      logPlugin = makePlugin();
+      mockApiV2 = { defaultConfig: { name: 'spc/analytics/log' } };
+      mockApiV3 = { defaultConfig: { name: 'appl/analytics/log' } };
+    });
+
+    test('should extract nested overrides when AvLogMessagesApiV3 plugin is registered', () => {
+      logPlugin.AvLogMessages = mockApiV3;
+      mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false);
+
+      const elem = document.createElement('button');
+      elem.setAttribute('data-analytics-category', 'error');
+      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+      elem.setAttribute('data-analytics-overrides-timeout', '5000');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        category: 'error',
+        overrides: {
+          endpoint: '/custom/log',
+          timeout: '5000',
+        },
+      });
+    });
+
+    test('should extract nested overrides when AvLogMessagesApiV2 plugin is registered', () => {
+      logPlugin.AvLogMessages = mockApiV2;
+      mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false);
+
+      const elem = document.createElement('button');
+      elem.setAttribute('data-analytics-overrides-retry', 'true');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        overrides: {
+          retry: 'true',
+        },
+      });
+    });
+
+    test('should NOT extract nested overrides when no log plugin is registered', () => {
+      const googlePlugin = makePlugin();
+      mockAvAnalytics = new AvAnalytics([googlePlugin], Promise, false, false);
+
+      const elem = document.createElement('button');
+      elem.setAttribute('data-analytics-category', 'button');
+      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        category: 'button',
+        overridesEndpoint: '/custom/log',
+      });
+    });
+
+    test('should NOT extract nested overrides when plugin has no AvLogMessages', () => {
+      const plugin = makePlugin();
+      mockAvAnalytics = new AvAnalytics([plugin], Promise, false, false);
+
+      const elem = document.createElement('button');
+      elem.setAttribute('data-analytics-category', 'button');
+      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        category: 'button',
+        overridesEndpoint: '/custom/log',
+      });
+    });
+
+    test('should handle log plugin without overrides attributes', () => {
+      logPlugin.AvLogMessages = mockApiV3;
+      mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false);
+
+      const elem = document.createElement('button');
+      elem.setAttribute('data-analytics-category', 'error');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        category: 'error',
+      });
+    });
+
+    test('should use custom attributePrefix with log plugin', () => {
+      logPlugin.AvLogMessages = mockApiV3;
+      mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false, {
+        attributePrefix: 'custom-attr',
+      });
+
+      const elem = document.createElement('button');
+      elem.setAttribute('custom-attr-overrides-endpoint', '/test');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        overrides: {
+          endpoint: '/test',
+        },
+      });
+    });
+
+    test('should extract nested overrides when multiple plugins including log plugin', () => {
+      logPlugin.AvLogMessages = mockApiV3;
+      const googlePlugin = makePlugin();
+      mockAvAnalytics = new AvAnalytics([googlePlugin, logPlugin], Promise, false, false);
+
+      const elem = document.createElement('button');
+      elem.setAttribute('data-analytics-category', 'error');
+      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+
+      const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
+
+      expect(attrs).toEqual({
+        category: 'error',
+        overrides: {
+          endpoint: '/custom/log',
+        },
+      });
     });
   });
 });

@@ -17,4 +17,9 @@ describe('AvLogMessagesApiV2', () => {
     const fields = api.send('info', { testField1: 'test1', testField2: 'test2'});
     expect(fields).toContain('level=info&entries.testField1=test1&entries.testField2=test2');
   });
+
+  test('send should generate optional overrides fields correctly', () => {
+    const fields = api.send('info', { testField1: 'test1', testField2: 'test2', overrides: { akaName: 'override1', transactionId: 'override2' } });
+    expect(fields).toContain('level=info&entries.testField1=test1&entries.testField2=test2&overrides.akaName=override1&overrides.transactionId=override2');
+  });
 });
