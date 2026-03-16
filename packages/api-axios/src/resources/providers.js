@@ -3,7 +3,7 @@ import AvApi from '../api';
 export default class AvProvidersApi extends AvApi {
   constructor(config) {
     super({
-      path: 'api/internal',
+      path: 'cloud/web/onb/roster-api/roster',
       name: 'providers',
       ...config,
     });
