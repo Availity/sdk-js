@@ -4,10 +4,11 @@ import AvApi from '../api';
 import { avUserApi } from './user';
 import { avUserPermissionsApi } from './userPermissions';
 
+// may be able to switch to AvCloudApi
 export default class AvOrganizationsApi extends AvApi {
   constructor(config) {
     super({
-      path: 'api/sdk/platform',
+      path: '/cloud/web/appl/customer-management/legacy/sdk/platform',
       name: 'organizations',
       ...config,
     });

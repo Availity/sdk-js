@@ -132,7 +132,7 @@ describe('AvOrganizations', () => {
     });
 
     test('url should be correct', () => {
-      expect(api.getUrl(api.config())).toBe('/api/sdk/platform/v1/organizations');
+      expect(api.getUrl(api.config())).toBe('/cloud/web/appl/customer-management/legacy/sdk/platform/v1/organizations');
     });
 
     test('queryOrganizations() should call query with user.id added to params.userId', () => {
