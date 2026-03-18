@@ -11,7 +11,7 @@ describe('AvProvidersApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/api/internal/v1/providers');
+    expect(api.getUrl(api.config())).toBe('/cloud/web/onb/roster-api/roster/v1/providers');
   });
 
   test('getProviders should query with customerId param added', async () => {
