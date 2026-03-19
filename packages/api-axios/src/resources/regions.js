@@ -1,11 +1,10 @@
-import AvApi from '../api';
+import AvCloudApi from '../cloud';
 import { avUserApi } from './user';
 
-export default class AvRegionsApi extends AvApi {
+export default class AvRegionsApi extends AvCloudApi {
   constructor(config) {
     super({
-      path: 'api/sdk/platform',
-      name: 'regions',
+      name: '/appl/customer-management/legacy/sdk/platform/v1/regions',
       sessionBust: false,
       pageBust: true,
       ...config,

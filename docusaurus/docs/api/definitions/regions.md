@@ -4,7 +4,7 @@ title: Regions
 
 This endpoint allows clients to retrieve a list of all regions associated to a specific user.
 
-## GET /api/sdk/platform/v1/regions
+## GET /cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions
 
 Find a user's regions collection.
 
@@ -20,7 +20,7 @@ Find a user's regions collection.
 ### Example Request
 
 ```
-    GET https://apps.availity.com/api/sdk/platform/v1/regions?currentlySelected=true
+    GET https://essentials.availity.com/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions?currentlySelected=true
 ```
 
 ### Example Response
@@ -44,7 +44,7 @@ Find a user's regions collection.
   ],
   "links": {
     "self": {
-      "href": "https://apps.availity.com/api/sdk/platform/v1/regions?currentlySelected=true"
+      "href": "https://essentials.availity.com/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions?currentlySelected=true"
     },
     "user": {
       "href": "https://apps.availity.com/api/sdk/platform/v1/users/aka01565563207"
@@ -54,7 +54,7 @@ Find a user's regions collection.
     {
       "links": {
         "self": {
-          "href": "https://apps.availity.com/api/sdk/platform/v1/regions/FL"
+          "href": "https://essentials.availity.com/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions/FL"
         }
       },
       "id": "FL",
@@ -65,14 +65,14 @@ Find a user's regions collection.
 }
 ```
 
-## GET /api/sdk/platform/v1/regions/:id
+## GET /cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions/:id
 
 Allows the client to retrieve a region by id.
 
 ### Example Request
 
 ```
-GET https://apps.availity.com/api/sdk/platform/v1/regions/NM
+GET https://essentials.availity.com/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions/NM
 ```
 
 ### Example Response
@@ -81,7 +81,7 @@ GET https://apps.availity.com/api/sdk/platform/v1/regions/NM
 {
   "links": {
     "self": {
-      "href": "https://apps.availity.com/api/sdk/platform/v1/regions/NM"
+      "href": "https://essentials.availity.com/cloud/web/appl/customer-management/legacy/sdk/platform/v1/regions/NM"
     }
   },
   "id": "NM",
