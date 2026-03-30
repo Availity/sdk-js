@@ -39,6 +39,7 @@
       "@availity/relay-id": ["packages/relay-id/src"],
       "@availity/resolve-url": ["packages/resolve-url/src"],
       "@availity/upload-core": ["packages/upload-core/src"],
+      "@availity/user-activity-broadcaster": ["packages/user-activity-broadcaster/src"],
       "@availity/yup": ["packages/yup/src"]
     }
   },
