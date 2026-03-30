@@ -1,0 +1,39 @@
+# sdk-js - Mise Configuration
+
+[env]
+# Project-specific environment variables
+
+[tasks.install]
+description = "Install dependencies"
+run = "yarn install"
+
+[tasks.build]
+description = "Build all packages"
+run = "yarn build"
+depends = ["install"]
+
+[tasks.test]
+description = "Run all tests"
+run = "yarn test"
+
+[tasks.lint]
+description = "Lint all packages"
+run = "yarn lint"
+
+[tasks.format]
+description = "Format all files"
+run = "yarn format:write"
+
+[tasks.dev]
+description = "Start dev mode"
+run = "yarn dev"
+
+[tasks.docs]
+description = "Start Docusaurus docs site"
+run = "yarn start"
+
+# KIRO CLI Agent Shortcuts
+[tasks.ai]
+description = "Start sdk-js-dev agent - General development with full context"
+run = "kiro-cli chat --agent sdk-js-dev"
+
