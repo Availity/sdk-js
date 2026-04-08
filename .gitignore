@@ -25,3 +25,7 @@ yarn-error.log
 .nx/workspace-data
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+# AI session state (not committed)
+.kiro/plans/
+.kiro/developer-preferences-for-ai.md

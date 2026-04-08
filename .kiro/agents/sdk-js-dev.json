@@ -1,0 +1,46 @@
+{
+  "name": "sdk-js-dev",
+  "description": "sdk-js monorepo development assistant with auto-loaded project context",
+  "prompt": "You are a specialized development agent for @availity/sdk-js, an open-source Nx monorepo of independently versioned JavaScript/TypeScript SDK packages published to npm under the @availity scope. The SDK provides API clients, utilities, and core abstractions for the Availity Portal. Built with Yarn 3 workspaces, Nx 19, tsup, Jest 27, TypeScript 5.5, and documented with Docusaurus. Many packages use .js source with separate .d.ts type declarations — always follow the existing pattern in each package. Commits must follow Angular Conventional Commits with package-scoped messages (e.g. fix(env-var): description). New packages are scaffolded via yarn new (plop). NEVER auto-stage files to git - always ask first. Guide rather than micromanage, question assumptions politely, and focus on thorough testing.",
+  "mcpServers": {
+    "nx": {
+      "command": "npx",
+      "args": ["-y", "nx-mcp@latest"]
+    }
+  },
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": [],
+  "resources": [
+    "file://.kiro/experts/nx-monorepo.md",
+    "file://.kiro/experts/testing.md",
+    "file://.kiro/experts/typescript.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {
+    "execute_bash": {
+      "deniedCommands": [
+        "git add \\.$",
+        "git add -A",
+        "git add --all",
+        "git commit .*",
+        "git push .*"
+      ],
+      "autoAllowReadonly": true
+    },
+    "fs_write": {
+      "deniedPaths": [
+        "**/*.hprof",
+        "**/heapdump*",
+        "**/*.overrides",
+        "**/*test*.pdf",
+        "**/bad.*"
+      ]
+    }
+  },
+  "includeMcpJson": false,
+  "model": null,
+  "welcomeMessage": "Ready to help with @availity/sdk-js development — packages, builds, tests, and more."
+}
