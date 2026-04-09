@@ -21,6 +21,7 @@ export default class AvLogMessagesApiV3 extends AvMicroserviceApi {
     flattened.X_XSRF_TOKEN = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     const fields = Object.keys(flattened)
+      .filter((key) => flattened[key] != null)
       .map((key) => {
         const name = key.replaceAll(/\[\d+]/g, '[]');
         const value = flattened[key];
