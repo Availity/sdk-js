@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [12.1.2](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.1.1...@availity/api-axios@12.1.2) (2026-04-24)
+
+
+
 ## [12.1.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.1.0...@availity/api-axios@12.1.1) (2026-04-09)
 
 
