@@ -30,7 +30,7 @@ const API_OPTIONS = {
       'X-Response-Encoding-Context': 'NONE',
     },
 
-    sessionBust: true,
+    sessionBust: false,
 
     // send credentials on CORS requests
     withCredentials: true,
