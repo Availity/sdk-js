@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@availity/dl-core": "workspace:*",
-    "lodash": "^4.17.23"
+    "lodash": "^4.18.1"
   },
   "devDependencies": {
     "axios": "^1.13.2",
