@@ -1,0 +1,54 @@
+{
+  "name": "@availity/stash-launch",
+  "version": "1.0.0",
+  "description": "Stash context data and launch an application defined by an ECT configuration ID.",
+  "keywords": [
+    "availity",
+    "stash",
+    "launch",
+    "session"
+  ],
+  "homepage": "https://availity.github.io/sdk-js/resources/stash-launch",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/stash-launch"
+  },
+  "license": "MIT",
+  "browser": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": "^20.0.0 || ^22.0.0"
+  },
+  "scripts": {
+    "build": "tsup src/index.js --format esm,cjs --dts",
+    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "publish": "yarn npm publish --tolerate-republish --access public"
+  },
+  "dependencies": {
+    "@availity/api-axios": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
