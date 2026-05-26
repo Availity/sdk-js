@@ -56,7 +56,7 @@ describe('stashLaunch', () => {
     const sessionId = await stashLaunch({ key: 'value' }, '/apps/target');
 
     expect(mockCreate).toHaveBeenCalledWith({ key: 'value' });
-    expect(window.open).toHaveBeenCalledWith('/apps/target?sessionId=abc-123', '_blank');
+    expect(window.open).toHaveBeenCalledWith('/apps/target?sessionId=abc-123', '_top');
     expect(sessionId).toBe('abc-123');
   });
 
@@ -64,7 +64,7 @@ describe('stashLaunch', () => {
     mockCreate.mockResolvedValue({ data: { id: 'xyz-789' } });
     await stashLaunch({ foo: 'bar' }, '/apps/target/#/?spaceId=12345');
 
-    expect(window.open).toHaveBeenCalledWith('/apps/target/#/?spaceId=12345&sessionId=xyz-789', '_blank');
+    expect(window.open).toHaveBeenCalledWith('/apps/target/#/?spaceId=12345&sessionId=xyz-789', '_top');
   });
 
   test('returns the session ID', async () => {
@@ -78,6 +78,6 @@ describe('stashLaunch', () => {
     await stashLaunch({ key: 'value' }, '/apps/target', { stashUrl: '/custom/stash/endpoint' });
 
     expect(AvApi).toHaveBeenCalledWith({ url: '/custom/stash/endpoint', api: false });
-    expect(window.open).toHaveBeenCalledWith('/apps/target?sessionId=custom-123', '_blank');
+    expect(window.open).toHaveBeenCalledWith('/apps/target?sessionId=custom-123', '_top');
   });
 });
