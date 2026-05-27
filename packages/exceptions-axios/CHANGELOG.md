@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.15](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@6.0.14...@availity/exceptions-axios@6.0.15) (2026-05-27)
+
+### Dependency Updates
+
+* `api-axios` updated to version `6.0.14`
+
+
 ## [6.0.14](https://github.com/Availity/sdk-js/compare/@availity/exceptions-axios@6.0.13...@availity/exceptions-axios@6.0.14) (2026-05-22)
 
 ### Dependency Updates
