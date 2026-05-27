@@ -18,6 +18,7 @@
 - [AvSettingsApi](#avsettingsapi)
 - [AvRouteConfigurationsApi](#avrouteconfigurationsapi)
 - [AvTelemetryApi](#avtelemetryapi)
+- [AvStashApi](#avstashapi)
 
 ## Intro
 
@@ -202,3 +203,25 @@ Retrieve a payer's route configuration for a specific transaction and submission
 ### `AvTelemetryApi`
 
 Send click data about your web application to be stored and reported on
+
+### `AvStashApi`
+
+Store session data in the Stash API and launch a URL with the resulting session ID.
+
+#### Methods
+
+##### `launch(params, linkTo)`
+
+Posts `params` to the Stash API, retrieves a session ID, and opens `linkTo` with the session ID appended as a query parameter.
+
+- `params` - Key/value data to store in the stash session
+- `linkTo` - The target URL to open (required)
+
+Returns the session ID.
+
+```js
+import { avStashApi } from '@availity/api-axios';
+
+const sessionId = await avStashApi.launch({ key: 'value' }, '/apps/target');
+```
+

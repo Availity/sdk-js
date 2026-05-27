@@ -479,16 +479,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@availity/stash-launch@workspace:packages/stash-launch":
-  version: 0.0.0-use.local
-  resolution: "@availity/stash-launch@workspace:packages/stash-launch"
-  dependencies:
-    "@availity/api-axios": "workspace:*"
-    tsup: "npm:^8.4.0"
-    typescript: "npm:^5.5.4"
-  languageName: unknown
-  linkType: soft
-
 "@availity/upload-core@workspace:*, @availity/upload-core@workspace:packages/upload-core":
   version: 0.0.0-use.local
   resolution: "@availity/upload-core@workspace:packages/upload-core"
