@@ -24,6 +24,7 @@ import AvSpacesApi, { avSpacesApi } from './resources/spaces';
 import AvTelemetryApi, { avTelemetryApi } from './resources/telemetry';
 import AvUserApi, { avUserApi } from './resources/user';
 import AvUserPermissionsApi, { avUserPermissionsApi } from './resources/userPermissions';
+import AvStashApi, { avStashApi } from './resources/stash';
 import AvWebQLApi, { avWebQLApi } from './resources/webQL';
 
 export default AvApi;
@@ -73,6 +74,8 @@ export {
   avUserPermissionsApi,
   AvUserApi,
   avUserApi,
+  AvStashApi,
+  avStashApi,
   AvWebQLApi,
   avWebQLApi,
 };
