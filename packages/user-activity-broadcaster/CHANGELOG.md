@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.1.0](https://github.com/Availity/sdk-js/compare/@availity/user-activity-broadcaster@1.0.0...@availity/user-activity-broadcaster@1.1.0) (2026-05-27)
+
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/Availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 # [1.0.0](https://github.com/Availity/sdk-js/compare/@availity/user-activity-broadcaster@0.2.2...@availity/user-activity-broadcaster@1.0.0) (2025-05-14)
 
 
