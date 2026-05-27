@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [12.2.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.1.2...@availity/api-axios@12.2.0) (2026-05-22)
+
+
+### Features
+
+* ECOR-991 added node 24 support ([e46e827](https://github.com/availity/sdk-js/commit/e46e8278298855583e9711d7ca46a379541ad1ef))
+
+
+
+## [12.1.2](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.1.1...@availity/api-axios@12.1.2) (2026-04-24)
+
+
+
+## [12.1.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.1.0...@availity/api-axios@12.1.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* **api-axios:** filter undefined and null fields ([457bd63](https://github.com/availity/sdk-js/commit/457bd63e52a48be7fc86ac78e90faead9da1b492))
+* **api-axios:** filter undefined and null fields ([8c6c9c6](https://github.com/availity/sdk-js/commit/8c6c9c687aa22d48413211707ff3c0ac2dbf0368))
+
+
+
 # [12.1.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.0.4...@availity/api-axios@12.1.0) (2026-03-13)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-axios",
-  "version": "12.1.0",
+  "version": "12.2.0",
   "description": "Wrappers for axios designed to work with the Availity portal",
   "keywords": [
     "availity",
@@ -31,7 +31,7 @@
     }
   },
   "engines": {
-    "node": "^20.0.0 || ^22.0.0"
+    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
   },
   "scripts": {
     "build": "tsup src/index.js --format esm,cjs --dts",
