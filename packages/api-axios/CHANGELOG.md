@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [12.3.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.2.1...@availity/api-axios@12.3.0) (2026-05-27)
+
+
+### Features
+
+* **api-axios:** move stash-launch logic into AvStashApi resource ([d87706a](https://github.com/availity/sdk-js/commit/d87706aca5db8a781638dba4553a404b73c08413))
+
+
+
 ## [12.2.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.2.0...@availity/api-axios@12.2.1) (2026-05-27)
 
 
