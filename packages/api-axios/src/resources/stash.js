@@ -9,6 +9,10 @@ export default class AvStashApi extends AvApi {
     });
   }
 
+  getUrl(config, id = '') {
+    return id ? `${config.url}/${id}` : config.url;
+  }
+
   async launch(params = {}, linkTo) {
     if (!linkTo) throw new Error('linkTo is required and was not provided');
 
