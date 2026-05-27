@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.1.0](https://github.com/availity/sdk-js/compare/@availity/message-core@8.0.2...@availity/message-core@8.1.0) (2026-05-27)
+
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 ## [8.0.2](https://github.com/Availity/sdk-js/compare/@availity/message-core@8.0.1...@availity/message-core@8.0.2) (2025-10-06)
 
 
