@@ -1,6 +1,6 @@
 {
   "name": "@availity/yup",
-  "version": "7.0.1",
+  "version": "7.1.0",
   "description": "Additional methods for yup validation library",
   "keywords": [
     "yup",
