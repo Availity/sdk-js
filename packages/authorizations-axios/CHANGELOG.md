@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.1.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@9.0.16...@availity/authorizations-axios@9.1.0) (2026-05-27)
+
+### Dependency Updates
+
+* `authorizations-core` updated to version `9.0.16`
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 ## [9.0.16](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@9.0.15...@availity/authorizations-axios@9.0.16) (2026-05-27)
 
 ### Dependency Updates

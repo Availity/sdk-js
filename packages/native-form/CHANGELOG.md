@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/availity/sdk-js/compare/@availity/native-form@7.0.17...@availity/native-form@7.1.0) (2026-05-27)
+
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 ## [7.0.17](https://github.com/availity/sdk-js/compare/@availity/native-form@7.0.16...@availity/native-form@7.0.17) (2026-05-27)
 
 ### Dependency Updates

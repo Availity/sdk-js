@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.2.0](https://github.com/availity/sdk-js/compare/@availity/analytics-core@6.1.5...@availity/analytics-core@6.2.0) (2026-05-27)
+
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 ## [6.1.5](https://github.com/availity/sdk-js/compare/@availity/analytics-core@6.1.4...@availity/analytics-core@6.1.5) (2026-05-27)
 
 ### Dependency Updates

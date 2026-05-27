@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/Availity/sdk-js/compare/@availity/yup@7.0.1...@availity/yup@7.1.0) (2026-05-27)
+
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/Availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 ## [7.0.1](https://github.com/Availity/sdk-js/compare/@availity/yup@7.0.0...@availity/yup@7.0.1) (2026-02-09)
 
 

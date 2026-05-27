@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.2.0](https://github.com/availity/sdk-js/compare/@availity/upload-core@8.1.1...@availity/upload-core@8.2.0) (2026-05-27)
+
+### Dependency Updates
+
+* `resolve-url` updated to version `8.1.1`
+
+### Features
+
+* add node 24 support ([5e735d6](https://github.com/availity/sdk-js/commit/5e735d6957dcf455e41b3017dc34250dfe07055e))
+
+
+
 ## [8.1.1](https://github.com/Availity/sdk-js/compare/@availity/upload-core@8.1.0...@availity/upload-core@8.1.1) (2025-10-06)
 
 ### Dependency Updates
