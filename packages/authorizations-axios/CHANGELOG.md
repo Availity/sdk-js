@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.1.1](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@9.1.0...@availity/authorizations-axios@9.1.1) (2026-05-28)
+
+### Dependency Updates
+
+* `api-axios` updated to version `9.1.0`
+
+
 # [9.1.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@9.0.16...@availity/authorizations-axios@9.1.0) (2026-05-27)
 
 ### Dependency Updates
