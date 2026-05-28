@@ -3,14 +3,10 @@ import AvApi from '../api';
 export default class AvStashApi extends AvApi {
   constructor(config) {
     super({
-      url: '/cloud/web/appl/stash/v1/session/data',
-      api: false,
+      path: 'cloud/web/appl/stash',
+      name: 'session/data',
       ...config,
     });
-  }
-
-  getUrl(config, id = '') {
-    return id ? `${config.url}/${id}` : config.url;
   }
 
   async launch(params = {}, linkTo) {
