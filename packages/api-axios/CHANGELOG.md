@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [12.3.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.3.0...@availity/api-axios@12.3.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **api-axios:** override getUrl in AvStashApi to support get by id ([fcc0848](https://github.com/availity/sdk-js/commit/fcc08482856305ba28c097bb7abdfc618738c8e8))
+* **api-axios:** use path/name config in AvStashApi to support get by id ([054ca3f](https://github.com/availity/sdk-js/commit/054ca3f3ff9a3fb895e67db3afd45100910de58c))
+
+
+
 # [12.3.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.2.1...@availity/api-axios@12.3.0) (2026-05-27)
 
 
