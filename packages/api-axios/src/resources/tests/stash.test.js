@@ -21,6 +21,10 @@ describe('AvStashApi', () => {
     expect(api.getUrl(api.config())).toBe('/cloud/web/appl/stash/v1/session/data');
   });
 
+  test('url should include id when provided', () => {
+    expect(api.getUrl(api.config(), 'abc-123')).toBe('/cloud/web/appl/stash/v1/session/data/abc-123');
+  });
+
   test('launch throws when linkTo is not provided', async () => {
     await expect(() => api.launch({ key: 'value' })).rejects.toThrow(
       'linkTo is required and was not provided'
