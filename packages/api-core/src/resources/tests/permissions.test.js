@@ -5,6 +5,10 @@ const mockHttp = jest.fn(() => Promise.resolve({}));
 describe('AvPermissions', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     api = new AvPermissions({ http: mockHttp });
     expect(api).toBeDefined();

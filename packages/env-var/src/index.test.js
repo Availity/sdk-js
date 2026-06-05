@@ -158,24 +158,30 @@ describe('Environment Variables', () => {
       });
       test('should test for a custom environment', () => {
         expect(
-          envVar({
-            prod: false,
-            myEnv: true,
-            local: false,
-            qa: false,
-            test: false,
-          }, getFakeWindowLocation('myenv.availity.com'))
+          envVar(
+            {
+              prod: false,
+              myEnv: true,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            getFakeWindowLocation('myenv.availity.com')
+          )
         ).toBe(true);
       });
       test('should keep the existing environments', () => {
         expect(
-          envVar({
-            prod: true,
-            myEnv: false,
-            local: false,
-            qa: false,
-            test: false,
-          }, getFakeWindowLocation('apps.availity.com'))
+          envVar(
+            {
+              prod: true,
+              myEnv: false,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            getFakeWindowLocation('apps.availity.com')
+          )
         ).toBe(true);
       });
     });
@@ -186,13 +192,16 @@ describe('Environment Variables', () => {
       });
       test('should test for a custom environment', () => {
         expect(
-          envVar({
-            prod: false,
-            myEnv: true,
-            local: false,
-            qa: false,
-            test: false,
-          }, getFakeWindowLocation('myenv.availity.com'))
+          envVar(
+            {
+              prod: false,
+              myEnv: true,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            getFakeWindowLocation('myenv.availity.com')
+          )
         ).toBe(true);
       });
     });
@@ -203,22 +212,28 @@ describe('Environment Variables', () => {
       });
       test('should test for a custom environment', () => {
         expect(
-          envVar({
-            app: false,
-            www: true,
-            local: false,
-            qa: false,
-            test: false,
-          }, getFakeWindowLocation('www.example.com'))
+          envVar(
+            {
+              app: false,
+              www: true,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            getFakeWindowLocation('www.example.com')
+          )
         ).toBe(true);
         expect(
-          envVar({
-            app: true,
-            www: false,
-            local: false,
-            qa: false,
-            test: false,
-          }, getFakeWindowLocation('app.example.com'))
+          envVar(
+            {
+              app: true,
+              www: false,
+              local: false,
+              qa: false,
+              test: false,
+            },
+            getFakeWindowLocation('app.example.com')
+          )
         ).toBe(true);
       });
     });
@@ -229,7 +244,6 @@ describe('Environment Variables', () => {
       });
 
       test('should render default', () => {
-
         expect(
           envVar(
             {

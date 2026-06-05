@@ -5,6 +5,10 @@ const mockHttp = jest.fn(() => Promise.resolve({}));
 describe('AvNavigation', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     api = new AvNavigation({ http: mockHttp });
     expect(api).toBeDefined();

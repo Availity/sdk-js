@@ -42,6 +42,9 @@ exceptions.repeatTime(5000); // ms between duplicate error logs
 
 // Manually submit an error
 exceptions.submitError(new Error('Something went wrong'));
+
+// Clean up when your app unmounts (removes the window error listener and clears timers)
+exceptions.destroy();
 ```
 
 The class automatically listens for uncaught `window` errors and logs them using the provided log function.

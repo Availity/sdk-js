@@ -6,6 +6,10 @@ describe('AvUserApi', () => {
     api = new AvUserApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });
@@ -15,7 +19,12 @@ describe('AvUserApi', () => {
   });
 
   test("me() should get with id 'me'", async () => {
-    api.get = jest.fn(async () => new Promise((resolve) => {resolve({ id: 'test' })}));
+    api.get = jest.fn(
+      async () =>
+        new Promise((resolve) => {
+          resolve({ id: 'test' });
+        })
+    );
 
     await api.me();
     expect(api.get).toHaveBeenLastCalledWith('me', undefined);

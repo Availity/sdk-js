@@ -90,11 +90,11 @@ Bust the browser cache on page load, and keep its value for lifecycle of the pag
 
 ##### `config.sessionBust`
 
-Default `true`. Attempts to read a value in local storage that is generated at login. This forces the browser to bust the cache when a new session has started. If the local storage value is not found, uses the `pageBust` value.
+Default `false`. Attempts to read a value in local storage that is generated at login. This forces the browser to bust the cache when a new session has started. If the local storage value is not found, uses the `pageBust` value.
 
 ##### `config.polling`
 
-Default `true`. If true and rest services return `202` statuc code, `AvApi` will attempt to poll on predefined internvals until the retries are exhausted or the api returns non `202` response.
+Default `true`. If true and rest services return a `202` status code, `AvApi` will attempt to poll on predefined intervals until the retries are exhausted or the api returns a non-`202` response.
 
 ##### `config.pollingIntervals`
 
@@ -224,7 +224,7 @@ const patch = async (id, data, config) => {
 
 #### remove or delete
 
-Remove an entity with a DELETE call. When an id is passed in, `/id` is added to the url. If the first parameter is a string or number, it is treated as an ID, otherwise data.
+Remove an entity with a DELETE call. When an id is passed in, `/id` is added to the url.
 
 ```js
 import AvApi from '@availity/api-axios';
@@ -238,11 +238,54 @@ const remove = async (id, config) => {
 
 // OR
 
-const delete = async (data, config) => {
-  const response = await api.delete(data, config);
+const del = async (id, config) => {
+  const response = await api.delete(id, config);
   return response.data;
 };
+```
 
+#### all
+
+Fetches all pages of a paginated resource automatically and returns the combined results.
+
+```js
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'providers' });
+
+const getAllProviders = async (config) => {
+  const response = await api.all(config);
+  return response.data;
+};
+```
+
+#### getPage
+
+Fetches a specific page of a paginated resource.
+
+```js
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'providers' });
+
+const getSecondPage = async (config) => {
+  const response = await api.getPage(2, config, 50); // page 2, 50 items per page
+  return response.data;
+};
+```
+
+#### sendBeacon
+
+Sends data using `navigator.sendBeacon` when available, with a POST fallback. Useful for sending analytics data when the page is unloading.
+
+```js
+import AvApi from '@availity/api-axios';
+
+const api = new AvApi({ name: 'log' });
+
+window.addEventListener('beforeunload', () => {
+  api.sendBeacon({ event: 'page_exit', timestamp: Date.now() });
+});
 ```
 
 ## AvMicroserviceApi

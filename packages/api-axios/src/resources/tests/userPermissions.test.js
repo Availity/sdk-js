@@ -6,6 +6,10 @@ describe('AvUserPermissionsApi', () => {
     api = new AvUserPermissionsApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });

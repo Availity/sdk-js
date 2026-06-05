@@ -14,6 +14,10 @@ const get = jest.fn(() =>
 describe('AvSpaces', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   beforeEach(() => {
     api = new AvSpaces({ http: mockHttp });
     api.get = get;

@@ -30,31 +30,46 @@ import avMessage from '@availity/message-core';
 
 ### `subscribe(eventName, callback)`
 
-When a message event is received and verified, the callback function will be called with the event data. It returns a function that can be used to unsubscribe from that event.
+When a message event is received and verified, the callback function will be called with the parsed message payload (the data object from the postMessage). Returns a function that can be used to unsubscribe from that event.
 
 Parameters:
 
-- `eventName: string` — Name of the event you'd like to subscribe to. This is the event name given when using the `send` method of AvMessage. If `avMessage.send()` is call with only a string as the first argument, then that string will be the name of the event that is sent. Otherwise, if called with an object, the event name will be the `event` property of that object.
-- `callback: (event) => void` —
-- `options?: { ignoreSameWindow?: boolean }` — When `options` is omitted, or when `options.ignoreSameWindow` is omitted or set to `true` (true by default), the callback will not be called for events dispatched from the same `window`. If you wish to response to events emitted from the same `window`, you must pass `{ ignoreSameWindow: false }`.
+- `eventName: string` — Name of the event you'd like to subscribe to. This is the event name given when using the `send` method of AvMessage. If `avMessage.send()` is called with only a string as the first argument, then that string will be the name of the event that is sent. Otherwise, if called with an object, the event name will be the `event` property of that object.
+- `callback: (data) => void` — Called with the parsed message data when a matching event is received.
+- `options?: { ignoreSameWindow?: boolean }` — When `options` is omitted, or when `options.ignoreSameWindow` is omitted or set to `true` (true by default), the callback will not be called for events dispatched from the same `window`. If you wish to respond to events emitted from the same `window`, you must pass `{ ignoreSameWindow: false }`.
 
 Example:
 
 ```js
 import avMessage from '@availity/message-core';
 
-const unsubscribe = avMessage.subscribe(event, callback, {
-  ignoreSameWindow: false,
-});
+const unsubscribe = avMessage.subscribe(
+  'my-event',
+  (data) => {
+    console.log('Received:', data);
+  },
+  { ignoreSameWindow: false }
+);
+
+// Later, to stop listening:
+unsubscribe();
 ```
 
 ### `unsubscribe(eventName)`
 
-Remove all listeners for given event.
+Remove all listeners for the given event.
+
+```js
+avMessage.unsubscribe('my-event');
+```
 
 ### `unsubscribeAll()`
 
 Remove all listeners for all events.
+
+```js
+avMessage.unsubscribeAll();
+```
 
 ### `enabled(value)`
 
@@ -62,11 +77,12 @@ If a value is passed in, sets messaging's enabled flag true/false based on value
 
 Returns boolean enabled flag value.
 
-### `domain()`
+```js
+avMessage.enabled(false); // disable messaging
+avMessage.enabled(); // => false
+```
 
-Returns a string of the current domain.
-
-## `send(payload, target)`
+### `send(payload, target)`
 
 Send the payload to the target if AvMessage is enabled. `target` defaults to the parent window. If you wish to send an event with no data (just a name) you can pass the name as a string to the `payload` parameter, otherwise, pass an object with an `event` property containing the event name.
 

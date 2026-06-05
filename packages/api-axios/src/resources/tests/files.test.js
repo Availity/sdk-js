@@ -1,3 +1,4 @@
+import Upload from '@availity/upload-core';
 import AvFilesApi from '../files';
 
 jest.mock('@availity/upload-core', () =>
@@ -24,12 +25,15 @@ describe('AvFilesApi', () => {
     jest.clearAllMocks();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });
 
   test('uploadFile() should create Upload with correct buffer and config', async () => {
-    const Upload = require('@availity/upload-core');
     const data = { foo: 'bar' };
 
     const mockUpload = {
@@ -60,7 +64,6 @@ describe('AvFilesApi', () => {
   });
 
   test('uploadFile() should use fileName when provided', async () => {
-    const Upload = require('@availity/upload-core');
     const data = { foo: 'bar' };
 
     const mockUpload = {
@@ -80,7 +83,6 @@ describe('AvFilesApi', () => {
   });
 
   test('uploadFile() should generate hash filename when fileName not provided', async () => {
-    const Upload = require('@availity/upload-core');
     const data = { foo: 'bar' };
 
     const mockUpload = {
@@ -113,7 +115,6 @@ describe('AvFilesApi', () => {
   });
 
   test('uploadFile() should reject when upload errors', async () => {
-    const Upload = require('@availity/upload-core');
     const data = { foo: 'bar' };
     const uploadError = new Error('Network failure');
 

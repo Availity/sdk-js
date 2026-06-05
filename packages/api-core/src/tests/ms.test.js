@@ -88,8 +88,6 @@ describe('AvMicroservice', () => {
       expect(ms.getUrl(testConfig)).toBe(testExpected);
     });
 
-    
-
     test('should return relative URL when location host is prod cloud but path is non-prod', () => {
       const testUrl = '/api/v1/test';
       const testConfig = {
@@ -124,6 +122,78 @@ describe('AvMicroservice', () => {
       };
 
       expect(ms.getUrl(testConfig)).toBe(testUrl);
+    });
+
+    describe('getLocation', () => {
+      test('should return getUrl(response.config)', () => {
+        ms = new AvMicroservice({ http: mockHttp, name: 'test-service' });
+        const response = {
+          config: { name: 'test-service' },
+        };
+        const result = ms.getLocation(response);
+        expect(result).toBe(`${defaultPath}/test-service`);
+      });
+
+      test('should construct URL from response.config with id', () => {
+        ms = new AvMicroservice({ http: mockHttp, name: 'test-service' });
+        const response = {
+          config: { name: 'test-service', id: 'abc-123' },
+        };
+        const result = ms.getLocation(response);
+        expect(result).toBe(`${defaultPath}/test-service/abc-123`);
+      });
+    });
+
+    describe('getUrl edge cases', () => {
+      beforeEach(() => {
+        ms = new AvMicroservice({ http: mockHttp });
+      });
+
+      test('should handle absolute URL with protocol and deduplicate slashes', () => {
+        const testConfig = {
+          url: 'https://api.availity.com',
+          path: '/ms/api',
+          name: 'service',
+        };
+        const result = ms.getUrl(testConfig);
+        expect(result).toBe('https://api.availity.com/ms/api/service');
+      });
+
+      test('should include version segment when provided', () => {
+        const testConfig = {
+          path: '/ms/api',
+          version: 'v2',
+          name: 'service',
+        };
+        const result = ms.getUrl(testConfig);
+        expect(result).toBe('/ms/api/v2/service');
+      });
+
+      test('should use config.id as fallback when id param is empty', () => {
+        const testConfig = {
+          name: 'test-service',
+          id: 'config-id-123',
+        };
+        const result = ms.getUrl(testConfig);
+        expect(result).toBe(`${defaultPath}/test-service/config-id-123`);
+      });
+
+      test('should prefer id param over config.id', () => {
+        const testConfig = {
+          name: 'test-service',
+          id: 'config-id',
+        };
+        const result = ms.getUrl(testConfig, 'param-id');
+        expect(result).toBe(`${defaultPath}/test-service/param-id`);
+      });
+
+      test('should not append id segment when neither id param nor config.id provided', () => {
+        const testConfig = {
+          name: 'test-service',
+        };
+        const result = ms.getUrl(testConfig);
+        expect(result).toBe(`${defaultPath}/test-service`);
+      });
     });
   });
 });

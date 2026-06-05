@@ -9,18 +9,16 @@ const mockHttp = jest.fn(() => Promise.resolve({ data: 'blob-data' }));
 function deepMerge(...sources) {
   const result = {};
   for (const source of sources) {
-    if (!source) continue;
-    for (const key of Object.keys(source)) {
-      if (
-        typeof source[key] === 'object' &&
-        source[key] !== null &&
-        !Array.isArray(source[key]) &&
-        typeof result[key] === 'object' &&
-        result[key] !== null
-      ) {
-        result[key] = deepMerge(result[key], source[key]);
-      } else {
-        result[key] = source[key];
+    if (source) {
+      for (const key of Object.keys(source)) {
+        result[key] =
+          typeof source[key] === 'object' &&
+          source[key] !== null &&
+          !Array.isArray(source[key]) &&
+          typeof result[key] === 'object' &&
+          result[key] !== null
+            ? deepMerge(result[key], source[key])
+            : source[key];
       }
     }
   }

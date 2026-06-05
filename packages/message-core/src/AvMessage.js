@@ -149,7 +149,7 @@ class AvMessage {
     if (window.location.hostname) {
       const url = `${window.location.protocol}//${window.location.hostname}${
         window.location.port ? `:${window.location.port}` : ''
-        }`;
+      }`;
       return this.swapDomain(url);
     }
 
@@ -168,6 +168,14 @@ class AvMessage {
       // eslint-disable-next-line no-console
       console.warn('AvMessage.send()', error);
     }
+  }
+
+  /**
+   * Remove the message event listener. Call this when your app or component
+   * unmounts to prevent memory leaks.
+   */
+  destroy() {
+    window.removeEventListener('message', this.getEventData);
   }
 }
 

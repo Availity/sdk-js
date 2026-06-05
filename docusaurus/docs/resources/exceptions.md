@@ -2,11 +2,11 @@
 title: Error Logging
 ---
 
-A package to catch errors in apps and logs a formatted stack trace.
+A package that catches errors in apps and logs a formatted stack trace.
 
 [![Version](https://img.shields.io/npm/v/@availity/exceptions-core.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/exceptions-core)
 
-Can grab some information from global error events, or more data if using the AvExceptions.submitError function.
+It can grab some information from global error events, or more data if using the `AvExceptions.submitError` function.
 
 ## Installation
 
@@ -53,7 +53,6 @@ The log function will receive a message object with these keys:
 - host - current domain
 - url
 - appVersion
-- sdkVersion
 
 ## Methods
 
@@ -84,3 +83,43 @@ repeat time is the time `AvExceptions` will wait after an error is called before
 if a number is passed in, this sets repeat time value. The default is 5 seconds.
 
 returns repeatTime value.
+
+## Behavior Notes
+
+- On construction, `AvExceptions` automatically registers a global `window.addEventListener('error', ...)` listener to catch unhandled errors.
+- Errors matching the built-in blacklist (e.g., `'ResizeObserver loop limit exceeded'`) are silently ignored.
+- Repeated errors with the same message are deduplicated within the `repeatTime` window.
+
+---
+
+## @availity/exceptions-axios
+
+A pre-configured instance of `AvExceptions` that uses `avLogMessagesApi` for logging. This is the recommended package for most applications.
+
+[![Version](https://img.shields.io/npm/v/@availity/exceptions-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/exceptions-axios)
+
+### Installation
+
+```bash
+npm install @availity/exceptions-axios
+```
+
+### Usage
+
+```js
+import avExceptions from '@availity/exceptions-axios';
+
+// Logging is active immediately — unhandled errors are captured automatically.
+
+// Optionally set an app ID for tracking
+avExceptions.appId('my-app-id');
+
+// Manually submit an error
+try {
+  riskyOperation();
+} catch (error) {
+  avExceptions.submitError(error);
+}
+```
+
+No configuration is needed — the package exports a singleton that is ready to use immediately after import.

@@ -5,6 +5,10 @@ const mockHttp = jest.fn(() => Promise.resolve({}));
 describe('AvDisclaimers', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('AvDisclaimers should be defined', () => {
     api = new AvDisclaimers({ http: mockHttp });
     expect(api).toBeDefined();

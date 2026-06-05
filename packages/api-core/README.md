@@ -35,3 +35,7 @@ Most consumers should use [`@availity/api-axios`](../api-axios/README.md), which
 ## Documentation
 
 Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/api/getting-started)
+
+## Available Resources
+
+This package exports base resource classes for all Availity REST APIs. Details about each resource can be found [here](./src/resources/README.md).

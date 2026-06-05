@@ -46,6 +46,9 @@ avMessage.unsubscribeAll();
 
 // Enable or disable message handling
 avMessage.enabled(false);
+
+// Clean up when your app/component unmounts
+avMessage.destroy();
 ```
 
 Messages are validated against trusted Availity domains for security.

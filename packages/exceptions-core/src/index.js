@@ -16,9 +16,10 @@ export default class AvExceptions {
 
     this.StackTrace = StackTrace;
 
-    window.addEventListener('error', (event) => {
+    this.errorHandler = (event) => {
       this.submitError(event.error);
-    });
+    };
+    window.addEventListener('error', this.errorHandler);
   }
 
   submitError(error) {
@@ -38,6 +39,17 @@ export default class AvExceptions {
       }
     }
     return this.isEnabled;
+  }
+
+  /**
+   * Remove the window error listener, clear all repeat timers, and disable
+   * the instance. Call this when your app unmounts to prevent memory leaks.
+   */
+  destroy() {
+    window.removeEventListener('error', this.errorHandler);
+    for (const id of this.timers) clearTimeout(id);
+    this.timers = [];
+    this.isEnabled = false;
   }
 
   appId(id) {

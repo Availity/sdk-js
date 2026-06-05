@@ -22,12 +22,36 @@ npm install @availity/resolve-url
 yarn add @availity/resolve-url
 ```
 
-## `resolveUrl(params: { relative:string; base?: string })`
+## Exports
 
-### Params
+### `resolveUrl` (default export)
 
-- **`relative`**: Relative url to be converted to full url
-- **`base`** (_optional_): Base url used to convert the relative url. If base URL is not provided it is calculated from `window.location.href`.
+```ts
+resolveUrl(params: { relative?: string; base?: string }): string
+```
+
+Resolves a relative URL to an absolute URL. If `relative` is already absolute, it is returned as-is.
+
+#### Params
+
+- **`relative`**: Relative url to be converted to full url. Defaults to `''`.
+- **`base`** (_optional_): Base url used to convert the relative url. If not provided, it is calculated from `window.location.origin`.
+
+### `isAbsoluteUrl`
+
+```ts
+isAbsoluteUrl(url: string): boolean
+```
+
+Returns `true` if the given URL is absolute (starts with a scheme like `http:`, `https:`, etc.).
+
+### `relativeToAbsolute`
+
+```ts
+relativeToAbsolute(relativeIRI: string, baseIRI?: string): string
+```
+
+Lower-level function that converts a relative IRI to an absolute IRI following RFC 3986 rules. Used internally by `resolveUrl`.
 
 ## Usage
 
@@ -107,7 +131,21 @@ import resolveUrl from '@availity/resolve-url';
 resolveUrl({ relative: 'xyz', base: 'http://aa/parent/parent/../../a' });
 
 // Outputs 'http://aa/xyz'
-resolveUrl('xyz', 'http://aa/././a');
+resolveUrl({ relative: 'xyz', base: 'http://aa/././a' });
+```
+
+## Additional Exports
+
+```js
+import resolveUrl, {
+  isAbsoluteUrl,
+  relativeToAbsolute,
+} from '@availity/resolve-url';
+
+isAbsoluteUrl('https://example.com/path'); // true
+isAbsoluteUrl('/relative/path'); // false
+
+relativeToAbsolute('/path', 'https://example.com/'); // 'https://example.com/path'
 ```
 
 ## Notes

@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 type SsoType = 'saml' | 'openid';
 
 declare function nativeForm(
   spaceId: string,
-  params?: Record<string, any>,
-  formAttributes?: Record<string, any>,
+  params?: Record<string, string | number | boolean | Record<string, unknown>>,
+  formAttributes?: Record<string, string>,
   type?: SsoType | string,
   clientId?: string
 ): Promise<void>;

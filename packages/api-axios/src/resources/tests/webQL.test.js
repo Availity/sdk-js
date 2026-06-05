@@ -6,6 +6,10 @@ describe('AvWebQLApi', () => {
     api = new AvWebQLApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });

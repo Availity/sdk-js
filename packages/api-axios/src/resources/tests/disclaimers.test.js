@@ -6,6 +6,10 @@ describe('AvDisclaimersApi', () => {
     api = new AvDisclaimersApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('AvDisclaimersApi should be defined', () => {
     expect(api).toBeDefined();
   });

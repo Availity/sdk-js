@@ -38,11 +38,14 @@ describe('FetchHttpStack', () => {
 
       const res = await req.send(new Blob(['data']));
 
-      expect(fetchSpy).toHaveBeenCalledWith('https://example.com/upload', expect.objectContaining({
-        method: 'PATCH',
-        headers: { 'Upload-Offset': '0' },
-        credentials: 'include',
-      }));
+      expect(fetchSpy).toHaveBeenCalledWith(
+        'https://example.com/upload',
+        expect.objectContaining({
+          method: 'PATCH',
+          headers: { 'Upload-Offset': '0' },
+          credentials: 'include',
+        })
+      );
       expect(res.getStatus()).toBe(200);
 
       fetchSpy.mockRestore();
@@ -62,13 +65,14 @@ describe('FetchHttpStack', () => {
     });
 
     test('abort causes send to throw', async () => {
-      jest.spyOn(globalThis, 'fetch').mockImplementation((_url, opts) => {
-        return new Promise((_resolve, reject) => {
-          (opts as RequestInit).signal?.addEventListener('abort', () => {
-            reject(new DOMException('The operation was aborted.', 'AbortError'));
-          });
-        });
-      });
+      jest.spyOn(globalThis, 'fetch').mockImplementation(
+        (_url, opts) =>
+          new Promise((_resolve, reject) => {
+            (opts as RequestInit).signal?.addEventListener('abort', () => {
+              reject(new DOMException('The operation was aborted.', 'AbortError'));
+            });
+          })
+      );
 
       const req = stack.createRequest('PATCH', '/upload');
       const sendPromise = req.send(new Blob(['data']));
@@ -101,7 +105,9 @@ describe('FetchHttpStack', () => {
         getReader: () => ({
           read: () => {
             if (readIndex < chunks.length) {
-              return Promise.resolve({ value: chunks[readIndex++], done: false });
+              const chunk = chunks[readIndex];
+              readIndex += 1;
+              return Promise.resolve({ value: chunk, done: false });
             }
             return Promise.resolve({ value: undefined, done: true });
           },

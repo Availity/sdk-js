@@ -5,6 +5,10 @@ const mockHttp = jest.fn(() => Promise.resolve({}));
 describe('AvPdfs', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     api = new AvPdfs({ http: mockHttp });
     expect(api).toBeDefined();
@@ -12,9 +16,7 @@ describe('AvPdfs', () => {
 
   test('should throw error with bad config', () => {
     api = new AvPdfs({ http: mockHttp });
-    expect(() => {
-      api = api.getPdf({});
-    }).toThrow('[applicationId], [fileName] and [html] must be defined');
+    expect(() => api.getPdf({})).toThrow('[applicationId], [fileName] and [html] must be defined');
   });
 
   test('should call onPdf() when pdf completes', async () => {

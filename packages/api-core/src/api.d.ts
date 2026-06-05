@@ -145,6 +145,7 @@ export default class AvApi {
 
   /** Update a resource (PUT) */
   update<T = unknown>(id: string | number, data: unknown, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
+
   update<T = unknown>(data: unknown, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
   /** Alias for update */
@@ -152,10 +153,12 @@ export default class AvApi {
 
   /** Partially update a resource (PATCH) */
   patch<T = unknown>(id: string | number, data: unknown, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
+
   patch<T = unknown>(data: unknown, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
   /** Remove a resource (DELETE) */
   remove<T = unknown>(id: string | number, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
+
   remove<T = unknown>(config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
   /** Alias for remove */
@@ -163,10 +166,12 @@ export default class AvApi {
 
   /** Hook: transform data before create/post */
   beforeCreate?(data: unknown): unknown;
+
   beforePost?(data: unknown): unknown;
 
   /** Hook: transform data before update/put */
   beforeUpdate?(data: unknown): unknown;
+
   beforePut?(data: unknown): unknown;
 
   /** Hook: transform data before patch */
@@ -174,6 +179,7 @@ export default class AvApi {
 
   /** Hook: transform config before remove/delete */
   beforeRemove?(config: AvApiConfig): AvApiConfig;
+
   beforeDelete?(config: AvApiConfig): AvApiConfig;
 
   /** Hook: transform data before postGet */
@@ -181,6 +187,7 @@ export default class AvApi {
 
   /** Hook: transform response after create/post */
   afterCreate?(response: AvApiResponse): unknown;
+
   afterPost?(response: AvApiResponse): unknown;
 
   /** Hook: transform response after get */
@@ -194,6 +201,7 @@ export default class AvApi {
 
   /** Hook: transform response after update/put */
   afterUpdate?(response: AvApiResponse): unknown;
+
   afterPut?(response: AvApiResponse): unknown;
 
   /** Hook: transform response after patch */
@@ -201,5 +209,6 @@ export default class AvApi {
 
   /** Hook: transform response after remove/delete */
   afterRemove?(response: AvApiResponse): unknown;
+
   afterDelete?(response: AvApiResponse): unknown;
 }

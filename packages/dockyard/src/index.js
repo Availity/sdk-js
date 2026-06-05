@@ -26,10 +26,8 @@ const transformRules = (schemaFieldDocs, options) => {
   let isRequired = false;
 
   // In yup 1.x, use the optional flag as the source of truth for required status
-  if (schemaFieldDocs.optional === false) {
-    if (options.compileRequiredFields) {
-      isRequired = true;
-    }
+  if (schemaFieldDocs.optional === false && options.compileRequiredFields) {
+    isRequired = true;
   }
 
   if (!options.excludeTypes && schemaFieldDocs.type) {

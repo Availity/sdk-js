@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-declare const isLeftClickEvent: (event: any) => boolean;
+import AvAnalyticsPlugin from './plugin';
 
-declare const isModifiedEvent: (event: any) => boolean;
+export declare function isLeftClickEvent(event: MouseEvent): boolean;
 
-declare const isValidEventTypeOnTarget: (event: any) => boolean;
+export declare function isModifiedEvent(event: MouseEvent | KeyboardEvent): boolean;
 
-declare const isPluginEnabled: (plugin: any) => any;
+export declare function isValidEventTypeOnTarget(event: Event): boolean;
 
-declare const camelCase: (str: any) => any;
+export declare function isPluginEnabled(plugin: AvAnalyticsPlugin): boolean;
 
-declare const getComposedPath: (node: any) => any;
+export declare function camelCase(str: string): string;
 
-export { isLeftClickEvent, isModifiedEvent, isValidEventTypeOnTarget, isPluginEnabled, camelCase, getComposedPath };
+export declare function getComposedPath(node: EventTarget): Element[];

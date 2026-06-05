@@ -372,12 +372,7 @@ describe('AvApi', () => {
     });
 
     test('getRequestUrl() should without passing in config', () => {
-      const fakeApi = new AvApi({ http: mockHttp,
-          api: true,
-          path: '/api/',
-          version: '/v1/',
-          name: '/test',
-        });
+      const fakeApi = new AvApi({ http: mockHttp, api: true, path: '/api/', version: '/v1/', name: '/test' });
       expect(fakeApi.getRequestUrl()).toBe('/api/v1/test');
     });
 
@@ -1128,6 +1123,219 @@ describe('AvApi', () => {
       );
       // Check api.request was called
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
+    });
+
+    describe('alias methods', () => {
+      const testUrl = 'url';
+      beforeEach(() => {
+        api = new AvApi({ http: mockHttp });
+        api.request = jest.fn(() => Promise.resolve({}));
+        api.cacheParams = jest.fn((config) => ({ ...config }));
+        api.config = jest.fn((config) => ({ ...config }));
+        api.getUrl = jest.fn(() => testUrl);
+      });
+
+      test('post() should delegate to create()', async () => {
+        const data = { testData: 'data' };
+        const config = { testValue: 'test' };
+        await api.post(data, config);
+        expect(api.request).toHaveBeenCalledWith(expect.objectContaining({ method: 'POST', data }), undefined);
+      });
+
+      test('put() should delegate to update()', async () => {
+        const data = { testData: 'data' };
+        const config = { testValue: 'test' };
+        await api.put('id', data, config);
+        expect(api.request).toHaveBeenCalledWith(expect.objectContaining({ method: 'PUT', data }), undefined);
+      });
+
+      test('delete() should delegate to remove()', async () => {
+        const config = { testValue: 'test' };
+        await api.delete('id', config);
+        expect(api.request).toHaveBeenCalledWith(expect.objectContaining({ method: 'DELETE' }), undefined);
+      });
+    });
+
+    describe('after hooks', () => {
+      const testUrl = 'url';
+      beforeEach(() => {
+        api = new AvApi({ http: mockHttp });
+        api.request = jest.fn(() => Promise.resolve({}));
+        api.cacheParams = jest.fn((config) => ({ ...config }));
+        api.config = jest.fn((config) => ({ ...config }));
+        api.getUrl = jest.fn(() => testUrl);
+      });
+
+      test('get() should pass afterGet to request()', () => {
+        const afterGet = jest.fn();
+        api.afterGet = afterGet;
+        api.get('id', {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterGet);
+      });
+
+      test('query() should pass afterQuery to request()', () => {
+        const afterQuery = jest.fn();
+        api.afterQuery = afterQuery;
+        api.query({});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterQuery);
+      });
+
+      test('postGet() should pass afterPostGet to request()', () => {
+        const afterPostGet = jest.fn();
+        api.afterPostGet = afterPostGet;
+        api.postGet({ data: 'test' }, {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPostGet);
+      });
+
+      test('patch() should pass afterPatch to request()', () => {
+        const afterPatch = jest.fn();
+        api.afterPatch = afterPatch;
+        api.patch('id', { data: 'test' }, {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPatch);
+      });
+
+      test('update() should pass afterUpdate to request()', () => {
+        const afterUpdate = jest.fn();
+        api.afterUpdate = afterUpdate;
+        api.update('id', { data: 'test' }, {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterUpdate);
+      });
+
+      test('update() should fall back to afterPut when afterUpdate is not defined', () => {
+        const afterPut = jest.fn();
+        api.afterPut = afterPut;
+        api.update('id', { data: 'test' }, {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPut);
+      });
+
+      test('remove() should pass afterRemove to request()', () => {
+        const afterRemove = jest.fn();
+        api.afterRemove = afterRemove;
+        api.remove('id', {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterRemove);
+      });
+
+      test('remove() should fall back to afterDelete when afterRemove is not defined', () => {
+        const afterDelete = jest.fn();
+        api.afterDelete = afterDelete;
+        api.remove('id', {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterDelete);
+      });
+
+      test('create() should pass afterCreate to request()', () => {
+        const afterCreate = jest.fn();
+        api.afterCreate = afterCreate;
+        api.create({ data: 'test' }, {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterCreate);
+      });
+
+      test('create() should fall back to afterPost when afterCreate is not defined', () => {
+        const afterPost = jest.fn();
+        api.afterPost = afterPost;
+        api.create({ data: 'test' }, {});
+        expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPost);
+      });
+    });
+
+    describe('before fallback hooks', () => {
+      const testUrl = 'url';
+      beforeEach(() => {
+        api = new AvApi({ http: mockHttp });
+        api.request = jest.fn(() => Promise.resolve({}));
+        api.cacheParams = jest.fn((config) => ({ ...config }));
+        api.config = jest.fn((config) => ({ ...config }));
+        api.getUrl = jest.fn(() => testUrl);
+      });
+
+      test('create() should use beforePost when beforeCreate is not defined', () => {
+        const beforePost = jest.fn((d) => d);
+        api.beforePost = beforePost;
+        const data = { testData: 'data' };
+        api.create(data, {});
+        expect(beforePost).toHaveBeenCalledWith(data);
+      });
+
+      test('update() should use beforePut when beforeUpdate is not defined', () => {
+        const beforePut = jest.fn((d) => d);
+        api.beforePut = beforePut;
+        const data = { testData: 'data' };
+        api.update('id', data, {});
+        expect(beforePut).toHaveBeenCalledWith(data);
+      });
+
+      test('remove() should use beforeDelete when beforeRemove is not defined', () => {
+        const beforeDelete = jest.fn((c) => c);
+        api.beforeDelete = beforeDelete;
+        api.remove({ testValue: 'test' });
+        expect(beforeDelete).toHaveBeenCalled();
+      });
+
+      test('sendBeacon() should use beforePost when beforeCreate is not defined', () => {
+        navigator.sendBeacon = undefined;
+        const beforePost = jest.fn((d) => d);
+        api.beforePost = beforePost;
+        const data = new FormData();
+        data.append('test', 'value');
+        api.sendBeacon(data, {});
+        expect(beforePost).toHaveBeenCalledWith(data);
+      });
+    });
+
+    describe('postGet() edge cases', () => {
+      const testUrl = 'url';
+      beforeEach(() => {
+        api = new AvApi({ http: mockHttp });
+        api.request = jest.fn(() => Promise.resolve({}));
+        api.cacheParams = jest.fn((config) => ({ ...config }));
+        api.config = jest.fn((config) => ({ ...config }));
+        api.getUrl = jest.fn(() => testUrl);
+      });
+
+      test('should not stringify data when Content-Type is not application/x-www-form-urlencoded', () => {
+        const data = { testData: 'data' };
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        api.postGet(data, config);
+        const callArgs = api.request.mock.calls[0][0];
+        expect(callArgs.data).toEqual(data);
+        expect(callArgs.headers['Content-Type']).toBe('application/json');
+      });
+
+      test('should not stringify data when data is already a string', () => {
+        const data = 'already=stringified&foo=bar';
+        api.postGet(data, {});
+        const callArgs = api.request.mock.calls[0][0];
+        expect(callArgs.data).toBe(data);
+      });
+    });
+
+    describe('onResponse edge cases', () => {
+      test('should return response when shouldPoll is true but getLocation returns falsy', async () => {
+        api = new AvApi({ http: mockHttp });
+        api.shouldPoll = jest.fn(() => true);
+        api.getLocation = jest.fn(() => '');
+        api.request = jest.fn();
+
+        const testResponse = { config: {}, data: 'test' };
+        const result = await api.onResponse(testResponse);
+
+        expect(result).toEqual(testResponse);
+        expect(api.request).not.toHaveBeenCalled();
+      });
+
+      test('should call afterResponse when shouldPoll is true but getLocation returns falsy', async () => {
+        api = new AvApi({ http: mockHttp });
+        api.shouldPoll = jest.fn(() => true);
+        api.getLocation = jest.fn(() => '');
+        api.request = jest.fn();
+
+        const testResponse = { config: {}, data: 'test' };
+        const afterResponse = jest.fn(() => 'transformed');
+        const result = await api.onResponse(testResponse, afterResponse);
+
+        expect(result).toBe('transformed');
+        expect(afterResponse).toHaveBeenCalledWith(testResponse);
+        expect(api.request).not.toHaveBeenCalled();
+      });
     });
   });
 });

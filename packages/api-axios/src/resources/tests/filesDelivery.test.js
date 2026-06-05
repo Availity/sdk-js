@@ -11,6 +11,10 @@ describe('AvFileDelivery', () => {
     api = new AvFilesDeliveryApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });
@@ -22,12 +26,20 @@ describe('AvFileDelivery', () => {
   });
 
   test('polling url should be correct', () => {
-    expect(api.getLocation({ headers: { Location: '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'}, data: { id: 'id123'}, config: {}})).toBe(
-      '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'
-    );
-    expect(api.getLocation({ headers: { Location: '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123'}, data: {}, config: {}})).toBe(
-      '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries'
-    );
+    expect(
+      api.getLocation({
+        headers: { Location: '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123' },
+        data: { id: 'id123' },
+        config: {},
+      })
+    ).toBe('/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123');
+    expect(
+      api.getLocation({
+        headers: { Location: '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries/id123' },
+        data: {},
+        config: {},
+      })
+    ).toBe('/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries');
   });
 
   test('uploadFile() should call create for reference passed', async () => {

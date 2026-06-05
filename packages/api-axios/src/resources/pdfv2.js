@@ -1,22 +1,10 @@
-import AvMicroserviceApi from '../ms';
+import { AvPdfMicroservice } from '@availity/api-core';
+import axios from 'axios';
 
-export default class AvPdfMicroserviceApi extends AvMicroserviceApi {
-  constructor(config) {
-    super({
-      ...config,
-      name: 'spc/pdf/',
-    });
-  }
-
-  getUrl(config, id = '') {
-    const { path, version, name, id: configId } = this.config(config);
-    let parts = [path, version || '', name];
-
-    if (id || configId) {
-      parts = [path, version || '', name, id || configId];
-    }
-
-    return parts.join('/').replaceAll(/\/+/g, '/');
+export default class AvPdfMicroserviceApi extends AvPdfMicroservice {
+  constructor(config = {}) {
+    const { http, ...rest } = config;
+    super({ http: http || axios, ...rest });
   }
 }
 

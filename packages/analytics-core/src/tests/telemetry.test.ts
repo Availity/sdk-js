@@ -1,13 +1,16 @@
 import { AvTelemetryAnalytics } from '..';
 
 describe('AvTelemetryAnalytics', () => {
-  let mockLog: { info: () => void; test: () => void };
+  let mockLog: { info: jest.Mock; test: jest.Mock; debug: jest.Mock; warn: jest.Mock; error: jest.Mock };
   let mockAvTelemetryAnalytics: AvTelemetryAnalytics;
 
   beforeEach(() => {
     mockLog = {
       info: jest.fn(),
       test: jest.fn(),
+      debug: jest.fn(),
+      warn: jest.fn(),
+      error: jest.fn(),
     };
 
     mockAvTelemetryAnalytics = new AvTelemetryAnalytics(mockLog, false, 'testApp', 'AVOSS@availity.com', '555', '1234');

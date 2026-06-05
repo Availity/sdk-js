@@ -1,6 +1,5 @@
+import FormData from 'form-data';
 import AvFiles from '../files';
-
-const FormData = require('form-data');
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
 
@@ -12,6 +11,10 @@ const mockConfig = {
 
 describe('AvFiles', () => {
   let api;
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   test('should be defined', () => {
     api = new AvFiles({ http: mockHttp });
@@ -31,9 +34,7 @@ describe('AvFiles', () => {
       http: mockHttp,
       promise: Promise,
     });
-    expect(api.getUrl(mockConfig)).toBe(
-      '/ms/api/availity/internal/core/vault/upload/v1/123'
-    );
+    expect(api.getUrl(mockConfig)).toBe('/ms/api/availity/internal/core/vault/upload/v1/123');
   });
 
   test('uploadFile() should call create for reference passed', () => {
@@ -45,6 +46,20 @@ describe('AvFiles', () => {
     api.create = jest.fn();
     api.uploadFile(data, mockConfig);
     expect(api.create).toHaveBeenLastCalledWith(data, api.config(mockConfig));
+  });
+
+  test('uploadFile() should throw when customerId is missing', () => {
+    api = new AvFiles({ http: mockHttp });
+    expect(() => api.uploadFile(new FormData(), { id: '123', clientId: '456' })).toThrow(
+      '[config.customerId] and [config.clientId] must be defined'
+    );
+  });
+
+  test('uploadFile() should throw when clientId is missing', () => {
+    api = new AvFiles({ http: mockHttp });
+    expect(() => api.uploadFile(new FormData(), { id: '123', customerId: '456' })).toThrow(
+      '[config.customerId] and [config.clientId] must be defined'
+    );
   });
 
   test('uploadFile() should call create for file passed', async () => {

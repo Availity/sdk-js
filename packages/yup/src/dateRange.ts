@@ -9,12 +9,12 @@ const isPlainObject = (val: unknown): val is Record<string, unknown> =>
 function deepMerge<T extends Record<string, unknown>>(target: T, ...sources: Record<string, unknown>[]): T {
   const result: Record<string, unknown> = { ...target };
   for (const source of sources) {
-    if (!isPlainObject(source)) continue;
-    for (const key of Object.keys(source)) {
-      if (isPlainObject(source[key]) && isPlainObject(result[key])) {
-        result[key] = deepMerge(result[key] as Record<string, unknown>, source[key] as Record<string, unknown>);
-      } else {
-        result[key] = source[key];
+    if (isPlainObject(source)) {
+      for (const key of Object.keys(source)) {
+        result[key] =
+          isPlainObject(source[key]) && isPlainObject(result[key])
+            ? deepMerge(result[key] as Record<string, unknown>, source[key] as Record<string, unknown>)
+            : source[key];
       }
     }
   }
@@ -45,7 +45,12 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
         if (!range || typeof range !== 'object') return false;
         const { startDate, endDate } = range as Record<string, unknown>;
         return (
-          !!startDate && !!endDate && moment.isMoment(startDate) && moment.isMoment(endDate) && startDate.isValid() && endDate.isValid()
+          !!startDate &&
+          !!endDate &&
+          moment.isMoment(startDate) &&
+          moment.isMoment(endDate) &&
+          startDate.isValid() &&
+          endDate.isValid()
         );
       },
     });
@@ -90,7 +95,7 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
         if ((!minValue && !maxValue) || !startDate || !endDate) return true;
 
         // if we have a max then check distance between end and start
-        if (maxValue && endDate.isAfter(startDate.add(maxValue, maxUnits), 'day')) {
+        if (maxValue && endDate.isAfter(startDate.clone().add(maxValue, maxUnits), 'day')) {
           return new ValidationError(
             maxErrorMessage ||
               `The end date must be within ${maxValue} ${maxUnits}${maxValue > 1 ? 's' : ''} of the start date`,
@@ -103,7 +108,7 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
         }
 
         // if we have a min the check distance between end and start
-        if (minValue && endDate.isBefore(startDate.add(minValue, minUnits), 'day')) {
+        if (minValue && endDate.isBefore(startDate.clone().add(minValue, minUnits), 'day')) {
           return new ValidationError(
             minErrorMessage ||
               `The end date must be greater than ${minValue} ${minUnits}${minValue > 1 ? 's' : ''} of the start date`,
@@ -231,7 +236,6 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
       },
     });
   }
-
 }
 
 type Options = { startKey?: string; endKey?: string; format?: string };

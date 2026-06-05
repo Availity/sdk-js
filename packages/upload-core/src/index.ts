@@ -207,11 +207,19 @@ class Upload {
           const s3References = response.lastResponse.getHeader('s3-references');
 
           if (references) {
-            try { this.references = JSON.parse(references); } catch { /* malformed header */ }
+            try {
+              this.references = JSON.parse(references);
+            } catch {
+              /* malformed header */
+            }
           }
 
           if (s3References) {
-            try { this.s3References = JSON.parse(s3References); } catch { /* malformed header */ }
+            try {
+              this.s3References = JSON.parse(s3References);
+            } catch {
+              /* malformed header */
+            }
           }
 
           for (const handleOnSuccess of this.onSuccess) {
@@ -297,11 +305,19 @@ class Upload {
         const s3References = response.getHeader('s3-references');
 
         if (references) {
-          try { this.references = JSON.parse(references); } catch { /* malformed header */ }
+          try {
+            this.references = JSON.parse(references);
+          } catch {
+            /* malformed header */
+          }
         }
 
         if (s3References) {
-          try { this.s3References = JSON.parse(s3References); } catch { /* malformed header */ }
+          try {
+            this.s3References = JSON.parse(s3References);
+          } catch {
+            /* malformed header */
+          }
         }
 
         for (const handleOnSuccess of this.onSuccess) {
@@ -433,7 +449,7 @@ class Upload {
     if (!this.options.allowedFileNameCharacters) return true;
 
     const fileName = this.file.name.substring(0, this.file.name.lastIndexOf('.'));
-    const escaped = this.options.allowedFileNameCharacters.replace(/[\\^\]]/g, '\\$&');
+    const escaped = this.options.allowedFileNameCharacters.replaceAll(/[\\\]^]/g, '\\$&');
     const regExp = new RegExp(`([^${escaped}])`, 'g');
 
     if (fileName.match(regExp) !== null) {

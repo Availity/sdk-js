@@ -52,10 +52,7 @@ describe('deepMerge', () => {
   });
 
   test('deeply nested merge', () => {
-    const result = deepMerge(
-      { a: { b: { c: 1, d: 2 }, e: 3 } },
-      { a: { b: { c: 10, f: 4 } } }
-    );
+    const result = deepMerge({ a: { b: { c: 1, d: 2 }, e: 3 } }, { a: { b: { c: 10, f: 4 } } });
     expect(result).toEqual({ a: { b: { c: 10, d: 2, f: 4 }, e: 3 } });
   });
 });

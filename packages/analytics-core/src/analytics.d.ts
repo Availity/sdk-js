@@ -1,7 +1,13 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import AvAnalyticsPlugin, { AnalyticsEventProperties } from './plugin';
+
+export interface AvAnalyticsOptions {
+  eventModifiers?: string | string[];
+  recursive?: boolean;
+  attributePrefix?: string;
+}
+
 declare class AvAnalytics {
-  plugins: any[];
+  plugins: AvAnalyticsPlugin[];
 
   attributePrefix: string;
 
@@ -13,23 +19,25 @@ declare class AvAnalytics {
 
   hasInit: boolean;
 
+  eventModifiers: string[];
+
   constructor(
-    plugins: any | any[],
+    plugins: AvAnalyticsPlugin | AvAnalyticsPlugin[],
     promise?: PromiseConstructor,
     pageTracking?: boolean,
     autoTrack?: boolean,
-    options?: Record<string, any>
+    options?: AvAnalyticsOptions
   );
 
   startAutoTrack(): void;
 
   stopAutoTrack(): void;
 
-  handleEvent(event: any): void;
+  handleEvent(event: Event): void;
 
-  invalidEvent(event: any): boolean;
+  invalidEvent(event: Event): boolean;
 
-  getAnalyticAttrs(elem: any): any;
+  getAnalyticAttrs(elem: Element): AnalyticsEventProperties;
 
   startPageTracking(): void;
 
@@ -37,11 +45,11 @@ declare class AvAnalytics {
 
   init(): void;
 
-  setPageTracking(value?: any): void;
+  setPageTracking(value?: boolean): void;
 
-  trackEvent(properties: any): Promise<any[]>;
+  trackEvent(properties: AnalyticsEventProperties): Promise<unknown[]>;
 
-  trackPageView(url?: string): Promise<any[]>;
+  trackPageView(url?: string | { newURL: string }): Promise<unknown[]>;
 }
 
 export default AvAnalytics;

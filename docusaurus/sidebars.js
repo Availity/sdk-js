@@ -3,33 +3,15 @@ module.exports = {
     'SDK-JS Docs': [
       'intro',
       {
-        type: 'link',
-        label: 'Contributing',
-        href: 'https://github.com/Availity/sdk-js/blob/master/.github/CONTRIBUTING.md#contributing',
-      },
-      {
         type: 'category',
-        label: 'SDK Resources',
-        items: [
-          'resources/analytics',
-          'resources/env-var',
-          'resources/messaging',
-          'resources/native-form',
-          'resources/relay-id',
-          'resources/resolve-url',
-          'resources/yup',
-          'resources/exceptions',
-        ],
-      },
-      {
-        type: 'category',
-        label: 'API',
+        label: 'API Client',
         items: [
           'api/getting-started',
           'api/axios-resources',
+          'api/authorizations',
           {
             type: 'category',
-            label: 'Definitions',
+            label: 'API Definitions',
             items: [
               'api/definitions/codes',
               'api/definitions/csv',
@@ -49,16 +31,50 @@ module.exports = {
               'api/definitions/users',
             ],
           },
-          'api/authorizations',
-          'api/downloads',
-          'api/uploads',
+        ],
+      },
+      {
+        type: 'category',
+        label: 'File Handling',
+        items: ['api/uploads', 'api/downloads', 'resources/native-form'],
+      },
+      {
+        type: 'category',
+        label: 'Analytics & Logging',
+        items: ['resources/analytics', 'resources/exceptions'],
+      },
+      {
+        type: 'category',
+        label: 'Validation',
+        items: ['resources/yup', 'resources/dockyard'],
+      },
+      {
+        type: 'category',
+        label: 'Utilities',
+        items: [
+          'resources/env-var',
+          'resources/messaging',
+          'resources/resolve-url',
+          'resources/relay-id',
+          'resources/user-activity-broadcaster',
         ],
       },
       {
         type: 'category',
         label: 'Recipes',
-
-        items: ['recipes/proxy', 'recipes/http-request'],
+        items: [
+          'recipes/proxy',
+          'recipes/http-request',
+          'recipes/organization-filtering',
+          'recipes/cross-app-stash',
+          'recipes/analytics-setup',
+          'recipes/pagination',
+        ],
+      },
+      {
+        type: 'link',
+        label: 'Contributing',
+        href: 'https://github.com/Availity/sdk-js/blob/master/.github/CONTRIBUTING.md#contributing',
       },
     ],
   },

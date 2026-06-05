@@ -89,9 +89,7 @@ describe('AvAPi', () => {
 
   test('getLocation from response', () => {
     const api = new AvApi({});
-    expect(api.getLocation({ config: {}, headers: { location: 'location' } })).toEqual(
-      'http://localhost/location'
-    );
+    expect(api.getLocation({ config: {}, headers: { location: 'location' } })).toEqual('http://localhost/location');
   });
 
   test('shouldPoll on response', () => {

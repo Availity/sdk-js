@@ -5,8 +5,12 @@ const mockHttp = jest.fn(() => Promise.resolve({}));
 describe('AvProxy', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('AvProxy should be defined', () => {
-    api = new AvProxy({ http: mockHttp, ...{ tenant: 'healthplan' } });
+    api = new AvProxy({ http: mockHttp, tenant: 'healthplan' });
     expect(api).toBeDefined();
   });
 

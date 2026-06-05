@@ -162,7 +162,7 @@ export default class AvApi {
         config.url,
         new Blob([config.data], { type: 'application/x-www-form-urlencoded' })
       );
-      if (result) return Promise.resolve();
+      if (result) return undefined;
     }
 
     return this.request(config, this.afterCreate || this.afterPost);
@@ -252,7 +252,7 @@ export default class AvApi {
 
     const key = this.getQueryResultKey(response.data);
     const result = response.data[key] || [];
-    const limit = response.data.limit || result.length || 1;
+    const limit = response.data.limit || (result.length > 0 ? result.length : 1);
     const totalPages = Math.ceil(response.data.totalCount / limit);
 
     if (totalPages > 1) {

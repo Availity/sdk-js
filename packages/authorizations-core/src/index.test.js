@@ -250,20 +250,16 @@ describe('AvAuthorizations', () => {
 
     test('should reject when a non-array is passed in', async () => {
       const testIds = '123';
-      try {
-        await testAuthorizations.getPermissions(testIds);
-      } catch (error) {
-        expect(error).toBe('permissionIds must be an array of strings');
-      }
+      await expect(testAuthorizations.getPermissions(testIds)).rejects.toThrow(
+        'permissionIds must be an array of strings'
+      );
     });
 
     test('should reject when passed in array is not all strings', async () => {
       const testIds = ['123', 456];
-      try {
-        await testAuthorizations.getPermissions(testIds);
-      } catch (error) {
-        expect(error).toBe('permissionIds must be an array of strings');
-      }
+      await expect(testAuthorizations.getPermissions(testIds)).rejects.toThrow(
+        'permissionIds must be an array of strings'
+      );
     });
   });
 
@@ -275,11 +271,11 @@ describe('AvAuthorizations', () => {
     expect(permission).toEqual(getMockPermissionValues([testId], true)[0]);
   });
 
-  test('getPermission should reject when a non-string is passed in', () => {
+  test('getPermission should reject when a non-string is passed in', async () => {
     const testId = 123;
-    return testAuthorizations.getPermission(testId).catch((error) => {
-      expect(error).toBe('permissionId must be a string');
-    });
+    await expect(testAuthorizations.getPermission(testId)).rejects.toThrow(
+      'permissionId must be a string'
+    );
   });
 
   describe('Authorized', () => {

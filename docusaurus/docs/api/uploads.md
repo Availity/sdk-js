@@ -76,15 +76,21 @@ upload.start();
 
 #### Optional params
 
-| Parameter                 | Type    | Default | Description                                    |
-| ------------------------- | ------- | ------- | ---------------------------------------------- |
-| fileTypes                 | string  |         | Allowed file extensions (e.g., '.pdf', '.png') |
-| maxSize                   | number  |         | Maximum file size in bytes                     |
-| metadata                  | object  | {}      | Additional metadata for the upload             |
-| allowedFileNameCharacters | string  |         | Regex pattern for allowed filename characters  |
-| pollingTime               | number  | 5000    | Interval for virus scan polling (ms)           |
-| maxAvScanRetries          | number  | 10      | Maximum retries for virus scan check           |
-| stripFileNamePathSegments | boolean | true    | Remove path segments from filename             |
+| Parameter                 | Type     | Default                 | Description                                    |
+| ------------------------- | -------- | ----------------------- | ---------------------------------------------- |
+| fileTypes                 | string   |                         | Allowed file extensions (e.g., '.pdf', '.png') |
+| maxSize                   | number   |                         | Maximum file size in bytes                     |
+| metadata                  | object   | {}                      | Additional metadata for the upload             |
+| allowedFileNameCharacters | string   |                         | Regex pattern for allowed filename characters  |
+| pollingTime               | number   | 5000                    | Interval for virus scan polling (ms)           |
+| maxAvScanRetries          | number   | 10                      | Maximum retries for virus scan check           |
+| stripFileNamePathSegments | boolean  | true                    | Remove path segments from filename             |
+| chunkSize                 | number   | 6000000                 | Size of each upload chunk in bytes (6 MB)      |
+| retryDelays               | number[] | [0, 1000, 3000, 5000]   | Delay in ms between upload retry attempts      |
+| headers                   | object   |                         | Custom headers merged with defaults            |
+| endpoint                  | string   | (vault upload endpoint) | Custom upload endpoint URL                     |
+
+**Note:** The `metadata` object always includes `availity-filename`, `availity-content-type`, and `availity-attachment-name` in addition to any custom metadata you provide.
 
 #### Upload event handlers
 
@@ -94,6 +100,27 @@ upload.start();
 - **onProgress**: occurs during initial and at various points of the Xhr call to backend.
 - **onSuccess**: each function is called once if there is a success.
 - **onError**: each function is called once if there is an error.
+- **onChunkComplete**: each function is called with `(chunkSize, bytesAccepted, bytesTotal)` after each chunk is uploaded. Useful for granular progress tracking.
+
+```js
+upload.onChunkComplete.push((chunkSize, bytesAccepted, bytesTotal) => {
+  console.log(`Chunk uploaded: ${bytesAccepted}/${bytesTotal} bytes`);
+});
+```
+
+### Upload ID Management
+
+Before calling `upload.start()`, you must set an upload ID using either `generateId()` or `setId()`:
+
+```js
+// Auto-generate an ID (recommended)
+await upload.generateId();
+upload.start();
+
+// Or set a known ID manually
+upload.setId('my-custom-upload-id');
+upload.start();
+```
 
 ### Advanced Usage Examples
 

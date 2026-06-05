@@ -1,5 +1,5 @@
-import AvDownloadApi from './download';
 import DownloadMicroservice from '@availity/dl-core';
+import AvDownloadApi from './download';
 
 describe('AvDownloadApi', () => {
   test('should be an instance of DownloadMicroservice', () => {

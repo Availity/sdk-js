@@ -113,7 +113,6 @@ describe('DateRange', () => {
     const schema = object().shape({
       min: string(),
       max: string(),
-      // @ts-expect-error: yup types are not correct and complain about this being invalid syntax
       range: dateRange().when(['min', 'max'], ([min, max]: [string, string], schema: DateRangeSchema) =>
         min !== '' ? schema.min(min) : schema.max(max)
       ),

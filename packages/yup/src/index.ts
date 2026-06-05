@@ -1,4 +1,4 @@
-import { addMethod, array, number, object, string, Schema, ArraySchema, NumberSchema, ObjectSchema, StringSchema } from 'yup';
+import { addMethod, array, number, object, string } from 'yup';
 
 import isRequired from './isRequired';
 import npi from './npi';
@@ -32,10 +32,12 @@ declare module 'yup' {
     phone(errorMessage?: string): this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ArraySchema<TIn, TContext, TDefault, TFlags> {
     isRequired(required?: boolean, errorMessage?: string): this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ObjectSchema<TIn, TContext, TDefault, TFlags> {
     isRequired(required?: boolean, errorMessage?: string): this;
   }

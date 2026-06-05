@@ -6,6 +6,10 @@ describe('AvNotificationsApi', () => {
     api = new AvNotificationsApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });
