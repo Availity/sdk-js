@@ -3,7 +3,7 @@ import AvApi from '../api';
 export default class AvUserApi extends AvApi {
   constructor(config) {
     super({
-      path: 'api/sdk/platform',
+      path: 'cloud/web/appl/user-management/legacy/sdk/platform',
       name: 'users',
       ...config,
     });

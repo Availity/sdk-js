@@ -1,7 +1,6 @@
 import AvOrganizations from '../organizations';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const mockUser = {
   id: 'mockUserId',
@@ -129,9 +128,7 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
-        config: {},
       });
       expect(api).toBeDefined();
     });
@@ -140,7 +137,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
       });
       expect(api).toBeDefined();
@@ -149,9 +145,7 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
-        config: {},
       });
       api.query = jest.fn();
 
@@ -172,9 +166,7 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
-        config: {},
       });
       api.query = jest.fn();
       const userId = 'testUserId';
@@ -185,12 +177,7 @@ describe('AvOrganizations', () => {
     });
 
     test('getOrganizations() should throw error if no avUsers passed in', () => {
-      api = new AvOrganizations({
-        http: mockHttp,
-        promise: Promise,
-        merge: mockMerge,
-        config: {},
-      });
+      api = new AvOrganizations({ http: mockHttp });
 
       expect(() => {
         api.getOrganizations();
@@ -201,9 +188,7 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
-        config: {},
       });
       api.queryOrganizations = jest.fn();
 
@@ -217,9 +202,7 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
-        config: {},
       });
       api.queryOrganizations = jest.fn();
       api.query = jest.fn();
@@ -239,7 +222,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -266,7 +248,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -291,7 +272,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -316,7 +296,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -341,7 +320,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -366,7 +344,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -391,7 +368,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -415,7 +391,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -444,7 +419,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -471,7 +445,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -497,7 +470,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -523,7 +495,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -556,7 +527,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -581,7 +551,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -606,7 +575,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -631,7 +599,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -655,7 +622,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -679,7 +645,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -704,7 +669,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -752,7 +716,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -767,7 +730,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });
@@ -783,7 +745,6 @@ describe('AvOrganizations', () => {
       api = new AvOrganizations({
         http: mockHttp,
         promise: Promise,
-        merge: mockMerge,
         avUsers: mockAvUsers,
         avUserPermissions: mockAvUserPermissions,
       });

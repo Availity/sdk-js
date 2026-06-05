@@ -11,13 +11,14 @@
     "url": "https://github.com/Availity/sdk-js.git"
   },
   "license": "MIT",
+  "type": "module",
   "workspaces": [
     "packages/*",
     "docusaurus"
   ],
   "engines": {
-    "yarn": "^3.0.0",
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "yarn": "^4.0.0",
+    "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
     "build": "nx run-many --target=build --all",
@@ -55,22 +56,22 @@
     "@nx/js": "21.5.3",
     "@nx/workspace": "21.5.3",
     "@types/jest": "30.0.0",
-    "@types/node": "^22.15.17",
+    "@types/node": "^22.19.19",
     "dependency-check": "^4.1.0",
     "eslint-config-availity": "^10.0.10",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "jest": "30.0.5",
-    "jest-environment-jsdom": "30.0.5",
-    "jest-util": "30.0.5",
+    "jest": "30.4.2",
+    "jest-environment-jsdom": "30.4.1",
+    "jest-util": "30.4.1",
     "lint-staged": "^15.5.2",
     "nx": "21.5.3",
-    "plop": "^4.0.1",
-    "prettier": "^3.5.3",
-    "ts-jest": "29.4.4",
-    "typescript": "5.9.2",
-    "undici": "^6.21.3",
+    "plop": "^4.0.5",
+    "prettier": "^3.8.3",
+    "ts-jest": "29.4.11",
+    "typescript": "5.9.3",
+    "undici": "^8.3.0",
     "xhr-mock": "^2.5.1"
   },
   "resolutions": {

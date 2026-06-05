@@ -1,7 +1,7 @@
 import AvMicroservice from '../ms';
 
 export default class AvFilesDelivery extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       name: 'platform/file-upload-delivery/v1/batch/deliveries',
       headers: {
@@ -11,12 +11,7 @@ export default class AvFilesDelivery extends AvMicroservice {
       pollingMethod: 'GET',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   uploadFilesDelivery(data, config) {

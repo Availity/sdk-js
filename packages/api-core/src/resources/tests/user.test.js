@@ -1,18 +1,12 @@
 import AvUsers from '../user';
 
 const mockPromise = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvUsers', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvUsers({
-      http: mockPromise,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvUsers({ http: mockPromise });
     expect(api).toBeDefined();
   });
 
@@ -20,18 +14,12 @@ describe('AvUsers', () => {
     api = new AvUsers({
       http: mockPromise,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
 
   test("me() should get with id 'me'", () => {
-    api = new AvUsers({
-      http: mockPromise,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvUsers({ http: mockPromise });
     api.get = mockPromise;
     api.me();
     expect(api.get).toHaveBeenLastCalledWith('me', undefined);

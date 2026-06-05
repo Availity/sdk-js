@@ -19,3 +19,21 @@ npm install @availity/dl-axios
 ```bash
 yarn add @availity/dl-axios
 ```
+
+## Usage
+
+```js
+import AvDownloadApi from '@availity/dl-axios';
+
+const dl = new AvDownloadApi({ clientId: 'my-client-id' });
+
+// Fetch an attachment
+const response = await dl.getAttachment({ id: 'attachment-id' });
+
+// Download the attachment to the user's browser
+dl.downloadAttachment(response.data, 'report.pdf', 'application/pdf');
+```
+
+## Documentation
+
+Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/api/downloads)

@@ -4,21 +4,15 @@ const { compilerOptions } = require('./tsconfig.json');
 
 module.exports = {
   transform: {
-    '^.+\\.(ts|js)$': 'ts-jest',
+    '^.+\\.(ts|js)$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  transformIgnorePatterns: ['node_modules/(?!axios|@bundled-es-modules/*)'],
+  transformIgnorePatterns: ['node_modules/(?!axios|uuid|@bundled-es-modules/*)'],
   moduleFileExtensions: ['ts', 'js'],
-  preset: '../../jest.preset.js',
+  preset: '../../jest.preset.cjs',
   testEnvironment: 'jest-environment-jsdom',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-    jsdom: true,
-  },
   coverageReporters: ['json-summary'],
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
-  setupFiles: ['../../jest.polyfills.js'],
+  setupFiles: ['../../jest.polyfills.cjs'],
 };

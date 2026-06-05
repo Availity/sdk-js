@@ -1,7 +1,7 @@
 import AvMicroservice from '../ms';
 
 export default class AvFiles extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       name: 'core/vault/upload/v1',
       headers: {
@@ -9,12 +9,7 @@ export default class AvFiles extends AvMicroservice {
       },
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   uploadFile(data, config) {

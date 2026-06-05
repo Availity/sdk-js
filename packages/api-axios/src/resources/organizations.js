@@ -52,14 +52,11 @@ export default class AvOrganizationsApi extends AvApi {
         }
         data = qs.stringify(dataTemp, { arrayFormat: 'repeat' });
       } else if (typeof data === 'object') {
-        const { region } = data;
+        const { region, ...rest } = data;
         if (region) {
           this.region = region;
-          delete data.region;
         }
-        if (permissionIds) {
-          data.permissionId = permissionIds;
-        }
+        data = permissionIds ? { ...rest, permissionId: permissionIds } : rest;
       }
       const { data: organizationsData } = await super.postGet(data, config);
       const { organizations, limit, offset, totalCount } = organizationsData;

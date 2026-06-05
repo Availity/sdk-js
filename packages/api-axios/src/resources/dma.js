@@ -10,10 +10,8 @@ export default class AvLogMessagesApiV2 extends AvMicroserviceApi {
   }
 
   send(level, entries) {
-    delete entries.level;
-    const { overrides } = entries;
-    delete entries.overrides;
-    const payload = { level, entries, overrides };
+    const { level: _level, overrides, ...rest } = entries;
+    const payload = { level, entries: rest, overrides };
     const flattened = flattenObject(payload);
 
     flattened.X_Client_ID = this.clientId;

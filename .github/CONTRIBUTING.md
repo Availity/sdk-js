@@ -4,12 +4,33 @@ This monorepo is managed using [yarn](https://yarnpkg.com/getting-started) and [
 
 ## Installation
 
-Ensure you are running version 20, 22, or 24 of `node` and [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) is installed. We recommend using [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your installation of `node`.
+Ensure you are running Node.js 22 or 24 (see `engines` in package.json). We recommend using [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your Node installation.
 
 ```bash
 node --version
+```
+
+### Setting up Yarn
+
+This repo uses Yarn 4 (defined in `packageManager` in package.json). You can set it up either way:
+
+**Option A: Corepack (recommended)**
+
+Corepack ships with Node.js and automatically uses the correct Yarn version:
+
+```bash
+corepack enable
+```
+
+**Option B: Direct install**
+
+If you don't want to use corepack, install Yarn globally:
+
+```bash
 npm install -g yarn
 ```
+
+### Installing dependencies
 
 Install the dependencies with `yarn`. The first install might take a while. All subsequent installs should proceed more quickly.
 
@@ -55,7 +76,7 @@ The commit messages in this repository are important for two main reasons:
 
 Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should be one of the un-prefixed names of the packages under `./packages/` or `docusaurus` for the docs. If a commit applies to multiple packages, leave out the scope.
 
-For example, here is what the commit message would like when fixing a null-checking error in the [icon](../packages/icon) package:
+For example, here is what the commit message would look like when fixing a null-checking error in the env-var package:
 
 ```bash
 git commit -m "fix(env-var): check for null before doing the action"

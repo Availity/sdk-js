@@ -11,14 +11,35 @@
 ### NPM
 
 ```bash
-npm install @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular
+npm install @availity/dl-core
 ```
 
 ### Yarn
 
 ```bash
-yarn add @availity/api-core @availity/api-angular @availity/dl-core @availity/dl-angular
+yarn add @availity/dl-core
 ```
+
+## Usage
+
+`DownloadMicroservice` is the base class used by `@availity/dl-axios`. It extends `AvMicroservice` and provides methods for downloading file attachments.
+
+```js
+import DownloadMicroservice from '@availity/dl-core';
+
+// Typically used through @availity/dl-axios rather than directly
+// See @availity/dl-axios for the recommended approach
+```
+
+### Methods
+
+#### `getAttachment(config)`
+
+Fetches an attachment using the configured microservice endpoint.
+
+#### `downloadAttachment(data, filename, mime)`
+
+Triggers a file download in the browser using the provided data blob, filename, and MIME type.
 
 ## Documentation
 

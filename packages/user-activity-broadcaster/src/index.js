@@ -24,10 +24,12 @@ const targetOrigin = getTargetOrigin()
 
 // PostMessage Logic
 export const handleActivityUpdate = () => {
-  window.top.postMessage({
-    event: eventName,
-    time: lastActivity.time
-  }, targetOrigin)
+  if (targetOrigin) {
+    window.top.postMessage({
+      event: eventName,
+      time: lastActivity.time
+    }, targetOrigin)
+  }
 }
 
 // Debounce Logic

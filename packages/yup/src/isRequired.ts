@@ -1,6 +1,6 @@
-import { BaseSchema } from 'yup';
+import { Schema } from 'yup';
 
-function isRequired<Schema extends BaseSchema>(this: Schema, isRequired = true, msg?: string): Schema {
+function isRequired<S extends Schema>(this: S, isRequired = true, msg?: string): S {
   return this.test({
     name: 'isRequired',
     exclusive: true,

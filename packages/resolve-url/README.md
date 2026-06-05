@@ -6,8 +6,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dt/@availity/resolve-url.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/resolve-url)
 [![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/resolve-url?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/resolve-url/package.json)
 
-This library resolves relative IRIs to absolute IRIs given a base IRI, conforming to [RFC3986](https://www.ietf.org/rfc/rfc3986.txt). The code was borrowed from [relative-to-absolute-iri
-](https://github.com/rubensorks/relative-to-absolute-iri.js). ~There is an open issue to make the library compatible with IE11: [Issue #5](https://github.com/rubensworks/relative-to-absolute-iri.js/issues/5)~
+This library resolves relative IRIs to absolute IRIs given a base IRI, conforming to [RFC3986](https://www.ietf.org/rfc/rfc3986.txt). The code was borrowed from [relative-to-absolute-iri](https://github.com/rubensorks/relative-to-absolute-iri.js).
 
 ## Installation
 
@@ -21,6 +20,25 @@ npm install @availity/resolve-url
 
 ```bash
 yarn add @availity/resolve-url
+```
+
+## Usage
+
+```js
+import resolveUrl, { isAbsoluteUrl, relativeToAbsolute } from '@availity/resolve-url';
+
+// Resolve a relative URL using window.location.origin as base
+const url = resolveUrl({ relative: '/api/v1/users' });
+
+// Resolve with an explicit base
+const url = resolveUrl({
+  relative: '/path/to/resource',
+  base: 'https://apps.availity.com/',
+});
+
+// Check if a URL is absolute
+isAbsoluteUrl('https://example.com'); // true
+isAbsoluteUrl('/relative/path'); // false
 ```
 
 ## Documentation

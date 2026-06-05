@@ -1,4 +1,3 @@
-import set from 'lodash/set';
 import AvMicroserviceApi from '../ms';
 import flattenObject from '../flatten-object';
 
@@ -11,7 +10,8 @@ export default class AvTelemetryApi extends AvMicroserviceApi {
   }
 
   send(level, data) {
-    set(data, 'telemetryBody.level', level);
+    data.telemetryBody = data.telemetryBody || {};
+    data.telemetryBody.level = level;
     const flattened = flattenObject(data);
 
     const fields = Object.keys(flattened)

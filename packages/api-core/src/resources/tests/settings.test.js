@@ -1,7 +1,6 @@
 import AvSettings from '../settings';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const testAppId = 'testApplicationId';
 
@@ -23,9 +22,7 @@ describe('AvSettings', () => {
     api = new AvSettings({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
   });
 

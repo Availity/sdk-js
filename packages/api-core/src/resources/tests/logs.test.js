@@ -1,7 +1,6 @@
 import AvLogMessages from '../logs';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvLogMessages', () => {
   let api;
@@ -10,22 +9,12 @@ describe('AvLogMessages', () => {
   });
 
   test('should be defined', () => {
-    api = new AvLogMessages({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvLogMessages({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
   test('send() should return {level, entries}', () => {
-    api = new AvLogMessages({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvLogMessages({ http: mockHttp });
     const level = 'testLevel';
     const entries = { foo: 'bar', deeply: { nested: 'value' } };
     const sent = api.send(level, entries);
@@ -41,12 +30,7 @@ describe('AvLogMessages', () => {
     const testEntries = { a: '1', b: '2' };
 
     beforeEach(() => {
-      api = new AvLogMessages({
-        http: mockHttp,
-        promise: Promise,
-        merge: mockMerge,
-        config: {},
-      });
+      api = new AvLogMessages({ http: mockHttp });
       api.send = jest.fn();
       api.sendBeacon = jest.fn();
     });

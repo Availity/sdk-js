@@ -1,8 +1,8 @@
-import { BaseSchema } from 'yup';
+import { Schema } from 'yup';
 
 const NANP_REGEXP = /^(\+?1[\s.-]?)?\(?[2-9]\d{2}[\s).-]?\s?[2-9]\d{2}[\s.-]?\d{4}$/;
 
-function phone<Schema extends BaseSchema>(this: Schema, msg: string): Schema {
+function phone<S extends Schema>(this: S, msg: string): S {
   return this.test({
     name: 'phone',
     exclusive: true,

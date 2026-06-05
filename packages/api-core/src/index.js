@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/prefer-export-from */
 import AvApi from './api';
 import AvMicroservice from './ms';
+import deepMerge from './deepMerge';
 import AvProxy from './resources/proxy';
 import AvCodes from './resources/codes';
 import AvDisclaimers from './resources/disclaimers';
@@ -24,6 +25,7 @@ import AvWebQL from './resources/webQL';
 export default AvApi;
 
 export {
+  deepMerge,
   AvMicroservice,
   AvProxy,
   AvCodes,

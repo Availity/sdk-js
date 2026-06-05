@@ -20,6 +20,34 @@ npm install @availity/env-var
 yarn add @availity/env-var
 ```
 
+## Usage
+
+The default export returns a value from an object based on the current Availity environment (local, test, qa, prod):
+
+```js
+import envVar from '@availity/env-var';
+
+// Returns the value matching the current environment
+const apiUrl = envVar({
+  local: 'http://localhost:3000',
+  test: 'https://t01-apps.availity.com',
+  qa: 'https://qap-apps.availity.com',
+  prod: 'https://apps.availity.com',
+});
+```
+
+### Named Exports
+
+```js
+import { getCurrentEnv, getSpecificEnv } from '@availity/env-var';
+
+// Get the general environment category: 'local', 'test', 'qa', or 'prod'
+const env = getCurrentEnv();
+
+// Get the specific environment identifier (e.g., 't01', 'stg', 'prd')
+const specificEnv = getSpecificEnv();
+```
+
 ## Documentation
 
 Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/resources/env-var)

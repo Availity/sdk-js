@@ -22,4 +22,8 @@ yarn add @availity/user-activity-broadcaster
 
 ## Usage
 
-> All you have to do is include this as a dependency and import it into the root of your web application.
+Import this package at the root of your web application. It will automatically begin broadcasting user activity to the navigation.
+
+```js
+import '@availity/user-activity-broadcaster';
+```

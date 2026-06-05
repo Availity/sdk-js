@@ -1,8 +1,25 @@
 import { MixedSchema, ValidationError } from 'yup';
 import moment, { unitOfTime } from 'moment';
 import type { Moment } from 'moment';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
+import getByPath from './getByPath';
+
+const isPlainObject = (val: unknown): val is Record<string, unknown> =>
+  val !== null && typeof val === 'object' && !Array.isArray(val);
+
+function deepMerge<T extends Record<string, unknown>>(target: T, ...sources: Record<string, unknown>[]): T {
+  const result: Record<string, unknown> = { ...target };
+  for (const source of sources) {
+    if (!isPlainObject(source)) continue;
+    for (const key of Object.keys(source)) {
+      if (isPlainObject(source[key]) && isPlainObject(result[key])) {
+        result[key] = deepMerge(result[key] as Record<string, unknown>, source[key] as Record<string, unknown>);
+      } else {
+        result[key] = source[key];
+      }
+    }
+  }
+  return result as T;
+}
 
 const defaultOptions = {
   startKey: 'startDate',
@@ -20,26 +37,32 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
   format: string;
 
   constructor(options?: Options) {
+    const { startKey, endKey, format } = deepMerge(defaultOptions, options ?? {});
+
     super({
       type: 'dateRange',
+      check: (range: unknown): range is DateRange => {
+        if (!range || typeof range !== 'object') return false;
+        const { startDate, endDate } = range as Record<string, unknown>;
+        return (
+          !!startDate && !!endDate && moment.isMoment(startDate) && moment.isMoment(endDate) && startDate.isValid() && endDate.isValid()
+        );
+      },
     });
 
-    const { startKey, endKey, format } = merge({}, defaultOptions, options);
-
-    // Assign them here so we can use in schema.transform
     this.startKey = startKey;
     this.endKey = endKey;
     this.format = format;
 
     this.withMutation((schema) => {
       schema.transform(function mutate(value) {
-        const start = get(value, startKey);
-        const end = get(value, endKey);
+        const start = getByPath(value, startKey);
+        const end = getByPath(value, endKey);
 
         return {
-          startDate: start ? schema.getValidDate(start) : start,
-          endDate: end ? schema.getValidDate(end) : end,
-          supportedFormats: [schema.format, ...formats],
+          startDate: start ? (schema as DateRangeSchema).getValidDate(start as string) : start,
+          endDate: end ? (schema as DateRangeSchema).getValidDate(end as string) : end,
+          supportedFormats: [(schema as DateRangeSchema).format, ...formats],
         };
       });
     });
@@ -209,11 +232,6 @@ export default class DateRangeSchema extends MixedSchema<DateRange> {
     });
   }
 
-  _typeCheck(range: { startDate?: Moment; endDate?: Moment } = {}): range is DateRange {
-    const { startDate, endDate } = range;
-
-    return !!startDate && !!endDate && startDate.isValid() && endDate.isValid();
-  }
 }
 
 type Options = { startKey?: string; endKey?: string; format?: string };

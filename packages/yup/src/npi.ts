@@ -1,8 +1,8 @@
-import { BaseSchema } from 'yup';
+import { Schema } from 'yup';
 
 const INTEGER_REGEX = /^\d*$/;
 
-function npi<Schema extends BaseSchema>(this: Schema, msg?: string): Schema {
+function npi<S extends Schema>(this: S, msg?: string): S {
   return this.test({
     name: 'npi',
     exclusive: true,

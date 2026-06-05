@@ -11,7 +11,7 @@ describe('AvUserApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/api/sdk/platform/v1/users');
+    expect(api.getUrl(api.config())).toBe('/cloud/web/appl/user-management/legacy/sdk/platform/v1/users');
   });
 
   test("me() should get with id 'me'", async () => {

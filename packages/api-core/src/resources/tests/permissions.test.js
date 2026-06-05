@@ -1,18 +1,12 @@
 import AvPermissions from '../permissions';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvPermissions', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvPermissions({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvPermissions({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
@@ -20,18 +14,12 @@ describe('AvPermissions', () => {
     api = new AvPermissions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
 
   test('getPermissions() should query with permissionId and region params from arguments', () => {
-    api = new AvPermissions({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvPermissions({ http: mockHttp });
     api.query = jest.fn();
     const id = 'testPermissionId';
     const region = 'testRegion';

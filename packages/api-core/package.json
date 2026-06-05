@@ -12,20 +12,20 @@
   "repository": "https://github.com/Availity/sdk-js",
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
-  "browser": "./dist/index.js",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
     "build": "tsup src/index.js --format esm,cjs --dts",
@@ -38,13 +38,14 @@
   "dependencies": {
     "@availity/env-var": "workspace:*",
     "@availity/resolve-url": "workspace:*",
-    "qs": "^6.15.0"
+    "qs": "^6.15.2"
   },
   "devDependencies": {
-    "tsup": "^8.4.0",
-    "typescript": "^5.5.4"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }

@@ -58,15 +58,14 @@ const nativeForm = async (spaceId, params = {}, formAttributes = {}, type, clien
     form.setAttribute(key, mergedOptions[key]);
   }
   const flat = flattenObject(params);
-  const fields = Object.keys(flat)
-    .map((key) => {
-      const name = key.replaceAll(/\[\d+]/g, '[]');
-      const value = flat[key];
-      return `<input type="hidden" name="${name}" value="${value}" />`;
-    })
-    .join('');
+  for (const key of Object.keys(flat)) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key.replaceAll(/\[\d+]/g, '[]');
+    input.value = flat[key];
+    form.appendChild(input);
+  }
 
-  form.insertAdjacentHTML('beforeend', fields);
   document.body.appendChild(form);
   form.submit();
 };

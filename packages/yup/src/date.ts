@@ -8,30 +8,27 @@ export default class MomentDateSchema extends MixedSchema<Moment> {
   _validFormats: string[];
 
   constructor({ format = [], typeError = 'The date entered is in an invalid format.' }: Options = {}) {
-    super({ type: 'avDate' });
-
     const formats = Array.isArray(format) ? format : [format];
-    this._validFormats = [...defaultFormats, ...formats];
+    const validFormats = [...defaultFormats, ...formats];
+
+    super({
+      type: 'avDate',
+      check: (value: unknown): value is Moment =>
+        moment.isMoment(value) && (value.isValid() || (value as unknown as { _i: string })._i === ''),
+    });
+
+    this._validFormats = validFormats;
 
     this.withMutation((schema) => {
-      // Set error message for when _typeCheck fails
       schema.typeError(typeError);
 
-      // Transform value into a moment object
       schema.transform(function transform(value, originalValue) {
         if (value && this.isType(value)) {
           return value;
         }
-        return moment(originalValue, schema._validFormats, true);
+        return moment(originalValue, (schema as MomentDateSchema)._validFormats, true);
       });
     });
-  }
-
-  // Check if the date is a valid moment object or an empty string
-  _typeCheck(value: unknown): value is Moment {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return moment.isMoment(value) && (value.isValid() || value._i === '');
   }
 
   /**
@@ -44,7 +41,6 @@ export default class MomentDateSchema extends MixedSchema<Moment> {
       exclusive: true,
       params: { min },
       test(value) {
-        // First check if min is defined and we have a valid date
         if (!min || !value || !value.isValid()) {
           return true;
         }
@@ -63,7 +59,6 @@ export default class MomentDateSchema extends MixedSchema<Moment> {
       exclusive: true,
       params: { max },
       test(value) {
-        // First check if max is defined and we have a valid date
         if (!max || !value || !value.isValid()) {
           return true;
         }
@@ -74,8 +69,6 @@ export default class MomentDateSchema extends MixedSchema<Moment> {
 
   /**
    * Validate if the date is between a specified min or max
-   *
-   * For Inlcusivity: `[]` === include & `()` === exclude
    */
   between(min: string, max: string, message?: string, inclusivity: Inclusivity = '()') {
     return this.test({
@@ -84,7 +77,6 @@ export default class MomentDateSchema extends MixedSchema<Moment> {
       message: ({ min: minDate, max: maxDate }) => message || `Date must be between ${minDate} and ${maxDate}.`,
       params: { min, max },
       test(value) {
-        // First check if min and max are defined and we have a valid date
         if (!value || !value.isValid() || !min || !max) {
           return true;
         }
@@ -106,9 +98,7 @@ export default class MomentDateSchema extends MixedSchema<Moment> {
         if (!isRequired) {
           return true;
         }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return value ? !!value._i : false;
+        return value ? !!(value as unknown as { _i: string })._i : false;
       },
     });
   }

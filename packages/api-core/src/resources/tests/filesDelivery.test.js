@@ -1,7 +1,6 @@
 import AvFilesDelivery from '../filesDelivery';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const mockConfig = {
   clientId: '123-456',
@@ -12,12 +11,7 @@ describe('AvFileDelivery', () => {
   let api;
 
   test('should be defined', () => {
-    api = new AvFilesDelivery({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvFilesDelivery({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
@@ -25,7 +19,6 @@ describe('AvFileDelivery', () => {
     api = new AvFilesDelivery({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
@@ -34,7 +27,6 @@ describe('AvFileDelivery', () => {
     api = new AvFilesDelivery({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api.getUrl(mockConfig)).toBe(
       '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries'
@@ -42,12 +34,7 @@ describe('AvFileDelivery', () => {
   });
 
   test('uploadFile() should call create for reference passed', () => {
-    api = new AvFilesDelivery({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvFilesDelivery({ http: mockHttp });
 
     const data = {
       deliveries: [

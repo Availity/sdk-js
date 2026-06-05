@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/exceptions-core"],
       "options": {
-        "jestConfig": "packages/exceptions-core/jest.config.js"
+        "jestConfig": "packages/exceptions-core/jest.config.cjs"
       }
     },
     "version": {

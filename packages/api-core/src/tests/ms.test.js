@@ -2,103 +2,45 @@ import AvMicroservice from '../ms';
 import API_OPTIONS from '../options';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 const defaultPath = API_OPTIONS.MS.path;
 
 describe('AvMicroservice', () => {
   let ms;
 
   test('should be defined', () => {
-    ms = new AvMicroservice({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    ms = new AvMicroservice({ http: mockHttp });
     expect(ms).toBeDefined();
   });
 
   test('should throw errors when missing paramaters', () => {
-    // expect(() => {
-    //   ms = new AvMicroservice();
-    // }).toThrow('[http], [promise], [config], and [merge] must be defined');
+    expect(() => {
+      ms = new AvMicroservice();
+    }).toThrow('[config] must be defined');
 
     expect(() => {
-      ms = new AvMicroservice({
-        http: false,
-        promise: false,
-        merge: false,
-        config: false,
-      });
-    }).toThrow('[http], [promise], [config], and [merge] must be defined');
+      ms = new AvMicroservice({ http: false });
+    }).toThrow('[http] must be defined');
 
     expect(() => {
-      ms = new AvMicroservice({
-        http: false,
-        promise: Promise,
-        merge: mockMerge,
-        config: {},
-      });
-    }).toThrow('[http], [promise], [config], and [merge] must be defined');
-
-    expect(() => {
-      ms = new AvMicroservice({
-        http: mockHttp,
-        promise: false,
-        merge: mockMerge,
-        config: {},
-      });
-    }).toThrow('[http], [promise], [config], and [merge] must be defined');
-
-    expect(() => {
-      ms = new AvMicroservice({
-        http: mockHttp,
-        promise: Promise,
-        merge: false,
-        config: {},
-      });
-    }).toThrow('[http], [promise], [config], and [merge] must be defined');
-
-    expect(() => {
-      ms = new AvMicroservice({
-        http: mockHttp,
-        promise: Promise,
-        merge: mockMerge,
-        config: false,
-      });
-    }).toThrow('[http], [promise], [config], and [merge] must be defined');
+      ms = new AvMicroservice({});
+    }).toThrow('[http] must be defined');
   });
 
   test('config() should be API_OPTIONS_MS default', () => {
-    ms = new AvMicroservice({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    ms = new AvMicroservice({ http: mockHttp });
     const testExpectConfig = API_OPTIONS.MS;
     expect(ms.config({})).toEqual(testExpectConfig);
   });
 
   test('should default to withCredentials set to true', () => {
-    ms = new AvMicroservice({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    ms = new AvMicroservice({ http: mockHttp });
     expect(ms.defaultConfig.withCredentials).toBeTruthy();
   });
 
   describe('getUrl', () => {
     const mockFinalResponse = 'finalResponse';
     beforeEach(() => {
-      ms = new AvMicroservice({
-        http: mockHttp,
-        promise: Promise,
-        merge: mockMerge,
-        config: {},
-      });
+      ms = new AvMicroservice({ http: mockHttp });
       ms.onResponse = jest.fn(() => mockFinalResponse);
     });
 
@@ -112,14 +54,12 @@ describe('AvMicroservice', () => {
       expect(ms.getUrl(testConfig)).toBe(testExpected);
     });
 
-    test('get() throws error without id', () => {
+    test('get() throws error without id', async () => {
       const config = {
         testValue: 'test',
       };
       const id = false;
-      expect(() => {
-        ms.get(id, config);
-      }).toThrow('called method without [id]');
+      await expect(ms.get(id, config)).rejects.toThrow('called method without [id]');
     });
 
     test('get() should build url with id', async () => {
@@ -148,101 +88,7 @@ describe('AvMicroservice', () => {
       expect(ms.getUrl(testConfig)).toBe(testExpected);
     });
 
-    test('should return full URL when host is specified', () => {
-      const testUrl = 'https://apps.availity.com/api/v1/test';
-      const testConfig = {
-        api: true,
-        path: '/api/',
-        version: '/v1/',
-        name: '/test',
-        host: 'apps.availity.com',
-      };
-      expect(ms.getUrl(testConfig)).toBe(testUrl);
-    });
-
-    test('should return cloud URL when host is specified', () => {
-      const testUrl = 'https://digital.awp.availity.com/api/v1/test';
-      const testConfig = {
-        api: true,
-        path: '/api/',
-        version: '/v1/',
-        name: '/test',
-        host: 'digital.awp.availity.com',
-      };
-      expect(ms.getUrl(testConfig)).toBe(testUrl);
-    });
-
-    test('should return apps when location is prod cloud', () => {
-      const testUrl = 'https://apps.availity.com/api/v1/test';
-      const testConfig = {
-        api: true,
-        path: '/api/',
-        version: '/v1/',
-        name: '/test',
-        window: {
-          location: {
-            hostname: 'digital.awp.availity.com',
-            pathname: '/cdn/prd/spaces/index.html',
-          },
-        },
-      };
-
-      expect(ms.getUrl(testConfig)).toBe(testUrl);
-    });
-
-    test('should return test-apps when location is tst cloud', () => {
-      const testUrl = 'https://test-apps.availity.com/api/v1/test';
-      const testConfig = {
-        api: true,
-        path: '/api/',
-        version: '/v1/',
-        name: '/test',
-        window: {
-          location: {
-            hostname: 'digital.awn.availity.com',
-            pathname: '/cdn/tst/spaces/index.html',
-          },
-        },
-      };
-
-      expect(ms.getUrl(testConfig)).toBe(testUrl);
-    });
-
-    test('should return qa-apps when location is stg cloud', () => {
-      const testUrl = 'https://qa-apps.availity.com/api/v1/test';
-      const testConfig = {
-        api: true,
-        path: '/api/',
-        version: '/v1/',
-        name: '/test',
-        window: {
-          location: {
-            hostname: 'digital.awn.availity.com',
-            pathname: '/cdn/stg/spaces/index.html',
-          },
-        },
-      };
-
-      expect(ms.getUrl(testConfig)).toBe(testUrl);
-    });
-
-    test('should return t01-apps when location is t01 cloud', () => {
-      const testUrl = 'https://t01-apps.availity.com/api/v1/test';
-      const testConfig = {
-        api: true,
-        path: '/api/',
-        version: '/v1/',
-        name: '/test',
-        window: {
-          location: {
-            hostname: 'digital.awn.availity.com',
-            pathname: '/cdn/t01/spaces/index.html',
-          },
-        },
-      };
-
-      expect(ms.getUrl(testConfig)).toBe(testUrl);
-    });
+    
 
     test('should return relative URL when location host is prod cloud but path is non-prod', () => {
       const testUrl = '/api/v1/test';

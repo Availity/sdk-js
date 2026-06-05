@@ -200,7 +200,7 @@ describe('Date', () => {
   test('validates conditionally', async () => {
     const schema = object({
       other: avDate(),
-      date: avDate().when('other', (other: string, schema: AvDateSchema) => (other ? schema.min(other) : schema)),
+      date: avDate().when('other', ([other]: [string], schema: AvDateSchema) => (other ? schema.min(other) : schema)),
     });
 
     await expect(schema.isValid({ other: '12/01/2020', date: '12/31/2020' })).resolves.toBeTruthy();

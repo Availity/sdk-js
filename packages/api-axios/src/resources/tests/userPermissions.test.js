@@ -11,7 +11,7 @@ describe('AvUserPermissionsApi', () => {
   });
 
   test('url should be correct', () => {
-    expect(api.getUrl(api.config())).toBe('/api/internal/v1/axi-user-permissions');
+    expect(api.getUrl(api.config())).toBe('/cloud/web/appl/feature-management/legacy/v1/user-permissions');
   });
 
   test('afterQuery should return response.data.axiUserPermissions if it exists or an empty array', () => {

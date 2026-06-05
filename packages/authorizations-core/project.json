@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/authorizations-core"],
       "options": {
-        "jestConfig": "packages/authorizations-core/jest.config.js"
+        "jestConfig": "packages/authorizations-core/jest.config.cjs"
       }
     },
     "version": {

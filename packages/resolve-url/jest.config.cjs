@@ -1,4 +1,4 @@
-const global = require('../../jest.config');
+const global = require('../../jest.config.cjs');
 
 module.exports = {
   ...global,

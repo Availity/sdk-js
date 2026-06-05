@@ -1,5 +1,5 @@
-import get from 'lodash/get';
-import set from 'lodash/set';
+import getByPath from './getByPath';
+import setByPath from './setByPath';
 
 /**
  * Builds the object path of the description
@@ -24,6 +24,14 @@ const addDelimiter = (a, b, { underscore = false } = {}) =>
 const transformRules = (schemaFieldDocs, options) => {
   const fieldDocs = [];
   let isRequired = false;
+
+  // In yup 1.x, use the optional flag as the source of truth for required status
+  if (schemaFieldDocs.optional === false) {
+    if (options.compileRequiredFields) {
+      isRequired = true;
+    }
+  }
+
   if (!options.excludeTypes && schemaFieldDocs.type) {
     fieldDocs.push(schemaFieldDocs.type);
   }
@@ -35,8 +43,8 @@ const transformRules = (schemaFieldDocs, options) => {
   }
   if (schemaFieldDocs.tests?.length > 0) {
     for (const test of schemaFieldDocs.tests) {
-      if (options.compileRequiredFields && test.name === 'required') {
-        isRequired = true;
+      if (test.name === 'required') {
+        // Handled via optional flag above
       } else if (test.params) {
         const params = [];
         for (const param in test.params) {
@@ -57,6 +65,10 @@ const transformRules = (schemaFieldDocs, options) => {
         fieldDocs.push(test.name);
       }
     }
+  }
+
+  if (!options.compileRequiredFields && schemaFieldDocs.optional === false) {
+    fieldDocs.push('required');
   }
 
   const friendlyFieldDocs = fieldDocs.length > 0 ? `Rules: ${fieldDocs.join(', ')}.` : '';
@@ -84,25 +96,25 @@ const buildRules = (fields, head = '', options) =>
     const rules = transformRules(value, options);
 
     if (options.compileRequiredFields) {
-      set(obj, path, rules.description);
+      setByPath(obj, path, rules.description);
       if (rules.isRequired) {
         const requiredFieldName = head ? `${head}.${key}` : key;
-        set(
+        setByPath(
           obj,
           'requiredFields',
           obj.requiredFields ? [...obj.requiredFields, requiredFieldName] : [requiredFieldName]
         );
       }
     } else {
-      set(obj, path, rules);
+      setByPath(obj, path, rules);
     }
 
     if (value?.fields) {
       const subFieldHead = addDelimiter(head, key);
       const subRules = buildRules(value.fields, subFieldHead, options);
-      set(obj, subFieldHead, { ...get(obj, subFieldHead), ...get(subRules, subFieldHead) });
+      setByPath(obj, subFieldHead, { ...getByPath(obj, subFieldHead), ...getByPath(subRules, subFieldHead) });
       if (options.compileRequiredFields && subRules.requiredFields) {
-        set(
+        setByPath(
           obj,
           'requiredFields',
           obj.requiredFields ? [...obj.requiredFields, ...subRules.requiredFields] : [...subRules.requiredFields]
@@ -113,9 +125,9 @@ const buildRules = (fields, head = '', options) =>
     if (value.innerType && value.innerType.fields) {
       const innerFieldHead = addDelimiter(head, key);
       const innerRules = buildRules(value.innerType.fields, innerFieldHead, options);
-      set(obj, innerFieldHead, { ...get(obj, innerFieldHead), ...get(innerRules, innerFieldHead) });
+      setByPath(obj, innerFieldHead, { ...getByPath(obj, innerFieldHead), ...getByPath(innerRules, innerFieldHead) });
       if (options.compileRequiredFields && innerRules.requiredFields) {
-        set(
+        setByPath(
           obj,
           'requiredFields',
           obj.requiredFields ? [...obj.requiredFields, ...innerRules.requiredFields] : [...innerRules.requiredFields]

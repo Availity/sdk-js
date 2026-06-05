@@ -22,11 +22,12 @@ yarn add @availity/authorizations-axios
 
 ## Configuration
 
-`AvAuthorizations` uses `AvPermissions`, and `AvRegions` from [Api-Axios](../api-axios). To configure their default options, `AvAuthorizations` takes in an options object that is passed onto them.
+The default export is a pre-configured instance that uses `AvUserPermissionsApi` and `AvRegionsApi` from [Api-Axios](../api-axios).
 
 ```js
-import AvAuthorizations from '@availity/authorizations-axios';
-new AvAuthorizations(config);
+import avAuthorizations from '@availity/authorizations-axios';
+
+const authorized = await avAuthorizations.isAuthorized('1234');
 ```
 
 ## Methods

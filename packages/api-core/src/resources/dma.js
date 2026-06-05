@@ -2,22 +2,17 @@ import flattenObject from '../flattenObject';
 import AvMicroservice from '../ms';
 
 class DmaLogMessages extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       name: 'spc/analytics/log',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   send(level, entries) {
-    delete entries.level;
-    const payload = { level, entries };
+    const { level: _level, ...rest } = entries;
+    const payload = { level, entries: rest };
     const flattened = flattenObject(payload);
 
     flattened.X_Client_ID = this.clientId;

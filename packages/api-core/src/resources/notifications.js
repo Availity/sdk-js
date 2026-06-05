@@ -1,18 +1,13 @@
 import AvApi from '../api';
 
 export default class AvNotifications extends AvApi {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       path: 'api',
       name: 'notifications',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   deleteByTopic(topic, config) {
