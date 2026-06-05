@@ -33,24 +33,16 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
-      # - name: Get yarn cache directory path
-      #   id: yarn-cache-dir-path
-      #   run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      # - name: Restore yarn cache
-      #   uses: actions/cache@v3
-      #   id: yarn-cache
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-${{ matrix.node }}-yarn-${{ hashFiles('yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-${{ matrix.node }}-yarn-
-
-      # - name: Artifactory Check
-      #   run: yarn check:registry
-
       - name: Install Dependencies
         run: yarn install --immutable
+
+      - name: Restore Nx Cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('yarn.lock') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('yarn.lock') }}-
 
       - name: Lint
         run: yarn nx affected --target=lint
