@@ -7,6 +7,7 @@
     "schema",
     "docs"
   ],
+  "homepage": "https://availity.github.io/sdk-js/resources/dockyard",
   "bugs": {
     "url": "https://github.com/availity/sdk-js/issues"
   },

@@ -8,8 +8,15 @@
     "http",
     "rest"
   ],
-  "bugs": "https://github.com/Availity/sdk-js/issues",
-  "repository": "https://github.com/Availity/sdk-js",
+  "homepage": "https://availity.github.io/sdk-js/api/getting-started",
+  "bugs": {
+    "url": "https://github.com/Availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Availity/sdk-js.git",
+    "directory": "packages/api-core"
+  },
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "type": "module",

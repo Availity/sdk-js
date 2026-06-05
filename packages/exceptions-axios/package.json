@@ -2,6 +2,15 @@
   "name": "@availity/exceptions-axios",
   "version": "6.1.1",
   "description": "Availity class to log exceptions via axios",
+  "homepage": "https://availity.github.io/sdk-js/resources/exceptions",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/exceptions-axios"
+  },
   "license": "MIT",
   "author": "Evan Sharp <evan.sharp@availity.com>",
   "type": "module",

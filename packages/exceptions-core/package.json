@@ -2,6 +2,15 @@
   "name": "@availity/exceptions-core",
   "version": "6.1.0",
   "description": "Availity class to log exceptions",
+  "homepage": "https://availity.github.io/sdk-js/resources/exceptions",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/exceptions-core"
+  },
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "type": "module",

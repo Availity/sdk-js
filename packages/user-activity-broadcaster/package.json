@@ -3,6 +3,15 @@
   "version": "1.1.0",
   "description": "This package broacasts user activity to the navigation.",
   "keywords": [],
+  "homepage": "https://availity.github.io/sdk-js/resources/user-activity-broadcaster",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/user-activity-broadcaster"
+  },
   "license": "MIT",
   "author": "Joe Spanbauer <joseph.spanbauer@availity.com>",
   "type": "module",
