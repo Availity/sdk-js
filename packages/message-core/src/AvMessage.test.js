@@ -3,7 +3,7 @@
 import AvMessage from './AvMessage';
 
 let avMessage;
-const TEST_URL = 'http://localhost';
+const TEST_URL = 'https://dev.local:9999';
 
 // const OLD_LOCATION = window.location;
 // const OLD_TOP_LOCATION = window.top.location;
