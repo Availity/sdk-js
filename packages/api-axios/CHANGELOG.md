@@ -2,6 +2,38 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [13.0.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.3.1...@availity/api-axios@13.0.0) (2026-06-08)
+
+### Dependency Updates
+
+* `upload-core` updated to version `12.3.1`
+* `api-core` updated to version `12.3.1`
+* `resolve-url` updated to version `12.3.1`
+
+### Bug Fixes
+
+* correct project.json coverage path and add missing trackDeps ([d4c3a7f](https://github.com/availity/sdk-js/commit/d4c3a7f20aed1af994353edbff2303437a00d748))
+* migrate deprecated testURL to testEnvironmentOptions ([6fb3ea7](https://github.com/availity/sdk-js/commit/6fb3ea75b17ef70540b60c1b9554a0406d0c6828))
+* resolve lint errors, type errors, and add typecheck script ([a08d393](https://github.com/availity/sdk-js/commit/a08d3934497934bdcdf2f7a19d9d3c9479186c41))
+
+
+* feat!: migrate to ESM and drop Node 20 support ([a665467](https://github.com/availity/sdk-js/commit/a6654672c2e96adb325d100a6dfdb7b5baf16bcd))
+
+
+### BREAKING CHANGES
+
+* All packages now use ESM as the primary module format.
+CJS is still available via the `require` condition in package exports.
+
+- Add `"type": "module"` to all packages
+- Swap export paths: `.js` is now ESM, `.cjs` is now CJS
+- Drop Node 20 from engines (now requires ^22.0.0 || ^24.0.0)
+- Rename config files from .js to .cjs (jest, prettier, commitlint, etc.)
+- Upgrade yarn to ^4, jest to 30.4.x, typescript to 5.9.3, undici to ^8
+- Add `sideEffects: false` to all packages for better tree-shaking
+
+
+
 ## [12.3.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@12.3.0...@availity/api-axios@12.3.1) (2026-05-28)
 
 
