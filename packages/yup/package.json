@@ -42,15 +42,12 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
+    "dayjs": "^1.11.13",
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "moment": "^2.30.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
-  },
-  "peerDependencies": {
-    "moment": "^2.30.1"
   },
   "publishConfig": {
     "access": "public"

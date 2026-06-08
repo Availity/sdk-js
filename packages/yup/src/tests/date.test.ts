@@ -207,4 +207,79 @@ describe('Date', () => {
     await expect(schema.isValid({ other: '12/01/2020', date: '12/31/2019' })).resolves.toBeFalsy();
     await expect(schema.isValid({ date: '12/31/2019' })).resolves.toBeTruthy();
   });
+
+  test('past validates', async () => {
+    const schema = object().shape({
+      date: avDate().past(),
+    });
+
+    // Fail - future date
+    await expect(schema.validate({ date: '01/01/2099' })).rejects.toThrow('Date must be in the past.');
+
+    // Fail - today's date
+    const today = new Date();
+    const todayStr = `${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}/${today.getFullYear()}`;
+    await expect(schema.validate({ date: todayStr })).rejects.toThrow('Date must be in the past.');
+
+    // Pass - past date
+    await expect(schema.validate({ date: '01/01/2020' })).resolves.toBeDefined();
+
+    // Pass - invalid date skips validation
+    await expect(schema.validate({ date: '' })).resolves.toBeDefined();
+  });
+
+  test('past allows custom error message', async () => {
+    const errorMessage = 'Must be a past date';
+    const schema = object().shape({
+      date: avDate().past(errorMessage),
+    });
+
+    await expect(schema.validate({ date: '01/01/2099' })).rejects.toThrow(errorMessage);
+  });
+
+  test('future validates', async () => {
+    const schema = object().shape({
+      date: avDate().future(),
+    });
+
+    // Fail - past date
+    await expect(schema.validate({ date: '01/01/2020' })).rejects.toThrow('Date must be in the future.');
+
+    // Fail - today's date
+    const today = new Date();
+    const todayStr = `${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}/${today.getFullYear()}`;
+    await expect(schema.validate({ date: todayStr })).rejects.toThrow('Date must be in the future.');
+
+    // Pass - future date
+    await expect(schema.validate({ date: '01/01/2099' })).resolves.toBeDefined();
+
+    // Pass - invalid date skips validation
+    await expect(schema.validate({ date: '' })).resolves.toBeDefined();
+  });
+
+  test('future allows custom error message', async () => {
+    const errorMessage = 'Must be a future date';
+    const schema = object().shape({
+      date: avDate().future(errorMessage),
+    });
+
+    await expect(schema.validate({ date: '01/01/2020' })).rejects.toThrow(errorMessage);
+  });
+
+  test('min works with MM/DD/YYYY format', async () => {
+    const schema = object().shape({
+      date: avDate().min('12/15/2022'),
+    });
+
+    await expect(schema.validate({ date: '12/14/2022' })).rejects.toThrow('Date must be 12/15/2022 or later');
+    await expect(schema.validate({ date: '12/15/2022' })).resolves.toBeDefined();
+  });
+
+  test('handles null input', async () => {
+    const schema = object().shape({
+      date: avDate().isRequired(),
+    });
+
+    await expect(schema.validate({ date: null })).rejects.toThrow('The date entered is in an invalid format.');
+  });
 });
