@@ -2,6 +2,31 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-core@5.1.0...@availity/authorizations-core@6.0.0) (2026-06-08)
+
+
+### Bug Fixes
+
+* resolve lint errors, type errors, and add typecheck script ([a08d393](https://github.com/availity/sdk-js/commit/a08d3934497934bdcdf2f7a19d9d3c9479186c41))
+
+
+* feat!: migrate to ESM and drop Node 20 support ([a665467](https://github.com/availity/sdk-js/commit/a6654672c2e96adb325d100a6dfdb7b5baf16bcd))
+
+
+### BREAKING CHANGES
+
+* All packages now use ESM as the primary module format.
+CJS is still available via the `require` condition in package exports.
+
+- Add `"type": "module"` to all packages
+- Swap export paths: `.js` is now ESM, `.cjs` is now CJS
+- Drop Node 20 from engines (now requires ^22.0.0 || ^24.0.0)
+- Rename config files from .js to .cjs (jest, prettier, commitlint, etc.)
+- Upgrade yarn to ^4, jest to 30.4.x, typescript to 5.9.3, undici to ^8
+- Add `sideEffects: false` to all packages for better tree-shaking
+
+
+
 # [5.1.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-core@5.0.0...@availity/authorizations-core@5.1.0) (2026-05-27)
 
 
