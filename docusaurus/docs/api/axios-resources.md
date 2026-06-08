@@ -20,6 +20,7 @@ This page has information on pre-defined resources you can import into your app.
 - [AvDisclaimersApi](#avdisclaimersapi)
 - [AvTelemetryApi](#avtelemetryapi)
 - [AvProxyApi](#avproxyapi)
+- [AvStashApi](#avstashapi)
 
 Each pre-defined resource has two exports: the class and an instance. The class follows the pattern `AvUserApi` and the instance is `avUserApi`. In other words, the class is uppercase and the instance is lowercase.
 
@@ -930,3 +931,28 @@ const fetchData = async (customerId) => {
 #### `update(id, data, config)`
 
 See [put(id, data, config)](#putid-data-config)
+
+### AvStashApi
+
+Store session data in the Stash API and launch a URL with the resulting session ID.
+
+#### `launch(params, linkTo)`
+
+Posts `params` to the Stash API, retrieves a session ID, and opens `linkTo` with the session ID appended as a query parameter.
+
+- `params` - Key/value data to store in the stash session
+- `linkTo` - The target URL to open (required)
+
+Returns the session ID.
+
+```js
+import { avStashApi } from '@availity/api-axios';
+
+const launchApp = async () => {
+  const sessionId = await avStashApi.launch(
+    { key: 'value', foo: 'bar' },
+    '/apps/my-target-app'
+  );
+  return sessionId;
+};
+```
