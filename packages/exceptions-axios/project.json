@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/exceptions-axios"],
       "options": {
-        "jestConfig": "packages/exceptions-axios/jest.config.js"
+        "jestConfig": "packages/exceptions-axios/jest.config.cjs"
       }
     },
     "version": {

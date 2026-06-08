@@ -1,16 +1,11 @@
 import AvMicroservice from '../ms';
 
 export default class AvWebQL extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       name: 'spc/web/graphql',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 }

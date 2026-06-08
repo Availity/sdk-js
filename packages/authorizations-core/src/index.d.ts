@@ -1,36 +1,62 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface Resource {
+  id: string;
+  [key: string]: unknown;
+}
+
+export interface Organization {
+  id: string;
+  resources?: Resource[];
+  [key: string]: unknown;
+}
+
+export interface Permission {
+  id: string;
+  isAuthorized: boolean;
+  geographies: unknown[];
+  organizations: Organization[];
+  [key: string]: unknown;
+}
+
+export interface AvPermissionsLike {
+  getPermissions(ids: string[], region?: string): Promise<Permission[]>;
+}
+
+export interface AvRegionsLike {
+  getCurrentRegion(): Promise<{ data?: { regions?: Array<{ id: string }> } }>;
+}
+
 declare class AvAuthorizations {
-  constructor(avPermissions: any, avRegions: any, promise: any);
+  constructor(avPermissions: AvPermissionsLike, avRegions: AvRegionsLike, promise: PromiseConstructor);
 
-  avPermissions: any;
+  avPermissions: AvPermissionsLike;
 
-  avRegions: any;
+  avRegions: AvRegionsLike;
 
-  promise: any;
+  promise: PromiseConstructor;
 
-  authorizedMap: Record<string, unknown>;
+  authorizedMap: Record<string, Record<string, Permission>>;
 
-  isAuthorized(permissionId: any, region: any): any;
+  isAuthorized(permissionId: string, region?: string): Promise<boolean>;
 
-  isAnyAuthorized(permissionIds: any, region: any): any;
+  isAnyAuthorized(permissionIds: string[], region?: string): Promise<boolean>;
 
-  getPermission(permissionId: any, region: any): any;
+  getPermission(permissionId: string, region?: string): Promise<Permission>;
 
-  getRegion(region: any): any;
+  getRegion(region?: string): Promise<string | undefined>;
 
-  getPermissions(permissionIds: any, region: any): any;
+  getPermissions(permissionIds: string[], region?: string): Promise<Permission[]>;
 
-  getMissingIds(ids: any, region?: string): any;
+  getMissingIds(ids: string[], region?: string): string[];
 
-  getFromMap(ids: any, region?: string): any;
+  getFromMap(ids: string[], region?: string): Permission[];
 
-  addPermissions(ids: any, permissions: any, region: any): void;
+  addPermissions(ids: string[], permissions: Permission[], region?: string): void;
 
-  addPermission(permission: any, region?: string): void;
+  addPermission(permission: Partial<Permission> & { id: string }, region?: string): void;
 
-  getOrganizations(permissionId: any, region: any): any;
+  getOrganizations(permissionId: string, region?: string): Promise<Organization[]>;
 
-  getPayers(permissionId: any, organizationId: any, region: any): any;
+  getPayers(permissionId: string, organizationId: string, region?: string): Promise<Resource[]>;
 }
 
 export default AvAuthorizations;

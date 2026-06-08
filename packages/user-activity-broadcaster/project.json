@@ -5,9 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/resolve-url"],
+      "outputs": ["{workspaceRoot}/coverage/user-activity-broadcaster"],
       "options": {
-        "jestConfig": "packages/user-activity-broadcaster/jest.config.js"
+        "jestConfig": "packages/user-activity-broadcaster/jest.config.cjs"
       }
     },
     "version": {

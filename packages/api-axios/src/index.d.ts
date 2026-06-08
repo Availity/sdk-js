@@ -1,274 +1,124 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable max-classes-per-file */
 import { AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios';
+import AvApiCore, {
+  AvApiConfig,
+  AvMicroservice,
+  AvCodes,
+  AvDisclaimers,
+  AvFiles,
+  AvFilesDelivery,
+  AvLogMessages,
+  DmaLogMessages,
+  AvDmaCloud,
+  AvTelemetry,
+  AvNavigation,
+  AvNotifications,
+  AvOrganizations,
+  AvPdfs,
+  AvPdfMicroservice,
+  AvPermissions,
+  AvProviders,
+  AvProxy,
+  AvRegions,
+  AvRouteConfigurations,
+  AvSettings,
+  AvSpaces,
+  AvStash,
+  AvUsers,
+  AvUserPermissions,
+  AvWebQL,
+} from '@availity/api-core';
 
-export interface ApiConfig extends AxiosRequestConfig {
-  api?: boolean;
-  cache?: boolean;
-  cacheBust?: string | number | boolean;
+export type { AvApiResponse, RequestConfig, PaginatedData } from '@availity/api-core';
+
+export interface ApiConfig extends AvApiConfig, AxiosRequestConfig {
   http?: AxiosStatic;
-  name?: string;
-  pageBust?: string | number | boolean;
-  path?: string;
-  polling?: boolean;
-  pollingIntervals?: number[];
-  pollingMethod?: string;
-  sessionBust?: boolean;
-  version?: string;
 }
 
-type Request = any;
-
-declare class AvApi<ConfigProps = ApiConfig> {
-  constructor(options: ConfigProps);
-
-  config(config?: ConfigProps): ConfigProps;
-
-  addParams(params: object, config?: ConfigProps, newObj?: boolean): ConfigProps;
-
-  cacheParams(config: ConfigProps): ConfigProps;
-
-  getSessionBust(): any;
-
-  getCacheBustVal(cacheBust: any, defaultFn: () => any): any;
-
-  getPageBust(): any;
-
-  setPageBust(value: any): void;
-
-  getUrl(config: ConfigProps, id?: string): string;
-
-  getRequestUrl(): string;
-
-  getLocation(response: any): string;
-
-  shouldPoll(response: any): boolean;
-
-  getQueryResultKey(data: any): any;
-
-  getResult(data: any): any;
-
-  request<TData = any>(config: ConfigProps, afterResponse?: (resp: any) => any): Promise<AxiosResponse<TData>>;
-
-  onResponse(response: any, afterResponse?: (resp: any) => any): Promise<any>;
-
-  sendBeacon(data: any, config?: ConfigProps): Promise<any>;
-
-  // Create
-  create<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  post<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  postGet<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  // Read
-  get<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  query<TData = any>(config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  getPage<TData = any>(page: number, config?: ConfigProps, limit?: number): Promise<AxiosResponse<TData>>;
-
-  all<TData = any>(config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  // Update
-  update<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  put<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  put<TData = any>(data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  patch<TData = any>(id: string, data: Request, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  // Delete
-  remove<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
-
-  delete<TData = any>(id: string, config?: ConfigProps): Promise<AxiosResponse<TData>>;
+declare class AvApi extends AvApiCore {
+  constructor(options: ApiConfig);
 }
 
-declare class AvMicroserviceApi extends AvApi { }
+declare class AvMicroserviceApi extends AvMicroservice {
+  constructor(options: ApiConfig);
+}
 
 export interface ProxyApiConfig extends ApiConfig {
   tenant: string;
 }
-declare class AvProxyApi extends AvApi<ProxyApiConfig> { }
 
-declare class AvCodesApi extends AvApi { }
+declare class AvProxyApi extends AvProxy {}
+declare class AvCodesApi extends AvCodes {}
 declare const avCodesApi: AvCodesApi;
 
-declare class AvDisclaimersApi extends AvApi {
-  getDisclaimers(id: string, config?: ApiConfig): Promise<AxiosResponse>;
-}
-
+declare class AvDisclaimersApi extends AvDisclaimers {}
 declare const avDisclaimersApi: AvDisclaimersApi;
 
-declare class AvFilesApi extends AvApi {
-  uploadFile(data: any, config?: ApiConfig): Promise<AxiosResponse>;
+declare class AvFilesApi extends AvFiles {
+  uploadFile(
+    data: unknown,
+    config: ApiConfig & { customerId: string; clientId: string; fileName?: string; id?: string }
+  ): Promise<AxiosResponse>;
 }
 
 declare const avFilesApi: AvFilesApi;
 
-declare class AvFilesDeliveryApi extends AvApi {
-  uploadFilesDelivery(data: any, config?: ApiConfig & { customerId: string; clientId: string }): Promise<AxiosResponse>;
-
-  getLocation(response: any): string;
-}
-
+declare class AvFilesDeliveryApi extends AvFilesDelivery {}
 declare const avFilesDeliveryApi: AvFilesDeliveryApi;
 
-declare class AvLogMessagesApi extends AvApi {
-  send(level: 'info' | 'debug' | 'warn' | 'error', entries: Record<string, any>): Promise<AxiosResponse>;
-
-  debug(entries: Record<string, any>): Promise<AxiosResponse>;
-
-  info(entries: Record<string, any>): Promise<AxiosResponse>;
-
-  warn(entries: Record<string, any>): Promise<AxiosResponse>;
-
-  error(entries: Record<string, any>): Promise<AxiosResponse>;
-}
-
-declare class AvTelemetryApi extends AvMicroserviceApi {
-  send(level: 'info' | 'debug' | 'warn' | 'error', entries: Record<string, any>): Promise<AxiosResponse>;
-
-  debug(entries: Record<string, any>): Promise<AxiosResponse>;
-
-  info(entries: Record<string, any>): Promise<AxiosResponse>;
-
-  warn(entries: Record<string, any>): Promise<AxiosResponse>;
-
-  error(entries: Record<string, any>): Promise<AxiosResponse>;
-}
-
-declare class AvLogMessagesApiV2 extends AvLogMessagesApi { }
+declare class AvLogMessagesApi extends AvLogMessages {}
+declare class AvLogMessagesApiV2 extends DmaLogMessages {}
+declare class AvLogMessagesApiV3 extends AvDmaCloud {}
+declare class AvTelemetryApi extends AvTelemetry {}
 
 declare const avLogMessagesApi: AvLogMessagesApi;
 declare const avLogMessagesApiV2: AvLogMessagesApiV2;
+declare const avLogMessagesApiV3: AvLogMessagesApiV3;
 declare const avTelemetryApi: AvTelemetryApi;
 
-declare class AvNavigationApi extends AvApi { }
-
+declare class AvNavigationApi extends AvNavigation {}
 declare const avNavigationApi: AvNavigationApi;
 
-declare class AvNotificationsApi extends AvApi {
-  deleteByTopic(topic: string, config?: ApiConfig): Promise<AxiosResponse>;
-}
-
+declare class AvNotificationsApi extends AvNotifications {}
 declare const avNotificationsApi: AvNotificationsApi;
 
-declare class AvOrganizationsApi extends AvApi {
-  queryOrganizations(user: { id: string }, config?: ApiConfig): Promise<AxiosResponse>;
-
-  getOrganizations(config?: ApiConfig): Promise<AxiosResponse>;
-
-  postGet(data: any, config?: ApiConfig, additionalPostGetArgs?: Record<string, any>): Promise<AxiosResponse>;
-
-  getFilteredOrganizations(additionalPostGetArgs: Record<string, any>, data: any): Promise<AxiosResponse>;
-
-  arePermissionsEqual(permissionId: string | number | string[] | number[]): boolean;
-
-  sanitizeIds<T = string | number | string[] | number[]>(unsanitized: T): string | string[];
-}
-
+declare class AvOrganizationsApi extends AvOrganizations {}
 declare const avOrganizationsApi: AvOrganizationsApi;
 
-declare class AvPdfApi extends AvApi {
-  onPdf(response: any): void;
-
-  getPdf(data: any, config?: ApiConfig): Promise<AxiosResponse>;
-}
-
+declare class AvPdfApi extends AvPdfs {}
 declare const avPdfApi: AvPdfApi;
 
-declare class AvPdfMicroserviceApi extends AvMicroserviceApi { }
-
+declare class AvPdfMicroserviceApi extends AvPdfMicroservice {}
 declare const avPdfMicroserviceApi: AvPdfMicroserviceApi;
 
-declare class AvPermissionsApi extends AvApi {
-  getPermissions(id: string, region: string): Promise<AxiosResponse>;
-}
-
+declare class AvPermissionsApi extends AvPermissions {}
 declare const avPermissionsApi: AvPermissionsApi;
 
-type Provider = {
-  name: string;
-  businessName: string;
-  lastName: string;
-  firstName: string;
-};
-
-declare class AvProvidersApi extends AvApi {
-  getProviders(customerId: string, config?: ApiConfig): Promise<AxiosResponse>;
-
-  normalize(providers: Provider[]): Provider[];
-}
-
-declare const AvProvidersApi: AvProvidersApi;
-
+declare class AvProvidersApi extends AvProviders {}
 declare const avProvidersApi: AvProvidersApi;
 
-declare class AvRegionsApi extends AvApi {
-  afterUpdate(response: any): any;
-
-  getRegions(config?: ApiConfig): Promise<AxiosResponse>;
-
-  getCurrentRegion(): Promise<AxiosResponse>;
-}
-
+declare class AvRegionsApi extends AvRegions {}
 declare const avRegionsApi: AvRegionsApi;
 
-declare class AvSettingsApi extends AvApi {
-  getApplication(applicationId: string, config?: ApiConfig): Promise<AxiosResponse>;
+declare class AvRouteConfigurationsApi extends AvRouteConfigurations {}
+declare const avRouteConfigurationsApi: AvRouteConfigurationsApi;
 
-  setApplication(applicationId: string, data: any, config?: ApiConfig): Promise<AxiosResponse>;
-}
-
+declare class AvSettingsApi extends AvSettings {}
 declare const avSettingsApi: AvSettingsApi;
 
-declare class AvSpacesApi extends AvApi {
-  parseSpaceId(query: string): string;
-
-  getSpaceName(spaceId: string): Promise<string>;
-}
-
+declare class AvSpacesApi extends AvSpaces {}
 declare const avSpacesApi: AvSpacesApi;
 
-declare class AvUserApi extends AvApi {
-  me(config?: ApiConfig): Promise<any>;
-}
+declare class AvStashApi extends AvStash {}
+declare const avStashApi: AvStashApi;
 
+declare class AvUserApi extends AvUsers {}
 declare const avUserApi: AvUserApi;
 
-type Resource = {
-  id: string;
-  payerId: string;
-  payerName: string;
-};
-
-type Organization = {
-  id: string;
-  customerId: string;
-  name: string;
-  resources: Resource[];
-};
-
-type AxiUserPermission = {
-  id: string;
-  description: string;
-  organizations: Organization[];
-};
-
-declare class AvUserPermissionsApi extends AvApi {
-  afterQuery(response: AxiosResponse<{ axiUserPermissions: AxiUserPermission[] }>): AxiUserPermission[];
-
-  getPermissions(permissionId: string | string[], region?: string): Promise<AxiUserPermission[]>;
-}
-
+declare class AvUserPermissionsApi extends AvUserPermissions {}
 declare const avUserPermissionsApi: AvUserPermissionsApi;
 
-declare class AvWebQLApi extends AvApi { }
+declare class AvWebQLApi extends AvWebQL {}
 declare const avWebQLApi: AvWebQLApi;
 
 export default AvApi;
@@ -288,6 +138,8 @@ export {
   AvLogMessagesApi,
   avLogMessagesApiV2,
   AvLogMessagesApiV2,
+  avLogMessagesApiV3,
+  AvLogMessagesApiV3,
   avNavigationApi,
   AvNavigationApi,
   avNotificationsApi,
@@ -304,10 +156,14 @@ export {
   AvProvidersApi,
   avRegionsApi,
   AvRegionsApi,
+  avRouteConfigurationsApi,
+  AvRouteConfigurationsApi,
   avSettingsApi,
   AvSettingsApi,
   avSpacesApi,
   AvSpacesApi,
+  avStashApi,
+  AvStashApi,
   avTelemetryApi,
   AvTelemetryApi,
   avUserApi,

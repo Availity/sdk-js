@@ -4,8 +4,8 @@ import AvApi from '../api';
 export default class AvUserPermissionsApi extends AvApi {
   constructor(config) {
     super({
-      path: 'api/internal',
-      name: 'axi-user-permissions',
+      path: 'cloud/web/appl/feature-management/legacy',
+      name: 'user-permissions',
       paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
       ...config,
     });

@@ -2,22 +2,31 @@
   "name": "@availity/exceptions-core",
   "version": "6.1.0",
   "description": "Availity class to log exceptions",
+  "homepage": "https://availity.github.io/sdk-js/resources/exceptions",
+  "bugs": {
+    "url": "https://github.com/availity/sdk-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/sdk-js.git",
+    "directory": "packages/exceptions-core"
+  },
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
-  "browser": "./dist/index.js",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
     "build": "tsup src/index.js --format esm,cjs --dts",
@@ -30,13 +39,14 @@
   "devDependencies": {
     "mockdate": "^3.0.5",
     "stacktrace-js": "^2.0.2",
-    "tsup": "^8.4.0",
-    "typescript": "^5.5.4"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "stacktrace-js": "^2.0.2"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }

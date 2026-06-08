@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/upload-core"],
       "options": {
-        "jestConfig": "packages/upload-core/jest.config.js"
+        "jestConfig": "packages/upload-core/jest.config.cjs"
       }
     },
     "version": {

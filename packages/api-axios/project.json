@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/api-axios"],
       "options": {
-        "jestConfig": "packages/api-axios/jest.config.js"
+        "jestConfig": "packages/api-axios/jest.config.cjs"
       }
     },
     "version": {
@@ -16,7 +16,8 @@
         "preset": "angular",
         "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
         "tagPrefix": "@availity/{projectName}@",
-        "baseBranch": "master"
+        "baseBranch": "master",
+        "trackDeps": true
       }
     },
     "lint": {

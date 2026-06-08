@@ -1,26 +1,27 @@
-/* eslint-disable promise/no-nesting */
 import qs from 'qs';
 import resolveUrl from '@availity/resolve-url';
 
 import API_OPTIONS from './options';
-import resolveHost from './resolve-host';
+import deepMerge from './deepMerge';
 
 export default class AvApi {
-  constructor({ http, promise, merge, config }) {
-    if (!http || !config || !promise || !merge) {
-      throw new Error(
-        '[http], [promise], [config], and [merge] must be defined'
-      );
+  constructor(config) {
+    if (!config) {
+      throw new Error('[config] must be defined');
     }
+
+    const { http, ...options } = config;
+
+    if (!http) {
+      throw new Error('[http] must be defined');
+    }
+
     this.http = http;
-    this.Promise = promise;
-    this.merge = merge;
-    this.defaultConfig = this.merge({}, API_OPTIONS.API, config);
+    this.defaultConfig = deepMerge({}, API_OPTIONS.API, options);
   }
 
-  // get the merged config
   config(config = {}) {
-    return this.merge({}, this.defaultConfig, config);
+    return deepMerge({}, this.defaultConfig, config);
   }
 
   addParams(params = {}, config = {}, newObj = true) {
@@ -38,165 +39,114 @@ export default class AvApi {
     return window.localStorage.getItem('avCacheBust');
   }
 
-  // set the cache parameters
   cacheParams(config) {
     const params = {};
 
     if (config.cacheBust) {
-      params.cacheBust = this.getCacheBustVal(config.cacheBust, () =>
-        Date.now()
-      );
+      params.cacheBust = this.getCacheBustVal(config.cacheBust, () => Date.now());
     }
 
     if (config.pageBust) {
-      params.pageBust = this.getCacheBustVal(config.pageBust, () =>
-        this.getPageBust()
-      );
+      params.pageBust = this.getCacheBustVal(config.pageBust, () => this.getPageBust());
     }
 
     if (config.sessionBust) {
-      params.sessionBust = this.getCacheBustVal(
-        config.sessionBust,
-        () => this.getSessionBust() || this.getPageBust()
-      );
+      params.sessionBust = this.getCacheBustVal(config.sessionBust, () => this.getSessionBust() || this.getPageBust());
     }
 
     return this.addParams(params, config, false);
   }
 
-  // get the cache value with default function
   getCacheBustVal(cacheBust, defaultFn) {
-    if (!cacheBust) {
-      return undefined;
-    }
-
-    if (typeof cacheBust === 'boolean' && defaultFn) {
-      return defaultFn();
-    }
-
-    if (typeof cacheBust === 'function') {
-      return cacheBust();
-    }
-
+    if (!cacheBust) return undefined;
+    if (typeof cacheBust === 'boolean' && defaultFn) return defaultFn();
+    if (typeof cacheBust === 'function') return cacheBust();
     return cacheBust;
   }
 
-  // get pagebust value, make sure it is instantiated first
   getPageBust() {
     if (this.pageBustValue === undefined) {
       this.setPageBust();
     }
-
     return this.pageBustValue;
   }
 
-  // set the page bust value to given value or timestamp
   setPageBust(value) {
     this.pageBustValue = value === undefined ? Date.now() : value;
   }
 
-  // get final url from config
   getUrl(config, id = '') {
-    if (!config.api) {
-      return config.url;
-    }
+    if (!config.api) return config.url;
 
-    const { path, version, name, url, host } = config;
+    const { path, version, name, url } = config;
+    const parts = name ? ['', path, version, name, id] : [url, id];
 
-    let parts = [];
-    parts = name ? ['', path, version, name, id] : [url, id];
-
-    // join parts, remove multiple /'s and trailing /
-    const uri = parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
-
-    const hostname = url ? null : resolveHost(host, config.window || window);
-    return (hostname ? `https://${hostname}` : '') + uri;
+    return parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
   }
 
   getRequestUrl() {
     return this.getUrl(this.config());
   }
 
-  // return location if should poll otherwise false
   getLocation(response) {
     const { config, headers = {} } = response;
     const { getHeader, base } = config;
     const { location, Location } = headers;
 
-    const locationUrl = getHeader
-      ? getHeader(response, 'Location')
-      : location || Location;
+    const locationUrl = getHeader ? getHeader(response, 'Location') : location || Location;
 
     return resolveUrl({ relative: locationUrl, base });
   }
 
-  // condition for calls that should continue polling
   shouldPoll(response) {
-    return (
-      response &&
-      response.config &&
-      response.config.polling &&
-      response.status === 202 &&
-      response.config.attempt < response.config.pollingIntervals.length
-    );
+    if (!response?.config) return false;
+    const { attempt = 0, polling, pollingIntervals = [] } = response.config;
+    return polling && response.status === 202 && attempt < pollingIntervals.length;
   }
 
-  // handle response with possible polling
-  onResponse(response, afterResponse) {
+  getQueryResultKey(data) {
+    return Object.keys(data).find((key) => Array.isArray(data[key]));
+  }
+
+  getResult(data) {
+    return data[this.getQueryResultKey(data)];
+  }
+
+  async request(config, afterResponse) {
+    if (config.polling) {
+      config = { ...config, attempt: (config.attempt || 0) + 1 };
+    }
+
+    const response = await this.http(config);
+    return this.onResponse(response, afterResponse);
+  }
+
+  async onResponse(response, afterResponse) {
     if (this.shouldPoll(response)) {
       const newConfig = this.config(response.config);
       const pollingUrl = this.getLocation(response);
 
       if (pollingUrl) {
-        newConfig.method = this.defaultConfig.pollingMethod;
+        newConfig.method = newConfig.pollingMethod;
         newConfig.url = pollingUrl;
         newConfig.cache = false;
-        return new this.Promise((resolve) => {
-          setTimeout(
-            resolve,
-            newConfig.pollingIntervals[newConfig.attempt] || 1000
-          );
-        }).then(() => this.request(newConfig, afterResponse));
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, newConfig.pollingIntervals[newConfig.attempt] || 1000);
+        });
+
+        return this.request(newConfig, afterResponse);
       }
     }
 
     return afterResponse ? afterResponse(response) : response;
   }
 
-  // make request to http
-  request(config, afterResponse) {
-    if (config.polling) {
-      config.attempt = config.attempt || 0;
-      config.attempt += 1;
-    }
-
-    return this.http(config).then((response) =>
-      this.onResponse(response, afterResponse)
-    );
-  }
-
-  // post request
-  create(data, config) {
+  async sendBeacon(data, config) {
     if (!data) {
       throw new Error('called method without [data]');
     }
-    config = this.config(config);
-    config.method = 'POST';
-    config.url = this.getUrl(config);
-    config.data = data;
 
-    const beforeFunc = this.beforeCreate || this.beforePost;
-    if (beforeFunc) {
-      config.data = beforeFunc(config.data);
-    }
-
-    return this.request(config, this.afterCreate || this.afterPost);
-  }
-
-  sendBeacon(data, config) {
-    if (!data) {
-      throw new Error('called method without [data]');
-    }
     config = this.config(config);
     config.method = 'POST';
     config.url = this.getUrl(config);
@@ -210,41 +160,54 @@ export default class AvApi {
     if (navigator.sendBeacon) {
       const result = navigator.sendBeacon(
         config.url,
-        new Blob([config.data], {
-          type: 'application/x-www-form-urlencoded',
-        })
+        new Blob([config.data], { type: 'application/x-www-form-urlencoded' })
       );
-      // A truthy return value from navigator.sendBeacon means the browser successfully queued the request
-      if (result) return this.Promise.resolve();
+      if (result) return undefined;
     }
-    // Fall back to XHR if browser does not support navigator.sendBeacon or browser fails to queue the request
+
     return this.request(config, this.afterCreate || this.afterPost);
   }
 
-  post(data, config) {
-    return this.create(data, config);
-  }
-
-  // post request with method-override to get
-  postGet(data, config) {
+  async create(data, config) {
     if (!data) {
       throw new Error('called method without [data]');
     }
+
+    config = this.config(config);
+    config.method = 'POST';
+    config.url = this.getUrl(config);
+    config.data = data;
+
+    const beforeFunc = this.beforeCreate || this.beforePost;
+    if (beforeFunc) {
+      config.data = beforeFunc(config.data);
+    }
+
+    return this.request(config, this.afterCreate || this.afterPost);
+  }
+
+  async post(data, config) {
+    return this.create(data, config);
+  }
+
+  async postGet(data, config) {
+    if (!data) {
+      throw new Error('called method without [data]');
+    }
+
     config = this.config(config);
     config.method = 'POST';
     config.headers = config.headers || {};
     config.headers['X-HTTP-Method-Override'] = 'GET';
-    config.headers['Content-Type'] =
-      config.headers['Content-Type'] || 'application/x-www-form-urlencoded';
+    config.headers['Content-Type'] = config.headers['Content-Type'] || 'application/x-www-form-urlencoded';
     config.url = this.getUrl(config);
     config.data = data;
+
     if (this.beforePostGet) {
       config.data = this.beforePostGet(config.data);
     }
-    if (
-      typeof config.data !== 'string' &&
-      config.headers['Content-Type'] === 'application/x-www-form-urlencoded'
-    ) {
+
+    if (typeof config.data !== 'string' && config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
       config.data = qs.stringify(config.data, {
         encode: false,
         arrayFormat: 'repeat',
@@ -252,73 +215,67 @@ export default class AvApi {
         allowDots: true,
       });
     }
+
     return this.request(config, this.afterPostGet);
   }
 
-  // get request with id
-  get(id, config) {
+  async get(id, config) {
     if (!id) {
       throw new Error('called method without [id]');
     }
+
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config, id);
     config = this.cacheParams(config);
+
     return this.request(config, this.afterGet);
   }
 
-  // get request with just params
-  query(config) {
+  async query(config) {
     config = this.config(config);
     config.method = 'GET';
     config.url = this.getUrl(config);
     config = this.cacheParams(config);
+
     return this.request(config, this.afterQuery);
   }
 
-  all(config) {
-    return this.query(config).then((resp) => {
-      const key = this.getQueryResultKey(resp.data);
-      const totalPages = Math.ceil(resp.data.totalCount / resp.data.limit);
-      const result = resp.data[key] || [];
-      if (totalPages > 1) {
-        const otherPages = [];
-        for (let i = 0; i < totalPages - 1; i += 1) {
-          otherPages[i] = i + 2;
-        }
-        return this.Promise.all(
-          otherPages.map((page) =>
-            this.getPage(page, config, resp.data.limit).then(
-              (pageResp) => pageResp.data[key] || []
-            )
-          )
-        ).then((pages) => [...result, ...pages].flat());
-      }
-      return result;
-    });
-  }
-
-  getQueryResultKey(data) {
-    return Object.keys(data).find((key) => Array.isArray(data[key]));
-  }
-
-  getResult(data) {
-    return data[this.getQueryResultKey(data)];
-  }
-
-  getPage(page = 1, config = {}, limit) {
-    limit = limit || (config.params && config.params.limit) || 50;
+  async getPage(page = 1, config = {}, limit) {
+    limit = limit || config.params?.limit || 50;
     const offset = (page - 1) * limit;
-    return this.query(this.addParams({ offset, limit }, config, false));
+    return this.query(this.addParams({ offset, limit }, config));
   }
 
-  // put request
-  update(id, data, config) {
+  async all(config) {
+    const response = await this.query(config);
+
+    const key = this.getQueryResultKey(response.data);
+    const result = response.data[key] || [];
+    const limit = response.data.limit || (result.length > 0 ? result.length : 1);
+    const totalPages = Math.ceil(response.data.totalCount / limit);
+
+    if (totalPages > 1) {
+      const pages = await Promise.all(
+        Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map(async (page) => {
+          const resp = await this.getPage(page, config, limit);
+          return resp.data[key] || [];
+        })
+      );
+
+      return [...result, ...pages].flat();
+    }
+
+    return result;
+  }
+
+  async update(id, data, config) {
     if (typeof id !== 'string' && typeof id !== 'number') {
       config = data;
       data = id;
       id = '';
     }
+
     config = this.config(config);
     config.method = 'PUT';
     config.url = this.getUrl(config, id);
@@ -328,15 +285,15 @@ export default class AvApi {
     if (beforeFunc) {
       config.data = beforeFunc(config.data);
     }
+
     return this.request(config, this.afterUpdate || this.afterPut);
   }
 
-  put(...args) {
+  async put(...args) {
     return this.update(...args);
   }
 
-  // patch request
-  patch(id, data, config) {
+  async patch(id, data, config) {
     if (typeof id !== 'string' && typeof id !== 'number') {
       config = data;
       data = id;
@@ -352,15 +309,16 @@ export default class AvApi {
     if (beforeFunc) {
       config.data = beforeFunc(config.data);
     }
+
     return this.request(config, this.afterPatch);
   }
 
-  // delete request
-  remove(id, config) {
+  async remove(id, config) {
     if (typeof id !== 'string' && typeof id !== 'number') {
       config = id;
       id = '';
     }
+
     config = this.config(config);
     config.method = 'DELETE';
     config.url = this.getUrl(config, id);
@@ -369,10 +327,11 @@ export default class AvApi {
     if (beforeFunc) {
       config = beforeFunc(config);
     }
+
     return this.request(config, this.afterRemove || this.afterDelete);
   }
 
-  delete(...args) {
+  async delete(...args) {
     return this.remove(...args);
   }
 }

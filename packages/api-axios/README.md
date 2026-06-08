@@ -6,15 +6,9 @@
 [![NPM Downloads](https://img.shields.io/npm/dt/@availity/api-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-axios)
 [![Dependecy Status](https://img.shields.io/librariesio/release/npm/@availity/api-axios?style=for-the-badge)](https://github.com/Availity/sdk-js/blob/master/packages/api-axios/package.json)
 
-### What's new in version 6?
+### Architecture
 
-If you are looking for the old docs you can find them [here](./READMEv5)
-
-- `@availity/api-core` is no longer required. It has been added to this package
-- Switch to `lodash/merge` for merging config
-- Change how args are passed to `AvApi` constructor
-- Require a single version of `axios` instead of a range
-- Update to use `async/await` where applicable
+`@availity/api-axios` uses [`@availity/api-core`](../api-core/README.md) for base API class definitions and wraps them with [axios](https://github.com/axios/axios) as the HTTP client.
 
 ## Install
 
@@ -52,7 +46,7 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvLogMessagesApiV2`
 - `AvLogMessagesApiV3`
 - `AvNavigationApi`
-- `AvNotificationApi`
+- `AvNotificationsApi`
 - `AvOrganizationsApi`
 - `AvPdfApi`
 - `AvPdfMicroserviceApi`
@@ -61,8 +55,8 @@ Details about each api can be found [here](../api-axios/src/resources/README.md)
 - `AvRegionsApi`
 - `AvRouteConfigurationsApi`
 - `AvSettingsApi`
-- `AvSlotMachineApi`
 - `AvSpacesApi`
+- `AvStashApi`
 - `AvTelemetryApi`
 - `AvUserApi`
 - `AvUserPermissionsApi`
@@ -125,7 +119,7 @@ async function getUser() {
 
 ## Creating Proxy API Definitions
 
-Create new API definitions by extending `AvProxyApi`. Extending `AvProxyApi` provides services the behaviors described in [@api-core/README#features](../api-core/README.md#features) as well as building the url to match your tenant's proxy REST conventions.
+Create new API definitions by extending `AvProxyApi`. Extending `AvProxyApi` builds the url to match your tenant's proxy REST conventions.
 
 ```js
 import { AvProxyApi } from '@availity/api-axios';

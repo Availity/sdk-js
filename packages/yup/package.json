@@ -18,20 +18,20 @@
   },
   "license": "MIT",
   "author": "Kyle Gray <kyle.gray@availity.com>",
-  "browser": "./dist/index.js",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
@@ -42,18 +42,15 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
-    "lodash": "^4.17.23",
-    "yup": "^0.32.11"
+    "dayjs": "^1.11.13",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
-    "moment": "^2.30.1",
-    "tsup": "^8.4.0",
-    "typescript": "^5.5.4"
-  },
-  "peerDependencies": {
-    "moment": "^2.30.1"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }

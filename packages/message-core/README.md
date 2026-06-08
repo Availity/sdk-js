@@ -20,6 +20,39 @@ npm install @availity/message-core
 yarn add @availity/message-core
 ```
 
+## Usage
+
+The default export is a pre-configured `AvMessage` instance for cross-frame communication within the Availity portal.
+
+```js
+import avMessage from '@availity/message-core';
+
+// Send a message to the parent window
+avMessage.send({ event: 'my-event', data: { key: 'value' } });
+
+// Subscribe to messages
+const unsubscribe = avMessage.subscribe('my-event', (data) => {
+  console.log('Received:', data);
+});
+
+// Unsubscribe when done
+unsubscribe();
+
+// Or unsubscribe by event name
+avMessage.unsubscribe('my-event');
+
+// Remove all subscribers
+avMessage.unsubscribeAll();
+
+// Enable or disable message handling
+avMessage.enabled(false);
+
+// Clean up when your app/component unmounts
+avMessage.destroy();
+```
+
+Messages are validated against trusted Availity domains for security.
+
 ## Documentation
 
 Check out more documentation at [availity.github.io](https://availity.github.io/sdk-js/resources/messaging)

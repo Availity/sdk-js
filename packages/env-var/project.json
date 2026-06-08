@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/env-var"],
       "options": {
-        "jestConfig": "packages/env-var/jest.config.js"
+        "jestConfig": "packages/env-var/jest.config.cjs"
       }
     },
     "version": {

@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import AvAnalyticsPlugin from './plugin';
+import AvAnalyticsPlugin, { AnalyticsEventProperties } from './plugin';
+import { DmaLogMessagesLike } from './dma';
 
 declare class AvSplunkAnalytics extends AvAnalyticsPlugin {
-  constructor(AvLogMessages: any, enabled?: boolean);
+  constructor(AvLogMessages: DmaLogMessagesLike, enabled?: boolean);
 
-  trackEvent(properties: any): any;
+  AvLogMessages: DmaLogMessagesLike;
 
-  trackPageView(url: string): any;
+  trackEvent(properties: AnalyticsEventProperties): Promise<unknown>;
+
+  trackPageView(url: string): Promise<unknown>;
 }
 
 export default AvSplunkAnalytics;

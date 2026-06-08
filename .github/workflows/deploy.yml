@@ -53,6 +53,14 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
+      - name: Restore Nx Cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-
+
       - name: Lint Source Code
         run: yarn lint
 
@@ -93,6 +101,14 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --immutable
+
+      - name: Restore Nx Cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-
 
       - name: Build Packages
         run: yarn build

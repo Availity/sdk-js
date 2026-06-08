@@ -1,7 +1,6 @@
 import AvFilesDelivery from '../filesDelivery';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const mockConfig = {
   clientId: '123-456',
@@ -11,13 +10,12 @@ const mockConfig = {
 describe('AvFileDelivery', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
-    api = new AvFilesDelivery({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvFilesDelivery({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
@@ -25,7 +23,6 @@ describe('AvFileDelivery', () => {
     api = new AvFilesDelivery({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
@@ -34,20 +31,26 @@ describe('AvFileDelivery', () => {
     api = new AvFilesDelivery({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
-    expect(api.getUrl(mockConfig)).toBe(
-      '/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries'
+    expect(api.getUrl(mockConfig)).toBe('/ms/api/availity/internal/platform/file-upload-delivery/v1/batch/deliveries');
+  });
+
+  test('uploadFilesDelivery() should throw when customerId is missing', () => {
+    api = new AvFilesDelivery({ http: mockHttp });
+    expect(() => api.uploadFilesDelivery({}, { clientId: '456' })).toThrow(
+      '[config.customerId] and [config.clientId] must be defined'
+    );
+  });
+
+  test('uploadFilesDelivery() should throw when clientId is missing', () => {
+    api = new AvFilesDelivery({ http: mockHttp });
+    expect(() => api.uploadFilesDelivery({}, { customerId: '456' })).toThrow(
+      '[config.customerId] and [config.clientId] must be defined'
     );
   });
 
   test('uploadFile() should call create for reference passed', () => {
-    api = new AvFilesDelivery({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvFilesDelivery({ http: mockHttp });
 
     const data = {
       deliveries: [

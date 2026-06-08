@@ -1,7 +1,7 @@
 import AvApi from '../api';
 
 export default class AvRegions extends AvApi {
-  constructor({ http, promise, merge, avUsers, config }) {
+  constructor(config) {
     const options = {
       path: 'api/sdk/platform',
       name: 'regions',
@@ -9,13 +9,8 @@ export default class AvRegions extends AvApi {
       pageBust: true,
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
-    this.avUsers = avUsers;
+    super(options);
+    this.avUsers = config.avUsers;
   }
 
   afterUpdate(response) {

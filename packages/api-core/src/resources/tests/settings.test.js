@@ -1,7 +1,6 @@
 import AvSettings from '../settings';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const testAppId = 'testApplicationId';
 
@@ -23,9 +22,7 @@ describe('AvSettings', () => {
     api = new AvSettings({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
   });
 
@@ -50,16 +47,12 @@ describe('AvSettings', () => {
     });
 
     test('should throw error if no applicationId passed in', () => {
-      expect(() => api.getApplication()).toThrow(
-        'applicationId must be defined'
-      );
+      expect(() => api.getApplication()).toThrow('applicationId must be defined');
     });
 
     test('should throw if no avUsers defined', () => {
       delete api.avUsers;
-      expect(() => api.getApplication('appId')).toThrow(
-        'avUsers must be defined'
-      );
+      expect(() => api.getApplication('appId')).toThrow('avUsers must be defined');
     });
 
     test('should skip call to avUsers.me if userId is in config params', async () => {
@@ -102,22 +95,16 @@ describe('AvSettings', () => {
     });
 
     test('should not throw error if applicationId in scope', () => {
-      expect(() =>
-        api.setApplication({ scope: { applicationId: testAppId } })
-      ).not.toThrow();
+      expect(() => api.setApplication({ scope: { applicationId: testAppId } })).not.toThrow();
     });
 
     test('should throw error if no applicationId in argument or data', () => {
-      expect(() => api.setApplication()).toThrow(
-        'applicationId must be defined'
-      );
+      expect(() => api.setApplication()).toThrow('applicationId must be defined');
     });
 
     test('should throw error if no avUsers defined', () => {
       delete api.avUsers;
-      expect(() => api.setApplication('appId', {})).toThrow(
-        'avUsers must be defined'
-      );
+      expect(() => api.setApplication('appId', {})).toThrow('avUsers must be defined');
     });
 
     test('should skip call to avUsers.me if userId is in data.scope', async () => {

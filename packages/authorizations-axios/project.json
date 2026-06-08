@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/authorizations-axios"],
       "options": {
-        "jestConfig": "packages/authorizations-axios/jest.config.js"
+        "jestConfig": "packages/authorizations-axios/jest.config.cjs"
       }
     },
     "version": {

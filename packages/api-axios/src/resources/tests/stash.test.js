@@ -26,9 +26,7 @@ describe('AvStashApi', () => {
   });
 
   test('launch throws when linkTo is not provided', async () => {
-    await expect(() => api.launch({ key: 'value' })).rejects.toThrow(
-      'linkTo is required and was not provided'
-    );
+    await expect(() => api.launch({ key: 'value' })).rejects.toThrow('linkTo is required and was not provided');
   });
 
   test('launch throws when stash API does not return a session ID', async () => {

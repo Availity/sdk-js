@@ -253,7 +253,7 @@ Set the maximum date the given range must end on or before
 ###### Parameters
 
 - **max** - `string`. **required**. The max date.
-- **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must start before XX/XX/XXXX"
+- **message** - `string`. Optional. Custom error message when invalid. Default: "Date Range must end on or before XX/XX/XXXX"
 
 ###### Example
 
@@ -278,9 +278,11 @@ Evaluates if date range is within a set distance
   - **min** - `object`. optional. The minimum distance between the date ranges
     - **value** - `number`. **required**. the value of the minimum distance
     - **units** - `string`. optional. the weight of the value. default `day`
+    - **errorMessage** - `string`. optional. custom error message for min distance violation
   - **max** - `object`. optional. The maximum distance between the date ranges
     - **value** - `number`. **required**. the value of the max distance
     - **units** - `string`. optional. the weight of the value. default `day`
+    - **errorMessage** - `string`. optional. custom error message for max distance violation
   - **format** - `string`. optional. custom parse format for date validation
 
 ###### Example
@@ -332,6 +334,30 @@ customErrSchema.isValid({
 }); // throws 'Custom error message'
 ```
 
+##### isRequired
+
+Mark the date range as required.
+
+##### Parameters
+
+- **isRequired** - `boolean`. Optional. Whether or not the value is required. Default: `true`
+- **message** - `string`. Optional. Custom error message when invalid. Default: `"This field is required."`
+
+##### Example
+
+```js
+import { dateRange } from '@availity/yup';
+
+const schema = dateRange().isRequired();
+
+schema.isValid({
+  startDate: '12/02/2012',
+  endDate: '12/03/2012',
+}); // true
+
+schema.isValid({}); // false - "This field is required."
+```
+
 ### avDate
 
 Similar to the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
@@ -341,6 +367,16 @@ Similar to the default date yup object and accepts a string or `moment` object i
 - **options** - `object`. optional. Range Options.
   - **format** - `string | string[]`. optional. Add to the list of accepted formats.
   - **typeError** - `string`. optional. Specify the error message to show when the date is in an incorrect format
+
+#### Default Formats
+
+The following formats are accepted by default (additional formats can be added via the `format` option):
+
+- `YYYY-MM-DD`
+- `YYYYMMDD`
+- `MMDDYYYY`
+- `MM-DD-YYYY`
+- `MM/DD/YYYY`
 
 #### Methods
 
@@ -353,7 +389,11 @@ Set the min and max that the date must be inbetween
 - **min** - `string`. **required**. The minimum allowed date.
 - **max** - `string`. **required**. The maximum allowed date.
 - **message** - `string`. Optional. Custom error message when invalid. Default: "Date must be between `${min}` and `${max}`."
-- **inclusivity** - `string`. Optional. Set whether the min and max should be inclusive. Default: "()"
+- **inclusivity** - `string`. Optional. Set whether the min and max should be inclusive. Default: `"()"`
+  - `"()"` — exclusive on both ends (default)
+  - `"[)"` — inclusive start, exclusive end
+  - `"(]"` — exclusive start, inclusive end
+  - `"[]"` — inclusive on both ends
 
 [More information](https://momentjscom.readthedocs.io/en/latest/moment/05-query/06-is-between/) on inclusivity
 
@@ -411,7 +451,7 @@ Mark the date as required. You must use this method instead of the built-in `req
 
 ###### Parameters
 
-- **isRequired** - `string`. **required**. Whether or not the value is required
+- **isRequired** - `boolean`. Optional. Whether or not the value is required. Default: `true`
 - **message** - `string`. Optional. Custom error message when invalid. Default: "This field is required."
 
 ###### Example

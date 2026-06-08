@@ -122,11 +122,11 @@ export default class AvAnalytics {
       }
 
       if (this.hasLogPlugin) {
-        const overridesKeys = Object.keys(analyticAttrs).filter(key => key.startsWith('overrides'));
+        const overridesKeys = Object.keys(analyticAttrs).filter((key) => key.startsWith('overrides'));
         if (overridesKeys.length > 0) {
           analyticAttrs.overrides = {};
           for (const key of overridesKeys) {
-            const nestedKey = key.slice(9); // Remove 'overrides'
+            const nestedKey = key.slice('overrides'.length);
             const finalKey = nestedKey.charAt(0).toLowerCase() + nestedKey.slice(1);
             analyticAttrs.overrides[finalKey] = analyticAttrs[key];
             delete analyticAttrs[key];
@@ -189,7 +189,11 @@ export default class AvAnalytics {
       };
 
       if (isPluginEnabled(plugin) && typeof plugin.trackEvent === 'function') {
-        promises.push(plugin.trackEvent(props));
+        try {
+          promises.push(plugin.trackEvent(props));
+        } catch {
+          // Prevent a failing plugin from breaking all tracking
+        }
       }
     }
     return this.Promise.all(promises);
@@ -205,7 +209,11 @@ export default class AvAnalytics {
     const promises = [];
     for (const plugin of this.plugins) {
       if (isPluginEnabled(plugin) && typeof plugin.trackPageView === 'function') {
-        promises.push(plugin.trackPageView(url));
+        try {
+          promises.push(plugin.trackPageView(url));
+        } catch {
+          // Prevent a failing plugin from breaking all tracking
+        }
       }
     }
     return this.Promise.all(promises);

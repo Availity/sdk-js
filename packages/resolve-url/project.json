@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/resolve-url"],
       "options": {
-        "jestConfig": "packages/resolve-url/jest.config.js"
+        "jestConfig": "packages/resolve-url/jest.config.cjs"
       }
     },
     "version": {

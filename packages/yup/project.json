@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/yup"],
       "options": {
-        "jestConfig": "packages/yup/jest.config.js"
+        "jestConfig": "packages/yup/jest.config.cjs"
       }
     },
     "version": {

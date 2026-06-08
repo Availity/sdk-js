@@ -6,12 +6,20 @@ describe('AvPdfApi', () => {
     api = new AvPdfApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });
 
   test('url should be correct', () => {
     expect(api.getUrl(api.config())).toBe('/api/utils/v1/pdfs');
+  });
+
+  test('should throw error when applicationId, fileName, or html is missing', async () => {
+    await expect(api.getPdf({})).rejects.toThrow('[applicationId], [fileName] and [html] must be defined');
   });
 
   test('should call onPdf() when pdf completes', async () => {

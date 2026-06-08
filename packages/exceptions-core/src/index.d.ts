@@ -1,26 +1,56 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface ExceptionMessage {
+  errorDate: string;
+  errorName: string;
+  errorMessage: string;
+  errorStack: string;
+  url: string;
+  appId: string | number;
+  appVersion: string;
+  userAgent: string;
+  userLanguage?: string;
+  referrer?: string;
+  host?: string;
+  totalHits: number;
+  currentHits: number;
+  [key: string]: unknown;
+}
+
 declare class AvExceptions {
-  constructor(log: (message: string) => void);
+  constructor(log: (message: ExceptionMessage) => unknown);
 
-  submitError(error: any): void;
+  log: (message: ExceptionMessage) => unknown;
 
-  onReport(errorReport: any): void;
+  isEnabled: boolean;
 
-  enabled(value: any, ...args: any[]): boolean;
+  thisAppId: string | number | undefined;
 
-  appId(id: any): string | number;
+  BLACKLISTED_MESSAGES: string[];
 
-  repeatTime(time: any): number;
+  REPEAT_LIMIT: number;
 
-  prettyPrint(stackFrames: any): any;
+  errorMessage?: Record<string, unknown> | ((exception: Error) => Record<string, unknown>);
 
-  isRepeatError(exception: any): any;
+  submitError(error: Error): void;
 
-  repeatTimer(message: any): void;
+  onReport(errorReport: Error): void;
 
-  onError(exception: any, skipRepeat?: boolean): Promise<any>;
+  enabled(value?: boolean): boolean;
 
-  isBlacklisted(exceptoin: any): any;
+  destroy(): void;
+
+  appId(id?: string | number): string | number | undefined;
+
+  repeatTime(time?: number): number;
+
+  prettyPrint(stackFrames: Array<{ toString(): string }>): string;
+
+  isRepeatError(exception: Error): boolean;
+
+  isBlacklisted(exception: Error): boolean;
+
+  repeatTimer(message: string): void;
+
+  onError(exception: Error, skipRepeat?: boolean): Promise<unknown> | undefined;
 }
 
 export default AvExceptions;

@@ -1,18 +1,13 @@
 import AvApi from '../api';
 
 export default class AvUsers extends AvApi {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       path: 'api/sdk/platform',
       name: 'users',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   me(config) {

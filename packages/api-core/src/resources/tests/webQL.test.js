@@ -1,18 +1,16 @@
 import AvWebQL from '../webQL';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvWebQL', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
-    api = new AvWebQL({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvWebQL({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
@@ -20,7 +18,6 @@ describe('AvWebQL', () => {
     api = new AvWebQL({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });

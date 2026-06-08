@@ -1,7 +1,6 @@
 import AvRegions from '../regions';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 const mockUser = {
   id: 'mockUserId',
@@ -21,9 +20,7 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
     expect(api).toBeDefined();
   });
@@ -32,7 +29,6 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
     });
     expect(api).toBeDefined();
@@ -42,9 +38,7 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
     api.setPageBust = jest.fn();
     const testResponse1 = {};
@@ -60,12 +54,7 @@ describe('AvRegions', () => {
   });
 
   test('getRegions should fail if avUsers not defined', () => {
-    api = new AvRegions({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvRegions({ http: mockHttp });
 
     expect(() => {
       api.getRegions();
@@ -76,9 +65,7 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
     api.query = jest.fn();
 
@@ -96,9 +83,7 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
     api.query = jest.fn();
 
@@ -116,9 +101,7 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
     api.query = jest.fn();
 
@@ -131,9 +114,7 @@ describe('AvRegions', () => {
     api = new AvRegions({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
       avUsers: mockAvUsers,
-      config: {},
     });
     api.query = jest.fn();
     const expectedConfig = {

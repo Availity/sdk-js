@@ -4,21 +4,16 @@ import qs from 'qs';
 import AvApi from '../api';
 
 export default class AvOrganizations extends AvApi {
-  constructor({ http, promise, merge, avUsers, avUserPermissions, config }) {
+  constructor(config) {
     const options = {
       path: 'api/sdk/platform',
       name: 'organizations',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
 
-    this.avUsers = avUsers;
-    this.avUserPermissions = avUserPermissions;
+    this.avUsers = config.avUsers;
+    this.avUserPermissions = config.avUserPermissions;
   }
 
   // Instance variables to help with caching for filtered organizations
@@ -62,14 +57,11 @@ export default class AvOrganizations extends AvApi {
         }
         data = qs.stringify(dataTemp, { arrayFormat: 'repeat' });
       } else if (typeof data === 'object') {
-        const { region } = data;
+        const { region, ...rest } = data;
         if (region) {
           this.region = region;
-          delete data.region;
         }
-        if (permissionIds) {
-          data.permissionId = permissionIds;
-        }
+        data = permissionIds ? { ...rest, permissionId: permissionIds } : rest;
       }
       const { data: organizationsData } = await super.postGet(data, config);
       const { organizations, limit, offset, totalCount } = organizationsData;

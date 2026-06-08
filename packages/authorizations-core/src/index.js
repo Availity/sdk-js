@@ -1,107 +1,70 @@
 class AvAuthorizations {
   constructor(avPermissions, avRegions, promise) {
-    // make sure all params are passed in
     if (!avPermissions || !avRegions || !promise) {
       throw new Error('A permission, region, and promise are required');
     }
 
-    // save paramaters
     this.avPermissions = avPermissions;
     this.avRegions = avRegions;
     this.promise = promise;
-
-    // initialize the map
     this.authorizedMap = {};
   }
 
-  // return true/false if this permissionId is authorized in this region
-  isAuthorized(permissionId, region) {
-    return this.getPermission(permissionId, region).then((permission) => permission.isAuthorized);
+  async isAuthorized(permissionId, region) {
+    const permission = await this.getPermission(permissionId, region);
+    return permission.isAuthorized;
   }
 
-  // return true/false if any of ther permissions in array are authorized in this region
-  isAnyAuthorized(permissionIds, region) {
-    return this.getPermissions(permissionIds, region).then((permissions) =>
-      permissions.some((permission) => permission.isAuthorized)
-    );
+  async isAnyAuthorized(permissionIds, region) {
+    const permissions = await this.getPermissions(permissionIds, region);
+    return permissions.some((permission) => permission.isAuthorized);
   }
 
-  // gets the permission for this id in this region
-  getPermission(permissionId, region) {
+  async getPermission(permissionId, region) {
     if (typeof permissionId !== 'string') {
-      return this.promise.reject('permissionId must be a string');
+      throw new TypeError('permissionId must be a string');
     }
-    return this.getPermissions([permissionId], region).then((permissions) =>
-      permissions.find((permission) => permission.id === permissionId)
-    );
+    const permissions = await this.getPermissions([permissionId], region);
+    return permissions.find((permission) => permission.id === permissionId);
   }
 
-  // if passed in region is undefined, use avRegions to get current region
-  getRegion(region) {
+  async getRegion(region) {
     if (region) {
-      return this.promise.resolve(region);
+      return region;
     }
-    return this.avRegions
-      .getCurrentRegion()
-      .then(
-        (response) =>
-          response && response.data && response.data.regions && response.data.regions[0] && response.data.regions[0].id
-      );
-  }
-  // get all permissions in this region
-
-  getPermissions(permissionIds, region) {
-    // check permissionIds
-    let throwError = !Array.isArray(permissionIds);
-    if (!throwError) {
-      throwError = permissionIds.some((id) => typeof id !== 'string');
-    }
-    if (throwError) {
-      return this.promise.reject('permissionIds must be an array of strings');
-    }
-
-    let useRegion;
-    let neededIds = [];
-    // get the region to use
-    return this.getRegion(region)
-      .then((response) => {
-        useRegion = response;
-        // get ids still needed
-        neededIds = this.getMissingIds(permissionIds, useRegion);
-        if (neededIds && neededIds.length > 0) {
-          return this.avPermissions.getPermissions(neededIds, useRegion);
-        }
-        return this.promise.resolve([]);
-      })
-      .then((permissions) => {
-        // add new permissions to the map
-        this.addPermissions(neededIds, permissions, useRegion);
-        // return the final results from the map
-        return this.getFromMap(permissionIds, useRegion);
-      });
+    const response = await this.avRegions.getCurrentRegion();
+    return response?.data?.regions?.[0]?.id;
   }
 
-  // return ids that are not already in the map
+  async getPermissions(permissionIds, region) {
+    if (!Array.isArray(permissionIds) || permissionIds.some((id) => typeof id !== 'string')) {
+      throw new Error('permissionIds must be an array of strings');
+    }
+
+    const useRegion = await this.getRegion(region);
+    const neededIds = this.getMissingIds(permissionIds, useRegion);
+
+    if (neededIds.length > 0) {
+      const permissions = await this.avPermissions.getPermissions(neededIds, useRegion);
+      this.addPermissions(neededIds, permissions, useRegion);
+    }
+
+    return this.getFromMap(permissionIds, useRegion);
+  }
+
   getMissingIds(ids, region = 'default') {
-    return ids.reduce((output, id) => {
-      if (!this.authorizedMap[id] || !this.authorizedMap[id][region]) {
-        output.push(id);
-      }
-      return output;
-    }, []);
+    return ids.filter((id) => !this.authorizedMap[id]?.[region]);
   }
 
-  // grab ids from map with region
   getFromMap(ids, region = 'default') {
     return ids.reduce((output, id) => {
-      if (this.authorizedMap[id] && this.authorizedMap[id][region]) {
+      if (this.authorizedMap[id]?.[region]) {
         output.push(this.authorizedMap[id][region]);
       }
       return output;
     }, []);
   }
 
-  // add all ids permission object to map
   addPermissions(ids, permissions, region) {
     for (const id of ids) {
       const permission = permissions.find((val) => val.id === id);
@@ -109,28 +72,26 @@ class AvAuthorizations {
     }
   }
 
-  // add this permission to map
   addPermission(permission, region = 'default') {
     if (!permission.id) {
       return;
     }
     this.authorizedMap[permission.id] = this.authorizedMap[permission.id] || {};
-    // set default values
     permission.geographies = permission.geographies || [];
     permission.organizations = permission.organizations || [];
     permission.isAuthorized = permission.organizations.length > 0;
     this.authorizedMap[permission.id][region] = permission;
   }
 
-  getOrganizations(permissionId, region) {
-    return this.getPermission(permissionId, region).then((permission) => permission.organizations);
+  async getOrganizations(permissionId, region) {
+    const permission = await this.getPermission(permissionId, region);
+    return permission.organizations;
   }
 
-  getPayers(permissionId, organizationId, region) {
-    return this.getPermission(permissionId, region).then((permission) => {
-      const organization = permission.organizations.find((org) => org.id === organizationId);
-      return (organization && organization.resources) || [];
-    });
+  async getPayers(permissionId, organizationId, region) {
+    const permission = await this.getPermission(permissionId, region);
+    const organization = permission.organizations.find((org) => org.id === organizationId);
+    return organization?.resources || [];
   }
 }
 

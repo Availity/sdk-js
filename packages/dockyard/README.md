@@ -23,7 +23,7 @@ yarn add @availity/dockyard
 ## Usage
 
 ```javascript
-import yup from 'yup';
+import * as yup from 'yup';
 import getRules from '@availity/dockyard';
 
 const schema = yup.object({

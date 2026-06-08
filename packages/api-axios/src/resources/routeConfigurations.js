@@ -1,17 +1,10 @@
-import AvMicroserviceApi from '../ms';
+import { AvRouteConfigurations } from '@availity/api-core';
+import axios from 'axios';
 
-export default class AvRouteConfigurationsApi extends AvMicroserviceApi {
-  constructor(config) {
-    super({
-      name: 'epdm/configuration-service/epdm/v1/route-configuration',
-      ...config,
-    });
-  }
-
-  async getConfiguration(transactionTypeCode, submissionModeCode, payerId) {
-    return this.query({
-      params: { transactionTypeCode, submissionModeCode, payerId },
-    });
+export default class AvRouteConfigurationsApi extends AvRouteConfigurations {
+  constructor(config = {}) {
+    const { http, ...rest } = config;
+    super({ http: http || axios, ...rest });
   }
 }
 

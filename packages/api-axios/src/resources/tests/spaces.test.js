@@ -17,6 +17,10 @@ describe('AvSpacesApi', () => {
     api.get = get;
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });

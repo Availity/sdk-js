@@ -1,6 +1,5 @@
 name: Lint Commit Messages
-# Set to pull_request when ready to turn on
-on: [never]
+on: [pull_request]
 
 jobs:
   commitlint:
@@ -15,7 +14,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
@@ -23,8 +22,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Lint Commit Message
-        uses: wagoid/commitlint-github-action@9763196e10f27aef304c9b8b660d31d97fce0f99 # v5.5.1
+        uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         env:
           NODE_PATH: ${{ github.workspace }}/node_modules
         with:
-          configFile: ${{ github.workspace }}/commitlint.config.js
+          configFile: ${{ github.workspace }}/commitlint.config.cjs

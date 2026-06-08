@@ -1,32 +1,29 @@
 import AvApi from './api';
 import API_OPTIONS from './options';
-import resolveHost from './resolve-host';
+import deepMerge from './deepMerge';
 
 export default class AvMicroservice extends AvApi {
-  constructor({ http, promise, merge, config }) {
-    super({
-      http,
-      promise,
-      merge,
-      config,
-    });
-    this.defaultConfig = this.merge({}, API_OPTIONS.MS, config);
+  constructor(config) {
+    super(config);
+    const { http, ...options } = config;
+    this.defaultConfig = deepMerge({}, API_OPTIONS.MS, options);
   }
 
-  // override aries 1 url concatenation
   getUrl(config, id = '') {
-    const { path, version, name, id: configId } = this.config(config);
-    let parts = [path, version || '', name];
-    if (id || configId) {
-      parts = [path, version || '', name, id || configId];
-    }
-    const uri = parts.join('/').replaceAll(/\/+/g, '/').replace(/\/$/, '');
+    const { path, version, name, url, id: configId } = this.config(config);
 
-    const hostname = resolveHost(config.host, config.window || window);
-    return (hostname ? `https://${hostname}` : '') + uri;
+    const parts = url ? [url, path, version || '', name] : [path, version || '', name];
+    if (id || configId) {
+      parts.push(id || configId);
+    }
+
+    const joined = parts.join('/');
+    if (url) {
+      return joined.replaceAll(/([^:]\/)\/+/g, '$1');
+    }
+    return joined.replaceAll(/\/+/g, '/').replace(/\/$/, '');
   }
 
-  // polling location is the same url
   getLocation(response) {
     return this.getUrl(response.config);
   }

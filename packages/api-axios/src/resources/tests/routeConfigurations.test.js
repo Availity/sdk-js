@@ -6,6 +6,10 @@ describe('AvRouteConfigurationsApi', () => {
     api = new AvRouteConfigurationsApi();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
     expect(api).toBeDefined();
   });

@@ -1,27 +1,38 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface MessagePayload {
+  event?: string;
+  [key: string]: unknown;
+}
+
+export interface SubscribeOptions {
+  ignoreSameWindow?: boolean;
+}
+
+export type MessageCallback = (data?: MessagePayload | string) => void;
+
+export type Unsubscribe = () => void;
+
 declare class AvMessage {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  public subscribers: object;
+  subscribers: Record<string, Array<{ id: number; callback: MessageCallback; options: SubscribeOptions }>>;
 
-  public enabled: (value?: boolean) => boolean;
+  isEnabled: boolean;
 
-  public subscribe: (
-    eventName?: string,
-    fn: (data?: any) => void,
-    options?: { ignoreSameWindow?: boolean }
-  ) => () => void;
+  DEFAULT_EVENT: string;
 
-  public unsubscribe: (eventName?: string) => void;
+  DOMAIN: RegExp;
 
-  public unsubscribeAll: () => void;
+  enabled(value?: boolean): boolean;
 
-  public send: (payload: any, target?: Window) => void;
+  subscribe(event: string, callback: MessageCallback, options?: SubscribeOptions): Unsubscribe;
 
-  private getEventData: (eventData?: any) => void;
+  unsubscribe(event: string): void;
 
-  private isDomain: (url: string) => boolean;
+  unsubscribeAll(): void;
 
-  private domain: () => string;
+  onMessage(event: string, data: MessagePayload | string | undefined, metadata: { isSameWindow: boolean }): void;
+
+  send(payload: string | MessagePayload, target?: Window): void;
+
+  destroy(): void;
 }
 
 export default AvMessage;

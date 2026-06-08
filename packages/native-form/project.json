@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/native-form"],
       "options": {
-        "jestConfig": "packages/native-form/jest.config.js"
+        "jestConfig": "packages/native-form/jest.config.cjs"
       }
     },
     "version": {

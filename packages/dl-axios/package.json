@@ -18,20 +18,20 @@
   },
   "license": "MIT",
   "author": "Robert McGuinness",
-  "browser": "./dist/index.js",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
     "build": "tsup src/index.js --format esm,cjs --dts",
@@ -42,18 +42,19 @@
     "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
-    "@availity/dl-core": "workspace:*",
-    "lodash": "^4.17.23"
+    "@availity/api-core": "workspace:*",
+    "@availity/dl-core": "workspace:*"
   },
   "devDependencies": {
-    "axios": "^1.13.2",
-    "tsup": "^8.4.0",
-    "typescript": "^5.5.4"
+    "axios": "^1.17.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "axios": "^1.7.7"
+    "axios": "^1.17.0"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }

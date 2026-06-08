@@ -1,5 +1,5 @@
 import axios from 'axios';
-import merge from 'lodash/merge';
+import { deepMerge } from '@availity/api-core';
 import DownloadMicroservice from '@availity/dl-core';
 
 export default class AvDownloadApi extends DownloadMicroservice {
@@ -7,7 +7,7 @@ export default class AvDownloadApi extends DownloadMicroservice {
     super({
       http: axios,
       promise: Promise,
-      merge,
+      merge: deepMerge,
       config: options,
     });
   }

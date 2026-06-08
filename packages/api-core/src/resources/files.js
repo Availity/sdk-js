@@ -1,7 +1,7 @@
 import AvMicroservice from '../ms';
 
 export default class AvFiles extends AvMicroservice {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       name: 'core/vault/upload/v1',
       headers: {
@@ -9,19 +9,12 @@ export default class AvFiles extends AvMicroservice {
       },
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   uploadFile(data, config) {
     if (!config.customerId || !config.clientId) {
-      throw new Error(
-        '[config.customerId] and [config.clientId] must be defined'
-      );
+      throw new Error('[config.customerId] and [config.clientId] must be defined');
     }
     config = this.config(config);
     config.headers['X-Availity-Customer-ID'] = config.customerId;

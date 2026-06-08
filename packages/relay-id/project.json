@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/relay-id"],
       "options": {
-        "jestConfig": "packages/relay-id/jest.config.js"
+        "jestConfig": "packages/relay-id/jest.config.cjs"
       }
     },
     "version": {

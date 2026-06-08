@@ -1,18 +1,16 @@
 import AvUsers from '../user';
 
 const mockPromise = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvUsers', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should be defined', () => {
-    api = new AvUsers({
-      http: mockPromise,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvUsers({ http: mockPromise });
     expect(api).toBeDefined();
   });
 
@@ -20,23 +18,22 @@ describe('AvUsers', () => {
     api = new AvUsers({
       http: mockPromise,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
 
-  test("me() should get with id 'me'", () => {
-    api = new AvUsers({
-      http: mockPromise,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
-    api.get = mockPromise;
-    api.me();
+  test("me() should get with id 'me' and return response.data", async () => {
+    api = new AvUsers({ http: mockPromise });
+    const userData = { id: '123', name: 'Test User' };
+    api.get = jest.fn(() => Promise.resolve({ data: userData }));
+
+    const result = await api.me();
     expect(api.get).toHaveBeenLastCalledWith('me', undefined);
+    expect(result).toEqual(userData);
+
     const testConfig = { name: 'testName' };
-    api.me(testConfig);
+    const result2 = await api.me(testConfig);
     expect(api.get).toHaveBeenLastCalledWith('me', testConfig);
+    expect(result2).toEqual(userData);
   });
 });

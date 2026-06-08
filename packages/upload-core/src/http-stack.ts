@@ -103,7 +103,7 @@ class Request implements HttpRequest {
       }
 
       const _response = new Response(response.clone());
-      _response.parseBody();
+      await _response.parseBody();
 
       return _response;
     } catch (error) {

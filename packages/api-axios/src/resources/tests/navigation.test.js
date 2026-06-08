@@ -5,6 +5,10 @@ describe('AvNavigationApi', () => {
   beforeEach(() => {
     api = new AvNavigationApi();
   });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   test('should be defined', () => {
     expect(api).toBeDefined();
   });

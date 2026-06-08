@@ -6,31 +6,32 @@ import {
   isPluginEnabled,
   isValidEventTypeOnTarget,
 } from '../util';
+import type AvAnalyticsPlugin from '../plugin';
 
 describe('analytics-core utils', () => {
   test('isLeftClickEvent', () => {
-    expect(isLeftClickEvent({ button: 0 })).toBeTruthy();
-    expect(isLeftClickEvent({ button: 1 })).toBeFalsy();
+    expect(isLeftClickEvent({ button: 0 } as unknown as MouseEvent)).toBeTruthy();
+    expect(isLeftClickEvent({ button: 1 } as unknown as MouseEvent)).toBeFalsy();
   });
 
   test('isModifiedEvent', () => {
-    expect(isModifiedEvent({ metaKey: 1 })).toBeTruthy();
-    expect(isModifiedEvent({ altKey: 1 })).toBeTruthy();
-    expect(isModifiedEvent({ ctrlKey: 1 })).toBeTruthy();
-    expect(isModifiedEvent({ shiftKey: 1 })).toBeTruthy();
-    expect(isModifiedEvent({ key: 1 })).toBeFalsy();
+    expect(isModifiedEvent({ metaKey: 1 } as unknown as MouseEvent)).toBeTruthy();
+    expect(isModifiedEvent({ altKey: 1 } as unknown as MouseEvent)).toBeTruthy();
+    expect(isModifiedEvent({ ctrlKey: 1 } as unknown as MouseEvent)).toBeTruthy();
+    expect(isModifiedEvent({ shiftKey: 1 } as unknown as MouseEvent)).toBeTruthy();
+    expect(isModifiedEvent({ key: 1 } as unknown as MouseEvent)).toBeFalsy();
   });
 
   test('isValidEventTypeOnTarget', () => {
-    expect(isValidEventTypeOnTarget({ target: { nodeName: 'click' }, type: 'click' })).toBeTruthy();
-    expect(isValidEventTypeOnTarget({ target: { nodeName: 'select' }, type: 'click' })).toBeFalsy();
+    expect(isValidEventTypeOnTarget({ target: { nodeName: 'click' }, type: 'click' } as unknown as Event)).toBeTruthy();
+    expect(isValidEventTypeOnTarget({ target: { nodeName: 'select' }, type: 'click' } as unknown as Event)).toBeFalsy();
   });
 
   test('isPluginEnabled', () => {
-    expect(isPluginEnabled({ isEnabled: () => true })).toBeTruthy();
-    expect(isPluginEnabled({ isEnabled: () => false })).toBeFalsy();
-    expect(isPluginEnabled({ isEnabled: true })).toBeTruthy();
-    expect(isPluginEnabled({ isEnabled: false })).toBeFalsy();
+    expect(isPluginEnabled({ isEnabled: () => true } as unknown as AvAnalyticsPlugin)).toBeTruthy();
+    expect(isPluginEnabled({ isEnabled: () => false } as unknown as AvAnalyticsPlugin)).toBeFalsy();
+    expect(isPluginEnabled({ isEnabled: true } as unknown as AvAnalyticsPlugin)).toBeTruthy();
+    expect(isPluginEnabled({ isEnabled: false } as unknown as AvAnalyticsPlugin)).toBeFalsy();
   });
 
   test('camelCase', () => {
@@ -40,13 +41,13 @@ describe('analytics-core utils', () => {
   });
 
   test('getComposedPath', () => {
-    expect(getComposedPath({}).length).toBe(1);
-    expect(getComposedPath({ parentNode: {} }).length).toBe(2);
-    expect(getComposedPath({ host: {} }).length).toBe(2);
-    expect(getComposedPath({ defaultView: {} }).length).toBe(2);
+    expect(getComposedPath({} as unknown as EventTarget).length).toBe(1);
+    expect(getComposedPath({ parentNode: {} } as unknown as EventTarget).length).toBe(2);
+    expect(getComposedPath({ host: {} } as unknown as EventTarget).length).toBe(2);
+    expect(getComposedPath({ defaultView: {} } as unknown as EventTarget).length).toBe(2);
 
     const result = '[{"parentNode":{"host":{"defaultView":{}}}},{"host":{"defaultView":{}}},{"defaultView":{}},{}]';
-    const nested = getComposedPath({ parentNode: { host: { defaultView: {} } } });
+    const nested = getComposedPath({ parentNode: { host: { defaultView: {} } } } as unknown as EventTarget);
     expect(JSON.stringify(nested)).toEqual(result);
   });
 });

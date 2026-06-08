@@ -1,18 +1,16 @@
 import AvDisclaimers from '../disclaimers';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvDisclaimers', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('AvDisclaimers should be defined', () => {
-    api = new AvDisclaimers({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvDisclaimers({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
@@ -20,18 +18,12 @@ describe('AvDisclaimers', () => {
     api = new AvDisclaimers({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
 
   test('getDisclaimers should query with id param added', () => {
-    api = new AvDisclaimers({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvDisclaimers({ http: mockHttp });
     api.query = jest.fn();
 
     const id = 'testId';

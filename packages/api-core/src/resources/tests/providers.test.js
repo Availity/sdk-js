@@ -1,18 +1,16 @@
 import AvProviders from '../providers';
 
 const mockHttp = jest.fn(() => Promise.resolve({}));
-const mockMerge = jest.fn((...args) => Object.assign(...args));
 
 describe('AvProviders', () => {
   let api;
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('AvProviders should be defined', () => {
-    api = new AvProviders({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvProviders({ http: mockHttp });
     expect(api).toBeDefined();
   });
 
@@ -20,18 +18,12 @@ describe('AvProviders', () => {
     api = new AvProviders({
       http: mockHttp,
       promise: Promise,
-      merge: mockMerge,
     });
     expect(api).toBeDefined();
   });
 
   test('getProviders should query with customerId param added', () => {
-    api = new AvProviders({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvProviders({ http: mockHttp });
     api.query = jest.fn();
 
     const customerId = 'testCustomerId';
@@ -46,12 +38,7 @@ describe('AvProviders', () => {
   });
 
   test('getProviders should handle undefined config param', () => {
-    api = new AvProviders({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvProviders({ http: mockHttp });
     api.query = jest.fn();
 
     const customerId = 'testCustomerId';
@@ -61,12 +48,7 @@ describe('AvProviders', () => {
   });
 
   test('normalize() should add name atttribute to collection', () => {
-    api = new AvProviders({
-      http: mockHttp,
-      promise: Promise,
-      merge: mockMerge,
-      config: {},
-    });
+    api = new AvProviders({ http: mockHttp });
 
     const providers = api.normalize([
       {

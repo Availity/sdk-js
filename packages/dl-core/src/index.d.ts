@@ -1,12 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { AvMicroservice } from '@availity/api-core';
+import { AvMicroservice, AvApiConfig, AvApiResponse, RequestConfig } from '@availity/api-core';
+
+export interface DownloadMicroserviceOptions {
+  http: (config: RequestConfig) => Promise<AvApiResponse>;
+  promise?: PromiseConstructor;
+  merge?: (...args: unknown[]) => unknown;
+  config: Partial<AvApiConfig> & { clientId: string };
+}
 
 declare class DownloadMicroservice extends AvMicroservice {
-  constructor({ http, promise, merge, config });
+  constructor(options: DownloadMicroserviceOptions);
 
-  getAttachment(config: any): any;
+  getAttachment<T = unknown>(config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
-  downloadAttachment(data: any, filename: any, mime: any): void;
+  downloadAttachment(data: Blob | string, filename: string, mime?: string): void;
 }
 
 export default DownloadMicroservice;

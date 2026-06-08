@@ -2,14 +2,16 @@
 import { AvAnalytics } from '..';
 
 type MockPlugin = {
+  enabled: boolean;
   isEnabled: jest.Mock;
-  init: jest.Mock | string;
-  trackEvent: jest.Mock | string;
-  trackPageView: jest.Mock | string;
+  init: jest.Mock;
+  trackEvent: jest.Mock;
+  trackPageView: jest.Mock;
 };
 
 function makePlugin() {
   return {
+    enabled: true,
     isEnabled: jest.fn(() => true),
     init: jest.fn(),
     trackEvent: jest.fn(),
@@ -142,7 +144,7 @@ describe('AvAnalytics', () => {
     });
 
     test('should skip plugins without init function', () => {
-      plugins[1].init = 'test';
+      plugins[1].init = 'test' as unknown as jest.Mock;
       mockAvAnalytics.init();
       expect(plugins[0].init).toHaveBeenCalled();
     });
@@ -156,8 +158,8 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
 
       plugins[0].isEnabled.mockImplementation(() => false);
-      plugins[1].trackEvent = 'test';
-      plugins[2].trackPageView = 'test';
+      plugins[1].trackEvent = 'test' as unknown as jest.Mock;
+      plugins[2].trackPageView = 'test' as unknown as jest.Mock;
     });
 
     test('trackEvent should call trackEvent on enabled plugins with properties', async () => {

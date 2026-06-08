@@ -7,7 +7,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/analytics-core"],
       "options": {
-        "jestConfig": "packages/analytics-core/jest.config.js"
+        "jestConfig": "packages/analytics-core/jest.config.cjs"
       }
     },
     "version": {

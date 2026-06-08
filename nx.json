@@ -5,7 +5,7 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"],
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.cjs"],
       "options": {
         "passWithNoTests": true
       },

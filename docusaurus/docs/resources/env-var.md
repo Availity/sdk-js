@@ -36,14 +36,14 @@ export default myEnvVal;
 
 #### Required args
 
-- values: An object with keys which match the name of the potential environments. The value of the give for the current environment will be returned
+- values: An object with keys which match the name of the potential environments. The value for the current environment will be returned
 
 #### Optional args
 
 - windowOverride: String or Window Object which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
-  - When string, the string will be takes an a fully qualified URL and the hostname will be parsed from it.
-  - When Window Object, the location hostname will be used.
-- defaultValue: The value to be returned when one does not exist for the specified environment. If no default is provided, then the function will use the value specified for `local`
+  - When a string, it will be taken as a fully qualified URL and the hostname will be parsed from it.
+  - When a Window Object, the location hostname will be used.
+- defaultValue: The value returned when one does not exist for the specified environment. If no default is provided, then the function will use the value specified for `local`
 
 #### Example
 
@@ -117,8 +117,8 @@ None
 #### Optional args
 
 - windowOverride: String or Window Object which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
-  - When string, the string will be takes an a fully qualified URL and the hostname will be parsed from it.
-  - When Window Object, the location hostname will be used.
+  - When a string, it will be taken as a fully qualified URL and the hostname will be parsed from it.
+  - When a Window Object, the location hostname will be used.
 
 #### Example
 
@@ -169,4 +169,29 @@ setSpecificEnvironments([
     fn: (options) => options.subdomain || options.pathname.split('/')[2],
   },
 ]);
+```
+
+### getCurrentEnv
+
+Get the general environment name (e.g., `'local'`, `'test'`, `'qa'`, `'prod'`) for the current hostname.
+
+```js
+import { getCurrentEnv } from '@availity/env-var';
+
+const env = getCurrentEnv();
+// => 'prod'
+```
+
+#### Optional args
+
+- windowOverride: String or Window Object which can be used to override the window used to determine the hostname.
+
+#### Example
+
+```js
+import { getCurrentEnv } from '@availity/env-var';
+
+// Use a custom URL for testing
+const env = getCurrentEnv('https://t01-apps.availity.com/public/apps/home');
+// => 'test'
 ```

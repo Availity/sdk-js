@@ -22,38 +22,76 @@ yarn add @availity/authorizations-axios @availity/api-axios
 
 ## Usage
 
-`AvAuthorizations` uses `AvPermissionsApi` and `AvRegionsApi` which can be found in [@availity/api-axios](/api/axios-resources/). You do not need to provide these yourself.
+`@availity/authorizations-axios` exports a pre-configured singleton that uses `AvPermissionsApi` and `AvRegionsApi` from [@availity/api-axios](/api/axios-resources/). You do not need to provide these yourself.
 
 ```js
-import AvAuthorizations from '@availity/authorizations-axios';
+import avAuthorizations from '@availity/authorizations-axios';
 
-const authApi = new AvAuthorizations();
+// Check if the user is authorized for a given permission
+const authorized = await avAuthorizations.isAuthorized('7890', 'FL');
 ```
 
 ## Methods
 
-For all methods, if no region is passed in, defaults to current region.
+For all methods, if no `region` is passed in, it defaults to the current region (resolved via `avRegionsApi.getCurrentRegion()`). Permissions are cached after the first fetch — subsequent calls for the same permission/region return cached results without additional network requests.
 
 ### `isAuthorized(permissionId, region)`
 
-Returns true or false if the current user has access to the permission in the given region.
+Returns `Promise<boolean>` — `true` if the current user has access to the permission in the given region.
+
+```js
+import avAuthorizations from '@availity/authorizations-axios';
+
+const canAccess = await avAuthorizations.isAuthorized('7890');
+if (canAccess) {
+  // show feature
+}
+```
 
 ### `isAnyAuthorized(permissionIds, region)`
 
-Returns true or false if the current user has access to any of the permissions in the given region.
+Returns `Promise<boolean>` — `true` if the current user has access to **any** of the permissions in the given region.
+
+```js
+const canAccessAny = await avAuthorizations.isAnyAuthorized(['7890', '7891']);
+```
 
 ### `getPermission(permissionId, region)`
 
-Returns the permission object for the given permissionId and region.
+Returns `Promise<{ id, isAuthorized, organizations, geographies }>` — the full permission object.
+
+```js
+const permission = await avAuthorizations.getPermission('7890');
+// {
+//   id: '7890',
+//   isAuthorized: true,
+//   organizations: [{ id: '1234', resources: [...] }],
+//   geographies: []
+// }
+```
 
 ### `getPermissions(permissionIds, region)`
 
-Returns an array of permission objects for the permissionIds in the given region.
+Returns `Promise<Array<{ id, isAuthorized, organizations, geographies }>>` — an array of permission objects.
+
+```js
+const permissions = await avAuthorizations.getPermissions(['7890', '7891']);
+```
 
 ### `getOrganizations(permissionId, region)`
 
-Returns the organizations array for the permissionId. Will be empty if not authorized.
+Returns the `organizations` array for the given permission. Will be empty if not authorized.
+
+```js
+const orgs = await avAuthorizations.getOrganizations('7890');
+// [{ id: '1234', resources: [...] }]
+```
 
 ### `getPayers(permissionId, organizationId, region)`
 
-Check the permissionId for an organization with `organizationId`. Returns its `resources` or an empty array.
+Returns the `resources` array for the given organization within the permission. Returns an empty array if the organization is not found.
+
+```js
+const payers = await avAuthorizations.getPayers('7890', '1234');
+// [{ id: 'payer1', ... }]
+```

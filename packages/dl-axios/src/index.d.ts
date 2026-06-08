@@ -1,5 +1,10 @@
-import DownloadCore from '@availity/dl-core';
+import DownloadMicroservice from '@availity/dl-core';
+import { AvApiConfig } from '@availity/api-core';
 
-declare class AvDownloadApi extends DownloadCore {}
+export type { DownloadMicroserviceOptions } from '@availity/dl-core';
+
+declare class AvDownloadApi extends DownloadMicroservice {
+  constructor(options?: Partial<AvApiConfig> & { clientId: string });
+}
 
 export default AvDownloadApi;

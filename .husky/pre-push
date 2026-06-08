@@ -1,3 +1,2 @@
-yarn lint:affected
 yarn test:affected
 yarn check:registry

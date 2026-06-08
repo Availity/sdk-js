@@ -1,18 +1,13 @@
 import AvApi from '../api';
 
 export default class AvProviders extends AvApi {
-  constructor({ http, promise, merge, config }) {
+  constructor(config) {
     const options = {
       path: 'api/internal',
       name: 'providers',
       ...config,
     };
-    super({
-      http,
-      promise,
-      merge,
-      config: options,
-    });
+    super(options);
   }
 
   getProviders(customerId, config) {
