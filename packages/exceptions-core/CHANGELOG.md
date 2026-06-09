@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.1](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.0.0...@availity/exceptions-core@7.0.1) (2026-06-09)
+
+
+
 # [7.0.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@6.1.0...@availity/exceptions-core@7.0.0) (2026-06-08)
 
 
