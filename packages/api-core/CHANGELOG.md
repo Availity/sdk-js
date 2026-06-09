@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [13.0.1](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.0.0...@availity/api-core@13.0.1) (2026-06-09)
+
+### Dependency Updates
+
+* `env-var` updated to version `13.0.0`
+* `resolve-url` updated to version `13.0.0`
+
+
 # [13.0.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@12.1.0...@availity/api-core@13.0.0) (2026-06-08)
 
 ### Dependency Updates
