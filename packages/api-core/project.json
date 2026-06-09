@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/api-core"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/api-core/jest.config.cjs"
+        "command": "vitest run --project=api-core",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=api-core --coverage"
+        }
       }
     },
     "version": {

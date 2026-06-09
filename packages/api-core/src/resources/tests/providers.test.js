@@ -1,12 +1,12 @@
 import AvProviders from '../providers';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvProviders', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('AvProviders should be defined', () => {
@@ -24,7 +24,7 @@ describe('AvProviders', () => {
 
   test('getProviders should query with customerId param added', () => {
     api = new AvProviders({ http: mockHttp });
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const customerId = 'testCustomerId';
     const testConfig = {
@@ -39,7 +39,7 @@ describe('AvProviders', () => {
 
   test('getProviders should handle undefined config param', () => {
     api = new AvProviders({ http: mockHttp });
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const customerId = 'testCustomerId';
     const expectedConfig = { params: { customerId } };

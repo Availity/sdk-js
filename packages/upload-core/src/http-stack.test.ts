@@ -31,7 +31,7 @@ describe('FetchHttpStack', () => {
 
     test('send calls fetch with correct options', async () => {
       const mockResponse = new Response('ok', { status: 200, headers: { 'x-custom': 'value' } });
-      const fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse);
+      const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse);
 
       const req = stack.createRequest('PATCH', 'https://example.com/upload');
       req.setHeader('Upload-Offset', '0');
@@ -53,7 +53,7 @@ describe('FetchHttpStack', () => {
 
     test('response getHeader returns header value', async () => {
       const mockResponse = new Response(null, { status: 204, headers: { 'Upload-Offset': '100' } });
-      jest.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse);
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse);
 
       const req = stack.createRequest('HEAD', '/upload');
       const res = await req.send();
@@ -61,11 +61,11 @@ describe('FetchHttpStack', () => {
       expect(res.getHeader('Upload-Offset')).toBe('100');
       expect(res.getHeader('X-Nonexistent')).toBeUndefined();
 
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     test('abort causes send to throw', async () => {
-      jest.spyOn(globalThis, 'fetch').mockImplementation(
+      vi.spyOn(globalThis, 'fetch').mockImplementation(
         (_url, opts) =>
           new Promise((_resolve, reject) => {
             (opts as RequestInit).signal?.addEventListener('abort', () => {
@@ -80,16 +80,16 @@ describe('FetchHttpStack', () => {
 
       await expect(sendPromise).rejects.toThrow('Request aborted');
 
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     test('send rethrows non-abort errors', async () => {
-      jest.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network failure'));
+      vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network failure'));
 
       const req = stack.createRequest('POST', '/upload');
       await expect(req.send()).rejects.toThrow('Network failure');
 
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     test('getUnderlyingObject returns AbortController', () => {
@@ -117,10 +117,10 @@ describe('FetchHttpStack', () => {
       const mockResponse = new Response('hello');
       Object.defineProperty(mockResponse, 'body', { value: mockBody });
       // clone() needs to return the same mock body
-      jest.spyOn(mockResponse, 'clone').mockReturnValue(mockResponse);
-      jest.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse);
+      vi.spyOn(mockResponse, 'clone').mockReturnValue(mockResponse);
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse);
 
-      const progressHandler = jest.fn();
+      const progressHandler = vi.fn();
       const req = stack.createRequest('PATCH', '/upload');
       req.setProgressHandler(progressHandler);
 
@@ -129,7 +129,7 @@ describe('FetchHttpStack', () => {
       expect(progressHandler).toHaveBeenCalledWith(3); // first chunk
       expect(progressHandler).toHaveBeenCalledWith(5); // cumulative
 
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
   });
 });

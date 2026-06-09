@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/authorizations-core"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/authorizations-core/jest.config.cjs"
+        "command": "vitest run --project=authorizations-core",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=authorizations-core --coverage"
+        }
       }
     },
     "version": {

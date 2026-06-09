@@ -52,10 +52,22 @@ You are now ready to begin development in the repo!
 
 All new features should have a unit test added. The unit tests will run when you push your code. If you run the tests on your own the results will be cached. This means subsequent executions of `yarn test` will only run tests against code that has changed.
 
-Currently you cannot run all of the tests in watchmode. You can run watchmode for one package at a time. Here is an example for the `api-axios` package
+Run all tests:
 
 ```bash
-yarn nx test api-axios --watch
+yarn test
+```
+
+Run tests for a single package:
+
+```bash
+yarn nx test api-axios
+```
+
+Run tests in watch mode for a single package:
+
+```bash
+npx vitest --project=api-axios
 ```
 
 ### Linting

@@ -6,7 +6,7 @@ describe('AvLogMessagesApi', () => {
     api = new AvLogMessagesApi();
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -34,8 +34,8 @@ describe('AvLogMessagesApi', () => {
     const testEntries = { a: '1', b: '2' };
 
     beforeEach(() => {
-      api.send = jest.fn();
-      api.sendBeacon = jest.fn();
+      api.send = vi.fn();
+      api.sendBeacon = vi.fn();
     });
 
     test("debug should sendBeacon with level 'debug'", () => {

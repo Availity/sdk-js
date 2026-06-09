@@ -1,6 +1,6 @@
 import AvSettings from '../settings';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 const testAppId = 'testApplicationId';
 
@@ -8,14 +8,14 @@ const mockUser = {
   id: 'mockUserId',
 };
 const mockAvUsers = {
-  me: jest.fn(() => Promise.resolve(mockUser)),
+  me: vi.fn(() => Promise.resolve(mockUser)),
 };
 
 describe('AvSettings', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('AvSettings', () => {
 
   describe('getApplication', () => {
     beforeEach(() => {
-      api.query = jest.fn();
+      api.query = vi.fn();
     });
     test('should call avUsers.me and use in query', async () => {
       const expectedQuery = {
@@ -71,7 +71,7 @@ describe('AvSettings', () => {
 
   describe('setApplication', () => {
     beforeEach(() => {
-      api.update = jest.fn();
+      api.update = vi.fn();
     });
 
     test('should add applicationId and user.me to scope', async () => {

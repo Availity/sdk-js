@@ -7,7 +7,7 @@ describe('AvPdfApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -23,7 +23,7 @@ describe('AvPdfApi', () => {
   });
 
   test('should call onPdf() when pdf completes', async () => {
-    api.onPdf = jest.fn();
+    api.onPdf = vi.fn();
 
     const response = {
       data: {
@@ -35,7 +35,7 @@ describe('AvPdfApi', () => {
       },
     };
 
-    api.post = jest.fn(() => response);
+    api.post = vi.fn(() => response);
     await api.getPdf({ html: 'hi', applicationId: 'foo', fileName: 'test' });
     expect(api.onPdf).toHaveBeenCalled();
   });

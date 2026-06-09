@@ -38,8 +38,9 @@
     "dev": "tsup src/index.js --format esm --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "clean": "rm -rf node_modules && rm -rf dist",
-    "publish": "yarn npm publish --tolerate-republish --access public"
+    "clean": "rm -rf dist",
+    "publish": "yarn npm publish --tolerate-republish --access public",
+    "test": "vitest run"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

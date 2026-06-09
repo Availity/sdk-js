@@ -1,6 +1,6 @@
 import AvFilesDelivery from '../filesDelivery';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 const mockConfig = {
   clientId: '123-456',
@@ -11,7 +11,7 @@ describe('AvFileDelivery', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -67,7 +67,7 @@ describe('AvFileDelivery', () => {
       ],
     };
 
-    api.create = jest.fn();
+    api.create = vi.fn();
     api.uploadFilesDelivery(data, mockConfig);
     expect(api.create).toHaveBeenLastCalledWith(data, api.config(mockConfig));
   });

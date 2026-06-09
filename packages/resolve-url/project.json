@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/resolve-url"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/resolve-url/jest.config.cjs"
+        "command": "vitest run --project=resolve-url",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=resolve-url --coverage"
+        }
       }
     },
     "version": {

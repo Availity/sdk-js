@@ -7,7 +7,7 @@ describe('AvProvidersApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('AvProvidersApi should be defined', () => {
@@ -19,7 +19,7 @@ describe('AvProvidersApi', () => {
   });
 
   test('getProviders should query with customerId param added', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const customerId = 'testCustomerId';
     const testConfig = {
@@ -34,7 +34,7 @@ describe('AvProvidersApi', () => {
   });
 
   test('getProviders should handle undefined config param', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const customerId = 'testCustomerId';
     const expectedConfig = { params: { customerId } };

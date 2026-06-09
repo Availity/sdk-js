@@ -12,7 +12,7 @@ describe('AvFileDelivery', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -58,7 +58,7 @@ describe('AvFileDelivery', () => {
       ],
     };
 
-    api.create = jest.fn();
+    api.create = vi.fn();
     await api.uploadFilesDelivery(data, mockConfig);
 
     const conf = api.config(mockConfig);

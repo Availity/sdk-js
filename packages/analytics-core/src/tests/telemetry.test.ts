@@ -1,16 +1,16 @@
 import { AvTelemetryAnalytics } from '..';
 
 describe('AvTelemetryAnalytics', () => {
-  let mockLog: { info: jest.Mock; test: jest.Mock; debug: jest.Mock; warn: jest.Mock; error: jest.Mock };
+  let mockLog: { info: vi.Mock; test: vi.Mock; debug: vi.Mock; warn: vi.Mock; error: vi.Mock };
   let mockAvTelemetryAnalytics: AvTelemetryAnalytics;
 
   beforeEach(() => {
     mockLog = {
-      info: jest.fn(),
-      test: jest.fn(),
-      debug: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn(),
+      info: vi.fn(),
+      test: vi.fn(),
+      debug: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
     };
 
     mockAvTelemetryAnalytics = new AvTelemetryAnalytics(mockLog, false, 'testApp', 'AVOSS@availity.com', '555', '1234');
@@ -89,7 +89,7 @@ describe('AvTelemetryAnalytics', () => {
 
   test("trackPageView should call trackEvent with event 'page' and passed in url", () => {
     const testUrl = 'testUrl';
-    mockAvTelemetryAnalytics.trackEvent = jest.fn();
+    mockAvTelemetryAnalytics.trackEvent = vi.fn();
     mockAvTelemetryAnalytics.trackPageView(testUrl);
     expect(mockAvTelemetryAnalytics.trackEvent).toHaveBeenCalledWith({
       action: 'load',

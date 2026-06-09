@@ -4,6 +4,8 @@
 .yarn
 
 coverage
+vitest.*.ts
+**/vitest.config.ts
 
 /**/.docusaurus
 /**/build

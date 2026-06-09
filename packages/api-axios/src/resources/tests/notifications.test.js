@@ -7,7 +7,7 @@ describe('AvNotificationsApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -19,7 +19,7 @@ describe('AvNotificationsApi', () => {
   });
 
   test('deleteByTopic() should call remove with topic added to params.topicId', async () => {
-    api.remove = jest.fn();
+    api.remove = vi.fn();
 
     const topic = 'test delete topic';
     const expectedConfig = { params: { topicId: topic } };

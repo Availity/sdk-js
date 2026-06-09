@@ -1,14 +1,14 @@
 import { avLogMessagesApiV2 } from '@availity/api-axios';
 import { AvDmaAnalytics } from '..';
 
-jest.mock('@availity/api-axios');
+vi.mock('@availity/api-axios');
 
 describe('AvSplunkAnalytics', () => {
   let mockAvSplunkAnalytics: AvDmaAnalytics;
 
   beforeEach(() => {
-    avLogMessagesApiV2.sendBeacon = jest.fn();
-    // avLogMessagesApiV2.info = jest.fn;
+    avLogMessagesApiV2.sendBeacon = vi.fn();
+    // avLogMessagesApiV2.info = vi.fn;
     mockAvSplunkAnalytics = new AvDmaAnalytics(avLogMessagesApiV2);
   });
 

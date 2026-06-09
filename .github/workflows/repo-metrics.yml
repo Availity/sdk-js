@@ -70,7 +70,7 @@ jobs:
           echo "Code Coverage Report:" >> metrics.txt
           jq -r '
             (.total | to_entries[] | "\(.key): \(.value)")
-          ' coverage/coverage-final.json >> metrics.txt
+          ' coverage/coverage-summary.json >> metrics.txt
       - name: Print Repo Metrics Report
         run: |
           echo "$OWNER $REPO Repo Metrics"

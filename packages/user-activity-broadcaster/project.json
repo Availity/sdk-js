@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/user-activity-broadcaster"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/user-activity-broadcaster/jest.config.cjs"
+        "command": "vitest run --project=user-activity-broadcaster",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=user-activity-broadcaster --coverage"
+        }
       }
     },
     "version": {

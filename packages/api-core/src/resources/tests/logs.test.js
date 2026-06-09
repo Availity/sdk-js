@@ -1,11 +1,11 @@
 import AvLogMessages from '../logs';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvLogMessages', () => {
   let api;
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -31,8 +31,8 @@ describe('AvLogMessages', () => {
 
     beforeEach(() => {
       api = new AvLogMessages({ http: mockHttp });
-      api.send = jest.fn();
-      api.sendBeacon = jest.fn();
+      api.send = vi.fn();
+      api.sendBeacon = vi.fn();
     });
 
     test("debug should sendBeacon with level 'debug'", () => {

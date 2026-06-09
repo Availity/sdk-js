@@ -2,13 +2,13 @@ import AvRegionsApi from '../regions';
 import { avUserApi } from '../user';
 import server from '../../../mocks/server';
 
-jest.mock('../user');
+vi.mock('../user');
 
 const mockUser = {
   id: 'mockUserId',
 };
 
-avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
+avUserApi.me = vi.fn(() => Promise.resolve(mockUser));
 
 describe('AvRegionsApi', () => {
   let api;
@@ -18,7 +18,7 @@ describe('AvRegionsApi', () => {
     api = new AvRegionsApi();
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     server.resetHandlers();
   });
   afterAll(() => server.close());
@@ -34,8 +34,8 @@ describe('AvRegionsApi', () => {
   test('afterUpdate should call setPageBust and return response', async () => {
     const region = 'FL';
 
-    api.setPageBust = jest.fn();
-    api.http = jest.fn().mockResolvedValue({ data: { id: region } });
+    api.setPageBust = vi.fn();
+    api.http = vi.fn().mockResolvedValue({ data: { id: region } });
 
     const resp = await api.put(region);
 
@@ -44,7 +44,7 @@ describe('AvRegionsApi', () => {
   });
 
   test('getRegions should call avUsers.me() and then query with result', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const testConfig = {
       name: 'testName',
@@ -58,7 +58,7 @@ describe('AvRegionsApi', () => {
   });
 
   test('getRegions should skip call to avUsers.me() if a userId is provided', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const testConfig = {
       name: 'testName',
@@ -70,7 +70,7 @@ describe('AvRegionsApi', () => {
   });
 
   test('getRegions should handle undefined config param', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const expectedConfig = { params: { userId: mockUser.id } };
     await api.getRegions();
@@ -78,7 +78,7 @@ describe('AvRegionsApi', () => {
   });
 
   test('getCurrent region should query with param currentlySelected: true', () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
     const expectedConfig = {
       params: {
         currentlySelected: true,
@@ -89,7 +89,7 @@ describe('AvRegionsApi', () => {
   });
 
   test('should get correct result when all() is called', async () => {
-    api.query = jest.fn(() =>
+    api.query = vi.fn(() =>
       Promise.resolve({
         status: 200,
         data: {

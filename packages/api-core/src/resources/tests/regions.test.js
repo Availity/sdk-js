@@ -1,19 +1,19 @@
 import AvRegions from '../regions';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 const mockUser = {
   id: 'mockUserId',
 };
 const mockAvUsers = {
-  me: jest.fn(() => Promise.resolve(mockUser)),
+  me: vi.fn(() => Promise.resolve(mockUser)),
 };
 
 describe('AvRegions', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -40,7 +40,7 @@ describe('AvRegions', () => {
       promise: Promise,
       avUsers: mockAvUsers,
     });
-    api.setPageBust = jest.fn();
+    api.setPageBust = vi.fn();
     const testResponse1 = {};
     const regions = ['testRegion'];
     const testResponse2 = {
@@ -67,7 +67,7 @@ describe('AvRegions', () => {
       promise: Promise,
       avUsers: mockAvUsers,
     });
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const testConfig = {
       name: 'testName',
@@ -85,7 +85,7 @@ describe('AvRegions', () => {
       promise: Promise,
       avUsers: mockAvUsers,
     });
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const testConfig = {
       name: 'testName',
@@ -103,7 +103,7 @@ describe('AvRegions', () => {
       promise: Promise,
       avUsers: mockAvUsers,
     });
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const expectedConfig = { params: { userId: mockUser.id } };
     await api.getRegions();
@@ -116,7 +116,7 @@ describe('AvRegions', () => {
       promise: Promise,
       avUsers: mockAvUsers,
     });
-    api.query = jest.fn();
+    api.query = vi.fn();
     const expectedConfig = {
       params: {
         currentlySelected: true,

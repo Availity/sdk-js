@@ -1,10 +1,9 @@
-/* eslint-disable jest/no-conditional-expect */ // TODO: refactor
 import AvApi from '../api';
 
-jest.useFakeTimers();
-jest.spyOn(global, 'setTimeout');
+vi.useFakeTimers();
+vi.spyOn(global, 'setTimeout');
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvApi', () => {
   afterEach(() => {
@@ -14,7 +13,7 @@ describe('AvApi', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('AvApi should be defined', () => {
@@ -63,11 +62,11 @@ describe('AvApi', () => {
       name: 'testName',
     };
     api = new AvApi({ http: mockHttp, ...mockConfig });
-    api.query = jest.fn();
+    api.query = vi.fn();
     const offset = 50;
     const originalConfig = {};
     const newConfig = {};
-    api.addParams = jest.fn(({ offset }, config, create) => {
+    api.addParams = vi.fn(({ offset }, config, create) => {
       expect(offset).toBe(0);
       expect(config).toBe(originalConfig);
       expect(create).toBeFalsy();
@@ -111,15 +110,15 @@ describe('AvApi', () => {
     test('should call and return default function when passed in value true', () => {
       const testCache = true;
       const testResponse = 'test';
-      const defaultFn = jest.fn(() => testResponse);
+      const defaultFn = vi.fn(() => testResponse);
       expect(api.getCacheBustVal(testCache, defaultFn)).toBe(testResponse);
       expect(defaultFn).toHaveBeenCalled();
     });
 
     test('should call and return passed in function', () => {
       const testResponse = 'test';
-      const testCache = jest.fn(() => testResponse);
-      const defaultFn = jest.fn(() => `${testResponse}2`);
+      const testCache = vi.fn(() => testResponse);
+      const defaultFn = vi.fn(() => `${testResponse}2`);
       expect(api.getCacheBustVal(testCache, defaultFn)).toBe(testResponse);
       expect(testCache).toHaveBeenCalled();
       expect(defaultFn).not.toHaveBeenCalled();
@@ -136,7 +135,7 @@ describe('AvApi', () => {
   test('setPageBust() should use Date.now()', () => {
     api = new AvApi({ http: mockHttp });
     const test = 'test';
-    Date.now = jest.fn(() => test);
+    Date.now = vi.fn(() => test);
     api.setPageBust();
     expect(api.pageBustValue).toBe(test);
     expect(Date.now).toHaveBeenCalled();
@@ -152,7 +151,7 @@ describe('AvApi', () => {
   test('getPageBust() should set pageBustValue() if not set yet', () => {
     api = new AvApi({ http: mockHttp });
     const test = 'test';
-    api.setPageBust = jest.fn(() => {
+    api.setPageBust = vi.fn(() => {
       api.pageBustValue = test;
     });
     expect(api.getPageBust()).toBe(test);
@@ -244,7 +243,7 @@ describe('AvApi', () => {
       const testConfig = {
         cacheBust: testBust,
       };
-      Date.now = jest.fn(() => testValue);
+      Date.now = vi.fn(() => testValue);
       api.cacheParams(testConfig);
       expect(testConfig.params.cacheBust).toBe(testValue);
       expect(Date.now).toHaveBeenCalled();
@@ -265,7 +264,7 @@ describe('AvApi', () => {
       const testConfig = {
         pageBust: testBust,
       };
-      api.getPageBust = jest.fn(() => testValue);
+      api.getPageBust = vi.fn(() => testValue);
       api.cacheParams(testConfig);
       expect(testConfig.params.pageBust).toBe(testValue);
       expect(api.getPageBust).toHaveBeenCalled();
@@ -451,7 +450,7 @@ describe('AvApi', () => {
 
     test('should call config.getHeader() when polling is available', () => {
       const testLocation = 'http://localhost/test';
-      const getHeader = jest.fn(() => testLocation);
+      const getHeader = vi.fn(() => testLocation);
       const testResponse = {
         config: {
           polling: true,
@@ -538,10 +537,10 @@ describe('AvApi', () => {
 
     beforeEach(() => {
       api = new AvApi({ http: mockHttp });
-      api.shouldPoll = jest.fn();
-      api.getLocation = jest.fn(() => testLocation);
-      api.request = jest.fn();
-      api.config = jest.fn(() => testNewConfig);
+      api.shouldPoll = vi.fn();
+      api.getLocation = vi.fn(() => testLocation);
+      api.request = vi.fn();
+      api.config = vi.fn(() => testNewConfig);
     });
 
     test('should return response if no polling or afterResponse', async () => {
@@ -561,18 +560,18 @@ describe('AvApi', () => {
         otherKey: 'test2',
       };
       api.getLocation.mockImplementationOnce(() => false);
-      const afterResponse = jest.fn(() => testResponse2);
+      const afterResponse = vi.fn(() => testResponse2);
       expect(await api.onResponse(testResponse, afterResponse)).toEqual(testResponse2);
       expect(api.request).not.toHaveBeenCalled();
       expect(afterResponse).toHaveBeenCalledWith(testResponse);
     });
 
     test('should request when polling', async () => {
-      api.shouldPoll = jest.fn(() => true);
-      api.getLocation = jest.fn(() => testLocation);
+      api.shouldPoll = vi.fn(() => true);
+      api.getLocation = vi.fn(() => testLocation);
 
       const mockAfterResponse = { testKey: 'after' };
-      const afterResponse = jest.fn(() => mockAfterResponse);
+      const afterResponse = vi.fn(() => mockAfterResponse);
 
       const mockConfig = {
         testVal: 'test',
@@ -586,7 +585,7 @@ describe('AvApi', () => {
         return true;
       });
 
-      jest.runAllTimers();
+      vi.runAllTimers();
       return output;
     });
   });
@@ -596,7 +595,7 @@ describe('AvApi', () => {
 
     beforeEach(() => {
       api = new AvApi({ http: mockHttp });
-      api.onResponse = jest.fn(() => mockFinalResponse);
+      api.onResponse = vi.fn(() => mockFinalResponse);
     });
 
     test('should call http', async () => {
@@ -626,7 +625,7 @@ describe('AvApi', () => {
   describe('request error', () => {
     beforeEach(() => {
       api = new AvApi({ http: mockHttp });
-      api.onResponse = jest.fn(() => {
+      api.onResponse = vi.fn(() => {
         throw new Error('boom!');
       });
     });
@@ -639,14 +638,14 @@ describe('AvApi', () => {
     const testUrl = 'url';
     beforeEach(() => {
       api = new AvApi({ http: mockHttp });
-      api.request = jest.fn(() =>
+      api.request = vi.fn(() =>
         Promise.resolve({
           data: { offset: 0, limit: 50, totalCount: 0, count: 0, list: [] },
         })
       );
-      api.cacheParams = jest.fn((config) => ({ ...config }));
-      api.config = jest.fn((config) => ({ ...config }));
-      api.getUrl = jest.fn(() => testUrl);
+      api.cacheParams = vi.fn((config) => ({ ...config }));
+      api.config = vi.fn((config) => ({ ...config }));
+      api.getUrl = vi.fn(() => testUrl);
     });
 
     test('create() setting method data and url', () => {
@@ -680,7 +679,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn((thisData) => thisData);
+      api.beforeCreate = vi.fn((thisData) => thisData);
       api.create(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -735,7 +734,7 @@ describe('AvApi', () => {
         ...config,
         data: 'testData=data',
       };
-      api.beforePostGet = jest.fn((thisData) => thisData);
+      api.beforePostGet = vi.fn((thisData) => thisData);
       api.postGet(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -809,7 +808,7 @@ describe('AvApi', () => {
         const config = {
           testValue: 'test',
         };
-        api.request = jest.fn((config) => {
+        api.request = vi.fn((config) => {
           if ((config.params && config.params.offset === 0) || !config.params) {
             return Promise.resolve({
               data: {
@@ -888,7 +887,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeUpdate = jest.fn((thisData) => thisData);
+      api.beforeUpdate = vi.fn((thisData) => thisData);
       api.update(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -907,7 +906,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeUpdate = jest.fn((thisData) => thisData);
+      api.beforeUpdate = vi.fn((thisData) => thisData);
       api.update(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -946,7 +945,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforePatch = jest.fn((thisData) => thisData);
+      api.beforePatch = vi.fn((thisData) => thisData);
       api.patch(id, data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, id);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -965,7 +964,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforePatch = jest.fn((thisData) => thisData);
+      api.beforePatch = vi.fn((thisData) => thisData);
       api.patch(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig, '');
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1009,7 +1008,7 @@ describe('AvApi', () => {
           b: '2',
         },
       };
-      api.beforeRemove = jest.fn((thisData) => thisData);
+      api.beforeRemove = vi.fn((thisData) => thisData);
       api.remove(config);
       expect(api.getUrl).toHaveBeenLastCalledWith(config, '');
       expect(api.request).toHaveBeenLastCalledWith(config, undefined);
@@ -1047,7 +1046,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn((thisData) => thisData);
+      api.beforeCreate = vi.fn((thisData) => thisData);
       api.sendBeacon(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.request).toHaveBeenLastCalledWith(expectedConfig, undefined);
@@ -1055,7 +1054,7 @@ describe('AvApi', () => {
     });
 
     test('sendBeacon() throws error without data', async () => {
-      navigator.sendBeacon = jest.fn(() => true);
+      navigator.sendBeacon = vi.fn(() => true);
       const config = {
         testValue: 'test',
       };
@@ -1064,7 +1063,7 @@ describe('AvApi', () => {
     });
 
     test('sendBeacon() sends beacon', async () => {
-      navigator.sendBeacon = jest.fn(() => true);
+      navigator.sendBeacon = vi.fn(() => true);
       const config = {
         testValue: 'test',
       };
@@ -1077,7 +1076,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn((thisData) => thisData);
+      api.beforeCreate = vi.fn((thisData) => thisData);
       const resp = await api.sendBeacon(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
@@ -1096,7 +1095,7 @@ describe('AvApi', () => {
     });
 
     test('sendBeacon() defaults to request when browser fails to queue request', async () => {
-      navigator.sendBeacon = jest.fn(() => false);
+      navigator.sendBeacon = vi.fn(() => false);
       const config = {
         testValue: 'test',
       };
@@ -1109,7 +1108,7 @@ describe('AvApi', () => {
         ...config,
         data,
       };
-      api.beforeCreate = jest.fn((thisData) => thisData);
+      api.beforeCreate = vi.fn((thisData) => thisData);
       api.sendBeacon(data, config);
       expect(api.getUrl).toHaveBeenLastCalledWith(expectedConfig);
       expect(api.beforeCreate).toHaveBeenLastCalledWith(data);
@@ -1129,10 +1128,10 @@ describe('AvApi', () => {
       const testUrl = 'url';
       beforeEach(() => {
         api = new AvApi({ http: mockHttp });
-        api.request = jest.fn(() => Promise.resolve({}));
-        api.cacheParams = jest.fn((config) => ({ ...config }));
-        api.config = jest.fn((config) => ({ ...config }));
-        api.getUrl = jest.fn(() => testUrl);
+        api.request = vi.fn(() => Promise.resolve({}));
+        api.cacheParams = vi.fn((config) => ({ ...config }));
+        api.config = vi.fn((config) => ({ ...config }));
+        api.getUrl = vi.fn(() => testUrl);
       });
 
       test('post() should delegate to create()', async () => {
@@ -1160,77 +1159,77 @@ describe('AvApi', () => {
       const testUrl = 'url';
       beforeEach(() => {
         api = new AvApi({ http: mockHttp });
-        api.request = jest.fn(() => Promise.resolve({}));
-        api.cacheParams = jest.fn((config) => ({ ...config }));
-        api.config = jest.fn((config) => ({ ...config }));
-        api.getUrl = jest.fn(() => testUrl);
+        api.request = vi.fn(() => Promise.resolve({}));
+        api.cacheParams = vi.fn((config) => ({ ...config }));
+        api.config = vi.fn((config) => ({ ...config }));
+        api.getUrl = vi.fn(() => testUrl);
       });
 
       test('get() should pass afterGet to request()', () => {
-        const afterGet = jest.fn();
+        const afterGet = vi.fn();
         api.afterGet = afterGet;
         api.get('id', {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterGet);
       });
 
       test('query() should pass afterQuery to request()', () => {
-        const afterQuery = jest.fn();
+        const afterQuery = vi.fn();
         api.afterQuery = afterQuery;
         api.query({});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterQuery);
       });
 
       test('postGet() should pass afterPostGet to request()', () => {
-        const afterPostGet = jest.fn();
+        const afterPostGet = vi.fn();
         api.afterPostGet = afterPostGet;
         api.postGet({ data: 'test' }, {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPostGet);
       });
 
       test('patch() should pass afterPatch to request()', () => {
-        const afterPatch = jest.fn();
+        const afterPatch = vi.fn();
         api.afterPatch = afterPatch;
         api.patch('id', { data: 'test' }, {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPatch);
       });
 
       test('update() should pass afterUpdate to request()', () => {
-        const afterUpdate = jest.fn();
+        const afterUpdate = vi.fn();
         api.afterUpdate = afterUpdate;
         api.update('id', { data: 'test' }, {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterUpdate);
       });
 
       test('update() should fall back to afterPut when afterUpdate is not defined', () => {
-        const afterPut = jest.fn();
+        const afterPut = vi.fn();
         api.afterPut = afterPut;
         api.update('id', { data: 'test' }, {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPut);
       });
 
       test('remove() should pass afterRemove to request()', () => {
-        const afterRemove = jest.fn();
+        const afterRemove = vi.fn();
         api.afterRemove = afterRemove;
         api.remove('id', {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterRemove);
       });
 
       test('remove() should fall back to afterDelete when afterRemove is not defined', () => {
-        const afterDelete = jest.fn();
+        const afterDelete = vi.fn();
         api.afterDelete = afterDelete;
         api.remove('id', {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterDelete);
       });
 
       test('create() should pass afterCreate to request()', () => {
-        const afterCreate = jest.fn();
+        const afterCreate = vi.fn();
         api.afterCreate = afterCreate;
         api.create({ data: 'test' }, {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterCreate);
       });
 
       test('create() should fall back to afterPost when afterCreate is not defined', () => {
-        const afterPost = jest.fn();
+        const afterPost = vi.fn();
         api.afterPost = afterPost;
         api.create({ data: 'test' }, {});
         expect(api.request).toHaveBeenLastCalledWith(expect.any(Object), afterPost);
@@ -1241,14 +1240,14 @@ describe('AvApi', () => {
       const testUrl = 'url';
       beforeEach(() => {
         api = new AvApi({ http: mockHttp });
-        api.request = jest.fn(() => Promise.resolve({}));
-        api.cacheParams = jest.fn((config) => ({ ...config }));
-        api.config = jest.fn((config) => ({ ...config }));
-        api.getUrl = jest.fn(() => testUrl);
+        api.request = vi.fn(() => Promise.resolve({}));
+        api.cacheParams = vi.fn((config) => ({ ...config }));
+        api.config = vi.fn((config) => ({ ...config }));
+        api.getUrl = vi.fn(() => testUrl);
       });
 
       test('create() should use beforePost when beforeCreate is not defined', () => {
-        const beforePost = jest.fn((d) => d);
+        const beforePost = vi.fn((d) => d);
         api.beforePost = beforePost;
         const data = { testData: 'data' };
         api.create(data, {});
@@ -1256,7 +1255,7 @@ describe('AvApi', () => {
       });
 
       test('update() should use beforePut when beforeUpdate is not defined', () => {
-        const beforePut = jest.fn((d) => d);
+        const beforePut = vi.fn((d) => d);
         api.beforePut = beforePut;
         const data = { testData: 'data' };
         api.update('id', data, {});
@@ -1264,7 +1263,7 @@ describe('AvApi', () => {
       });
 
       test('remove() should use beforeDelete when beforeRemove is not defined', () => {
-        const beforeDelete = jest.fn((c) => c);
+        const beforeDelete = vi.fn((c) => c);
         api.beforeDelete = beforeDelete;
         api.remove({ testValue: 'test' });
         expect(beforeDelete).toHaveBeenCalled();
@@ -1272,7 +1271,7 @@ describe('AvApi', () => {
 
       test('sendBeacon() should use beforePost when beforeCreate is not defined', () => {
         navigator.sendBeacon = undefined;
-        const beforePost = jest.fn((d) => d);
+        const beforePost = vi.fn((d) => d);
         api.beforePost = beforePost;
         const data = new FormData();
         data.append('test', 'value');
@@ -1285,10 +1284,10 @@ describe('AvApi', () => {
       const testUrl = 'url';
       beforeEach(() => {
         api = new AvApi({ http: mockHttp });
-        api.request = jest.fn(() => Promise.resolve({}));
-        api.cacheParams = jest.fn((config) => ({ ...config }));
-        api.config = jest.fn((config) => ({ ...config }));
-        api.getUrl = jest.fn(() => testUrl);
+        api.request = vi.fn(() => Promise.resolve({}));
+        api.cacheParams = vi.fn((config) => ({ ...config }));
+        api.config = vi.fn((config) => ({ ...config }));
+        api.getUrl = vi.fn(() => testUrl);
       });
 
       test('should not stringify data when Content-Type is not application/x-www-form-urlencoded', () => {
@@ -1311,9 +1310,9 @@ describe('AvApi', () => {
     describe('onResponse edge cases', () => {
       test('should return response when shouldPoll is true but getLocation returns falsy', async () => {
         api = new AvApi({ http: mockHttp });
-        api.shouldPoll = jest.fn(() => true);
-        api.getLocation = jest.fn(() => '');
-        api.request = jest.fn();
+        api.shouldPoll = vi.fn(() => true);
+        api.getLocation = vi.fn(() => '');
+        api.request = vi.fn();
 
         const testResponse = { config: {}, data: 'test' };
         const result = await api.onResponse(testResponse);
@@ -1324,12 +1323,12 @@ describe('AvApi', () => {
 
       test('should call afterResponse when shouldPoll is true but getLocation returns falsy', async () => {
         api = new AvApi({ http: mockHttp });
-        api.shouldPoll = jest.fn(() => true);
-        api.getLocation = jest.fn(() => '');
-        api.request = jest.fn();
+        api.shouldPoll = vi.fn(() => true);
+        api.getLocation = vi.fn(() => '');
+        api.request = vi.fn();
 
         const testResponse = { config: {}, data: 'test' };
-        const afterResponse = jest.fn(() => 'transformed');
+        const afterResponse = vi.fn(() => 'transformed');
         const result = await api.onResponse(testResponse, afterResponse);
 
         expect(result).toBe('transformed');

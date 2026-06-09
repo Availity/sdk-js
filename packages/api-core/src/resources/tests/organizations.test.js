@@ -1,6 +1,6 @@
 import AvOrganizations from '../organizations';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 const mockUser = {
   id: 'mockUserId',
@@ -110,17 +110,17 @@ const mockPermissions = {
 };
 
 const mockAvUsers = {
-  me: jest.fn(() => Promise.resolve(mockUser)),
+  me: vi.fn(() => Promise.resolve(mockUser)),
 };
 const mockAvUserPermissions = {
-  postGet: jest.fn(() => Promise.resolve(mockPermissions)),
+  postGet: vi.fn(() => Promise.resolve(mockPermissions)),
 };
 
 describe('AvOrganizations', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('without additionalPostGetArgs', () => {
@@ -147,7 +147,7 @@ describe('AvOrganizations', () => {
         promise: Promise,
         avUsers: mockAvUsers,
       });
-      api.query = jest.fn();
+      api.query = vi.fn();
 
       const userId = 'testUserId';
       const user = { id: userId };
@@ -168,7 +168,7 @@ describe('AvOrganizations', () => {
         promise: Promise,
         avUsers: mockAvUsers,
       });
-      api.query = jest.fn();
+      api.query = vi.fn();
       const userId = 'testUserId';
       const user = { id: userId };
       const expectedConfig = { params: { userId } };
@@ -190,7 +190,7 @@ describe('AvOrganizations', () => {
         promise: Promise,
         avUsers: mockAvUsers,
       });
-      api.queryOrganizations = jest.fn();
+      api.queryOrganizations = vi.fn();
 
       const testConfig = { name: 'testName' };
 
@@ -204,8 +204,8 @@ describe('AvOrganizations', () => {
         promise: Promise,
         avUsers: mockAvUsers,
       });
-      api.queryOrganizations = jest.fn();
-      api.query = jest.fn();
+      api.queryOrganizations = vi.fn();
+      api.query = vi.fn();
 
       const testConfig = { name: 'testName', params: { userId: 'bmoolenaar' } };
 

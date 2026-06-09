@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/native-form"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/native-form/jest.config.cjs"
+        "command": "vitest run --project=native-form",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=native-form --coverage"
+        }
       }
     },
     "version": {

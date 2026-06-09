@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/relay-id"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/relay-id/jest.config.cjs"
+        "command": "vitest run --project=relay-id",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=relay-id --coverage"
+        }
       }
     },
     "version": {
