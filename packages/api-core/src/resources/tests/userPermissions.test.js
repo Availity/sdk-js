@@ -1,12 +1,12 @@
 import AvUserPermissions from '../userPermissions';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvUserPermissions', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -37,7 +37,7 @@ describe('AvUserPermissions', () => {
 
   test('getPermissions should query with permissionId and region params from arguments', () => {
     api = new AvUserPermissions({ http: mockHttp });
-    api.query = jest.fn();
+    api.query = vi.fn();
     const permissionId = 'testPermissionId';
     const region = 'testRegion';
     const expectedConfig = { params: { permissionId, region } };

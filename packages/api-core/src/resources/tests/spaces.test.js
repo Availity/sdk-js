@@ -1,8 +1,8 @@
 import AvSpaces from '../spaces';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
-const get = jest.fn(() =>
+const get = vi.fn(() =>
   Promise.resolve({
     status: 200,
     data: {
@@ -15,7 +15,7 @@ describe('AvSpaces', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   beforeEach(() => {

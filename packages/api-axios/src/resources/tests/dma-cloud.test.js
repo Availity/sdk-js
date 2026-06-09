@@ -7,7 +7,7 @@ describe('AvLogMessagesApiV3', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   test('should be defined', () => {
     expect(api).toBeDefined();

@@ -37,9 +37,10 @@
     "dev": "tsup src/index.ts --format esm --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "clean": "rm -rf node_modules && rm -rf dist",
+    "clean": "rm -rf dist",
     "publish": "yarn npm publish --tolerate-republish --access public",
-    "publish:canary": "yarn npm publish --access public --tag canary"
+    "publish:canary": "yarn npm publish --access public --tag canary",
+    "test": "vitest run"
   },
   "dependencies": {
     "@availity/resolve-url": "workspace:*",

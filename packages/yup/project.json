@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/yup"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/yup/jest.config.cjs"
+        "command": "vitest run --project=yup",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=yup --coverage"
+        }
       }
     },
     "version": {

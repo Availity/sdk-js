@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-commented-out-tests */
 /* eslint-disable unicorn/consistent-function-scoping */
 import AvMessage from './AvMessage';
 
@@ -48,8 +47,8 @@ describe('AvMessage', () => {
     test('onMessage should call all subscribers for event', () => {
       const testEvent = 'testEvent';
       const testEventSubscribers = [
-        { id: 1, callback: jest.fn(), options: { ignoreSameWindow: false } },
-        { id: 2, callback: jest.fn(), options: { ignoreSameWindow: true } },
+        { id: 1, callback: vi.fn(), options: { ignoreSameWindow: false } },
+        { id: 2, callback: vi.fn(), options: { ignoreSameWindow: true } },
       ];
       avMessage.subscribers = {
         [testEvent]: testEventSubscribers,
@@ -156,10 +155,10 @@ describe('AvMessage', () => {
     };
 
     beforeEach(() => {
-      spyParse = jest.spyOn(JSON, 'parse');
+      spyParse = vi.spyOn(JSON, 'parse');
       // avMessage.isEnabled = true;
-      // avMessage.onMessage = jest.fn();
-      avMessage.isDomain = jest.fn().mockImplementation(() => true);
+      // avMessage.onMessage = vi.fn();
+      avMessage.isDomain = vi.fn().mockImplementation(() => true);
     });
 
     afterEach(() => {
@@ -169,7 +168,7 @@ describe('AvMessage', () => {
 
     test('should return early when AvMessages not enabled', () => {
       avMessage.isEnabled = false;
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       avMessage.getEventData(mockEvent);
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).not.toHaveBeenCalled();
@@ -177,7 +176,7 @@ describe('AvMessage', () => {
     });
 
     test('should return early when event does not have all fields', () => {
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       const mockEvent1 = { ...mockEvent, data: false };
       const mockEvent2 = { ...mockEvent, origin: false };
       const mockEvent3 = { ...mockEvent, source: false };
@@ -190,7 +189,7 @@ describe('AvMessage', () => {
     });
 
     test('should not call callbacks (by default) when event source is same window', () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       avMessage.subscribe('test event name', callback);
       const testEvent = { ...mockEvent, data: { event: 'test event name', data: 'foo-bla' }, source: window };
       avMessage.getEventData(testEvent);
@@ -198,7 +197,7 @@ describe('AvMessage', () => {
     });
 
     test('should call callbacks when event source is same window and `ignoreSameWindow` is false', () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       avMessage.subscribe('test event name', callback, { ignoreSameWindow: false });
       const testEvent = { ...mockEvent, data: { event: 'test event name', data: 'foo-bla' }, source: window };
       avMessage.getEventData(testEvent);
@@ -206,7 +205,7 @@ describe('AvMessage', () => {
     });
 
     test('should return early when event origin is not in domain', () => {
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       avMessage.isDomain.mockImplementationOnce(() => false);
       avMessage.getEventData(mockEvent);
       expect(spyParse).not.toHaveBeenCalled();
@@ -215,14 +214,14 @@ describe('AvMessage', () => {
     });
 
     test('should call onMessage when there are no blockers', () => {
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       avMessage.getEventData(mockEvent);
       expect(avMessage.isDomain).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalled();
     });
 
     test('if data is string should attempt to parse it', () => {
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       avMessage.getEventData(mockEvent);
       expect(spyParse).toHaveBeenCalled();
       expect(avMessage.isDomain).toHaveBeenCalled();
@@ -230,7 +229,7 @@ describe('AvMessage', () => {
     });
 
     test('if data is not string should not attempt to parse it', () => {
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       avMessage.getEventData({ ...mockEvent, data: 10 });
       expect(spyParse).not.toHaveBeenCalled();
       expect(avMessage.isDomain).toHaveBeenCalled();
@@ -238,7 +237,7 @@ describe('AvMessage', () => {
     });
 
     test('should call onMessage with event as data if its a string', () => {
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       spyParse.mockRestore();
       avMessage.getEventData(mockEvent);
       expect(avMessage.isDomain).toHaveBeenCalled();
@@ -247,7 +246,7 @@ describe('AvMessage', () => {
 
     test('should call onMessage with default event if data is object without event param', () => {
       spyParse.mockRestore();
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       const testData = { value: 'hello' };
       avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
       expect(avMessage.isDomain).toHaveBeenCalled();
@@ -256,7 +255,7 @@ describe('AvMessage', () => {
 
     test('should call onMessage with event from data object param', () => {
       spyParse.mockRestore();
-      avMessage.onMessage = jest.fn();
+      avMessage.onMessage = vi.fn();
       const testEvent = 'testEvent';
       const testData = { value: 'hello', event: testEvent };
       avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
@@ -403,7 +402,7 @@ describe('AvMessage', () => {
 
   test("isDomain should return true if domain() doesn't match regex", () => {
     const testDomain = 'hello';
-    avMessage.domain = jest.fn(() => testDomain);
+    avMessage.domain = vi.fn(() => testDomain);
     avMessage.DOMAIN = /world/;
     expect(avMessage.DOMAIN.test(testDomain)).toBeFalsy();
     expect(avMessage.isDomain('test')).toBeTruthy();
@@ -411,7 +410,7 @@ describe('AvMessage', () => {
 
   test('isDomain should return if passed in url matches regex if domain() does', () => {
     const testDomain = 'hello';
-    avMessage.domain = jest.fn(() => testDomain);
+    avMessage.domain = vi.fn(() => testDomain);
     avMessage.DOMAIN = /hello/;
     expect(avMessage.DOMAIN.test(testDomain)).toBeTruthy();
     expect(avMessage.DOMAIN.test(avMessage.domain())).toBeTruthy();
@@ -422,17 +421,17 @@ describe('AvMessage', () => {
   describe('send', () => {
     const testDomain = 'testDomain';
     const mockTarget = {
-      postMessage: jest.fn(),
+      postMessage: vi.fn(),
     };
 
     beforeEach(() => {
-      avMessage.domain = jest.fn(() => testDomain);
+      avMessage.domain = vi.fn(() => testDomain);
       avMessage.isEnabled = true;
       mockTarget.postMessage.mockClear();
     });
 
     test('should return when not enabled', () => {
-      const spyParse = jest.spyOn(JSON, 'stringify');
+      const spyParse = vi.spyOn(JSON, 'stringify');
       avMessage.isEnabled = false;
       avMessage.send('something');
       expect(spyParse).not.toHaveBeenCalled();
@@ -441,7 +440,7 @@ describe('AvMessage', () => {
     });
 
     test('should return when no message given', () => {
-      const spyParse = jest.spyOn(JSON, 'stringify');
+      const spyParse = vi.spyOn(JSON, 'stringify');
       avMessage.send();
       expect(spyParse).not.toHaveBeenCalled();
       spyParse.mockRestore();

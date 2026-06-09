@@ -1,12 +1,14 @@
-/* eslint-disable jest/no-conditional-expect */
 import MockDate from 'mockdate';
 import { fromError } from 'stacktrace-js';
 
 import AvExceptions from '.';
 
-jest.mock('stacktrace-js');
-jest.useFakeTimers();
-jest.spyOn(global, 'setTimeout');
+vi.mock('stacktrace-js', () => {
+  const fromError = vi.fn();
+  return { default: { fromError }, fromError };
+});
+vi.useFakeTimers();
+vi.spyOn(global, 'setTimeout');
 
 global.APP_VERSION = false;
 
@@ -15,8 +17,8 @@ describe('AvExceptions', () => {
   let mockExceptions;
 
   beforeEach(() => {
-    // mockLog = jest.fn(console.log.bind(console)); // eslint-disable-line no-console
-    mockLog = jest.fn();
+    // mockLog = vi.fn(console.log.bind(console)); // eslint-disable-line no-console
+    mockLog = vi.fn();
     fromError.mockResolvedValue([
       {
         columnNumber: 15,
@@ -42,7 +44,7 @@ describe('AvExceptions', () => {
 
   test('onReport should call onError', () => {
     mockExceptions = new AvExceptions(mockLog);
-    mockExceptions.onError = jest.fn();
+    mockExceptions.onError = vi.fn();
     const testError = 'error';
     mockExceptions.onReport(testError);
     expect(mockExceptions.onError).toHaveBeenCalledWith(testError);
@@ -103,14 +105,14 @@ describe('AvExceptions', () => {
   describe('repeatTimer', () => {
     beforeEach(() => {
       mockExceptions = new AvExceptions(mockLog);
-      mockExceptions.onError = jest.fn(() => {
+      mockExceptions.onError = vi.fn(() => {
         mockExceptions.errorMessageHistory = {};
       });
     });
 
     afterEach(() => {
-      jest.clearAllTimers();
-      jest.clearAllMocks();
+      vi.clearAllTimers();
+      vi.clearAllMocks();
     });
 
     test('should set isRepeating to false if currentHits <= 0', () => {
@@ -118,7 +120,7 @@ describe('AvExceptions', () => {
       mockExceptions.repeatTimer(testMessage);
       expect(setTimeout).toHaveBeenCalledTimes(1);
       expect(setTimeout.mock.calls[0][1]).toBe(mockExceptions.REPEAT_LIMIT);
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
       expect(mockExceptions.errorMessageHistory[testMessage].isRepeating).toBe(false);
       expect(mockExceptions.onError).not.toHaveBeenCalled();
     });
@@ -135,8 +137,8 @@ describe('AvExceptions', () => {
       mockExceptions.repeatTimer(testMessage);
       expect(setTimeout).toHaveBeenCalledTimes(1);
       expect(setTimeout.mock.calls[0][1]).toBe(mockExceptions.REPEAT_LIMIT);
-      mockExceptions.repeatTimer = jest.fn();
-      jest.runOnlyPendingTimers();
+      mockExceptions.repeatTimer = vi.fn();
+      vi.runOnlyPendingTimers();
       expect(mockExceptions.onError).toHaveBeenCalledWith(testException, true);
       expect(mockExceptions.repeatTimer).toHaveBeenCalled();
     });
@@ -147,9 +149,9 @@ describe('AvExceptions', () => {
 
     beforeEach(() => {
       mockExceptions = new AvExceptions(mockLog);
-      mockExceptions.isRepeatError = jest.fn(() => true);
-      mockExceptions.isBlacklisted = jest.fn(() => false);
-      mockExceptions.prettyPrint = jest.fn(() => 'prettyPrint');
+      mockExceptions.isRepeatError = vi.fn(() => true);
+      mockExceptions.isBlacklisted = vi.fn(() => false);
+      mockExceptions.prettyPrint = vi.fn(() => 'prettyPrint');
       MockDate.set(new Date());
 
       try {
@@ -268,7 +270,7 @@ describe('AvExceptions', () => {
               testMessage: 'hello',
               testName: 'world',
             };
-            mockExceptions.errorMessage = jest.fn(() => mockErrorMessage);
+            mockExceptions.errorMessage = vi.fn(() => mockErrorMessage);
             expectedCall = { ...message, ...mockErrorMessage };
             return mockExceptions.onError(exception);
           })
@@ -281,15 +283,15 @@ describe('AvExceptions', () => {
       }));
 
     test('should return early if isBlacklisted is true', () => {
-      mockExceptions.isBlacklisted = jest.fn(() => true);
-      mockExceptions.isRepeatError = jest.fn(() => false);
+      mockExceptions.isBlacklisted = vi.fn(() => true);
+      mockExceptions.isRepeatError = vi.fn(() => false);
       expect(mockExceptions.onError(exception)).toBeUndefined();
       expect(mockExceptions.isBlacklisted).toHaveBeenCalled();
     });
 
     test('should send exception if repeat and blacklist is false', () => {
-      mockExceptions.isBlacklisted = jest.fn(() => false);
-      mockExceptions.isRepeatError = jest.fn(() => false);
+      mockExceptions.isBlacklisted = vi.fn(() => false);
+      mockExceptions.isRepeatError = vi.fn(() => false);
       expect(mockExceptions.onError(exception)).toBeDefined();
       expect(mockExceptions.isBlacklisted).toHaveBeenCalled();
     });

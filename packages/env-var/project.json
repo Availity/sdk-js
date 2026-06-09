@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/env-var"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/env-var/jest.config.cjs"
+        "command": "vitest run --project=env-var",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=env-var --coverage"
+        }
       }
     },
     "version": {

@@ -3,7 +3,7 @@ import { avWebQLApi } from '@availity/api-axios';
 import nativeForm from '..';
 import flattenObject from '../flattenObject';
 
-jest.mock('@availity/api-axios');
+vi.mock('@availity/api-axios');
 
 describe('nativeForm', () => {
   const complexObject = {
@@ -43,7 +43,7 @@ describe('nativeForm', () => {
 
   describe('default export', () => {
     beforeEach(() => {
-      window.HTMLFormElement.prototype.submit = jest.fn();
+      window.HTMLFormElement.prototype.submit = vi.fn();
     });
 
     afterEach(() => {
@@ -137,7 +137,7 @@ describe('nativeForm', () => {
           for (const key of Object.keys(flat)) {
             const name = key.replaceAll(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
-            expect(document.querySelectorAll(`[name="${name}"`)[count[name]]).not.toBeNull();
+            expect(document.querySelectorAll(`[name="${CSS.escape(name)}"]`)[count[name]]).not.toBeNull();
             count[name] += 1;
           }
         });
@@ -151,7 +151,7 @@ describe('nativeForm', () => {
             const name = key.replaceAll(/\[\d+]/g, '[]');
             count[name] = count[name] || 0;
             const value = flat[key];
-            expect(document.querySelectorAll(`[name="${name}"`)[count[name]].value).toBe(value);
+            expect(document.querySelectorAll(`[name="${CSS.escape(name)}"]`)[count[name]].value).toBe(value);
             count[name] += 1;
           }
         });
@@ -165,7 +165,7 @@ describe('nativeForm', () => {
 
     describe('fetch sso type behavior', () => {
       beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
       });
 
       test('skips call to webQL endpoint when type param is saml', async () => {

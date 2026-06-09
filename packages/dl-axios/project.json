@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/dl-axios"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/dl-axios/jest.config.cjs"
+        "command": "vitest run --project=dl-axios",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=dl-axios --coverage"
+        }
       }
     },
     "version": {

@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/analytics-core"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/analytics-core/jest.config.cjs"
+        "command": "vitest run --project=analytics-core",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=analytics-core --coverage"
+        }
       }
     },
     "version": {

@@ -1,10 +1,9 @@
+import fileDownload from 'js-file-download';
 import DownloadMicroservice from '.';
 
-jest.mock('js-file-download', () => jest.fn());
+vi.mock('js-file-download', () => ({ default: vi.fn() }));
 
-const fileDownload = require('js-file-download');
-
-const mockHttp = jest.fn(() => Promise.resolve({ data: 'blob-data' }));
+const mockHttp = vi.fn(() => Promise.resolve({ data: 'blob-data' }));
 
 function deepMerge(...sources) {
   const result = {};
@@ -36,7 +35,7 @@ function createInstance(configOverrides = {}) {
 
 describe('DownloadMicroservice', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('constructor', () => {
@@ -66,7 +65,7 @@ describe('DownloadMicroservice', () => {
   describe('getAttachment', () => {
     it('delegates to query', () => {
       const instance = createInstance();
-      instance.query = jest.fn(() => Promise.resolve({ data: 'file' }));
+      instance.query = vi.fn(() => Promise.resolve({ data: 'file' }));
 
       const config = { params: { id: '123' } };
       instance.getAttachment(config);

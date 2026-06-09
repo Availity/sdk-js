@@ -7,7 +7,7 @@ describe('AvUserApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -19,7 +19,7 @@ describe('AvUserApi', () => {
   });
 
   test("me() should get with id 'me'", async () => {
-    api.get = jest.fn(
+    api.get = vi.fn(
       async () =>
         new Promise((resolve) => {
           resolve({ id: 'test' });

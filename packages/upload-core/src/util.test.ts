@@ -20,7 +20,7 @@ describe('upload-core util', () => {
 
   test('create fingerprint and call callback', async () => {
     const file = new File(['Hello world'], 'test');
-    const mockFn = jest.fn((...args) => args[1]);
+    const mockFn = vi.fn((...args) => args[1]);
 
     const fingerprint = await createFingerprint(file, { endpoint: '/test', metadata: { foo: 'bar' } }, mockFn);
 

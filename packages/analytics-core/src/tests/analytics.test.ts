@@ -3,19 +3,19 @@ import { AvAnalytics } from '..';
 
 type MockPlugin = {
   enabled: boolean;
-  isEnabled: jest.Mock;
-  init: jest.Mock;
-  trackEvent: jest.Mock;
-  trackPageView: jest.Mock;
+  isEnabled: vi.Mock;
+  init: vi.Mock;
+  trackEvent: vi.Mock;
+  trackPageView: vi.Mock;
 };
 
 function makePlugin() {
   return {
     enabled: true,
-    isEnabled: jest.fn(() => true),
-    init: jest.fn(),
-    trackEvent: jest.fn(),
-    trackPageView: jest.fn(),
+    isEnabled: vi.fn(() => true),
+    init: vi.fn(),
+    trackEvent: vi.fn(),
+    trackPageView: vi.fn(),
   };
 }
 
@@ -69,8 +69,8 @@ describe('AvAnalytics', () => {
     });
 
     test('with functions defined, will only call if pageTracking is opposite isPageTracking', () => {
-      mockAvAnalytics.startPageTracking = jest.fn();
-      mockAvAnalytics.stopPageTracking = jest.fn();
+      mockAvAnalytics.startPageTracking = vi.fn();
+      mockAvAnalytics.stopPageTracking = vi.fn();
 
       let testValue = true;
       mockAvAnalytics.pageTracking = testValue;
@@ -88,8 +88,8 @@ describe('AvAnalytics', () => {
     });
 
     test('with functions defined, will start/stop tracking based on pageTracking value', () => {
-      mockAvAnalytics.startPageTracking = jest.fn();
-      mockAvAnalytics.stopPageTracking = jest.fn();
+      mockAvAnalytics.startPageTracking = vi.fn();
+      mockAvAnalytics.stopPageTracking = vi.fn();
 
       let testValue = true;
       mockAvAnalytics.pageTracking = testValue;
@@ -116,7 +116,7 @@ describe('AvAnalytics', () => {
     beforeEach(() => {
       plugins = [makePlugin(), makePlugin()];
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
-      mockAvAnalytics.setPageTracking = jest.fn();
+      mockAvAnalytics.setPageTracking = vi.fn();
     });
 
     test('should call setPageTracking', () => {
@@ -144,7 +144,7 @@ describe('AvAnalytics', () => {
     });
 
     test('should skip plugins without init function', () => {
-      plugins[1].init = 'test' as unknown as jest.Mock;
+      plugins[1].init = 'test' as unknown as vi.Mock;
       mockAvAnalytics.init();
       expect(plugins[0].init).toHaveBeenCalled();
     });
@@ -158,8 +158,8 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
 
       plugins[0].isEnabled.mockImplementation(() => false);
-      plugins[1].trackEvent = 'test' as unknown as jest.Mock;
-      plugins[2].trackPageView = 'test' as unknown as jest.Mock;
+      plugins[1].trackEvent = 'test' as unknown as vi.Mock;
+      plugins[2].trackPageView = 'test' as unknown as vi.Mock;
     });
 
     test('trackEvent should call trackEvent on enabled plugins with properties', async () => {

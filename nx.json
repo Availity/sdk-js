@@ -1,52 +1,33 @@
 {
+  "extends": "@nx/workspace/presets/npm.json",
+  "defaultBase": "master",
+  "useInferencePlugins": false,
+  "namedInputs": {
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.test.{ts,js}",
+      "!{projectRoot}/vitest.config.ts"
+    ]
+  },
   "targetDefaults": {
     "build": {
-      "cache": true
-    },
-    "@nx/jest:jest": {
       "cache": true,
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.cjs"],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "prepare": {
+      "dependsOn": ["^prepare"]
+    },
+    "package": {
+      "dependsOn": ["^package"]
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^default", "{workspaceRoot}/vitest.config.ts", "{projectRoot}/vitest.config.ts"]
     },
     "@nx/eslint:lint": {
       "cache": true,
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.yaml", "{workspaceRoot}/tools/eslint-rules/**/*"]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.yaml"]
     }
-  },
-  "extends": "@nx/workspace/presets/npm.json",
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ],
-    "prepare": [
-      {
-        "target": "prepare",
-        "projects": "dependencies"
-      }
-    ],
-    "package": [
-      {
-        "target": "package",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": true
-    }
-  },
-  "useInferencePlugins": false,
-  "defaultBase": "master"
+  }
 }

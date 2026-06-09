@@ -5,12 +5,12 @@ describe('AvStashApi', () => {
 
   beforeEach(() => {
     api = new AvStashApi();
-    api.create = jest.fn();
-    window.open = jest.fn();
+    api.create = vi.fn();
+    window.open = vi.fn();
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {

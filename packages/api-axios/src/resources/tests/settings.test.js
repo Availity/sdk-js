@@ -7,9 +7,9 @@ const mockUser = {
   id: 'mockUserId',
 };
 
-jest.mock('../user');
+vi.mock('../user');
 
-avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
+avUserApi.me = vi.fn(() => Promise.resolve(mockUser));
 
 describe('AvSettingsApi', () => {
   let api;
@@ -18,7 +18,7 @@ describe('AvSettingsApi', () => {
     api = new AvSettingsApi();
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -31,7 +31,7 @@ describe('AvSettingsApi', () => {
 
   describe('getApplication', () => {
     beforeEach(() => {
-      api.query = jest.fn();
+      api.query = vi.fn();
     });
 
     test('should call avUserApi.me and use in query', async () => {
@@ -66,7 +66,7 @@ describe('AvSettingsApi', () => {
 
   describe('setApplication', () => {
     beforeEach(() => {
-      api.update = jest.fn();
+      api.update = vi.fn();
     });
 
     test('should add applicationId and user.me to scope', async () => {

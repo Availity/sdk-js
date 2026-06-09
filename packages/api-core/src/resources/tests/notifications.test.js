@@ -1,12 +1,12 @@
 import AvNotification from '../notifications';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvNotification', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -24,7 +24,7 @@ describe('AvNotification', () => {
 
   test('deleteByTopic() should call remove with topic added to params.topicId', () => {
     api = new AvNotification({ http: mockHttp });
-    api.remove = jest.fn();
+    api.remove = vi.fn();
 
     const topic = 'test delete topic';
     const expectedConfig = { params: { topicId: topic } };

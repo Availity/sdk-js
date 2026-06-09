@@ -1,12 +1,12 @@
 import AvPdfs from '../pdfs';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvPdfs', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -21,7 +21,7 @@ describe('AvPdfs', () => {
 
   test('should call onPdf() when pdf completes', async () => {
     api = new AvPdfs({ http: mockHttp });
-    api.onPdf = jest.fn();
+    api.onPdf = vi.fn();
 
     const response = {
       data: {
@@ -33,7 +33,7 @@ describe('AvPdfs', () => {
       },
     };
 
-    api.onResponse = jest.fn(() => response);
+    api.onResponse = vi.fn(() => response);
     await api.getPdf({ html: 'hi', applicationId: 'foo', fileName: 'test' });
     expect(api.onPdf).toHaveBeenCalled();
   });

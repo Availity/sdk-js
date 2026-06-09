@@ -1,6 +1,6 @@
 import AvSpacesApi from '../spaces';
 
-const get = jest.fn(() =>
+const get = vi.fn(() =>
   Promise.resolve({
     status: 200,
     data: {
@@ -18,7 +18,7 @@ describe('AvSpacesApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {

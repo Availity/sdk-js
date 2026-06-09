@@ -1,7 +1,7 @@
 import FormData from 'form-data';
 import AvFiles from '../files';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 const mockConfig = {
   id: '123',
@@ -13,7 +13,7 @@ describe('AvFiles', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -43,7 +43,7 @@ describe('AvFiles', () => {
     const data = new FormData();
     data.append('reference', 'fileReference');
 
-    api.create = jest.fn();
+    api.create = vi.fn();
     api.uploadFile(data, mockConfig);
     expect(api.create).toHaveBeenLastCalledWith(data, api.config(mockConfig));
   });
@@ -68,7 +68,7 @@ describe('AvFiles', () => {
     const file = Buffer.from([...'hello world']);
     data.append('filedata', file);
 
-    api.create = jest.fn();
+    api.create = vi.fn();
     api.uploadFile(data, mockConfig);
     expect(api.create).toHaveBeenLastCalledWith(data, api.config(mockConfig));
   });

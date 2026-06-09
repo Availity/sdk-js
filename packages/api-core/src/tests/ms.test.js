@@ -1,7 +1,7 @@
 import AvMicroservice from '../ms';
 import API_OPTIONS from '../options';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 const defaultPath = API_OPTIONS.MS.path;
 
 describe('AvMicroservice', () => {
@@ -41,7 +41,7 @@ describe('AvMicroservice', () => {
     const mockFinalResponse = 'finalResponse';
     beforeEach(() => {
       ms = new AvMicroservice({ http: mockHttp });
-      ms.onResponse = jest.fn(() => mockFinalResponse);
+      ms.onResponse = vi.fn(() => mockFinalResponse);
     });
 
     test('should return joined config.path and name if no config.id', () => {

@@ -201,9 +201,9 @@ describe('upload-core', () => {
       const upload = new Upload(file, { ...options, retryDelays: [] });
       await upload.generateId();
 
-      const mockOnSuccess = jest.fn();
-      const mockOnProgress = jest.fn();
-      const mockOnChunkComplete = jest.fn();
+      const mockOnSuccess = vi.fn();
+      const mockOnProgress = vi.fn();
+      const mockOnChunkComplete = vi.fn();
 
       const startUpload = () =>
         new Promise<void>((resolve, reject) => {
@@ -229,7 +229,7 @@ describe('upload-core', () => {
     it('should handle errors', async () => {
       const file = readTestFile('testFile.txt');
 
-      const mockOnError = jest.fn();
+      const mockOnError = vi.fn();
 
       const upload = new Upload(file, { ...options, bucketId: 'err', retryDelays: [] });
       await upload.generateId();
@@ -261,7 +261,7 @@ describe('upload-core', () => {
       });
       await upload.generateId();
 
-      const onErrorMock = jest.fn();
+      const onErrorMock = vi.fn();
       const errorMessage = new Error('AV scan timed out, max retries exceeded');
 
       const startUpload = () =>
@@ -283,7 +283,7 @@ describe('upload-core', () => {
       const fileName = 'testFile.txt';
       const file = readTestFile('testFile.txt');
 
-      const mockFn = jest.fn();
+      const mockFn = vi.fn();
 
       const upload = new Upload(file, {
         ...options,
@@ -305,7 +305,7 @@ describe('upload-core', () => {
     it('should parse references on upload accepted', async () => {
       const file = readTestFile('testFile.txt');
 
-      const onSuccessMock = jest.fn();
+      const onSuccessMock = vi.fn();
 
       const upload = new Upload(file, options);
       await upload.generateId();
@@ -345,7 +345,7 @@ describe('upload-core', () => {
     it('should start upload if all the functions in onPreStart returns true', async () => {
       const file = readTestFile('testFile.txt');
 
-      const mockOnSuccess = jest.fn();
+      const mockOnSuccess = vi.fn();
 
       const upload = new Upload(file, { ...options, onPreStart: [() => true, () => true] });
       await upload.generateId();

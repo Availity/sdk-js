@@ -1,10 +1,9 @@
+import { getSpecificEnv } from '@availity/env-var';
 import resolveHost from '../resolve-host';
 
-jest.mock('@availity/env-var', () => ({
-  getSpecificEnv: jest.fn(),
+vi.mock('@availity/env-var', () => ({
+  getSpecificEnv: vi.fn(),
 }));
-
-const { getSpecificEnv } = require('@availity/env-var');
 
 function mockWindow(hostname) {
   return { location: { hostname } };
@@ -12,7 +11,7 @@ function mockWindow(hostname) {
 
 describe('resolveHost', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('returns host directly when provided', () => {

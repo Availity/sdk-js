@@ -6,9 +6,9 @@ const mockUser = {
   id: 'mockUserId',
 };
 
-jest.mock('../user');
+vi.mock('../user');
 
-avUserApi.me = jest.fn(() => Promise.resolve(mockUser));
+avUserApi.me = vi.fn(() => Promise.resolve(mockUser));
 
 const mockOrg = {
   limit: 50,
@@ -114,7 +114,7 @@ const mockPermissions = {
   },
 };
 
-avUserPermissionsApi.postGet = jest.fn(() => Promise.resolve(mockPermissions));
+avUserPermissionsApi.postGet = vi.fn(() => Promise.resolve(mockPermissions));
 
 describe('AvOrganizations', () => {
   let api;
@@ -123,7 +123,7 @@ describe('AvOrganizations', () => {
     api = new AvOrganizationsApi();
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('without additionalPostGetArgs', () => {
@@ -136,7 +136,7 @@ describe('AvOrganizations', () => {
     });
 
     test('queryOrganizations() should call query with user.id added to params.userId', () => {
-      api.query = jest.fn();
+      api.query = vi.fn();
 
       const userId = 'testUserId';
       const user = { id: userId };
@@ -152,7 +152,7 @@ describe('AvOrganizations', () => {
     });
 
     test('queryOrganizations() should handle undefined config param', async () => {
-      api.query = jest.fn();
+      api.query = vi.fn();
 
       const userId = 'testUserId';
       const user = { id: userId };
@@ -163,7 +163,7 @@ describe('AvOrganizations', () => {
     });
 
     test('getOrganizations() should call avUsers.me() and then queryOrganizations()', async () => {
-      api.queryOrganizations = jest.fn();
+      api.queryOrganizations = vi.fn();
 
       const testConfig = { name: 'testName' };
 
@@ -172,8 +172,8 @@ describe('AvOrganizations', () => {
     });
 
     test('getOrganizations() should skip call to avUsers.me() when userId provided and then query()', async () => {
-      api.queryOrganizations = jest.fn();
-      api.query = jest.fn();
+      api.queryOrganizations = vi.fn();
+      api.query = vi.fn();
 
       const testConfig = { name: 'testName', params: { userId: 'bmoolenaar' } };
 

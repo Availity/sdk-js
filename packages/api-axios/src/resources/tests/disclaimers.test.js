@@ -7,7 +7,7 @@ describe('AvDisclaimersApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('AvDisclaimersApi should be defined', () => {
@@ -19,7 +19,7 @@ describe('AvDisclaimersApi', () => {
   });
 
   test('getDisclaimers should query with id param added', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const id = 'testId';
     const testConfig = {

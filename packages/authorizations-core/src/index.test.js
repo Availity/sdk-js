@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
 // TODO: investigate why refactored tests don't throw
 import AvAuthorizations from '.';
 
@@ -71,12 +70,12 @@ function getMockPermissionValues(permissionIds, isAuthorized) {
 }
 
 const mockPermissions = {
-  getPermissions: jest.fn(authorizedMockPermissions),
+  getPermissions: vi.fn(authorizedMockPermissions),
 };
 
 const mockRegion = 'FL';
 const mockRegions = {
-  getCurrentRegion: jest.fn(() =>
+  getCurrentRegion: vi.fn(() =>
     Promise.resolve({
       data: {
         regions: [

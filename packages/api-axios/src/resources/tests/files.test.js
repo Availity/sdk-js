@@ -1,14 +1,15 @@
 import Upload from '@availity/upload-core';
 import AvFilesApi from '../files';
 
-jest.mock('@availity/upload-core', () =>
-  jest.fn().mockImplementation(() => ({
-    generateId: jest.fn().mockResolvedValue('test-id'),
-    start: jest.fn(),
+vi.mock('@availity/upload-core', () => {
+  const MockUpload = vi.fn(() => ({
+    generateId: vi.fn().mockResolvedValue('test-id'),
+    start: vi.fn(),
     onSuccess: [],
     onError: [],
-  }))
-);
+  }));
+  return { default: MockUpload, __esModule: true };
+});
 
 const mockConfig = {
   id: '123',
@@ -22,11 +23,11 @@ describe('AvFilesApi', () => {
   let api;
   beforeEach(() => {
     api = new AvFilesApi();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -37,12 +38,12 @@ describe('AvFilesApi', () => {
     const data = { foo: 'bar' };
 
     const mockUpload = {
-      generateId: jest.fn().mockResolvedValue('test-id'),
-      start: jest.fn(),
+      generateId: vi.fn().mockResolvedValue('test-id'),
+      start: vi.fn(),
       onSuccess: [],
       onError: [],
     };
-    Upload.mockReturnValue(mockUpload);
+    Upload.mockImplementation(function() { return mockUpload; }) // eslint-disable-line prefer-arrow-callback
 
     setTimeout(() => mockUpload.onSuccess[0](), 0);
 
@@ -67,12 +68,12 @@ describe('AvFilesApi', () => {
     const data = { foo: 'bar' };
 
     const mockUpload = {
-      generateId: jest.fn().mockResolvedValue('test-id'),
-      start: jest.fn(),
+      generateId: vi.fn().mockResolvedValue('test-id'),
+      start: vi.fn(),
       onSuccess: [],
       onError: [],
     };
-    Upload.mockReturnValue(mockUpload);
+    Upload.mockImplementation(function() { return mockUpload; }) // eslint-disable-line prefer-arrow-callback
 
     setTimeout(() => mockUpload.onSuccess[0](), 0);
 
@@ -86,12 +87,12 @@ describe('AvFilesApi', () => {
     const data = { foo: 'bar' };
 
     const mockUpload = {
-      generateId: jest.fn().mockResolvedValue('test-id'),
-      start: jest.fn(),
+      generateId: vi.fn().mockResolvedValue('test-id'),
+      start: vi.fn(),
       onSuccess: [],
       onError: [],
     };
-    Upload.mockReturnValue(mockUpload);
+    Upload.mockImplementation(function() { return mockUpload; }) // eslint-disable-line prefer-arrow-callback
 
     setTimeout(() => mockUpload.onSuccess[0](), 0);
 
@@ -119,12 +120,12 @@ describe('AvFilesApi', () => {
     const uploadError = new Error('Network failure');
 
     const mockUpload = {
-      generateId: jest.fn().mockResolvedValue('test-id'),
-      start: jest.fn(),
+      generateId: vi.fn().mockResolvedValue('test-id'),
+      start: vi.fn(),
       onSuccess: [],
       onError: [],
     };
-    Upload.mockReturnValue(mockUpload);
+    Upload.mockImplementation(function() { return mockUpload; }) // eslint-disable-line prefer-arrow-callback
 
     setTimeout(() => mockUpload.onError[0](uploadError), 0);
 

@@ -7,7 +7,7 @@ describe('AvRouteConfigurationsApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -21,7 +21,7 @@ describe('AvRouteConfigurationsApi', () => {
   });
 
   test('getConfiguration should query with transactionTypeCode, submissionModeCode, and payerId params from arguments', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const transactionTypeCode = '1';
     const submissionModeCode = '10';

@@ -1,12 +1,12 @@
 import AvUsers from '../user';
 
-const mockPromise = jest.fn(() => Promise.resolve({}));
+const mockPromise = vi.fn(() => Promise.resolve({}));
 
 describe('AvUsers', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -25,7 +25,7 @@ describe('AvUsers', () => {
   test("me() should get with id 'me' and return response.data", async () => {
     api = new AvUsers({ http: mockPromise });
     const userData = { id: '123', name: 'Test User' };
-    api.get = jest.fn(() => Promise.resolve({ data: userData }));
+    api.get = vi.fn(() => Promise.resolve({ data: userData }));
 
     const result = await api.me();
     expect(api.get).toHaveBeenLastCalledWith('me', undefined);

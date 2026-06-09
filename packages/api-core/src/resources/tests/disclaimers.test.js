@@ -1,12 +1,12 @@
 import AvDisclaimers from '../disclaimers';
 
-const mockHttp = jest.fn(() => Promise.resolve({}));
+const mockHttp = vi.fn(() => Promise.resolve({}));
 
 describe('AvDisclaimers', () => {
   let api;
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('AvDisclaimers should be defined', () => {
@@ -24,7 +24,7 @@ describe('AvDisclaimers', () => {
 
   test('getDisclaimers should query with id param added', () => {
     api = new AvDisclaimers({ http: mockHttp });
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const id = 'testId';
     const testConfig = {

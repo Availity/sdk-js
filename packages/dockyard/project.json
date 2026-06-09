@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/dockyard"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/dockyard/jest.config.cjs"
+        "command": "vitest run --project=dockyard",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=dockyard --coverage"
+        }
       }
     },
     "version": {

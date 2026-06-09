@@ -7,7 +7,7 @@ describe('AvPermissionsApi', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should be defined', () => {
@@ -19,7 +19,7 @@ describe('AvPermissionsApi', () => {
   });
 
   test('getPermissions() should query with permissionId and region params from arguments', async () => {
-    api.query = jest.fn();
+    api.query = vi.fn();
 
     const id = 'testPermissionId';
     const region = 'testRegion';

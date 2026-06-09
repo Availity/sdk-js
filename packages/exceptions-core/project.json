@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/exceptions-core"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/exceptions-core/jest.config.cjs"
+        "command": "vitest run --project=exceptions-core",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=exceptions-core --coverage"
+        }
       }
     },
     "version": {

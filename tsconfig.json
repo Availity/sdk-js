@@ -18,6 +18,7 @@
     "strictNullChecks": true,
     "strictFunctionTypes": false,
     "lib": ["dom", "ESNext"],
+    "types": ["vitest/globals", "node"],
     "module": "ESNext",
     "target": "ES2022",
     "jsx": "react-jsx",

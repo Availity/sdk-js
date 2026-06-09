@@ -4,10 +4,15 @@
   "projectType": "library",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/message-core"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "packages/message-core/jest.config.cjs"
+        "command": "vitest run --project=message-core",
+        "cwd": "."
+      },
+      "configurations": {
+        "ci": {
+          "command": "vitest run --project=message-core --coverage"
+        }
       }
     },
     "version": {
