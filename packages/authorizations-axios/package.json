@@ -14,23 +14,21 @@
   "license": "MIT",
   "author": "Kasey Powers <kasey.powers@availity.com>",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
     "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
-    "build": "tsup src/index.js --format esm,cjs --dts",
-    "dev": "tsup src/index.js --format esm,cjs --watch --dts",
+    "build": "tsup src/index.js --format esm --clean --dts",
+    "dev": "tsup src/index.js --format esm --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf node_modules && rm -rf dist",
