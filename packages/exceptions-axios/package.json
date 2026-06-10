@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-axios",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Availity class to log exceptions via axios",
   "homepage": "https://availity.github.io/sdk-js/resources/exceptions",
   "bugs": {

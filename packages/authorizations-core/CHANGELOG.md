@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.2](https://github.com/availity/sdk-js/compare/@availity/authorizations-core@6.0.1...@availity/authorizations-core@6.0.2) (2026-06-09)
+
+
+
 ## [6.0.1](https://github.com/availity/sdk-js/compare/@availity/authorizations-core@6.0.0...@availity/authorizations-core@6.0.1) (2026-06-09)
 
 
