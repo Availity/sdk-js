@@ -295,7 +295,7 @@ __metadata:
     tsup: "npm:^8.5.1"
     typescript: "npm:^5.9.3"
   peerDependencies:
-    "@availity/upload-core": ^8.1.0
+    "@availity/upload-core": ^8.1.0 || ^9.0.0
     axios: ^1.17.0
   languageName: unknown
   linkType: soft
