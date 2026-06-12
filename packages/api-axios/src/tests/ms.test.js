@@ -15,9 +15,9 @@ describe('AvMicroserviceAPi', () => {
   });
 
   test('should use an absolute url', () => {
-    const api = new AvMicroserviceApi({ url: 'http://test-apps.com' });
+    const api = new AvMicroserviceApi({ url: 'https://test-apps.com' });
 
-    expect(api.getRequestUrl()).toBe('http://test-apps.com/ms/api/availity/internal/');
-    expect(api.getUrl({ id: 'serviceName' })).toBe('http://test-apps.com/ms/api/availity/internal/serviceName');
+    expect(api.getRequestUrl()).toBe('https://test-apps.com/ms/api/availity/internal/');
+    expect(api.getUrl({ id: 'serviceName' })).toBe('https://test-apps.com/ms/api/availity/internal/serviceName');
   });
 });

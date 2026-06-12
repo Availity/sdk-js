@@ -1,5 +1,6 @@
 import { server } from '../mocks/server';
-import Upload, { FileBuffer } from '.';
+import Upload from '.';
+import type { FileBuffer } from '.';
 
 const BUCKET_ID = 'abc';
 const CUSTOMER_ID = '123';
@@ -132,11 +133,11 @@ describe('upload-core', () => {
     it('should check filePath for slashes', () => {
       const files = [
         {
-          name: '\\bad\\file\\path\\file.pdf',
+          name: String.raw`\bad\file\path\file.pdf`,
           stripFileNamePathSegments: false,
-          expected: '\\bad\\file\\path\\file.pdf',
+          expected: String.raw`\bad\file\path\file.pdf`,
         },
-        { name: '\\bad\\file\\path\\file2.pdf', stripFileNamePathSegments: true, expected: 'file2.pdf' },
+        { name: String.raw`\bad\file\path\file2.pdf`, stripFileNamePathSegments: true, expected: 'file2.pdf' },
         { name: '/bad/file/path/file3.pdf', stripFileNamePathSegments: true, expected: 'file3.pdf' },
         { name: 'goodFileName.pdf', stripFileNamePathSegments: true, expected: 'goodFileName.pdf' },
       ];

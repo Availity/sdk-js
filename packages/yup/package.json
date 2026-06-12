@@ -32,7 +32,7 @@
     "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --clean --dts",
+    "build": "tsup src/index.ts --format esm --clean --dts --target esnext",
     "dev": "tsup src/index.ts --format esm --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",

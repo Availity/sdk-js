@@ -107,7 +107,7 @@ export function removeDotSegmentsOfPath(iri, colonPosition) {
 
   // Determine the path
   const pathSeparator = iri.indexOf('/', searchOffset);
-  if (pathSeparator < 0) {
+  if (pathSeparator === -1) {
     return iri;
   }
   const base = iri.substr(0, pathSeparator);
@@ -159,13 +159,13 @@ export function resolve(relativeIRI, baseIRI = '') {
 
   // Ignore baseIRI if the value is absolute
   const valueColonPos = relativeIRI.indexOf(':');
-  if (valueColonPos >= 0) {
+  if (valueColonPos !== -1) {
     return removeDotSegmentsOfPath(relativeIRI, valueColonPos);
   }
 
   // At this point, the baseIRI MUST be absolute, otherwise we error
   const baseColonPos = baseIRI.indexOf(':');
-  if (baseColonPos < 0) {
+  if (baseColonPos === -1) {
     throw new Error(`Found invalid baseIRI '${baseIRI}' for value '${relativeIRI}'`);
   }
 
@@ -211,7 +211,7 @@ export function resolve(relativeIRI, baseIRI = '') {
   const baseIRILastSlashPos = baseIRIPath.lastIndexOf('/');
 
   // Ignore everything after the last '/' in the baseIRI path
-  if (baseIRILastSlashPos >= 0 && baseIRILastSlashPos < baseIRIPath.length - 1) {
+  if (baseIRILastSlashPos !== -1 && baseIRILastSlashPos < baseIRIPath.length - 1) {
     baseIRIPath = baseIRIPath.substr(0, baseIRILastSlashPos + 1);
     // Also remove the first character of the relative path if it starts with '.' (and not '..' or './')
     // This change is only allowed if there is something else following the path
