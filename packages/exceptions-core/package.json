@@ -1,6 +1,6 @@
 {
   "name": "@availity/exceptions-core",
-  "version": "7.0.2",
+  "version": "7.1.0",
   "description": "Availity class to log exceptions",
   "homepage": "https://availity.github.io/sdk-js/resources/exceptions",
   "bugs": {

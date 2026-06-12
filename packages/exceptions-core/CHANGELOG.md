@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.0.2...@availity/exceptions-core@7.1.0) (2026-06-12)
+
+
+### Features
+
+* migrate to ESLint 9 flat config ([7126be7](https://github.com/availity/sdk-js/commit/7126be7cdda8ebd9343e70374fd660763f87e079))
+
+
+
 ## [7.0.2](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.0.1...@availity/exceptions-core@7.0.2) (2026-06-09)
 
 

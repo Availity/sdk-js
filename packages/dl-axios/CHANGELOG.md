@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.1.0](https://github.com/availity/sdk-js/compare/@availity/dl-axios@8.0.2...@availity/dl-axios@8.1.0) (2026-06-12)
+
+### Dependency Updates
+
+* `api-core` updated to version `8.0.2`
+* `dl-core` updated to version `8.0.2`
+
+### Features
+
+* migrate to ESLint 9 flat config ([7126be7](https://github.com/availity/sdk-js/commit/7126be7cdda8ebd9343e70374fd660763f87e079))
+
+
+
 ## [8.0.2](https://github.com/availity/sdk-js/compare/@availity/dl-axios@8.0.1...@availity/dl-axios@8.0.2) (2026-06-09)
 
 ### Dependency Updates

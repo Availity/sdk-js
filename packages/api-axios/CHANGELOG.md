@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [13.1.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.0.2...@availity/api-axios@13.1.0) (2026-06-12)
+
+### Dependency Updates
+
+* `upload-core` updated to version `13.0.2`
+* `api-core` updated to version `13.0.2`
+* `resolve-url` updated to version `13.0.2`
+
+### Bug Fixes
+
+* **api-axios:** widen upload-core peer dep to include v9 ([7cc8e71](https://github.com/availity/sdk-js/commit/7cc8e717c92047305d9621a3662accc5685c7115))
+
+
+### Features
+
+* migrate to ESLint 9 flat config ([7126be7](https://github.com/availity/sdk-js/commit/7126be7cdda8ebd9343e70374fd660763f87e079))
+
+
+
 ## [13.0.2](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.0.1...@availity/api-axios@13.0.2) (2026-06-09)
 
 ### Dependency Updates
