@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.1.0](https://github.com/Availity/sdk-js/compare/@availity/yup@8.0.2...@availity/yup@8.1.0) (2026-06-12)
+
+
+### Features
+
+* migrate to ESLint 9 flat config ([7126be7](https://github.com/Availity/sdk-js/commit/7126be7cdda8ebd9343e70374fd660763f87e079))
+
+
+
 ## [8.0.2](https://github.com/Availity/sdk-js/compare/@availity/yup@8.0.1...@availity/yup@8.0.2) (2026-06-09)
 
 
