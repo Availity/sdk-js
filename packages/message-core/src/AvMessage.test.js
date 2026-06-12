@@ -391,11 +391,11 @@ describe('AvMessage', () => {
 
     //   test('should handle different protocols correctly', () => {
     //     Object.defineProperty(window, 'top', {
-    //       value: { location: { origin: 'http://qa-apps.availity.com' } },
+    //       value: { location: { origin: 'https://qa-apps.availity.com' } },
     //       writable: true,
     //     });
 
-    //     expect(avMessage.getOriginFromTop()).toEqual('http://qa-apps.availity.com');
+    //     expect(avMessage.getOriginFromTop()).toEqual('https://qa-apps.availity.com');
     //   });
     // });
   });

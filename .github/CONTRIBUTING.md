@@ -78,6 +78,24 @@ This repo uses [eslint-config-availity](https://github.com/Availity/eslint-confi
 yarn lint
 ```
 
+### Adding/Removing a Dependency
+
+Managing dependencies in a monorepo is similar to a single package repo. Use the `workspace` command from `yarn` to tell it which package to update.
+
+Example — adding `qs` to the `api-core` package:
+
+```bash
+yarn workspace @availity/api-core add qs
+```
+
+### Adding a New Package
+
+```bash
+yarn new
+```
+
+This runs [plop](https://plopjs.com/) to scaffold a new package with the correct structure, configs, and boilerplate.
+
 ## Commits
 
 The commit messages in this repository are important for two main reasons:

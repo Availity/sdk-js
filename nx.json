@@ -15,19 +15,17 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "prepare": {
-      "dependsOn": ["^prepare"]
-    },
-    "package": {
-      "dependsOn": ["^package"]
-    },
     "test": {
       "cache": true,
       "inputs": ["default", "^default", "{workspaceRoot}/vitest.config.ts", "{projectRoot}/vitest.config.ts"]
     },
+    "typecheck": {
+      "cache": true,
+      "inputs": ["default", "^default", "{workspaceRoot}/tsconfig.json"]
+    },
     "@nx/eslint:lint": {
       "cache": true,
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.yaml"]
+      "inputs": ["default", "{workspaceRoot}/eslint.config.js"]
     }
   }
 }

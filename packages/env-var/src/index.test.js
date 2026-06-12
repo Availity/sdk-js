@@ -12,8 +12,7 @@ const generateTest = (hostname, env, overrideWindow) => {
       const pathname = pathParts.length > 0 ? `/${pathParts.join('/')}` : '/';
       windowOverride = getFakeWindowLocation(host, pathname);
     }
-    const envVars = { prod: false, local: false, qa: false, test: false };
-    envVars[env] = true;
+    const envVars = { prod: false, local: false, qa: false, test: false , [env]: true,};
     expect(envVar(envVars, windowOverride)).toBe(true);
   });
 };

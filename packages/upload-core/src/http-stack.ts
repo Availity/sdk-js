@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { HttpStack, HttpRequest, HttpResponse } from 'tus-js-client';
+import type { HttpStack, HttpRequest, HttpResponse } from 'tus-js-client';
 
 class Response implements HttpResponse {
   private _response: globalThis.Response;

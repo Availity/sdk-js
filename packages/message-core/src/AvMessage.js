@@ -2,9 +2,6 @@ class AvMessage {
   subscribers = {};
 
   constructor() {
-    this.isEnabled = true;
-    this.DEFAULT_EVENT = 'avMessage';
-    this.DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
     window.addEventListener('message', this.getEventData);
   }
 
@@ -177,6 +174,12 @@ class AvMessage {
   destroy() {
     window.removeEventListener('message', this.getEventData);
   }
+
+  isEnabled = true;
+
+  DEFAULT_EVENT = 'avMessage';
+
+  DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
 }
 
 export default AvMessage;

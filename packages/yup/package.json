@@ -32,7 +32,7 @@
     "node": "^22.0.0 || ^24.0.0"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --clean --dts",
+    "build": "tsup src/index.ts --format esm --clean --dts --target esnext",
     "dev": "tsup src/index.ts --format esm --watch --dts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
@@ -41,7 +41,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.21",
     "yup": "^1.7.1"
   },
   "devDependencies": {

@@ -64,7 +64,7 @@ export default class AvAnalytics {
 
     if (this.recursive) {
       // Reverse the array so we pull attributes from top down
-      for (const pth of path.reverse()) {
+      for (const pth of path.toReversed()) {
         const attrs = this.getAnalyticAttrs(pth);
 
         analyticAttrs = { ...analyticAttrs, ...attrs };

@@ -78,7 +78,7 @@ function getLocationComponents(windowOverride) {
     windowOverride === null || typeof windowOverride === 'string'
       ? getLocation(windowOverride)
       : windowOverride.location;
-  const subdomain = hostname.split('.availity')[0];
+  const subdomain = hostname.split('.availity', 1)[0];
   return {
     subdomain,
     pathname,

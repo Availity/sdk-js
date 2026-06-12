@@ -1,7 +1,9 @@
 import {
+  Upload as TusUpload,
+} from 'tus-js-client';
+import type {
   DetailedError,
   HttpResponse,
-  Upload as TusUpload,
   UploadOptions as TusUploadOptions,
   OnSuccessPayload,
 } from 'tus-js-client';
@@ -152,8 +154,7 @@ class Upload {
       'availity-filename': fileName,
       'availity-content-type': file.type,
       'availity-attachment-name': 'N/A',
-    };
-    Object.assign(metadata, this.options.metadata);
+     ...this.options.metadata};
 
     const upload = new TusUpload(this.file, {
       endpoint: `${this.options.endpoint}/${this.options.bucketId}/`,
@@ -449,7 +450,7 @@ class Upload {
     if (!this.options.allowedFileNameCharacters) return true;
 
     const fileName = this.file.name.substring(0, this.file.name.lastIndexOf('.'));
-    const escaped = this.options.allowedFileNameCharacters.replaceAll(/[\\\]^]/g, '\\$&');
+    const escaped = this.options.allowedFileNameCharacters.replaceAll(/[\\\]^]/g, String.raw`\$&`);
     const regExp = new RegExp(`([^${escaped}])`, 'g');
 
     if (fileName.match(regExp) !== null) {

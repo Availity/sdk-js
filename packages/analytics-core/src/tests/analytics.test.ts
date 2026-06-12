@@ -1,12 +1,13 @@
-/* eslint-disable unicorn/prefer-dom-node-dataset */
+ 
+import type { Mock } from 'vitest';
 import { AvAnalytics } from '..';
 
 type MockPlugin = {
   enabled: boolean;
-  isEnabled: vi.Mock;
-  init: vi.Mock;
-  trackEvent: vi.Mock;
-  trackPageView: vi.Mock;
+  isEnabled: Mock;
+  init: Mock;
+  trackEvent: Mock;
+  trackPageView: Mock;
 };
 
 function makePlugin() {
@@ -144,7 +145,7 @@ describe('AvAnalytics', () => {
     });
 
     test('should skip plugins without init function', () => {
-      plugins[1].init = 'test' as unknown as vi.Mock;
+      plugins[1].init = 'test' as unknown as Mock;
       mockAvAnalytics.init();
       expect(plugins[0].init).toHaveBeenCalled();
     });
@@ -158,8 +159,8 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics(plugins, Promise);
 
       plugins[0].isEnabled.mockImplementation(() => false);
-      plugins[1].trackEvent = 'test' as unknown as vi.Mock;
-      plugins[2].trackPageView = 'test' as unknown as vi.Mock;
+      plugins[1].trackEvent = 'test' as unknown as Mock;
+      plugins[2].trackPageView = 'test' as unknown as Mock;
     });
 
     test('trackEvent should call trackEvent on enabled plugins with properties', async () => {
@@ -204,9 +205,9 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false);
 
       const elem = document.createElement('button');
-      elem.setAttribute('data-analytics-category', 'error');
-      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
-      elem.setAttribute('data-analytics-overrides-timeout', '5000');
+      elem.dataset.analyticsCategory = 'error';
+      elem.dataset.analyticsOverridesEndpoint = '/custom/log';
+      elem.dataset.analyticsOverridesTimeout = '5000';
 
       const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
 
@@ -224,7 +225,7 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false);
 
       const elem = document.createElement('button');
-      elem.setAttribute('data-analytics-overrides-retry', 'true');
+      elem.dataset.analyticsOverridesRetry = 'true';
 
       const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
 
@@ -240,8 +241,8 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics([googlePlugin], Promise, false, false);
 
       const elem = document.createElement('button');
-      elem.setAttribute('data-analytics-category', 'button');
-      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+      elem.dataset.analyticsCategory = 'button';
+      elem.dataset.analyticsOverridesEndpoint = '/custom/log';
 
       const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
 
@@ -256,8 +257,8 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics([plugin], Promise, false, false);
 
       const elem = document.createElement('button');
-      elem.setAttribute('data-analytics-category', 'button');
-      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+      elem.dataset.analyticsCategory = 'button';
+      elem.dataset.analyticsOverridesEndpoint = '/custom/log';
 
       const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
 
@@ -272,7 +273,7 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics([logPlugin], Promise, false, false);
 
       const elem = document.createElement('button');
-      elem.setAttribute('data-analytics-category', 'error');
+      elem.dataset.analyticsCategory = 'error';
 
       const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
 
@@ -305,8 +306,8 @@ describe('AvAnalytics', () => {
       mockAvAnalytics = new AvAnalytics([googlePlugin, logPlugin], Promise, false, false);
 
       const elem = document.createElement('button');
-      elem.setAttribute('data-analytics-category', 'error');
-      elem.setAttribute('data-analytics-overrides-endpoint', '/custom/log');
+      elem.dataset.analyticsCategory = 'error';
+      elem.dataset.analyticsOverridesEndpoint = '/custom/log';
 
       const attrs = mockAvAnalytics.getAnalyticAttrs(elem);
 

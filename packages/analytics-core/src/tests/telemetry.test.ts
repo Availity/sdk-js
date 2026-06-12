@@ -1,7 +1,8 @@
+import type { Mock } from 'vitest';
 import { AvTelemetryAnalytics } from '..';
 
 describe('AvTelemetryAnalytics', () => {
-  let mockLog: { info: vi.Mock; test: vi.Mock; debug: vi.Mock; warn: vi.Mock; error: vi.Mock };
+  let mockLog: { info: Mock; test: Mock; debug: Mock; warn: Mock; error: Mock };
   let mockAvTelemetryAnalytics: AvTelemetryAnalytics;
 
   beforeEach(() => {
