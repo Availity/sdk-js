@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.1.0](https://github.com/availity/sdk-js/compare/@availity/env-var@6.0.2...@availity/env-var@6.1.0) (2026-06-12)
+
+
+### Features
+
+* migrate to ESLint 9 flat config ([7126be7](https://github.com/availity/sdk-js/commit/7126be7cdda8ebd9343e70374fd660763f87e079))
+
+
+
 ## [6.0.2](https://github.com/availity/sdk-js/compare/@availity/env-var@6.0.1...@availity/env-var@6.0.2) (2026-06-09)
 
 
