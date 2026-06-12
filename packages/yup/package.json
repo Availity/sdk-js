@@ -41,7 +41,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.21",
     "yup": "^1.7.1"
   },
   "devDependencies": {
