@@ -1,6 +1,6 @@
 {
   "name": "@availity/upload-core",
-  "version": "9.0.2",
+  "version": "9.1.0",
   "description": "Wrapper for tus-js-client",
   "keywords": [
     "tus",
