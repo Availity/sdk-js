@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [13.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.0.2...@availity/api-core@13.1.0) (2026-06-12)
+
+### Dependency Updates
+
+* `env-var` updated to version `13.0.2`
+* `resolve-url` updated to version `13.0.2`
+
+### Features
+
+* migrate to ESLint 9 flat config ([7126be7](https://github.com/Availity/sdk-js/commit/7126be7cdda8ebd9343e70374fd660763f87e079))
+
+
+
 ## [13.0.2](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.0.1...@availity/api-core@13.0.2) (2026-06-09)
 
 ### Dependency Updates
