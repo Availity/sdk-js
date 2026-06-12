@@ -466,9 +466,9 @@ __metadata:
     "@nx/eslint": "npm:21.6.11"
     "@nx/js": "npm:21.6.11"
     "@nx/workspace": "npm:21.6.11"
-    "@types/node": "npm:^22.19.20"
+    "@types/node": "npm:^22.19.21"
     "@vitest/coverage-v8": "npm:^4.1.8"
-    eslint-config-availity: "npm:14"
+    eslint-config-availity: "npm:^14.0.0"
     gh-pages: "npm:^6.3.0"
     husky: "npm:^9.1.7"
     is-ci: "npm:^4.1.0"
@@ -476,7 +476,7 @@ __metadata:
     lint-staged: "npm:^17.0.7"
     nx: "npm:21.6.11"
     plop: "npm:^4.0.5"
-    prettier: "npm:^3.8.3"
+    prettier: "npm:^3.8.4"
     typescript: "npm:5.9.3"
     vitest: "npm:^4.1.8"
   languageName: unknown
@@ -507,7 +507,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/yup@workspace:packages/yup"
   dependencies:
-    dayjs: "npm:^1.11.13"
+    dayjs: "npm:^1.11.21"
     tsup: "npm:^8.5.1"
     typescript: "npm:^5.9.3"
     yup: "npm:^1.7.1"
@@ -5476,12 +5476,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.19.20":
-  version: 22.19.20
-  resolution: "@types/node@npm:22.19.20"
+"@types/node@npm:^22.19.21":
+  version: 22.19.21
+  resolution: "@types/node@npm:22.19.21"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/85a4c97c4b2b918e9b5a3afc980d5b97f0198a4b2baf1f9d06f0b059999ecab5e4833e9600898c0762dd0905a7c58baaffa064a5bd7f53fcb894cd259d532586
+  checksum: 10/3767b914ea4ec2f05dfa541b90e20bf580ab671feae8459c49f67eddd6c18f1d178d054a0836d3928f53e3049e84c0c7ee64630c20980941202ba5ecfd731e56
   languageName: node
   linkType: hard
 
@@ -8720,7 +8720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.13":
+"dayjs@npm:^1.11.21":
   version: 1.11.21
   resolution: "dayjs@npm:1.11.21"
   checksum: 10/dd16f9f2706b61b90e3c346a3211ac3afd9e26193136ce0e87f70bf74d1c17a447bceb230a88b175467fc9f5e3243d8c1544b9897092a12d9c80ee44d338dcb6
@@ -9662,7 +9662,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-availity@npm:14":
+"eslint-config-availity@npm:^14.0.0":
   version: 14.0.0
   resolution: "eslint-config-availity@npm:14.0.0"
   dependencies:
@@ -16680,12 +16680,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.8.3":
-  version: 3.8.3
-  resolution: "prettier@npm:3.8.3"
+"prettier@npm:^3.8.4":
+  version: 3.8.4
+  resolution: "prettier@npm:3.8.4"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/4b3b12cbb29e4c96bed936e5d070167552500c18d37676fb3e0caae6199c42860662608e4dc116230698f6e2bb0267ef2548158224c92d40f188d309d72fdd6f
+  checksum: 10/54684a3cc6689238692b29fab541c01934af7677be94c02293ba49981a1ac121c8bebe2a865f0c3b963e99d208f847c53aed354cc0ce8750e2d45791d64506c5
   languageName: node
   linkType: hard
 
