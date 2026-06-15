@@ -4,6 +4,31 @@ export { default as AvMicroservice } from './ms';
 // eslint-disable-next-line no-restricted-exports
 export { default } from './api';
 
+// Domain model types
+export type {
+  AriesPaginatedResponse,
+  PaginatedCollection,
+  PaginationLinks,
+  User,
+  Address,
+  Organization,
+  OrganizationsResponse,
+  Region,
+  RegionsResponse,
+  Provider,
+  ProvidersResponse,
+  Permission,
+  PermissionsResponse,
+  Space,
+  SettingsResponse,
+  Code,
+  CodesResponse,
+  Disclaimer,
+  DisclaimersResponse,
+  Notification,
+  RouteConfiguration,
+} from './types';
+
 // Resources
 export { default as AvCodes } from './resources/codes';
 export { default as AvDisclaimers } from './resources/disclaimers';
@@ -38,7 +63,6 @@ export type { LogEntries } from './resources/logs';
 export type { DmaEntries } from './resources/dma';
 export type { DmaCloudEntries } from './resources/dma-cloud';
 export type { TelemetryData } from './resources/telemetry';
-export type { Provider } from './resources/providers';
 export type { PermissionIds, PostGetArgs, FilteredOrganization } from './resources/organizations';
 
 // Utilities

@@ -1,4 +1,5 @@
 import AvApi, { AvApiConfig, RequestConfig, AvApiResponse } from '../api';
+import type { RegionsResponse } from '../types';
 import AvUsers from './user';
 
 export default class AvRegions extends AvApi {
@@ -8,7 +9,7 @@ export default class AvRegions extends AvApi {
 
   afterUpdate(response: AvApiResponse): AvApiResponse;
 
-  getRegions<T = unknown>(config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
+  getRegions<T = RegionsResponse>(config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
-  getCurrentRegion<T = unknown>(): Promise<AvApiResponse<T>>;
+  getCurrentRegion<T = RegionsResponse>(): Promise<AvApiResponse<T>>;
 }

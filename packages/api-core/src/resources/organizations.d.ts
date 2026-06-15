@@ -1,4 +1,5 @@
 import AvApi, { AvApiConfig, RequestConfig, AvApiResponse } from '../api';
+import type { OrganizationsResponse } from '../types';
 import AvUsers from './user';
 import AvUserPermissions from './userPermissions';
 
@@ -29,11 +30,11 @@ export default class AvOrganizations extends AvApi {
 
   avUserPermissions: AvUserPermissions;
 
-  queryOrganizations<T = unknown>(user: { id: string }, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
+  queryOrganizations<T = OrganizationsResponse>(user: { id: string }, config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
-  getOrganizations<T = unknown>(config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
+  getOrganizations<T = OrganizationsResponse>(config?: Partial<AvApiConfig>): Promise<AvApiResponse<T>>;
 
-  postGet<T = unknown>(
+  postGet<T = OrganizationsResponse>(
     data: unknown,
     config?: Partial<AvApiConfig>,
     additionalPostGetArgs?: PostGetArgs
