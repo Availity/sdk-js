@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [10.2.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@10.1.0...@availity/authorizations-axios@10.2.0) (2026-06-15)
+
+### Dependency Updates
+
+* `api-axios` updated to version `10.1.0`
+* `authorizations-core` updated to version `10.1.0`
+
+### Features
+
+* upgrade nx to v22, improve api-core type exports and msw mocks ([30615b9](https://github.com/availity/sdk-js/commit/30615b9242049933d466e1a2c48ee2ee2ef37366))
+
+
+
 # [10.1.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@10.0.2...@availity/authorizations-axios@10.1.0) (2026-06-12)
 
 ### Dependency Updates
