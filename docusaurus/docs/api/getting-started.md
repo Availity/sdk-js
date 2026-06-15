@@ -6,20 +6,25 @@ Learn how to use the [@availity/api-axios](https://github.com/Availity/sdk-js/tr
 
 [![Version](https://img.shields.io/npm/v/@availity/api-axios.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/api-axios)
 
+## Prerequisites
+
+- **Node.js** ^22.0.0 or ^24.0.0
+- **ESM-only** — All `@availity` SDK packages are published as ES Modules. If your project uses CommonJS (`require`), you will need a bundler that handles ESM (e.g., webpack, Vite, esbuild) or use dynamic `import()`.
+
 ## Installation
 
-Install the package through `npm`, `yarn`, or your favorite package manager. You must also install `axios` as well.
+Install the package through `npm`, `yarn`, or your favorite package manager. You must also install `axios` ^1.17.0 or later as a peer dependency.
 
 ### NPM
 
 ```bash
-npm install @availity/api-axios axios
+npm install @availity/api-axios axios@^1.17.0
 ```
 
 ### Yarn
 
 ```bash
-yarn add @availity/api-axios axios
+yarn add @availity/api-axios axios@^1.17.0
 ```
 
 ## AvApi

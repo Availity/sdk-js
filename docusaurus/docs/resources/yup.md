@@ -8,11 +8,9 @@ Method extensions for the [yup](https://github.com/jquense/yup)
 
 ## Installation
 
-This package includes `yup` as a dependency in version 4+. In version 3 and earlier you will need to provide `yup` version 0.29.3 or earlier.
+This package includes `yup` ^1.7.0 as a dependency.
 
-If you are upgrading `@availity/yup` to version 4 or 5, then we recommend checking out the breaking changes for `yup` that occur after version `0.29.0`. For example, the way arrays are required has been [changed](https://github.com/jquense/yup/blob/pre-v1/CHANGELOG.md#breaking-changes-1).
-
-If you need to use the `avDate` and `dateRange` schemas then you will have to add `moment` as a dependency.
+The `avDate` and `dateRange` schemas use [dayjs](https://day.js.org/) internally (included as a dependency — no extra install needed).
 
 ### NPM
 
@@ -360,7 +358,7 @@ schema.isValid({}); // false - "This field is required."
 
 ### avDate
 
-Similar to the default date yup object and accepts a string or `moment` object instead. See [Date](https://github.com/jquense/yup#date) for `min` and `max`
+Similar to the default date yup object and accepts a date string. Parsed internally using [dayjs](https://day.js.org/). See [Date](https://github.com/jquense/yup#date) for `min` and `max`
 
 #### Parameters
 
@@ -395,7 +393,7 @@ Set the min and max that the date must be inbetween
   - `"(]"` — exclusive start, inclusive end
   - `"[]"` — inclusive on both ends
 
-[More information](https://momentjscom.readthedocs.io/en/latest/moment/05-query/06-is-between/) on inclusivity
+[More information](https://day.js.org/docs/en/plugin/is-between) on inclusivity
 
 ###### Example
 
