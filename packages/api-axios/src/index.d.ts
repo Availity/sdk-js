@@ -31,6 +31,30 @@ import AvApiCore, {
 
 export type { AvApiResponse, RequestConfig, PaginatedData } from '@availity/api-core';
 
+export type {
+  AriesPaginatedResponse,
+  PaginatedCollection,
+  PaginationLinks,
+  User,
+  Address,
+  Organization,
+  OrganizationsResponse,
+  Region,
+  RegionsResponse,
+  Provider,
+  ProvidersResponse,
+  Permission,
+  PermissionsResponse,
+  Space,
+  SettingsResponse,
+  Code,
+  CodesResponse,
+  Disclaimer,
+  DisclaimersResponse,
+  Notification,
+  RouteConfiguration,
+} from '@availity/api-core';
+
 export interface ApiConfig extends AvApiConfig, AxiosRequestConfig {
   http?: AxiosStatic;
 }

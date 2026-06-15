@@ -2,6 +2,11 @@
   "extends": "@nx/workspace/presets/npm.json",
   "defaultBase": "master",
   "useInferencePlugins": false,
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": true
+    }
+  },
   "namedInputs": {
     "production": [
       "default",

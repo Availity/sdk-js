@@ -12,6 +12,7 @@
     "moduleResolution": "bundler",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "noEmit": true,
     "allowImportingTsExtensions": true,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
