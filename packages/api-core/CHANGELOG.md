@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [13.2.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.1.0...@availity/api-core@13.2.0) (2026-06-15)
+
+### Dependency Updates
+
+* `env-var` updated to version `13.1.0`
+* `resolve-url` updated to version `13.1.0`
+
+### Features
+
+* upgrade nx to v22, improve api-core type exports and msw mocks ([30615b9](https://github.com/Availity/sdk-js/commit/30615b9242049933d466e1a2c48ee2ee2ef37366))
+
+
+
 # [13.1.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.0.2...@availity/api-core@13.1.0) (2026-06-12)
 
 ### Dependency Updates

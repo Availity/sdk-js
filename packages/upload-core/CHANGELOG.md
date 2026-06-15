@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.2.0](https://github.com/availity/sdk-js/compare/@availity/upload-core@9.1.0...@availity/upload-core@9.2.0) (2026-06-15)
+
+### Dependency Updates
+
+* `resolve-url` updated to version `9.1.0`
+
+### Features
+
+* upgrade nx to v22, improve api-core type exports and msw mocks ([30615b9](https://github.com/availity/sdk-js/commit/30615b9242049933d466e1a2c48ee2ee2ef37366))
+
+
+
 # [9.1.0](https://github.com/availity/sdk-js/compare/@availity/upload-core@9.0.2...@availity/upload-core@9.1.0) (2026-06-12)
 
 ### Dependency Updates

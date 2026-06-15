@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.2.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.1.0...@availity/exceptions-core@7.2.0) (2026-06-15)
+
+
+### Features
+
+* upgrade nx to v22, improve api-core type exports and msw mocks ([30615b9](https://github.com/availity/sdk-js/commit/30615b9242049933d466e1a2c48ee2ee2ef37366))
+
+
+
 # [7.1.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.0.2...@availity/exceptions-core@7.1.0) (2026-06-12)
 
 

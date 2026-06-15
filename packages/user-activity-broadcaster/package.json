@@ -1,6 +1,6 @@
 {
   "name": "@availity/user-activity-broadcaster",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "This package broacasts user activity to the navigation.",
   "keywords": [],
   "homepage": "https://availity.github.io/sdk-js/resources/user-activity-broadcaster",
