@@ -73,5 +73,5 @@
   "resolutions": {
     "socks": "2.7.3"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.17.0"
 }
