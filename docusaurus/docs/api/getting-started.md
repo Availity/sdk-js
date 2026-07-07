@@ -295,4 +295,75 @@ window.addEventListener('beforeunload', () => {
 
 ## AvMicroserviceApi
 
-`AvMicroservice` extends `AvApi` and thus can call the same methods. It has slightly different default [config options](https://github.com/Availity/sdk-js/blob/master/packages/api-axios/src/options.js).
+`AvMicroserviceApi` extends `AvApi` with defaults tuned for Availity's internal microservices. It uses a different base path and disables caching and polling by default.
+
+### Default Configuration
+
+| Option | `AvApi` Default | `AvMicroserviceApi` Default |
+| --- | --- | --- |
+| `path` | `'/api'` | `'/ms/api/availity/internal'` |
+| `version` | `'/v1'` | `null` (no version segment) |
+| `cache` | `true` | `false` |
+| `polling` | `true` | `false` |
+| `pollingMethod` | `'GET'` | `'POST'` |
+| `sessionBust` | `false` | `false` |
+| `withCredentials` | `true` | `true` |
+
+### URL Pattern
+
+```
+/ms/api/availity/internal/{name}
+```
+
+Unlike `AvApi` (which produces `/api/v1/{name}`), `AvMicroserviceApi` omits the version segment by default. You can add a version by passing it in config:
+
+```js
+import { AvMicroserviceApi } from '@availity/api-axios';
+
+// URL: /ms/api/availity/internal/my-service
+const api = new AvMicroserviceApi({ name: 'my-service' });
+
+// URL: /ms/api/availity/internal/v2/my-service
+const apiV2 = new AvMicroserviceApi({ name: 'my-service', version: '/v2' });
+```
+
+### Usage
+
+`AvMicroserviceApi` has all the same methods as `AvApi` (`get`, `post`, `query`, `create`, `update`, `remove`, `patch`, etc.).
+
+```js
+import { AvMicroserviceApi } from '@availity/api-axios';
+
+class MyServiceApi extends AvMicroserviceApi {
+  constructor() {
+    super({ name: 'claims-data' });
+  }
+
+  async getClaimsByMember(memberId) {
+    const response = await this.query({ params: { memberId } });
+    return response.data;
+  }
+}
+
+export default new MyServiceApi();
+```
+
+### When to Use AvMicroserviceApi
+
+Use `AvMicroserviceApi` instead of `AvApi` when:
+
+- The endpoint lives under `/ms/api/availity/internal/...`
+- The service does **not** return `202` polling responses
+- You don't need response caching (microservices typically return fresh data)
+- Examples: `AvFilesApi`, `AvFilesDeliveryApi`, `AvWebQLApi`
+
+### Full URL Override
+
+You can bypass the URL builder entirely by passing a full `url`:
+
+```js
+const api = new AvMicroserviceApi({
+  name: 'custom',
+  url: 'https://custom-apps.availity.com/ms/api/availity/internal',
+});
+```

@@ -2,9 +2,17 @@
 title: Environment Vars
 ---
 
-Get run-time environment variables for immutable builds
+Get environment-specific values at runtime without rebuilding your application.
 
 [![Version](https://img.shields.io/npm/v/@availity/env-var.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/env-var)
+
+## When to Use This
+
+Use `@availity/env-var` when:
+
+- You need different config values per environment. API base URLs, feature flags, client IDs, or any value that changes between test/QA/prod but shouldn't require a separate build.
+- You are building an immutable artifact. A single JavaScript bundle that detects its environment at runtime via `window.location.hostname` and selects the appropriate value.
+- You need the current environment name. Determine whether you are running in `'local'`, `'test'`, `'qa'`, or `'prod'` for conditional logic.
 
 ## Installation
 
@@ -93,9 +101,9 @@ import { setEnvironments } from '@availity/env-var';
 
 setEnvironments({
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-apps$/],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-apps$/],
-  prod: [/^apps$/],
+  test: [/^t(?:(?:\d\d)|(?:est))-(essentials)$/],
+  qa: [/^q(?:(?:\d\d)|(?:ap?))-(essentials)$/],
+  prod: [/^(essentials)$/],
   myEnv: ['custom-stuff-here'],
 });
 ```
@@ -161,7 +169,7 @@ import { setSpecificEnvironments } from '@availity/env-var';
 
 setSpecificEnvironments([
   {
-    regex: /^(?:(.*)-)?apps$/,
+    regex: /^(?:(.*)-)?(essentials)$/,
     fn: (options) => options.match[1] || 'prod',
   },
   {
@@ -192,6 +200,6 @@ const env = getCurrentEnv();
 import { getCurrentEnv } from '@availity/env-var';
 
 // Use a custom URL for testing
-const env = getCurrentEnv('https://t01-apps.availity.com/public/apps/home');
+const env = getCurrentEnv('https://test-essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/');
 // => 'test'
 ```
