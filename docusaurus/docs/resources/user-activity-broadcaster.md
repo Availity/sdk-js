@@ -6,6 +6,12 @@ Broadcast user activity events between Availity portal frames to keep sessions a
 
 [![Version](https://img.shields.io/npm/v/@availity/user-activity-broadcaster.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/user-activity-broadcaster)
 
+## When to Use This
+
+Use this package in any Availity portal application that runs inside the portal's iframe. Without it, a user who is actively working in your app may be logged out because the navigation frame doesn't detect their activity.
+
+You should import this package at the root of your application. It has side effects on import: importing it immediately registers activity listeners and starts broadcasting.
+
 ## Installation
 
 ### NPM
@@ -20,21 +26,21 @@ npm install @availity/user-activity-broadcaster
 yarn add @availity/user-activity-broadcaster
 ```
 
-## Overview
-
-This package automatically detects user activity (mouse clicks and key presses) and broadcasts that activity to the alternate Availity portal frame (apps ↔ essentials) via `postMessage`. This keeps the user's session alive across frames when they are active in only one frame.
-
-**Important:** This package has side effects on import. Importing it will immediately:
-
-1. Register `mousedown` and `keydown` event listeners on `document`
-2. Start a 5-minute interval that broadcasts the last activity timestamp to the alternate origin
-
 ## Usage
 
 ```js
-// Simply importing the package activates it
+// Import at your app's entry point (e.g., index.js or App.js)
 import '@availity/user-activity-broadcaster';
 ```
+
+## How It Works
+
+1. Registers `mousedown` and `keydown` event listeners on `document`
+2. Records the timestamp of the user's last interaction
+3. Every 5 minutes, posts a `'user_activity'` message to `window.top` targeting the alternate portal origin (`apps` ↔ `essentials`)
+4. The navigation frame receives this message and resets its session timeout
+
+## Exports
 
 If you need to customize behavior or access internals:
 
@@ -49,8 +55,6 @@ import {
   addEventListeners,
 } from '@availity/user-activity-broadcaster';
 ```
-
-## Exports
 
 ### `eventName`
 
@@ -119,9 +123,3 @@ Updates `lastActivity.time` to the current timestamp. Called automatically by th
 **Type:** `() => void`
 
 Registers `mousedown` and `keydown` listeners on `document`. Called automatically on import, but can be called again if listeners need to be re-registered.
-
-## How It Works
-
-1. On import, event listeners detect `mousedown` and `keydown` events and record the timestamp
-2. Every 5 minutes, the broadcaster posts a message to `window.top` with the alternate origin
-3. The navigation frame on the receiving end uses this to know the user is still active and should not be logged out

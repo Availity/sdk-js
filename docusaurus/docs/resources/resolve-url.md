@@ -1,12 +1,20 @@
 ---
-title: Resolving Urls
+title: Resolving URLs
 ---
 
-Resolve URLs to absolute URI/IRI.
+Resolve relative URLs to absolute URLs at runtime.
 
 [![Version](https://img.shields.io/npm/v/@availity/resolve-url.svg?style=for-the-badge)](https://www.npmjs.com/package/@availity/resolve-url)
 
-This library resolves relative IRIs to absolute IRIs given a base IRI, conforming to [RFC3986](https://www.ietf.org/rfc/rfc3986.txt). The code was borrowed from [relative-to-absolute-iri](https://github.com/rubensworks/relative-to-absolute-iri.js).
+## When to Use This
+
+Use `@availity/resolve-url` when:
+
+- You have a relative path and need a full URL. For example, constructing an absolute URL to pass to an external service or embed in a redirect.
+- You need environment-agnostic URL resolution. Instead of hardcoding `https://apps.availity.com`, resolve against `window.location.origin` so the same code works in test, QA, and production.
+- You are working with RFC 3986 edge cases. Protocol-relative URLs, directory traversal (`../`), and hash fragments are all handled correctly.
+
+This library conforms to [RFC 3986](https://www.ietf.org/rfc/rfc3986.txt). The implementation is adapted from [relative-to-absolute-iri](https://github.com/rubensworks/relative-to-absolute-iri.js).
 
 ## Installation
 

@@ -15,6 +15,17 @@ Wrapper for tus-js-client
 - Support for encrypted file uploads
 - Customizable upload options and callbacks
 
+## When to Use This
+
+Use `@availity/upload-core` when your application needs to upload files to the Availity platform. Files are uploaded to a secure vault bucket using the [tus protocol](https://tus.io/) (chunked, resumable) and virus-scanned before being accepted.
+
+### Relationship to AvFilesApi
+
+`@availity/upload-core` handles the **upload** of files to the vault. [`AvFilesApi`](/api/definitions/files) (from `@availity/api-axios`) handles **metadata operations** after upload: listing uploaded files, getting download URLs, and managing file records. You typically use both together:
+
+1. Upload the file with `@availity/upload-core` to get back `references` / `s3References`
+2. Use `AvFilesApi` to attach those references to a business entity or retrieve file metadata later
+
 ## Install
 
 ### NPM

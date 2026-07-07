@@ -63,6 +63,7 @@ module.exports = {
         type: 'category',
         label: 'Recipes',
         items: [
+          'recipes/package-guide',
           'recipes/proxy',
           'recipes/http-request',
           'recipes/organization-filtering',
@@ -76,6 +77,7 @@ module.exports = {
         label: 'Contributing',
         href: 'https://github.com/Availity/sdk-js/blob/master/.github/CONTRIBUTING.md#contributing',
       },
+      'changelog',
     ],
   },
 };
