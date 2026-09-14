@@ -9,5 +9,6 @@ export default defineProject({
     environment: 'jsdom',
     include: ['src/**/*.test.{ts,js}'],
     environmentOptions: { jsdom: { url: 'http://localhost:8080' } },
+    pool: 'vmThreads',
   },
 });

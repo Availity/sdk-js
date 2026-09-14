@@ -1,3 +1,4 @@
+// @vitest-environment node
 import AvRegionsApi from '../regions';
 import { avUserApi } from '../user';
 import server from '../../../mocks/server';

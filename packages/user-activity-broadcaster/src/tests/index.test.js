@@ -38,17 +38,16 @@ describe('user-activity-broadcaster', () => {
   });
 
   test('should call handleActivityUpdate every interval', async () => {
+    vi.useFakeTimers();
+
     const testInterval = 1000;
-    const waitTime = 2999;
 
     const postMessageSpy = vi.fn();
     window.top.postMessage = postMessageSpy;
 
     updateInterval(testInterval);
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, waitTime);
-    });
+    await vi.advanceTimersByTimeAsync(2999);
 
     // handleActivityUpdate posts a message with the user_activity event
     expect(postMessageSpy).toHaveBeenCalledTimes(2);
@@ -56,6 +55,8 @@ describe('user-activity-broadcaster', () => {
       expect.objectContaining({ event: 'user_activity' }),
       expect.any(String)
     );
+
+    vi.useRealTimers();
   });
 
   test('keydown events call handleActivity', () => {
