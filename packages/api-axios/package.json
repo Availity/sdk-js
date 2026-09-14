@@ -43,11 +43,11 @@
   "dependencies": {
     "@availity/api-core": "workspace:*",
     "@availity/resolve-url": "workspace:*",
-    "qs": "^6.15.2"
+    "qs": "^6.16.0"
   },
   "devDependencies": {
     "@availity/upload-core": "workspace:*",
-    "axios": "^1.17.0",
+    "axios": "^1.20.0",
     "msw": "^2.7.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
