@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [10.3.0](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@10.2.2...@availity/authorizations-axios@10.3.0) (2026-09-15)
+
+### Dependency Updates
+
+* `api-axios` updated to version `10.2.2`
+* `authorizations-core` updated to version `10.2.2`
+
+### Features
+
+* upgrade to TypeScript 6 and eslint-config-availity v16 ([113a9a7](https://github.com/availity/sdk-js/commit/113a9a7bc08a0ee257dabbc3fb73ddc6618f08c1))
+
+
+
 ## [10.2.2](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@10.2.1...@availity/authorizations-axios@10.2.2) (2026-09-15)
 
 ### Dependency Updates
