@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.3.0](https://github.com/availity/sdk-js/compare/@availity/relay-id@5.2.0...@availity/relay-id@5.3.0) (2026-09-15)
+
+
+### Features
+
+* upgrade to TypeScript 6 and eslint-config-availity v16 ([113a9a7](https://github.com/availity/sdk-js/commit/113a9a7bc08a0ee257dabbc3fb73ddc6618f08c1))
+
+
+
 # [5.2.0](https://github.com/availity/sdk-js/compare/@availity/relay-id@5.1.0...@availity/relay-id@5.2.0) (2026-06-15)
 
 
