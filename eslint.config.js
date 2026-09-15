@@ -1,8 +1,9 @@
 import browser from 'eslint-config-availity/browser';
-import globals from 'globals';
+import { withVitest } from 'eslint-config-availity';
 
 export default [
   ...browser,
+  ...withVitest,
   {
     rules: {
       'unicorn/no-useless-undefined': 'off',
@@ -12,9 +13,6 @@ export default [
   },
   {
     files: ['**/*.test.*', '**/*.spec.*', '**/tests/**', '**/__tests__/**'],
-    languageOptions: {
-      globals: globals.vitest,
-    },
     rules: {
       'vitest/no-conditional-expect': 'off',
       'vitest/no-commented-out-tests': 'off',
