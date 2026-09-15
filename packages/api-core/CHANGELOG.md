@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [13.3.0](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.2.2...@availity/api-core@13.3.0) (2026-09-15)
+
+### Dependency Updates
+
+* `env-var` updated to version `13.2.2`
+* `resolve-url` updated to version `13.2.2`
+
+### Features
+
+* upgrade to TypeScript 6 and eslint-config-availity v16 ([113a9a7](https://github.com/Availity/sdk-js/commit/113a9a7bc08a0ee257dabbc3fb73ddc6618f08c1))
+
+
+
 ## [13.2.2](https://github.com/Availity/sdk-js/compare/@availity/api-core@13.2.1...@availity/api-core@13.2.2) (2026-09-15)
 
 
