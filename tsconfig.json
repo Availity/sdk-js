@@ -16,6 +16,7 @@
     "allowImportingTsExtensions": true,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "strictFunctionTypes": false,
     "lib": ["dom", "ESNext"],
