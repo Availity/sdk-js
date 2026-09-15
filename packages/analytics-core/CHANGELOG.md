@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.3.0](https://github.com/availity/sdk-js/compare/@availity/analytics-core@7.2.2...@availity/analytics-core@7.3.0) (2026-09-15)
+
+### Dependency Updates
+
+* `api-axios` updated to version `7.2.2`
+
+### Features
+
+* upgrade to TypeScript 6 and eslint-config-availity v16 ([113a9a7](https://github.com/availity/sdk-js/commit/113a9a7bc08a0ee257dabbc3fb73ddc6618f08c1))
+
+
+
 ## [7.2.2](https://github.com/availity/sdk-js/compare/@availity/analytics-core@7.2.1...@availity/analytics-core@7.2.2) (2026-09-15)
 
 ### Dependency Updates
