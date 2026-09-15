@@ -39,7 +39,7 @@
     "mockdate": "^3.0.5",
     "stacktrace-js": "^2.0.2",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0"
   },
   "peerDependencies": {
     "stacktrace-js": "^2.0.2"
