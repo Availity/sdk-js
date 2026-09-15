@@ -11,6 +11,8 @@ jobs:
   setup:
     if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
     runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: 'false'
     permissions:
       actions: read
 
@@ -33,26 +35,6 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
-      # - name: Get yarn cache directory path
-      #   id: yarn-cache-dir-path
-      #   run: |
-      #     echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      # - name: Restore yarn cache
-      #   uses: actions/cache@v3
-      #   id: yarn-cache
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
-
-      # - name: Artifactory Check
-      #   run: yarn check:registry
-
-      - name: Install Dependencies
-        run: yarn install --immutable
-
       - name: Restore Nx Cache
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
@@ -60,6 +42,9 @@ jobs:
           key: nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ github.sha }}
           restore-keys: |
             nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-
+
+      - name: Install Dependencies
+        run: yarn install --immutable
 
       - name: Lint Source Code
         run: yarn lint
@@ -70,10 +55,19 @@ jobs:
       - name: Build Packages
         run: yarn build
 
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-dist
+          path: packages/*/dist
+          retention-days: 1
+
   publish:
     if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
     needs: [setup]
     runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: 'false'
     outputs:
       has_changes: ${{ steps.changes.outputs.has_changes }}
     permissions:
@@ -99,9 +93,6 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
-      - name: Install Dependencies
-        run: yarn install --immutable
-
       - name: Restore Nx Cache
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
@@ -110,8 +101,14 @@ jobs:
           restore-keys: |
             nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-
 
-      - name: Build Packages
-        run: yarn build
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: package-dist
+          path: packages
 
       - name: Setup Publish Config
         run: |
@@ -158,8 +155,10 @@ jobs:
 
   deploy-docs:
     if: "${{!contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
-    needs: [publish]
+    needs: [setup]
     runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: 'false'
     permissions:
       pages: write
       id-token: write
@@ -181,6 +180,12 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --immutable
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: package-dist
+          path: packages
 
       - name: Build Docs
         run: yarn build:docs
