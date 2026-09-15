@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.3.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.2.0...@availity/exceptions-core@7.3.0) (2026-09-15)
+
+
+### Features
+
+* upgrade to TypeScript 6 and eslint-config-availity v16 ([113a9a7](https://github.com/availity/sdk-js/commit/113a9a7bc08a0ee257dabbc3fb73ddc6618f08c1))
+
+
+
 # [7.2.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-core@7.1.0...@availity/exceptions-core@7.2.0) (2026-06-15)
 
 
