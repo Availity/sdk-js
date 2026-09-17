@@ -2,9 +2,14 @@
 
 This monorepo is managed using [yarn](https://yarnpkg.com/getting-started) and [nx](https://nx.dev/getting-started/intro). Each package is independently versioned and published to the `npm registry`.
 
+## Prerequisites
+
+- **Node.js** 22 or 24 (see `engines` in package.json). We recommend [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your Node installation.
+- **Yarn 4** — managed via [Corepack](https://yarnpkg.com/corepack), which ships with Node.js.
+
 ## Installation
 
-Ensure you are running Node.js 22 or 24 (see `engines` in package.json). We recommend using [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your Node installation.
+Verify your Node version:
 
 ```bash
 node --version
@@ -46,6 +51,29 @@ yarn build
 
 You are now ready to begin development in the repo!
 
+## Contributor Workflow
+
+Here is the step-by-step flow for contributing a change:
+
+1. **Fork** the repository on GitHub and clone your fork locally.
+2. **Install dependencies** (see above).
+3. **Create a branch** off `master`:
+   ```bash
+   git checkout -b fix/your-change-description
+   ```
+4. **Make your changes** and add tests where applicable.
+5. **Run tests and lint** to make sure everything passes:
+   ```bash
+   yarn test
+   yarn lint
+   ```
+6. **Type-check** your changes:
+   ```bash
+   yarn typecheck
+   ```
+7. **Commit your changes** using the [Angular Commit Format](#commits) (enforced by commitlint).
+8. **Push your branch** and open a pull request against `master`.
+
 ## Local Development
 
 ### Unit Tests
@@ -70,6 +98,20 @@ Run tests in watch mode for a single package:
 npx vitest --project=api-axios
 ```
 
+Run all tests with coverage:
+
+```bash
+yarn test:coverage
+```
+
+### Type Checking
+
+Run TypeScript type checking across the entire monorepo:
+
+```bash
+yarn typecheck
+```
+
 ### Linting
 
 This repo uses [eslint-config-availity](https://github.com/Availity/eslint-config-availity#readme) for linting. Make sure to have linting support in your IDE or run the linting script to make sure your code does not have any errors. You will not be able to commit your code if there are linting errors.
@@ -77,6 +119,16 @@ This repo uses [eslint-config-availity](https://github.com/Availity/eslint-confi
 ```bash
 yarn lint
 ```
+
+### Docs Site
+
+To preview the documentation site locally:
+
+```bash
+yarn start
+```
+
+This starts the [Docusaurus](https://docusaurus.io/) dev server at `http://localhost:3000`.
 
 ### Adding/Removing a Dependency
 
@@ -106,6 +158,24 @@ The commit messages in this repository are important for two main reasons:
 
 Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should be one of the un-prefixed names of the packages under `./packages/` or `docusaurus` for the docs. If a commit applies to multiple packages, leave out the scope.
 
+### Commit Types
+
+| Type       | Description                              | Triggers version bump? |
+| ---------- | ---------------------------------------- | ---------------------- |
+| `feat`     | A new feature                            | ✅ Yes — minor         |
+| `fix`      | A bug fix                                | ✅ Yes — patch         |
+| `perf`     | A performance improvement                | ✅ Yes — patch         |
+| `revert`   | Reverts a previous commit                | ✅ Yes — patch         |
+| `docs`     | Documentation only changes               | ❌ No                  |
+| `chore`    | Maintenance tasks                        | ❌ No                  |
+| `style`    | Code style changes (formatting, etc.)    | ❌ No                  |
+| `refactor` | Code refactoring with no behavior change | ❌ No                  |
+| `test`     | Adding or updating tests                 | ❌ No                  |
+| `build`    | Build system or dependency updates       | ❌ No                  |
+| `ci`       | CI configuration changes                 | ❌ No                  |
+
+> **Note:** Commits with type `docs` do not trigger a version bump. This is handled automatically by the Angular preset used with `@jscutlery/semver`.
+
 For example, here is what the commit message would look like when fixing a null-checking error in the env-var package:
 
 ```bash
@@ -120,30 +190,45 @@ git commit -m "feat(api-axios)!: add new features
 BREAKING CHANGE: names of args changed"
 ```
 
-## Canary Releases
+Commit messages are enforced by [commitlint](https://commitlint.js.org/) via a git `commit-msg` hook. The hook runs automatically when you commit.
 
-> You must have an npm account, and be a member of the Availity Organization for this process to succeed.
+## Versioning and Publishing
 
-Canary Releases can be used to test changes without impacting the `latest` tag.
+Versioning is automated via [`@jscutlery/semver`](https://github.com/jscutlery/semver) with the Angular conventional-commits preset. On merge to `master`, CI automatically:
 
-The first thing we need to do is create a new version to be tagged. Version bumps are generated off the latest commits to the package. You should commit any changes before running the version and publish commands.
+1. Determines affected packages using `nx affected`.
+2. Bumps versions and generates changelogs.
+3. Publishes changed packages to npm.
+4. Opens a release PR with the version bump commits.
 
-Bump the version using a `preid`. The `preid` is the tag you want to use in order to identify the release. If you want to see what version will be created without actually making the changes, then add the `--dry-run` flag to the end.
+You can preview what will change without committing anything:
 
 ```bash
-# This will make changes to the package.json, changelog.md, and make a commit
+yarn publish:dry-run
+```
+
+## Canary Releases
+
+> You must have an npm account and be a member of the Availity Organization for this process to succeed.
+
+Canary releases can be used to test changes without impacting the `latest` tag.
+
+First, bump the version using a `preid`. The `preid` is the tag you want to use to identify the release. Add `--dry-run` to preview without making changes.
+
+```bash
+# Bump the version (creates a commit and updates changelog)
 yarn nx version env-var --releaseAs=prerelease --preid=alpha
 
-# Dry run to make sure changes are correct
+# Dry run to preview what version will be created
 yarn nx version env-var --releaseAs=prerelease --preid=alpha --dry-run
 ```
 
-Once you have a newly created version it will need to be published to the registry so you or others can use it. First login, and then run the publish command
+Once the new version has been committed, publish it to the registry:
 
 ```sh
-# login
+# Login to npm (required once)
 yarn npm login --publish
 
-# publish
-yarn nx publish:canary env-var
+# Publish the canary version
+yarn nx publish env-var
 ```
