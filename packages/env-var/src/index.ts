@@ -5,6 +5,18 @@ export type ENVIORNEMNT = Environment;
 
 export type EnvTest = string | RegExp | ((options: { subdomain: string; pathname: string }) => boolean);
 
+/**
+ * Minimal window-like object required for environment detection.
+ * Only `location.hostname` and `location.pathname` are read.
+ * Accepts the real `window`, a jsdom window, or any plain object with a `location`.
+ */
+export interface WindowLike {
+  location: {
+    hostname: string;
+    pathname: string;
+  };
+}
+
 export interface EnvOpts<T> {
   local?: T;
   test?: T;
@@ -85,7 +97,7 @@ export function getLocation(href: string): URL {
   return new URL(href);
 }
 
-function getLocationComponents(windowOverride: Window | string | null): {
+function getLocationComponents(windowOverride: WindowLike | string | null): {
   subdomain: string;
   pathname: string;
 } {
@@ -110,9 +122,9 @@ function getLocationComponents(windowOverride: Window | string | null): {
  * `window` is not available.
  */
 export function getCurrentEnv(
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
 ): Environment | string {
-  const { subdomain, pathname } = getLocationComponents(windowOverride as Window | string | null);
+  const { subdomain, pathname } = getLocationComponents(windowOverride as WindowLike | string | null);
 
   return (
     Object.keys(environments).reduce<string>((prev, env) => {
@@ -149,9 +161,9 @@ export function getCurrentEnv(
 
 /** Returns the specific environment slug, e.g. `t01`, `qap`, `prod` — not the broad category. */
 export function getSpecificEnv(
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
 ): string {
-  const { subdomain, pathname } = getLocationComponents(windowOverride as Window | string | null);
+  const { subdomain, pathname } = getLocationComponents(windowOverride as WindowLike | string | null);
 
   return (
     specificEnvironments.reduce<string | null>((prev, env) => {
@@ -172,34 +184,34 @@ export function getSpecificEnv(
  * // => { env: 'test', specificEnv: 't01' }
  */
 export function getEnvironmentInfo(
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
 ): EnvironmentInfo {
   return {
-    env: getCurrentEnv(windowOverride as Window),
-    specificEnv: getSpecificEnv(windowOverride as Window),
+    env: getCurrentEnv(windowOverride as WindowLike),
+    specificEnv: getSpecificEnv(windowOverride as WindowLike),
   };
 }
 
 /** Returns `true` when the current environment is `'prod'`. */
 export const isProd = (
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
-): boolean => getCurrentEnv(windowOverride as Window) === 'prod';
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
+): boolean => getCurrentEnv(windowOverride as WindowLike) === 'prod';
 
 /** Returns `true` when the current environment is `'qa'`. */
 export const isQa = (
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
-): boolean => getCurrentEnv(windowOverride as Window) === 'qa';
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
+): boolean => getCurrentEnv(windowOverride as WindowLike) === 'qa';
 
 /** Returns `true` when the current environment is `'test'`. */
 export const isTest = (
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
-): boolean => getCurrentEnv(windowOverride as Window) === 'test';
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
+): boolean => getCurrentEnv(windowOverride as WindowLike) === 'test';
 
 /** Returns `true` when the current environment is `'local'` (or unrecognised host). */
 export const isLocal = (
-  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+  windowOverride: WindowLike | string | null = typeof window !== 'undefined' ? window : null
 ): boolean => {
-  const env = getCurrentEnv(windowOverride as Window);
+  const env = getCurrentEnv(windowOverride as WindowLike);
   return env === 'local' || env === '';
 };
 
@@ -212,20 +224,20 @@ export const isLocal = (
  */
 export default function envVar<T>(
   varObj: EnvOpts<T> & { local: T },
-  windowOverride?: Window | typeof globalThis | string | null,
+  windowOverride?: WindowLike | string | null,
   defaultVar?: T
 ): T;
 export default function envVar<T>(
   varObj: EnvOpts<T>,
-  windowOverride?: Window | typeof globalThis | string | null,
+  windowOverride?: WindowLike | string | null,
   defaultVar?: T
 ): T | undefined;
 export default function envVar<T>(
   varObj: EnvOpts<T>,
-  windowOverride?: Window | typeof globalThis | string | null,
+  windowOverride?: WindowLike | string | null,
   defaultVar?: T
 ): T | undefined {
-  const env = getCurrentEnv(windowOverride as Window);
+  const env = getCurrentEnv(windowOverride as WindowLike);
 
   if (`${env}` in varObj) {
     return varObj[env];

@@ -11,13 +11,14 @@ import envVar, {
   resetSpecificEnvironments,
   setEnvironments,
   setSpecificEnvironments,
+  type WindowLike,
 } from '.';
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
-const fakeWindow = (hostname: string, pathname = '/') => ({
+const fakeWindow = (hostname: string, pathname = '/'): WindowLike => ({
   location: { hostname, pathname },
 });
 
@@ -49,23 +50,23 @@ describe('getLocation', () => {
 
 describe('getCurrentEnv', () => {
   test('returns "prod" for apps.availity.com', () => {
-    expect(getCurrentEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('prod');
+    expect(getCurrentEnv(fakeWindow('apps.availity.com'))).toBe('prod');
   });
 
   test('returns "local" for localhost', () => {
-    expect(getCurrentEnv(fakeWindow('localhost') as unknown as Window)).toBe('local');
+    expect(getCurrentEnv(fakeWindow('localhost'))).toBe('local');
   });
 
   test('returns "test" for t01-apps.availity.com', () => {
-    expect(getCurrentEnv(fakeWindow('t01-apps.availity.com') as unknown as Window)).toBe('test');
+    expect(getCurrentEnv(fakeWindow('t01-apps.availity.com'))).toBe('test');
   });
 
   test('returns "qa" for qa-apps.availity.com', () => {
-    expect(getCurrentEnv(fakeWindow('qa-apps.availity.com') as unknown as Window)).toBe('qa');
+    expect(getCurrentEnv(fakeWindow('qa-apps.availity.com'))).toBe('qa');
   });
 
   test('returns empty string for an unrecognised hostname', () => {
-    expect(getCurrentEnv(fakeWindow('unknown.someother.com') as unknown as Window)).toBe('');
+    expect(getCurrentEnv(fakeWindow('unknown.someother.com'))).toBe('');
   });
 
   test('returns empty string when called with null (SSR/no-window)', () => {
@@ -206,7 +207,7 @@ describe('envVar', () => {
 describe('getSpecificEnv', () => {
   const assertSpecific = (hostname: string, expectedSlug: string) => {
     test(`${hostname} → "${expectedSlug}"`, () => {
-      expect(getSpecificEnv(fakeWindow(hostname) as unknown as Window)).toBe(expectedSlug);
+      expect(getSpecificEnv(fakeWindow(hostname))).toBe(expectedSlug);
     });
   };
 
@@ -229,7 +230,7 @@ describe('getSpecificEnv', () => {
   });
 
   test('accepts a URL string and parses it correctly', () => {
-    expect(getSpecificEnv('https://apps.availity.com' as unknown as Window)).toBe('prod');
+    expect(getSpecificEnv('https://apps.availity.com')).toBe('prod');
   });
 });
 
@@ -239,28 +240,28 @@ describe('getSpecificEnv', () => {
 
 describe('getEnvironmentInfo', () => {
   test('returns both env and specificEnv for a prod portal URL', () => {
-    expect(getEnvironmentInfo(fakeWindow('apps.availity.com') as unknown as Window)).toEqual({
+    expect(getEnvironmentInfo(fakeWindow('apps.availity.com'))).toEqual({
       env: 'prod',
       specificEnv: 'prod',
     });
   });
 
   test('returns both env and specificEnv for a test portal URL', () => {
-    expect(getEnvironmentInfo(fakeWindow('t01-apps.availity.com') as unknown as Window)).toEqual({
+    expect(getEnvironmentInfo(fakeWindow('t01-apps.availity.com'))).toEqual({
       env: 'test',
       specificEnv: 't01',
     });
   });
 
   test('returns both env and specificEnv for a qa portal URL', () => {
-    expect(getEnvironmentInfo(fakeWindow('qa-apps.availity.com') as unknown as Window)).toEqual({
+    expect(getEnvironmentInfo(fakeWindow('qa-apps.availity.com'))).toEqual({
       env: 'qa',
       specificEnv: 'qa',
     });
   });
 
   test('returns local/local for localhost', () => {
-    expect(getEnvironmentInfo(fakeWindow('localhost') as unknown as Window)).toEqual({
+    expect(getEnvironmentInfo(fakeWindow('localhost'))).toEqual({
       env: 'local',
       specificEnv: 'local',
     });
@@ -288,15 +289,15 @@ describe('getEnvironmentInfo', () => {
 describe('boolean helpers', () => {
   describe('isProd', () => {
     test('returns true for apps.availity.com', () => {
-      expect(isProd(fakeWindow('apps.availity.com') as unknown as Window)).toBe(true);
+      expect(isProd(fakeWindow('apps.availity.com'))).toBe(true);
     });
 
     test('returns false for qa-apps.availity.com', () => {
-      expect(isProd(fakeWindow('qa-apps.availity.com') as unknown as Window)).toBe(false);
+      expect(isProd(fakeWindow('qa-apps.availity.com'))).toBe(false);
     });
 
     test('returns false for localhost', () => {
-      expect(isProd(fakeWindow('localhost') as unknown as Window)).toBe(false);
+      expect(isProd(fakeWindow('localhost'))).toBe(false);
     });
 
     test('returns false for null (SSR/no-window)', () => {
@@ -310,15 +311,15 @@ describe('boolean helpers', () => {
 
   describe('isQa', () => {
     test('returns true for qa-apps.availity.com', () => {
-      expect(isQa(fakeWindow('qa-apps.availity.com') as unknown as Window)).toBe(true);
+      expect(isQa(fakeWindow('qa-apps.availity.com'))).toBe(true);
     });
 
     test('returns true for qap-apps.availity.com', () => {
-      expect(isQa(fakeWindow('qap-apps.availity.com') as unknown as Window)).toBe(true);
+      expect(isQa(fakeWindow('qap-apps.availity.com'))).toBe(true);
     });
 
     test('returns false for apps.availity.com', () => {
-      expect(isQa(fakeWindow('apps.availity.com') as unknown as Window)).toBe(false);
+      expect(isQa(fakeWindow('apps.availity.com'))).toBe(false);
     });
 
     test('returns false for null (SSR/no-window)', () => {
@@ -328,15 +329,15 @@ describe('boolean helpers', () => {
 
   describe('isTest', () => {
     test('returns true for t01-apps.availity.com', () => {
-      expect(isTest(fakeWindow('t01-apps.availity.com') as unknown as Window)).toBe(true);
+      expect(isTest(fakeWindow('t01-apps.availity.com'))).toBe(true);
     });
 
     test('returns true for test-apps.availity.com', () => {
-      expect(isTest(fakeWindow('test-apps.availity.com') as unknown as Window)).toBe(true);
+      expect(isTest(fakeWindow('test-apps.availity.com'))).toBe(true);
     });
 
     test('returns false for apps.availity.com', () => {
-      expect(isTest(fakeWindow('apps.availity.com') as unknown as Window)).toBe(false);
+      expect(isTest(fakeWindow('apps.availity.com'))).toBe(false);
     });
 
     test('returns false for null (SSR/no-window)', () => {
@@ -346,15 +347,15 @@ describe('boolean helpers', () => {
 
   describe('isLocal', () => {
     test('returns true for localhost', () => {
-      expect(isLocal(fakeWindow('localhost') as unknown as Window)).toBe(true);
+      expect(isLocal(fakeWindow('localhost'))).toBe(true);
     });
 
     test('returns true for 127.0.0.1', () => {
-      expect(isLocal(fakeWindow('127.0.0.1') as unknown as Window)).toBe(true);
+      expect(isLocal(fakeWindow('127.0.0.1'))).toBe(true);
     });
 
     test('returns true for an unrecognised host (falls through to empty string)', () => {
-      expect(isLocal(fakeWindow('unknown.other.com') as unknown as Window)).toBe(true);
+      expect(isLocal(fakeWindow('unknown.other.com'))).toBe(true);
     });
 
     test('returns true for null (SSR/no-window)', () => {
@@ -362,7 +363,7 @@ describe('boolean helpers', () => {
     });
 
     test('returns false for apps.availity.com', () => {
-      expect(isLocal(fakeWindow('apps.availity.com') as unknown as Window)).toBe(false);
+      expect(isLocal(fakeWindow('apps.availity.com'))).toBe(false);
     });
   });
 });
@@ -455,7 +456,7 @@ describe('setEnvironments', () => {
 
   describe('null windowOverride with defaultVar', () => {
     test('returns defaultVar when window is null', () => {
-      expect(envVar({ www: false, qa: false, test: false }, null, 'default')).toBe('default');
+      expect(envVar({ www: false, qa: false, test: false, local: false }, null, true)).toBe(true);
     });
   });
 });
@@ -467,17 +468,17 @@ describe('setEnvironments', () => {
 describe('resetEnvironments', () => {
   test('restores built-in environments after a replace override', () => {
     setEnvironments({ custom: 'custom' }, true);
-    expect(getCurrentEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('');
+    expect(getCurrentEnv(fakeWindow('apps.availity.com'))).toBe('');
 
     resetEnvironments();
-    expect(getCurrentEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('prod');
+    expect(getCurrentEnv(fakeWindow('apps.availity.com'))).toBe('prod');
   });
 
   test('restores built-in environments after a merge', () => {
     setEnvironments({ custom: 'custom' });
     resetEnvironments();
-    expect(getCurrentEnv(fakeWindow('custom.availity.com') as unknown as Window)).toBe('');
-    expect(getCurrentEnv(fakeWindow('localhost') as unknown as Window)).toBe('local');
+    expect(getCurrentEnv(fakeWindow('custom.availity.com'))).toBe('');
+    expect(getCurrentEnv(fakeWindow('localhost'))).toBe('local');
   });
 });
 
@@ -493,24 +494,24 @@ describe('setSpecificEnvironments', () => {
   describe('merge (default)', () => {
     test('custom specific environment is returned for matching hostname', () => {
       setSpecificEnvironments([{ regex: /^myservice$/, fn: () => 'custom-env' }]);
-      expect(getSpecificEnv(fakeWindow('myservice.availity.com') as unknown as Window)).toBe('custom-env');
+      expect(getSpecificEnv(fakeWindow('myservice.availity.com'))).toBe('custom-env');
     });
 
     test('built-in specific environments still work after merge', () => {
       setSpecificEnvironments([{ regex: /^myservice$/, fn: () => 'custom-env' }]);
-      expect(getSpecificEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('prod');
+      expect(getSpecificEnv(fakeWindow('apps.availity.com'))).toBe('prod');
     });
   });
 
   describe('replace (override=true)', () => {
     test('custom specific environment matches', () => {
       setSpecificEnvironments([{ regex: /^myservice$/, fn: () => 'custom-env' }], true);
-      expect(getSpecificEnv(fakeWindow('myservice.availity.com') as unknown as Window)).toBe('custom-env');
+      expect(getSpecificEnv(fakeWindow('myservice.availity.com'))).toBe('custom-env');
     });
 
     test('built-in specific environments no longer match after full replace', () => {
       setSpecificEnvironments([{ regex: /^myservice$/, fn: () => 'custom-env' }], true);
-      expect(getSpecificEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('local');
+      expect(getSpecificEnv(fakeWindow('apps.availity.com'))).toBe('local');
     });
   });
 });
@@ -522,16 +523,16 @@ describe('setSpecificEnvironments', () => {
 describe('resetSpecificEnvironments', () => {
   test('restores built-in specific environments after a replace override', () => {
     setSpecificEnvironments([{ regex: /^myservice$/, fn: () => 'custom-env' }], true);
-    expect(getSpecificEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('local');
+    expect(getSpecificEnv(fakeWindow('apps.availity.com'))).toBe('local');
 
     resetSpecificEnvironments();
-    expect(getSpecificEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('prod');
+    expect(getSpecificEnv(fakeWindow('apps.availity.com'))).toBe('prod');
   });
 
   test('localhost and 127.0.0.1 return "local" after reset (fix is in defaults, not runtime state)', () => {
     setSpecificEnvironments([], true); // wipe everything
     resetSpecificEnvironments();
-    expect(getSpecificEnv(fakeWindow('localhost') as unknown as Window)).toBe('local');
-    expect(getSpecificEnv(fakeWindow('127.0.0.1') as unknown as Window)).toBe('local');
+    expect(getSpecificEnv(fakeWindow('localhost'))).toBe('local');
+    expect(getSpecificEnv(fakeWindow('127.0.0.1'))).toBe('local');
   });
 });
