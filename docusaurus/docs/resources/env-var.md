@@ -63,9 +63,10 @@ export default myEnvVal;
 
 #### Optional args
 
-- windowOverride: String or Window Object which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
+- windowOverride: String, Window Object, or `null` which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
   - When a string, it will be taken as a fully qualified URL and the hostname will be parsed from it.
-  - When a Window Object, the location hostname will be used.
+  - When a Window Object, the `location.hostname` will be used.
+  - When `null` (or when `window` is not available, e.g. SSR/Node), falls back to `local`.
 - defaultValue: The value returned when one does not exist for the specified environment. If no default is provided, then the function will use the value specified for `local`
 
 #### Example
@@ -116,9 +117,9 @@ import { setEnvironments } from '@availity/env-var';
 
 setEnvironments({
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-(essentials)$/],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-(essentials)$/],
-  prod: [/^(essentials)$/],
+  test: [/^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/],
+  qa: [/^q(?:(?:\d\d)|(?:ap?))-(apps|essentials)$/],
+  prod: [/^(apps|essentials)$/],
   myEnv: ['custom-stuff-here'],
 });
 ```
@@ -150,7 +151,7 @@ import { getSpecificEnv } from '@availity/env-var';
 
 /*
 depending on the environment this code runs in, specificEnv would be something different,
-like 't01' or 'stg' or 'prod'
+like 't01' or 'qap' or 'prod'
 */
 const specificEnv = getSpecificEnv();
 ```
@@ -282,13 +283,20 @@ isTest('https://t01-apps.availity.com'); // => true
 Restore the built-in environment definitions after a `setEnvironments` or `setSpecificEnvironments` call. Primarily useful in tests to prevent state from bleeding between test cases.
 
 ```js
-import { setEnvironments, resetEnvironments } from '@availity/env-var';
+import {
+  resetEnvironments,
+  resetSpecificEnvironments,
+} from '@availity/env-var';
 ```
 
 #### Example
 
 ```js
-import { setEnvironments, resetEnvironments } from '@availity/env-var';
+import {
+  setEnvironments,
+  resetEnvironments,
+  resetSpecificEnvironments,
+} from '@availity/env-var';
 
 // In a test file
 afterEach(() => {
@@ -299,5 +307,27 @@ afterEach(() => {
 test('custom environment', () => {
   setEnvironments({ staging: /^stg-apps$/ });
   // ... assertions ...
-}); // resetEnvironments() called after each test — no state bleed
+}); // reset called after each test — no state bleed
+```
+
+---
+
+## SSR / Node Usage
+
+All functions default to `null` when `window` is not available (e.g. server-side rendering with Vite SSR, Next.js, or any Node environment). A `null` window is treated as an unrecognised host — `getCurrentEnv` returns `''` and `envVar` falls back to `varObj.local`.
+
+```js
+import envVar, { getCurrentEnv } from '@availity/env-var';
+
+// Safe in Node — no window reference errors
+const env = getCurrentEnv(); // => '' (falls back to local in envVar)
+
+const apiUrl = envVar({
+  prod: 'https://api.availity.com',
+  qa: 'https://qa-api.availity.com',
+  local: 'http://localhost:3000',
+}); // => 'http://localhost:3000' in SSR/Node
+
+// Pass a URL string explicitly when the target environment is known at render time:
+const ssrEnv = getCurrentEnv('https://apps.availity.com'); // => 'prod'
 ```
