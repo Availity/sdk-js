@@ -239,7 +239,7 @@ const { env, specificEnv } = getEnvironmentInfo();
 import { getEnvironmentInfo } from '@availity/env-var';
 
 const { env, specificEnv } = getEnvironmentInfo(
-  'https://t01-apps.availity.com'
+  'https://t01-essentials.availity.com'
 );
 // => { env: 'test', specificEnv: 't01' }
 ```
@@ -270,8 +270,8 @@ if (isLocal()) {
 }
 
 // With a URL string (useful in tests or SSR)
-isProd('https://apps.availity.com'); // => true
-isTest('https://t01-apps.availity.com'); // => true
+isProd('https://essentials.availity.com'); // => true
+isTest('https://t01-essentials.availity.com'); // => true
 ```
 
 > **Note:** `isLocal` returns `true` for both `localhost`/`127.0.0.1` **and** any unrecognised host — the same fallback behaviour as `envVar`.
@@ -329,5 +329,5 @@ const apiUrl = envVar({
 }); // => 'http://localhost:3000' in SSR/Node
 
 // Pass a URL string explicitly when the target environment is known at render time:
-const ssrEnv = getCurrentEnv('https://apps.availity.com'); // => 'prod'
+const ssrEnv = getCurrentEnv('https://essentials.availity.com'); // => 'prod'
 ```
