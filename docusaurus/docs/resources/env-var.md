@@ -28,7 +28,43 @@ npm install @availity/env-var
 yarn add @availity/env-var
 ```
 
-## Usage
+## Supported URL Formats
+
+The package detects the environment from `window.location` using two URL patterns:
+
+### Portal URLs (`*.availity.com`)
+
+Environment is determined by the subdomain:
+
+| Subdomain                      | Category | Specific Slug   |
+| ------------------------------ | -------- | --------------- |
+| `localhost`, `127.0.0.1`       | `local`  | `local`         |
+| `apps`, `essentials`           | `prod`   | `prod`          |
+| `test-apps`, `test-essentials` | `test`   | `test`          |
+| `t01-apps`, `t14-apps`, …      | `test`   | `t01`, `t14`, … |
+| `qa-apps`, `qa-essentials`     | `qa`     | `qa`            |
+| `qap-apps`, `q01-apps`, …      | `qa`     | `qap`, `q01`, … |
+
+### Cloud URLs (`*.availity.com` — zone + path)
+
+Format: `<team>.<provider><zone>.availity.com/<namespace>/<env-slug>/...`
+
+- **Provider**: `aw` (AWS), `az` (Azure), `gc` (GCP)
+- **Zone**: `p` (prod), `n` (non-prod), `s` (sandbox)
+- **Namespace**: 3-char abbreviation, e.g. `cdn`, `api`
+- **Env slug**: 3-char abbreviation, e.g. `prd`, `tst`, `stg`, `qua`, `qap`, `t01`
+
+The zone letter and env slug must be consistent — a prod zone (`??p`) with a non-prod slug, or vice versa, will fall through to `local`.
+
+| Example URL                            | Category | Specific Slug |
+| -------------------------------------- | -------- | ------------- |
+| `digital.awp.availity.com/cdn/prd/...` | `prod`   | `prd`         |
+| `digital.awn.availity.com/cdn/tst/...` | `test`   | `tst`         |
+| `digital.azn.availity.com/cdn/t01/...` | `test`   | `t01`         |
+| `digital.awn.availity.com/cdn/stg/...` | `qa`     | `stg`         |
+| `digital.gcn.availity.com/cdn/qua/...` | `qa`     | `qua`         |
+
+Any URL that does not match a known pattern is treated as `local`.
 
 ### envVar (default export)
 
@@ -173,8 +209,14 @@ setSpecificEnvironments([
     fn: (options) => options.match[1] || 'prod',
   },
   {
-    regex: /.*?\.(?:av|aw|gc)(n|p)$/,
-    fn: (options) => options.subdomain || options.pathname.split('/')[2],
+    // Cloud URLs: match subdomain ending in .<provider><zone>
+    // provider: aw | az | gc   zone: n | p | s
+    regex: /.*?\.(?:aw|az|gc)([nps])$/,
+    fn: (options) => {
+      // options.match, options.subdomain, options.pathname available
+      const pathParts = options.pathname.split('/');
+      return pathParts[2] || null; // e.g. 'prd', 'tst', 't01'
+    },
   },
 ]);
 ```
@@ -200,6 +242,8 @@ const env = getCurrentEnv();
 import { getCurrentEnv } from '@availity/env-var';
 
 // Use a custom URL for testing
-const env = getCurrentEnv('https://test-essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/');
+const env = getCurrentEnv(
+  'https://test-essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/'
+);
 // => 'test'
 ```
