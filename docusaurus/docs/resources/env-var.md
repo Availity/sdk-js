@@ -66,6 +66,8 @@ The zone letter and env slug must be consistent — a prod zone (`??p`) with a n
 
 Any URL that does not match a known pattern is treated as `local`.
 
+## API Reference
+
 ### envVar (default export)
 
 This function accepts an object, and will return a value based on what environment you are in. You can also pass in a window override as well as a default value.
@@ -246,4 +248,89 @@ const env = getCurrentEnv(
   'https://test-essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/'
 );
 // => 'test'
+```
+
+### getEnvironmentInfo
+
+Returns both the broad environment category and the specific slug in a single call. Useful when you need both values — avoids parsing the location twice.
+
+```js
+import { getEnvironmentInfo } from '@availity/env-var';
+
+const { env, specificEnv } = getEnvironmentInfo();
+// => { env: 'test', specificEnv: 't01' }
+```
+
+#### Optional args
+
+- windowOverride: String, Window Object, or `null`. Same semantics as `getCurrentEnv`.
+
+#### Example
+
+```js
+import { getEnvironmentInfo } from '@availity/env-var';
+
+const { env, specificEnv } = getEnvironmentInfo(
+  'https://t01-apps.availity.com'
+);
+// => { env: 'test', specificEnv: 't01' }
+```
+
+---
+
+### isProd / isQa / isTest / isLocal
+
+Convenience boolean helpers. Equivalent to `getCurrentEnv() === 'env'` but more readable and easier to autocomplete.
+
+```js
+import { isProd, isQa, isTest, isLocal } from '@availity/env-var';
+```
+
+Each accepts an optional `windowOverride` (String, Window Object, or `null`) with the same semantics as `getCurrentEnv`.
+
+#### Example
+
+```js
+import { isProd, isLocal } from '@availity/env-var';
+
+if (isProd()) {
+  // only runs in prod
+}
+
+if (isLocal()) {
+  // runs on localhost, 127.0.0.1, or any unrecognised host
+}
+
+// With a URL string (useful in tests or SSR)
+isProd('https://apps.availity.com'); // => true
+isTest('https://t01-apps.availity.com'); // => true
+```
+
+> **Note:** `isLocal` returns `true` for both `localhost`/`127.0.0.1` **and** any unrecognised host — the same fallback behaviour as `envVar`.
+
+---
+
+### resetEnvironments / resetSpecificEnvironments
+
+Restore the built-in environment definitions after a `setEnvironments` or `setSpecificEnvironments` call. Primarily useful in tests to prevent state from bleeding between test cases.
+
+```js
+import { setEnvironments, resetEnvironments } from '@availity/env-var';
+```
+
+#### Example
+
+```js
+import { setEnvironments, resetEnvironments } from '@availity/env-var';
+
+// In a test file
+afterEach(() => {
+  resetEnvironments(); // restore built-in environments
+  resetSpecificEnvironments(); // restore built-in specific environments
+});
+
+test('custom environment', () => {
+  setEnvironments({ staging: /^stg-apps$/ });
+  // ... assertions ...
+}); // resetEnvironments() called after each test — no state bleed
 ```

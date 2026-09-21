@@ -18,6 +18,13 @@ export interface SpecificEnvConfig {
   fn: (options: { match: RegExpMatchArray; subdomain: string; pathname: string }) => string | null;
 }
 
+export interface EnvironmentInfo {
+  /** Broad environment category: `'local'`, `'test'`, `'qa'`, `'prod'`, or a custom key. */
+  env: Environment | string;
+  /** Specific environment slug, e.g. `'t01'`, `'stg'`, `'prd'`. Falls back to `'local'`. */
+  specificEnv: string;
+}
+
 // ---------------------------------------------------------------------------
 // Cloud environment detection (.availity.com)
 //
@@ -56,10 +63,10 @@ const getCloudEnv = (options: { subdomain: string; pathname: string }): string |
 };
 
 // ---------------------------------------------------------------------------
-// Environment maps
+// Environment maps (module-level singletons)
 // ---------------------------------------------------------------------------
 
-let environments: Record<string, EnvTest | EnvTest[]> = {
+const DEFAULT_ENVIRONMENTS: Record<string, EnvTest | EnvTest[]> = {
   local: ['127.0.0.1', 'localhost'],
   test: [
     /^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/,
@@ -72,7 +79,7 @@ let environments: Record<string, EnvTest | EnvTest[]> = {
   prod: [/^(apps|essentials)$/, (options) => getCloudEnv(options) === 'prd'],
 };
 
-let specificEnvironments: SpecificEnvConfig[] = [
+const DEFAULT_SPECIFIC_ENVIRONMENTS: SpecificEnvConfig[] = [
   {
     regex: /^(?:(.*)-)?(apps|essentials)$/,
     fn: (options) => options.match[1] || 'prod',
@@ -83,6 +90,9 @@ let specificEnvironments: SpecificEnvConfig[] = [
     fn: getCloudEnv,
   },
 ];
+
+let environments: Record<string, EnvTest | EnvTest[]> = { ...DEFAULT_ENVIRONMENTS };
+let specificEnvironments: SpecificEnvConfig[] = [...DEFAULT_SPECIFIC_ENVIRONMENTS];
 
 // ---------------------------------------------------------------------------
 // Public API
@@ -102,6 +112,16 @@ export function setSpecificEnvironments(envs: SpecificEnvConfig[], override?: bo
   } else {
     specificEnvironments = [...specificEnvironments, ...envs];
   }
+}
+
+/** Reset environments to the built-in defaults. Useful for test isolation. */
+export function resetEnvironments(): void {
+  environments = { ...DEFAULT_ENVIRONMENTS };
+}
+
+/** Reset specific environments to the built-in defaults. Useful for test isolation. */
+export function resetSpecificEnvironments(): void {
+  specificEnvironments = [...DEFAULT_SPECIFIC_ENVIRONMENTS];
 }
 
 export function getLocation(href: string): URL {
@@ -124,8 +144,18 @@ function getLocationComponents(windowOverride: Window | string | null): {
   return { subdomain, pathname };
 }
 
-export function getCurrentEnv(windowOverride: Window | typeof globalThis = window): string {
-  const { subdomain, pathname } = getLocationComponents(windowOverride as Window);
+/**
+ * Returns the broad environment category for the current (or overridden) window.
+ * Returns `'local'`, `'test'`, `'qa'`, `'prod'`, a custom key, or `''` for
+ * an unrecognised host (which `envVar` treats as a fallback to `local`).
+ *
+ * Safe to call in SSR / Node — defaults to `null` (local fallback) when
+ * `window` is not available.
+ */
+export function getCurrentEnv(
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): Environment | string {
+  const { subdomain, pathname } = getLocationComponents(windowOverride as Window | string | null);
 
   return (
     Object.keys(environments).reduce<string>((prev, env) => {
@@ -135,34 +165,36 @@ export function getCurrentEnv(windowOverride: Window | typeof globalThis = windo
         envTests = [envTests];
       }
 
-      return (
-        (envTests as EnvTest[]).some((testObj) => {
-          switch (Object.prototype.toString.call(testObj)) {
-            case '[object String]': {
-              return (testObj as string) === subdomain;
-            }
-            case '[object RegExp]': {
-              return (testObj as RegExp).test(subdomain);
-            }
-            case '[object Function]': {
-              return (testObj as (opts: { subdomain: string; pathname: string }) => boolean)({
-                subdomain,
-                pathname,
-              });
-            }
-            default: {
-              return false;
-            }
+      return (envTests as EnvTest[]).some((testObj) => {
+        switch (Object.prototype.toString.call(testObj)) {
+          case '[object String]': {
+            return (testObj as string) === subdomain;
           }
-        }) && env
-      );
+          case '[object RegExp]': {
+            return (testObj as RegExp).test(subdomain);
+          }
+          case '[object Function]': {
+            return (testObj as (opts: { subdomain: string; pathname: string }) => boolean)({
+              subdomain,
+              pathname,
+            });
+          }
+          default: {
+            return false;
+          }
+        }
+      })
+        ? env
+        : '';
     }, '') || ''
   );
 }
 
 /** Returns the specific environment slug, e.g. `t01`, `stg`, `prd` — not the broad category. */
-export function getSpecificEnv(windowOverride: Window | typeof globalThis = window): string {
-  const { subdomain, pathname } = getLocationComponents(windowOverride as Window);
+export function getSpecificEnv(
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): string {
+  const { subdomain, pathname } = getLocationComponents(windowOverride as Window | string | null);
 
   return (
     specificEnvironments.reduce<string | null>((prev, env) => {
@@ -174,9 +206,63 @@ export function getSpecificEnv(windowOverride: Window | typeof globalThis = wind
   );
 }
 
+/**
+ * Returns both the broad environment category and the specific slug in a
+ * single call — avoids parsing the location twice when you need both values.
+ *
+ * @example
+ * const { env, specificEnv } = getEnvironmentInfo();
+ * // => { env: 'test', specificEnv: 't01' }
+ */
+export function getEnvironmentInfo(
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): EnvironmentInfo {
+  return {
+    env: getCurrentEnv(windowOverride as Window),
+    specificEnv: getSpecificEnv(windowOverride as Window),
+  };
+}
+
+/** Returns `true` when the current environment is `'prod'`. */
+export const isProd = (
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): boolean => getCurrentEnv(windowOverride as Window) === 'prod';
+
+/** Returns `true` when the current environment is `'qa'`. */
+export const isQa = (
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): boolean => getCurrentEnv(windowOverride as Window) === 'qa';
+
+/** Returns `true` when the current environment is `'test'`. */
+export const isTest = (
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): boolean => getCurrentEnv(windowOverride as Window) === 'test';
+
+/** Returns `true` when the current environment is `'local'` (or unrecognised host). */
+export const isLocal = (
+  windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
+): boolean => {
+  const env = getCurrentEnv(windowOverride as Window);
+  return env === 'local' || env === '';
+};
+
 // ---------------------------------------------------------------------------
 // Default export — select a value from an env-keyed object
 // ---------------------------------------------------------------------------
+
+/**
+ * Overload: when `local` is always provided in `varObj`, the return is never `undefined`.
+ */
+export default function envVar<T>(
+  varObj: EnvOpts<T> & { local: T },
+  windowOverride?: Window | typeof globalThis | string | null,
+  defaultVar?: T
+): T;
+export default function envVar<T>(
+  varObj: EnvOpts<T>,
+  windowOverride?: Window | typeof globalThis | string | null,
+  defaultVar?: T
+): T | undefined;
 export default function envVar<T>(
   varObj: EnvOpts<T>,
   windowOverride?: Window | typeof globalThis | string | null,
