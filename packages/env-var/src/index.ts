@@ -38,6 +38,11 @@ const DEFAULT_ENVIRONMENTS: Record<string, EnvTest | EnvTest[]> = {
 
 const DEFAULT_SPECIFIC_ENVIRONMENTS: SpecificEnvConfig[] = [
   {
+    // Explicit local hostnames
+    regex: /^(localhost|127\.0\.0\.1)$/,
+    fn: () => 'local',
+  },
+  {
     regex: /^(?:(.*)-)?(apps|essentials)$/,
     fn: (options) => options.match[1] || 'prod',
   },

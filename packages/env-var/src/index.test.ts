@@ -527,4 +527,11 @@ describe('resetSpecificEnvironments', () => {
     resetSpecificEnvironments();
     expect(getSpecificEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('prod');
   });
+
+  test('localhost and 127.0.0.1 return "local" after reset (fix is in defaults, not runtime state)', () => {
+    setSpecificEnvironments([], true); // wipe everything
+    resetSpecificEnvironments();
+    expect(getSpecificEnv(fakeWindow('localhost') as unknown as Window)).toBe('local');
+    expect(getSpecificEnv(fakeWindow('127.0.0.1') as unknown as Window)).toBe('local');
+  });
 });
