@@ -21,16 +21,6 @@ const fakeWindow = (hostname: string, pathname = '/') => ({
   location: { hostname, pathname },
 });
 
-/**
- * Build a fake window from a combined "hostname/path" string,
- * e.g. "digital.awp.availity.com/cdn/prd/spaces/index.html".
- */
-const windowFromUrl = (hostAndPath: string) => {
-  const [host, ...pathParts] = hostAndPath.split('/');
-  const pathname = pathParts.length > 0 ? `/${pathParts.join('/')}` : '/';
-  return fakeWindow(host, pathname);
-};
-
 // ---------------------------------------------------------------------------
 // getLocation
 // ---------------------------------------------------------------------------
@@ -88,32 +78,6 @@ describe('getCurrentEnv', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Shared test table helpers (hoisted to module scope per unicorn/consistent-function-scoping)
-// ---------------------------------------------------------------------------
-
-/**
- * Generates a test asserting that the given host+path resolves to `expectedEnv`
- * via the `envVar` default export.
- */
-const assertEnv = (hostAndPath: string, expectedEnv: string) => {
-  test(`${hostAndPath} → ${expectedEnv}`, () => {
-    const w = windowFromUrl(hostAndPath);
-    const envVars = { prod: false, local: false, qa: false, test: false, [expectedEnv]: true };
-    expect(envVar(envVars, w)).toBe(true);
-  });
-};
-
-/**
- * Generates a test asserting that the given host+path resolves to `expectedSlug`
- * via `getSpecificEnv`.
- */
-const assertSpecific = (hostAndPath: string, expectedSlug: string) => {
-  test(`${hostAndPath} → "${expectedSlug}"`, () => {
-    expect(getSpecificEnv(windowFromUrl(hostAndPath) as unknown as Window)).toBe(expectedSlug);
-  });
-};
-
-// ---------------------------------------------------------------------------
 // envVar — default export
 // ---------------------------------------------------------------------------
 
@@ -162,14 +126,12 @@ describe('envVar', () => {
     });
 
     test('does not coerce falsy values like 0 or false to local (uses ?? not ||)', () => {
-      // defaultVar of 0 should be returned, not varObj.local
       expect(envVar({ local: 99 }, fakeWindow('unknown.other.com'), 0)).toBe(0);
     });
   });
 
   describe('overload: local always provided → return is never undefined', () => {
     test('TypeScript infers T (not T | undefined) when local is in varObj', () => {
-      // This is a compile-time check — at runtime we just verify the value is correct
       const result = envVar({ local: 'fallback', prod: 'production' }, fakeWindow('apps.availity.com'));
       expect(result).toBe('production');
     });
@@ -181,10 +143,18 @@ describe('envVar', () => {
   });
 
   // ---------------------------------------------------------------------------
-  // Environment classification — getCurrentEnv category
+  // Environment classification
   // ---------------------------------------------------------------------------
 
   describe('environment classification', () => {
+    const assertEnv = (hostAndPath: string, expectedEnv: string) => {
+      test(`${hostAndPath} → ${expectedEnv}`, () => {
+        const w = fakeWindow(hostAndPath);
+        const envVars = { prod: false, local: false, qa: false, test: false, [expectedEnv]: true };
+        expect(envVar(envVars, w)).toBe(true);
+      });
+    };
+
     describe('local', () => {
       assertEnv('localhost', 'local');
       assertEnv('127.0.0.1', 'local');
@@ -211,41 +181,8 @@ describe('envVar', () => {
       assertEnv('essentials.availity.com', 'prod');
     });
 
-    describe('cloud .availity.com URLs', () => {
-      // Prod zone + prod path → prod
-      assertEnv('digital.awp.availity.com/cdn/prd/spaces/index.html', 'prod');
-      assertEnv('digital.azp.availity.com/api/prd/spaces/index.html', 'prod');
-      assertEnv('digital.gcp.availity.com/cdn/prd/spaces/index.html', 'prod');
-
-      // Non-prod zone + test path → test
-      assertEnv('digital.awn.availity.com/cdn/tst/spaces/index.html', 'test');
-      assertEnv('digital.aws.availity.com/cdn/tst/spaces/index.html', 'test');
-      assertEnv('digital.azn.availity.com/cdn/t01/spaces/index.html', 'test');
-      assertEnv('digital.gcn.availity.com/cdn/t25/spaces/index.html', 'test');
-
-      // Non-prod zone + qa path → qa
-      assertEnv('digital.awn.availity.com/cdn/stg/spaces/index.html', 'qa');
-      assertEnv('digital.azn.availity.com/cdn/qua/spaces/index.html', 'qa');
-      assertEnv('digital.gcn.availity.com/cdn/qap/spaces/index.html', 'qa');
-
-      // Sandbox zone + non-prod path → valid
-      assertEnv('digital.aws.availity.com/cdn/stg/spaces/index.html', 'qa');
-      assertEnv('digital.azs.availity.com/cdn/t01/spaces/index.html', 'test');
-
-      // Sandbox zone + prod path → local (sandbox can't be prod)
-      assertEnv('digital.aws.availity.com/cdn/prd/spaces/index.html', 'local');
-
-      // Zone/path mismatch → local
-      assertEnv('digital.awn.availity.com/cdn/prd/spaces/index.html', 'local');
-      assertEnv('digital.awp.availity.com/cdn/tst/spaces/index.html', 'local');
-      assertEnv('digital.gap.availity.com/api/prd/spaces/index.html', 'local');
-      assertEnv('digital.azp.availity.com/apic/prd/spaces/index.html', 'local');
-      assertEnv('digital.azp.availity.com/api/prod/spaces/index.html', 'local');
-    });
-
     describe('unknown hostnames fall through to local', () => {
       assertEnv('tykwhatever.example.com', 'local');
-      assertEnv('tykint.noinfrastructure.awp.availity.net', 'local');
     });
   });
 
@@ -267,6 +204,12 @@ describe('envVar', () => {
 // ---------------------------------------------------------------------------
 
 describe('getSpecificEnv', () => {
+  const assertSpecific = (hostname: string, expectedSlug: string) => {
+    test(`${hostname} → "${expectedSlug}"`, () => {
+      expect(getSpecificEnv(fakeWindow(hostname) as unknown as Window)).toBe(expectedSlug);
+    });
+  };
+
   describe('portal URLs', () => {
     assertSpecific('localhost', 'local');
     assertSpecific('127.0.0.1', 'local');
@@ -279,32 +222,6 @@ describe('getSpecificEnv', () => {
     assertSpecific('q01-apps.availity.com', 'q01');
     assertSpecific('apps.availity.com', 'prod');
     assertSpecific('essentials.availity.com', 'prod');
-  });
-
-  describe('cloud .availity.com URLs', () => {
-    assertSpecific('digital.awp.availity.com/cdn/prd/spaces/index.html', 'prd');
-    assertSpecific('digital.azp.availity.com/api/prd/spaces/index.html', 'prd');
-    assertSpecific('digital.gcp.availity.com/cdn/prd/spaces/index.html', 'prd');
-
-    assertSpecific('digital.awn.availity.com/cdn/tst/spaces/index.html', 'tst');
-    assertSpecific('digital.aws.availity.com/cdn/tst/spaces/index.html', 'tst');
-    assertSpecific('digital.azn.availity.com/cdn/t01/spaces/index.html', 't01');
-    assertSpecific('digital.gcn.availity.com/cdn/t25/spaces/index.html', 't25');
-
-    assertSpecific('digital.awn.availity.com/cdn/stg/spaces/index.html', 'stg');
-    assertSpecific('digital.azn.availity.com/cdn/qua/spaces/index.html', 'qua');
-    assertSpecific('digital.gcn.availity.com/cdn/qap/spaces/index.html', 'qap');
-
-    assertSpecific('digital.aws.availity.com/cdn/stg/spaces/index.html', 'stg');
-    assertSpecific('digital.azs.availity.com/cdn/t01/spaces/index.html', 't01');
-    assertSpecific('digital.aws.availity.com/cdn/prd/spaces/index.html', 'local');
-
-    // Zone/path mismatches → local
-    assertSpecific('digital.awn.availity.com/cdn/prd/spaces/index.html', 'local');
-    assertSpecific('digital.awp.availity.com/cdn/tst/spaces/index.html', 'local');
-    assertSpecific('digital.gap.availity.com/api/prd/spaces/index.html', 'local');
-    assertSpecific('digital.azp.availity.com/apic/prd/spaces/index.html', 'local');
-    assertSpecific('digital.azp.availity.com/api/prod/spaces/index.html', 'local');
   });
 
   test('returns "local" when called with null (SSR/no-window)', () => {
@@ -328,21 +245,17 @@ describe('getEnvironmentInfo', () => {
     });
   });
 
-  test('returns both env and specificEnv for a test cloud URL', () => {
-    expect(
-      getEnvironmentInfo(windowFromUrl('digital.awn.availity.com/cdn/t01/spaces/index.html') as unknown as Window)
-    ).toEqual({
+  test('returns both env and specificEnv for a test portal URL', () => {
+    expect(getEnvironmentInfo(fakeWindow('t01-apps.availity.com') as unknown as Window)).toEqual({
       env: 'test',
       specificEnv: 't01',
     });
   });
 
-  test('returns both env and specificEnv for a qa cloud URL', () => {
-    expect(
-      getEnvironmentInfo(windowFromUrl('digital.azn.availity.com/cdn/stg/spaces/index.html') as unknown as Window)
-    ).toEqual({
+  test('returns both env and specificEnv for a qa portal URL', () => {
+    expect(getEnvironmentInfo(fakeWindow('qa-apps.availity.com') as unknown as Window)).toEqual({
       env: 'qa',
-      specificEnv: 'stg',
+      specificEnv: 'qa',
     });
   });
 
@@ -554,20 +467,16 @@ describe('setEnvironments', () => {
 describe('resetEnvironments', () => {
   test('restores built-in environments after a replace override', () => {
     setEnvironments({ custom: 'custom' }, true);
-    // prod should not match after replace
     expect(getCurrentEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('');
 
     resetEnvironments();
-    // prod should match again after reset
     expect(getCurrentEnv(fakeWindow('apps.availity.com') as unknown as Window)).toBe('prod');
   });
 
   test('restores built-in environments after a merge', () => {
     setEnvironments({ custom: 'custom' });
     resetEnvironments();
-    // custom env should no longer match
     expect(getCurrentEnv(fakeWindow('custom.availity.com') as unknown as Window)).toBe('');
-    // built-ins still work
     expect(getCurrentEnv(fakeWindow('localhost') as unknown as Window)).toBe('local');
   });
 });

@@ -21,46 +21,9 @@ export interface SpecificEnvConfig {
 export interface EnvironmentInfo {
   /** Broad environment category: `'local'`, `'test'`, `'qa'`, `'prod'`, or a custom key. */
   env: Environment | string;
-  /** Specific environment slug, e.g. `'t01'`, `'stg'`, `'prd'`. Falls back to `'local'`. */
+  /** Specific environment slug, e.g. `'t01'`, `'qa'`, `'prod'`. Falls back to `'local'`. */
   specificEnv: string;
 }
-
-// ---------------------------------------------------------------------------
-// Cloud environment detection (.availity.com)
-//
-// Cloud domains: <team>.<provider><zone>.availity.com
-//   provider: aw | az | gc
-//   zone:     p (prod) | n (non-prod) | s (sandbox)
-//
-// Cloud URIs: /<namespace>/<environment>/...
-//   namespace: 3-char abbreviation (cdn, api, …)
-//   environment: 3-char abbreviation (prd, tst, stg, qua, qap, t01-t99, …)
-// ---------------------------------------------------------------------------
-const getCloudEnv = (options: { subdomain: string; pathname: string }): string | null => {
-  const { subdomain, pathname } = options;
-  if (!(subdomain && pathname)) return null;
-
-  const subMatch = subdomain.match(/.*?\.(?:aw|az|gc)([nps])$/);
-  if (!subMatch) return null;
-
-  const pathMatch = pathname.match(/^\/[a-z]{3}\/([\da-z]{3})\/.*/);
-  if (!pathMatch) return null;
-
-  // ??p domains must be prod, ??n and ??s domains can't be prod
-  const isProdPath = pathMatch[1] === 'prd';
-  switch (subMatch[1]) {
-    case 'p': {
-      return isProdPath ? pathMatch[1] : null;
-    }
-    case 'n':
-    case 's': {
-      return isProdPath ? null : pathMatch[1];
-    }
-    default: {
-      return null;
-    }
-  }
-};
 
 // ---------------------------------------------------------------------------
 // Environment maps (module-level singletons)
@@ -68,26 +31,15 @@ const getCloudEnv = (options: { subdomain: string; pathname: string }): string |
 
 const DEFAULT_ENVIRONMENTS: Record<string, EnvTest | EnvTest[]> = {
   local: ['127.0.0.1', 'localhost'],
-  test: [
-    /^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/,
-    (options) => /^t(?:(?:\d\d)|(?:st))$/.test(getCloudEnv(options) ?? ''),
-  ],
-  qa: [
-    /^q(?:(?:\d\d)|(?:ap?))-(apps|essentials)$/,
-    (options) => /^(stg|q(?:(?:\d\d)|(?:ua)|(?:ap)))$/.test(getCloudEnv(options) ?? ''),
-  ],
-  prod: [/^(apps|essentials)$/, (options) => getCloudEnv(options) === 'prd'],
+  test: [/^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/],
+  qa: [/^q(?:(?:\d\d)|(?:ap?))-(apps|essentials)$/],
+  prod: [/^(apps|essentials)$/],
 };
 
 const DEFAULT_SPECIFIC_ENVIRONMENTS: SpecificEnvConfig[] = [
   {
     regex: /^(?:(.*)-)?(apps|essentials)$/,
     fn: (options) => options.match[1] || 'prod',
-  },
-  {
-    // Cloud URLs: <team>.<provider><zone>.availity.com
-    regex: /.*?\.(?:aw|az|gc)([nps])$/,
-    fn: getCloudEnv,
   },
 ];
 
@@ -190,7 +142,7 @@ export function getCurrentEnv(
   );
 }
 
-/** Returns the specific environment slug, e.g. `t01`, `stg`, `prd` — not the broad category. */
+/** Returns the specific environment slug, e.g. `t01`, `qap`, `prod` — not the broad category. */
 export function getSpecificEnv(
   windowOverride: Window | typeof globalThis | string | null = typeof window !== 'undefined' ? window : null
 ): string {
