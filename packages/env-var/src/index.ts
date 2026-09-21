@@ -17,12 +17,27 @@ export interface WindowLike {
   };
 }
 
-export interface EnvOpts<T> {
-  local?: T;
-  test?: T;
-  qa?: T;
-  prod?: T;
-  [key: string]: T | undefined;
+/**
+ * Standard environment keys used by the Availity portal.
+ * Any additional string keys are also accepted for custom environments.
+ *
+ * Each key may hold a different value type — e.g. `{ prod: 'https://...', local: null, test: {} }`.
+ *
+ * @example
+ * const url = envVar({ prod: 'https://api.availity.com', qa: 'https://qa-api.availity.com', local: null });
+ * // => string | null | undefined
+ */
+export interface EnvOpts {
+  /** Value to use in production (`apps.availity.com`, `essentials.availity.com`). */
+  prod?: unknown;
+  /** Value to use in QA (`qa-apps`, `qap-apps`, `q01-apps`, etc.). */
+  qa?: unknown;
+  /** Value to use in test (`test-apps`, `t01-apps`, `t14-apps`, etc.). */
+  test?: unknown;
+  /** Value to use locally (`localhost`, `127.0.0.1`) or when the host is unrecognised. */
+  local?: unknown;
+  /** Any additional custom environment key. */
+  [key: string]: unknown;
 }
 
 export interface SpecificEnvConfig {
@@ -220,28 +235,54 @@ export const isLocal = (
 // ---------------------------------------------------------------------------
 
 /**
- * Overload: when `local` is always provided in `varObj`, the return is never `undefined`.
+ * Select a value from an environment-keyed object based on the current hostname.
+ *
+ * Each key may hold a **different type** — the return type is automatically
+ * inferred as the union of all value types present in the object.
+ *
+ * Standard keys: `local`, `test`, `qa`, `prod`. Custom keys are also accepted.
+ *
+ * @example
+ * // All same type
+ * const url = envVar({ prod: 'https://api.availity.com', local: 'http://localhost:3000' });
+ * // => string | undefined
+ *
+ * @example
+ * // Mixed types — return is inferred as string | null | undefined
+ * const url = envVar({ prod: 'https://api.availity.com', local: null });
+ *
+ * @example
+ * // local always provided — return is never undefined
+ * const url = envVar({ prod: 'https://api.availity.com', local: 'http://localhost:3000' });
+ * // => string  (no undefined)
+ *
+ * @param varObj  Object mapping environment keys to their values. See {@link EnvOpts} for standard keys.
+ * @param windowOverride  Optional window, URL string, or `null` (SSR-safe).
+ * @param defaultVar  Fallback value if the current environment key is absent and no `local` is set.
  */
-export default function envVar<T>(
-  varObj: EnvOpts<T> & { local: T },
+// Overload: when `local` is always provided, return is never `undefined`
+export default function envVar<TObj extends EnvOpts & { local: NonNullable<unknown> }>(
+  varObj: TObj,
   windowOverride?: WindowLike | string | null,
-  defaultVar?: T
-): T;
-export default function envVar<T>(
-  varObj: EnvOpts<T>,
+  defaultVar?: TObj[keyof TObj]
+): Exclude<TObj[keyof TObj], undefined>;
+// General overload
+export default function envVar<TObj extends EnvOpts>(
+  varObj: TObj,
   windowOverride?: WindowLike | string | null,
-  defaultVar?: T
-): T | undefined;
-export default function envVar<T>(
-  varObj: EnvOpts<T>,
+  defaultVar?: TObj[keyof TObj]
+): TObj[keyof TObj] | undefined;
+// Implementation
+export default function envVar<TObj extends EnvOpts>(
+  varObj: TObj,
   windowOverride?: WindowLike | string | null,
-  defaultVar?: T
-): T | undefined {
+  defaultVar?: TObj[keyof TObj]
+): TObj[keyof TObj] | undefined {
   const env = getCurrentEnv(windowOverride as WindowLike);
 
   if (`${env}` in varObj) {
-    return varObj[env];
+    return varObj[env] as TObj[keyof TObj];
   }
 
-  return defaultVar ?? varObj.local;
+  return (defaultVar ?? varObj.local) as TObj[keyof TObj] | undefined;
 }

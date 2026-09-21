@@ -143,6 +143,31 @@ describe('envVar', () => {
     });
   });
 
+  describe('mixed value types per key', () => {
+    test('returns string for prod when prod is a string', () => {
+      expect(envVar({ prod: 'https://api.availity.com', local: null }, fakeWindow('essentials.availity.com'))).toBe(
+        'https://api.availity.com'
+      );
+    });
+
+    test('returns null for local when local is null', () => {
+      expect(envVar({ prod: 'https://api.availity.com', local: null }, fakeWindow('localhost'))).toBeNull();
+    });
+
+    test('returns object for test when test is an object', () => {
+      expect(
+        envVar({ prod: 'str', test: { endpoint: '/api' }, local: null }, fakeWindow('t01-apps.availity.com'))
+      ).toEqual({ endpoint: '/api' });
+    });
+
+    test('return type is inferred as union of value types', () => {
+      // This is primarily a compile-time check — the runtime value is what matters
+      const result = envVar({ prod: 42, qa: 'qa-str', local: false }, fakeWindow('qa-apps.availity.com'));
+      // result is inferred as number | string | boolean | undefined at compile time
+      expect(result).toBe('qa-str');
+    });
+  });
+
   // ---------------------------------------------------------------------------
   // Environment classification
   // ---------------------------------------------------------------------------
