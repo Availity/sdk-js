@@ -40,8 +40,12 @@
     "@availity/exceptions-core": "workspace:*"
   },
   "devDependencies": {
+    "axios": "^1.20.0",
     "tsup": "^8.5.1",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "axios": "^1.17.0"
   },
   "publishConfig": {
     "access": "public"

@@ -41,12 +41,15 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "dayjs": "^1.11.23",
+    "dayjs": "^1.11.23"
+  },
+  "peerDependencies": {
     "yup": "^1.7.1"
   },
   "devDependencies": {
     "tsup": "^8.5.1",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.3",
+    "yup": "^1.7.1"
   },
   "publishConfig": {
     "access": "public"
