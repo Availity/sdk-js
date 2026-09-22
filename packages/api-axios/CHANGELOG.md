@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [13.3.1](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.3.0...@availity/api-axios@13.3.1) (2026-09-22)
+
+### Dependency Updates
+
+* `upload-core` updated to version `13.3.0`
+* `upload-core` updated to version `13.3.0`
+* `api-core` updated to version `13.3.0`
+* `resolve-url` updated to version `13.3.0`
+
+### Bug Fixes
+
+* make @availity/upload-core an optional peerdep in @availity/api-axios ([1c31dc4](https://github.com/availity/sdk-js/commit/1c31dc430a3257e089d0617764eca07b2b74c8ac))
+
+
+
 # [13.3.0](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.2.2...@availity/api-axios@13.3.0) (2026-09-15)
 
 ### Dependency Updates
