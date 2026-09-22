@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [10.3.2](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@10.3.1...@availity/authorizations-axios@10.3.2) (2026-09-22)
+
+
+### Bug Fixes
+
+* mark additional packages with side effects correctly ([0550707](https://github.com/availity/sdk-js/commit/0550707adb517a430074b3a647cf273415386c58))
+
+
+
 ## [10.3.1](https://github.com/availity/sdk-js/compare/@availity/authorizations-axios@10.3.0...@availity/authorizations-axios@10.3.1) (2026-09-22)
 
 ### Dependency Updates
