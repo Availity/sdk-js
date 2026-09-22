@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.3.2](https://github.com/Availity/sdk-js/compare/@availity/yup@8.3.1...@availity/yup@8.3.2) (2026-09-22)
+
+
+### Bug Fixes
+
+* mark @availity/yup index as having side effects ([5ebddc8](https://github.com/Availity/sdk-js/commit/5ebddc8f9cb6d7bbf9a8dde0dd66a38aa82db176))
+
+
+
 ## [8.3.1](https://github.com/Availity/sdk-js/compare/@availity/yup@8.3.0...@availity/yup@8.3.1) (2026-09-22)
 
 
