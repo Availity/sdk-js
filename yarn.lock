@@ -294,6 +294,9 @@ __metadata:
   peerDependencies:
     "@availity/upload-core": ^8.1.0 || ^9.0.0
     axios: ^1.17.0
+  peerDependenciesMeta:
+    "@availity/upload-core":
+      optional: true
   languageName: unknown
   linkType: soft
 
