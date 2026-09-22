@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.3.1](https://github.com/availity/sdk-js/compare/@availity/exceptions-axios@7.3.0...@availity/exceptions-axios@7.3.1) (2026-09-22)
+
+### Dependency Updates
+
+* `api-axios` updated to version `7.3.0`
+* `exceptions-core` updated to version `7.3.0`
+
+### Bug Fixes
+
+* move yup to peerdep in @availity/yup, add axios peerdep to @availity/exceptions-axios ([567d8c9](https://github.com/availity/sdk-js/commit/567d8c97c1b24ae5e0251fec41054bb218d06f0e))
+
+
+
 # [7.3.0](https://github.com/availity/sdk-js/compare/@availity/exceptions-axios@7.2.2...@availity/exceptions-axios@7.3.0) (2026-09-15)
 
 ### Dependency Updates
