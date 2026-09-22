@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "tsup": "^8.5.1",
-    "typescript": "^6.0.0",
+    "typescript": "^6.0.3",
     "yup": "^1.7.1"
   },
   "publishConfig": {

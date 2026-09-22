@@ -1,5 +1,3 @@
-import Upload from '@availity/upload-core';
-
 import AvMicroserviceApi from '../ms';
 
 export default class AvFilesApi extends AvMicroserviceApi {
@@ -11,6 +9,18 @@ export default class AvFilesApi extends AvMicroserviceApi {
       },
       ...config,
     });
+    this._Upload = null;
+  }
+
+  async _getUpload() {
+    if (!this._Upload) {
+      try {
+        ({ default: this._Upload } = await import('@availity/upload-core'));
+      } catch {
+        throw new Error('@availity/upload-core is required to use AvFilesApi. Install it as a dependency.');
+      }
+    }
+    return this._Upload;
   }
 
   hashData(data) {
@@ -30,6 +40,8 @@ export default class AvFilesApi extends AvMicroserviceApi {
     if (!config.customerId || !config.clientId) {
       throw new Error('[config.customerId] and [config.clientId] must be defined');
     }
+
+    const Upload = await this._getUpload();
 
     const file = new File([JSON.stringify(data)], config.fileName || `${this.hashData(data)}.json`, {
       type: 'application/json',
