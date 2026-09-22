@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [8.3.1](https://github.com/Availity/sdk-js/compare/@availity/yup@8.3.0...@availity/yup@8.3.1) (2026-09-22)
+
+
+### Bug Fixes
+
+* move yup to peerdep in @availity/yup, add axios peerdep to @availity/exceptions-axios ([567d8c9](https://github.com/Availity/sdk-js/commit/567d8c97c1b24ae5e0251fec41054bb218d06f0e))
+
+
+
 # [8.3.0](https://github.com/Availity/sdk-js/compare/@availity/yup@8.2.1...@availity/yup@8.3.0) (2026-09-15)
 
 
