@@ -54,5 +54,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "./dist/index.js"
+  ]
 }
