@@ -11,6 +11,24 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['json-summary'],
+      exclude: [
+        // Test files
+        '**/*.test.{ts,js}',
+        '**/*.spec.{ts,js}',
+        '**/tests/**',
+        '**/__tests__/**',
+        // Mock and fixture files
+        '**/mocks/**',
+        '**/__mocks__/**',
+        '**/fixtures/**',
+        // Test setup files
+        '**/setup.{ts,js}',
+        '**/setupTests.{ts,js}',
+        // Build output and tooling
+        '**/dist/**',
+        '**/node_modules/**',
+        '**/coverage/**',
+      ],
     },
   },
 });
