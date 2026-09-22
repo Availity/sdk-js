@@ -1,6 +1,6 @@
 {
   "name": "@availity/api-core",
-  "version": "13.3.0",
+  "version": "13.3.1",
   "description": "Base API definitions for the Availity REST API",
   "keywords": [
     "availity",
