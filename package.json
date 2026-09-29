@@ -54,7 +54,7 @@
     "@commitlint/config-nx-scopes": "^21.2.3",
     "@jscutlery/semver": "^5.8.1",
     "@nx/eslint": "22.5.1",
-    "@nx/js": "22.5.1",
+    "@nx/js": "23.2.1",
     "@nx/workspace": "22.5.1",
     "@types/node": "^22.20.4",
     "@vitest/coverage-v8": "^5.0.1",
