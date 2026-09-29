@@ -1,12 +1,43 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "10:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: "@babel/preset-env"
-    versions:
-    - 7.12.11
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      gh-actions:
+        update-types:
+          - "minor"
+          - "patch"
+          - "major"
+
+  - package-ecosystem: npm
+    directory: "/"
+    versioning-strategy: increase-if-necessary
+    schedule:
+      interval: weekly
+      time: "10:00"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: build
+      prefix-development: chore
+    groups:
+      versioning:
+        patterns:
+          - "@commitlint/*"
+          - "@jscutlery/semver"
+          - "conventional-changelog-*"
+      jest:
+        patterns:
+          - "jest"
+          - "*jest*"
+      dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
