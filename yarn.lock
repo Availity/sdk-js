@@ -469,7 +469,7 @@ __metadata:
     "@nx/eslint": "npm:22.5.1"
     "@nx/js": "npm:22.5.1"
     "@nx/workspace": "npm:22.5.1"
-    "@types/node": "npm:^22.20.4"
+    "@types/node": "npm:^26.6.3"
     "@vitest/coverage-v8": "npm:^5.0.1"
     "@vitest/eslint-plugin": "npm:^1.6.27"
     eslint: "npm:^9.39.5"
@@ -5486,12 +5486,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.20.4":
-  version: 22.20.4
-  resolution: "@types/node@npm:22.20.4"
+"@types/node@npm:^26.6.3":
+  version: 26.6.3
+  resolution: "@types/node@npm:26.6.3"
   dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10/41d5fc77a12371dd24cd4fc533aa05cec256f88d9fce0d9fde1431bdc0b54ca52af3e61c34e9c47d7a74e000b7cf5fa5f16f14ed6731fdd03e1122adc7834cb5
+    undici-types: "npm:~8.9.0"
+  checksum: 10/278d5241522520fbadd46b41065d7587bbb214adb3c6f8a2a9a28754d374c578d090f7387866d09c79be1e9bbf5adc7eeea453032a52f77e70b06077f85c5c14
   languageName: node
   linkType: hard
 
@@ -19430,17 +19430,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
-  languageName: node
-  linkType: hard
-
 "undici-types@npm:~7.16.0":
   version: 7.16.0
   resolution: "undici-types@npm:7.16.0"
   checksum: 10/db43439f69c2d94cc29f75cbfe9de86df87061d6b0c577ebe9bb3255f49b22c50162a7d7eb413b0458b6510b8ca299ac7cff38c3a29fbd31af9f504bcf7fbc0d
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~8.9.0":
+  version: 8.9.0
+  resolution: "undici-types@npm:8.9.0"
+  checksum: 10/8785591929de2b71d281c684e915c4a8c41becc225adbf42a3e89148f8b384724a21533494c30a1cbb85b4cbccd088d020788ff4f2d605013eb2863cd47a1639
   languageName: node
   linkType: hard
 
