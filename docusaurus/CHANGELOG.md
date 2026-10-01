@@ -2,6 +2,28 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/dinosaurdocs@3.1.3...@availity/dinosaurdocs@4.0.0) (2026-10-01)
+
+
+* feat(env-var)!: remove cloud URL (digital.*) environment detection ([0c4d64f](https://github.com/Availity/sdk-js/commit/0c4d64f20fffe4c912837b82096db9fbb71aacfd))
+
+
+### Features
+
+* **env-var:** add DX helpers, SSR safety, reset utilities, and fix coverage config ([2b2feae](https://github.com/Availity/sdk-js/commit/2b2feaee6547b1aafc2c95835d2c05c6e507fdaa))
+* **env-var:** convert to TypeScript and update environment detection ([659a004](https://github.com/Availity/sdk-js/commit/659a0042bc72cf151167e6adc0ced8d25a20f703))
+
+
+### BREAKING CHANGES
+
+* Cloud URLs in the format
+<team>.<provider><zone>.availity.com/<namespace>/<env-slug>/... are no
+longer detected. Hosts matching this pattern now fall back to 'local'.
+Remove any reliance on digital.aw*.availity.com, digital.az*.availity.com,
+or digital.gc*.availity.com subdomains being resolved to prod/test/qa.
+
+
+
 ## [3.1.3](https://github.com/Availity/sdk-js/compare/@availity/dinosaurdocs@3.1.2...@availity/dinosaurdocs@3.1.3) (2026-09-14)
 
 
