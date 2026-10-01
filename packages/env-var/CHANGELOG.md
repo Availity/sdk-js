@@ -2,6 +2,40 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0](https://github.com/availity/sdk-js/compare/@availity/env-var@6.3.1...@availity/env-var@7.0.0) (2026-10-01)
+
+
+### Bug Fixes
+
+* **env-var:** explicitly match localhost/127.0.0.1 in getSpecificEnv ([3cef6ce](https://github.com/availity/sdk-js/commit/3cef6ceba61bedeccfe00f0fd4d7791ec365699e))
+* **env-var:** introduce WindowLike interface and fix typecheck errors ([bfb98f2](https://github.com/availity/sdk-js/commit/bfb98f2fe7b5d4b16312b9f5c1ec823a78ad6f47))
+
+
+* feat(env-var)!: support mixed value types per environment key ([54f31f2](https://github.com/availity/sdk-js/commit/54f31f26c27255bd4d0b7d49fbfc063e36914b6c))
+* feat(env-var)!: remove cloud URL (digital.*) environment detection ([0c4d64f](https://github.com/availity/sdk-js/commit/0c4d64f20fffe4c912837b82096db9fbb71aacfd))
+
+
+### Features
+
+* **env-var:** add DX helpers, SSR safety, reset utilities, and fix coverage config ([2b2feae](https://github.com/availity/sdk-js/commit/2b2feaee6547b1aafc2c95835d2c05c6e507fdaa))
+* **env-var:** convert to TypeScript and update environment detection ([659a004](https://github.com/availity/sdk-js/commit/659a0042bc72cf151167e6adc0ced8d25a20f703))
+
+
+### BREAKING CHANGES
+
+* EnvOpts is no longer a generic type (EnvOpts<T>).
+Any TypeScript code using EnvOpts<string> or similar must be updated
+to use EnvOpts (non-generic). The envVar function now infers return
+type as a union of all value types in the object, enabling each key
+to hold a different type: e.g. { prod: 'str', local: null, test: {} }.
+* Cloud URLs in the format
+<team>.<provider><zone>.availity.com/<namespace>/<env-slug>/... are no
+longer detected. Hosts matching this pattern now fall back to 'local'.
+Remove any reliance on digital.aw*.availity.com, digital.az*.availity.com,
+or digital.gc*.availity.com subdomains being resolved to prod/test/qa.
+
+
+
 ## [6.3.1](https://github.com/availity/sdk-js/compare/@availity/env-var@6.3.0...@availity/env-var@6.3.1) (2026-09-22)
 
 
