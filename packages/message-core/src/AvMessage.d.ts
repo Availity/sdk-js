@@ -24,6 +24,8 @@ declare class AvMessage {
 
   subscribe(event: string, callback: MessageCallback, options?: SubscribeOptions): Unsubscribe;
 
+  once(event: string, callback: MessageCallback, options?: SubscribeOptions): Unsubscribe;
+
   unsubscribe(event: string): void;
 
   unsubscribeAll(): void;

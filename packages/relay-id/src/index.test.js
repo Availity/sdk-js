@@ -42,18 +42,6 @@ describe('relay-id', () => {
     it('encodes type and numeric id', () => {
       expect(toGlobalId('Article', 22)).toBe('QXJ0aWNsZToyMg==');
     });
-
-    it('handles id containing colons', () => {
-      const globalId = toGlobalId('Type', 'id:with:colons');
-      const decoded = fromGlobalId(globalId);
-      expect(decoded).toEqual({ type: 'Type', id: 'id:with:colons' });
-    });
-
-    it('handles empty id', () => {
-      const globalId = toGlobalId('User', '');
-      const decoded = fromGlobalId(globalId);
-      expect(decoded).toEqual({ type: 'User', id: '' });
-    });
   });
 
   describe('fromGlobalId', () => {
@@ -63,6 +51,20 @@ describe('relay-id', () => {
 
     it('decodes numeric id as string', () => {
       expect(fromGlobalId('QXJ0aWNsZToyMg==')).toEqual({ type: 'Article', id: '22' });
+    });
+
+    it('handles id containing colons (uses first colon as type/id delimiter)', () => {
+      // toGlobalId + fromGlobalId round-trip with a colon-containing id
+      const globalId = toGlobalId('Type', 'id:with:colons');
+      const decoded = fromGlobalId(globalId);
+      expect(decoded).toEqual({ type: 'Type', id: 'id:with:colons' });
+    });
+
+    it('handles empty id', () => {
+      // toGlobalId + fromGlobalId round-trip with an empty id
+      const globalId = toGlobalId('User', '');
+      const decoded = fromGlobalId(globalId);
+      expect(decoded).toEqual({ type: 'User', id: '' });
     });
 
     it('handles id with colons correctly (uses first colon as delimiter)', () => {

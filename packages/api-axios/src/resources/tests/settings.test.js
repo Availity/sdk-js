@@ -85,12 +85,15 @@ describe('AvSettingsApi', () => {
       expect(api.update).toHaveBeenCalledWith(expectedUpdate, testConfig);
     });
 
-    test('should not throw error if application id passed in as arugment', () => {
-      expect(() => api.setApplication(testAppId, {})).not.toThrow();
+    test('should not throw error if application id passed in as argument', async () => {
+      // setApplication is async — await it and verify the update was dispatched
+      await api.setApplication(testAppId, {});
+      expect(api.update).toHaveBeenCalled();
     });
 
-    test('should not throw error if applicationId in scope', () => {
-      expect(() => api.setApplication({ scope: { applicationId: testAppId } })).not.toThrow();
+    test('should not throw error if applicationId in scope', async () => {
+      await api.setApplication({ scope: { applicationId: testAppId } });
+      expect(api.update).toHaveBeenCalled();
     });
 
     test('should throw error if no applicationId in argument or data', async () => {

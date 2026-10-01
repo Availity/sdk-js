@@ -3,29 +3,29 @@ import { AvDmaAnalytics } from '..';
 
 vi.mock('@availity/api-axios');
 
-describe('AvSplunkAnalytics', () => {
-  let mockAvSplunkAnalytics: AvDmaAnalytics;
+describe('AvDmaAnalytics', () => {
+  let mockAvDmaAnalytics: AvDmaAnalytics;
 
   beforeEach(() => {
     avLogMessagesApiV2.sendBeacon = vi.fn();
     // avLogMessagesApiV2.info = vi.fn;
-    mockAvSplunkAnalytics = new AvDmaAnalytics(avLogMessagesApiV2);
+    mockAvDmaAnalytics = new AvDmaAnalytics(avLogMessagesApiV2);
   });
 
-  test('AvSplunkAnalytics should be defined', () => {
-    expect(mockAvSplunkAnalytics).toBeDefined();
+  test('AvDmaAnalytics should be defined', () => {
+    expect(mockAvDmaAnalytics).toBeDefined();
   });
 
-  test('trackEvent should call AvLogMessages.send', () => {
+  test('trackEvent should call AvLogMessages[level] (e.g. .info for level="info")', () => {
     const level = 'info';
-    mockAvSplunkAnalytics.trackEvent({ level, label: 'test' });
+    mockAvDmaAnalytics.trackEvent({ level, label: 'test' });
     expect(avLogMessagesApiV2.info).toHaveBeenCalledTimes(1);
   });
 
   test('trackEvent should not allow unknown keys', () => {
     const level = 'info';
     expect(() => {
-      mockAvSplunkAnalytics.trackEvent({ level, test: 'test' });
+      mockAvDmaAnalytics.trackEvent({ level, test: 'test' });
     }).toThrow();
   });
 });

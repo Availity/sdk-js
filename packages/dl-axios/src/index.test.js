@@ -1,3 +1,4 @@
+import axios from 'axios';
 import DownloadMicroservice from '@availity/dl-core';
 import AvDownloadApi from './download';
 
@@ -17,6 +18,12 @@ describe('AvDownloadApi', () => {
 
   test('should construct successfully with clientId', () => {
     expect(() => new AvDownloadApi({ clientId: 'my-app' })).not.toThrow();
+  });
+
+  test('should use axios as the HTTP transport', () => {
+    // This is the subclass's sole contribution over dl-core
+    const api = new AvDownloadApi({ clientId: 'test-client' });
+    expect(api.http).toBe(axios);
   });
 
   test('should have getAttachment method', () => {

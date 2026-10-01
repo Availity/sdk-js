@@ -272,9 +272,7 @@ describe('AvAuthorizations', () => {
 
   test('getPermission should reject when a non-string is passed in', async () => {
     const testId = 123;
-    await expect(testAuthorizations.getPermission(testId)).rejects.toThrow(
-      'permissionId must be a string'
-    );
+    await expect(testAuthorizations.getPermission(testId)).rejects.toThrow('permissionId must be a string');
   });
 
   describe('Authorized', () => {
@@ -296,7 +294,11 @@ describe('AvAuthorizations', () => {
       expect(isAuthorized).toBeFalsy();
     });
 
-    test('isAnyAuthorized should return true when all permissions are authorized', async () => {
+    test('isAnyAuthorized should return true when all permissions are authorized (OR: all-true case)', async () => {
+      // When all ids are authorized, isAnyAuthorized returns true.
+      // This does not distinguish isAnyAuthorized from isAuthorized —
+      // the "some but not all" case (the meaningful OR behavior) is covered
+      // by the test below.
       const testIds = ['123', '456'];
       const testRegion = 'GA';
       const isAuthorized = await testAuthorizations.isAnyAuthorized(testIds, testRegion);

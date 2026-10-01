@@ -375,7 +375,10 @@ describe('AvApi', () => {
       expect(fakeApi.getRequestUrl()).toBe('/api/v1/test');
     });
 
-    test('should return relative URL when location host is prod cloud but path is non-prod', () => {
+    test('should return relative URL from path/version/name when window config is present but ignored', () => {
+      // getUrl() does not read config.window — it only uses path/version/name.
+      // The window key here is extra config that has no effect; the test name
+      // previously implied host-aware routing logic that does not exist.
       const testUrl = '/api/v1/test';
       const testConfig = {
         api: true,
@@ -393,7 +396,8 @@ describe('AvApi', () => {
       expect(api.getUrl(testConfig)).toBe(testUrl);
     });
 
-    test('should return relative URL when location host is non-prod cloud but path is prod', () => {
+    test('should return relative URL from path/version/name regardless of window.location values', () => {
+      // Same as above: window is not consulted by getUrl().
       const testUrl = '/api/v1/test';
       const testConfig = {
         api: true,
@@ -498,14 +502,16 @@ describe('AvApi', () => {
       expect(api.getLocation(testResponse)).toBe('https://other.local/test');
     });
 
-    test('should use config.url to resolve relative url', () => {
+    test('should use window.location as base when config.base is not provided', () => {
+      // getLocation resolves via config.base only — config.url is not consulted.
+      // When base is absent, resolveUrl falls back to window.location (jsdom: http://localhost).
       const testLocation = '/test';
       const testResponse = {
         config: {
           polling: true,
           pollingIntervals: [100],
           attempt: 0,
-          url: 'https://api.local/b',
+          url: 'https://api.local/b', // url is ignored by getLocation — only base matters
         },
         status: 202,
         headers: {

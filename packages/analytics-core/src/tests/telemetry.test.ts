@@ -38,8 +38,11 @@ describe('AvTelemetryAnalytics', () => {
     expect(mockLog.test).toHaveBeenCalledTimes(0);
   });
 
-  test("trackEvent should default properties.url to location.href or 'N/A'", () => {
-    let startingObject: { message: string; url: string; level?: string; customerId: string } = {
+  test('trackEvent wraps properties into telemetryBody.entries and defaults level to info', () => {
+    // AvTelemetryAnalytics.trackEvent does not default `url` — it passes
+    // all non-destructured properties straight into telemetryBody.entries.
+    // url defaulting (to location.href or 'N/A') belongs to AvAnalytics.trackEvent upstream.
+    const startingObject: { message: string; url: string; level?: string; customerId: string } = {
       message: 'hello world',
       url: window.location.href || 'N/A',
       customerId: '0000',
@@ -53,16 +56,16 @@ describe('AvTelemetryAnalytics', () => {
       telemetryBody: {
         entries: {
           message: startingObject.message,
-          url: window.location.href || 'N/A',
+          url: startingObject.url,
         },
-        level: 'info',
+        level: 'info', // defaulted by trackEvent since no level was supplied
       },
       version: 'v1',
     };
     mockAvTelemetryAnalytics.trackEvent(startingObject);
     expect(mockLog.info).toHaveBeenCalledWith(expectedCall);
 
-    startingObject = {
+    const withLevel = {
       message: 'hello world',
       url: 'testUrl',
       level: 'test',
@@ -84,7 +87,7 @@ describe('AvTelemetryAnalytics', () => {
       },
       version: 'v1',
     };
-    mockAvTelemetryAnalytics.trackEvent(startingObject);
+    mockAvTelemetryAnalytics.trackEvent(withLevel);
     expect(mockLog.test).toHaveBeenCalledWith(expectedCall);
   });
 

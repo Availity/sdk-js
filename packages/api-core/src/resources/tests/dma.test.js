@@ -17,7 +17,10 @@ describe('AvLogMessages', () => {
   test('send() should return formatted fields with level and entries', () => {
     api = new AvLogMessagesV2({ http: mockHttp });
     const fields = api.send('info', { testField1: 'test1', testField2: 'test2' });
-    expect(fields).toContain('level=info&entries.testField1=test1&entries.testField2=test2');
+    // Exact match — X_Client_ID is undefined (no clientId configured) and is filtered
+    // by the != null check. X_XSRF_TOKEN is '' (no cookie in jsdom) — empty string
+    // is NOT null/undefined so it passes the filter and appears in the output.
+    expect(fields).toBe('level=info&entries.testField1=test1&entries.testField2=test2&X_XSRF_TOKEN=');
   });
 
   describe('log levels', () => {

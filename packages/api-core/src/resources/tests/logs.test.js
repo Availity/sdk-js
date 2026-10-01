@@ -40,19 +40,19 @@ describe('AvLogMessages', () => {
       expect(api.send).toHaveBeenLastCalledWith('debug', testEntries);
       expect(api.sendBeacon).toHaveBeenCalled();
     });
-    test("info should create with level 'info'", () => {
+    test("info should sendBeacon with level 'info'", () => {
       api.info(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('info', testEntries);
       expect(api.sendBeacon).toHaveBeenCalled();
     });
 
-    test("warn should create with level 'warn'", () => {
+    test("warn should sendBeacon with level 'warn'", () => {
       api.warn(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('warn', testEntries);
       expect(api.sendBeacon).toHaveBeenCalled();
     });
 
-    test("error should create with level 'error'", () => {
+    test("error should sendBeacon with level 'error'", () => {
       api.error(testEntries);
       expect(api.send).toHaveBeenLastCalledWith('error', testEntries);
       expect(api.sendBeacon).toHaveBeenCalled();

@@ -88,7 +88,9 @@ describe('AvMicroservice', () => {
       expect(ms.getUrl(testConfig)).toBe(testExpected);
     });
 
-    test('should return relative URL when location host is prod cloud but path is non-prod', () => {
+    test('should return relative URL from path/version/name when window config is present but ignored', () => {
+      // AvMicroservice.getUrl() does not read config.window — it only uses
+      // path/version/name. The window key here has no effect.
       const testUrl = '/api/v1/test';
       const testConfig = {
         api: true,
@@ -106,7 +108,8 @@ describe('AvMicroservice', () => {
       expect(ms.getUrl(testConfig)).toBe(testUrl);
     });
 
-    test('should return relative URL when location host is non-prod cloud but path is prod', () => {
+    test('should return relative URL from path/version/name regardless of window.location values', () => {
+      // Same as above: window is not consulted by getUrl().
       const testUrl = '/api/v1/test';
       const testConfig = {
         api: true,

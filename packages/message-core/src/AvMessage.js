@@ -69,6 +69,18 @@ class AvMessage {
     };
   }
 
+  once(event, callback, options) {
+    const unsubscribe = this.subscribe(
+      event,
+      (data) => {
+        unsubscribe();
+        callback(data);
+      },
+      options
+    );
+    return unsubscribe;
+  }
+
   // remove all subscribers for this event
   unsubscribe(event) {
     delete this.subscribers[event];
