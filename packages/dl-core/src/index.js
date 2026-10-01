@@ -7,12 +7,19 @@ export default class DownloadMicroservice extends AvMicroservice {
       throw new Error('[config.clientId] must be defined');
     }
 
-    const options = {
-      headers: { 'X-Client-ID': config.clientId },
+    const { clientId, ...rest } = config;
+
+    // Spread headers and responseType at the top level so deepMerge inside
+    // AvMicroservice merges them into defaultConfig.headers rather than
+    // nesting them under defaultConfig.config.
+    super({
+      http,
+      promise,
+      merge,
+      headers: { 'X-Client-ID': clientId },
       responseType: 'blob',
-      ...config,
-    };
-    super({ http, promise, merge, config: options });
+      ...rest,
+    });
   }
 
   getAttachment(config) {

@@ -36,7 +36,8 @@ describe('AvPdfApi', () => {
     };
 
     api.post = vi.fn(() => response);
-    await api.getPdf({ html: 'hi', applicationId: 'foo', fileName: 'test' });
-    expect(api.onPdf).toHaveBeenCalled();
+    const result = await api.getPdf({ html: 'hi', applicationId: 'foo', fileName: 'test' });
+    expect(api.onPdf).toHaveBeenCalledWith(response);
+    expect(result).toBe(response);
   });
 });

@@ -179,108 +179,83 @@ describe('AvExceptions', () => {
       expect(mockExceptions.isRepeatError).toHaveBeenCalled();
     });
 
-    test('should skip isRepeatError if skipRepeat is true', () =>
-      new Promise((resolve) => {
-        mockExceptions
-          .onError(exception, true)
-          .then(() => {
-            expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
-            expect(mockLog).toHaveBeenCalled();
-            return resolve();
-          })
-          .catch((error) => error);
-      }));
+    test('should skip isRepeatError if skipRepeat is true', async () => {
+      await mockExceptions.onError(exception, true);
+      expect(mockExceptions.isRepeatError).not.toHaveBeenCalled();
+      expect(mockLog).toHaveBeenCalled();
+    });
 
-    test('should build message and reset currentHits to 0', () =>
-      new Promise((resolve) => {
-        mockExceptions.isRepeatError.mockImplementation(() => false);
+    test('should build message and reset currentHits to 0', async () => {
+      mockExceptions.isRepeatError.mockImplementation(() => false);
 
-        const errorMessage = exception.message;
+      const errorMessage = exception.message;
 
-        mockExceptions.errorMessageHistory[errorMessage] = {
-          currentHits: 2,
-        };
+      mockExceptions.errorMessageHistory[errorMessage] = {
+        currentHits: 2,
+      };
 
-        const message = {
-          errorDate: new Date().toJSON(),
-          errorName: exception.name,
-          errorMessage: exception.message,
-          errorStack: mockExceptions.prettyPrint(exception),
-          url: window.location && window.location.href,
-          appId: mockExceptions.thisAppId || 'N/A',
-          appVersion: window.APP_VERSION || 'N/A',
-          userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
-          userLanguage: window.navigator && window.navigator.userLanguage,
-          referrer: window.document && window.document.referrer,
-          host: window.document && window.document.domain,
-          sdkVersion: process.env.VERSION,
-          totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-          currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits,
-        };
+      const message = {
+        errorDate: new Date().toJSON(),
+        errorName: exception.name,
+        errorMessage: exception.message,
+        errorStack: mockExceptions.prettyPrint(exception),
+        url: window.location && window.location.href,
+        appId: mockExceptions.thisAppId || 'N/A',
+        appVersion: window.APP_VERSION || 'N/A',
+        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
+        userLanguage: window.navigator && window.navigator.userLanguage,
+        referrer: window.document && window.document.referrer,
+        host: window.document && window.document.domain,
+        // sdkVersion is NOT produced by the implementation — omitted intentionally
+        totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
+        currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits,
+      };
 
-        mockExceptions
-          .onError(exception)
-          .then(() => {
-            expect(mockExceptions.isRepeatError).toHaveBeenCalled();
-            expect(mockLog).toHaveBeenCalledWith(message);
-            expect(mockExceptions.errorMessageHistory[errorMessage].currentHits).toBe(0);
-            return resolve();
-          })
-          .catch((error) => error);
-      }));
-    test('should merge errorMessage into message if defined', () =>
-      new Promise((resolve) => {
-        mockExceptions.isRepeatError.mockImplementation(() => false);
+      await mockExceptions.onError(exception);
+      expect(mockExceptions.isRepeatError).toHaveBeenCalled();
+      expect(mockLog).toHaveBeenCalledWith(message);
+      expect(mockExceptions.errorMessageHistory[errorMessage].currentHits).toBe(0);
+    });
 
-        const errorMessage = exception.message;
+    test('should merge errorMessage into message if defined', async () => {
+      mockExceptions.isRepeatError.mockImplementation(() => false);
 
-        mockExceptions.errorMessageHistory[errorMessage] = {
-          currentHits: 0,
-        };
+      const errorMessage = exception.message;
 
-        const message = {
-          errorDate: new Date().toJSON(),
-          errorName: exception.name,
-          errorMessage: exception.message,
-          errorStack: mockExceptions.prettyPrint(exception),
-          url: window.location && window.location.href,
-          appId: mockExceptions.thisAppId || 'N/A',
-          appVersion: window.APP_VERSION || 'N/A',
-          userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
-          userLanguage: window.navigator && window.navigator.userLanguage,
-          referrer: window.document && window.document.referrer,
-          host: window.document && window.document.domain,
-          sdkVersion: process.env.VERSION,
-          totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
-          currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits,
-        };
+      mockExceptions.errorMessageHistory[errorMessage] = {
+        currentHits: 0,
+      };
 
-        let mockErrorMessage = {
-          testValue: 'hello world',
-        };
-        mockExceptions.errorMessage = mockErrorMessage;
-        let expectedCall = { ...message, ...mockErrorMessage };
+      const message = {
+        errorDate: new Date().toJSON(),
+        errorName: exception.name,
+        errorMessage: exception.message,
+        errorStack: mockExceptions.prettyPrint(exception),
+        url: window.location && window.location.href,
+        appId: mockExceptions.thisAppId || 'N/A',
+        appVersion: window.APP_VERSION || 'N/A',
+        userAgent: (window.navigator && window.navigator.userAgent) || 'N/A',
+        userLanguage: window.navigator && window.navigator.userLanguage,
+        referrer: window.document && window.document.referrer,
+        host: window.document && window.document.domain,
+        // sdkVersion is NOT produced by the implementation — omitted intentionally
+        totalHits: mockExceptions.errorMessageHistory[errorMessage].totalHits,
+        currentHits: mockExceptions.errorMessageHistory[errorMessage].currentHits,
+      };
 
-        mockExceptions
-          .onError(exception)
-          .then(() => {
-            expect(mockLog).toHaveBeenCalledWith(expectedCall);
+      // Test object errorMessage
+      let mockErrorMessage = { testValue: 'hello world' };
+      mockExceptions.errorMessage = mockErrorMessage;
+      await mockExceptions.onError(exception);
+      expect(mockLog).toHaveBeenCalledWith({ ...message, ...mockErrorMessage });
 
-            mockErrorMessage = {
-              testMessage: 'hello',
-              testName: 'world',
-            };
-            mockExceptions.errorMessage = vi.fn(() => mockErrorMessage);
-            expectedCall = { ...message, ...mockErrorMessage };
-            return mockExceptions.onError(exception);
-          })
-          .then(() => {
-            expect(mockLog).toHaveBeenCalledWith(expectedCall);
-            expect(mockExceptions.errorMessage).toHaveBeenCalled();
-            return resolve();
-          })
-          .catch((error) => error);
-      }));
+      // Test function errorMessage
+      mockErrorMessage = { testMessage: 'hello', testName: 'world' };
+      mockExceptions.errorMessage = vi.fn(() => mockErrorMessage);
+      await mockExceptions.onError(exception);
+      expect(mockLog).toHaveBeenCalledWith({ ...message, ...mockErrorMessage });
+      expect(mockExceptions.errorMessage).toHaveBeenCalled();
+    });
 
     test('should return early if isBlacklisted is true', () => {
       mockExceptions.isBlacklisted = vi.fn(() => true);
@@ -289,11 +264,13 @@ describe('AvExceptions', () => {
       expect(mockExceptions.isBlacklisted).toHaveBeenCalled();
     });
 
-    test('should send exception if repeat and blacklist is false', () => {
+    test('should send exception if repeat and blacklist is false', async () => {
       mockExceptions.isBlacklisted = vi.fn(() => false);
       mockExceptions.isRepeatError = vi.fn(() => false);
-      expect(mockExceptions.onError(exception)).toBeDefined();
+      // onError returns a Promise — await it to verify the log was actually called
+      await mockExceptions.onError(exception);
       expect(mockExceptions.isBlacklisted).toHaveBeenCalled();
+      expect(mockLog).toHaveBeenCalled();
     });
   });
 

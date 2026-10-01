@@ -74,7 +74,7 @@ describe('AvTelemetryApi', () => {
       expect(api.send).toHaveBeenLastCalledWith('debug', testData);
       expect(api.sendBeacon).toHaveBeenCalled();
     });
-    test("info should create with level 'info'", () => {
+    test("info should sendBeacon with level 'info'", () => {
       api.info(testData);
       expect(api.send).toHaveBeenLastCalledWith('info', testData);
       expect(api.sendBeacon).toHaveBeenCalled();

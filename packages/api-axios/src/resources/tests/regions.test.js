@@ -89,11 +89,25 @@ describe('AvRegionsApi', () => {
     expect(api.query).toHaveBeenLastCalledWith(expectedConfig);
   });
 
-  test('should get correct result when all() is called', async () => {
+  test('getRegions issues a real HTTP request through MSW and returns regions', async () => {
+    // This is the only test that uses the MSW server — all others mock api.query directly.
+    // Axios in Node requires an absolute URL; configure baseURL so the relative path
+    // /api/sdk/platform/v1/regions becomes http://localhost/api/sdk/platform/v1/regions,
+    // which matches the MSW wildcard handler (*/api/sdk/platform/v1/regions).
+    api.http.defaults.baseURL = 'http://localhost';
+    const result = await api.getRegions();
+    expect(result.data.regions).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'FL' })]));
+    expect(result.data.totalCount).toBeGreaterThan(0);
+  });
+
+  test('should get correct result when all() is called with a single page', async () => {
+    // Provide totalCount so Math.ceil(totalCount/limit) = 1 — single page path
     api.query = vi.fn(() =>
       Promise.resolve({
         status: 200,
         data: {
+          totalCount: 1,
+          limit: 50,
           regionAggregations: [],
           regions: [{ id: 'FL', value: 'Florida' }],
         },
@@ -101,5 +115,37 @@ describe('AvRegionsApi', () => {
     );
 
     expect(await api.all()).toEqual([{ id: 'FL', value: 'Florida' }]);
+  });
+
+  test('should aggregate results when all() spans multiple pages', async () => {
+    // First call (page 1) returns 1 of 2 items with totalCount driving pagination
+    const page1 = { id: 'FL', value: 'Florida' };
+    const page2 = { id: 'GA', value: 'Georgia' };
+
+    api.query = vi.fn(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          totalCount: 2,
+          limit: 1,
+          regions: [page1],
+        },
+      })
+    );
+
+    // getPage() calls query() for page 2 — return page2 from the second call
+    api.query
+      .mockResolvedValueOnce({
+        status: 200,
+        data: { totalCount: 2, limit: 1, regions: [page1] },
+      })
+      .mockResolvedValueOnce({
+        status: 200,
+        data: { totalCount: 2, limit: 1, regions: [page2] },
+      });
+
+    const result = await api.all();
+    expect(result).toEqual([page1, page2]);
+    expect(api.query).toHaveBeenCalledTimes(2);
   });
 });

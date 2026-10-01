@@ -51,14 +51,23 @@ describe('DownloadMicroservice', () => {
       ).toThrow('[config.clientId] must be defined');
     });
 
-    it('stores X-Client-ID header in config', () => {
-      const instance = createInstance();
-      expect(instance.defaultConfig.config.headers['X-Client-ID']).toBe('test-client');
+    it('applies X-Client-ID header on outgoing requests', async () => {
+      // The real test: does the header actually reach the HTTP call?
+      // defaultConfig.config.headers is an internal nesting artifact of how
+      // AvMicroservice merges options — verify the header on the dispatched request.
+      const instance = createInstance({ clientId: 'test-client' });
+      await instance.getAttachment({ name: 'test-resource' });
+
+      const dispatchedConfig = mockHttp.mock.calls[0][0];
+      expect(dispatchedConfig.headers?.['X-Client-ID']).toBe('test-client');
     });
 
-    it('stores responseType as blob in config', () => {
+    it('applies responseType blob on outgoing requests', async () => {
       const instance = createInstance();
-      expect(instance.defaultConfig.config.responseType).toBe('blob');
+      await instance.getAttachment({ name: 'test-resource' });
+
+      const dispatchedConfig = mockHttp.mock.calls[0][0];
+      expect(dispatchedConfig.responseType).toBe('blob');
     });
   });
 

@@ -35,6 +35,6 @@ describe('AvPdfs', () => {
 
     api.onResponse = vi.fn(() => response);
     await api.getPdf({ html: 'hi', applicationId: 'foo', fileName: 'test' });
-    expect(api.onPdf).toHaveBeenCalled();
+    expect(api.onPdf).toHaveBeenCalledWith(response);
   });
 });
