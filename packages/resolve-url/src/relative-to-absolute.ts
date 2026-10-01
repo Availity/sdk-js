@@ -29,7 +29,7 @@ export function removeDotSegments(path: string) {
           if (path[i + 2] === '.') {
             // Append the remaining path as-is if we find an invalid character after the '.'
             if (!isCharacterAllowedAfterRelativePathSegment(path[i + 3])) {
-              lastOf(segmentBuffers).push(path.substr(i));
+              lastOf(segmentBuffers).push(path.slice(i));
               i = path.length;
               break;
             }
@@ -47,7 +47,7 @@ export function removeDotSegments(path: string) {
           } else {
             // Append the remaining path as-is if we find an invalid character after the '.'
             if (!isCharacterAllowedAfterRelativePathSegment(path[i + 2])) {
-              lastOf(segmentBuffers).push(path.substr(i));
+              lastOf(segmentBuffers).push(path.slice(i));
               i = path.length;
               break;
             }
@@ -74,7 +74,7 @@ export function removeDotSegments(path: string) {
         if (segmentBuffers.length === 0) {
           segmentBuffers.push([]);
         }
-        lastOf(segmentBuffers).push(path.substr(i));
+        lastOf(segmentBuffers).push(path.slice(i));
         // Break the while loop
         i = path.length;
         break;
@@ -116,8 +116,8 @@ export function removeDotSegmentsOfPath(iri: string, colonPosition: number) {
   if (pathSeparator === -1) {
     return iri;
   }
-  const base = iri.substr(0, pathSeparator);
-  const path = iri.substr(pathSeparator);
+  const base = iri.slice(0, pathSeparator);
+  const path = iri.slice(pathSeparator);
 
   // Remove dot segments from the path
   return base + removeDotSegments(path);
@@ -136,7 +136,7 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
 
   // Ignore any fragments in the base IRI
   if (baseFragmentPos > 0) {
-    baseIRI = baseIRI.substr(0, baseFragmentPos);
+    baseIRI = baseIRI.slice(0, baseFragmentPos);
   }
 
   // Convert empty value directly to base IRI
@@ -148,7 +148,7 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
   if (relativeIRI.indexOf('?') === 0) {
     const baseQueryPos = baseIRI.indexOf('?');
     if (baseQueryPos > 0) {
-      baseIRI = baseIRI.substr(0, baseQueryPos);
+      baseIRI = baseIRI.slice(0, baseQueryPos);
     }
     return baseIRI + relativeIRI;
   }
@@ -175,7 +175,7 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
     throw new Error(`Found invalid baseIRI '${baseIRI}' for value '${relativeIRI}'`);
   }
 
-  const baseIRIScheme = baseIRI.substr(0, baseColonPos + 1);
+  const baseIRIScheme = baseIRI.slice(0, baseColonPos + 1);
   // Inherit the baseIRI scheme if the value starts with '//'
   if (relativeIRI.indexOf('//') === 0) {
     return baseIRIScheme + removeDotSegmentsOfPath(relativeIRI, valueColonPos);
@@ -210,19 +210,19 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
 
   // If the value starts with a '/', then prefix it with everything before the first effective slash of the base IRI.
   if (relativeIRI.indexOf('/') === 0) {
-    return baseIRI.substr(0, baseSlashAfterColonPos) + removeDotSegments(relativeIRI);
+    return baseIRI.slice(0, baseSlashAfterColonPos) + removeDotSegments(relativeIRI);
   }
 
-  let baseIRIPath = baseIRI.substr(baseSlashAfterColonPos);
+  let baseIRIPath = baseIRI.slice(baseSlashAfterColonPos);
   const baseIRILastSlashPos = baseIRIPath.lastIndexOf('/');
 
   // Ignore everything after the last '/' in the baseIRI path
   if (baseIRILastSlashPos !== -1 && baseIRILastSlashPos < baseIRIPath.length - 1) {
-    baseIRIPath = baseIRIPath.substr(0, baseIRILastSlashPos + 1);
+    baseIRIPath = baseIRIPath.slice(0, baseIRILastSlashPos + 1);
     // Also remove the first character of the relative path if it starts with '.' (and not '..' or './')
     // This change is only allowed if there is something else following the path
     if (relativeIRI[0] === '.' && relativeIRI[1] !== '.' && relativeIRI[1] !== '/' && relativeIRI[2]) {
-      relativeIRI = relativeIRI.substr(1);
+      relativeIRI = relativeIRI.slice(1);
     }
   }
 
@@ -233,5 +233,5 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
   relativeIRI = removeDotSegments(relativeIRI);
 
   // Prefix our transformed value with the part of the baseIRI until the first '/' after the first ':'.
-  return baseIRI.substr(0, baseSlashAfterColonPos) + relativeIRI;
+  return baseIRI.slice(0, baseSlashAfterColonPos) + relativeIRI;
 }
