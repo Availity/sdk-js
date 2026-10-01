@@ -145,7 +145,7 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
   }
 
   // If the value starts with a query character, concat directly (but strip the existing query)
-  if (relativeIRI.indexOf('?') === 0) {
+  if (relativeIRI.startsWith('?')) {
     const baseQueryPos = baseIRI.indexOf('?');
     if (baseQueryPos > 0) {
       baseIRI = baseIRI.slice(0, baseQueryPos);
@@ -154,7 +154,7 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
   }
 
   // If the value starts with a fragment character, concat directly
-  if (relativeIRI.indexOf('#') === 0) {
+  if (relativeIRI.startsWith('#')) {
     return baseIRI + relativeIRI;
   }
 
@@ -177,12 +177,12 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
 
   const baseIRIScheme = baseIRI.slice(0, baseColonPos + 1);
   // Inherit the baseIRI scheme if the value starts with '//'
-  if (relativeIRI.indexOf('//') === 0) {
+  if (relativeIRI.startsWith('//')) {
     return baseIRIScheme + removeDotSegmentsOfPath(relativeIRI, valueColonPos);
   }
 
   // Check cases where '://' occurs in the baseIRI, and where there is no '/' after a ':' anymore.
-  let baseSlashAfterColonPos;
+  let baseSlashAfterColonPos: number;
   if (baseIRI.indexOf('//', baseColonPos) === baseColonPos + 1) {
     // If there is no additional '/' after the '//'.
     baseSlashAfterColonPos = baseIRI.indexOf('/', baseColonPos + 3);
@@ -209,7 +209,7 @@ export function resolve(relativeIRI: string, baseIRI: string = '') {
   }
 
   // If the value starts with a '/', then prefix it with everything before the first effective slash of the base IRI.
-  if (relativeIRI.indexOf('/') === 0) {
+  if (relativeIRI.startsWith('/')) {
     return baseIRI.slice(0, baseSlashAfterColonPos) + removeDotSegments(relativeIRI);
   }
 
