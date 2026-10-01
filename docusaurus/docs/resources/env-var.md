@@ -28,7 +28,22 @@ npm install @availity/env-var
 yarn add @availity/env-var
 ```
 
-## Usage
+## Supported URL Formats
+
+The package detects the environment from `window.location` using the subdomain of `*.availity.com` portal URLs:
+
+| Subdomain                      | Category | Specific Slug   |
+| ------------------------------ | -------- | --------------- |
+| `localhost`, `127.0.0.1`       | `local`  | `local`         |
+| `apps`, `essentials`           | `prod`   | `prod`          |
+| `test-apps`, `test-essentials` | `test`   | `test`          |
+| `t01-apps`, `t14-apps`, …      | `test`   | `t01`, `t14`, … |
+| `qa-apps`, `qa-essentials`     | `qa`     | `qa`            |
+| `qap-apps`, `q01-apps`, …      | `qa`     | `qap`, `q01`, … |
+
+Any URL that does not match a known pattern is treated as `local`.
+
+## API Reference
 
 ### envVar (default export)
 
@@ -48,9 +63,10 @@ export default myEnvVal;
 
 #### Optional args
 
-- windowOverride: String or Window Object which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
+- windowOverride: String, Window Object, or `null` which can be used to override the window which is used to determine the current hostname (which is used to determine the current environment)
   - When a string, it will be taken as a fully qualified URL and the hostname will be parsed from it.
-  - When a Window Object, the location hostname will be used.
+  - When a Window Object, the `location.hostname` will be used.
+  - When `null` (or when `window` is not available, e.g. SSR/Node), falls back to `local`.
 - defaultValue: The value returned when one does not exist for the specified environment. If no default is provided, then the function will use the value specified for `local`
 
 #### Example
@@ -101,9 +117,9 @@ import { setEnvironments } from '@availity/env-var';
 
 setEnvironments({
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-(essentials)$/],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-(essentials)$/],
-  prod: [/^(essentials)$/],
+  test: [/^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/],
+  qa: [/^q(?:(?:\d\d)|(?:ap?))-(apps|essentials)$/],
+  prod: [/^(apps|essentials)$/],
   myEnv: ['custom-stuff-here'],
 });
 ```
@@ -135,7 +151,7 @@ import { getSpecificEnv } from '@availity/env-var';
 
 /*
 depending on the environment this code runs in, specificEnv would be something different,
-like 't01' or 'stg' or 'prod'
+like 't01' or 'qap' or 'prod'
 */
 const specificEnv = getSpecificEnv();
 ```
@@ -172,10 +188,6 @@ setSpecificEnvironments([
     regex: /^(?:(.*)-)?(essentials)$/,
     fn: (options) => options.match[1] || 'prod',
   },
-  {
-    regex: /.*?\.(?:av|aw|gc)(n|p)$/,
-    fn: (options) => options.subdomain || options.pathname.split('/')[2],
-  },
 ]);
 ```
 
@@ -200,6 +212,122 @@ const env = getCurrentEnv();
 import { getCurrentEnv } from '@availity/env-var';
 
 // Use a custom URL for testing
-const env = getCurrentEnv('https://test-essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/');
+const env = getCurrentEnv(
+  'https://test-essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/'
+);
 // => 'test'
+```
+
+### getEnvironmentInfo
+
+Returns both the broad environment category and the specific slug in a single call. Useful when you need both values — avoids parsing the location twice.
+
+```js
+import { getEnvironmentInfo } from '@availity/env-var';
+
+const { env, specificEnv } = getEnvironmentInfo();
+// => { env: 'test', specificEnv: 't01' }
+```
+
+#### Optional args
+
+- windowOverride: String, Window Object, or `null`. Same semantics as `getCurrentEnv`.
+
+#### Example
+
+```js
+import { getEnvironmentInfo } from '@availity/env-var';
+
+const { env, specificEnv } = getEnvironmentInfo(
+  'https://t01-essentials.availity.com'
+);
+// => { env: 'test', specificEnv: 't01' }
+```
+
+---
+
+### isProd / isQa / isTest / isLocal
+
+Convenience boolean helpers. Equivalent to `getCurrentEnv() === 'env'` but more readable and easier to autocomplete.
+
+```js
+import { isProd, isQa, isTest, isLocal } from '@availity/env-var';
+```
+
+Each accepts an optional `windowOverride` (String, Window Object, or `null`) with the same semantics as `getCurrentEnv`.
+
+#### Example
+
+```js
+import { isProd, isLocal } from '@availity/env-var';
+
+if (isProd()) {
+  // only runs in prod
+}
+
+if (isLocal()) {
+  // runs on localhost, 127.0.0.1, or any unrecognised host
+}
+
+// With a URL string (useful in tests or SSR)
+isProd('https://essentials.availity.com'); // => true
+isTest('https://t01-essentials.availity.com'); // => true
+```
+
+> **Note:** `isLocal` returns `true` for both `localhost`/`127.0.0.1` **and** any unrecognised host — the same fallback behaviour as `envVar`.
+
+---
+
+### resetEnvironments / resetSpecificEnvironments
+
+Restore the built-in environment definitions after a `setEnvironments` or `setSpecificEnvironments` call. Primarily useful in tests to prevent state from bleeding between test cases.
+
+```js
+import {
+  resetEnvironments,
+  resetSpecificEnvironments,
+} from '@availity/env-var';
+```
+
+#### Example
+
+```js
+import {
+  setEnvironments,
+  resetEnvironments,
+  resetSpecificEnvironments,
+} from '@availity/env-var';
+
+// In a test file
+afterEach(() => {
+  resetEnvironments(); // restore built-in environments
+  resetSpecificEnvironments(); // restore built-in specific environments
+});
+
+test('custom environment', () => {
+  setEnvironments({ staging: /^stg-apps$/ });
+  // ... assertions ...
+}); // reset called after each test — no state bleed
+```
+
+---
+
+## SSR / Node Usage
+
+All functions default to `null` when `window` is not available (e.g. server-side rendering with Vite SSR, Next.js, or any Node environment). A `null` window is treated as an unrecognised host — `getCurrentEnv` returns `''` and `envVar` falls back to `varObj.local`.
+
+```js
+import envVar, { getCurrentEnv } from '@availity/env-var';
+
+// Safe in Node — no window reference errors
+const env = getCurrentEnv(); // => '' (falls back to local in envVar)
+
+const apiUrl = envVar({
+  prod: 'https://api.availity.com',
+  qa: 'https://qa-api.availity.com',
+  local: 'http://localhost:3000',
+}); // => 'http://localhost:3000' in SSR/Node
+
+// Pass a URL string explicitly when the target environment is known at render time:
+const ssrEnv = getCurrentEnv('https://essentials.availity.com'); // => 'prod'
 ```

@@ -44,6 +44,7 @@ export default [
       '.vscode',
       '.yarn',
       'coverage',
+      '**/coverage',
       'vitest.*.ts',
       '**/vitest.config.ts',
       '**/.docusaurus',
