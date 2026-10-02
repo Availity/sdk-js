@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [13.3.4](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.3.3...@availity/api-axios@13.3.4) (2026-10-02)
+
+### Dependency Updates
+
+* `upload-core` updated to version `13.3.3`
+* `upload-core` updated to version `13.3.3`
+* `api-core` updated to version `13.3.3`
+* `resolve-url` updated to version `13.3.3`
+
+
 ## [13.3.3](https://github.com/availity/sdk-js/compare/@availity/api-axios@13.3.2...@availity/api-axios@13.3.3) (2026-10-01)
 
 ### Dependency Updates
