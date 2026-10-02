@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.4.0](https://github.com/availity/sdk-js/compare/@availity/resolve-url@5.3.1...@availity/resolve-url@5.4.0) (2026-10-02)
+
+
+### Features
+
+* **resolve-url:** convert package to TypeScript ([60d5cd9](https://github.com/availity/sdk-js/commit/60d5cd92789a4c78fb985ca0ed5cf26fe3980234))
+
+
+
 ## [5.3.1](https://github.com/availity/sdk-js/compare/@availity/resolve-url@5.3.0...@availity/resolve-url@5.3.1) (2026-09-22)
 
 
