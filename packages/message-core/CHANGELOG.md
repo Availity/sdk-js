@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.4.0](https://github.com/availity/sdk-js/compare/@availity/message-core@9.3.3...@availity/message-core@9.4.0) (2026-10-02)
+
+
+### Features
+
+* **message-core:** convert package to TypeScript ([888963d](https://github.com/availity/sdk-js/commit/888963d8bf0d77a3465884ba0dce1cef15922a6a))
+
+
+
 ## [9.3.3](https://github.com/availity/sdk-js/compare/@availity/message-core@9.3.2...@availity/message-core@9.3.3) (2026-10-01)
 
 
