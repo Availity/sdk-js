@@ -30,6 +30,9 @@ All resources export both a class (for custom configuration) and a ready-to-use 
 - [AvSettingsApi](#avsettingsapi)
 - [AvStashApi](#avstashapi)
 - [AvWebQLApi](#avwebqlapi)
+- [AvFeatureManagementApi](#avfeaturemanagementapi)
+- [AvCustomerManagementApi](#avcustomermanagementapi)
+- [AvUserManagementApi](#avusermanagementapi)
 
 ## Usage
 
@@ -564,10 +567,7 @@ Creates a stash entry with `params`, then opens `linkTo` with `sessionId` append
 ```js
 import { avStashApi } from '@availity/api-axios';
 
-const sessionId = await avStashApi.launch(
-  { claimId: '12345', payerId: 'BCBS' },
-  '/apps/claim-viewer'
-);
+const sessionId = await avStashApi.launch({ claimId: '12345', payerId: 'BCBS' }, '/apps/claim-viewer');
 // Opens: /apps/claim-viewer?sessionId=abc-123
 ```
 
@@ -587,4 +587,135 @@ import { avWebQLApi } from '@availity/api-axios';
 const response = await avWebQLApi.create({
   query: '{ user { id firstName } }',
 });
+```
+
+---
+
+## AvFeatureManagementApi
+
+Get user permissions with associated authorized organizations from the feature-management service.
+
+**Singleton:** `avFeatureManagementApi`
+
+### Methods
+
+#### `getPermissions(permissionId, region)`
+
+Query user permissions by permission ID(s) and region. Accepts a single ID or an array. Returns `axiUserPermissions[]` via the `afterQuery` hook.
+
+#### `hasPermission(permissionId, region)`
+
+Returns a `boolean` — `true` if the permission exists with at least one authorized organization.
+
+#### `getAuthorizedOrganizations(permissionId, region)`
+
+Returns the organizations array for the matching permission.
+
+#### `afterQuery(response)`
+
+Hook that unwraps `axiUserPermissions` from the response, returning `[]` if absent.
+
+```js
+import { avFeatureManagementApi } from '@availity/api-axios';
+
+const perms = await avFeatureManagementApi.getPermissions(['7777', '8888'], 'FL');
+const canAccess = await avFeatureManagementApi.hasPermission('7777', 'FL');
+const orgs = await avFeatureManagementApi.getAuthorizedOrganizations('7777', 'FL');
+```
+
+---
+
+## AvCustomerManagementApi
+
+Look up organizations and regions from the customer-management service.
+
+**Singleton:** `avCustomerManagementApi`
+
+### Methods
+
+#### `getOrganization(customerId)`
+
+GET an organization by ID. Returns `{ status, organization }`.
+
+#### `getOrganizations(config)`
+
+Collection query for organizations.
+
+#### `getOrganizationData(customerId)`
+
+Convenience method — unwraps and returns just the `organization` object.
+
+#### `searchByName(name, config)`
+
+Query organizations with a `{ name }` param.
+
+#### `searchByTaxId(taxId, config)`
+
+Query organizations with a `{ taxId }` param.
+
+#### `getRegions(config)`
+
+List all regions. Supports `{ sortBy, sortDirection }` params.
+
+#### `getRegion(regionCode)`
+
+GET a region by code (e.g. `'FL'`).
+
+#### `getCurrentRegion()`
+
+GET the region with `currentlySelected=true`.
+
+#### `setCurrentRegion(regionCode, akaName)`
+
+PUT to switch the active region for a user.
+
+```js
+import { avCustomerManagementApi } from '@availity/api-axios';
+
+const org = await avCustomerManagementApi.getOrganizationData('12345');
+const results = await avCustomerManagementApi.searchByName('Acme Health');
+const regions = await avCustomerManagementApi.getRegions({ params: { sortBy: 'name' } });
+await avCustomerManagementApi.setCurrentRegion('FL', 'my-aka-name');
+```
+
+---
+
+## AvUserManagementApi
+
+Get the current user's profile and identity details from the user-management service.
+
+**Singleton:** `avUserManagementApi`
+
+### Methods
+
+#### `me()`
+
+GET the current user's full profile response.
+
+#### `getUser(akaName)`
+
+GET a user by `akaName`.
+
+#### `getMe()`
+
+Convenience method — returns `response.data` directly.
+
+#### `getUserId()`
+
+Returns `user.id`.
+
+#### `getAkaName()`
+
+Returns `user.akaname`.
+
+#### `getCurrentRegion()`
+
+Returns `user.currentRegion`.
+
+```js
+import { avUserManagementApi } from '@availity/api-axios';
+
+const profile = await avUserManagementApi.getMe();
+const userId = await avUserManagementApi.getUserId();
+const region = await avUserManagementApi.getCurrentRegion();
 ```

@@ -26,6 +26,9 @@ import AvUserApi, { avUserApi } from './resources/user';
 import AvUserPermissionsApi, { avUserPermissionsApi } from './resources/userPermissions';
 import AvStashApi, { avStashApi } from './resources/stash';
 import AvWebQLApi, { avWebQLApi } from './resources/webQL';
+import AvFeatureManagementApi, { avFeatureManagementApi } from './resources/featureManagement';
+import AvCustomerManagementApi, { avCustomerManagementApi } from './resources/customerManagement';
+import AvUserManagementApi, { avUserManagementApi } from './resources/userManagement';
 
 export default AvApi;
 
@@ -78,4 +81,10 @@ export {
   avStashApi,
   AvWebQLApi,
   avWebQLApi,
+  AvFeatureManagementApi,
+  avFeatureManagementApi,
+  AvCustomerManagementApi,
+  avCustomerManagementApi,
+  AvUserManagementApi,
+  avUserManagementApi,
 };
