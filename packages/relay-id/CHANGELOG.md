@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.4.0](https://github.com/availity/sdk-js/compare/@availity/relay-id@5.3.2...@availity/relay-id@5.4.0) (2026-10-02)
+
+
+### Features
+
+* convert relay-id to TypeScript ([08e5653](https://github.com/availity/sdk-js/commit/08e5653802d7b92ddfe92fd756c5164c737a7924))
+
+
+
 ## [5.3.2](https://github.com/availity/sdk-js/compare/@availity/relay-id@5.3.1...@availity/relay-id@5.3.2) (2026-10-01)
 
 
