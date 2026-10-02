@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.1.0](https://github.com/Availity/sdk-js/compare/@availity/dinosaurdocs@4.0.0...@availity/dinosaurdocs@4.1.0) (2026-10-02)
+
+
+### Features
+
+* **resolve-url:** convert package to TypeScript ([60d5cd9](https://github.com/Availity/sdk-js/commit/60d5cd92789a4c78fb985ca0ed5cf26fe3980234))
+
+
+
 # [4.0.0](https://github.com/Availity/sdk-js/compare/@availity/dinosaurdocs@3.1.3...@availity/dinosaurdocs@4.0.0) (2026-10-01)
 
 
