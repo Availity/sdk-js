@@ -72,7 +72,7 @@ resolveUrl({ relative: '/a/b', base: 'https://example.com/' });
 
 ### URLs
 
-When `base` option is not provided, this package will calculate the base from `window.location.href`. The example below returns server relative url if hostname was `https://example.com`
+When `base` option is not provided, this package will calculate the base from `window.location.origin`. The example below returns server relative url if hostname was `https://example.com`
 
 ```js
 import resolveUrl from '@availity/resolve-url';

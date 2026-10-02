@@ -16,4 +16,11 @@ describe('is-absolute-url', () => {
     expect(isAbsoluteUrl('foo/bar')).toBeFalsy();
     expect(isAbsoluteUrl('foo')).toBeFalsy();
   });
+
+  it('should throw a TypeError for non-string input', () => {
+    // @ts-expect-error — intentionally testing runtime guard with non-string input
+    expect(() => isAbsoluteUrl(123)).toThrow(TypeError);
+    // @ts-expect-error — intentionally testing runtime guard with null input
+    expect(() => isAbsoluteUrl(null)).toThrow(TypeError);
+  });
 });

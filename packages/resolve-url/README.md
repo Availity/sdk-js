@@ -33,7 +33,7 @@ const url = resolveUrl({ relative: '/api/v1/users' });
 // Resolve with an explicit base
 const url = resolveUrl({
   relative: '/path/to/resource',
-  base: 'https://apps.availity.com/',
+  base: 'https://essentials.availity.com/',
 });
 
 // Check if a URL is absolute
