@@ -42,6 +42,10 @@ describe('relay-id', () => {
     it('encodes type and numeric id', () => {
       expect(toGlobalId('Article', 22)).toBe('QXJ0aWNsZToyMg==');
     });
+
+    it('encodes with an empty string id', () => {
+      expect(toGlobalId('User', '')).toBe(base64('User:'));
+    });
   });
 
   describe('fromGlobalId', () => {
@@ -54,30 +58,25 @@ describe('relay-id', () => {
     });
 
     it('handles id containing colons (uses first colon as type/id delimiter)', () => {
-      // toGlobalId + fromGlobalId round-trip with a colon-containing id
       const globalId = toGlobalId('Type', 'id:with:colons');
-      const decoded = fromGlobalId(globalId);
-      expect(decoded).toEqual({ type: 'Type', id: 'id:with:colons' });
+      expect(fromGlobalId(globalId)).toEqual({ type: 'Type', id: 'id:with:colons' });
     });
 
     it('handles empty id', () => {
-      // toGlobalId + fromGlobalId round-trip with an empty id
       const globalId = toGlobalId('User', '');
-      const decoded = fromGlobalId(globalId);
-      expect(decoded).toEqual({ type: 'User', id: '' });
+      expect(fromGlobalId(globalId)).toEqual({ type: 'User', id: '' });
     });
 
-    it('handles id with colons correctly (uses first colon as delimiter)', () => {
-      const globalId = toGlobalId('Node', 'a:b:c');
-      const result = fromGlobalId(globalId);
-      expect(result.type).toBe('Node');
-      expect(result.id).toBe('a:b:c');
-    });
-
-    it('roundtrips with toGlobalId', () => {
+    it('roundtrips with toGlobalId for string id', () => {
       const { type, id } = fromGlobalId(toGlobalId('Organization', '456'));
       expect(type).toBe('Organization');
       expect(id).toBe('456');
+    });
+
+    it('roundtrips with toGlobalId for numeric id', () => {
+      const { type, id } = fromGlobalId(toGlobalId('Post', 99));
+      expect(type).toBe('Post');
+      expect(id).toBe('99');
     });
   });
 });
