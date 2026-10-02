@@ -1,18 +1,45 @@
+export interface MessagePayload {
+  event?: string;
+  [key: string]: unknown;
+}
+
+export interface SubscribeOptions {
+  ignoreSameWindow?: boolean;
+}
+
+export type MessageCallback = (data?: MessagePayload | string) => void;
+
+export type Unsubscribe = () => void;
+
+interface Subscriber {
+  id: number;
+  callback: MessageCallback;
+  options: Required<SubscribeOptions>;
+}
+
 class AvMessage {
-  subscribers = {};
+  subscribers: Record<string, Subscriber[]> = {};
+
+  isEnabled = true;
+
+  DEFAULT_EVENT = 'avMessage';
+
+  DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
+
+  #lastId = 0;
 
   constructor() {
     window.addEventListener('message', this.getEventData);
   }
 
-  enabled(value) {
+  enabled(value?: boolean): boolean {
     if (arguments.length > 0) {
       this.isEnabled = !!value;
     }
     return this.isEnabled;
   }
 
-  getEventData = (event) => {
+  getEventData = (event: MessageEvent): void => {
     const isSameWindow = event.source === window;
 
     if (
@@ -31,27 +58,27 @@ class AvMessage {
 
     if (typeof data === 'string') {
       try {
-        data = JSON.parse(data);
+        data = JSON.parse(data) as unknown;
       } catch {
         // no op
       }
     }
 
+    let eventName: string;
+
     if (typeof data === 'string') {
-      event = data;
+      eventName = data;
       data = undefined;
     } else {
-      event = (data && data.event) || this.DEFAULT_EVENT;
+      eventName = (data && (data as MessagePayload).event) || this.DEFAULT_EVENT;
     }
 
     const metadata = { isSameWindow };
 
-    this.onMessage(event, data, metadata);
+    this.onMessage(eventName, data as MessagePayload | string | undefined, metadata);
   };
 
-  #lastId = 0;
-
-  subscribe(event, callback, options) {
+  subscribe(event: string, callback: MessageCallback, options?: SubscribeOptions): Unsubscribe {
     if (!this.subscribers[event]) {
       this.subscribers[event] = [];
     }
@@ -61,15 +88,15 @@ class AvMessage {
 
     const ignoreSameWindow = options?.ignoreSameWindow ?? true;
 
-    const subscriber = { id, callback, options: { ignoreSameWindow } };
+    const subscriber: Subscriber = { id, callback, options: { ignoreSameWindow } };
     this.subscribers[event].push(subscriber);
 
     return () => {
-      this.subscribers[event] = this.subscribers[event].filter((subscriber) => subscriber.id !== id);
+      this.subscribers[event] = this.subscribers[event].filter((s) => s.id !== id);
     };
   }
 
-  once(event, callback, options) {
+  once(event: string, callback: MessageCallback, options?: SubscribeOptions): Unsubscribe {
     const unsubscribe = this.subscribe(
       event,
       (data) => {
@@ -82,15 +109,17 @@ class AvMessage {
   }
 
   // remove all subscribers for this event
-  unsubscribe(event) {
-    delete this.subscribers[event];
+  unsubscribe(event?: string): void {
+    if (event) {
+      delete this.subscribers[event];
+    }
   }
 
-  unsubscribeAll() {
+  unsubscribeAll(): void {
     this.subscribers = {};
   }
 
-  onMessage(event, data, metadata) {
+  onMessage(event: string, data: MessagePayload | string | undefined, metadata: { isSameWindow: boolean }): void {
     const { isSameWindow } = metadata;
 
     if (this.subscribers[event]) {
@@ -106,18 +135,17 @@ class AvMessage {
   }
 
   // if current domain doesn't match regex DOMAIN, return true.
-  isDomain(url) {
+  isDomain(url: string): boolean {
     return !this.DOMAIN.test(this.domain()) || this.DOMAIN.test(url);
   }
 
   /**
    * Attempts to get origin from top window
    * @private
-   * @returns {string|null}
    */
-  getOriginFromTop() {
+  getOriginFromTop(): string | null {
     try {
-      return window.top.location.origin;
+      return window.top!.location.origin;
     } catch {
       return null;
     }
@@ -126,10 +154,8 @@ class AvMessage {
   /**
    * Swaps between 'apps' and 'essentials' in the domain
    * @private
-   * @param {string} url
-   * @returns {string}
    */
-  swapDomain(url) {
+  swapDomain(url: string): string {
     if (url.includes('essentials')) {
       return url.replace('essentials', 'apps');
     }
@@ -139,9 +165,8 @@ class AvMessage {
   /**
    * Gets the domain
    * @private
-   * @returns {string}
    */
-  domain() {
+  domain(): string {
     const topOrigin = this.getOriginFromTop();
 
     if (topOrigin) {
@@ -165,9 +190,9 @@ class AvMessage {
     return '*';
   }
 
-  send(payload, target = window.top) {
-    if (!this.isEnabled || !payload) {
-      // ignore send calls if not enabled
+  send(payload: string | MessagePayload, target: Window | null = window.top): void {
+    if (!this.isEnabled || !payload || !target) {
+      // ignore send calls if not enabled or no target
       return;
     }
     try {
@@ -183,15 +208,9 @@ class AvMessage {
    * Remove the message event listener. Call this when your app or component
    * unmounts to prevent memory leaks.
    */
-  destroy() {
+  destroy(): void {
     window.removeEventListener('message', this.getEventData);
   }
-
-  isEnabled = true;
-
-  DEFAULT_EVENT = 'avMessage';
-
-  DOMAIN = /https?:\/\/([\w-]+\.)?availity\.(com|net)/;
 }
 
 export default AvMessage;

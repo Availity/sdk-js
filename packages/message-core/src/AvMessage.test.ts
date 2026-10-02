@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import AvMessage from './AvMessage';
 
-let avMessage;
+let avMessage: AvMessage;
 const TEST_URL = 'https://dev.local:9999';
 
 // const OLD_LOCATION = window.location;
@@ -18,6 +18,7 @@ describe('AvMessage', () => {
   test('enabled() should set the value if one passed in', () => {
     expect(avMessage.enabled(true)).toBe(true);
     expect(avMessage.enabled(false)).toBe(false);
+    // @ts-expect-error — testing runtime coercion of a truthy non-boolean value
     expect(avMessage.enabled('hello')).toBe(true);
   });
 
@@ -87,6 +88,24 @@ describe('AvMessage', () => {
       expect(fn).toHaveBeenCalledTimes(1);
     });
 
+    test('subscribe defaults ignoreSameWindow to true when no options are passed', () => {
+      avMessage.subscribers = {};
+      const testEvent = 'testEvent';
+      const callback = vi.fn();
+
+      avMessage.subscribe(testEvent, callback);
+
+      expect(avMessage.subscribers[testEvent][0].options.ignoreSameWindow).toBe(true);
+
+      // Same-window message should be skipped by default
+      avMessage.onMessage(testEvent, { value: 'same-window' }, { isSameWindow: true });
+      expect(callback).not.toHaveBeenCalled();
+
+      // Cross-window message should still fire
+      avMessage.onMessage(testEvent, { value: 'cross-window' }, { isSameWindow: false });
+      expect(callback).toHaveBeenCalledTimes(1);
+    });
+
     test('subscribe should add subscriber object to subscribers', () => {
       avMessage.subscribers = {};
       const testEvent = 'testEvent';
@@ -144,24 +163,26 @@ describe('AvMessage', () => {
     });
 
     test('unsubscribe should remove all subscriptions for event', () => {
-      const event1 = ['a', 'b', 'c'];
-      const event2 = ['b', 'c', 'd'];
+      const makeSubscriber = (id: number) => ({ id, callback: vi.fn(), options: { ignoreSameWindow: true } });
       avMessage.subscribers = {
-        event1,
-        event2,
+        event1: [makeSubscriber(1), makeSubscriber(2)],
+        event2: [makeSubscriber(3)],
       };
 
       avMessage.unsubscribe('event1');
-      expect(avMessage.subscribers).toEqual({ event2 });
+      expect(avMessage.subscribers).not.toHaveProperty('event1');
+      expect(avMessage.subscribers).toHaveProperty('event2');
 
+      // calling with no argument is a no-op
       avMessage.unsubscribe();
-      expect(avMessage.subscribers).toEqual({ event2 });
+      expect(avMessage.subscribers).toHaveProperty('event2');
     });
 
     test('unsubscribeAll should remove all subscriptions', () => {
+      const makeSubscriber = (id: number) => ({ id, callback: vi.fn(), options: { ignoreSameWindow: true } });
       avMessage.subscribers = {
-        test1: ['a', 'b'],
-        test2: ['b', 'c'],
+        test1: [makeSubscriber(1), makeSubscriber(2)],
+        test2: [makeSubscriber(3)],
       };
       avMessage.unsubscribeAll();
       expect(avMessage.subscribers).toEqual({});
@@ -234,7 +255,8 @@ describe('AvMessage', () => {
   });
 
   describe('getEventData()', () => {
-    let spyParse;
+    let spyParse: ReturnType<typeof vi.spyOn>;
+    let isDomainSpy: ReturnType<typeof vi.spyOn>;
     const mockEvent = {
       data: 'testData',
       origin: 'testOrigin',
@@ -243,9 +265,7 @@ describe('AvMessage', () => {
 
     beforeEach(() => {
       spyParse = vi.spyOn(JSON, 'parse');
-      // avMessage.isEnabled = true;
-      // avMessage.onMessage = vi.fn();
-      avMessage.isDomain = vi.fn().mockImplementation(() => true);
+      isDomainSpy = vi.spyOn(avMessage, 'isDomain').mockReturnValue(true);
     });
 
     afterEach(() => {
@@ -256,9 +276,9 @@ describe('AvMessage', () => {
     test('should return early when AvMessages not enabled', () => {
       avMessage.isEnabled = false;
       avMessage.onMessage = vi.fn();
-      avMessage.getEventData(mockEvent);
+      avMessage.getEventData(mockEvent as unknown as MessageEvent);
       expect(spyParse).not.toHaveBeenCalled();
-      expect(avMessage.isDomain).not.toHaveBeenCalled();
+      expect(isDomainSpy).not.toHaveBeenCalled();
       expect(avMessage.onMessage).not.toHaveBeenCalled();
     });
 
@@ -267,11 +287,11 @@ describe('AvMessage', () => {
       const mockEvent1 = { ...mockEvent, data: false };
       const mockEvent2 = { ...mockEvent, origin: false };
       const mockEvent3 = { ...mockEvent, source: false };
-      avMessage.getEventData(mockEvent1);
-      avMessage.getEventData(mockEvent2);
-      avMessage.getEventData(mockEvent3);
+      avMessage.getEventData(mockEvent1 as unknown as MessageEvent);
+      avMessage.getEventData(mockEvent2 as unknown as MessageEvent);
+      avMessage.getEventData(mockEvent3 as unknown as MessageEvent);
       expect(spyParse).not.toHaveBeenCalled();
-      expect(avMessage.isDomain).not.toHaveBeenCalled();
+      expect(isDomainSpy).not.toHaveBeenCalled();
       expect(avMessage.onMessage).not.toHaveBeenCalled();
     });
 
@@ -279,7 +299,7 @@ describe('AvMessage', () => {
       const callback = vi.fn();
       avMessage.subscribe('test event name', callback);
       const testEvent = { ...mockEvent, data: { event: 'test event name', data: 'foo-bla' }, source: window };
-      avMessage.getEventData(testEvent);
+      avMessage.getEventData(testEvent as unknown as MessageEvent);
       expect(callback).not.toHaveBeenCalled();
     });
 
@@ -287,47 +307,47 @@ describe('AvMessage', () => {
       const callback = vi.fn();
       avMessage.subscribe('test event name', callback, { ignoreSameWindow: false });
       const testEvent = { ...mockEvent, data: { event: 'test event name', data: 'foo-bla' }, source: window };
-      avMessage.getEventData(testEvent);
+      avMessage.getEventData(testEvent as unknown as MessageEvent);
       expect(callback).toHaveBeenCalled();
     });
 
     test('should return early when event origin is not in domain', () => {
       avMessage.onMessage = vi.fn();
-      avMessage.isDomain.mockImplementationOnce(() => false);
-      avMessage.getEventData(mockEvent);
+      isDomainSpy.mockReturnValueOnce(false);
+      avMessage.getEventData(mockEvent as unknown as MessageEvent);
       expect(spyParse).not.toHaveBeenCalled();
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).not.toHaveBeenCalled();
     });
 
     test('should call onMessage when there are no blockers', () => {
       avMessage.onMessage = vi.fn();
-      avMessage.getEventData(mockEvent);
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      avMessage.getEventData(mockEvent as unknown as MessageEvent);
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalled();
     });
 
     test('if data is string should attempt to parse it', () => {
       avMessage.onMessage = vi.fn();
-      avMessage.getEventData(mockEvent);
+      avMessage.getEventData(mockEvent as unknown as MessageEvent);
       expect(spyParse).toHaveBeenCalled();
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalled();
     });
 
     test('if data is not string should not attempt to parse it', () => {
       avMessage.onMessage = vi.fn();
-      avMessage.getEventData({ ...mockEvent, data: 10 });
+      avMessage.getEventData({ ...mockEvent, data: 10 } as unknown as MessageEvent);
       expect(spyParse).not.toHaveBeenCalled();
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalled();
     });
 
     test('should call onMessage with event as data if its a string', () => {
       avMessage.onMessage = vi.fn();
       spyParse.mockRestore();
-      avMessage.getEventData(mockEvent);
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      avMessage.getEventData(mockEvent as unknown as MessageEvent);
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalledWith(mockEvent.data, undefined, { isSameWindow: false });
     });
 
@@ -335,18 +355,18 @@ describe('AvMessage', () => {
       spyParse.mockRestore();
       avMessage.onMessage = vi.fn();
       const testData = { value: 'hello' };
-      avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) } as unknown as MessageEvent);
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalledWith(avMessage.DEFAULT_EVENT, testData, { isSameWindow: false });
     });
 
     test('should call onMessage with event from data object param', () => {
       spyParse.mockRestore();
       avMessage.onMessage = vi.fn();
-      const testEvent = 'testEvent';
-      const testData = { value: 'hello', event: testEvent };
-      avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) });
-      expect(avMessage.isDomain).toHaveBeenCalled();
+      const testEventName = 'testEvent';
+      const testData = { value: 'hello', event: testEventName };
+      avMessage.getEventData({ ...mockEvent, data: JSON.stringify(testData) } as unknown as MessageEvent);
+      expect(isDomainSpy).toHaveBeenCalled();
       expect(avMessage.onMessage).toHaveBeenCalledWith(testData.event, testData, { isSameWindow: false });
     });
   });
@@ -424,7 +444,7 @@ describe('AvMessage', () => {
       // then verify the real catch branch returns null.
       const crossOriginInstance = new AvMessage();
       // Replace getOriginFromTop with a version that throws, matching the real code's try/catch
-      crossOriginInstance.getOriginFromTop = function () {
+      crossOriginInstance.getOriginFromTop = () => {
         try {
           throw new DOMException('Blocked a frame with origin', 'SecurityError');
         } catch {
@@ -467,27 +487,32 @@ describe('AvMessage', () => {
 
     test('should return when not enabled', () => {
       avMessage.isEnabled = false;
-      avMessage.send('something', mockTarget);
+      avMessage.send('something', mockTarget as unknown as Window);
       expect(mockTarget.postMessage).not.toHaveBeenCalled();
     });
 
     test('should return when no message given', () => {
-      avMessage.send(undefined, mockTarget);
+      avMessage.send(undefined as unknown as string, mockTarget as unknown as Window);
+      expect(mockTarget.postMessage).not.toHaveBeenCalled();
+    });
+
+    test('should return when target is null', () => {
+      avMessage.send('test', null as unknown as Window);
       expect(mockTarget.postMessage).not.toHaveBeenCalled();
     });
 
     test('should call postMessage on target', () => {
       const testMessage = 'test';
-      avMessage.send(testMessage, mockTarget);
+      avMessage.send(testMessage, mockTarget as unknown as Window);
       expect(mockTarget.postMessage).toHaveBeenCalledWith(testMessage, testDomain);
     });
 
     test('should stringify message if not string', () => {
-      let testMessage = 1234;
-      avMessage.send(testMessage, mockTarget);
+      let testMessage: unknown = 1234;
+      avMessage.send(testMessage as string, mockTarget as unknown as Window);
       expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
       testMessage = { message: 'hello' };
-      avMessage.send(testMessage, mockTarget);
+      avMessage.send(testMessage as string, mockTarget as unknown as Window);
       expect(mockTarget.postMessage).toHaveBeenCalledWith(JSON.stringify(testMessage), testDomain);
     });
 
@@ -499,7 +524,7 @@ describe('AvMessage', () => {
         }),
       };
 
-      expect(() => avMessage.send('test', throwingTarget)).not.toThrow();
+      expect(() => avMessage.send('test', throwingTarget as unknown as Window)).not.toThrow();
       expect(warnSpy).toHaveBeenCalledWith('AvMessage.send()', expect.any(Error));
       warnSpy.mockRestore();
     });
