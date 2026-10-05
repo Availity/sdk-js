@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.3.5](https://github.com/availity/sdk-js/compare/@availity/dl-core@7.3.4...@availity/dl-core@7.3.5) (2026-10-05)
+
+### Dependency Updates
+
+* `api-core` updated to version `7.3.4`
+
+
 ## [7.3.4](https://github.com/availity/sdk-js/compare/@availity/dl-core@7.3.3...@availity/dl-core@7.3.4) (2026-10-02)
 
 ### Dependency Updates
