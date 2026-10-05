@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/availity/sdk-js/compare/@availity/env-var@7.0.0...@availity/env-var@7.1.0) (2026-10-05)
+
+
+### Features
+
+* **env-var:** add build.availity.com support across all environments ([385116b](https://github.com/availity/sdk-js/commit/385116b48e69dad9b228bdac66e5c28cad4fd16c))
+
+
+
 # [7.0.0](https://github.com/availity/sdk-js/compare/@availity/env-var@6.3.1...@availity/env-var@7.0.0) (2026-10-01)
 
 
