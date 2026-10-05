@@ -28,7 +28,7 @@ export interface WindowLike {
  * // => string | null | undefined
  */
 export interface EnvOpts {
-  /** Value to use in production (`apps.availity.com`, `essentials.availity.com`). */
+  /** Value to use in production (`apps.availity.com`, `essentials.availity.com`, `build.availity.com`). */
   prod?: unknown;
   /** Value to use in QA (`qa-apps`, `qap-apps`, `q01-apps`, etc.). */
   qa?: unknown;
@@ -58,9 +58,9 @@ export interface EnvironmentInfo {
 
 const DEFAULT_ENVIRONMENTS: Record<string, EnvTest | EnvTest[]> = {
   local: ['127.0.0.1', 'localhost'],
-  test: [/^t(?:(?:\d\d)|(?:est))-(apps|essentials)$/],
-  qa: [/^q(?:(?:\d\d)|(?:ap?))-(apps|essentials)$/],
-  prod: [/^(apps|essentials)$/],
+  test: [/^t(?:(?:\d\d)|(?:est))-(apps|essentials|build)$/],
+  qa: [/^q(?:(?:\d\d)|(?:ap?))-(apps|essentials|build)$/],
+  prod: [/^(apps|essentials|build)$/],
 };
 
 const DEFAULT_SPECIFIC_ENVIRONMENTS: SpecificEnvConfig[] = [
@@ -70,7 +70,7 @@ const DEFAULT_SPECIFIC_ENVIRONMENTS: SpecificEnvConfig[] = [
     fn: () => 'local',
   },
   {
-    regex: /^(?:(.*)-)?(apps|essentials)$/,
+    regex: /^(?:(.*)-)?(apps|essentials|build)$/,
     fn: (options) => options.match[1] || 'prod',
   },
 ];

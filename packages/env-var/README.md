@@ -36,6 +36,15 @@ const apiUrl = envVar({
 });
 ```
 
+Supported hostnames per environment:
+
+| Environment | Hostnames                                                                                                                                 |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `local`     | `localhost`, `127.0.0.1`                                                                                                                  |
+| `test`      | `test-{apps\|essentials\|build}.availity.com`, `t{NN}-{apps\|essentials\|build}.availity.com`                                             |
+| `qa`        | `qa-{apps\|essentials\|build}.availity.com`, `qap-{apps\|essentials\|build}.availity.com`, `q{NN}-{apps\|essentials\|build}.availity.com` |
+| `prod`      | `apps.availity.com`, `essentials.availity.com`, `build.availity.com`                                                                      |
+
 ### Named Exports
 
 ```js

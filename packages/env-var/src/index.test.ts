@@ -191,20 +191,31 @@ describe('envVar', () => {
     describe('test — portal URLs', () => {
       assertEnv('test-apps.availity.com', 'test');
       assertEnv('test-essentials.availity.com', 'test');
+      assertEnv('test-build.availity.com', 'test');
       assertEnv('t01-apps.availity.com', 'test');
+      assertEnv('t01-essentials.availity.com', 'test');
+      assertEnv('t01-build.availity.com', 'test');
       assertEnv('t14-apps.availity.com', 'test');
+      assertEnv('t14-essentials.availity.com', 'test');
+      assertEnv('t14-build.availity.com', 'test');
     });
 
     describe('qa — portal URLs', () => {
       assertEnv('qa-apps.availity.com', 'qa');
       assertEnv('qa-essentials.availity.com', 'qa');
+      assertEnv('qa-build.availity.com', 'qa');
       assertEnv('qap-apps.availity.com', 'qa');
+      assertEnv('qap-essentials.availity.com', 'qa');
+      assertEnv('qap-build.availity.com', 'qa');
       assertEnv('q01-apps.availity.com', 'qa');
+      assertEnv('q01-essentials.availity.com', 'qa');
+      assertEnv('q01-build.availity.com', 'qa');
     });
 
     describe('prod — portal URLs', () => {
       assertEnv('apps.availity.com', 'prod');
       assertEnv('essentials.availity.com', 'prod');
+      assertEnv('build.availity.com', 'prod');
     });
 
     describe('unknown hostnames fall through to local', () => {
@@ -241,13 +252,26 @@ describe('getSpecificEnv', () => {
     assertSpecific('127.0.0.1', 'local');
     assertSpecific('fallback-apps.availity.com', 'fallback');
     assertSpecific('test-apps.availity.com', 'test');
+    assertSpecific('test-essentials.availity.com', 'test');
+    assertSpecific('test-build.availity.com', 'test');
     assertSpecific('t01-apps.availity.com', 't01');
+    assertSpecific('t01-essentials.availity.com', 't01');
+    assertSpecific('t01-build.availity.com', 't01');
     assertSpecific('t14-apps.availity.com', 't14');
+    assertSpecific('t14-essentials.availity.com', 't14');
+    assertSpecific('t14-build.availity.com', 't14');
     assertSpecific('qa-apps.availity.com', 'qa');
+    assertSpecific('qa-essentials.availity.com', 'qa');
+    assertSpecific('qa-build.availity.com', 'qa');
     assertSpecific('qap-apps.availity.com', 'qap');
+    assertSpecific('qap-essentials.availity.com', 'qap');
+    assertSpecific('qap-build.availity.com', 'qap');
     assertSpecific('q01-apps.availity.com', 'q01');
+    assertSpecific('q01-essentials.availity.com', 'q01');
+    assertSpecific('q01-build.availity.com', 'q01');
     assertSpecific('apps.availity.com', 'prod');
     assertSpecific('essentials.availity.com', 'prod');
+    assertSpecific('build.availity.com', 'prod');
   });
 
   test('returns "local" when called with null (SSR/no-window)', () => {
