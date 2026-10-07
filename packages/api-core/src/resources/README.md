@@ -28,6 +28,9 @@ Base resource classes for the Availity REST API. These are HTTP-client-agnostic 
 - [AvSettings](#avsettings)
 - [AvStash](#avstash)
 - [AvWebQL](#avwebql)
+- [AvFeatureManagement](#avfeaturemanagement)
+- [AvCustomerManagement](#avcustomermanagement)
+- [AvUserManagement](#avusermanagement)
 
 ## Usage
 
@@ -505,10 +508,7 @@ Create temporary session data and launch a target URL with the session ID.
 Creates a stash entry with `params`, then opens `linkTo` with the `sessionId` appended as a query parameter. Returns the session ID.
 
 ```js
-const sessionId = await avStash.launch(
-  { claimId: '12345', payerId: 'BCBS' },
-  '/apps/claim-viewer'
-);
+const sessionId = await avStash.launch({ claimId: '12345', payerId: 'BCBS' }, '/apps/claim-viewer');
 // Opens: /apps/claim-viewer?sessionId=abc-123
 ```
 
@@ -526,4 +526,142 @@ No custom methods — use `create()` (POST) with your GraphQL query/variables.
 const response = await avWebQL.create({
   query: '{ user { id firstName } }',
 });
+```
+
+---
+
+## AvFeatureManagement
+
+Get user permissions with associated authorized organizations from the feature-management service.
+
+**Path:** `/cloud/web/appl/feature-management/legacy/v1/user-permissions`
+
+### Methods
+
+#### `getPermissions(permissionId, region)`
+
+Query user permissions by permission ID(s) and region. Accepts a single ID or an array. Returns `axiUserPermissions[]` via the `afterQuery` hook.
+
+#### `hasPermission(permissionId, region)`
+
+Returns a `boolean` — `true` if the permission exists with at least one authorized organization.
+
+#### `getAuthorizedOrganizations(permissionId, region)`
+
+Returns the organizations array for the matching permission.
+
+### Hooks
+
+- `afterQuery(response)` — Unwraps `axiUserPermissions` from the response, returns `[]` if absent.
+
+```js
+import AvFeatureManagement from '@availity/api-core';
+
+const avFeatureManagement = new AvFeatureManagement({ http: axiosInstance });
+const perms = await avFeatureManagement.getPermissions(['7777', '8888'], 'FL');
+const canAccess = await avFeatureManagement.hasPermission('7777', 'FL');
+const orgs = await avFeatureManagement.getAuthorizedOrganizations('7777', 'FL');
+```
+
+---
+
+## AvCustomerManagement
+
+Look up organizations and regions from the customer-management service.
+
+**Path:** `/cloud/web/appl/customer-management`
+
+Organizations use `legacy/v1/organizations`; regions use `legacy/sdk/platform/v1/regions`.
+
+### Organization Methods
+
+#### `getOrganization(customerId)`
+
+GET an organization by ID. Returns `{ status, organization }`.
+
+#### `getOrganizations(config)`
+
+Collection query for organizations.
+
+#### `getOrganizationData(customerId)`
+
+Convenience method — unwraps and returns just the `organization` object.
+
+#### `searchByName(name, config)`
+
+Query organizations with a `{ name }` param.
+
+#### `searchByTaxId(taxId, config)`
+
+Query organizations with a `{ taxId }` param.
+
+### Region Methods
+
+#### `getRegions(config)`
+
+List all regions. Supports `{ sortBy, sortDirection }` params.
+
+#### `getRegion(regionCode)`
+
+GET a region by code (e.g. `'FL'`).
+
+#### `getCurrentRegion()`
+
+GET the region with `currentlySelected=true`.
+
+#### `setCurrentRegion(regionCode, akaName)`
+
+PUT to switch the active region for a user.
+
+```js
+import AvCustomerManagement from '@availity/api-core';
+
+const avCustomerManagement = new AvCustomerManagement({ http: axiosInstance });
+const org = await avCustomerManagement.getOrganizationData('12345');
+const results = await avCustomerManagement.searchByName('Acme Health');
+const regions = await avCustomerManagement.getRegions({ params: { sortBy: 'name' } });
+await avCustomerManagement.setCurrentRegion('FL', 'my-aka-name');
+```
+
+---
+
+## AvUserManagement
+
+Get the current user's profile and identity details from the user-management service.
+
+**Path:** `/cloud/web/appl/user-management/legacy/sdk/platform/v1/users`
+
+### Methods
+
+#### `me()`
+
+GET the current user's full profile response.
+
+#### `getUser(akaName)`
+
+GET a user by `akaName`.
+
+#### `getMe()`
+
+Convenience method — returns `response.data` directly.
+
+#### `getUserId()`
+
+Returns `user.id`.
+
+#### `getAkaName()`
+
+Returns `user.akaname`.
+
+#### `getCurrentRegion()`
+
+Returns `user.currentRegion`.
+
+```js
+import AvUserManagement from '@availity/api-core';
+
+const avUserManagement = new AvUserManagement({ http: axiosInstance });
+const profile = await avUserManagement.getMe();
+const userId = await avUserManagement.getUserId();
+const region = await avUserManagement.getCurrentRegion();
 ```

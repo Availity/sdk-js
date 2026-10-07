@@ -27,6 +27,9 @@ import AvApiCore, {
   AvUsers,
   AvUserPermissions,
   AvWebQL,
+  AvFeatureManagement,
+  AvCustomerManagement,
+  AvUserManagement,
 } from '@availity/api-core';
 
 export type { AvApiResponse, RequestConfig, PaginatedData } from '@availity/api-core';
@@ -53,6 +56,14 @@ export type {
   DisclaimersResponse,
   Notification,
   RouteConfiguration,
+  UserPermission,
+  UserPermissionsResponse,
+  CustomerOrganization,
+  CustomerOrganizationResponse,
+  CustomerOrganizationsResponse,
+  CustomerRegion,
+  CustomerRegionsResponse,
+  ManagedUser,
 } from '@availity/api-core';
 
 export interface ApiConfig extends AvApiConfig, AxiosRequestConfig {
@@ -145,6 +156,15 @@ declare const avUserPermissionsApi: AvUserPermissionsApi;
 declare class AvWebQLApi extends AvWebQL {}
 declare const avWebQLApi: AvWebQLApi;
 
+declare class AvFeatureManagementApi extends AvFeatureManagement {}
+declare const avFeatureManagementApi: AvFeatureManagementApi;
+
+declare class AvCustomerManagementApi extends AvCustomerManagement {}
+declare const avCustomerManagementApi: AvCustomerManagementApi;
+
+declare class AvUserManagementApi extends AvUserManagement {}
+declare const avUserManagementApi: AvUserManagementApi;
+
 export default AvApi;
 
 export {
@@ -196,4 +216,10 @@ export {
   AvUserPermissionsApi,
   avWebQLApi,
   AvWebQLApi,
+  avFeatureManagementApi,
+  AvFeatureManagementApi,
+  avCustomerManagementApi,
+  AvCustomerManagementApi,
+  avUserManagementApi,
+  AvUserManagementApi,
 };
