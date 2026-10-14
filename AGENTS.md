@@ -10,7 +10,7 @@ Nx monorepo of non-visual packages: `@availity/api-axios`, `@availity/authorizat
 
 ## Environment
 
-- Node `^22 || ^24` (`.nvmrc` is 22).
+- Node `^22.12 || ^24` (`.nvmrc` is 24).
 - Yarn 4 (`packageManager: yarn@4.17.0`). Do not use npm or yarn 1.
 - Install with `yarn install --immutable`. Do not hand-edit `yarn.lock`.
 - ESM-only packages.

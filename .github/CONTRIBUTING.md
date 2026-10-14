@@ -4,7 +4,7 @@ This monorepo is managed using [yarn](https://yarnpkg.com/getting-started) and [
 
 ## Prerequisites
 
-- **Node.js** 22 or 24 (see `engines` in package.json). We recommend [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your Node installation.
+- **Node.js** 22.12+ or 24 (see `engines` in package.json; `.nvmrc` is set to 24). We recommend [nvm](https://github.com/nvm-sh/nvm#readme) or [fnm](https://github.com/Schniz/fnm#readme) to manage your Node installation.
 - **Yarn 4** — managed via [Corepack](https://yarnpkg.com/corepack), which ships with Node.js.
 
 ## Installation
