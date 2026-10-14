@@ -6,7 +6,7 @@ Nx monorepo of non-visual packages: `@availity/api-axios`, `@availity/authorizat
 
 - Default and PR target: `master` (see `.github/workflows/pr-build.yml`).
 - The local clone may be on a feature branch (for example `feature/typescript-rewrite-cloud-resources`). **Published behavior is what is on `origin/master` and npm.** Read `origin/master` before answering "what does the SDK do".
-- Never push to `master`. Work on `feature/<JIRA-###>-description` or `fix/<JIRA-###>-description`.
+- Never push to `master`. Work on a branch named `feature/<short-description>` or `fix/<short-description>`.
 
 ## Environment
 
