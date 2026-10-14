@@ -7,7 +7,6 @@ export default {
     },
   },
   rules: {
-    'header-max-length': [0, 'always', 85],
     'scope-empty': [0, 'never'],
   },
 };
