@@ -26,6 +26,9 @@ import AvTelemetry from './resources/telemetry';
 import AvUserPermissions from './resources/userPermissions';
 import AvUsers from './resources/user';
 import AvWebQL from './resources/webQL';
+import AvFeatureManagement from './resources/featureManagement';
+import AvCustomerManagement from './resources/customerManagement';
+import AvUserManagement from './resources/userManagement';
 
 export default AvApi;
 
@@ -56,4 +59,7 @@ export {
   AvUserPermissions,
   AvUsers,
   AvWebQL,
+  AvFeatureManagement,
+  AvCustomerManagement,
+  AvUserManagement,
 };
