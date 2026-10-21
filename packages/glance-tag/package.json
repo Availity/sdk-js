@@ -1,0 +1,18 @@
+{
+  "name": "@availity/glance-tag",
+  "version": "0.0.0",
+  "description": "adds a script to allow glance to view the page for share my screen support",
+  "main": "src/index.js",
+  "keywords": [],
+  "author": "Orion Wolf-Hubbard <orion.wolf-hubbard@availity.com>",
+  "engines": {
+    "node": "^18.0.0 || ^20.0.0"
+  },
+  "dependencies": {
+    "@availity/env-var": "workspace:*"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
