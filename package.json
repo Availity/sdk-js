@@ -52,7 +52,7 @@
     "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@commitlint/config-nx-scopes": "^21.2.3",
-    "@jscutlery/semver": "^5.8.1",
+    "@jscutlery/semver": "^7.1.0",
     "@nx/eslint": "22.5.1",
     "@nx/js": "22.5.1",
     "@nx/workspace": "22.5.1",
