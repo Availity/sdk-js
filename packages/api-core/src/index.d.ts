@@ -27,6 +27,14 @@ export type {
   DisclaimersResponse,
   Notification,
   RouteConfiguration,
+  UserPermission,
+  UserPermissionsResponse,
+  CustomerOrganization,
+  CustomerOrganizationResponse,
+  CustomerOrganizationsResponse,
+  CustomerRegion,
+  CustomerRegionsResponse,
+  ManagedUser,
 } from './types';
 
 // Resources
@@ -54,6 +62,9 @@ export { default as AvTelemetry } from './resources/telemetry';
 export { default as AvUsers } from './resources/user';
 export { default as AvUserPermissions } from './resources/userPermissions';
 export { default as AvWebQL } from './resources/webQL';
+export { default as AvFeatureManagement } from './resources/featureManagement';
+export { default as AvCustomerManagement } from './resources/customerManagement';
+export { default as AvUserManagement } from './resources/userManagement';
 
 // Resource types
 export type { AvFilesConfig } from './resources/files';

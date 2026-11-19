@@ -173,3 +173,79 @@ export interface RouteConfiguration {
   payerId?: string;
   [key: string]: unknown;
 }
+
+// --- Feature Management (user-permissions) ---
+
+export interface UserPermission {
+  id: string;
+  description?: string;
+  organizations?: { id: string; name?: string; resources?: { id: string }[] }[];
+  [key: string]: unknown;
+}
+
+export interface UserPermissionsResponse {
+  axiUserPermissions: UserPermission[];
+  totalCount: number;
+  count: number;
+  offset: number;
+  limit: number;
+}
+
+// --- Customer Management (organizations) ---
+
+export interface CustomerOrganization {
+  name?: string;
+  customerId?: string;
+  taxId?: string;
+  address?: Address;
+  types?: { code: string; value: string }[];
+  geographies?: unknown[];
+  payerAssignedIdentifiers?: unknown[];
+  alternativeTaxIds?: unknown[];
+  phoneNumber?: string;
+  facilityId?: string;
+  [key: string]: unknown;
+}
+
+export interface CustomerOrganizationResponse {
+  status: string;
+  organization: CustomerOrganization;
+}
+
+export interface CustomerOrganizationsResponse {
+  organizations: CustomerOrganization[];
+  totalCount: number;
+  count: number;
+  offset: number;
+  limit: number;
+}
+
+// --- User Management (users) ---
+
+export interface ManagedUser {
+  id: string;
+  userId: string;
+  akaname?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  currentRegion?: string;
+  status?: string;
+  createDate?: string;
+  lastUpdateDate?: string;
+  salesforceContactId?: string;
+  [key: string]: unknown;
+}
+
+// --- Customer Management regions ---
+
+export interface CustomerRegion {
+  code: string;
+  value: string;
+  [key: string]: unknown;
+}
+
+export interface CustomerRegionsResponse {
+  regions: CustomerRegion[];
+  [key: string]: unknown;
+}
